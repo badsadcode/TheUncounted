@@ -10,11 +10,13 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   Old Road → underground Registry Annex → boss → two endings. Plus two side quests and a two-level optional dungeon.
 - **One seamless world, no loading screens.** `core:map.edrath` is composed from five region files. The Annex sits
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
-- **Verified on Windows and Linux.** `--validate` → 0 errors; `--selftest` → 0 failures (now ~100 checks); `--balance` →
-  every calling beats every creature (36/36 at 100%). Linux (Ubuntu 24.04, GCC 13.3, Xvfb + Mesa) verified 2026-11-02.
+- **Target platform: Windows 10/11 only** (MinGW build). Linux is *not* a shipping target; it is only used as a headless
+  test box in cloud sessions (which run Linux and cannot execute `game.exe`). Don't add Linux packaging or Linux-only code.
+- `--validate` → 0 errors; `--selftest` → 0 failures (97 checks); `--balance` → every calling beats every creature
+  (36/36 at 100%). Last cloud verification 2026-11-02; re-check on Windows after pulling.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
-## 2. First steps in a Linux cloud box
+## 2. Testing in a Linux cloud box (testing only — the game ships for Windows 10/11)
 
 ```bash
 git clone --recurse-submodules https://github.com/badsadcode/TheUncounted.git

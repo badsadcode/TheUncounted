@@ -7,7 +7,7 @@ Continuing development (e.g. in a cloud session)? Start with [HANDOFF.md](HANDOF
 
 ## Build
 
-Requires CMake 3.20+ and MinGW-w64 GCC 13 (or MSVC 2022). Also builds on Linux with GCC 13 (see HANDOFF.md §2).
+**Target platform: Windows 10/11.** Requires CMake 3.20+ and MinGW-w64 GCC 13 (or MSVC 2022).
 
 ```bash
 cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
