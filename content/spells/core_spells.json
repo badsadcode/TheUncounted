@@ -88,6 +88,77 @@
         "visibility_multiplier": 0.35,
         "duration_seconds": 25.0
       }
+    },
+    {
+      "id": "core:spell.frost_lance",
+      "name_key": "spell.frost_lance.name",
+      "description_key": "spell.frost_lance.desc",
+      "icon": "assets/ui/spells/frost_lance.png",
+      "skill": "elemental",
+      "mana_cost": 13,
+      "cooldown_seconds": 0.9,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "projectile_damage",
+        "damage_type": "frost",
+        "base_power": 23,
+        "projectile_speed": 24.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_frost.png",
+        "light_color": [
+          0.55,
+          0.8,
+          1.0
+        ],
+        "light_radius": 5.0
+      }
+    },
+    {
+      "id": "core:spell.siphon_ink",
+      "name_key": "spell.siphon_ink.name",
+      "description_key": "spell.siphon_ink.desc",
+      "icon": "assets/ui/spells/siphon_ink.png",
+      "skill": "restoration",
+      "mana_cost": 12,
+      "cooldown_seconds": 1.0,
+      "cast_sfx": "assets/audio/sfx/spell_heal.wav",
+      "effect": {
+        "primitive": "projectile_damage",
+        "damage_type": "ink",
+        "base_power": 12,
+        "projectile_speed": 14.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ink.png",
+        "light_color": [
+          0.45,
+          0.9,
+          0.5
+        ],
+        "light_radius": 4.5,
+        "drain_fraction": 0.6
+      }
+    },
+    {
+      "id": "core:spell.sabrino_fireball",
+      "name_key": "spell.sabrino_fireball.name",
+      "description_key": "spell.sabrino_fireball.desc",
+      "icon": "assets/ui/spells/sabrino_fireball.png",
+      "skill": "elemental",
+      "mana_cost": 28,
+      "cooldown_seconds": 2.2,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "projectile_damage",
+        "damage_type": "fire",
+        "base_power": 26,
+        "projectile_speed": 13.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_sabrino.png",
+        "light_color": [
+          1.0,
+          0.35,
+          0.1
+        ],
+        "light_radius": 7.5,
+        "splash_radius": 3.5
+      }
     }
   ]
 }

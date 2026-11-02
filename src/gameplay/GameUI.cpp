@@ -18,6 +18,34 @@ static const Color kDim = {150, 146, 136, 255};
 static const Color kAccent = {120, 190, 255, 255};
 static const Color kPanelEdge = {120, 100, 70, 255};
 
+static std::string Pct(float v) {
+    char b[32];
+    snprintf(b, sizeof(b), "%.0f%%", v * 100.0f);
+    return b;
+}
+
+// Human-readable line for a named build bonus (synergies and "bonus" gear effects).
+static std::string BonusLabel(const std::string& key, float v) {
+    char b[96];
+    if (key == "melee_bonus_magic_damage") snprintf(b, sizeof(b), "+%.0f magic damage per melee hit", v);
+    else if (key == "mana_on_melee_hit") snprintf(b, sizeof(b), "+%.0f mana per melee hit", v);
+    else if (key == "heal_on_block") snprintf(b, sizeof(b), "+%.0f health per block", v);
+    else if (key == "armor_bonus") snprintf(b, sizeof(b), "+%.0f armor", v);
+    else if (key == "ranged_crit_multiplier") snprintf(b, sizeof(b), "x%.2f sneak-arrow damage", v);
+    else if (key == "move_speed_bonus") snprintf(b, sizeof(b), "+%.0f%% move speed", v * 100);
+    else if (key == "crit_chance_bonus") snprintf(b, sizeof(b), "+%.0f%% critical chance", v * 100);
+    else if (key == "crit_damage_bonus") snprintf(b, sizeof(b), "+%.2f critical multiplier", v);
+    else if (key == "life_steal") snprintf(b, sizeof(b), "%.0f%% life steal", v * 100);
+    else if (key == "spell_power_bonus") snprintf(b, sizeof(b), "+%.0f%% spell power", v * 100);
+    else if (key == "spell_cost_reduction") snprintf(b, sizeof(b), "-%.0f%% spell cost", v * 100);
+    else if (key == "shop_discount") snprintf(b, sizeof(b), "+%.0f%% shop discount", v * 100);
+    else if (key == "lockpick_bonus") snprintf(b, sizeof(b), "+%.0f%% lockpick chance", v * 100);
+    else snprintf(b, sizeof(b), "%s %+.2f", key.c_str(), v);
+    return b;
+}
+
+static std::string Signed(int v) { return (v >= 0 ? "+" : "") + std::to_string(v); }
+
 static std::string Fmt1(float v) {
     char b[32];
     snprintf(b, sizeof(b), "%.1f", v);
@@ -445,6 +473,8 @@ void GameEngine::DrawTitle() {
     if (Button({x, y + 168, bw, bh}, "Options")) { options_from_title_ = true; overlay_ = Overlay::Options; return; }
     if (Button({x, y + 224, bw, bh}, "Quit")) { running_ = false; return; }
 
+    std::string ded = content_.Tr("game.dedication");
+    if (ded != "game.dedication") Text(ded, VW * 0.5f - TextWidth(ded, 16) * 0.5f, VH - 58, 16, Color{214, 186, 120, 220});
     Text(validation_summary_, 16, VH - 28, 14, validation_summary_.find("passed") != std::string::npos ? Color{130, 190, 130, 255} : Color{230, 120, 100, 255});
     std::string packs;
     for (const auto& p : content_.loaded_packs) packs += (packs.empty() ? "" : " + ") + p;
@@ -683,7 +713,7 @@ void GameEngine::DrawInventory() {
         const ItemDef* d = content_.GetItem(rows[i].first);
         Rectangle r = {list.x, list.y + i * 40 - ui_scroll_, list.width - 10, 36};
         Rectangle s = {r.x * u, r.y * u, r.width * u, r.height * u};
-        bool hover = CheckCollisionPointRec(GetMousePosition(), s) && CheckCollisionPointRec(GetMousePosition(), {list.x * u, list.y * u, list.width * u, list.height * u});
+        bool hover = !ui_ignore_hover_ && CheckCollisionPointRec(GetMousePosition(), s) && CheckCollisionPointRec(GetMousePosition(), {list.x * u, list.y * u, list.width * u, list.height * u});
         bool sel = inv_selected_ == d->id;
         DrawRectangleRec(s, sel ? Color{70, 56, 36, 220} : hover ? Color{40, 36, 34, 220} : Color{20, 20, 24, 160});
         if (hover) hovered = d->id;
@@ -723,14 +753,46 @@ void GameEngine::DrawInventory() {
     float y = D.y + 98;
     y += TextWrapped(content_.Tr(d->description_key), {D.x + 20, y, D.width - 40, 140}, 15, kText) + 10;
     auto stat = [&](const std::string& s) { Text(s, D.x + 20, y, 16, kAccent); y += 22; };
+    auto statC = [&](const std::string& s, Color c) { Text(s, D.x + 20, y, 16, c); y += 22; };
     if (d->weapon.is_weapon) {
-        stat("Damage " + std::to_string(d->weapon.base_damage) + "  (" + d->weapon.damage_type + ")");
-        stat("Speed " + Fmt1(d->weapon.attack_time_seconds) + "s   Reach " + Fmt1(d->weapon.reach_meters) + "m");
-        stat("Skill: " + d->weapon.skill + " (" + std::to_string(SkillLevel(d->weapon.skill)) + ")");
+        const WeaponStatsDef& wp = d->weapon;
+        bool ranged = wp.kind == "ranged";
+        stat("Damage " + std::to_string(wp.base_damage) + " " + wp.damage_type + "   Skill: " + wp.skill + " (" + std::to_string(SkillLevel(wp.skill)) + ")");
+        stat("Speed " + Fmt1(wp.attack_time_seconds) + "s   Reach " + Fmt1(wp.reach_meters) + "m   Stamina " + Fmt1(wp.stamina_cost));
+        // What it would do in *your* hands, and how that compares with what you're holding.
+        auto expected = [&](const ItemDef* w) {
+            if (!w) return MeleeHitDamage(nullptr, false) / 0.45f;
+            float cc = CritChance(w), cm = CritMult(w);
+            if (w->weapon.kind == "ranged") return ArrowHitDamage(w, 1.0f) * (1.0f + cc * (cm - 1.0f));
+            float t = w->weapon.attack_time_seconds * (1.0f - std::min(0.25f, (Attr("agility") - 10) * 0.015f));
+            return MeleeHitDamage(w, false) / std::max(0.1f, t) * (1.0f + cc * (cm - 1.0f));
+        };
+        float mine = expected(d);
+        std::string line = (ranged ? "Your arrow: " : "Your DPS: ") + Fmt1(mine);
+        const ItemDef* cur = Equipped("main_hand");
+        if (cur && cur->id != d->id && (cur->weapon.kind == "ranged") == ranged) {
+            float delta = mine - expected(cur);
+            line += "  (" + std::string(delta >= 0 ? "+" : "") + Fmt1(delta) + " vs equipped)";
+            statC(line, delta >= 0 ? Color{140, 230, 140, 255} : Color{255, 140, 120, 255});
+        } else {
+            statC(line, kGold);
+        }
+        if (wp.crit_chance > 0.0f || wp.crit_mult != 1.5f) statC("Critical " + Pct(wp.crit_chance) + " base, x" + Fmt1(wp.crit_mult), kGold);
+        if (!wp.bane_family.empty()) statC("Bane: x" + Fmt1(wp.bane_mult) + " vs " + wp.bane_family, kGold);
+        if (wp.life_steal > 0.0f) statC("Life steal " + Pct(wp.life_steal), kGold);
+        if (wp.mana_on_hit > 0.0f) statC("+" + Fmt1(wp.mana_on_hit) + " mana per hit", kGold);
     }
-    if (d->armor > 0) stat("Armor +" + std::to_string(d->armor));
+    if (d->armor > 0) {
+        std::string a = "Armor +" + std::to_string(d->armor);
+        if (!d->slots.empty() && d->category != "weapon") {
+            const ItemDef* cur = Equipped(d->slots[0]);
+            if (cur && cur->id != d->id) a += "  (" + Signed(d->armor - cur->armor) + " vs equipped)";
+        }
+        stat(a);
+    }
     for (const auto& e : d->effects) {
-        if (e.type == "stat_bonus") stat(e.stat + " +" + std::to_string(e.amount));
+        if (e.type == "stat_bonus") statC(e.stat + " " + Signed(e.amount), e.amount >= 0 ? kAccent : Color{255, 140, 120, 255});
+        else if (e.type == "bonus") statC(BonusLabel(e.stat, e.value), kGold);
         else if (e.type == "consumable_heal") stat("Restores " + std::to_string(e.amount) + " health");
         else if (e.type == "consumable_mana") stat("Restores " + std::to_string(e.amount) + " mana");
         else if (e.type == "consumable_stamina") stat("Restores " + std::to_string(e.amount) + " stamina");
@@ -765,7 +827,14 @@ void GameEngine::DrawCharacter() {
     std::string line = (race ? content_.Tr(race->name_key) : "") + "  -  " + (bg ? content_.Tr(bg->name_key) : "") + "  -  " + (arch ? content_.Tr(arch->name_key) : "");
     Text(line, P.x + 116, P.y + 56, 17, kText);
     Text("Level " + std::to_string(player_.level) + "   XP " + std::to_string(player_.xp) + " / " + std::to_string(100 * player_.level), P.x + 116, P.y + 80, 16, kDim);
-    if (race) TextWrapped(content_.Tr(race->trait_key), {P.x + 560, P.y + 24, 540, 70}, 14, kAccent);
+    if (race) TextWrapped(content_.Tr(race->trait_key), {P.x + 560, P.y + 24, 540, 50}, 14, kAccent);
+    const char* tabs[] = {"Overview", "Combat Sheet"};
+    for (int i = 0; i < 2; i++) {
+        Rectangle t = {P.x + P.width - 360 + i * 172, P.y + 78, 166, 30};
+        if (Button(t, tabs[i], true, 15)) char_tab_ = i;
+        if (char_tab_ == i) DrawRectangle(static_cast<int>(t.x * u), static_cast<int>((t.y + 28) * u), static_cast<int>(t.width * u), static_cast<int>(3 * u), kGold);
+    }
+    if (char_tab_ == 1) { DrawCombatSheet(P); return; }
 
     float y = P.y + 120;
     Text("Attributes", P.x + 20, y, 22, kGold);
@@ -809,17 +878,143 @@ void GameEngine::DrawCharacter() {
         idx++;
     }
 
-    float yy = P.y + 470;
-    Text("Synergies", sx, yy, 20, kGold);
-    yy += 28;
+    float yy = P.y + 466;
+    int activeCount = 0;
+    for (const auto& syn : content_.synergies) activeCount += SynergyActive(syn) ? 1 : 0;
+    Text("Synergies  " + std::to_string(activeCount) + "/" + std::to_string(content_.synergies.size()) + "  (hover for details)", sx, yy, 20, kGold);
+    yy += 30;
+    int n = 0;
+    std::string hoverDesc;
     for (const auto& syn : content_.synergies) {
         bool on = SynergyActive(syn);
+        float x = sx + (n % 2) * 380, ry = yy + (n / 2) * 24;
         std::string req;
-        for (const auto& [k, v] : syn.requirements) req += (req.empty() ? "" : ", ") + k + " " + std::to_string(v);
-        Text(std::string(on ? "* " : "  ") + content_.Tr(syn.name_key) + "  [" + req + "]", sx, yy, 15, on ? kGold : kDim);
-        TextWrapped(content_.Tr(syn.description_key), {sx + 380, yy, 380, 30}, 12, on ? kText : kDim);
-        yy += 34;
+        for (const auto& [k, v] : syn.requirements) {
+            req += (req.empty() ? "" : " + ") + k + " " + std::to_string(SkillLevel(k)) + "/" + std::to_string(v);
+        }
+        Text(std::string(on ? "* " : "  ") + content_.Tr(syn.name_key), x, ry, 15, on ? kGold : kDim);
+        Rectangle tip = {x, ry, 370, 22};
+        if (CheckCollisionPointRec(GetMousePosition(), {tip.x * u, tip.y * u, tip.width * u, tip.height * u})) {
+            hoverDesc = content_.Tr(syn.name_key) + (on ? "  (active)" : "  (needs " + req + ")") + "\n" + content_.Tr(syn.description_key) + "\n";
+            for (const auto& [k, v] : syn.bonuses) hoverDesc += "  " + BonusLabel(k, v) + "\n";
+        }
+        n++;
     }
+    if (!hoverDesc.empty()) {
+        Rectangle box = {P.x + 16, P.y + 536, 316, 78};
+        Panel(box, Color{12, 12, 16, 245});
+        TextWrapped(hoverDesc, {box.x + 8, box.y + 6, box.width - 16, box.height - 8}, 12, kText);
+    }
+}
+
+// ============================================================================
+// Combat sheet: the numbers behind the build
+// ============================================================================
+void GameEngine::DrawCombatSheet(Rectangle P) {
+    const ItemDef* w = Equipped("main_hand");
+    auto row = [&](float x, float& y, const std::string& label, const std::string& value, Color vc = kText) {
+        Text(label, x, y, 15, kDim);
+        Text(value, x + 330 - TextWidth(value, 15), y, 15, vc);
+        y += 21;
+    };
+    auto head = [&](float x, float& y, const std::string& t) { y += 6; Text(t, x, y, 19, kGold); y += 27; };
+
+    // --- Column 1: weapon
+    float x = P.x + 24, y = P.y + 116;
+    head(x, y, "Weapon: " + (w ? content_.Tr(w->name_key) : std::string("Bare hands")));
+    float cc = CritChance(w), cm = CritMult(w);
+    if (w && w->weapon.kind == "ranged") {
+        float full = ArrowHitDamage(w, 1.0f);
+        row(x, y, "Arrow damage (full draw)", Fmt1(full));
+        row(x, y, "Arrow damage (quick shot)", Fmt1(ArrowHitDamage(w, 0.3f)));
+        row(x, y, "Sneak-shot multiplier", "x" + Fmt1(1.6f * std::max(1.0f, Bonus("ranged_crit_multiplier"))));
+        row(x, y, "Critical chance / multiplier", Pct(cc) + "  /  x" + Fmt1(cm), cc > 0.1f ? kGold : kText);
+        row(x, y, "Expected damage per arrow", Fmt1(full * (1.0f + cc * (cm - 1.0f))), kAccent);
+    } else {
+        float light = MeleeHitDamage(w, false), heavy = MeleeHitDamage(w, true);
+        float t = (w ? w->weapon.attack_time_seconds : 0.45f) * (1.0f - std::min(0.25f, (Attr("agility") - 10) * 0.015f));
+        float dps = light / std::max(0.1f, t);
+        row(x, y, "Light / heavy hit", Fmt1(light) + "  /  " + Fmt1(heavy));
+        row(x, y, "Swing time", Fmt1(t) + " s");
+        row(x, y, "Stamina per swing", Fmt1(w ? w->weapon.stamina_cost : 5.0f));
+        row(x, y, "Reach", Fmt1(w ? w->weapon.reach_meters : 1.6f) + " m");
+        row(x, y, "Critical chance / multiplier", Pct(cc) + "  /  x" + Fmt1(cm), cc > 0.1f ? kGold : kText);
+        row(x, y, "Sneak-attack multiplier", std::string("x") + ((w && w->weapon.skill == "daggers") ? "2.5" : "1.75"));
+        row(x, y, "Damage per second (light)", Fmt1(dps));
+        row(x, y, "Expected DPS incl. crits", Fmt1(dps * (1.0f + cc * (cm - 1.0f))), kAccent);
+    }
+    if (w && !w->weapon.bane_family.empty()) row(x, y, "Bane vs " + w->weapon.bane_family, "x" + Fmt1(w->weapon.bane_mult), kGold);
+    float steal = (w ? w->weapon.life_steal : 0.0f) + Bonus("life_steal");
+    if (steal > 0) row(x, y, "Life steal", Pct(steal), kGold);
+    float moh = (w ? w->weapon.mana_on_hit : 0.0f) + Bonus("mana_on_melee_hit");
+    if (moh > 0) row(x, y, "Mana per hit", "+" + Fmt1(moh), kGold);
+    TextWrapped("Crit = weapon base + 0.5% per Agility above 10 + 15% of Perception's effect + bonuses (max 75%).", {x, y + 4, 330, 40}, 12, kDim);
+    y += 44;
+
+    head(x, y, "Defence");
+    int armor = ArmorRating();
+    row(x, y, "Armor", std::to_string(armor) + "  (takes " + Pct(40.0f / (40.0f + armor)) + " damage)");
+    float red = std::min(0.92f, content_.balancing.block_damage_reduction * (Equipped("off_hand") ? 1.0f : 0.6f) * (1.0f + SkillEffect("block") * 0.5f));
+    row(x, y, Equipped("off_hand") ? "Block with shield" : "Block with weapon", "-" + Pct(red) + " damage");
+    row(x, y, "Parry window", Fmt1(content_.balancing.parry_window_seconds * 1000.0f) + " ms");
+
+    // --- Column 2: magic
+    x = P.x + 384;
+    y = P.y + 116;
+    head(x, y, "Magic");
+    row(x, y, "Mana regeneration", Fmt1(content_.balancing.mana_regen_per_sec * (1.0f + (Attr("will") - 10) * 0.04f)) + " /s");
+    if (Bonus("spell_power_bonus") > 0) row(x, y, "Spell power bonus", "+" + Pct(Bonus("spell_power_bonus")), kGold);
+    if (Bonus("spell_cost_reduction") > 0) row(x, y, "Spell cost reduction", "-" + Pct(Bonus("spell_cost_reduction")), kGold);
+    if (player_.known_spells.empty()) { Text("No spells known.", x, y, 15, kDim); y += 21; }
+    for (const auto& id : player_.known_spells) {
+        const SpellDef* s = content_.GetSpell(id);
+        if (!s) continue;
+        float pw = s->effect.base_power * SpellPowerMult(*s);
+        std::string what;
+        const std::string& pr = s->effect.primitive;
+        if (pr == "projectile_damage") {
+            what = Fmt1(pw) + " dmg";
+            if (s->effect.splash_radius > 0) what += ", splash " + Fmt1(s->effect.splash_radius) + "m";
+            if (s->effect.drain_fraction > 0) what += ", drain " + Pct(s->effect.drain_fraction);
+        } else if (pr == "self_heal") what = "heals " + Fmt1(pw);
+        else if (pr == "buff_armor") what = "+" + Fmt1(pw) + " armor, " + Fmt1(s->effect.duration_seconds) + "s";
+        else if (pr == "buff_stealth") what = Pct(1.0f - s->effect.visibility_multiplier) + " less visible";
+        else what = Fmt1(s->effect.duration_seconds) + "s light";
+        Text(content_.Tr(s->name_key), x, y, 15, kText);
+        std::string cost = Fmt1(SpellCost(*s)) + " mp";
+        Text(cost, x + 330 - TextWidth(cost, 15), y, 15, kAccent);
+        y += 19;
+        Text("  " + what + "   (" + Fmt1(s->cooldown_seconds) + "s cooldown)", x, y, 13, kDim);
+        y += 21;
+    }
+
+    // --- Column 3: utility & bonuses
+    x = P.x + 744;
+    y = P.y + 116;
+    head(x, y, "Exploration & Trade");
+    row(x, y, "Move speed", Fmt1(MoveSpeed()) + " m/s");
+    row(x, y, "Carry weight", Fmt1(CarriedWeight()) + " / " + Fmt1(CarryCapacity()));
+    float vis = 0.55f * (1.0f - std::min(0.5f, SkillEffect("stealth")));
+    row(x, y, "Visibility while sneaking", Pct(vis));
+    row(x, y, "Lockpick: easy / average / hard", Pct(LockpickChance(5)) + " / " + Pct(LockpickChance(9)) + " / " + Pct(LockpickChance(12)));
+    row(x, y, "Shop discount", Pct(ShopDiscount()));
+    row(x, y, "Sell price (of item value)", Pct(0.35f + std::min(0.2f, SkillLevel("persuasion") * 0.004f + (Attr("presence") - 10) * 0.01f)));
+
+    head(x, y, "Active bonuses");
+    static const char* keys[] = {"crit_chance_bonus", "crit_damage_bonus", "life_steal", "spell_power_bonus", "spell_cost_reduction",
+                                 "melee_bonus_magic_damage", "mana_on_melee_hit", "heal_on_block", "armor_bonus",
+                                 "ranged_crit_multiplier", "move_speed_bonus", "shop_discount", "lockpick_bonus"};
+    bool any = false;
+    for (const char* k : keys) {
+        float syn = SynergyBonus(k), gear = GearBonus(k);
+        if (syn == 0.0f && gear == 0.0f) continue;
+        any = true;
+        std::string src = syn != 0.0f && gear != 0.0f ? "synergy + gear" : syn != 0.0f ? "synergy" : "gear";
+        Text(BonusLabel(k, syn + gear), x, y, 14, kGold);
+        Text(src, x + 330 - TextWidth(src, 13), y + 1, 13, kDim);
+        y += 20;
+    }
+    if (!any) TextWrapped("None yet. Raise two skills to unlock a synergy, or equip gear with special properties.", {x, y, 330, 60}, 14, kDim);
 }
 
 // ============================================================================

@@ -193,6 +193,8 @@ private:
     std::string reader_text_;
     float ui_scroll_ = 0.0f;
     int inv_filter_ = 0;
+    int char_tab_ = 0;
+    bool ui_ignore_hover_ = false;   // screenshot previews: show the selected item, not whatever is under the cursor   // character screen: 0 overview, 1 combat sheet
     std::string inv_selected_;
     int creation_race_ = 0, creation_bg_ = 0, creation_arch_ = 0;
     std::string creation_name_ = "Wren";
@@ -274,6 +276,17 @@ public:
     float CarriedWeight() const;
     int ArmorRating() const;
     float SynergyBonus(const std::string& key) const;
+    float GearBonus(const std::string& key) const;   // "bonus" effects on equipped items
+    float Bonus(const std::string& key) const;       // synergies + gear
+    // Build maths shared by combat and the character sheet, so what you read is what you hit for.
+    float MeleeHitDamage(const ItemDef* w, bool heavy) const;   // before crit, sneak, bane and enemy armour
+    float ArrowHitDamage(const ItemDef* w, float draw) const;
+    float CritChance(const ItemDef* w) const;
+    float CritMult(const ItemDef* w) const;
+    float SpellPowerMult(const SpellDef& s) const;
+    float SpellCost(const SpellDef& s) const;
+    float LockpickChance(int difficulty) const;
+    float ShopDiscount() const;
     bool SynergyActive(const SynergyDef& s) const;
     float MoveSpeed() const;
     float Visibility() const;
@@ -299,9 +312,10 @@ private:
     // ---- combat
     void StartAttack(bool heavy);
     void ResolveMeleeHit();
+    int SplashDamage(const Projectile& p, Vector3 at, const std::string& skipId);
     void FireArrow(float power);
     void CastSelectedSpell();
-    void DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy);
+    int DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy, bool crit = false);
     void KillCreature(CreatureInstance& c);
     void DamagePlayer(int raw, Vector3 from, CreatureInstance* attacker);
     void SpawnEnemyProjectile(CreatureInstance& c);
@@ -350,6 +364,7 @@ private:
     void DrawPause();
     void DrawInventory();
     void DrawCharacter();
+    void DrawCombatSheet(Rectangle P);
     void DrawJournal();
     void DrawMapOverlay();
     void DrawDialogue();

@@ -40,6 +40,9 @@
         {
           "text_key": "bark.clerk.4",
           "not_flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.clerk.sabrino"
         }
       ]
     },
@@ -115,6 +118,11 @@
           "item_id": "core:item.tome_ward",
           "stock": 1,
           "price": 50
+        },
+        {
+          "item_id": "core:item.tome_frost",
+          "stock": 1,
+          "price": 60
         }
       ],
       "barks": [
@@ -200,6 +208,9 @@
         {
           "text_key": "bark.fenwick.dry",
           "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.fenwick.sabrino"
         }
       ]
     },
@@ -281,6 +292,42 @@
         {
           "text_key": "bark.spirit.named",
           "flag": "witness_named"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.detective_baggy",
+      "name_key": "npc.detective_baggy.name",
+      "title_key": "npc.detective_baggy.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.detective_baggy",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/detective_baggy.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.76
+      },
+      "barks": [
+        {
+          "text_key": "bark.baggy.1"
+        },
+        {
+          "text_key": "bark.baggy.2"
+        },
+        {
+          "text_key": "bark.baggy.3",
+          "not_flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.baggy.4"
+        },
+        {
+          "text_key": "bark.baggy.ilse",
+          "flag": "baggy_ilse"
+        },
+        {
+          "text_key": "bark.baggy.dry",
+          "flag": "seal_renewed"
         }
       ]
     }

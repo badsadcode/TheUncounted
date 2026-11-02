@@ -176,6 +176,42 @@
           "amount": 2
         }
       ]
+    },
+    {
+      "id": "core:item.sabrino_hat",
+      "name_key": "item.sabrino_hat.name",
+      "description_key": "item.sabrino_hat.description",
+      "category": "armor",
+      "icon": "assets/ui/items/sabrino_hat.png",
+      "world_model": "assets/models/items/sabrino_hat.glb",
+      "slots": [
+        "head"
+      ],
+      "value": 180,
+      "weight": 0.7,
+      "armor": 1,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "intellect",
+          "amount": 3
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "presence",
+          "amount": 1
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": -1
+        },
+        {
+          "type": "bonus",
+          "stat": "spell_power_bonus",
+          "value": 0.1
+        }
+      ]
     }
   ]
 }

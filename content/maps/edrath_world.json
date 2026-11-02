@@ -1724,6 +1724,21 @@
       }
     },
     {
+      "id": "road_sabrino_luggage",
+      "model": "assets/models/props/wooden_crate.glb",
+      "pos": [
+        37.6,
+        0.0,
+        12.4
+      ],
+      "rot_y": 20.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
       "id": "tunnel_threshold",
       "model": "assets/models/env/floor_cobble.glb",
       "pos": [
@@ -4479,6 +4494,16 @@
       "yaw": 45.0
     },
     {
+      "instance_id": "npc_baggy",
+      "npc_id": "core:npc.detective_baggy",
+      "pos": [
+        56.2,
+        0.0,
+        -5.0
+      ],
+      "yaw": -110.0
+    },
+    {
       "instance_id": "npc_spirit",
       "npc_id": "core:npc.erased_spirit",
       "pos": [
@@ -4788,6 +4813,20 @@
       "text": "HOUSEHOLDS OF BELLWETHER (PARISH COPY)\n\nKettleburn, M. (innkeeper, no kin recorded)\nVaelen, quartermaster (licensed)\nFenwick, librarian (two cats, unlicensed)\nOakhaven, clerk (Bureau)\n\nThe next line has been scraped from the board with a knife. The wood beneath it is pale and new, the way skin is under a scab. Your fingers find the grooves of letters that are no longer there, and for one dizzy moment they feel like your own name."
     },
     {
+      "instance_id": "sabrino_wanted",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -13.2,
+        0.0,
+        3.2
+      ],
+      "rot_y": 120.0,
+      "prompt": "Read the Wanted Poster",
+      "title": "WANTED - By Order of the Royal Bureau of Records",
+      "text": "WANTED: SABRINO, called \"the Italian Witch\"\n\nCHARGES:\n- 1,412 counts of Unlicensed Fireballing\n- Arson of a Cheese Wheel of Historical Significance (the Great Wheel of Vallo, aged 90 years, now aged 0)\n- Impersonating a Royal Chef\n- Impersonating a Royal Chef while on fire\n- Crimes against the Edrath Accords of Polite Warfare (extensive; see attached ledger, 4 volumes)\n- Teaching a goose to cast Ember Bolt\n\nSabrino is armed with a very tall hat and is extremely charming. DO NOT accept dinner invitations. Do not accept second helpings. Do NOT ask about the goose.\n\nREWARD: 500 crowns, payable upon submission of Form 13-S (Witch, Apprehended) in triplicate.\n\nScrawled across the bottom in a cheerful hand: \"Grazie for the lovely portrait! You got my good side. - S.\""
+    },
+    {
       "instance_id": "monolith_inscription",
       "type": "readable",
       "model": "assets/models/props/lectern_ledger.glb",
@@ -4845,6 +4884,52 @@
       "prompt": "Read Kaelen's Field Journal",
       "title": "Field Journal of Kaelen, Ashbound",
       "text": "Day 41. The boundary stone of Oakhallow again. Four hundred and twelve souls, it says. I count the foundations in the bracken: none. I count the wells: one, dry, with a bucket still on the rope.\n\nDay 43. The Annex has sunk. Its upper offices fell into something older underneath, and the stairs now go down further than the building ever went up. The skeletons inside still keep office hours.\n\nDay 44. A traveller from Bellwether asked what we Ashbound are for. I told her: somebody has to remember things on purpose."
+    },
+    {
+      "instance_id": "baggy_case_board",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        58.2,
+        0.0,
+        -6.4
+      ],
+      "rot_y": -60.0,
+      "prompt": "Read Baggy's Case Notes",
+      "title": "CASE FILE #1: THE MISSING TOWN",
+      "text": "Property of BAGGY, Private Eye (Licence pending. Licence fee also pending.)\n\nSUSPECTS:\n1. The hedge. Too neat. Hiding something.\n2. The Bureau. Too many forms. Hiding EVERYTHING.\n3. A goat. (Probably not involved. Looked at me funny.)\n4. Myself? (Ruled out. I have an alibi: I was here. Wait.)\n\nCLUES:\n- Boundary stone says 412 people. I count 0 people. Discrepancy of 412. Very large discrepancy.\n- One dry well. One bucket. Somebody was thirsty, once.\n- I remember a girl with flour on her nose who gave me a sweet roll. I was seven. Nobody else remembers her. CENTRAL MYSTERY.\n\nTHEORY: A whole town was erased by someone with very good handwriting.\n\nNEXT STEPS: Find the town. Find the girl. Find my other glove."
+    },
+    {
+      "instance_id": "sabrino_stash",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        36.0,
+        0.0,
+        12.6
+      ],
+      "rot_y": 180.0,
+      "locked": false,
+      "loot_table": "core:loot.crypt_basic",
+      "fixed_items": [
+        "core:item.sabrino_hat",
+        "core:item.tome_sabrino",
+        "core:item.mana_potion",
+        "core:item.mana_potion"
+      ]
+    },
+    {
+      "instance_id": "sabrino_note",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        37.6,
+        0.95,
+        12.4
+      ],
+      "prompt": "Read the Garlic-Scented Note",
+      "title": "A Note, Weighed Down with a Clove of Garlic",
+      "text": "To Whoever Finds My Hat,\n\nThe Bureau is onto me again. They have charged me with 1,412 counts of Unlicensed Fireballing, which is a lie. It was 1,413. They always forget the one at the wedding.\n\nI am leaving the hat and my good grimoire here under the pine, because a witch on the run cannot also carry a hat that tall. It keeps catching on tavern doors. Very bad for a dramatic exit.\n\nTake them. Wear the hat crooked, it works better. Cast the fireball from FAR away. Further than that. No, further.\n\nAnd if a nice man in a long coat asks where I went, tell him dinner is at eight, as always, and he is still invited.\n\nCiao,\nSabrino\n\nP.S. Do not let anyone tell you that pineapple goes on anything. That is the real war crime."
     },
     {
       "instance_id": "annex_inner_door",
@@ -5077,7 +5162,9 @@
       "loot_table": "core:loot.crypt_basic",
       "fixed_items": [
         "core:item.health_potion",
-        "core:item.mana_potion"
+        "core:item.mana_potion",
+        "core:item.letter_opener",
+        "core:item.tome_siphon"
       ]
     },
     {

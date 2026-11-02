@@ -368,6 +368,49 @@ int GameEngine::RunSelfTest() {
     check(!chooseNext("inspect_ledger") && !chooseNext("inspect_ledger_sealed") && !chooseNext("arrears"), "ending cannot be replayed");
     EndDialogue();
 
+    // --- Build systems: crits, gear bonuses, banes, splash, synergies
+    {
+        const ItemDef* rusty = content_.GetItem("core:item.rusted_sword");
+        const ItemDef* opener = content_.GetItem("core:item.letter_opener");
+        const ItemDef* mace = content_.GetItem("core:item.iron_mace");
+        check(rusty && opener && CritChance(opener) > CritChance(rusty) + 0.2f, "the letter-opener is a crit weapon");
+        const CreatureDef* skel = content_.GetCreature("core:enemy.restless_skeleton");
+        check(mace && skel && mace->weapon.bane_family == skel->family && mace->weapon.bane_mult > 1.0f, "maces are the bane of skeletons");
+        auto savedEquip = player_.equipment;
+        int intBefore = Attr("intellect");
+        AddItem("core:item.sabrino_hat", 1, false);
+        EquipItem("core:item.sabrino_hat");
+        check(GearBonus("spell_power_bonus") > 0.09f && Attr("intellect") == intBefore + 3, "Sabrino's hat grants intellect and spell power");
+        const SpellDef* fb = content_.GetSpell("core:spell.sabrino_fireball");
+        check(fb && fb->effect.splash_radius > 3.0f && SpellCost(*fb) < fb->mana_cost, "fireball splashes; skill trims its cost");
+        player_.equipment = savedEquip;
+        CreatureInstance* victim = nullptr;
+        for (auto& c : scene_.creatures) if (c.state != CreatureState::Dead) { victim = &c; break; }
+        if (victim) {
+            int before = victim->health;
+            Projectile p;
+            p.damage = 40;
+            p.splash_radius = 3.5f;
+            p.skill = "elemental";
+            int dealt = SplashDamage(p, {victim->pos.x + 1.0f, victim->pos.y + victim->height * 0.5f, victim->pos.z}, "");
+            check(dealt > 0 && (victim->health < before || victim->state == CreatureState::Dead), "splash damage hits nearby creatures");
+        }
+        check(content_.synergies.size() >= 7, "seven synergies to build toward");
+        check(interactable("sabrino_stash") && interactable("sabrino_wanted") && interactable("sabrino_note"), "Sabrino's poster and stash are in the world");
+    }
+
+    // --- Baggy's case
+    {
+        int bi = npcIndex("core:npc.detective_baggy");
+        check(bi >= 0, "Baggy is on the Old Road");
+        StartDialogue(bi);
+        check(chooseNext("sabrino") && chooseNext("sabrino_where") && player_.flags.count("sabrino_lead"), "Baggy remembers the Sabrino Affair");
+        check(chooseNext("root") && chooseNext("ilse"), "Baggy can be told the baker's daughter's name");
+        check(CountItem("core:item.baggy_umbrella") == 1 && player_.flags.count("baggy_ilse"), "Baggy hands over the umbrella");
+        check(chooseNext("root") && !chooseNext("ilse") && !chooseNext("stone"), "Baggy's case closes once");
+        EndDialogue();
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

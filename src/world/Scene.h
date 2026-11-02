@@ -84,6 +84,14 @@ struct Projectile {
     bool sneak = false;
     bool alive = true;
     std::string ammo_item;
+    // Build traits carried to impact
+    float crit_chance = 0.0f;
+    float crit_mult = 1.5f;
+    std::string bane_family;
+    float bane_mult = 1.0f;
+    float life_steal = 0.0f;
+    float splash_radius = 0.0f;
+    float drain = 0.0f;
 };
 
 struct WorldPickup {

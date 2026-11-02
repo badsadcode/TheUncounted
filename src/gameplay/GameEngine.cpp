@@ -227,6 +227,20 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         if (boot_shot_overlay_ == "inventory") overlay_ = Overlay::Inventory;
         else if (boot_shot_overlay_ == "character") overlay_ = Overlay::Character;
+        else if (boot_shot_overlay_ == "combat") {
+            // Combat sheet with a crit build: letter-opener, Sabrino's hat and a couple of extra spells
+            for (const char* id : {"core:item.letter_opener", "core:item.sabrino_hat", "core:item.baggy_umbrella"}) AddItem(id, 1, false);
+            EquipItem("core:item.letter_opener");
+            EquipItem("core:item.sabrino_hat");
+            for (const char* sp : {"core:spell.sabrino_fireball", "core:spell.siphon_ink", "core:spell.frost_lance"}) player_.known_spells.push_back(sp);
+            char_tab_ = 1;
+            overlay_ = Overlay::Character;
+        } else if (boot_shot_overlay_ == "compare") {
+            AddItem("core:item.baggy_umbrella", 1, false);
+            inv_selected_ = "core:item.baggy_umbrella";
+            overlay_ = Overlay::Inventory;
+            ui_ignore_hover_ = true;
+        }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
         else if (boot_shot_overlay_ == "map") overlay_ = Overlay::Map;
         else if (boot_shot_overlay_ == "title") screen_ = Screen::Title;
@@ -1171,7 +1185,7 @@ int GameEngine::ArmorRating() const {
         if (const ItemDef* d = content_.GetItem(id)) a += d->armor;
     for (const auto& b : player_.buffs)
         if (b.primitive == "buff_armor") a += static_cast<int>(b.power);
-    a += static_cast<int>(SynergyBonus("armor_bonus"));
+    a += static_cast<int>(Bonus("armor_bonus"));
     return a;
 }
 bool GameEngine::SynergyActive(const SynergyDef& s) const {
@@ -1188,8 +1202,50 @@ float GameEngine::SynergyBonus(const std::string& key) const {
     }
     return v;
 }
+float GameEngine::GearBonus(const std::string& key) const {
+    float v = 0.0f;
+    for (const auto& [slot, id] : player_.equipment)
+        if (const ItemDef* d = content_.GetItem(id))
+            for (const auto& e : d->effects)
+                if (e.type == "bonus" && e.stat == key) v += e.value;
+    return v;
+}
+float GameEngine::Bonus(const std::string& key) const { return SynergyBonus(key) + GearBonus(key); }
+
+float GameEngine::MeleeHitDamage(const ItemDef* w, bool heavy) const {
+    std::string skill = w ? w->weapon.skill : "athletics";
+    float base = w ? static_cast<float>(w->weapon.base_damage) : 4.0f;
+    float dmg = base * (1.0f + SkillEffect(skill)) * (1.0f + (Attr("might") - 10) * 0.03f) * DifficultyPlayerMult();
+    if (heavy) dmg *= content_.balancing.heavy_attack_damage_mult;
+    return dmg + Bonus("melee_bonus_magic_damage");
+}
+float GameEngine::ArrowHitDamage(const ItemDef* w, float draw) const {
+    if (!w) return 0.0f;
+    return w->weapon.base_damage * (1.0f + SkillEffect(w->weapon.skill)) * (0.35f + 0.65f * draw) * DifficultyPlayerMult();
+}
+float GameEngine::CritChance(const ItemDef* w) const {
+    float c = (w ? w->weapon.crit_chance : 0.0f) + (Attr("agility") - 10) * 0.005f + SkillEffect("perception") * 0.15f + Bonus("crit_chance_bonus");
+    return Clamp(c, 0.0f, 0.75f);
+}
+float GameEngine::CritMult(const ItemDef* w) const { return (w ? w->weapon.crit_mult : 1.5f) + Bonus("crit_damage_bonus"); }
+float GameEngine::SpellPowerMult(const SpellDef& s) const {
+    float m = (1.0f + SkillEffect(s.skill)) * (1.0f + Bonus("spell_power_bonus"));
+    if (s.effect.primitive == "projectile_damage") m *= (1.0f + (Attr("intellect") - 10) * 0.025f) * DifficultyPlayerMult();
+    return m;
+}
+float GameEngine::SpellCost(const SpellDef& s) const {
+    float red = std::min(0.3f, SkillEffect(s.skill) * 0.4f) + Bonus("spell_cost_reduction");
+    return s.mana_cost * (1.0f - std::min(0.5f, red));
+}
+float GameEngine::LockpickChance(int difficulty) const {
+    return Clamp(0.45f + (SkillLevel("lockpicking") - difficulty) * 0.035f + (Attr("agility") - 10) * 0.02f + Bonus("lockpick_bonus"), 0.08f, 0.95f);
+}
+float GameEngine::ShopDiscount() const {
+    return std::min(0.35f, std::min(0.3f, SkillLevel("persuasion") * 0.006f + (Attr("presence") - 10) * 0.02f) + Bonus("shop_discount"));
+}
+
 float GameEngine::MoveSpeed() const {
-    float s = 4.2f * (1.0f + SkillEffect("athletics") * 0.5f) * (1.0f + SynergyBonus("move_speed_bonus")) * (1.0f + (Attr("agility") - 10) * 0.01f);
+    float s = 4.2f * (1.0f + SkillEffect("athletics") * 0.5f) * (1.0f + Bonus("move_speed_bonus")) * (1.0f + (Attr("agility") - 10) * 0.01f);
     if (CarriedWeight() > CarryCapacity()) s *= 0.55f;
     return s;
 }
@@ -1426,7 +1482,6 @@ void GameEngine::ResolveMeleeHit() {
     const ItemDef* w = Equipped("main_hand");
     float reach = w ? w->weapon.reach_meters : 1.6f;
     std::string skill = w ? w->weapon.skill : "athletics";
-    float base = w ? static_cast<float>(w->weapon.base_damage) : 4.0f;
     Vector3 eye = {player_.pos.x, player_.pos.y + player_.eye_height, player_.pos.z};
     Vector3 fwd = Forward(player_.yaw);
 
@@ -1446,13 +1501,17 @@ void GameEngine::ResolveMeleeHit() {
     }
     if (!best) return;
 
-    float dmg = base * (1.0f + SkillEffect(skill)) * (1.0f + (Attr("might") - 10) * 0.03f) * DifficultyPlayerMult();
-    if (attack_heavy_) dmg *= content_.balancing.heavy_attack_damage_mult;
-    dmg += SynergyBonus("melee_bonus_magic_damage");
+    float dmg = MeleeHitDamage(w, attack_heavy_);
     bool sneak = !best->alerted;
     if (sneak) dmg *= skill == "daggers" ? 2.5f : 1.75f;
-    player_.mana += SynergyBonus("mana_on_melee_hit");
-    DamageCreature(*best, static_cast<int>(std::round(dmg)), sneak, skill, attack_heavy_);
+    bool crit = RandF() < CritChance(w);
+    if (crit) dmg *= CritMult(w);
+    if (w && !w->weapon.bane_family.empty() && w->weapon.bane_family == best->def->family) dmg *= w->weapon.bane_mult;
+    player_.mana += Bonus("mana_on_melee_hit") + (w ? w->weapon.mana_on_hit : 0.0f);
+    int dealt = DamageCreature(*best, static_cast<int>(std::round(dmg)), sneak, skill, attack_heavy_, crit);
+    float steal = (w ? w->weapon.life_steal : 0.0f) + Bonus("life_steal");
+    if (steal > 0.0f && dealt > 0) player_.health += dealt * steal;
+    ClampVitals();
     GainSkillXp(skill, attack_heavy_ ? 1.6f : 1.1f);
 }
 
@@ -1470,8 +1529,12 @@ void GameEngine::FireArrow(float power) {
     p.pos = Vector3Add(eye, Vector3Scale(dir, 0.4f));
     p.vel = Vector3Scale(dir, w->weapon.projectile_speed * (0.45f + 0.55f * power));
     p.from_player = true;
-    float dmg = w->weapon.base_damage * (1.0f + SkillEffect(w->weapon.skill)) * (0.35f + 0.65f * power) * DifficultyPlayerMult();
-    p.damage = static_cast<int>(std::round(dmg));
+    p.damage = static_cast<int>(std::round(ArrowHitDamage(w, power)));
+    p.crit_chance = CritChance(w);
+    p.crit_mult = CritMult(w);
+    p.bane_family = w->weapon.bane_family;
+    p.bane_mult = w->weapon.bane_mult;
+    p.life_steal = w->weapon.life_steal + Bonus("life_steal");
     p.skill = w->weapon.skill;
     p.gravity = 6.0f;
     p.life = 5.0f;
@@ -1488,7 +1551,7 @@ void GameEngine::CastSelectedSpell() {
     player_.selected_spell = std::clamp(player_.selected_spell, 0, static_cast<int>(player_.known_spells.size()) - 1);
     const SpellDef* s = content_.GetSpell(player_.known_spells[player_.selected_spell]);
     if (!s || spell_cooldown_ > 0.0f) return;
-    float cost = s->mana_cost * (1.0f - std::min(0.3f, SkillEffect(s->skill) * 0.4f));
+    float cost = SpellCost(*s);
     if (player_.mana < cost) {
         Toast("Not enough mana", Color{140, 160, 255, 255});
         return;
@@ -1499,7 +1562,7 @@ void GameEngine::CastSelectedSpell() {
     cast_color_ = s->effect.light_color;
     cast_sprite_ = s->effect.projectile_sprite.empty() ? "assets/sprites/vfx/spell_arcane.png" : s->effect.projectile_sprite;
     res_.PlaySfx(s->cast_sfx, 0.75f);
-    float power = s->effect.base_power * (1.0f + SkillEffect(s->skill));
+    float power = s->effect.base_power * SpellPowerMult(*s);
     const std::string& prim = s->effect.primitive;
 
     auto addBuff = [&](float pw) {
@@ -1524,7 +1587,9 @@ void GameEngine::CastSelectedSpell() {
         p.pos = Vector3Add(eye, Vector3Scale(dir, 0.6f));
         p.vel = Vector3Scale(dir, s->effect.projectile_speed);
         p.from_player = true;
-        p.damage = static_cast<int>(std::round(power * (1.0f + (Attr("intellect") - 10) * 0.025f) * DifficultyPlayerMult()));
+        p.damage = static_cast<int>(std::round(power));
+        p.splash_radius = s->effect.splash_radius;
+        p.drain = s->effect.drain_fraction;
         p.skill = s->skill;
         p.sprite = s->effect.projectile_sprite;
         p.light_color = s->effect.light_color;
@@ -1567,8 +1632,21 @@ void GameEngine::UpdateBuffs(float dt) {
     if (before != player_.buffs.size()) ClampVitals();
 }
 
-void GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy) {
-    if (c.state == CreatureState::Dead) return;
+int GameEngine::SplashDamage(const Projectile& p, Vector3 at, const std::string& skipId) {
+    int total = 0;
+    SpawnBurst(at, Color{255, 150, 60, 255}, 40, 5.0f, true, 2.5f);
+    for (auto& c : scene_.creatures) {
+        if (c.state == CreatureState::Dead || c.instance_id == skipId) continue;
+        float d = Vector3Distance({c.pos.x, c.pos.y + c.height * 0.5f, c.pos.z}, at);
+        if (d > p.splash_radius) continue;
+        float falloff = 1.0f - 0.5f * (d / p.splash_radius);
+        total += DamageCreature(c, static_cast<int>(std::round(p.damage * 0.6f * falloff)), false, p.skill, false);
+    }
+    return total;
+}
+
+int GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy, bool crit) {
+    if (c.state == CreatureState::Dead) return 0;
     // Armour blunts each blow; 60% weighting keeps fast light weapons viable against armoured foes.
     int final = std::max(1, amount - static_cast<int>(std::round(c.def->armor * 0.6f)));
     c.health -= final;
@@ -1579,12 +1657,16 @@ void GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, con
     target_enemy_time_ = 4.0f;
     PlaySfxAt(c.def->sfx_hit.empty() ? "assets/audio/sfx/sword_hit.wav" : c.def->sfx_hit, c.pos, 0.8f);
     if (sneak) {
-        Toast("Sneak attack! (" + std::to_string(final) + ")", Color{200, 170, 255, 255});
+        Toast(std::string(crit ? "Critical sneak attack! (" : "Sneak attack! (") + std::to_string(final) + ")", Color{200, 170, 255, 255});
         GainSkillXp("stealth", 2.0f, true);
+    } else if (crit) {
+        Toast("Critical hit! (" + std::to_string(final) + ")", Color{255, 214, 120, 255});
     }
+    if (crit) SpawnBurst({c.pos.x, c.pos.y + c.height * 0.7f, c.pos.z}, Color{255, 220, 120, 255}, 18, 3.4f, true, 1.5f);
     if (c.health <= 0) {
+        int overkill = c.health;
         KillCreature(c);
-        return;
+        return final + overkill;  // damage actually absorbed (no life steal from overkill)
     }
     bool wasUnaware = !c.alerted;
     c.alerted = true;
@@ -1606,6 +1688,7 @@ void GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, con
             Say(content_.Tr(c.def->name_key), content_.Tr(c.def->alert_line_key));
     }
     (void)skill;
+    return final;
 }
 
 void GameEngine::KillCreature(CreatureInstance& c) {
@@ -1621,7 +1704,7 @@ void GameEngine::KillCreature(CreatureInstance& c) {
     if (!c.def->death_line_key.empty()) Say(content_.Tr(c.def->name_key), content_.Tr(c.def->death_line_key));
     Toast("Defeated " + content_.Tr(c.def->name_key) + "  (+" + std::to_string(c.def->xp_reward) + " XP)", Color{230, 200, 160, 255});
     GainXp(c.def->xp_reward);
-    if (c.def->behavior.find("boss") != std::string::npos) {
+    if (c.def->behavior == "boss_archivist") {
         Toast("The Archivist Shade dissolves into loose pages. Search its remains.", Color{180, 220, 255, 255});
     }
 }
@@ -1653,7 +1736,7 @@ void GameEngine::DamagePlayer(int raw, Vector3 from, CreatureInstance* attacker)
         player_.stamina -= raw * 0.6f;
         stamina_delay_ = 0.8f;
         res_.PlaySfx("assets/audio/sfx/shield_block.wav", 0.9f, 0.95f + RandF() * 0.1f);
-        player_.health += SynergyBonus("heal_on_block");
+        player_.health += Bonus("heal_on_block");
         GainSkillXp("block", 1.2f);
         if (player_.stamina <= 0.0f) {
             blocking_ = false;
@@ -1866,10 +1949,18 @@ void GameEngine::UpdateProjectiles(float dt) {
             if (hit && (!worldHit || hitT <= tWorld)) {
                 bool sneak = !hit->alerted;
                 float dmg = static_cast<float>(p.damage);
-                if (sneak) dmg *= p.is_arrow ? 1.6f * std::max(1.0f, SynergyBonus("ranged_crit_multiplier")) : 1.4f;
+                if (sneak) dmg *= p.is_arrow ? 1.6f * std::max(1.0f, Bonus("ranged_crit_multiplier")) : 1.4f;
+                bool crit = p.crit_chance > 0.0f && RandF() < p.crit_chance;
+                if (crit) dmg *= p.crit_mult;
+                if (!p.bane_family.empty() && p.bane_family == hit->def->family) dmg *= p.bane_mult;
                 if (!p.is_arrow) SpawnBurst(p.pos, Color{static_cast<unsigned char>(Clamp(p.light_color.x * 255, 0.0f, 255.0f)), static_cast<unsigned char>(Clamp(p.light_color.y * 255, 0.0f, 255.0f)),
                       static_cast<unsigned char>(Clamp(p.light_color.z * 255, 0.0f, 255.0f)), 255}, 16, 3.0f, true, 2.0f);
-                DamageCreature(*hit, static_cast<int>(std::round(dmg)), sneak, p.skill, false);
+                Vector3 impact = {hit->pos.x, hit->pos.y + hit->height * 0.5f, hit->pos.z};
+                std::string hitId = hit->instance_id;
+                int dealt = DamageCreature(*hit, static_cast<int>(std::round(dmg)), sneak, p.skill, false, crit);
+                if (p.splash_radius > 0.0f) dealt += SplashDamage(p, impact, hitId);
+                float heal = dealt * (p.drain + p.life_steal);
+                if (heal > 0.0f) { player_.health += heal; ClampVitals(); }
                 GainSkillXp(p.skill, p.is_arrow ? 1.4f : 1.2f);
                 // Arrows that strike flesh sometimes survive to be looted from the corpse.
                 if (p.is_arrow && !p.ammo_item.empty() && RandF() < 0.4f) {
@@ -1892,6 +1983,10 @@ void GameEngine::UpdateProjectiles(float dt) {
 
         if (worldHit) {
             Vector3 hitPos = Vector3Add(p.pos, Vector3Scale(seg, tWorld));
+            if (p.from_player && p.splash_radius > 0.0f) {
+                int dealt = SplashDamage(p, hitPos, "");
+                if (dealt > 0 && p.drain > 0.0f) { player_.health += dealt * p.drain; ClampVitals(); }
+            }
             if (p.is_arrow && !p.ammo_item.empty() && RandF() < 0.75f) {
                 WorldPickup wp;
                 wp.item_id = p.ammo_item;
@@ -2089,7 +2184,7 @@ void GameEngine::Interact() {
             return true;
         }
         if (CountItem("core:item.lockpick") > 0) {
-            float chance = Clamp(0.45f + (SkillLevel("lockpicking") - d.lock_difficulty) * 0.035f + (Attr("agility") - 10) * 0.02f, 0.08f, 0.95f);
+            float chance = LockpickChance(d.lock_difficulty);
             if (RandF() < chance) {
                 in.locked = false;
                 ps.unlocked.insert(d.instance_id);
@@ -2397,7 +2492,7 @@ int GameEngine::VendorStock(const NpcDef& npc, const VendorStockEntry& e) const 
 }
 
 int GameEngine::BuyPrice(const VendorStockEntry& e) const {
-    float disc = std::min(0.3f, SkillLevel("persuasion") * 0.006f + (Attr("presence") - 10) * 0.02f);
+    float disc = ShopDiscount();
     return std::max(1, static_cast<int>(std::round(e.price * (1.0f - disc))));
 }
 

@@ -1295,7 +1295,9 @@
       "loot_table": "core:loot.crypt_basic",
       "fixed_items": [
         "core:item.health_potion",
-        "core:item.mana_potion"
+        "core:item.mana_potion",
+        "core:item.letter_opener",
+        "core:item.tome_siphon"
       ]
     },
     {

@@ -480,6 +480,8 @@ void ContentRegistry::LoadSpellsFile(const std::string& rootDir, const std::stri
             d.effect.light_radius = ef.value("light_radius", 6.0f);
             d.effect.duration_seconds = ef.value("duration_seconds", 30.0f);
             d.effect.visibility_multiplier = ef.value("visibility_multiplier", 0.5f);
+            d.effect.splash_radius = ef.value("splash_radius", 0.0f);
+            d.effect.drain_fraction = ef.value("drain_fraction", 0.0f);
             if (ef.contains("light_color") && ef["light_color"].is_array() && ef["light_color"].size() == 3) {
                 d.effect.light_color = {
                     ef["light_color"][0].get<float>(),
@@ -543,6 +545,12 @@ void ContentRegistry::LoadItemsFile(const std::string& rootDir, const std::strin
             d.weapon.reach_meters = w.value("reach_meters", 2.0f);
             d.weapon.ammo_item = w.value("ammo_item", "");
             d.weapon.projectile_speed = w.value("projectile_speed", 22.0f);
+            d.weapon.crit_chance = w.value("crit_chance", 0.0f);
+            d.weapon.crit_mult = w.value("crit_mult", 1.5f);
+            d.weapon.life_steal = w.value("life_steal", 0.0f);
+            d.weapon.mana_on_hit = w.value("mana_on_hit", 0.0f);
+            d.weapon.bane_family = w.value("bane_family", "");
+            d.weapon.bane_mult = w.value("bane_mult", 1.0f);
         }
         if (el.contains("effects") && el["effects"].is_array()) {
             for (const auto& ef : el["effects"]) {
@@ -551,6 +559,7 @@ void ContentRegistry::LoadItemsFile(const std::string& rootDir, const std::strin
                 ie.stat = ef.value("stat", "");
                 ie.spell_id = ef.value("spell_id", "");
                 ie.amount = ef.value("amount", 0);
+                ie.value = ef.value("value", 0.0f);
                 d.effects.push_back(ie);
             }
         }
@@ -629,6 +638,7 @@ void ContentRegistry::LoadCreaturesFile(const std::string& rootDir, const std::s
             d.xp_reward = st.value("xp_reward", 30);
         }
         d.behavior = el.value("behavior", "melee_patroller");
+        d.family = el.value("family", "");
         if (el.contains("perception")) {
             d.sight_meters = el["perception"].value("sight_meters", 12.0f);
             d.hearing_meters = el["perception"].value("hearing_meters", 8.0f);

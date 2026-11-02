@@ -932,6 +932,10 @@
               "next": "history_after"
             },
             {
+              "text_key": "dlg.fenwick.choice_overdue",
+              "next": "overdue"
+            },
+            {
               "text_key": "dlg.fenwick.choice_train_magic",
               "next": "train_magic"
             },
@@ -1007,6 +1011,16 @@
               "amount": 15
             }
           ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "overdue": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.overdue",
           "choices": [
             {
               "text_key": "dlg.clerk.choice_back",
@@ -1409,6 +1423,222 @@
           "choices": [
             {
               "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.detective_baggy",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_case",
+              "next": "case"
+            },
+            {
+              "text_key": "dlg.baggy.choice_stone",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.bakers_daughter",
+                  "stage": 0
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "ilse_remembered"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "baggy_confessed"
+                }
+              ],
+              "next": "stone"
+            },
+            {
+              "text_key": "dlg.baggy.choice_ilse",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "ilse_remembered"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "baggy_ilse"
+                }
+              ],
+              "next": "ilse"
+            },
+            {
+              "text_key": "dlg.baggy.choice_sabrino",
+              "next": "sabrino"
+            },
+            {
+              "text_key": "dlg.baggy.choice_advice",
+              "next": "advice"
+            },
+            {
+              "text_key": "dlg.baggy.choice_rain",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                }
+              ],
+              "next": "rain"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "case": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.case",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "perception",
+              "amount": 10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_board",
+              "next": "board"
+            },
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "board": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.board",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "stone": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.stone",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "baggy_confessed",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "ilse": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.ilse",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "baggy_ilse",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.baggy_umbrella",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "perception",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_thanks",
+              "next": "root"
+            }
+          ]
+        },
+        "sabrino": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.sabrino",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_sabrino_where",
+              "next": "sabrino_where"
+            },
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "sabrino_where": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.sabrino_where",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "sabrino_lead",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "advice": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.advice",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_advice_more",
+              "next": "advice2"
+            },
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "advice2": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.advice2",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "rain": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.rain",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_back",
               "next": "root"
             }
           ]

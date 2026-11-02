@@ -29,7 +29,7 @@ cmake --build build -j 8
 |---|---|
 | `--validate` | Load and cross-validate all content, print issues, exit (non-zero on errors) |
 | `--selftest` | Headless walkthrough of the whole chapter (dialogue, keys, lever, plate, boss, pedestal, save/load, ending); exit code 0 = all passed |
-| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|reader:<item id>\|ending\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
+| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|reader:<item id>\|ending\|combat\|compare\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
 | `--balance` | Headless duels of every starting calling vs every creature; prints win rate, time-to-kill, HP left and potions used to the log |
 | `--showcase` | With `--shot`: lines up every wearable/consumable pickup and sample hit particles in front of the camera |
 | `--mods` | Enable `mods/example_mod` for this run |
@@ -76,6 +76,10 @@ cmake --build build -j 8
 - Props may set `"ramp": "+x" | "-x" | "+z" | "-z"` to become a walkable slope rising in that direction (stairs).
 - Props may carry an `emitter` (`sprite`, `offset`, `size`, `light_color`, `light_radius`) — wall torches use it for
   animated flames with their own light. Maps may set `"weather": "rain"` (skipped under roofs) or `"dust"`.
+- Weapons may set `crit_chance`, `crit_mult`, `life_steal`, `mana_on_hit` and `bane_family`/`bane_mult` (vs a creature's
+  `family`). Items may grant named build bonuses with `{"type": "bonus", "stat": "crit_chance_bonus", "value": 0.05}`;
+  synergies use the same keys. Spells may set `splash_radius` and `drain_fraction`. The character screen's Combat Sheet
+  shows every derived number.
 - Creatures may set `hit_fx` (`color`, `glow`) for the particles they shed when struck.
 - Enemies are staggered by heavy attacks or blows dealing 35%+ of their health, then get 2 s of stagger immunity;
   elites (`*guardian*`) only stagger from heavy attacks and bosses never do. Armour subtracts 60% of its value per hit.

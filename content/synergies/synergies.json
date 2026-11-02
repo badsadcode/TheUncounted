@@ -39,6 +39,58 @@
         "ranged_crit_multiplier": 1.35,
         "move_speed_bonus": 0.1
       }
+    },
+    {
+      "id": "core:synergy.sabrino_doctrine",
+      "name_key": "synergy.sabrino.name",
+      "description_key": "synergy.sabrino.desc",
+      "requirements": {
+        "elemental": 12,
+        "illusion": 10
+      },
+      "bonuses": {
+        "spell_power_bonus": 0.15,
+        "spell_cost_reduction": 0.1
+      }
+    },
+    {
+      "id": "core:synergy.baggy_hunch",
+      "name_key": "synergy.baggy.name",
+      "description_key": "synergy.baggy.desc",
+      "requirements": {
+        "perception": 10,
+        "persuasion": 10
+      },
+      "bonuses": {
+        "crit_chance_bonus": 0.06,
+        "shop_discount": 0.05
+      }
+    },
+    {
+      "id": "core:synergy.cutpurse_grace",
+      "name_key": "synergy.cutpurse.name",
+      "description_key": "synergy.cutpurse.desc",
+      "requirements": {
+        "daggers": 10,
+        "lockpicking": 10
+      },
+      "bonuses": {
+        "crit_damage_bonus": 0.5,
+        "lockpick_bonus": 0.1
+      }
+    },
+    {
+      "id": "core:synergy.iron_liturgy",
+      "name_key": "synergy.liturgy.name",
+      "description_key": "synergy.liturgy.desc",
+      "requirements": {
+        "swords": 12,
+        "restoration": 10
+      },
+      "bonuses": {
+        "life_steal": 0.05,
+        "heal_on_block": 2
+      }
     }
   ]
 }

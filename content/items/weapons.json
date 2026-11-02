@@ -20,7 +20,8 @@
         "base_damage": 11,
         "attack_time_seconds": 0.55,
         "stamina_cost": 8,
-        "reach_meters": 2.1
+        "reach_meters": 2.1,
+        "crit_chance": 0.03
       }
     },
     {
@@ -42,7 +43,9 @@
         "base_damage": 16,
         "attack_time_seconds": 0.58,
         "stamina_cost": 9,
-        "reach_meters": 2.25
+        "reach_meters": 2.25,
+        "crit_chance": 0.06,
+        "crit_mult": 1.6
       }
     },
     {
@@ -64,7 +67,10 @@
         "base_damage": 26,
         "attack_time_seconds": 0.62,
         "stamina_cost": 11,
-        "reach_meters": 2.5
+        "reach_meters": 2.5,
+        "crit_chance": 0.12,
+        "crit_mult": 1.9,
+        "life_steal": 0.05
       },
       "effects": [
         {
@@ -98,7 +104,9 @@
         "base_damage": 10,
         "attack_time_seconds": 0.36,
         "stamina_cost": 5,
-        "reach_meters": 1.75
+        "reach_meters": 1.75,
+        "crit_chance": 0.18,
+        "crit_mult": 2.0
       }
     },
     {
@@ -120,7 +128,10 @@
         "base_damage": 15,
         "attack_time_seconds": 0.6,
         "stamina_cost": 10,
-        "reach_meters": 2.0
+        "reach_meters": 2.0,
+        "crit_chance": 0.04,
+        "bane_family": "undead",
+        "bane_mult": 1.35
       }
     },
     {
@@ -142,7 +153,8 @@
         "base_damage": 10,
         "attack_time_seconds": 0.54,
         "stamina_cost": 7,
-        "reach_meters": 2.35
+        "reach_meters": 2.35,
+        "mana_on_hit": 2.0
       },
       "effects": [
         {
@@ -173,7 +185,9 @@
         "stamina_cost": 8,
         "reach_meters": 32.0,
         "ammo_item": "core:item.wooden_arrow",
-        "projectile_speed": 24.0
+        "projectile_speed": 24.0,
+        "crit_chance": 0.1,
+        "crit_mult": 1.8
       }
     },
     {
@@ -187,6 +201,66 @@
       "stackable": true,
       "value": 2,
       "weight": 0.05
+    },
+    {
+      "id": "core:item.letter_opener",
+      "name_key": "item.letter_opener.name",
+      "description_key": "item.letter_opener.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/letter_opener.png",
+      "world_model": "assets/models/items/steel_dagger.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 120,
+      "weight": 0.6,
+      "weapon": {
+        "kind": "melee",
+        "skill": "daggers",
+        "damage_type": "piercing",
+        "base_damage": 8,
+        "attack_time_seconds": 0.32,
+        "stamina_cost": 4,
+        "reach_meters": 1.7,
+        "crit_chance": 0.25,
+        "crit_mult": 2.2
+      }
+    },
+    {
+      "id": "core:item.baggy_umbrella",
+      "name_key": "item.baggy_umbrella.name",
+      "description_key": "item.baggy_umbrella.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/baggy_umbrella.png",
+      "world_model": "assets/models/items/baggy_umbrella.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 95,
+      "weight": 1.4,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "blunt",
+        "base_damage": 11,
+        "attack_time_seconds": 0.42,
+        "stamina_cost": 5,
+        "reach_meters": 2.2,
+        "crit_chance": 0.15,
+        "crit_mult": 1.75
+      },
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "presence",
+          "amount": 2
+        },
+        {
+          "type": "bonus",
+          "stat": "lockpick_bonus",
+          "value": 0.1
+        }
+      ]
     }
   ]
 }

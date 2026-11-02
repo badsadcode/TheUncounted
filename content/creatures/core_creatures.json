@@ -17,6 +17,7 @@
         "xp_reward": 18
       },
       "behavior": "melee_patroller",
+      "family": "beast",
       "perception": {
         "sight_meters": 11.0,
         "hearing_meters": 7.0
@@ -60,6 +61,7 @@
         "xp_reward": 35
       },
       "behavior": "melee_patroller",
+      "family": "undead",
       "perception": {
         "sight_meters": 13.0,
         "hearing_meters": 8.0
@@ -103,6 +105,7 @@
         "xp_reward": 30
       },
       "behavior": "melee_stalker",
+      "family": "beast",
       "perception": {
         "sight_meters": 12.0,
         "hearing_meters": 9.0
@@ -145,6 +148,7 @@
         "xp_reward": 65
       },
       "behavior": "elite_guardian",
+      "family": "construct",
       "perception": {
         "sight_meters": 14.0,
         "hearing_meters": 9.0
@@ -192,6 +196,7 @@
         "xp_reward": 140
       },
       "behavior": "boss_archivist",
+      "family": "undead",
       "perception": {
         "sight_meters": 16.0,
         "hearing_meters": 12.0
@@ -242,6 +247,7 @@
         "xp_reward": 160
       },
       "behavior": "boss_warden",
+      "family": "spirit",
       "perception": {
         "sight_meters": 15.0,
         "hearing_meters": 11.0

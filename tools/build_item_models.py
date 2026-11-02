@@ -264,13 +264,116 @@ def seal_quill():
     print("Wrote", os.path.relpath(path, ROOT))
 
 
+def icon_canvas():
+    from PIL import Image, ImageDraw
+    img = Image.new("RGBA", (32, 32), (26, 22, 30, 240))
+    d = ImageDraw.Draw(img)
+    d.rectangle([0, 0, 31, 31], outline=(110, 92, 64, 255))
+    d.rectangle([1, 1, 30, 30], outline=(48, 40, 32, 255))
+    return img, d
+
+
+def save_icon(img, name):
+    path = os.path.join(ROOT, "assets", "ui", "items", name + ".png")
+    img.save(path)
+    print("Wrote", os.path.relpath(path, ROOT))
+
+
+def baggy_umbrella():
+    """A detective's furled black umbrella with a hooked cane handle. Grip (handle) at the bottom, tip up, like the swords."""
+    m = Mesh(31)
+    cloth, cloth2, wood, brass = (34, 34, 40), (52, 50, 60), (110, 70, 40), (205, 170, 80)
+    m.box((0.035, 0.03, 0), (0.07, 0.025, 0.025), wood)                 # hook, bottom
+    m.box((0.065, 0.06, 0), (0.025, 0.06, 0.025), wood)
+    m.cylinder((0, 0.0, 0), 0.013, 0.2, wood, seg=8)                      # handle shaft
+    m.cylinder((0, 0.2, 0), 0.016, 0.02, brass, seg=8)                    # ferrule
+    m.cylinder((0, 0.22, 0), 0.03, 0.12, cloth2, seg=10, r_top=0.045)     # furled canopy swelling...
+    m.cylinder((0, 0.34, 0), 0.045, 0.38, cloth, seg=10, r_top=0.008)     # ...and tapering to the tip
+    m.box((0, 0.42, 0.04), (0.012, 0.04, 0.012), brass)                   # strap button
+    m.cylinder((0, 0.72, 0), 0.006, 0.07, brass, seg=6, r_top=0.002)      # tip
+    m.write_glb("baggy_umbrella.glb")
+    img, d = icon_canvas()
+    d.line([(25, 5), (11, 23)], fill=(30, 30, 38, 255), width=4)          # canopy
+    d.line([(24, 6), (12, 21)], fill=(70, 68, 84, 255), width=1)
+    d.line([(26, 4), (28, 2)], fill=(205, 170, 80, 255))                  # tip
+    d.line([(11, 23), (8, 27)], fill=(120, 78, 44, 255), width=2)         # handle
+    d.arc([3, 24, 9, 30], 0, 200, fill=(120, 78, 44, 255), width=2)       # hook
+    save_icon(img, "baggy_umbrella")
+
+
+def sabrino_hat():
+    """A tall, dented, pointed witch's hat with a faded sash. Base at y=0."""
+    m = Mesh(37)
+    felt, felt2, sash, buckle = (60, 30, 66), (78, 42, 86), (150, 36, 40), (214, 180, 80)
+    m.cylinder((0, 0.0, 0), 0.2, 0.015, felt2, seg=14)                    # brim
+    m.cylinder((0, 0.015, 0), 0.105, 0.05, sash, seg=12, r_top=0.1)       # sash band
+    m.box((0, 0.04, 0.1), (0.04, 0.035, 0.012), buckle)
+    m.cylinder((0, 0.065, 0), 0.1, 0.17, felt, seg=12, r_top=0.055)       # crown
+    m.cylinder((0.02, 0.235, 0), 0.055, 0.12, felt2, seg=10, r_top=0.004) # bent tip
+    m.write_glb("sabrino_hat.glb")
+    img, d = icon_canvas()
+    d.polygon([(16, 3), (10, 22), (22, 22)], fill=(70, 36, 78, 255))
+    d.polygon([(16, 3), (21, 7), (17, 9)], fill=(90, 50, 100, 255))       # dented tip
+    d.rectangle([10, 19, 22, 22], fill=(150, 36, 40, 255))                # sash
+    d.rectangle([15, 19, 17, 22], fill=(214, 180, 80, 255))
+    d.ellipse([3, 21, 29, 27], fill=(84, 46, 92, 255))                    # brim
+    d.line([(6, 24), (26, 24)], fill=(60, 30, 66, 255))
+    save_icon(img, "sabrino_hat")
+
+
+def tinted(src, dst, rgb_mul, folder="items"):
+    """Recolour an existing icon/sprite (keeps the pixel art, shifts its palette)."""
+    from PIL import Image
+    img = Image.open(os.path.join(ROOT, src)).convert("RGBA")
+    px = img.load()
+    for y in range(img.size[1]):
+        for x in range(img.size[0]):
+            r, g, b, a = px[x, y]
+            lum = (r + g + b) / 3.0
+            mixed = [min(255, int(lum * k[0] + c * k[1])) for c, k in zip((r, g, b), rgb_mul)]
+            px[x, y] = (mixed[0], mixed[1], mixed[2], a)
+    img.save(os.path.join(ROOT, dst))
+    print("Wrote", dst)
+
+
+def build_extra_icons():
+    # (luminance weight, original-channel weight) per channel
+    frost = ((0.55, 0.0), (0.95, 0.0), (1.35, 0.0))
+    ink = ((0.75, 0.1), (1.25, 0.0), (0.55, 0.0))
+    sabrino = ((1.5, 0.2), (0.55, 0.1), (0.35, 0.0))
+    letter = ((1.1, 0.1), (0.95, 0.1), (0.6, 0.1))
+    tinted("assets/ui/items/tome_ember.png", "assets/ui/items/tome_frost.png", frost)
+    tinted("assets/ui/items/tome_mend.png", "assets/ui/items/tome_siphon.png", ink)
+    tinted("assets/ui/items/tome_ember.png", "assets/ui/items/tome_sabrino.png", sabrino)
+    tinted("assets/ui/items/steel_dagger.png", "assets/ui/items/letter_opener.png", letter)
+    tinted("assets/ui/spells/ember_bolt.png", "assets/ui/spells/frost_lance.png", frost)
+    tinted("assets/ui/spells/mend.png", "assets/ui/spells/siphon_ink.png", ink)
+    tinted("assets/ui/spells/ember_bolt.png", "assets/ui/spells/sabrino_fireball.png", sabrino)
+    tinted("assets/sprites/vfx/spell_ember.png", "assets/sprites/vfx/spell_frost.png", frost)
+    tinted("assets/sprites/vfx/spell_arcane.png", "assets/sprites/vfx/spell_ink.png", ink)
+    tinted("assets/sprites/vfx/spell_ember.png", "assets/sprites/vfx/spell_sabrino.png", sabrino)
+
+
+BUILDERS = {
+    "bread": bread,
+    "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
+    "chain_hauberk": lambda: garment("chain_hauberk", (160, 166, 176), (90, 70, 50), chain=True),
+    "scholar_robe": lambda: garment("scholar_robe", (88, 60, 112), (200, 176, 110), robe=True),
+    "boots": boots,
+    "helm": helm,
+    "signet_ring": lambda: ring("signet_ring", (214, 178, 76), (170, 30, 40)),
+    "ring_of_recall": lambda: ring("ring_of_recall", (196, 204, 220), (90, 170, 255)),
+    "seal_quill": seal_quill,
+    "baggy_umbrella": baggy_umbrella,
+    "sabrino_hat": sabrino_hat,
+    "extra_icons": build_extra_icons,
+}
+
+
 if __name__ == "__main__":
-    bread()
-    garment("leather_jerkin", (122, 80, 46), (84, 54, 32))
-    garment("chain_hauberk", (160, 166, 176), (90, 70, 50), chain=True)
-    garment("scholar_robe", (88, 60, 112), (200, 176, 110), robe=True)
-    boots()
-    helm()
-    ring("signet_ring", (214, 178, 76), (170, 30, 40))
-    ring("ring_of_recall", (196, 204, 220), (90, 170, 255))
-    seal_quill()
+    # python tools/build_item_models.py [name ...]   (no names = build everything)
+    import sys
+    only = sys.argv[1:]
+    for name, fn in BUILDERS.items():
+        if not only or name in only:
+            fn()

@@ -1199,6 +1199,20 @@
       "prompt": "Read the Village Census Board",
       "title": "Bellwether Census, Spring Posting",
       "text": "HOUSEHOLDS OF BELLWETHER (PARISH COPY)\n\nKettleburn, M. (innkeeper, no kin recorded)\nVaelen, quartermaster (licensed)\nFenwick, librarian (two cats, unlicensed)\nOakhaven, clerk (Bureau)\n\nThe next line has been scraped from the board with a knife. The wood beneath it is pale and new, the way skin is under a scab. Your fingers find the grooves of letters that are no longer there, and for one dizzy moment they feel like your own name."
+    },
+    {
+      "instance_id": "sabrino_wanted",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -13.2,
+        0.0,
+        3.2
+      ],
+      "rot_y": 120.0,
+      "prompt": "Read the Wanted Poster",
+      "title": "WANTED - By Order of the Royal Bureau of Records",
+      "text": "WANTED: SABRINO, called \"the Italian Witch\"\n\nCHARGES:\n- 1,412 counts of Unlicensed Fireballing\n- Arson of a Cheese Wheel of Historical Significance (the Great Wheel of Vallo, aged 90 years, now aged 0)\n- Impersonating a Royal Chef\n- Impersonating a Royal Chef while on fire\n- Crimes against the Edrath Accords of Polite Warfare (extensive; see attached ledger, 4 volumes)\n- Teaching a goose to cast Ember Bolt\n\nSabrino is armed with a very tall hat and is extremely charming. DO NOT accept dinner invitations. Do not accept second helpings. Do NOT ask about the goose.\n\nREWARD: 500 crowns, payable upon submission of Form 13-S (Witch, Apprehended) in triplicate.\n\nScrawled across the bottom in a cheerful hand: \"Grazie for the lovely portrait! You got my good side. - S.\""
     }
   ],
   "portals": [

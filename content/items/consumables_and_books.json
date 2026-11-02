@@ -166,6 +166,60 @@
           "spell_id": "core:spell.veil"
         }
       ]
+    },
+    {
+      "id": "core:item.tome_frost",
+      "name_key": "item.tome_frost.name",
+      "description_key": "item.tome_frost.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_frost.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 60,
+      "weight": 0.8,
+      "book_text_key": "book.tome_frost.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.frost_lance"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_siphon",
+      "name_key": "item.tome_siphon.name",
+      "description_key": "item.tome_siphon.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_siphon.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.8,
+      "book_text_key": "book.tome_siphon.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.siphon_ink"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_sabrino",
+      "name_key": "item.tome_sabrino.name",
+      "description_key": "item.tome_sabrino.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_sabrino.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 250,
+      "weight": 0.8,
+      "book_text_key": "book.tome_sabrino.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.sabrino_fireball"
+        }
+      ]
     }
   ]
 }

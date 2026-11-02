@@ -366,6 +366,13 @@ def humanoid(style, row, col_dir=0):
         elif hat == "bun":
             prims.append(sphere(head_c + v3(0, 0.022, -0.014), 0.092, hair_m))
             prims.append(sphere(head_c + v3(0, 0.07, -0.07), 0.04, hair_m))
+        elif hat == "fedora":
+            felt = M(style.get("cap", (90, 70, 50)))
+            band = M(style.get("band", (40, 30, 24)))
+            prims.append(sphere(head_c + v3(0, 0.02, -0.016), 0.09, hair_m))
+            prims.append(ellipsoid(head_c + v3(0, 0.062, -0.004), (0.15, 0.012, 0.15), felt))           # brim
+            prims.append(ellipsoid(head_c + v3(0, 0.105, -0.004), (0.082, 0.055, 0.09), felt))         # crown
+            prims.append(ellipsoid(head_c + v3(0, 0.08, -0.004), (0.086, 0.016, 0.094), band))         # band
         elif hat == "bald":
             prims.append(ellipsoid(head_c + v3(0, -0.01, -0.035), (0.092, 0.055, 0.065), hair_m))
         elif not skeletal and hat != "none":
@@ -383,7 +390,7 @@ def humanoid(style, row, col_dir=0):
     weapon = style.get("weapon")
     r_pitch, r_roll, r_bend = math.radians(-22) * walk + math.radians(8), math.radians(-8), math.radians(-18)
     l_pitch, l_roll, l_bend = math.radians(22) * walk + math.radians(8), math.radians(8), math.radians(-18)
-    if weapon in ("sword", "staff"):
+    if weapon in ("sword", "staff", "umbrella"):
         r_bend = math.radians(-60)
         r_pitch = math.radians(14) + math.radians(-8) * walk
     if weapon == "ledger":
@@ -430,6 +437,14 @@ def humanoid(style, row, col_dir=0):
         prims.append(capsule(bottom, top, 0.014, wood))
         orb = Mat(style.get("orb", (110, 220, 255)), emissive=True)
         prims.append(sphere(top + norm(sdir) * 0.03, 0.04, orb))
+    elif weapon == "umbrella":
+        udir = v3(0, 1, 0.1) if row != 4 else norm(v3(0, 0.4, 1))
+        if row == 3:
+            udir = norm(v3(0, 1, -0.3))
+        udir = norm(udir)
+        cloth = Mat((36, 36, 44))
+        prims.append(capsule(r_hand - udir * 0.06, r_hand + udir * 0.05, 0.012, wood))
+        prims.append(capsule(r_hand + udir * 0.06, r_hand + udir * 0.42, 0.034, cloth, 0.006))
     elif weapon == "ledger":
         book = Mat(style.get("book", (140, 40, 36)))
         page = Mat((236, 226, 196))
@@ -599,6 +614,11 @@ SHEETS = {
     "assets/sprites/npcs/ashbound_scout.png": {
         "kind": "humanoid", "body": (130, 160, 112), "armor": (70, 84, 60), "legs": (52, 58, 46), "cloak": (58, 70, 50),
         "eye": (230, 170, 50), "glow_eyes": True, "hat": "hood", "hood": (62, 76, 54), "weapon": "sword", "trim": (130, 100, 60),
+    },
+    "assets/sprites/npcs/detective_baggy.png": {
+        "kind": "humanoid", "body": (226, 190, 160), "armor": (176, 150, 104), "legs": (64, 58, 52), "cloak": (160, 134, 92),
+        "trim": (120, 96, 64), "eye": (36, 30, 26), "hat": "fedora", "cap": (96, 78, 56), "band": (44, 34, 28),
+        "hair": (90, 64, 44), "weapon": "umbrella", "boots": (60, 40, 30),
     },
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),

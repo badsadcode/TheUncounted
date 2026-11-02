@@ -155,6 +155,8 @@ struct SpellEffectDef {
     float light_radius = 6.0f;
     float duration_seconds = 30.0f;
     float visibility_multiplier = 0.5f;
+    float splash_radius = 0.0f;   // projectile_damage: also hurts other creatures within this radius of impact
+    float drain_fraction = 0.0f;  // projectile_damage: heals the caster for this share of damage dealt
 };
 
 struct SpellDef {
@@ -180,13 +182,23 @@ struct WeaponStatsDef {
     float reach_meters = 2.1f;
     std::string ammo_item;
     float projectile_speed = 22.0f;
+    // Traits
+    float crit_chance = 0.0f;      // base chance per hit (0..1), before Agility / Perception / bonuses
+    float crit_mult = 1.5f;        // damage multiplier on a critical hit
+    float life_steal = 0.0f;       // share of damage dealt returned as health
+    float mana_on_hit = 0.0f;      // mana restored per hit
+    std::string bane_family;       // creature family this weapon is especially good against
+    float bane_mult = 1.0f;
 };
 
 struct ItemEffectDef {
-    std::string type; // stat_bonus, consumable_heal, consumable_mana, consumable_stamina, learn_spell
+    // stat_bonus (attribute +amount), bonus (named build bonus +value, e.g. crit_chance_bonus),
+    // consumable_heal, consumable_mana, consumable_stamina, learn_spell
+    std::string type;
     std::string stat;
     std::string spell_id;
     int amount = 0;
+    float value = 0.0f;
 };
 
 struct ItemDef {
@@ -262,6 +274,7 @@ struct CreatureDef {
     std::string alert_line_key;  // spoken (subtitled) on first noticing the player
     std::string death_line_key;
     bool hit_glow = false;
+    std::string family;          // undead, beast, construct, spirit (weapon banes key off this)
 };
 
 struct VendorStockEntry {

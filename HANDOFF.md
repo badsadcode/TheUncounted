@@ -148,6 +148,35 @@ Original expectations (kept for reference):
   Most NPCs have a post-Seal bark (`flag: seal_renewed`).
 - Previews: `--overlay reader:<item id>` (books), `--overlay ending` (longest epilogue), `--overlay dialogue:<npc>:<node>`.
 
+### Build systems & the Toasty easter eggs (added 2026-11-02)
+
+The game is a gift for the user's friend **Toasty (TaoistDragon)**, who loves digging into builds, spells and weapon stats.
+His characters: **Sabrino**, the Italian witch "war criminal" (ESO), and **Baggy**, a bumbling but good-hearted private eye
+(Shadows of Doubt). Keep both affectionate and funny; the title screen carries a dedication (`game.dedication`).
+
+- **Weapon traits** (`weapon` block): `crit_chance`, `crit_mult`, `life_steal`, `mana_on_hit`, `bane_family` + `bane_mult`.
+  Creatures have a `family` (undead / beast / construct / spirit).
+- **Gear bonuses:** item effect `{"type": "bonus", "stat": <key>, "value": x}` feeds the same pool as synergies.
+  Keys: crit_chance_bonus, crit_damage_bonus, life_steal, spell_power_bonus, spell_cost_reduction, shop_discount,
+  lockpick_bonus, melee_bonus_magic_damage, mana_on_melee_hit, heal_on_block, armor_bonus, ranged_crit_multiplier,
+  move_speed_bonus. `Bonus(key)` = synergies + gear. Labels live in `BonusLabel()` (GameUI.cpp) — add new keys there too.
+- **Crit chance** = weapon base + 0.5% per Agility over 10 + 15% of Perception's effect + bonuses (cap 75%).
+- **Spells:** `splash_radius` and `drain_fraction` on `projectile_damage`. New: Frost Lance (Vaelen sells the tome),
+  Siphon Ink (Vault III nursery chest), Sabrino's Questionable Fireball (Sabrino's stash).
+- **Synergies (7):** + Sabrino's Doctrine, Baggy's Hunch, Cutpurse's Grace, Iron Liturgy.
+- **Character screen → Combat Sheet tab**: every derived number, computed by the same helpers combat uses
+  (`MeleeHitDamage`, `CritChance`, `SpellPowerMult`, `SpellCost`, `LockpickChance`, `ShopDiscount`). Inventory shows
+  traits and "Your DPS (± vs equipped)".
+- **Sabrino:** wanted poster by Bellwether's gate (`sabrino_wanted`), stash behind a pine on the Old Road's north side
+  (`sabrino_stash` + `sabrino_note`: Pointed Hat, Fireball grimoire), Fenwick's `overdue` topic, clerk/Fenwick barks.
+- **Baggy** (`core:npc.detective_baggy`, Old Road by the boundary stone, sprite style `detective_baggy`): wrote the
+  charcoal note on the stone; was an Oakhallow child. Topics: case, board, stone, Sabrino (+ stash hint), build advice
+  (real tips), rain. Telling Baggy Ilse's name (`ilse_remembered`) → `baggy_ilse`, gives **Baggy's Trusty Umbrella**.
+  Write Baggy and Sabrino without third-person pronouns.
+- Assets: `python tools/build_item_models.py baggy_umbrella sabrino_hat extra_icons` (now takes builder names; running
+  it with no names rebuilds every item model, which is not byte-identical — prefer names).
+- Previews: `--overlay combat` (Combat Sheet with a crit build), `--overlay compare` (inventory comparison).
+
 ## 8. The user (what they care about)
 
 - **Story and immersion are the priority.** Bigger, multi-level spaces without loading screens. Better graphics/sprites welcome.
