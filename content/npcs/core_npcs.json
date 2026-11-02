@@ -36,6 +36,10 @@
         {
           "text_key": "bark.clerk.puddles",
           "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.clerk.4",
+          "not_flag": "seal_renewed"
         }
       ]
     },
@@ -122,6 +126,10 @@
         },
         {
           "text_key": "bark.vaelen.3"
+        },
+        {
+          "text_key": "bark.vaelen.dry",
+          "flag": "seal_renewed"
         }
       ]
     },
@@ -188,6 +196,10 @@
         },
         {
           "text_key": "bark.fenwick.3"
+        },
+        {
+          "text_key": "bark.fenwick.dry",
+          "flag": "seal_renewed"
         }
       ]
     },
@@ -209,6 +221,10 @@
         },
         {
           "text_key": "bark.aldous.2"
+        },
+        {
+          "text_key": "bark.aldous.dry",
+          "flag": "seal_renewed"
         }
       ]
     },
@@ -235,6 +251,10 @@
           "text_key": "bark.scout.3",
           "quest_id": "core:quest.legally_deceased",
           "min_stage": 30
+        },
+        {
+          "text_key": "bark.scout.dry",
+          "flag": "seal_renewed"
         }
       ]
     },
@@ -252,10 +272,15 @@
       },
       "barks": [
         {
-          "text_key": "bark.spirit.1"
+          "text_key": "bark.spirit.1",
+          "not_flag": "witness_named"
         },
         {
           "text_key": "bark.spirit.2"
+        },
+        {
+          "text_key": "bark.spirit.named",
+          "flag": "witness_named"
         }
       ]
     }

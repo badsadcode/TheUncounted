@@ -231,6 +231,17 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (boot_shot_overlay_ == "map") overlay_ = Overlay::Map;
         else if (boot_shot_overlay_ == "title") screen_ = Screen::Title;
         else if (boot_shot_overlay_ == "creation") screen_ = Screen::Creation;
+        else if (boot_shot_overlay_.rfind("reader:", 0) == 0) {
+            // reader:<item id> — preview a book/document's reader page
+            if (const ItemDef* it = content_.GetItem(boot_shot_overlay_.substr(7))) { ReadItem(*it); SetOverlay(Overlay::Reader); }
+        }
+        else if (boot_shot_overlay_ == "ending") {
+            // Longest possible epilogue, for layout checks
+            for (const char* f : {"marta_testimony", "spirit_clue_learned", "witness_named", "ilse_remembered", "marta_knows_ilse", "seal_renewed"})
+                player_.flags.insert(f);
+            ending_stage_ = 101;
+            screen_ = Screen::Ending;
+        }
         else if (boot_shot_overlay_ == "dialogue") {
             for (size_t i = 0; i < scene_.npcs.size(); i++) { StartDialogue(static_cast<int>(i)); break; }
         } else if (boot_shot_overlay_.rfind("dialogue:", 0) == 0) {
@@ -2185,7 +2196,8 @@ void GameEngine::SetQuestStage(const std::string& id, int stage) {
     for (const auto& st : q->stages) {
         if (st.stage != stage) continue;
         Toast("Journal: " + content_.Tr(st.objective_key), Color{255, 225, 150, 255});
-        if (st.completed) ending_stage_ = stage;
+        // Only the main quest ends the chapter; side quests completing must not trigger the ending screen.
+        if (st.completed && id == content_.game_cfg.starting_quest) ending_stage_ = stage;
     }
     res_.PlaySfx("assets/audio/sfx/page_turn.wav", 0.8f, 0.9f);
 }
@@ -2615,6 +2627,7 @@ bool GameEngine::LoadGame(const std::string& slot) {
         ending_shown_ = j.value("ending_shown", false);
         ending_stage_ = 0;
         for (const auto& [qid, st] : player_.quest_stages) {
+            if (qid != content_.game_cfg.starting_quest) continue;
             if (const QuestDef* q = content_.GetQuest(qid))
                 for (const auto& s : q->stages) if (s.stage == st && s.completed) ending_stage_ = st;
         }

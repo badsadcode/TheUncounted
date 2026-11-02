@@ -31,9 +31,32 @@
                   "type": "quest_stage_below",
                   "quest_id": "core:quest.legally_deceased",
                   "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "seal_renewed"
                 }
               ],
               "next": "inspect_ledger"
+            },
+            {
+              "text_key": "dlg.clerk.choice_have_proof_sealed",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.uncounted_ledger"
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                }
+              ],
+              "next": "inspect_ledger_sealed"
             },
             {
               "text_key": "dlg.clerk.choice_where_annex",
@@ -50,6 +73,28 @@
                 }
               ],
               "next": "annex_directions"
+            },
+            {
+              "text_key": "dlg.clerk.choice_who_struck",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 10
+                }
+              ],
+              "next": "who_struck"
+            },
+            {
+              "text_key": "dlg.clerk.choice_arrears",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 100
+                }
+              ],
+              "next": "arrears"
             },
             {
               "text_key": "dlg.clerk.choice_rain_stopped",
@@ -126,6 +171,16 @@
                 }
               ],
               "next": "persuade_stipend"
+            },
+            {
+              "text_key": "dlg.clerk.choice_key_paradox",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "key_waiver"
+                }
+              ],
+              "next": "key_paradox"
             }
           ]
         },
@@ -282,6 +337,83 @@
               "next": "greeting"
             }
           ]
+        },
+        "inspect_ledger_sealed": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.inspect_ledger_sealed",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_surrender_ledger",
+              "next": "ending_bureau"
+            },
+            {
+              "text_key": "dlg.clerk.choice_keep_ledger",
+              "next": "ending_independent"
+            }
+          ]
+        },
+        "who_struck": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.who_struck",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_key_paradox",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.annex_key"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "key_waiver"
+                }
+              ],
+              "next": "key_paradox"
+            },
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "greeting"
+            }
+          ]
+        },
+        "key_paradox": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.key_paradox",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "key_waiver",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "greeting"
+            }
+          ]
+        },
+        "arrears": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.arrears",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "greeting"
+            }
+          ]
         }
       }
     },
@@ -307,6 +439,10 @@
               "next": "rumors"
             },
             {
+              "text_key": "dlg.merchant.choice_rumors_bureau",
+              "next": "rumors_bureau"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -328,6 +464,23 @@
             {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
+            }
+          ]
+        },
+        "rumors_bureau": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.merchant.rumors_bureau",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
             }
           ]
         }
@@ -446,6 +599,26 @@
                 }
               ],
               "next": "seal_signed"
+            },
+            {
+              "text_key": "dlg.marta.choice_father",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "ilse_remembered"
+                }
+              ],
+              "next": "father"
+            },
+            {
+              "text_key": "dlg.marta.choice_news",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "seal_renewed"
+                }
+              ],
+              "next": "news"
             },
             {
               "text_key": "dlg.marta.choice_rest",
@@ -703,6 +876,26 @@
               "next": "root"
             }
           ]
+        },
+        "father": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.father",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "news": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.news",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -717,6 +910,26 @@
             {
               "text_key": "dlg.fenwick.choice_ghosts",
               "next": "ghost_fees"
+            },
+            {
+              "text_key": "dlg.fenwick.choice_history",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "seal_renewed"
+                }
+              ],
+              "next": "history"
+            },
+            {
+              "text_key": "dlg.fenwick.choice_history_after",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                }
+              ],
+              "next": "history_after"
             },
             {
               "text_key": "dlg.fenwick.choice_train_magic",
@@ -766,6 +979,40 @@
               "next": "END"
             }
           ]
+        },
+        "history": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.history",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "history_after": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.history_after",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -780,6 +1027,20 @@
             {
               "text_key": "dlg.aldous.choice_silence",
               "next": "great_silence"
+            },
+            {
+              "text_key": "dlg.aldous.choice_hunger",
+              "next": "hunger"
+            },
+            {
+              "text_key": "dlg.aldous.choice_bells",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                }
+              ],
+              "next": "bells"
             },
             {
               "text_key": "dlg.aldous.choice_blessing",
@@ -815,6 +1076,33 @@
               "next": "END"
             }
           ]
+        },
+        "hunger": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.aldous.hunger",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "bells": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.aldous.bells",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -836,6 +1124,30 @@
                   "stage": 30
                 }
               ]
+            },
+            {
+              "text_key": "dlg.scout.choice_ashbound",
+              "next": "ashbound"
+            },
+            {
+              "text_key": "dlg.scout.choice_ledger",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.uncounted_ledger"
+                }
+              ],
+              "next": "ledger"
+            },
+            {
+              "text_key": "dlg.scout.choice_road_quiet",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                }
+              ],
+              "next": "road_quiet"
             },
             {
               "text_key": "dlg.scout.choice_orc_kinship",
@@ -891,6 +1203,50 @@
               "next": "root"
             }
           ]
+        },
+        "ashbound": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.ashbound",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "ledger": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.ledger",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "road_quiet": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.road_quiet",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -916,6 +1272,42 @@
                 }
               ],
               "next": "ilse"
+            },
+            {
+              "text_key": "dlg.spirit.choice_oakhallow",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.bakers_daughter",
+                  "stage": 20
+                }
+              ],
+              "next": "oakhallow"
+            },
+            {
+              "text_key": "dlg.spirit.choice_morvath",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 30
+                }
+              ],
+              "next": "morvath"
+            },
+            {
+              "text_key": "dlg.spirit.choice_remembered",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "witness_named"
+                }
+              ],
+              "next": "remembered"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -969,6 +1361,55 @@
             {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
+            }
+          ]
+        },
+        "oakhallow": {
+          "speaker_key": "npc.erased_spirit.name",
+          "text_key": "dlg.spirit.oakhallow",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "morvath": {
+          "speaker_key": "npc.erased_spirit.name",
+          "text_key": "dlg.spirit.morvath",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "remembered": {
+          "speaker_key": "npc.erased_spirit.name",
+          "text_key": "dlg.spirit.remembered",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "witness_named",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
             }
           ]
         }

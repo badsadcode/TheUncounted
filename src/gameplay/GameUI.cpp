@@ -1107,6 +1107,10 @@ void GameEngine::DrawReader() {
     BeginScissorMode(static_cast<int>(body.x * u), static_cast<int>(body.y * u), static_cast<int>(body.width * u), static_cast<int>(body.height * u));
     TextWrapped(reader_text_, {body.x, body.y - ui_scroll_, body.width, body.height}, 18, ink);
     EndScissorMode();
+    if (ui_scroll_ < total - body.height - 1.0f) {
+        const std::string more = "(scroll for more)";
+        Text(more, P.x + P.width - 40 - TextWidth(more, 14), P.y + P.height - 82, 14, Color{120, 90, 60, 255});
+    }
     if (Button({P.x + P.width * 0.5f - 100, P.y + P.height - 60, 200, 40}, "Close [" + BindingLabel("interact") + "]")) SetOverlay(Overlay::None);
 }
 
@@ -1183,13 +1187,13 @@ void GameEngine::DrawEnding() {
         }
     }
     std::string epi;
-    if (player_.flags.count("marta_testimony")) epi += "Marta's testimony that she remembered you was entered into the record - the first living witness in seventeen years. ";
-    if (player_.flags.count("spirit_clue_learned")) epi += "Somewhere beneath the Annex, a spirit with no name waits for the seal to be renewed. ";
-    if (player_.flags.count("ilse_remembered")) epi += content_.Tr("ending.ilse") + " ";
-    if (player_.flags.count("ilse_remembered") && player_.flags.count("marta_knows_ilse")) epi += content_.Tr("ending.ilse_alive") + " ";
-    if (player_.flags.count("seal_renewed")) epi += content_.Tr("ending.seal");
-    else epi += "Bellwether will be uncounted at the next new moon - unless someone does something about it.";
-    TextWrapped(epi, {VW * 0.5f - 400, y, 800, 140}, 16, kDim);
+    auto add = [&](const char* key) { epi += content_.Tr(key) + " "; };
+    if (player_.flags.count("marta_testimony")) add("ending.marta_testimony");
+    if (player_.flags.count("spirit_clue_learned")) add(player_.flags.count("witness_named") ? "ending.spirit_named" : "ending.spirit_waiting");
+    if (player_.flags.count("ilse_remembered")) add("ending.ilse");
+    if (player_.flags.count("ilse_remembered") && player_.flags.count("marta_knows_ilse")) add("ending.ilse_alive");
+    add(player_.flags.count("seal_renewed") ? "ending.seal" : "ending.no_seal");
+    TextWrapped(epi, {VW * 0.5f - 420, y, 840, 200}, 16, kDim);
     std::string stats = "Level " + std::to_string(player_.level) + "   Gold " + std::to_string(player_.gold) + "   Time played " +
                         std::to_string(static_cast<int>(player_.play_time / 60)) + " min";
     Text(stats, VW * 0.5f - TextWidth(stats, 16) * 0.5f, VH - 150, 16, kDim);

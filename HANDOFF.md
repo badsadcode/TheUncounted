@@ -12,7 +12,7 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
 - **Target platform: Windows 10/11 only** (MinGW build). Linux is *not* a shipping target; it is only used as a headless
   test box in cloud sessions (which run Linux and cannot execute `game.exe`). Don't add Linux packaging or Linux-only code.
-- `--validate` → 0 errors; `--selftest` → 0 failures (97 checks); `--balance` → every calling beats every creature
+- `--validate` → 0 errors; `--selftest` → 0 failures (100 checks); `--balance` → every calling beats every creature
   (36/36 at 100%). Last cloud verification 2026-11-02; re-check on Windows after pulling.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
@@ -122,6 +122,31 @@ Original expectations (kept for reference):
 - Ending epilogue reacts to `marta_testimony`, `spirit_clue_learned`, `ilse_remembered`, `marta_knows_ilse`, `seal_renewed`.
 - Preview any conversation node: `--shot out.png --overlay dialogue:core:npc.innkeeper_marta:ilse_alive`. The dialogue
   panel grows upward to fit long text.
+
+### Story canon (keep new writing consistent with this)
+
+- **412 years ago — the Great Silence.** Something beyond the world, *the Hunger*, finds its way in through spoken names.
+  The Archivists (a quiet order inside the Bureau, later staffed in *Annex III*) struck seven cities from the Grand
+  Register, hid them in the *Uncounted Ledger* and signed the *Seal of Names* over them. The Church teaches it was a
+  divine "curtain of mercy"; Brother Aldous knows better.
+- **17 years ago — the Seal cracked.** Chief Archivist Morvath struck Oakhallow (pop. 412) in one night. Forty children
+  went into enchanted sleep in Vault III (the Nursery); some adults were scattered with sealed memories (Marta Brannock →
+  "Marta Kettleburn" in Bellwether; hinted: the player, a child of Mill Lane); the rest, incl. Tomas Brannock, were
+  unwritten by the Hunger. Morvath bound himself to the Ledger and went mad (sanctum boss). Night-Warden Sister Hessa
+  Vane kept singing the children asleep and became the Lullaby Warden. Junior Archivist Wendel Ashcombe is the
+  Witness (remembers his name after the Seal: flag `witness_named`). The Annex "closed for refurbishment" and sank.
+- **Ordinary Bureau clerks** (Oakhaven) only record what's left: a struck name with no body goes in the deceased column
+  — hence the player's death notice and burial bill.
+- **Now:** the ink is fading; the Ledger's final folio says Bellwether is struck at the next new moon unless the Seal is
+  signed by a name freely given by its owner — the player's struck name. It has rained on Bellwether for 17 years.
+- **Tone:** bureaucratic absurdity (forms, arrears, Fenwick's late fees, Vaelen's prices) layered over real grief
+  (Marta, Ilse, Oakhallow). Keep both; let the jokes stop when the grief arrives. Kaelen has no fixed gender — avoid
+  pronouns for Kaelen.
+- **Reactive topics** (all gated, all once-only where it matters): clerk `who_struck` / `key_paradox` / `arrears` /
+  `inspect_ledger_sealed`; Vaelen `rumors_bureau`; Marta `news` / `father`; Fenwick `history` / `history_after`; Aldous
+  `hunger` / `bells`; Kaelen `ashbound` / `ledger` / `road_quiet`; Witness `oakhallow` / `morvath` / `remembered`.
+  Most NPCs have a post-Seal bark (`flag: seal_renewed`).
+- Previews: `--overlay reader:<item id>` (books), `--overlay ending` (longest epilogue), `--overlay dialogue:<npc>:<node>`.
 
 ## 8. The user (what they care about)
 

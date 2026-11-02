@@ -1139,7 +1139,7 @@
       "rot_y": 0.0,
       "prompt": "Read Chief Archivist's Log",
       "title": "Chief Archivist Morvath's Log",
-      "text": "\"The portcullis to the lower crypt is controlled by the eastern wall-lever. Should the King's inquisitors ever breach this hall, the Royal Treasury gate to the north opens only when weight is placed upon the rune-plate in the north-west corner.\""
+      "text": "\"The portcullis to the lower crypt answers to the iron lever in the eastern archive. Should the King's inquisitors ever breach this hall, the Royal Treasury gate to the north opens only when weight is placed upon the rune-plate in the north-west corner.\"\n\nLater, the hand less steady: \"Struck Oakhallow tonight. Four hundred and twelve. I wrote every name myself. If anyone ever comes to undo this, let them know it was not done lightly. I am binding myself to the Ledger. Nothing will take it from me. Nothing.\""
     },
     {
       "instance_id": "secret_widowmaker_chest",
@@ -1205,7 +1205,7 @@
       "rot_y": 0.0,
       "prompt": "Read the Struck Census Folio",
       "title": "Census of Oakhallow, Folio III (Struck)",
-      "text": "MARKET-BOROUGH OF OAKHALLOW, POP. 412\n\n...Brannock, Tomas. Baker. Ovens on Mill Lane.\nBrannock, Marta. Elder daughter. Apprenticed to the bakehouse.\nBrannock, Ilse. Younger daughter, aged nine.\n\nEvery line on the page has been struck through in red ink, all but one. Beside Ilse's name, in a neat archivist's hand:\n\n\"Moved to Vault III for safekeeping. Elder sister relocated to Bellwether, memory sealed. God forgive us. - M.\"",
+      "text": "MARKET-BOROUGH OF OAKHALLOW, POP. 412\n\n...Brannock, Tomas. Baker. Ovens on Mill Lane.\nBrannock, Marta. Elder daughter, aged seventeen. Apprenticed to the bakehouse.\nBrannock, Ilse. Younger daughter, aged nine.\n\nEvery line on the page has been struck through in red ink, all but one. Beside Ilse's name, in a neat archivist's hand:\n\n\"Moved to Vault III for safekeeping. Elder sister relocated to Bellwether, memory sealed. God forgive us. - M.\"",
       "quest_id": "core:quest.bakers_daughter",
       "set_stage": 20
     },
@@ -1221,7 +1221,7 @@
       "rot_y": 200.0,
       "prompt": "Read the Archivists' Duty Roster",
       "title": "Annex III Duty Roster",
-      "text": "NIGHT WATCH - VAULT III (THE NURSERY)\n\nMorvath, Chief Archivist - every night. Do not relieve him. He will not be relieved.\n\nREMINDER TO ALL STAFF: the children's names are NOT to be spoken aloud inside the Annex, not even as a kindness. Especially not as a kindness."
+      "text": "NIGHT WATCH - VAULT III (THE NURSERY)\n\nSister Hessa Vane, Night-Warden - every night. Do not relieve her. She will not be relieved.\nChief Archivist Morvath - the Ledger. Do not disturb him. He has stopped sleeping.\nW. Ashcombe, Junior Archivist - lamps, filing, and NOT misfiling.\n\nREMINDER TO ALL STAFF: the children's names are NOT to be spoken aloud inside the Annex, not even as a kindness. Especially not as a kindness.\n\nTea rota cancelled until further notice."
     }
   ],
   "portals": [

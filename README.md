@@ -29,7 +29,7 @@ cmake --build build -j 8
 |---|---|
 | `--validate` | Load and cross-validate all content, print issues, exit (non-zero on errors) |
 | `--selftest` | Headless walkthrough of the whole chapter (dialogue, keys, lever, plate, boss, pedestal, save/load, ending); exit code 0 = all passed |
-| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
+| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|reader:<item id>\|ending\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
 | `--balance` | Headless duels of every starting calling vs every creature; prints win rate, time-to-kill, HP left and potions used to the log |
 | `--showcase` | With `--shot`: lines up every wearable/consumable pickup and sample hit particles in front of the camera |
 | `--mods` | Enable `mods/example_mod` for this run |

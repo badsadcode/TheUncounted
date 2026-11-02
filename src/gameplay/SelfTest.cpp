@@ -287,6 +287,12 @@ int GameEngine::RunSelfTest() {
     UpdateAtmosphere(0.0f, true);
     check(atmo_.weather.empty(), "the rain over Bellwether has stopped");
 
+    StartDialogue(npcIndex("core:npc.erased_spirit"));
+    check(chooseNext("remembered") && player_.flags.count("witness_named"), "the Witness remembers its name after the Seal");
+    check(chooseNext("root") && !chooseNext("remembered"), "the Witness's name scene plays once");
+    EndDialogue();
+    check(screen_ == Screen::Playing, "finishing a side quest does not end the chapter");
+
     InteractableInstance* sanctum = interactable("sanctum_gate");
     standAndUse(at(annex, -16.0f, 0, -14.4f), 180.0f, 0.0f);
     check(sanctum && sanctum->open, "sanctum gate unlocked with crypt key");
@@ -351,7 +357,7 @@ int GameEngine::RunSelfTest() {
     check(chooseNext("rain_stopped"), "clerk remarks on the rain stopping");
     check(player_.flags.count("clerk_seal_talk") && chooseNext("greeting"), "clerk returns to business");
     check(!chooseNext("rain_stopped"), "clerk's rain remark plays once");
-    check(chooseNext("inspect_ledger"), "clerk recognises the ledger");
+    check(!chooseNext("inspect_ledger") && chooseNext("inspect_ledger_sealed"), "clerk reads the Ledger's new last line");
     check(chooseNext("ending_independent"), "chose to keep the ledger");
     EndDialogue();
     check(QuestStage(quest) == 101, "quest completed (101)");
@@ -359,7 +365,7 @@ int GameEngine::RunSelfTest() {
     check(CountItem("core:item.uncounted_ledger") == 1, "kept the ledger");
     screen_ = Screen::Playing;
     StartDialogue(npcIndex("core:npc.clerk_oakhaven"));
-    check(!chooseNext("inspect_ledger"), "ending cannot be replayed");
+    check(!chooseNext("inspect_ledger") && !chooseNext("inspect_ledger_sealed") && !chooseNext("arrears"), "ending cannot be replayed");
     EndDialogue();
 
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
