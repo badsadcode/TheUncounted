@@ -83,7 +83,7 @@ struct MapPersist {
     std::map<std::string, ContainerState> containers;
 };
 
-struct Toast {
+struct ToastMsg {
     std::string text;
     Color color;
     float time;
@@ -129,7 +129,7 @@ private:
     bool balance_ = false;
     bool mute_ = false;
     int skip_mouse_frames_ = 0; // ignore the delta spike after the cursor is captured
-    std::vector<Toast> toasts_;
+    std::vector<ToastMsg> toasts_;
     // ---- story presentation
     std::string subtitle_speaker_, subtitle_text_;
     float subtitle_time_ = 0.0f;

@@ -699,7 +699,7 @@ void GameEngine::Frame(float dt) {
     time_ += dt;
     UpdateAudio(dt);
     for (auto& t : toasts_) t.time -= dt;
-    toasts_.erase(std::remove_if(toasts_.begin(), toasts_.end(), [](const struct Toast& t) { return t.time <= 0; }), toasts_.end());
+    toasts_.erase(std::remove_if(toasts_.begin(), toasts_.end(), [](const ToastMsg& t) { return t.time <= 0; }), toasts_.end());
     if (region_banner_time_ > 0) region_banner_time_ -= dt;
 
     if (ActionPressed("debug_overlay")) debug_overlay_ = !debug_overlay_;
