@@ -1,0 +1,21 @@
+{
+  "available_internal_resolutions": [
+    "320x180",
+    "426x240",
+    "640x360",
+    "native"
+  ],
+  "dynamic_lights_enabled": true,
+  "fog_enabled": true,
+  "fov_degrees": 75.0,
+  "fullscreen": false,
+  "integer_scaling": false,
+  "internal_resolution": "native",
+  "schema_version": 1,
+  "target_fps": 60,
+  "texture_filter": "nearest",
+  "ui_scale": 1.0,
+  "vsync": true,
+  "window_height": 720,
+  "window_width": 1280
+}

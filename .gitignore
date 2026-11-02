@@ -1,0 +1,15 @@
+# Build output (CMake writes the executable to the project root)
+build/
+/game
+/game.exe
+*.exe
+*.o
+*.obj
+
+# Runtime output
+uncounted.log
+saves/
+
+# Tooling
+__pycache__/
+*.pyc

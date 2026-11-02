@@ -1,0 +1,14 @@
+{
+  "ambience_volume": 0.699999988079071,
+  "difficulty": "standard",
+  "enable_mods": false,
+  "language": "en",
+  "master_volume": 0.8500000238418579,
+  "music_volume": 0.6499999761581421,
+  "schema_version": 1,
+  "sfx_volume": 0.8500000238418579,
+  "starting_map": "core:map.edrath",
+  "starting_quest": "core:quest.legally_deceased",
+  "starting_spawn": "village_gate",
+  "subtitles_enabled": true
+}

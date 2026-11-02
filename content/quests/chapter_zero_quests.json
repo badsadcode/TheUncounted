@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "quests": [
+    {
+      "id": "core:quest.legally_deceased",
+      "title_key": "quest.legally_deceased.title",
+      "summary_key": "quest.legally_deceased.summary",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.legally_deceased.stage0",
+          "journal_key": "quest.legally_deceased.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.legally_deceased.stage10",
+          "journal_key": "quest.legally_deceased.journal10"
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.legally_deceased.stage20",
+          "journal_key": "quest.legally_deceased.journal20"
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.legally_deceased.stage30",
+          "journal_key": "quest.legally_deceased.journal30"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.legally_deceased.stage100",
+          "journal_key": "quest.legally_deceased.journal100",
+          "completed": true
+        },
+        {
+          "stage": 101,
+          "objective_key": "quest.legally_deceased.stage101",
+          "journal_key": "quest.legally_deceased.journal101",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.bakers_daughter",
+      "title_key": "quest.bakers_daughter.title",
+      "summary_key": "quest.bakers_daughter.summary",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.bakers_daughter.stage0",
+          "journal_key": "quest.bakers_daughter.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.bakers_daughter.stage10",
+          "journal_key": "quest.bakers_daughter.journal10"
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.bakers_daughter.stage20",
+          "journal_key": "quest.bakers_daughter.journal20"
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.bakers_daughter.stage30",
+          "journal_key": "quest.bakers_daughter.journal30"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.bakers_daughter.stage100",
+          "journal_key": "quest.bakers_daughter.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.vault_three",
+      "title_key": "quest.vault_three.title",
+      "summary_key": "quest.vault_three.summary",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.vault_three.stage0",
+          "journal_key": "quest.vault_three.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.vault_three.stage10",
+          "journal_key": "quest.vault_three.journal10"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.vault_three.stage100",
+          "journal_key": "quest.vault_three.journal100",
+          "completed": true
+        }
+      ]
+    }
+  ]
+}

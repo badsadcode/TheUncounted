@@ -1,0 +1,1207 @@
+#include "content/ContentRegistry.h"
+#include "core/Logger.h"
+#include "nlohmann/json.hpp"
+#include <fstream>
+#include <filesystem>
+
+namespace fs = std::filesystem;
+using json = nlohmann::json;
+
+namespace uncounted {
+
+static bool ReadJsonFile(const std::string& fullPath, json& outJson, std::string& outErr) {
+    std::ifstream ifs(fullPath);
+    if (!ifs.is_open()) {
+        outErr = "Unable to open file on disk";
+        return false;
+    }
+    try {
+        ifs >> outJson;
+        return true;
+    } catch (const std::exception& e) {
+        outErr = std::string("JSON syntax error: ") + e.what();
+        return false;
+    }
+}
+
+void ContentRegistry::RecordIssue(const std::string& file, const std::string& key, const std::string& reason, bool isError) {
+    validation_issues.push_back({file, key, reason, isError});
+    Logger::Validation(file, key, reason);
+}
+
+bool ContentRegistry::CheckFileExists(const std::string& rootDir, const std::string& relPath, const std::string& sourceContext, const std::string& keyName) {
+    if (relPath.empty()) {
+        RecordIssue(sourceContext, keyName, "Asset path is empty");
+        return false;
+    }
+    fs::path p = fs::path(rootDir) / relPath;
+    if (!fs::exists(p)) {
+        RecordIssue(sourceContext, keyName, "Referenced external asset file does not exist: '" + relPath + "'");
+        return false;
+    }
+    return true;
+}
+
+bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
+    json j;
+    std::string err;
+
+    // 1. graphics.json
+    std::string gPath = (fs::path(rootDir) / "config/graphics.json").string();
+    if (ReadJsonFile(gPath, j, err)) {
+        graphics.window_width = j.value("window_width", 1280);
+        graphics.window_height = j.value("window_height", 720);
+        graphics.fullscreen = j.value("fullscreen", false);
+        graphics.vsync = j.value("vsync", true);
+        graphics.target_fps = j.value("target_fps", 60);
+        graphics.internal_resolution = j.value("internal_resolution", "640x360");
+        graphics.integer_scaling = j.value("integer_scaling", false);
+        graphics.texture_filter = j.value("texture_filter", "nearest");
+        graphics.fov_degrees = j.value("fov_degrees", 75.0f);
+        graphics.ui_scale = j.value("ui_scale", 1.0f);
+        graphics.fog_enabled = j.value("fog_enabled", true);
+        graphics.dynamic_lights_enabled = j.value("dynamic_lights_enabled", true);
+        if (j.contains("available_internal_resolutions") && j["available_internal_resolutions"].is_array()) {
+            graphics.available_internal_resolutions.clear();
+            for (const auto& r : j["available_internal_resolutions"]) {
+                graphics.available_internal_resolutions.push_back(r.get<std::string>());
+            }
+        }
+    } else {
+        RecordIssue("config/graphics.json", "root", err);
+    }
+
+    // 2. controls.json
+    std::string cPath = (fs::path(rootDir) / "config/controls.json").string();
+    if (ReadJsonFile(cPath, j, err)) {
+        controls.mouse_sensitivity = j.value("mouse_sensitivity", 0.16f);
+        controls.invert_y = j.value("invert_y", false);
+        controls.head_bob = j.value("head_bob", true);
+        controls.head_bob_amount = j.value("head_bob_amount", 0.035f);
+        if (j.contains("bindings") && j["bindings"].is_object()) {
+            for (auto it = j["bindings"].begin(); it != j["bindings"].end(); ++it) {
+                controls.bindings[it.key()] = it.value().get<std::string>();
+            }
+        }
+    } else {
+        RecordIssue("config/controls.json", "root", err);
+    }
+
+    // 3. game.json
+    std::string gmPath = (fs::path(rootDir) / "config/game.json").string();
+    if (ReadJsonFile(gmPath, j, err)) {
+        game_cfg.language = j.value("language", "en");
+        game_cfg.difficulty = j.value("difficulty", "standard");
+        game_cfg.master_volume = j.value("master_volume", 0.85f);
+        game_cfg.music_volume = j.value("music_volume", 0.65f);
+        game_cfg.ambience_volume = j.value("ambience_volume", 0.70f);
+        game_cfg.sfx_volume = j.value("sfx_volume", 0.85f);
+        game_cfg.subtitles_enabled = j.value("subtitles_enabled", true);
+        game_cfg.enable_mods = j.value("enable_mods", false);
+        game_cfg.starting_map = j.value("starting_map", "core:map.edrath");
+        game_cfg.starting_spawn = j.value("starting_spawn", "village_gate");
+        game_cfg.starting_quest = j.value("starting_quest", "core:quest.legally_deceased");
+    } else {
+        RecordIssue("config/game.json", "root", err);
+    }
+
+    return true;
+}
+
+bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
+    {
+        json j;
+        j["schema_version"] = 1;
+        j["window_width"] = graphics.window_width;
+        j["window_height"] = graphics.window_height;
+        j["fullscreen"] = graphics.fullscreen;
+        j["vsync"] = graphics.vsync;
+        j["target_fps"] = graphics.target_fps;
+        j["internal_resolution"] = graphics.internal_resolution;
+        j["available_internal_resolutions"] = graphics.available_internal_resolutions;
+        j["integer_scaling"] = graphics.integer_scaling;
+        j["texture_filter"] = graphics.texture_filter;
+        j["fov_degrees"] = graphics.fov_degrees;
+        j["ui_scale"] = graphics.ui_scale;
+        j["fog_enabled"] = graphics.fog_enabled;
+        j["dynamic_lights_enabled"] = graphics.dynamic_lights_enabled;
+        std::ofstream ofs((fs::path(rootDir) / "config/graphics.json").string());
+        if (ofs.is_open()) ofs << j.dump(2);
+    }
+    {
+        json j;
+        j["schema_version"] = 1;
+        j["mouse_sensitivity"] = controls.mouse_sensitivity;
+        j["invert_y"] = controls.invert_y;
+        j["head_bob"] = controls.head_bob;
+        j["head_bob_amount"] = controls.head_bob_amount;
+        j["bindings"] = controls.bindings;
+        std::ofstream ofs((fs::path(rootDir) / "config/controls.json").string());
+        if (ofs.is_open()) ofs << j.dump(2);
+    }
+    {
+        json j;
+        j["schema_version"] = 1;
+        j["language"] = game_cfg.language;
+        j["difficulty"] = game_cfg.difficulty;
+        j["master_volume"] = game_cfg.master_volume;
+        j["music_volume"] = game_cfg.music_volume;
+        j["ambience_volume"] = game_cfg.ambience_volume;
+        j["sfx_volume"] = game_cfg.sfx_volume;
+        j["subtitles_enabled"] = game_cfg.subtitles_enabled;
+        j["enable_mods"] = game_cfg.enable_mods;
+        j["starting_map"] = game_cfg.starting_map;
+        j["starting_spawn"] = game_cfg.starting_spawn;
+        j["starting_quest"] = game_cfg.starting_quest;
+        std::ofstream ofs((fs::path(rootDir) / "config/game.json").string());
+        if (ofs.is_open()) ofs << j.dump(2);
+    }
+    return true;
+}
+
+bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vector<std::string>& extraModManifests) {
+    loc_strings.clear();
+    attributes.clear();
+    races.clear();
+    backgrounds.clear();
+    archetypes.clear();
+    skills.clear();
+    synergies.clear();
+    factions.clear();
+    spells_ordered.clear();
+    spells.clear();
+    items_ordered.clear();
+    items.clear();
+    loot_tables.clear();
+    creatures_ordered.clear();
+    creatures.clear();
+    npcs.clear();
+    dialogues.clear();
+    quests.clear();
+    maps.clear();
+    validation_issues.clear();
+    loaded_packs.clear();
+
+    if (!LoadManifestFile(rootDir, "content/manifest.json")) {
+        return false;
+    }
+
+    if (game_cfg.enable_mods) {
+        std::string exMod = "mods/example_mod/manifest.json";
+        if (fs::exists(fs::path(rootDir) / exMod)) {
+            LoadManifestFile(rootDir, exMod);
+        }
+    }
+
+    for (const auto& modRel : extraModManifests) {
+        LoadManifestFile(rootDir, modRel);
+    }
+
+    Logger::Info("Loaded " + std::to_string(items.size()) + " items, " +
+                 std::to_string(creatures.size()) + " creatures, " +
+                 std::to_string(spells.size()) + " spells, " +
+                 std::to_string(npcs.size()) + " NPCs, " +
+                 std::to_string(maps.size()) + " region maps.");
+    return true;
+}
+
+bool ContentRegistry::LoadManifestFile(const std::string& rootDir, const std::string& manifestRelPath) {
+    json m;
+    std::string err;
+    std::string fullPath = (fs::path(rootDir) / manifestRelPath).string();
+    if (!ReadJsonFile(fullPath, m, err)) {
+        RecordIssue(manifestRelPath, "manifest", err);
+        return false;
+    }
+
+    std::string packName = m.value("pack_name", manifestRelPath);
+    loaded_packs.push_back(packName);
+    Logger::Info("Loading content pack: " + packName + " (" + manifestRelPath + ")");
+
+    if (m.contains("localization")) {
+        for (const auto& p : m["localization"]) LoadLocalizationFile(rootDir, p.get<std::string>());
+    }
+
+    if (m.contains("balancing")) {
+        std::string bRel = m["balancing"].get<std::string>();
+        json jb;
+        if (ReadJsonFile((fs::path(rootDir) / bRel).string(), jb, err)) {
+            balancing.base_health = jb.value("base_health", 60);
+            balancing.health_per_endurance = jb.value("health_per_endurance", 8);
+            balancing.base_stamina = jb.value("base_stamina", 70);
+            balancing.stamina_per_endurance = jb.value("stamina_per_endurance", 5);
+            balancing.stamina_per_agility = jb.value("stamina_per_agility", 3);
+            balancing.base_mana = jb.value("base_mana", 40);
+            balancing.mana_per_intellect = jb.value("mana_per_intellect", 6);
+            balancing.mana_per_will = jb.value("mana_per_will", 4);
+            balancing.base_carry_weight = jb.value("base_carry_weight", 35.0f);
+            balancing.carry_weight_per_might = jb.value("carry_weight_per_might", 4.5f);
+            balancing.stamina_regen_per_sec = jb.value("stamina_regen_per_sec", 11.5f);
+            balancing.mana_regen_per_sec = jb.value("mana_regen_per_sec", 3.2f);
+            balancing.heavy_attack_damage_mult = jb.value("heavy_attack_damage_mult", 1.65f);
+            balancing.heavy_attack_stamina_mult = jb.value("heavy_attack_stamina_mult", 1.75f);
+            balancing.block_damage_reduction = jb.value("block_damage_reduction", 0.65f);
+            balancing.parry_window_seconds = jb.value("parry_window_seconds", 0.25f);
+            balancing.parry_stamina_bonus = jb.value("parry_stamina_bonus", 12.0f);
+            balancing.skill_anti_exploit_cooldown_sec = jb.value("skill_anti_exploit_cooldown_sec", 1.2f);
+            balancing.skill_diminishing_factor = jb.value("skill_diminishing_factor", 0.08f);
+            if (jb.contains("difficulties")) {
+                for (auto it = jb["difficulties"].begin(); it != jb["difficulties"].end(); ++it) {
+                    DifficultyPreset dp;
+                    dp.player_damage_mult = it.value().value("player_damage_mult", 1.0f);
+                    dp.enemy_damage_mult = it.value().value("enemy_damage_mult", 1.0f);
+                    balancing.difficulties[it.key()] = dp;
+                }
+            }
+        } else {
+            RecordIssue(bRel, "root", err);
+        }
+    }
+
+    if (m.contains("attributes")) {
+        std::string rel = m["attributes"].get<std::string>();
+        json ja;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), ja, err)) {
+            for (const auto& el : ja["attributes"]) {
+                AttributeDef d;
+                d.id = el.value("id", "");
+                d.name_key = el.value("name_key", "");
+                d.desc_key = el.value("desc_key", "");
+                d.base = el.value("base", 10);
+                attributes.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("races")) {
+        std::string rel = m["races"].get<std::string>();
+        json jr;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), jr, err)) {
+            for (const auto& el : jr["races"]) {
+                RaceDef d;
+                d.id = el.value("id", "");
+                d.name_key = el.value("name_key", "");
+                d.description_key = el.value("description_key", "");
+                d.portrait = el.value("portrait", "");
+                d.trait_key = el.value("trait_key", "");
+                d.xp_gain_multiplier = el.value("xp_gain_multiplier", 1.0f);
+                if (el.contains("attribute_modifiers")) {
+                    for (auto it = el["attribute_modifiers"].begin(); it != el["attribute_modifiers"].end(); ++it)
+                        d.attribute_modifiers[it.key()] = it.value().get<int>();
+                }
+                if (el.contains("skill_bonuses")) {
+                    for (auto it = el["skill_bonuses"].begin(); it != el["skill_bonuses"].end(); ++it)
+                        d.skill_bonuses[it.key()] = it.value().get<int>();
+                }
+                races.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("backgrounds")) {
+        std::string rel = m["backgrounds"].get<std::string>();
+        json jb;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), jb, err)) {
+            for (const auto& el : jb["backgrounds"]) {
+                BackgroundDef d;
+                d.id = el.value("id", "");
+                d.name_key = el.value("name_key", "");
+                d.description_key = el.value("description_key", "");
+                d.starting_gold = el.value("starting_gold", 25);
+                if (el.contains("skill_bonuses")) {
+                    for (auto it = el["skill_bonuses"].begin(); it != el["skill_bonuses"].end(); ++it)
+                        d.skill_bonuses[it.key()] = it.value().get<int>();
+                }
+                if (el.contains("starting_items")) {
+                    for (const auto& it : el["starting_items"]) d.starting_items.push_back(it.get<std::string>());
+                }
+                backgrounds.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("archetypes")) {
+        std::string rel = m["archetypes"].get<std::string>();
+        json ja;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), ja, err)) {
+            for (const auto& el : ja["archetypes"]) {
+                ArchetypeDef d;
+                d.id = el.value("id", "");
+                d.name_key = el.value("name_key", "");
+                d.description_key = el.value("description_key", "");
+                d.starting_ammo = el.value("starting_ammo", 0);
+                if (el.contains("attribute_bonuses")) {
+                    for (auto it = el["attribute_bonuses"].begin(); it != el["attribute_bonuses"].end(); ++it)
+                        d.attribute_bonuses[it.key()] = it.value().get<int>();
+                }
+                if (el.contains("skill_bonuses")) {
+                    for (auto it = el["skill_bonuses"].begin(); it != el["skill_bonuses"].end(); ++it)
+                        d.skill_bonuses[it.key()] = it.value().get<int>();
+                }
+                if (el.contains("starting_equipment")) {
+                    for (const auto& s : el["starting_equipment"]) d.starting_equipment.push_back(s.get<std::string>());
+                }
+                if (el.contains("starting_inventory")) {
+                    for (const auto& s : el["starting_inventory"]) d.starting_inventory.push_back(s.get<std::string>());
+                }
+                if (el.contains("starting_spells")) {
+                    for (const auto& s : el["starting_spells"]) d.starting_spells.push_back(s.get<std::string>());
+                }
+                archetypes.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("skills")) {
+        std::string rel = m["skills"].get<std::string>();
+        json js;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), js, err)) {
+            for (const auto& el : js["skills"]) {
+                SkillDef d;
+                d.id = el.value("id", "");
+                d.domain = el.value("domain", "combat");
+                d.name_key = el.value("name_key", "");
+                d.desc_key = el.value("desc_key", "");
+                d.effect_per_point = el.value("effect_per_point", 0.015f);
+                skills.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("synergies")) {
+        std::string rel = m["synergies"].get<std::string>();
+        json js;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), js, err)) {
+            for (const auto& el : js["synergies"]) {
+                SynergyDef d;
+                d.id = el.value("id", "");
+                d.name_key = el.value("name_key", "");
+                d.description_key = el.value("description_key", "");
+                if (el.contains("requirements")) {
+                    for (auto it = el["requirements"].begin(); it != el["requirements"].end(); ++it)
+                        d.requirements[it.key()] = it.value().get<int>();
+                }
+                if (el.contains("bonuses")) {
+                    for (auto it = el["bonuses"].begin(); it != el["bonuses"].end(); ++it)
+                        d.bonuses[it.key()] = it.value().get<float>();
+                }
+                synergies.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("factions")) {
+        std::string rel = m["factions"].get<std::string>();
+        json jf;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), jf, err)) {
+            for (const auto& el : jf["factions"]) {
+                FactionDef d;
+                d.id = el.value("id", "");
+                d.name_key = el.value("name_key", "");
+                d.desc_key = el.value("desc_key", "");
+                factions.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("spells")) {
+        for (const auto& p : m["spells"]) LoadSpellsFile(rootDir, p.get<std::string>());
+    }
+    if (m.contains("items")) {
+        for (const auto& p : m["items"]) LoadItemsFile(rootDir, p.get<std::string>());
+    }
+    if (m.contains("loot_tables")) {
+        for (const auto& p : m["loot_tables"]) LoadLootTablesFile(rootDir, p.get<std::string>());
+    }
+    if (m.contains("creatures")) {
+        for (const auto& p : m["creatures"]) LoadCreaturesFile(rootDir, p.get<std::string>());
+    }
+    if (m.contains("npcs")) {
+        for (const auto& p : m["npcs"]) LoadNpcsFile(rootDir, p.get<std::string>());
+    }
+    if (m.contains("dialogue")) {
+        for (const auto& p : m["dialogue"]) LoadDialoguesFile(rootDir, p.get<std::string>());
+    }
+    if (m.contains("quests")) {
+        for (const auto& p : m["quests"]) LoadQuestsFile(rootDir, p.get<std::string>());
+    }
+    if (m.contains("maps")) {
+        for (const auto& p : m["maps"]) LoadMapFile(rootDir, p.get<std::string>());
+    }
+
+    return true;
+}
+
+void ContentRegistry::LoadLocalizationFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    if (!j.contains("strings") || !j["strings"].is_object()) {
+        RecordIssue(relPath, "strings", "Missing 'strings' object in localization file");
+        return;
+    }
+    for (auto it = j["strings"].begin(); it != j["strings"].end(); ++it) {
+        loc_strings[it.key()] = it.value().get<std::string>();
+    }
+}
+
+void ContentRegistry::LoadSpellsFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    for (const auto& el : j["spells"]) {
+        SpellDef d;
+        d.id = el.value("id", "");
+        if (d.id.empty()) {
+            RecordIssue(relPath, "id", "Spell definition is missing 'id'");
+            continue;
+        }
+        d.name_key = el.value("name_key", "");
+        d.description_key = el.value("description_key", "");
+        d.icon = el.value("icon", "");
+        d.skill = el.value("skill", "elemental");
+        d.mana_cost = el.value("mana_cost", 10);
+        d.cooldown_seconds = el.value("cooldown_seconds", 1.0f);
+        d.cast_sfx = el.value("cast_sfx", "");
+        if (el.contains("effect")) {
+            const auto& ef = el["effect"];
+            d.effect.primitive = ef.value("primitive", "projectile_damage");
+            d.effect.damage_type = ef.value("damage_type", "fire");
+            d.effect.base_power = ef.value("base_power", 15);
+            d.effect.stamina_restore = ef.value("stamina_restore", 0);
+            d.effect.projectile_speed = ef.value("projectile_speed", 15.0f);
+            d.effect.projectile_sprite = ef.value("projectile_sprite", "");
+            d.effect.light_radius = ef.value("light_radius", 6.0f);
+            d.effect.duration_seconds = ef.value("duration_seconds", 30.0f);
+            d.effect.visibility_multiplier = ef.value("visibility_multiplier", 0.5f);
+            if (ef.contains("light_color") && ef["light_color"].is_array() && ef["light_color"].size() == 3) {
+                d.effect.light_color = {
+                    ef["light_color"][0].get<float>(),
+                    ef["light_color"][1].get<float>(),
+                    ef["light_color"][2].get<float>()
+                };
+            }
+        }
+        if (spells.find(d.id) == spells.end()) {
+            spells_ordered.push_back(d);
+        } else {
+            for (auto& existing : spells_ordered) {
+                if (existing.id == d.id) existing = d;
+            }
+        }
+        spells[d.id] = d;
+    }
+}
+
+void ContentRegistry::LoadItemsFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    if (!j.contains("items") || !j["items"].is_array()) {
+        RecordIssue(relPath, "items", "Missing 'items' array");
+        return;
+    }
+    for (const auto& el : j["items"]) {
+        ItemDef d;
+        d.id = el.value("id", "");
+        if (d.id.empty()) {
+            RecordIssue(relPath, "id", "Item definition is missing required key 'id'");
+            continue;
+        }
+        d.name_key = el.value("name_key", "");
+        d.description_key = el.value("description_key", "");
+        d.category = el.value("category", "misc");
+        d.icon = el.value("icon", "");
+        d.world_model = el.value("world_model", "");
+        d.stackable = el.value("stackable", false);
+        d.quest_item = el.value("quest_item", false);
+        d.value = el.value("value", 10);
+        d.weight = el.value("weight", 1.0f);
+        d.armor = el.value("armor", 0);
+        d.book_text_key = el.value("book_text_key", "");
+        if (el.contains("slots") && el["slots"].is_array()) {
+            for (const auto& s : el["slots"]) d.slots.push_back(s.get<std::string>());
+        }
+        if (el.contains("weapon") && el["weapon"].is_object()) {
+            const auto& w = el["weapon"];
+            d.weapon.is_weapon = true;
+            d.weapon.kind = w.value("kind", "melee");
+            d.weapon.skill = w.value("skill", "swords");
+            d.weapon.damage_type = w.value("damage_type", "slashing");
+            d.weapon.base_damage = w.value("base_damage", 10);
+            d.weapon.attack_time_seconds = w.value("attack_time_seconds", 0.55f);
+            d.weapon.stamina_cost = w.value("stamina_cost", 8.0f);
+            d.weapon.reach_meters = w.value("reach_meters", 2.0f);
+            d.weapon.ammo_item = w.value("ammo_item", "");
+            d.weapon.projectile_speed = w.value("projectile_speed", 22.0f);
+        }
+        if (el.contains("effects") && el["effects"].is_array()) {
+            for (const auto& ef : el["effects"]) {
+                ItemEffectDef ie;
+                ie.type = ef.value("type", "");
+                ie.stat = ef.value("stat", "");
+                ie.spell_id = ef.value("spell_id", "");
+                ie.amount = ef.value("amount", 0);
+                d.effects.push_back(ie);
+            }
+        }
+        if (items.find(d.id) == items.end()) {
+            items_ordered.push_back(d);
+        } else {
+            for (auto& existing : items_ordered) {
+                if (existing.id == d.id) existing = d;
+            }
+        }
+        items[d.id] = d;
+    }
+}
+
+void ContentRegistry::LoadLootTablesFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    for (const auto& el : j["loot_tables"]) {
+        LootTableDef d;
+        d.id = el.value("id", "");
+        d.gold_min = el.value("gold_min", 0);
+        d.gold_max = el.value("gold_max", 10);
+        if (el.contains("guaranteed")) {
+            for (const auto& g : el["guaranteed"]) d.guaranteed.push_back(g.get<std::string>());
+        }
+        if (el.contains("entries")) {
+            for (const auto& en : el["entries"]) {
+                LootEntryDef le;
+                le.item_id = en.value("item_id", "");
+                le.weight = en.value("weight", 50);
+                le.min_qty = en.value("min_qty", 1);
+                le.max_qty = en.value("max_qty", 1);
+                d.entries.push_back(le);
+            }
+        }
+        loot_tables[d.id] = d;
+    }
+}
+
+void ContentRegistry::LoadCreaturesFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    if (!j.contains("creatures") || !j["creatures"].is_array()) {
+        RecordIssue(relPath, "creatures", "Missing 'creatures' array");
+        return;
+    }
+    for (const auto& el : j["creatures"]) {
+        CreatureDef d;
+        d.id = el.value("id", "");
+        if (d.id.empty()) {
+            RecordIssue(relPath, "id", "Creature is missing 'id'");
+            continue;
+        }
+        d.name_key = el.value("name_key", "");
+        if (el.contains("appearance")) {
+            const auto& ap = el["appearance"];
+            d.appearance.type = ap.value("type", "sprite_8dir");
+            d.appearance.sprite_sheet = ap.value("sprite_sheet", "");
+            d.appearance.animation_data = ap.value("animation_data", "");
+            d.appearance.model = ap.value("model", "");
+            d.appearance.scale = ap.value("scale", 1.5f);
+        }
+        if (el.contains("stats")) {
+            const auto& st = el["stats"];
+            d.health = st.value("health", 40);
+            d.armor = st.value("armor", 2);
+            d.move_speed = st.value("move_speed", 2.3f);
+            d.xp_reward = st.value("xp_reward", 30);
+        }
+        d.behavior = el.value("behavior", "melee_patroller");
+        if (el.contains("perception")) {
+            d.sight_meters = el["perception"].value("sight_meters", 12.0f);
+            d.hearing_meters = el["perception"].value("hearing_meters", 8.0f);
+        }
+        if (el.contains("attack")) {
+            const auto& at = el["attack"];
+            d.attack.name = at.value("name", "strike");
+            d.attack.damage = at.value("damage", 10);
+            d.attack.reach_meters = at.value("reach_meters", 2.0f);
+            d.attack.ranged_range_meters = at.value("ranged_range_meters", 0.0f);
+            d.attack.projectile_speed = at.value("projectile_speed", 12.0f);
+            d.attack.projectile_sprite = at.value("projectile_sprite", "");
+            d.attack.windup_seconds = at.value("windup_seconds", 0.5f);
+            d.attack.cooldown_seconds = at.value("cooldown_seconds", 1.3f);
+        }
+        d.loot_table = el.value("loot_table", "");
+        if (el.contains("hit_fx") && el["hit_fx"].is_object()) {
+            const auto& hf = el["hit_fx"];
+            if (hf.contains("color") && hf["color"].is_array() && hf["color"].size() >= 3) {
+                d.hit_color = {static_cast<unsigned char>(hf["color"][0].get<int>()), static_cast<unsigned char>(hf["color"][1].get<int>()),
+                               static_cast<unsigned char>(hf["color"][2].get<int>()), 255};
+            }
+            d.hit_glow = hf.value("glow", false);
+        }
+        if (el.contains("lines") && el["lines"].is_object()) {
+            d.alert_line_key = el["lines"].value("alert", "");
+            d.death_line_key = el["lines"].value("death", "");
+        }
+        if (el.contains("audio")) {
+            const auto& au = el["audio"];
+            d.sfx_alert = au.value("alert", "");
+            d.sfx_attack = au.value("attack", "");
+            d.sfx_hit = au.value("hit", "");
+            d.sfx_death = au.value("death", "");
+        }
+
+        if (creatures.find(d.id) == creatures.end()) {
+            creatures_ordered.push_back(d);
+        } else {
+            for (auto& existing : creatures_ordered) {
+                if (existing.id == d.id) existing = d;
+            }
+        }
+        creatures[d.id] = d;
+    }
+}
+
+void ContentRegistry::LoadNpcsFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    for (const auto& el : j["npcs"]) {
+        NpcDef d;
+        d.id = el.value("id", "");
+        d.name_key = el.value("name_key", "");
+        d.title_key = el.value("title_key", "");
+        d.faction = el.value("faction", "");
+        d.dialogue_id = el.value("dialogue_id", "");
+        if (el.contains("appearance")) {
+            const auto& ap = el["appearance"];
+            d.appearance.type = ap.value("type", "sprite_8dir");
+            d.appearance.sprite_sheet = ap.value("sprite_sheet", "");
+            d.appearance.animation_data = ap.value("animation_data", "");
+            d.appearance.model = ap.value("model", "");
+            d.appearance.scale = ap.value("scale", 1.75f);
+        }
+        if (el.contains("barks") && el["barks"].is_array()) {
+            for (const auto& bj : el["barks"]) {
+                NpcBarkDef b;
+                b.text_key = bj.value("text_key", "");
+                b.quest_id = bj.value("quest_id", "");
+                b.min_stage = bj.value("min_stage", -1000);
+                b.max_stage = bj.value("max_stage", 100000);
+                d.barks.push_back(b);
+            }
+        }
+        if (el.contains("vendor_inventory")) {
+            for (const auto& v : el["vendor_inventory"]) {
+                VendorStockEntry vs;
+                vs.item_id = v.value("item_id", "");
+                vs.stock = v.value("stock", 5);
+                vs.price = v.value("price", 20);
+                d.vendor_inventory.push_back(vs);
+            }
+        }
+        npcs[d.id] = d;
+    }
+}
+
+static DialogueAction ParseAction(const json& a) {
+    DialogueAction da;
+    da.type = a.value("type", "");
+    da.quest_id = a.value("quest_id", "");
+    da.stage = a.value("stage", 0);
+    da.item_id = a.value("item_id", "");
+    da.qty = a.value("qty", 1);
+    da.amount = a.value("amount", 0);
+    da.skill = a.value("skill", "");
+    da.flag = a.value("flag", "");
+    da.bool_value = a.value("value", true);
+    return da;
+}
+
+void ContentRegistry::LoadDialoguesFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    for (const auto& el : j["dialogues"]) {
+        DialogueDef d;
+        d.id = el.value("id", "");
+        d.root_node = el.value("root_node", "root");
+        if (el.contains("nodes") && el["nodes"].is_object()) {
+            for (auto it = el["nodes"].begin(); it != el["nodes"].end(); ++it) {
+                DialogueNode dn;
+                dn.id = it.key();
+                const auto& nj = it.value();
+                dn.speaker_key = nj.value("speaker_key", "");
+                dn.text_key = nj.value("text_key", "");
+                if (nj.contains("actions")) {
+                    for (const auto& a : nj["actions"]) dn.actions.push_back(ParseAction(a));
+                }
+                if (nj.contains("choices")) {
+                    for (const auto& cj : nj["choices"]) {
+                        DialogueChoice dc;
+                        dc.text_key = cj.value("text_key", "");
+                        dc.next = cj.value("next", "END");
+                        if (cj.contains("conditions")) {
+                            for (const auto& condj : cj["conditions"]) {
+                                DialogueCondition cond;
+                                cond.type = condj.value("type", "");
+                                cond.quest_id = condj.value("quest_id", "");
+                                cond.stage = condj.value("stage", 0);
+                                cond.item_id = condj.value("item_id", "");
+                                cond.race_id = condj.value("race_id", "");
+                                cond.skill = condj.value("skill", "");
+                                cond.value = condj.value("value", 0);
+                                cond.flag = condj.value("flag", "");
+                                dc.conditions.push_back(cond);
+                            }
+                        }
+                        if (cj.contains("actions")) {
+                            for (const auto& a : cj["actions"]) dc.actions.push_back(ParseAction(a));
+                        }
+                        dn.choices.push_back(dc);
+                    }
+                }
+                d.nodes[dn.id] = dn;
+            }
+        }
+        dialogues[d.id] = d;
+    }
+}
+
+void ContentRegistry::LoadQuestsFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    for (const auto& el : j["quests"]) {
+        QuestDef d;
+        d.id = el.value("id", "");
+        d.title_key = el.value("title_key", "");
+        d.summary_key = el.value("summary_key", "");
+        if (el.contains("stages")) {
+            for (const auto& sj : el["stages"]) {
+                QuestStageDef qs;
+                qs.stage = sj.value("stage", 0);
+                qs.objective_key = sj.value("objective_key", "");
+                qs.journal_key = sj.value("journal_key", "");
+                qs.completed = sj.value("completed", false);
+                d.stages.push_back(qs);
+            }
+        }
+        quests[d.id] = d;
+    }
+}
+
+static Vector3 JsonToVec3(const json& j, Vector3 fallback = {0.0f, 0.0f, 0.0f}) {
+    if (j.is_array() && j.size() >= 3) {
+        return {j[0].get<float>(), j[1].get<float>(), j[2].get<float>()};
+    }
+    return fallback;
+}
+
+void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string& relPath) {
+    json j;
+    std::string err;
+    if (!ReadJsonFile((fs::path(rootDir) / relPath).string(), j, err)) {
+        RecordIssue(relPath, "root", err);
+        return;
+    }
+    MapDef m;
+    m.id = j.value("id", "");
+    m.display_name_key = j.value("display_name_key", "");
+    m.music = j.value("music", "");
+    m.ambience = j.value("ambience", "");
+    if (j.contains("sky_color") && j["sky_color"].size() >= 3) {
+        m.sky_color = {
+            static_cast<unsigned char>(j["sky_color"][0].get<int>()),
+            static_cast<unsigned char>(j["sky_color"][1].get<int>()),
+            static_cast<unsigned char>(j["sky_color"][2].get<int>()),
+            255
+        };
+    }
+    if (j.contains("ambient_color")) m.ambient_color = JsonToVec3(j["ambient_color"], m.ambient_color);
+    if (j.contains("sun_direction")) m.sun_direction = JsonToVec3(j["sun_direction"], m.sun_direction);
+    if (j.contains("sun_color")) m.sun_color = JsonToVec3(j["sun_color"], m.sun_color);
+    if (j.contains("fog_color")) m.fog_color = JsonToVec3(j["fog_color"], m.fog_color);
+    m.fog_density = j.value("fog_density", 0.025f);
+    m.weather = j.value("weather", "");
+    if (j.contains("zones") && j["zones"].is_array()) {
+        for (const auto& zj : j["zones"]) {
+            MapZoneDef z;
+            z.id = zj.value("id", "");
+            z.display_name_key = zj.value("display_name_key", m.display_name_key);
+            z.box_min = JsonToVec3(zj["box_min"]);
+            z.box_max = JsonToVec3(zj["box_max"]);
+            z.blend = zj.value("blend", 4.0f);
+            z.music = zj.value("music", m.music);
+            z.ambience = zj.value("ambience", m.ambience);
+            z.weather = zj.value("weather", "");
+            z.sky_color = m.sky_color;
+            if (zj.contains("sky_color") && zj["sky_color"].size() >= 3)
+                z.sky_color = {static_cast<unsigned char>(zj["sky_color"][0].get<int>()), static_cast<unsigned char>(zj["sky_color"][1].get<int>()),
+                               static_cast<unsigned char>(zj["sky_color"][2].get<int>()), 255};
+            z.ambient_color = zj.contains("ambient_color") ? JsonToVec3(zj["ambient_color"]) : m.ambient_color;
+            z.sun_direction = zj.contains("sun_direction") ? JsonToVec3(zj["sun_direction"]) : m.sun_direction;
+            z.sun_color = zj.contains("sun_color") ? JsonToVec3(zj["sun_color"]) : m.sun_color;
+            z.fog_color = zj.contains("fog_color") ? JsonToVec3(zj["fog_color"]) : m.fog_color;
+            z.fog_density = zj.value("fog_density", m.fog_density);
+            if (zj.contains("flag_override") && zj["flag_override"].is_object()) {
+                const auto& fo = zj["flag_override"];
+                z.override_flag = fo.value("flag", "");
+                z.override_weather = fo.value("weather", "");
+                z.override_ambience = fo.value("ambience", z.ambience);
+            }
+            m.zones.push_back(z);
+        }
+    }
+
+    if (j.contains("spawns") && j["spawns"].is_object()) {
+        for (auto it = j["spawns"].begin(); it != j["spawns"].end(); ++it) {
+            MapSpawnDef sp;
+            sp.pos = JsonToVec3(it.value()["pos"]);
+            sp.yaw_degrees = it.value().value("yaw_degrees", 0.0f);
+            m.spawns[it.key()] = sp;
+        }
+    }
+
+    if (j.contains("props")) {
+        for (const auto& pj : j["props"]) {
+            MapPropDef p;
+            p.id = pj.value("id", "");
+            p.model = pj.value("model", "");
+            p.pos = JsonToVec3(pj["pos"]);
+            p.rot_y = pj.value("rot_y", 0.0f);
+            if (pj.contains("scale")) p.scale = JsonToVec3(pj["scale"], {1.0f, 1.0f, 1.0f});
+            if (pj.contains("uv_scale") && pj["uv_scale"].is_array() && pj["uv_scale"].size() >= 2) {
+                p.uv_scale = {pj["uv_scale"][0].get<float>(), pj["uv_scale"][1].get<float>()};
+            }
+            p.solid = pj.value("solid", true);
+            p.ramp_dir = pj.value("ramp", "");
+            if (pj.contains("emitter") && pj["emitter"].is_object()) {
+                const auto& ej = pj["emitter"];
+                p.emitter_sprite = ej.value("sprite", "");
+                if (ej.contains("offset")) p.emitter_offset = JsonToVec3(ej["offset"]);
+                p.emitter_size = ej.value("size", 0.35f);
+                if (ej.contains("light_color")) p.emitter_light_color = JsonToVec3(ej["light_color"]);
+                p.emitter_light_radius = ej.value("light_radius", 0.0f);
+            }
+            m.props.push_back(p);
+        }
+    }
+
+    if (j.contains("lights")) {
+        for (const auto& lj : j["lights"]) {
+            MapLightDef l;
+            l.pos = JsonToVec3(lj["pos"]);
+            l.color = JsonToVec3(lj["color"], {1.0f, 0.8f, 0.4f});
+            l.radius = lj.value("radius", 10.0f);
+            m.lights.push_back(l);
+        }
+    }
+
+    if (j.contains("npcs")) {
+        for (const auto& nj : j["npcs"]) {
+            MapNpcSpawnDef ns;
+            ns.instance_id = nj.value("instance_id", "");
+            ns.npc_id = nj.value("npc_id", "");
+            ns.pos = JsonToVec3(nj["pos"]);
+            ns.yaw = nj.value("yaw", 0.0f);
+            m.npcs.push_back(ns);
+        }
+    }
+
+    if (j.contains("creatures")) {
+        for (const auto& cj : j["creatures"]) {
+            MapCreatureSpawnDef cs;
+            cs.instance_id = cj.value("instance_id", "");
+            cs.creature_id = cj.value("creature_id", "");
+            cs.pos = JsonToVec3(cj["pos"]);
+            cs.patrol_a = cj.contains("patrol_a") ? JsonToVec3(cj["patrol_a"]) : cs.pos;
+            cs.patrol_b = cj.contains("patrol_b") ? JsonToVec3(cj["patrol_b"]) : cs.pos;
+            m.creatures.push_back(cs);
+        }
+    }
+
+    if (j.contains("interactables")) {
+        for (const auto& ij : j["interactables"]) {
+            MapInteractableDef in;
+            in.instance_id = ij.value("instance_id", "");
+            in.type = ij.value("type", "prop");
+            in.model = ij.value("model", "");
+            in.pos = JsonToVec3(ij["pos"]);
+            in.rot_y = ij.value("rot_y", 0.0f);
+            in.locked = ij.value("locked", false);
+            in.mechanism_only = ij.value("mechanism_only", false);
+            in.key_id = ij.value("key_id", "");
+            in.lock_difficulty = ij.value("lock_difficulty", 5);
+            in.target_id = ij.value("target_id", "");
+            in.prompt = ij.value("prompt", "Interact");
+            in.title = ij.value("title", "");
+            in.text = ij.value("text", "");
+            in.loot_table = ij.value("loot_table", "");
+            if (ij.contains("fixed_items")) {
+                for (const auto& fi : ij["fixed_items"]) in.fixed_items.push_back(fi.get<std::string>());
+            }
+            in.item_id = ij.value("item_id", "");
+            in.qty = ij.value("qty", 1);
+            in.quest_id = ij.value("quest_id", "");
+            in.set_stage = ij.value("set_stage", 0);
+            if (ij.contains("grant_items")) {
+                for (const auto& gi : ij["grant_items"]) in.grant_items.push_back(gi.get<std::string>());
+            }
+            if (ij.contains("scale")) in.scale = JsonToVec3(ij["scale"], {1.0f, 1.0f, 1.0f});
+            in.set_flag = ij.value("set_flag", "");
+            in.requires_dead = ij.value("requires_dead", "");
+            if (ij.contains("narration") && ij["narration"].is_array())
+                for (const auto& nk : ij["narration"]) in.narration_keys.push_back(nk.get<std::string>());
+            m.interactables.push_back(in);
+        }
+    }
+
+    if (j.contains("portals")) {
+        for (const auto& pj : j["portals"]) {
+            MapPortalDef pt;
+            pt.id = pj.value("id", "");
+            pt.pos = JsonToVec3(pj["pos"]);
+            pt.radius = pj.value("radius", 2.2f);
+            pt.prompt = pj.value("prompt", "Travel");
+            pt.destination_map = pj.value("destination_map", "");
+            pt.destination_spawn = pj.value("destination_spawn", "");
+            m.portals.push_back(pt);
+        }
+    }
+
+    maps[m.id] = m;
+}
+
+bool ContentRegistry::ValidateAll(const std::string& rootDir) {
+    // 1. Validate Races
+    for (const auto& r : races) {
+        CheckFileExists(rootDir, r.portrait, "Race:" + r.id, "portrait");
+        if (loc_strings.find(r.name_key) == loc_strings.end())
+            RecordIssue("Race:" + r.id, "name_key", "Missing localization string '" + r.name_key + "'");
+    }
+
+    // 2. Validate Archetypes cross-references
+    for (const auto& a : archetypes) {
+        for (const auto& eq : a.starting_equipment) {
+            if (items.find(eq) == items.end())
+                RecordIssue("Archetype:" + a.id, "starting_equipment", "Unknown item ID '" + eq + "'");
+        }
+        for (const auto& inv : a.starting_inventory) {
+            if (items.find(inv) == items.end())
+                RecordIssue("Archetype:" + a.id, "starting_inventory", "Unknown item ID '" + inv + "'");
+        }
+        for (const auto& sp : a.starting_spells) {
+            if (spells.find(sp) == spells.end())
+                RecordIssue("Archetype:" + a.id, "starting_spells", "Unknown spell ID '" + sp + "'");
+        }
+    }
+
+    // 3. Validate Items
+    for (const auto& [id, it] : items) {
+        CheckFileExists(rootDir, it.icon, "Item:" + id, "icon");
+        CheckFileExists(rootDir, it.world_model, "Item:" + id, "world_model");
+        if (loc_strings.find(it.name_key) == loc_strings.end())
+            RecordIssue("Item:" + id, "name_key", "Missing localization string '" + it.name_key + "'");
+        if (it.weapon.is_weapon && it.weapon.kind == "ranged" && !it.weapon.ammo_item.empty()) {
+            if (items.find(it.weapon.ammo_item) == items.end())
+                RecordIssue("Item:" + id, "weapon.ammo_item", "Unknown ammo item ID '" + it.weapon.ammo_item + "'");
+        }
+        for (const auto& ef : it.effects) {
+            if (ef.type == "learn_spell" && spells.find(ef.spell_id) == spells.end()) {
+                RecordIssue("Item:" + id, "effects.spell_id", "Unknown spell ID '" + ef.spell_id + "'");
+            }
+        }
+    }
+
+    // 4. Validate Spells
+    for (const auto& [id, sp] : spells) {
+        CheckFileExists(rootDir, sp.icon, "Spell:" + id, "icon");
+        CheckFileExists(rootDir, sp.cast_sfx, "Spell:" + id, "cast_sfx");
+    }
+
+    // 5. Validate Creatures
+    for (const auto& [id, cr] : creatures) {
+        if (cr.appearance.type == "sprite_8dir") {
+            CheckFileExists(rootDir, cr.appearance.sprite_sheet, "Creature:" + id, "appearance.sprite_sheet");
+            CheckFileExists(rootDir, cr.appearance.animation_data, "Creature:" + id, "appearance.animation_data");
+        } else if (cr.appearance.type == "model_glb") {
+            CheckFileExists(rootDir, cr.appearance.model, "Creature:" + id, "appearance.model");
+        } else {
+            RecordIssue("Creature:" + id, "appearance.type", "Unsupported appearance type '" + cr.appearance.type + "'");
+        }
+        if (!cr.loot_table.empty() && loot_tables.find(cr.loot_table) == loot_tables.end()) {
+            RecordIssue("Creature:" + id, "loot_table", "Unknown loot table ID '" + cr.loot_table + "'");
+        }
+    }
+
+    // 5b. Validate loot tables
+    for (const auto& [id, lt] : loot_tables) {
+        for (const auto& g : lt.guaranteed)
+            if (items.find(g) == items.end()) RecordIssue("LootTable:" + id, "guaranteed", "Unknown item ID '" + g + "'");
+        for (const auto& e : lt.entries)
+            if (items.find(e.item_id) == items.end()) RecordIssue("LootTable:" + id, "entries.item_id", "Unknown item ID '" + e.item_id + "'");
+    }
+
+    // 6. Validate NPCs & Dialogues
+    for (const auto& [id, npc] : npcs) {
+        if (npc.appearance.type == "sprite_8dir") {
+            CheckFileExists(rootDir, npc.appearance.sprite_sheet, "NPC:" + id, "appearance.sprite_sheet");
+        }
+        if (!npc.dialogue_id.empty() && dialogues.find(npc.dialogue_id) == dialogues.end()) {
+            RecordIssue("NPC:" + id, "dialogue_id", "Unknown dialogue ID '" + npc.dialogue_id + "'");
+        }
+        for (const auto& b : npc.barks) {
+            if (loc_strings.find(b.text_key) == loc_strings.end())
+                RecordIssue("NPC:" + id, "barks.text_key", "Missing localization string '" + b.text_key + "'");
+            if (!b.quest_id.empty() && quests.find(b.quest_id) == quests.end())
+                RecordIssue("NPC:" + id, "barks.quest_id", "Unknown quest ID '" + b.quest_id + "'");
+        }
+        for (const auto& v : npc.vendor_inventory) {
+            if (items.find(v.item_id) == items.end()) {
+                RecordIssue("NPC:" + id, "vendor_inventory.item_id", "Unknown vendor item ID '" + v.item_id + "'");
+            }
+        }
+    }
+
+    // 7. Validate Maps, Portals, Spawns, Props, and Interactables
+    for (const auto& [id, mp] : maps) {
+        CheckFileExists(rootDir, mp.music, "Map:" + id, "music");
+        CheckFileExists(rootDir, mp.ambience, "Map:" + id, "ambience");
+        for (const auto& z : mp.zones) {
+            if (!z.music.empty()) CheckFileExists(rootDir, z.music, "Map:" + id + "/Zone:" + z.id, "music");
+            if (!z.ambience.empty()) CheckFileExists(rootDir, z.ambience, "Map:" + id + "/Zone:" + z.id, "ambience");
+            if (loc_strings.find(z.display_name_key) == loc_strings.end())
+                RecordIssue("Map:" + id + "/Zone:" + z.id, "display_name_key", "Missing localization string '" + z.display_name_key + "'");
+        }
+        for (const auto& p : mp.props) {
+            if (!p.ramp_dir.empty() && p.ramp_dir != "+x" && p.ramp_dir != "-x" && p.ramp_dir != "+z" && p.ramp_dir != "-z")
+                RecordIssue("Map:" + id + "/Prop:" + p.id, "ramp", "Ramp direction must be +x, -x, +z or -z");
+        }
+        for (const auto& p : mp.props) {
+            CheckFileExists(rootDir, p.model, "Map:" + id + "/Prop:" + p.id, "model");
+            if (!p.emitter_sprite.empty()) CheckFileExists(rootDir, p.emitter_sprite, "Map:" + id + "/Prop:" + p.id, "emitter.sprite");
+        }
+        for (const auto& n : mp.npcs) {
+            if (npcs.find(n.npc_id) == npcs.end())
+                RecordIssue("Map:" + id, "npcs.npc_id", "Unknown NPC ID '" + n.npc_id + "'");
+        }
+        for (const auto& in : mp.interactables) {
+            for (const auto& nk : in.narration_keys)
+                if (loc_strings.find(nk) == loc_strings.end())
+                    RecordIssue("Map:" + id + "/Interactable:" + in.instance_id, "narration", "Missing localization string '" + nk + "'");
+            for (const auto& g : in.grant_items)
+                if (items.find(g) == items.end())
+                    RecordIssue("Map:" + id + "/Interactable:" + in.instance_id, "grant_items", "Unknown item ID '" + g + "'");
+            if (!in.requires_dead.empty()) {
+                bool found = false;
+                for (const auto& c : mp.creatures) found = found || c.instance_id == in.requires_dead;
+                if (!found) RecordIssue("Map:" + id + "/Interactable:" + in.instance_id, "requires_dead", "Unknown creature instance '" + in.requires_dead + "'");
+            }
+        }
+        for (const auto& c : mp.creatures) {
+            if (creatures.find(c.creature_id) == creatures.end())
+                RecordIssue("Map:" + id, "creatures.creature_id", "Unknown creature ID '" + c.creature_id + "'");
+        }
+        for (const auto& pt : mp.portals) {
+            auto destIt = maps.find(pt.destination_map);
+            if (destIt == maps.end()) {
+                RecordIssue("Map:" + id + "/Portal:" + pt.id, "destination_map", "Unknown destination map '" + pt.destination_map + "'");
+            } else if (destIt->second.spawns.find(pt.destination_spawn) == destIt->second.spawns.end()) {
+                RecordIssue("Map:" + id + "/Portal:" + pt.id, "destination_spawn", "Missing spawn '" + pt.destination_spawn + "' in destination map '" + pt.destination_map + "'");
+            }
+        }
+    }
+
+    int errCount = 0;
+    for (const auto& iss : validation_issues) {
+        if (iss.is_error) errCount++;
+    }
+    if (errCount == 0) {
+        Logger::Info("Content & cross-reference validation PASSED with 0 errors.");
+    } else {
+        Logger::Error("Content validation found " + std::to_string(errCount) + " error(s).");
+    }
+    return errCount == 0;
+}
+
+std::string ContentRegistry::Tr(const std::string& key) const {
+    auto it = loc_strings.find(key);
+    if (it != loc_strings.end()) return it->second;
+    return key;
+}
+
+const ItemDef* ContentRegistry::GetItem(const std::string& id) const {
+    auto it = items.find(id);
+    return it != items.end() ? &it->second : nullptr;
+}
+
+const SpellDef* ContentRegistry::GetSpell(const std::string& id) const {
+    auto it = spells.find(id);
+    return it != spells.end() ? &it->second : nullptr;
+}
+
+const CreatureDef* ContentRegistry::GetCreature(const std::string& id) const {
+    auto it = creatures.find(id);
+    return it != creatures.end() ? &it->second : nullptr;
+}
+
+const NpcDef* ContentRegistry::GetNpc(const std::string& id) const {
+    auto it = npcs.find(id);
+    return it != npcs.end() ? &it->second : nullptr;
+}
+
+const DialogueDef* ContentRegistry::GetDialogue(const std::string& id) const {
+    auto it = dialogues.find(id);
+    return it != dialogues.end() ? &it->second : nullptr;
+}
+
+const QuestDef* ContentRegistry::GetQuest(const std::string& id) const {
+    auto it = quests.find(id);
+    return it != quests.end() ? &it->second : nullptr;
+}
+
+const MapDef* ContentRegistry::GetMap(const std::string& id) const {
+    auto it = maps.find(id);
+    return it != maps.end() ? &it->second : nullptr;
+}
+
+const RaceDef* ContentRegistry::GetRace(const std::string& id) const {
+    for (const auto& r : races) if (r.id == id) return &r;
+    return races.empty() ? nullptr : &races[0];
+}
+
+const BackgroundDef* ContentRegistry::GetBackground(const std::string& id) const {
+    for (const auto& b : backgrounds) if (b.id == id) return &b;
+    return backgrounds.empty() ? nullptr : &backgrounds[0];
+}
+
+const ArchetypeDef* ContentRegistry::GetArchetype(const std::string& id) const {
+    for (const auto& a : archetypes) if (a.id == id) return &a;
+    return archetypes.empty() ? nullptr : &archetypes[0];
+}
+
+} // namespace uncounted

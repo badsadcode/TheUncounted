@@ -1,0 +1,685 @@
+{
+  "schema_version": 1,
+  "id": "core:map.old_road",
+  "display_name_key": "map.old_road.name",
+  "music": "assets/audio/music/old_road_theme.wav",
+  "ambience": "assets/audio/ambience/forest_wind.wav",
+  "sky_color": [
+    18,
+    26,
+    36
+  ],
+  "ambient_color": [
+    0.36,
+    0.42,
+    0.48
+  ],
+  "sun_direction": [
+    -0.3,
+    0.7,
+    0.4
+  ],
+  "sun_color": [
+    0.45,
+    0.5,
+    0.55
+  ],
+  "fog_color": [
+    0.08,
+    0.12,
+    0.16
+  ],
+  "fog_density": 0.028,
+  "spawns": {
+    "from_bellwether": {
+      "pos": [
+        -24.0,
+        0.0,
+        0.0
+      ],
+      "yaw_degrees": 90.0
+    },
+    "from_annex": {
+      "pos": [
+        21.5,
+        0.0,
+        0.0
+      ],
+      "yaw_degrees": -90.0
+    }
+  },
+  "props": [
+    {
+      "id": "ground_forest",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        0.5,
+        36.0
+      ],
+      "uv_scale": [
+        20.0,
+        12.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "road_path",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.46,
+        0.0
+      ],
+      "scale": [
+        56.0,
+        0.5,
+        5.5
+      ],
+      "uv_scale": [
+        18.0,
+        2.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "cliff_north",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -15.0
+      ],
+      "scale": [
+        60.0,
+        5.0,
+        1.5
+      ],
+      "uv_scale": [
+        15.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "cliff_south",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        15.0
+      ],
+      "scale": [
+        60.0,
+        5.0,
+        1.5
+      ],
+      "uv_scale": [
+        15.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "cliff_west",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -28.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.5,
+        5.0,
+        30.0
+      ],
+      "uv_scale": [
+        8.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "cliff_east",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        28.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.5,
+        5.5,
+        30.0
+      ],
+      "uv_scale": [
+        8.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch",
+      "model": "assets/models/env/archway_stone.glb",
+      "pos": [
+        25.5,
+        0.0,
+        0.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.6,
+        1.2,
+        1.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "annex_pillar_l",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        24.5,
+        0.0,
+        -3.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_pillar_r",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        24.5,
+        0.0,
+        3.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "mid_arch",
+      "model": "assets/models/env/archway_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.8,
+        1.2,
+        1.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "silence_monolith",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        4.0,
+        0.0,
+        -7.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_0",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_1",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_2",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        -9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_3",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        8.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_4",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        16.0,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_5",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        20.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_6",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_7",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -12.0,
+        0.0,
+        9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_8",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -4.0,
+        0.0,
+        10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_9",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        6.0,
+        0.0,
+        9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_10",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        14.0,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "forest_tree_11",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        21.0,
+        0.0,
+        9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "torch_annex_l",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        23.95,
+        2.3,
+        -3.5
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_annex_r",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        23.95,
+        2.3,
+        3.5
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    }
+  ],
+  "lights": [
+    {
+      "pos": [
+        -18.0,
+        2.5,
+        -3.5
+      ],
+      "color": [
+        1.0,
+        0.72,
+        0.35
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        4.0,
+        2.8,
+        -7.5
+      ],
+      "color": [
+        0.45,
+        0.85,
+        1.0
+      ],
+      "radius": 11.0
+    },
+    {
+      "pos": [
+        24.0,
+        2.8,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.68,
+        0.32
+      ],
+      "radius": 11.0
+    }
+  ],
+  "npcs": [
+    {
+      "instance_id": "npc_kaelen",
+      "npc_id": "core:npc.ashbound_scout",
+      "pos": [
+        -17.5,
+        0.0,
+        -3.8
+      ],
+      "yaw": 45.0
+    }
+  ],
+  "creatures": [
+    {
+      "instance_id": "road_rat_1",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        -5.0,
+        0.0,
+        1.2
+      ],
+      "patrol_a": [
+        -8.0,
+        0.0,
+        1.2
+      ],
+      "patrol_b": [
+        -2.0,
+        0.0,
+        -1.2
+      ]
+    },
+    {
+      "instance_id": "road_rat_2",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        6.0,
+        0.0,
+        -1.5
+      ],
+      "patrol_a": [
+        3.0,
+        0.0,
+        -1.5
+      ],
+      "patrol_b": [
+        10.0,
+        0.0,
+        1.5
+      ]
+    },
+    {
+      "instance_id": "road_crawler_1",
+      "creature_id": "core:enemy.ash_crawler",
+      "pos": [
+        15.5,
+        0.0,
+        2.0
+      ],
+      "patrol_a": [
+        12.0,
+        0.0,
+        2.0
+      ],
+      "patrol_b": [
+        19.0,
+        0.0,
+        -2.0
+      ]
+    }
+  ],
+  "interactables": [
+    {
+      "instance_id": "monolith_inscription",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        4.0,
+        0.0,
+        -5.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Inspect Weathered Boundary Stone",
+      "title": "Boundary Marker of the Third Reign",
+      "text": "\"Here stood the market-borough of Oakhallow, population 412.\"\n\nBeneath the chiseled letters, someone has scratched in fresh charcoal: \"There is only forest here. Why do I remember the baker's daughter?\"",
+      "quest_id": "core:quest.bakers_daughter",
+      "set_stage": 0
+    },
+    {
+      "instance_id": "road_ranger_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        5.5,
+        0.0,
+        -8.8
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "lock_difficulty": 5,
+      "loot_table": "core:loot.crypt_basic",
+      "fixed_items": [
+        "core:item.tome_ember",
+        "core:item.wooden_arrow"
+      ]
+    },
+    {
+      "instance_id": "road_arrow_bundle",
+      "type": "pickup",
+      "item_id": "core:item.wooden_arrow",
+      "qty": 12,
+      "pos": [
+        -16.0,
+        0.2,
+        -2.5
+      ]
+    },
+    {
+      "instance_id": "scout_journal",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -19.2,
+        0.0,
+        -2.4
+      ],
+      "rot_y": 120.0,
+      "prompt": "Read Kaelen's Field Journal",
+      "title": "Field Journal of Kaelen, Ashbound",
+      "text": "Day 41. The boundary stone of Oakhallow again. Four hundred and twelve souls, it says. I count the foundations in the bracken: none. I count the wells: one, dry, with a bucket still on the rope.\n\nDay 43. The Annex has sunk. Its upper offices fell into something older underneath, and the stairs now go down further than the building ever went up. The skeletons inside still keep office hours.\n\nDay 44. A traveller from Bellwether asked what we Ashbound are for. I told her: somebody has to remember things on purpose."
+    }
+  ],
+  "portals": [
+    {
+      "id": "to_bellwether",
+      "pos": [
+        -26.5,
+        0.0,
+        0.0
+      ],
+      "radius": 2.4,
+      "prompt": "Return West to Bellwether Village",
+      "destination_map": "core:map.bellwether",
+      "destination_spawn": "from_old_road"
+    },
+    {
+      "id": "to_registry_annex",
+      "pos": [
+        25.2,
+        0.0,
+        0.0
+      ],
+      "radius": 2.4,
+      "prompt": "Enter Registry Annex & Forgotten Crypt",
+      "destination_map": "core:map.registry_annex",
+      "destination_spawn": "annex_entry"
+    }
+  ]
+}

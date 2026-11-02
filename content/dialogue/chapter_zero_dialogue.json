@@ -1,0 +1,715 @@
+{
+  "schema_version": 1,
+  "dialogues": [
+    {
+      "id": "core:dialogue.clerk_oakhaven",
+      "root_node": "greeting",
+      "nodes": {
+        "greeting": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_dead_notice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 0
+                }
+              ],
+              "next": "explain_27b"
+            },
+            {
+              "text_key": "dlg.clerk.choice_have_proof",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.uncounted_ledger"
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 100
+                }
+              ],
+              "next": "inspect_ledger"
+            },
+            {
+              "text_key": "dlg.clerk.choice_where_annex",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 10
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 100
+                }
+              ],
+              "next": "annex_directions"
+            },
+            {
+              "text_key": "dlg.clerk.choice_race_dwarf",
+              "conditions": [
+                {
+                  "type": "race_is",
+                  "race_id": "core:race.dwarf"
+                }
+              ],
+              "next": "dwarf_remark"
+            },
+            {
+              "text_key": "dlg.clerk.choice_race_elf",
+              "conditions": [
+                {
+                  "type": "race_is",
+                  "race_id": "core:race.elf"
+                }
+              ],
+              "next": "elf_remark"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "explain_27b": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.explain_27b",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.legally_deceased",
+              "stage": 10
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.annex_key",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_three_copies",
+              "next": "annex_directions"
+            },
+            {
+              "text_key": "dlg.clerk.choice_persuade_fee",
+              "conditions": [
+                {
+                  "type": "skill_at_least",
+                  "skill": "persuasion",
+                  "value": 8
+                }
+              ],
+              "next": "persuade_stipend"
+            }
+          ]
+        },
+        "persuade_stipend": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.persuade_stipend",
+          "actions": [
+            {
+              "type": "give_gold",
+              "amount": 35
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 35
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "annex_directions": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.annex_directions",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "dwarf_remark": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.dwarf_remark",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "greeting"
+            }
+          ]
+        },
+        "elf_remark": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.elf_remark",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "greeting"
+            }
+          ]
+        },
+        "inspect_ledger": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.inspect_ledger",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_surrender_ledger",
+              "next": "ending_bureau"
+            },
+            {
+              "text_key": "dlg.clerk.choice_keep_ledger",
+              "next": "ending_independent"
+            }
+          ]
+        },
+        "ending_bureau": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.ending_bureau",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.uncounted_ledger",
+              "qty": 1
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.legally_deceased",
+              "stage": 100
+            },
+            {
+              "type": "set_flag",
+              "flag": "chapter_zero_ending_bureau",
+              "value": true
+            },
+            {
+              "type": "give_gold",
+              "amount": 150
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 80
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_finish_chapter",
+              "next": "END"
+            }
+          ]
+        },
+        "ending_independent": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.ending_independent",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.legally_deceased",
+              "stage": 101
+            },
+            {
+              "type": "set_flag",
+              "flag": "chapter_zero_ending_ashbound",
+              "value": true
+            },
+            {
+              "type": "give_gold",
+              "amount": 90
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 100
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_finish_chapter",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.merchant_vaelen",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.merchant.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.merchant.choice_shop",
+              "actions": [
+                {
+                  "type": "open_shop"
+                }
+              ],
+              "next": "END"
+            },
+            {
+              "text_key": "dlg.merchant.choice_rumors",
+              "next": "rumors"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "rumors": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.merchant.rumors",
+          "choices": [
+            {
+              "text_key": "dlg.merchant.choice_shop",
+              "actions": [
+                {
+                  "type": "open_shop"
+                }
+              ],
+              "next": "END"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.innkeeper_marta",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.marta.choice_remember_me",
+              "next": "remember_witness"
+            },
+            {
+              "text_key": "dlg.marta.choice_oakhallow",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.bakers_daughter",
+                  "stage": 0
+                }
+              ],
+              "next": "oakhallow"
+            },
+            {
+              "text_key": "dlg.marta.choice_ilse",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.bakers_daughter",
+                  "stage": 30
+                }
+              ],
+              "next": "ilse"
+            },
+            {
+              "text_key": "dlg.marta.choice_rest",
+              "actions": [
+                {
+                  "type": "heal_player"
+                }
+              ],
+              "next": "rested"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "remember_witness": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.remember_witness",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "marta_testimony",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "rested": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.rested",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "oakhallow": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.oakhallow",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.bakers_daughter",
+              "stage": 10
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "ilse": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.ilse",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.bakers_daughter",
+              "stage": 100
+            },
+            {
+              "type": "set_flag",
+              "flag": "ilse_remembered",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.bread_loaf",
+              "qty": 3
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.health_potion",
+              "qty": 2
+            },
+            {
+              "type": "give_gold",
+              "amount": 40
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 90
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.marta.choice_ilse_back",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.librarian_fenwick",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.fenwick.choice_ghosts",
+              "next": "ghost_fees"
+            },
+            {
+              "text_key": "dlg.fenwick.choice_train_magic",
+              "next": "train_magic"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "ghost_fees": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.ghost_fees",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "train_magic": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.train_magic",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "elemental",
+              "amount": 30
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.tome_glimmer",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.brother_aldous",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.aldous.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.aldous.choice_silence",
+              "next": "great_silence"
+            },
+            {
+              "text_key": "dlg.aldous.choice_blessing",
+              "actions": [
+                {
+                  "type": "heal_player"
+                }
+              ],
+              "next": "blessed"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "great_silence": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.aldous.great_silence",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "blessed": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.aldous.blessed",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.ashbound_scout",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.scout.choice_annex",
+              "next": "annex_warning",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 30
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.scout.choice_orc_kinship",
+              "conditions": [
+                {
+                  "type": "race_is",
+                  "race_id": "core:race.orc"
+                }
+              ],
+              "next": "orc_gift"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "annex_warning": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.annex_warning",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.legally_deceased",
+              "stage": 20
+            },
+            {
+              "type": "give_xp",
+              "skill": "perception",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "orc_gift": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.orc_gift",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.health_potion",
+              "qty": 2
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.erased_spirit",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.erased_spirit.name",
+          "text_key": "dlg.spirit.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.spirit.choice_who",
+              "next": "explain_prison"
+            },
+            {
+              "text_key": "dlg.spirit.choice_ilse",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.bakers_daughter",
+                  "stage": 20
+                }
+              ],
+              "next": "ilse"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "explain_prison": {
+          "speaker_key": "npc.erased_spirit.name",
+          "text_key": "dlg.spirit.explain_prison",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "spirit_clue_learned",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.crypt_key",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "ilse": {
+          "speaker_key": "npc.erased_spirit.name",
+          "text_key": "dlg.spirit.ilse",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.bakers_daughter",
+              "stage": 30
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

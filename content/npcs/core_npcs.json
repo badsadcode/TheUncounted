@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "npcs": [
+    {
+      "id": "core:npc.clerk_oakhaven",
+      "name_key": "npc.clerk_oakhaven.name",
+      "title_key": "npc.clerk_oakhaven.title",
+      "faction": "core:faction.bureau",
+      "dialogue_id": "core:dialogue.clerk_oakhaven",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/clerk_oakhaven.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.clerk.1"
+        },
+        {
+          "text_key": "bark.clerk.2",
+          "quest_id": "core:quest.legally_deceased",
+          "min_stage": 10,
+          "max_stage": 99
+        },
+        {
+          "text_key": "bark.clerk.3",
+          "quest_id": "core:quest.legally_deceased",
+          "min_stage": 10,
+          "max_stage": 29
+        }
+      ]
+    },
+    {
+      "id": "core:npc.merchant_vaelen",
+      "name_key": "npc.merchant_vaelen.name",
+      "title_key": "npc.merchant_vaelen.title",
+      "faction": "core:faction.bureau",
+      "dialogue_id": "core:dialogue.merchant_vaelen",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/merchant_vaelen.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "vendor_inventory": [
+        {
+          "item_id": "core:item.health_potion",
+          "stock": 8,
+          "price": 18
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "stock": 6,
+          "price": 20
+        },
+        {
+          "item_id": "core:item.stamina_tonic",
+          "stock": 6,
+          "price": 15
+        },
+        {
+          "item_id": "core:item.wooden_arrow",
+          "stock": 40,
+          "price": 2
+        },
+        {
+          "item_id": "core:item.lockpick",
+          "stock": 6,
+          "price": 10
+        },
+        {
+          "item_id": "core:item.iron_longsword",
+          "stock": 1,
+          "price": 55
+        },
+        {
+          "item_id": "core:item.hunting_bow",
+          "stock": 1,
+          "price": 52
+        },
+        {
+          "item_id": "core:item.iron_shield",
+          "stock": 1,
+          "price": 42
+        },
+        {
+          "item_id": "core:item.chain_hauberk",
+          "stock": 1,
+          "price": 78
+        },
+        {
+          "item_id": "core:item.tome_ember",
+          "stock": 1,
+          "price": 55
+        },
+        {
+          "item_id": "core:item.tome_mend",
+          "stock": 1,
+          "price": 55
+        },
+        {
+          "item_id": "core:item.tome_ward",
+          "stock": 1,
+          "price": 50
+        }
+      ],
+      "barks": [
+        {
+          "text_key": "bark.vaelen.1"
+        },
+        {
+          "text_key": "bark.vaelen.2"
+        },
+        {
+          "text_key": "bark.vaelen.3"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.innkeeper_marta",
+      "name_key": "npc.innkeeper_marta.name",
+      "title_key": "npc.innkeeper_marta.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.innkeeper_marta",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/innkeeper_marta.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.72
+      },
+      "barks": [
+        {
+          "text_key": "bark.marta.1"
+        },
+        {
+          "text_key": "bark.marta.2",
+          "quest_id": "core:quest.bakers_daughter",
+          "max_stage": 99
+        },
+        {
+          "text_key": "bark.marta.3",
+          "quest_id": "core:quest.bakers_daughter",
+          "max_stage": 99
+        },
+        {
+          "text_key": "bark.marta.ilse",
+          "quest_id": "core:quest.bakers_daughter",
+          "min_stage": 100
+        }
+      ]
+    },
+    {
+      "id": "core:npc.librarian_fenwick",
+      "name_key": "npc.librarian_fenwick.name",
+      "title_key": "npc.librarian_fenwick.title",
+      "faction": "core:faction.collegium",
+      "dialogue_id": "core:dialogue.librarian_fenwick",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/librarian_fenwick.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.74
+      },
+      "barks": [
+        {
+          "text_key": "bark.fenwick.1"
+        },
+        {
+          "text_key": "bark.fenwick.2"
+        },
+        {
+          "text_key": "bark.fenwick.3"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.brother_aldous",
+      "name_key": "npc.brother_aldous.name",
+      "title_key": "npc.brother_aldous.title",
+      "faction": "core:faction.last_dawn",
+      "dialogue_id": "core:dialogue.brother_aldous",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/brother_aldous.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.76
+      },
+      "barks": [
+        {
+          "text_key": "bark.aldous.1"
+        },
+        {
+          "text_key": "bark.aldous.2"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.ashbound_scout",
+      "name_key": "npc.ashbound_scout.name",
+      "title_key": "npc.ashbound_scout.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.ashbound_scout",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/ashbound_scout.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "barks": [
+        {
+          "text_key": "bark.scout.1"
+        },
+        {
+          "text_key": "bark.scout.2"
+        },
+        {
+          "text_key": "bark.scout.3",
+          "quest_id": "core:quest.legally_deceased",
+          "min_stage": 30
+        }
+      ]
+    },
+    {
+      "id": "core:npc.erased_spirit",
+      "name_key": "npc.erased_spirit.name",
+      "title_key": "npc.erased_spirit.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.erased_spirit",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/erased_spirit.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.spirit.1"
+        },
+        {
+          "text_key": "bark.spirit.2"
+        }
+      ]
+    }
+  ]
+}

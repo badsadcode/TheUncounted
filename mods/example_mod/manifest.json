@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "pack_id": "example_mod",
+  "pack_name": "Crimson Ashbound Expansion (Modding Proof)",
+  "version": "1.0.0",
+  "localization": [
+    "mods/example_mod/content/localization.json"
+  ],
+  "items": [
+    "mods/example_mod/content/items/mod_items.json"
+  ],
+  "creatures": [
+    "mods/example_mod/content/creatures/mod_creatures.json"
+  ],
+  "loot_tables": [
+    "mods/example_mod/content/loot_tables/mod_loot.json"
+  ]
+}

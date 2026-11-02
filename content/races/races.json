@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "races": [
+    {
+      "id": "core:race.human",
+      "name_key": "race.human.name",
+      "description_key": "race.human.desc",
+      "portrait": "assets/ui/portraits/human.png",
+      "attribute_modifiers": {
+        "presence": 1,
+        "will": 1
+      },
+      "skill_bonuses": {
+        "persuasion": 5,
+        "lore": 5
+      },
+      "trait_key": "race.human.trait",
+      "xp_gain_multiplier": 1.08
+    },
+    {
+      "id": "core:race.dwarf",
+      "name_key": "race.dwarf.name",
+      "description_key": "race.dwarf.desc",
+      "portrait": "assets/ui/portraits/dwarf.png",
+      "attribute_modifiers": {
+        "endurance": 2,
+        "will": 1
+      },
+      "skill_bonuses": {
+        "lore": 6,
+        "block": 5
+      },
+      "trait_key": "race.dwarf.trait",
+      "xp_gain_multiplier": 1.0
+    },
+    {
+      "id": "core:race.elf",
+      "name_key": "race.elf.name",
+      "description_key": "race.elf.desc",
+      "portrait": "assets/ui/portraits/elf.png",
+      "attribute_modifiers": {
+        "intellect": 2,
+        "agility": 1
+      },
+      "skill_bonuses": {
+        "perception": 6,
+        "elemental": 5
+      },
+      "trait_key": "race.elf.trait",
+      "xp_gain_multiplier": 1.0
+    },
+    {
+      "id": "core:race.orc",
+      "name_key": "race.orc.name",
+      "description_key": "race.orc.desc",
+      "portrait": "assets/ui/portraits/orc.png",
+      "attribute_modifiers": {
+        "might": 2,
+        "endurance": 1
+      },
+      "skill_bonuses": {
+        "athletics": 6,
+        "persuasion": 4
+      },
+      "trait_key": "race.orc.trait",
+      "xp_gain_multiplier": 1.0
+    },
+    {
+      "id": "core:race.halfling",
+      "name_key": "race.halfling.name",
+      "description_key": "race.halfling.desc",
+      "portrait": "assets/ui/portraits/halfling.png",
+      "attribute_modifiers": {
+        "agility": 2,
+        "presence": 1
+      },
+      "skill_bonuses": {
+        "stealth": 6,
+        "lockpicking": 5
+      },
+      "trait_key": "race.halfling.trait",
+      "xp_gain_multiplier": 1.0
+    }
+  ]
+}

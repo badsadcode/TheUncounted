@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "backgrounds": [
+    {
+      "id": "core:bg.displaced_heir",
+      "name_key": "bg.displaced_heir.name",
+      "description_key": "bg.displaced_heir.desc",
+      "starting_gold": 45,
+      "skill_bonuses": {
+        "lore": 5,
+        "persuasion": 5
+      },
+      "starting_items": [
+        "core:item.signet_ring"
+      ]
+    },
+    {
+      "id": "core:bg.border_watch",
+      "name_key": "bg.border_watch.name",
+      "description_key": "bg.border_watch.desc",
+      "starting_gold": 30,
+      "skill_bonuses": {
+        "perception": 5,
+        "athletics": 5
+      },
+      "starting_items": [
+        "core:item.stamina_tonic"
+      ]
+    },
+    {
+      "id": "core:bg.collegium_dropout",
+      "name_key": "bg.collegium_dropout.name",
+      "description_key": "bg.collegium_dropout.desc",
+      "starting_gold": 25,
+      "skill_bonuses": {
+        "lore": 8,
+        "elemental": 4
+      },
+      "starting_items": [
+        "core:item.mana_potion"
+      ]
+    },
+    {
+      "id": "core:bg.tomb_surveyor",
+      "name_key": "bg.tomb_surveyor.name",
+      "description_key": "bg.tomb_surveyor.desc",
+      "starting_gold": 35,
+      "skill_bonuses": {
+        "lockpicking": 6,
+        "stealth": 4
+      },
+      "starting_items": [
+        "core:item.lockpick",
+        "core:item.lockpick"
+      ]
+    }
+  ]
+}

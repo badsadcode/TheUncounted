@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "skills": [
+    {
+      "id": "swords",
+      "domain": "combat",
+      "name_key": "skill.swords.name",
+      "desc_key": "skill.swords.desc",
+      "effect_per_point": 0.015
+    },
+    {
+      "id": "daggers",
+      "domain": "combat",
+      "name_key": "skill.daggers.name",
+      "desc_key": "skill.daggers.desc",
+      "effect_per_point": 0.016
+    },
+    {
+      "id": "bows",
+      "domain": "combat",
+      "name_key": "skill.bows.name",
+      "desc_key": "skill.bows.desc",
+      "effect_per_point": 0.015
+    },
+    {
+      "id": "block",
+      "domain": "combat",
+      "name_key": "skill.block.name",
+      "desc_key": "skill.block.desc",
+      "effect_per_point": 0.012
+    },
+    {
+      "id": "elemental",
+      "domain": "magic",
+      "name_key": "skill.elemental.name",
+      "desc_key": "skill.elemental.desc",
+      "effect_per_point": 0.018
+    },
+    {
+      "id": "restoration",
+      "domain": "magic",
+      "name_key": "skill.restoration.name",
+      "desc_key": "skill.restoration.desc",
+      "effect_per_point": 0.018
+    },
+    {
+      "id": "illusion",
+      "domain": "magic",
+      "name_key": "skill.illusion.name",
+      "desc_key": "skill.illusion.desc",
+      "effect_per_point": 0.015
+    },
+    {
+      "id": "athletics",
+      "domain": "exploration",
+      "name_key": "skill.athletics.name",
+      "desc_key": "skill.athletics.desc",
+      "effect_per_point": 0.008
+    },
+    {
+      "id": "perception",
+      "domain": "exploration",
+      "name_key": "skill.perception.name",
+      "desc_key": "skill.perception.desc",
+      "effect_per_point": 0.015
+    },
+    {
+      "id": "stealth",
+      "domain": "exploration",
+      "name_key": "skill.stealth.name",
+      "desc_key": "skill.stealth.desc",
+      "effect_per_point": 0.015
+    },
+    {
+      "id": "lockpicking",
+      "domain": "exploration",
+      "name_key": "skill.lockpicking.name",
+      "desc_key": "skill.lockpicking.desc",
+      "effect_per_point": 0.02
+    },
+    {
+      "id": "persuasion",
+      "domain": "social",
+      "name_key": "skill.persuasion.name",
+      "desc_key": "skill.persuasion.desc",
+      "effect_per_point": 0.015
+    },
+    {
+      "id": "lore",
+      "domain": "social",
+      "name_key": "skill.lore.name",
+      "desc_key": "skill.lore.desc",
+      "effect_per_point": 0.015
+    }
+  ]
+}

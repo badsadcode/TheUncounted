@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "loot_tables": [
+    {
+      "id": "core:loot.vermin_drop",
+      "gold_min": 2,
+      "gold_max": 7,
+      "entries": [
+        {
+          "item_id": "core:item.bread_loaf",
+          "weight": 35,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 20,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.crypt_basic",
+      "gold_min": 8,
+      "gold_max": 22,
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 40,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wooden_arrow",
+          "weight": 45,
+          "min_qty": 5,
+          "max_qty": 10
+        },
+        {
+          "item_id": "core:item.lockpick",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.rusted_sword",
+          "weight": 15,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.crypt_elite",
+      "gold_min": 25,
+      "gold_max": 55,
+      "entries": [
+        {
+          "item_id": "core:item.iron_longsword",
+          "weight": 35,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 60,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 50,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.iron_helm",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.crypt_boss",
+      "gold_min": 80,
+      "gold_max": 120,
+      "guaranteed": [
+        "core:item.form_27b",
+        "core:item.uncounted_ledger",
+        "core:item.ring_of_recall"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 100,
+          "min_qty": 2,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 100,
+          "min_qty": 2,
+          "max_qty": 2
+        }
+      ]
+    },
+    {
+      "id": "core:loot.secret_widowmaker",
+      "gold_min": 50,
+      "gold_max": 75,
+      "guaranteed": [
+        "core:item.widowmaker",
+        "core:item.tome_veil"
+      ],
+      "entries": []
+    },
+    {
+      "id": "core:loot.vault_warden",
+      "gold_min": 60,
+      "gold_max": 100,
+      "guaranteed": [
+        "core:item.health_potion"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 80,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 60,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.tome_veil",
+          "weight": 35,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    }
+  ]
+}

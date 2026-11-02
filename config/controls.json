@@ -1,0 +1,33 @@
+{
+  "bindings": {
+    "attack": "MOUSE_LEFT",
+    "block_or_aim": "MOUSE_RIGHT",
+    "cast_spell": "Q",
+    "character": "C",
+    "crouch": "LEFT_CONTROL",
+    "cycle_spell": "R",
+    "debug_overlay": "F3",
+    "hot_reload": "F5",
+    "interact": "E",
+    "inventory": "I",
+    "journal": "J",
+    "jump": "SPACE",
+    "map": "M",
+    "move_backward": "S",
+    "move_forward": "W",
+    "move_left": "A",
+    "move_right": "D",
+    "quick_load": "F9",
+    "quick_save": "F6",
+    "quick_slot_1": "1",
+    "quick_slot_2": "2",
+    "quick_slot_3": "3",
+    "quick_slot_4": "4",
+    "sprint": "LEFT_SHIFT"
+  },
+  "head_bob": true,
+  "head_bob_amount": 0.03500000014901161,
+  "invert_y": false,
+  "mouse_sensitivity": 0.1599999964237213,
+  "schema_version": 1
+}

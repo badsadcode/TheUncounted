@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "loot_tables": [
+    {
+      "id": "core:loot.crypt_elite",
+      "gold_min": 25,
+      "gold_max": 55,
+      "entries": [
+        {
+          "item_id": "core:item.iron_longsword",
+          "weight": 35,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 60,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 50,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.iron_helm",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "mod:item.ashbrand_blade",
+          "weight": 45,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    }
+  ]
+}

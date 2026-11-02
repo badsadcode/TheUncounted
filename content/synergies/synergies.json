@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "synergies": [
+    {
+      "id": "core:synergy.spellblade_conduit",
+      "name_key": "synergy.spellblade.name",
+      "description_key": "synergy.spellblade.desc",
+      "requirements": {
+        "swords": 10,
+        "elemental": 10
+      },
+      "bonuses": {
+        "melee_bonus_magic_damage": 5,
+        "mana_on_melee_hit": 3
+      }
+    },
+    {
+      "id": "core:synergy.sanctified_bastion",
+      "name_key": "synergy.bastion.name",
+      "description_key": "synergy.bastion.desc",
+      "requirements": {
+        "block": 10,
+        "restoration": 10
+      },
+      "bonuses": {
+        "heal_on_block": 4,
+        "armor_bonus": 3
+      }
+    },
+    {
+      "id": "core:synergy.phantom_stalker",
+      "name_key": "synergy.stalker.name",
+      "description_key": "synergy.stalker.desc",
+      "requirements": {
+        "stealth": 10,
+        "bows": 10
+      },
+      "bonuses": {
+        "ranged_crit_multiplier": 1.35,
+        "move_speed_bonus": 0.1
+      }
+    }
+  ]
+}

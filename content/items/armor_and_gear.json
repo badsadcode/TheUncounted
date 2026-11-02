@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "core:item.iron_shield",
+      "name_key": "item.iron_shield.name",
+      "description_key": "item.iron_shield.description",
+      "category": "armor",
+      "icon": "assets/ui/items/iron_shield.png",
+      "world_model": "assets/models/items/iron_shield.glb",
+      "slots": [
+        "off_hand"
+      ],
+      "value": 42,
+      "weight": 3.5,
+      "armor": 5
+    },
+    {
+      "id": "core:item.leather_jerkin",
+      "name_key": "item.leather_jerkin.name",
+      "description_key": "item.leather_jerkin.description",
+      "category": "armor",
+      "icon": "assets/ui/items/leather_jerkin.png",
+      "world_model": "assets/models/items/leather_jerkin.glb",
+      "slots": [
+        "torso"
+      ],
+      "value": 36,
+      "weight": 3.0,
+      "armor": 4
+    },
+    {
+      "id": "core:item.chain_hauberk",
+      "name_key": "item.chain_hauberk.name",
+      "description_key": "item.chain_hauberk.description",
+      "category": "armor",
+      "icon": "assets/ui/items/chain_hauberk.png",
+      "world_model": "assets/models/items/chain_hauberk.glb",
+      "slots": [
+        "torso"
+      ],
+      "value": 78,
+      "weight": 6.5,
+      "armor": 8
+    },
+    {
+      "id": "core:item.scholar_robe",
+      "name_key": "item.scholar_robe.name",
+      "description_key": "item.scholar_robe.description",
+      "category": "armor",
+      "icon": "assets/ui/items/scholar_robe.png",
+      "world_model": "assets/models/items/scholar_robe.glb",
+      "slots": [
+        "torso"
+      ],
+      "value": 48,
+      "weight": 1.8,
+      "armor": 2,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "intellect",
+          "amount": 2
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "core:item.iron_helm",
+      "name_key": "item.iron_helm.name",
+      "description_key": "item.iron_helm.description",
+      "category": "armor",
+      "icon": "assets/ui/items/iron_helm.png",
+      "world_model": "assets/models/items/iron_helm.glb",
+      "slots": [
+        "head"
+      ],
+      "value": 34,
+      "weight": 2.2,
+      "armor": 3
+    },
+    {
+      "id": "core:item.traveler_boots",
+      "name_key": "item.traveler_boots.name",
+      "description_key": "item.traveler_boots.description",
+      "category": "armor",
+      "icon": "assets/ui/items/traveler_boots.png",
+      "world_model": "assets/models/items/traveler_boots.glb",
+      "slots": [
+        "legs"
+      ],
+      "value": 28,
+      "weight": 1.4,
+      "armor": 2,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "agility",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "core:item.ring_of_recall",
+      "name_key": "item.ring_of_recall.name",
+      "description_key": "item.ring_of_recall.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/ring_of_recall.png",
+      "world_model": "assets/models/items/ring_of_recall.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 110,
+      "weight": 0.1,
+      "armor": 1,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": 2
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "intellect",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "core:item.signet_ring",
+      "name_key": "item.signet_ring.name",
+      "description_key": "item.signet_ring.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/signet_ring.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 65,
+      "weight": 0.1,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "presence",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "core:item.seal_quill",
+      "name_key": "item.seal_quill.name",
+      "description_key": "item.seal_quill.desc",
+      "category": "accessory",
+      "icon": "assets/ui/items/seal_quill.png",
+      "world_model": "assets/models/items/seal_quill.glb",
+      "slots": [
+        "accessory"
+      ],
+      "quest_item": false,
+      "value": 160,
+      "weight": 0.1,
+      "armor": 0,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": 2
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "intellect",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

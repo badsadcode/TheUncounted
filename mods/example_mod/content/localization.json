@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "language": "en",
+  "strings": {
+    "item.ashbrand_blade.name": "Ashbrand Sun-Blade",
+    "item.ashbrand_blade.description": "A gilded relic blade added via external JSON + GLB mod with zero recompilation.",
+    "enemy.crimson_revenant.name": "Crimson Revenant"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "core:item.health_potion",
+      "name_key": "item.health_potion.name",
+      "description_key": "item.health_potion.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/health_potion.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 18,
+      "weight": 0.4,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 35
+        }
+      ]
+    },
+    {
+      "id": "core:item.mana_potion",
+      "name_key": "item.mana_potion.name",
+      "description_key": "item.mana_potion.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/mana_potion.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 20,
+      "weight": 0.4,
+      "effects": [
+        {
+          "type": "consumable_mana",
+          "amount": 30
+        }
+      ]
+    },
+    {
+      "id": "core:item.stamina_tonic",
+      "name_key": "item.stamina_tonic.name",
+      "description_key": "item.stamina_tonic.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/stamina_tonic.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 15,
+      "weight": 0.4,
+      "effects": [
+        {
+          "type": "consumable_stamina",
+          "amount": 45
+        }
+      ]
+    },
+    {
+      "id": "core:item.bread_loaf",
+      "name_key": "item.bread_loaf.name",
+      "description_key": "item.bread_loaf.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/bread_loaf.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 6,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 12
+        },
+        {
+          "type": "consumable_stamina",
+          "amount": 20
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_ember",
+      "name_key": "item.tome_ember.name",
+      "description_key": "item.tome_ember.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_ember.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 55,
+      "weight": 0.8,
+      "book_text_key": "book.tome_ember.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.ember_bolt"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_mend",
+      "name_key": "item.tome_mend.name",
+      "description_key": "item.tome_mend.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_mend.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 55,
+      "weight": 0.8,
+      "book_text_key": "book.tome_mend.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.mend"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_ward",
+      "name_key": "item.tome_ward.name",
+      "description_key": "item.tome_ward.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_ward.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 50,
+      "weight": 0.8,
+      "book_text_key": "book.tome_ward.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.ward"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_glimmer",
+      "name_key": "item.tome_glimmer.name",
+      "description_key": "item.tome_glimmer.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_glimmer.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 40,
+      "weight": 0.8,
+      "book_text_key": "book.tome_glimmer.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.glimmer"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_veil",
+      "name_key": "item.tome_veil.name",
+      "description_key": "item.tome_veil.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_veil.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 60,
+      "weight": 0.8,
+      "book_text_key": "book.tome_veil.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.veil"
+        }
+      ]
+    }
+  ]
+}

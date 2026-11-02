@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "core:item.lockpick",
+      "name_key": "item.lockpick.name",
+      "description_key": "item.lockpick.description",
+      "category": "key",
+      "icon": "assets/ui/items/lockpick.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 10,
+      "weight": 0.1
+    },
+    {
+      "id": "core:item.annex_key",
+      "name_key": "item.annex_key.name",
+      "description_key": "item.annex_key.description",
+      "category": "key",
+      "icon": "assets/ui/items/annex_key.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "quest_item": true,
+      "value": 0,
+      "weight": 0.2
+    },
+    {
+      "id": "core:item.crypt_key",
+      "name_key": "item.crypt_key.name",
+      "description_key": "item.crypt_key.description",
+      "category": "key",
+      "icon": "assets/ui/items/crypt_key.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "quest_item": true,
+      "value": 0,
+      "weight": 0.2
+    },
+    {
+      "id": "core:item.death_notice",
+      "name_key": "item.death_notice.name",
+      "description_key": "item.death_notice.description",
+      "category": "book",
+      "icon": "assets/ui/items/death_notice.png",
+      "world_model": "assets/models/items/form_27b_scroll.glb",
+      "slots": [],
+      "quest_item": true,
+      "value": 0,
+      "weight": 0.1,
+      "book_text_key": "book.death_notice.text"
+    },
+    {
+      "id": "core:item.form_27b",
+      "name_key": "item.form_27b.name",
+      "description_key": "item.form_27b.description",
+      "category": "book",
+      "icon": "assets/ui/items/form_27b.png",
+      "world_model": "assets/models/items/form_27b_scroll.glb",
+      "slots": [],
+      "quest_item": true,
+      "value": 0,
+      "weight": 0.1,
+      "book_text_key": "book.form_27b.text"
+    },
+    {
+      "id": "core:item.uncounted_ledger",
+      "name_key": "item.uncounted_ledger.name",
+      "description_key": "item.uncounted_ledger.description",
+      "category": "book",
+      "icon": "assets/ui/items/uncounted_ledger.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "quest_item": true,
+      "value": 0,
+      "weight": 1.2,
+      "book_text_key": "book.uncounted_ledger.text"
+    }
+  ]
+}

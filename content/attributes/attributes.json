@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "attributes": [
+    {
+      "id": "might",
+      "name_key": "attr.might.name",
+      "desc_key": "attr.might.desc",
+      "base": 10
+    },
+    {
+      "id": "agility",
+      "name_key": "attr.agility.name",
+      "desc_key": "attr.agility.desc",
+      "base": 10
+    },
+    {
+      "id": "endurance",
+      "name_key": "attr.endurance.name",
+      "desc_key": "attr.endurance.desc",
+      "base": 10
+    },
+    {
+      "id": "intellect",
+      "name_key": "attr.intellect.name",
+      "desc_key": "attr.intellect.desc",
+      "base": 10
+    },
+    {
+      "id": "will",
+      "name_key": "attr.will.name",
+      "desc_key": "attr.will.desc",
+      "base": 10
+    },
+    {
+      "id": "presence",
+      "name_key": "attr.presence.name",
+      "desc_key": "attr.presence.desc",
+      "base": 10
+    }
+  ]
+}

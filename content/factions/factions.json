@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "factions": [
+    {
+      "id": "core:faction.bureau",
+      "name_key": "faction.bureau.name",
+      "desc_key": "faction.bureau.desc"
+    },
+    {
+      "id": "core:faction.last_dawn",
+      "name_key": "faction.last_dawn.name",
+      "desc_key": "faction.last_dawn.desc"
+    },
+    {
+      "id": "core:faction.ashbound",
+      "name_key": "faction.ashbound.name",
+      "desc_key": "faction.ashbound.desc"
+    },
+    {
+      "id": "core:faction.collegium",
+      "name_key": "faction.collegium.name",
+      "desc_key": "faction.collegium.desc"
+    }
+  ]
+}

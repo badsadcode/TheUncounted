@@ -1,0 +1,1242 @@
+{
+  "schema_version": 1,
+  "id": "core:map.registry_annex",
+  "display_name_key": "map.registry_annex.name",
+  "music": "assets/audio/music/crypt_theme.wav",
+  "ambience": "assets/audio/ambience/crypt_drips.wav",
+  "sky_color": [
+    8,
+    10,
+    16
+  ],
+  "ambient_color": [
+    0.22,
+    0.25,
+    0.34
+  ],
+  "sun_direction": [
+    0.0,
+    1.0,
+    0.0
+  ],
+  "sun_color": [
+    0.1,
+    0.12,
+    0.18
+  ],
+  "fog_color": [
+    0.04,
+    0.05,
+    0.09
+  ],
+  "fog_density": 0.038,
+  "spawns": {
+    "annex_entry": {
+      "pos": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "yaw_degrees": 180.0
+    }
+  },
+  "props": [
+    {
+      "id": "dungeon_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        -6.0,
+        -0.5,
+        -14.0
+      ],
+      "scale": [
+        44.0,
+        0.5,
+        46.0
+      ],
+      "uv_scale": [
+        18.0,
+        18.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "dungeon_ceiling",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -6.0,
+        4.2,
+        -14.0
+      ],
+      "scale": [
+        44.0,
+        0.5,
+        46.0
+      ],
+      "uv_scale": [
+        18.0,
+        18.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "foyer_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        13.0,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        4.83,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "foyer_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        10.0
+      ],
+      "uv_scale": [
+        3.78,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "foyer_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        6.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        10.0
+      ],
+      "uv_scale": [
+        3.78,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "foyer_n_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -3.8,
+        0.0,
+        -4.0
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "foyer_n_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        3.8,
+        0.0,
+        -4.0
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_s_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -8.0,
+        0.0,
+        -4.0
+      ],
+      "scale": [
+        4.0,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.68,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_s_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        8.0,
+        0.0,
+        -4.0
+      ],
+      "scale": [
+        4.0,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.68,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        10.0,
+        0.0,
+        -11.0
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        14.0
+      ],
+      "uv_scale": [
+        5.18,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_n_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -2.5,
+        0.0,
+        -18.0
+      ],
+      "scale": [
+        15.0,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        5.53,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_n_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        8.8,
+        0.0,
+        -18.0
+      ],
+      "scale": [
+        2.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.2599999999999998,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_w_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        -6.8
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        5.6
+      ],
+      "uv_scale": [
+        2.2399999999999998,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_w_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        -15.2
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        5.6
+      ],
+      "uv_scale": [
+        2.2399999999999998,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "sec_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        3.0,
+        0.0,
+        -21.5
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        7.0
+      ],
+      "uv_scale": [
+        2.73,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "sec_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        9.0,
+        0.0,
+        -21.5
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        7.0
+      ],
+      "uv_scale": [
+        2.73,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "sec_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -25.0
+      ],
+      "scale": [
+        6.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.6599999999999997,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "crypt_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        -6.0
+      ],
+      "scale": [
+        12.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        4.76,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "crypt_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -22.0,
+        0.0,
+        -11.0
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        10.8
+      ],
+      "uv_scale": [
+        4.0600000000000005,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "crypt_n_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -19.8,
+        0.0,
+        -16.0
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "crypt_n_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -12.2,
+        0.0,
+        -16.0
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "sanc_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -22.0,
+        0.0,
+        -23.0
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        14.0
+      ],
+      "uv_scale": [
+        5.18,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "sanc_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        -23.0
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        14.0
+      ],
+      "uv_scale": [
+        5.18,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "sanc_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        -30.0
+      ],
+      "scale": [
+        12.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        4.76,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "foyer_desk",
+      "model": "assets/models/props/registry_desk.glb",
+      "pos": [
+        -3.2,
+        0.0,
+        1.5
+      ],
+      "rot_y": 25.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_pillar_1",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        -4.5,
+        0.0,
+        -11.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_pillar_2",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        4.5,
+        0.0,
+        -11.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "arch_shelf_1",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -17.1
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "crypt_sarc_1",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        -19.5,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "sanc_mono_l",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        -19.5,
+        0.0,
+        -26.5
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "sanc_mono_r",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        -12.5,
+        0.0,
+        -26.5
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "torch_foyer_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -5.45,
+        1.8,
+        1.5
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_foyer_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        5.45,
+        1.8,
+        -1.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_archive_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        9.45,
+        1.8,
+        -7.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_archive_n",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -6.0,
+        1.8,
+        -17.45
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_vault",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        6.0,
+        1.8,
+        -24.45
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_crypt_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -21.45,
+        1.8,
+        -9.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_sanctum_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -21.45,
+        1.8,
+        -22.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_sanctum_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -10.55,
+        1.8,
+        -22.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    }
+  ],
+  "lights": [
+    {
+      "pos": [
+        0.0,
+        2.8,
+        2.0
+      ],
+      "color": [
+        1.0,
+        0.68,
+        0.32
+      ],
+      "radius": 10.5
+    },
+    {
+      "pos": [
+        0.0,
+        2.8,
+        -10.5
+      ],
+      "color": [
+        1.0,
+        0.65,
+        0.3
+      ],
+      "radius": 12.0
+    },
+    {
+      "pos": [
+        8.2,
+        2.6,
+        -11.0
+      ],
+      "color": [
+        1.0,
+        0.75,
+        0.35
+      ],
+      "radius": 8.5
+    },
+    {
+      "pos": [
+        6.0,
+        2.8,
+        -22.0
+      ],
+      "color": [
+        0.4,
+        0.88,
+        1.0
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        -15.5,
+        2.8,
+        -11.0
+      ],
+      "color": [
+        0.55,
+        0.85,
+        1.0
+      ],
+      "radius": 11.5
+    },
+    {
+      "pos": [
+        -16.0,
+        3.0,
+        -25.0
+      ],
+      "color": [
+        0.45,
+        0.9,
+        1.0
+      ],
+      "radius": 14.0
+    }
+  ],
+  "npcs": [
+    {
+      "instance_id": "npc_spirit",
+      "npc_id": "core:npc.erased_spirit",
+      "pos": [
+        -19.5,
+        0.0,
+        -7.8
+      ],
+      "yaw": 45.0
+    }
+  ],
+  "creatures": [
+    {
+      "instance_id": "foyer_rat",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        2.5,
+        0.0,
+        0.5
+      ],
+      "patrol_a": [
+        -2.5,
+        0.0,
+        0.5
+      ],
+      "patrol_b": [
+        3.0,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "instance_id": "archive_skel_1",
+      "creature_id": "core:enemy.restless_skeleton",
+      "pos": [
+        -2.5,
+        0.0,
+        -9.5
+      ],
+      "patrol_a": [
+        -6.0,
+        0.0,
+        -9.5
+      ],
+      "patrol_b": [
+        4.0,
+        0.0,
+        -9.5
+      ]
+    },
+    {
+      "instance_id": "archive_crawler_1",
+      "creature_id": "core:enemy.ash_crawler",
+      "pos": [
+        5.5,
+        0.0,
+        -14.0
+      ],
+      "patrol_a": [
+        2.0,
+        0.0,
+        -14.0
+      ],
+      "patrol_b": [
+        8.0,
+        0.0,
+        -12.0
+      ]
+    },
+    {
+      "instance_id": "crypt_sentinel_1",
+      "creature_id": "core:enemy.lost_sentinel",
+      "pos": [
+        -14.5,
+        0.0,
+        -11.5
+      ],
+      "patrol_a": [
+        -14.5,
+        0.0,
+        -9.0
+      ],
+      "patrol_b": [
+        -14.5,
+        0.0,
+        -14.0
+      ]
+    },
+    {
+      "instance_id": "sanctum_boss",
+      "creature_id": "core:enemy.crypt_keeper",
+      "pos": [
+        -16.0,
+        0.0,
+        -24.5
+      ],
+      "patrol_a": [
+        -18.0,
+        0.0,
+        -24.5
+      ],
+      "patrol_b": [
+        -14.0,
+        0.0,
+        -24.5
+      ]
+    }
+  ],
+  "interactables": [
+    {
+      "instance_id": "annex_inner_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -4.0
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "key_id": "core:item.annex_key",
+      "lock_difficulty": 8,
+      "prompt": "Archive Door"
+    },
+    {
+      "instance_id": "crypt_portcullis",
+      "type": "door",
+      "model": "assets/models/props/iron_gate.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 90.0,
+      "locked": true,
+      "mechanism_only": true,
+      "prompt": "Lower Crypt Portcullis (Controlled by Archive Lever)"
+    },
+    {
+      "instance_id": "crypt_gate_lever",
+      "type": "lever",
+      "model": "assets/models/props/iron_lever.glb",
+      "pos": [
+        8.6,
+        0.0,
+        -11.0
+      ],
+      "rot_y": -90.0,
+      "target_id": "crypt_portcullis",
+      "prompt": "Pull Iron Archive Lever"
+    },
+    {
+      "instance_id": "secret_wall_door",
+      "type": "door",
+      "model": "assets/models/props/iron_gate.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -18.0
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "mechanism_only": true,
+      "prompt": "Sealed Royal Vault Gate (Step on Rune Plate)"
+    },
+    {
+      "instance_id": "secret_plate",
+      "type": "pressure_plate",
+      "model": "assets/models/props/pressure_plate.glb",
+      "pos": [
+        -7.5,
+        0.0,
+        -15.5
+      ],
+      "rot_y": 0.0,
+      "target_id": "secret_wall_door",
+      "prompt": "Ancient Rune Pressure Plate"
+    },
+    {
+      "instance_id": "sanctum_gate",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        -16.0
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "key_id": "core:item.crypt_key",
+      "lock_difficulty": 12,
+      "prompt": "Sanctum of the Uncounted Gate"
+    },
+    {
+      "instance_id": "archive_clue_lectern",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        2.2,
+        0.0,
+        -15.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read Chief Archivist's Log",
+      "title": "Chief Archivist Morvath's Log",
+      "text": "\"The portcullis to the lower crypt is controlled by the eastern wall-lever. Should the King's inquisitors ever breach this hall, the Royal Treasury gate to the north opens only when weight is placed upon the rune-plate in the north-west corner.\""
+    },
+    {
+      "instance_id": "secret_widowmaker_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -23.2
+      ],
+      "rot_y": 0.0,
+      "locked": false,
+      "loot_table": "core:loot.secret_widowmaker",
+      "fixed_items": [
+        "core:item.widowmaker",
+        "core:item.tome_veil"
+      ]
+    },
+    {
+      "instance_id": "archive_supply_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        -7.8,
+        0.0,
+        -6.2
+      ],
+      "rot_y": 0.0,
+      "locked": false,
+      "loot_table": "core:loot.crypt_basic",
+      "fixed_items": [
+        "core:item.health_potion",
+        "core:item.mana_potion"
+      ]
+    },
+    {
+      "instance_id": "grand_ledger_lectern",
+      "type": "quest_pedestal",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        -27.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Claim Form 27-B & The Uncounted Ledger",
+      "quest_id": "core:quest.legally_deceased",
+      "set_stage": 30,
+      "grant_items": [
+        "core:item.form_27b",
+        "core:item.uncounted_ledger"
+      ]
+    },
+    {
+      "instance_id": "oakhallow_census",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -4.5,
+        0.0,
+        -16.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Struck Census Folio",
+      "title": "Census of Oakhallow, Folio III (Struck)",
+      "text": "MARKET-BOROUGH OF OAKHALLOW, POP. 412\n\n...Brannock, Tomas. Baker. Ovens on Mill Lane.\nBrannock, Marta. Elder daughter. Apprenticed to the bakehouse.\nBrannock, Ilse. Younger daughter, aged nine.\n\nEvery line on the page has been struck through in red ink, all but one. Beside Ilse's name, in a neat archivist's hand:\n\n\"Moved to Vault III for safekeeping. Elder sister relocated to Bellwether, memory sealed. God forgive us. - M.\"",
+      "quest_id": "core:quest.bakers_daughter",
+      "set_stage": 20
+    },
+    {
+      "instance_id": "duty_roster",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        4.2,
+        0.0,
+        3.6
+      ],
+      "rot_y": 200.0,
+      "prompt": "Read the Archivists' Duty Roster",
+      "title": "Annex III Duty Roster",
+      "text": "NIGHT WATCH - VAULT III (THE NURSERY)\n\nMorvath, Chief Archivist - every night. Do not relieve him. He will not be relieved.\n\nREMINDER TO ALL STAFF: the children's names are NOT to be spoken aloud inside the Annex, not even as a kindness. Especially not as a kindness."
+    }
+  ],
+  "portals": [
+    {
+      "id": "to_old_road",
+      "pos": [
+        0.0,
+        0.0,
+        5.2
+      ],
+      "radius": 2.2,
+      "prompt": "Exit to The Old Road",
+      "destination_map": "core:map.old_road",
+      "destination_spawn": "from_annex"
+    }
+  ],
+  "weather": "dust"
+}

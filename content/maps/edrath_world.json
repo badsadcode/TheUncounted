@@ -1,0 +1,5157 @@
+{
+  "schema_version": 1,
+  "id": "core:map.edrath",
+  "display_name_key": "map.edrath.name",
+  "music": "assets/audio/music/bellwether_theme.wav",
+  "ambience": "assets/audio/ambience/village_rain.wav",
+  "sky_color": [
+    22,
+    28,
+    44
+  ],
+  "ambient_color": [
+    0.42,
+    0.45,
+    0.56
+  ],
+  "sun_direction": [
+    -0.4,
+    0.8,
+    -0.3
+  ],
+  "sun_color": [
+    0.55,
+    0.52,
+    0.65
+  ],
+  "fog_color": [
+    0.1,
+    0.13,
+    0.2
+  ],
+  "fog_density": 0.022,
+  "weather": "rain",
+  "zones": [
+    {
+      "id": "seal_chamber",
+      "display_name_key": "map.seal_chamber.name",
+      "box_min": [
+        3.5,
+        -17.0,
+        -30.0
+      ],
+      "box_max": [
+        21.0,
+        -10.6,
+        -14.0
+      ],
+      "blend": 2.0,
+      "music": "assets/audio/music/vault_lullaby.wav",
+      "ambience": "assets/audio/ambience/crypt_drips.wav",
+      "sky_color": [
+        6,
+        8,
+        14
+      ],
+      "ambient_color": [
+        0.15,
+        0.19,
+        0.32
+      ],
+      "sun_direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "sun_color": [
+        0.06,
+        0.08,
+        0.14
+      ],
+      "fog_color": [
+        0.03,
+        0.04,
+        0.08
+      ],
+      "fog_density": 0.05,
+      "weather": "dust"
+    },
+    {
+      "id": "vault_three",
+      "display_name_key": "map.vault_three.name",
+      "box_min": [
+        3.5,
+        -17.0,
+        -30.0
+      ],
+      "box_max": [
+        57.0,
+        -5.2,
+        -14.0
+      ],
+      "blend": 3.0,
+      "music": "assets/audio/music/vault_lullaby.wav",
+      "ambience": "assets/audio/ambience/crypt_drips.wav",
+      "sky_color": [
+        6,
+        8,
+        14
+      ],
+      "ambient_color": [
+        0.17,
+        0.2,
+        0.3
+      ],
+      "sun_direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "sun_color": [
+        0.06,
+        0.08,
+        0.14
+      ],
+      "fog_color": [
+        0.03,
+        0.04,
+        0.08
+      ],
+      "fog_density": 0.042,
+      "weather": "dust"
+    },
+    {
+      "id": "annex",
+      "display_name_key": "map.registry_annex.name",
+      "box_min": [
+        59.0,
+        -14.0,
+        -46.0
+      ],
+      "box_max": [
+        104.0,
+        -0.9,
+        2.6
+      ],
+      "blend": 3.0,
+      "music": "assets/audio/music/crypt_theme.wav",
+      "ambience": "assets/audio/ambience/crypt_drips.wav",
+      "sky_color": [
+        8,
+        10,
+        16
+      ],
+      "ambient_color": [
+        0.22,
+        0.25,
+        0.34
+      ],
+      "sun_direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "sun_color": [
+        0.1,
+        0.12,
+        0.18
+      ],
+      "fog_color": [
+        0.04,
+        0.05,
+        0.09
+      ],
+      "fog_density": 0.038,
+      "weather": "dust"
+    },
+    {
+      "id": "old_road",
+      "display_name_key": "map.old_road.name",
+      "box_min": [
+        20.6,
+        -0.9,
+        -16.0
+      ],
+      "box_max": [
+        77.0,
+        40.0,
+        16.0
+      ],
+      "blend": 4.0,
+      "music": "assets/audio/music/old_road_theme.wav",
+      "ambience": "assets/audio/ambience/forest_wind.wav",
+      "sky_color": [
+        18,
+        26,
+        36
+      ],
+      "ambient_color": [
+        0.36,
+        0.42,
+        0.48
+      ],
+      "sun_direction": [
+        -0.3,
+        0.7,
+        0.4
+      ],
+      "sun_color": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fog_color": [
+        0.08,
+        0.12,
+        0.16
+      ],
+      "fog_density": 0.028,
+      "weather": ""
+    },
+    {
+      "id": "bellwether",
+      "display_name_key": "map.bellwether.name",
+      "box_min": [
+        -21.0,
+        -2.0,
+        -21.0
+      ],
+      "box_max": [
+        20.6,
+        40.0,
+        21.0
+      ],
+      "blend": 4.0,
+      "music": "assets/audio/music/bellwether_theme.wav",
+      "ambience": "assets/audio/ambience/village_rain.wav",
+      "sky_color": [
+        22,
+        28,
+        44
+      ],
+      "ambient_color": [
+        0.42,
+        0.45,
+        0.56
+      ],
+      "sun_direction": [
+        -0.4,
+        0.8,
+        -0.3
+      ],
+      "sun_color": [
+        0.55,
+        0.52,
+        0.65
+      ],
+      "fog_color": [
+        0.1,
+        0.13,
+        0.2
+      ],
+      "fog_density": 0.022,
+      "weather": "rain",
+      "flag_override": {
+        "flag": "seal_renewed",
+        "weather": "",
+        "ambience": "assets/audio/ambience/forest_wind.wav"
+      }
+    }
+  ],
+  "spawns": {
+    "village_gate": {
+      "pos": [
+        -15.0,
+        0.0,
+        0.0
+      ],
+      "yaw_degrees": 90.0
+    },
+    "from_old_road": {
+      "pos": [
+        16.5,
+        0.0,
+        0.0
+      ],
+      "yaw_degrees": -90.0
+    },
+    "from_bellwether": {
+      "pos": [
+        24.0,
+        0.0,
+        0.0
+      ],
+      "yaw_degrees": 90.0
+    },
+    "from_annex": {
+      "pos": [
+        69.5,
+        0.0,
+        0.0
+      ],
+      "yaw_degrees": -90.0
+    },
+    "annex_entry": {
+      "pos": [
+        87.0,
+        -4.8,
+        -4.4
+      ],
+      "yaw_degrees": 180.0
+    },
+    "vault_landing": {
+      "pos": [
+        54.6,
+        -10.4,
+        -22.0
+      ],
+      "yaw_degrees": -90.0
+    }
+  },
+  "props": [
+    {
+      "id": "bell_ground_grass",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        0.5,
+        48.0
+      ],
+      "uv_scale": [
+        16.0,
+        16.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_road_main",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.47,
+        0.0
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        7.0
+      ],
+      "uv_scale": [
+        12.0,
+        2.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_plaza_center",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.46,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        0.5,
+        18.0
+      ],
+      "uv_scale": [
+        5.0,
+        5.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_wall_north",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -20.0
+      ],
+      "scale": [
+        42.0,
+        4.5,
+        1.2
+      ],
+      "uv_scale": [
+        10.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_wall_south",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        20.0
+      ],
+      "scale": [
+        42.0,
+        4.5,
+        1.2
+      ],
+      "uv_scale": [
+        10.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_wall_west",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.2,
+        4.5,
+        40.0
+      ],
+      "uv_scale": [
+        10.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_wall_east_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        20.0,
+        0.0,
+        -11.5
+      ],
+      "scale": [
+        1.2,
+        4.5,
+        17.0
+      ],
+      "uv_scale": [
+        4.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_wall_east_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        20.0,
+        0.0,
+        11.5
+      ],
+      "scale": [
+        1.2,
+        4.5,
+        17.0
+      ],
+      "uv_scale": [
+        4.0,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_east_arch",
+      "model": "assets/models/env/archway_stone.glb",
+      "pos": [
+        19.5,
+        0.0,
+        0.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.8,
+        1.2,
+        1.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_rec_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.0,
+        -0.43,
+        -10.5
+      ],
+      "scale": [
+        10.0,
+        0.5,
+        9.0
+      ],
+      "uv_scale": [
+        4.0,
+        4.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_rec_roof",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.0,
+        3.8,
+        -10.5
+      ],
+      "scale": [
+        10.4,
+        0.4,
+        9.4
+      ],
+      "uv_scale": [
+        4.0,
+        4.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_rec_w_back",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        -15.0
+      ],
+      "scale": [
+        10.0,
+        3.8,
+        0.6
+      ],
+      "uv_scale": [
+        3.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_rec_w_left",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -11.0,
+        0.0,
+        -10.5
+      ],
+      "scale": [
+        0.6,
+        3.8,
+        9.0
+      ],
+      "uv_scale": [
+        3.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_rec_w_right",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -1.0,
+        0.0,
+        -10.5
+      ],
+      "scale": [
+        0.6,
+        3.8,
+        9.0
+      ],
+      "uv_scale": [
+        3.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_rec_w_front_l",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -9.0,
+        0.0,
+        -6.0
+      ],
+      "scale": [
+        4.0,
+        3.8,
+        0.6
+      ],
+      "uv_scale": [
+        1.5,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_rec_w_front_r",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -3.0,
+        0.0,
+        -6.0
+      ],
+      "scale": [
+        4.0,
+        3.8,
+        0.6
+      ],
+      "uv_scale": [
+        1.5,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_rec_desk",
+      "model": "assets/models/props/registry_desk.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        -11.2
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.0,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_rec_shelf_1",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        -9.5,
+        0.0,
+        -14.2
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_rec_shelf_2",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        -2.5,
+        0.0,
+        -14.2
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_shop_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        8.0,
+        -0.43,
+        -10.0
+      ],
+      "scale": [
+        8.0,
+        0.5,
+        7.0
+      ],
+      "uv_scale": [
+        3.0,
+        3.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_shop_back",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        8.0,
+        0.0,
+        -13.5
+      ],
+      "scale": [
+        8.0,
+        3.6,
+        0.6
+      ],
+      "uv_scale": [
+        2.5,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_shop_crate1",
+      "model": "assets/models/props/wooden_crate.glb",
+      "pos": [
+        5.2,
+        0.0,
+        -12.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_shop_crate2",
+      "model": "assets/models/props/wooden_crate.glb",
+      "pos": [
+        10.8,
+        0.0,
+        -12.0
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_inn_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.5,
+        -0.43,
+        10.5
+      ],
+      "scale": [
+        9.0,
+        0.5,
+        8.0
+      ],
+      "uv_scale": [
+        3.5,
+        3.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_inn_roof",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.5,
+        3.8,
+        10.5
+      ],
+      "scale": [
+        9.4,
+        0.4,
+        8.4
+      ],
+      "uv_scale": [
+        3.5,
+        3.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_inn_back",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -6.5,
+        0.0,
+        14.5
+      ],
+      "scale": [
+        9.0,
+        3.8,
+        0.6
+      ],
+      "uv_scale": [
+        3.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_inn_left",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -11.0,
+        0.0,
+        10.5
+      ],
+      "scale": [
+        0.6,
+        3.8,
+        8.0
+      ],
+      "uv_scale": [
+        2.5,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_inn_right",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -2.0,
+        0.0,
+        10.5
+      ],
+      "scale": [
+        0.6,
+        3.8,
+        8.0
+      ],
+      "uv_scale": [
+        2.5,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_lib_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        8.5,
+        -0.43,
+        10.5
+      ],
+      "scale": [
+        9.0,
+        0.5,
+        8.0
+      ],
+      "uv_scale": [
+        3.0,
+        3.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "bell_lib_shelf1",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        5.5,
+        0.0,
+        13.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_lib_shelf2",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        7.5,
+        0.0,
+        13.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_dawn_altar",
+      "model": "assets/models/props/altar_dawn.glb",
+      "pos": [
+        11.5,
+        0.0,
+        12.5
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_tree_0",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -15.0,
+        0.0,
+        -16.0
+      ],
+      "scale": [
+        1.0,
+        1.1,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_tree_1",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        15.0
+      ],
+      "scale": [
+        1.0,
+        1.1,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_tree_2",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        15.0,
+        0.0,
+        -16.0
+      ],
+      "scale": [
+        1.0,
+        1.1,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_tree_3",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        15.0,
+        0.0,
+        16.0
+      ],
+      "scale": [
+        1.0,
+        1.1,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_tree_4",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        -5.0
+      ],
+      "scale": [
+        1.0,
+        1.1,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_tree_5",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        14.0,
+        0.0,
+        -4.0
+      ],
+      "scale": [
+        1.0,
+        1.1,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_road_sign",
+      "model": "assets/models/props/signpost.glb",
+      "pos": [
+        14.5,
+        0.0,
+        -2.5
+      ],
+      "rot_y": 45.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "bell_torch_records_back",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -6.0,
+        1.7,
+        -14.45
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_records_side",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -10.45,
+        1.7,
+        -10.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_shop_back",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        8.0,
+        1.6,
+        -12.95
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_inn_back",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -6.5,
+        1.7,
+        13.95
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_gate_n",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        19.15,
+        2.0,
+        -3.4
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_gate_s",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        19.15,
+        2.0,
+        3.4
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_wall_n",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        0.0,
+        2.1,
+        -19.15
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_wall_s",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        0.0,
+        2.1,
+        19.15
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "bell_torch_wall_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -19.15,
+        2.1,
+        -6.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "road_ground_forest",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        48.675,
+        -0.5,
+        0.0
+      ],
+      "scale": [
+        56.15,
+        0.5,
+        36.0
+      ],
+      "uv_scale": [
+        17.55,
+        12.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "road_road_path",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        48.3,
+        -0.46,
+        0.0
+      ],
+      "scale": [
+        55.4,
+        0.5,
+        5.5
+      ],
+      "uv_scale": [
+        17.81,
+        2.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "road_cliff_north",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        49.3,
+        0.0,
+        -15.0
+      ],
+      "scale": [
+        57.4,
+        5.0,
+        1.5
+      ],
+      "uv_scale": [
+        14.35,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_cliff_south",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        49.3,
+        0.0,
+        15.0
+      ],
+      "scale": [
+        57.4,
+        5.0,
+        1.5
+      ],
+      "uv_scale": [
+        14.35,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_cliff_east_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        76.0,
+        0.0,
+        -8.3
+      ],
+      "scale": [
+        1.5,
+        5.5,
+        13.4
+      ],
+      "uv_scale": [
+        3.57,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_cliff_east_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        76.0,
+        0.0,
+        8.3
+      ],
+      "scale": [
+        1.5,
+        5.5,
+        13.4
+      ],
+      "uv_scale": [
+        3.57,
+        1.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_cliff_east_lintel",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        76.0,
+        3.0,
+        0.0
+      ],
+      "scale": [
+        1.5,
+        2.5,
+        3.2
+      ],
+      "uv_scale": [
+        1.2,
+        0.8
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_annex_arch",
+      "model": "assets/models/env/archway_stone.glb",
+      "pos": [
+        73.5,
+        0.0,
+        0.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.6,
+        1.2,
+        1.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "road_annex_pillar_l",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        72.5,
+        0.0,
+        -3.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_annex_pillar_r",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        72.5,
+        0.0,
+        3.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_mid_arch",
+      "model": "assets/models/env/archway_stone.glb",
+      "pos": [
+        48.0,
+        0.0,
+        0.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.8,
+        1.2,
+        1.5
+      ],
+      "solid": false
+    },
+    {
+      "id": "road_silence_monolith",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        52.0,
+        0.0,
+        -7.5
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_0",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        28.0,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_1",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        34.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_2",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        42.0,
+        0.0,
+        -9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_3",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        56.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_4",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        64.0,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_5",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        68.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_6",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        28.0,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_7",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        36.0,
+        0.0,
+        9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_8",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        44.0,
+        0.0,
+        10.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_9",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        54.0,
+        0.0,
+        9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_10",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        62.0,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_forest_tree_11",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        69.0,
+        0.0,
+        9.0
+      ],
+      "scale": [
+        1.1,
+        1.2,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "road_torch_annex_l",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        71.95,
+        2.3,
+        -3.5
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "road_torch_annex_r",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        71.95,
+        2.3,
+        3.5
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "tunnel_threshold",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        76.0,
+        -0.48,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        0.5,
+        3.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.2,
+        1.0
+      ]
+    },
+    {
+      "id": "tunnel_stairs_upper",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        79.0,
+        -2.4,
+        0.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "-x"
+    },
+    {
+      "id": "tunnel_stairs_lower",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        83.0,
+        -4.8,
+        0.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "-x"
+    },
+    {
+      "id": "tunnel_wall_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        80.95,
+        -4.8,
+        -1.7
+      ],
+      "scale": [
+        8.4,
+        8.2,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.23,
+        2.73
+      ]
+    },
+    {
+      "id": "tunnel_wall_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        80.95,
+        -4.8,
+        1.7
+      ],
+      "scale": [
+        8.4,
+        8.2,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.23,
+        2.73
+      ]
+    },
+    {
+      "id": "tunnel_ceiling_upper",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        78.875,
+        3.0,
+        0.0
+      ],
+      "scale": [
+        4.25,
+        0.4,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.63,
+        0.13
+      ]
+    },
+    {
+      "id": "tunnel_ceiling_step",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        81.0,
+        1.0,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        2.4,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.42,
+        0.8
+      ]
+    },
+    {
+      "id": "tunnel_ceiling_lower",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        83.0,
+        0.6,
+        0.0
+      ],
+      "scale": [
+        4.0,
+        0.4,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.54,
+        0.13
+      ]
+    },
+    {
+      "id": "tunnel_ceiling_drop",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        85.0,
+        -1.6,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        2.6,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.42,
+        0.87
+      ]
+    },
+    {
+      "id": "landing_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        87.3,
+        -5.3,
+        0.35
+      ],
+      "scale": [
+        4.6,
+        0.5,
+        3.9
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.8,
+        1.5
+      ]
+    },
+    {
+      "id": "landing_ceiling",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        87.3,
+        -1.6,
+        0.35
+      ],
+      "scale": [
+        4.6,
+        0.4,
+        3.9
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.77,
+        0.13
+      ]
+    },
+    {
+      "id": "landing_wall_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        87.225,
+        -4.8,
+        2.15
+      ],
+      "scale": [
+        4.75,
+        3.6,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.83,
+        1.2
+      ]
+    },
+    {
+      "id": "landing_wall_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        89.45,
+        -4.8,
+        0.35
+      ],
+      "scale": [
+        0.3,
+        3.6,
+        3.9
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        1.2
+      ]
+    },
+    {
+      "id": "landing_wall_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        85.0,
+        -4.8,
+        1.925
+      ],
+      "scale": [
+        0.3,
+        3.6,
+        0.75
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.29,
+        1.2
+      ]
+    },
+    {
+      "id": "torch_tunnel_upper",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        79.5,
+        -0.3,
+        1.45
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_landing",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        89.2,
+        -3.1,
+        0.3
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_dungeon_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        84.2,
+        -5.3,
+        -23.5
+      ],
+      "scale": [
+        37.6,
+        0.5,
+        43.8
+      ],
+      "uv_scale": [
+        15.38,
+        17.14
+      ],
+      "solid": false
+    },
+    {
+      "id": "annex_dungeon_ceiling",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        83.8,
+        -0.6,
+        -23.5
+      ],
+      "scale": [
+        38.4,
+        0.5,
+        43.8
+      ],
+      "uv_scale": [
+        15.71,
+        17.14
+      ],
+      "solid": false
+    },
+    {
+      "id": "annex_foyer_s_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        83.15,
+        -4.8,
+        -2.4
+      ],
+      "scale": [
+        5.3,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.97,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_foyer_s_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        90.85,
+        -4.8,
+        -2.4
+      ],
+      "scale": [
+        5.3,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.97,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_foyer_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        81.0,
+        -4.8,
+        -7.4
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        10.0
+      ],
+      "uv_scale": [
+        3.78,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_foyer_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        93.0,
+        -4.8,
+        -7.4
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        10.0
+      ],
+      "uv_scale": [
+        3.78,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_foyer_n_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        83.2,
+        -4.8,
+        -12.4
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_foyer_n_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        90.8,
+        -4.8,
+        -12.4
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_s_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        79.0,
+        -4.8,
+        -12.4
+      ],
+      "scale": [
+        4.0,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.68,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_s_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        95.0,
+        -4.8,
+        -12.4
+      ],
+      "scale": [
+        4.0,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.68,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        97.0,
+        -4.8,
+        -19.4
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        14.0
+      ],
+      "uv_scale": [
+        5.18,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_n_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        84.5,
+        -4.8,
+        -26.4
+      ],
+      "scale": [
+        15.0,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        5.53,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_n_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        95.8,
+        -4.8,
+        -26.4
+      ],
+      "scale": [
+        2.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        1.2599999999999998,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_w_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        77.0,
+        -4.8,
+        -15.2
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        5.6
+      ],
+      "uv_scale": [
+        2.2399999999999998,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_w_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        77.0,
+        -4.8,
+        -23.6
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        5.6
+      ],
+      "uv_scale": [
+        2.2399999999999998,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sec_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        90.0,
+        -4.8,
+        -29.9
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        7.0
+      ],
+      "uv_scale": [
+        2.73,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sec_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        96.0,
+        -4.8,
+        -29.9
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        7.0
+      ],
+      "uv_scale": [
+        2.73,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sec_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        93.0,
+        -4.8,
+        -33.4
+      ],
+      "scale": [
+        6.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.6599999999999997,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_crypt_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        71.0,
+        -4.8,
+        -14.4
+      ],
+      "scale": [
+        12.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        4.76,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_crypt_w_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        65.0,
+        -4.8,
+        -24.2
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        1.2
+      ],
+      "uv_scale": [
+        0.45,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_crypt_w_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        65.0,
+        -4.8,
+        -17.2
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        6.4
+      ],
+      "uv_scale": [
+        2.41,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_crypt_w_lintel",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        65.0,
+        -1.8,
+        -22.0
+      ],
+      "scale": [
+        0.8,
+        1.2000000000000004,
+        3.2
+      ],
+      "uv_scale": [
+        1.2,
+        0.5
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_crypt_n_l",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        67.2,
+        -4.8,
+        -24.4
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_crypt_n_r",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        74.8,
+        -4.8,
+        -24.4
+      ],
+      "scale": [
+        5.2,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        2.0999999999999996,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sanc_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        65.0,
+        -4.8,
+        -31.4
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        14.0
+      ],
+      "uv_scale": [
+        5.18,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sanc_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        77.0,
+        -4.8,
+        -31.4
+      ],
+      "scale": [
+        0.8,
+        4.2,
+        14.0
+      ],
+      "uv_scale": [
+        5.18,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sanc_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        71.0,
+        -4.8,
+        -38.4
+      ],
+      "scale": [
+        12.8,
+        4.2,
+        0.8
+      ],
+      "uv_scale": [
+        4.76,
+        1.4
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_foyer_desk",
+      "model": "assets/models/props/registry_desk.glb",
+      "pos": [
+        83.8,
+        -4.8,
+        -6.9
+      ],
+      "rot_y": 25.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_pillar_1",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        82.5,
+        -4.8,
+        -19.4
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_pillar_2",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        91.5,
+        -4.8,
+        -19.4
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_arch_shelf_1",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        87.0,
+        -4.8,
+        -25.5
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_crypt_sarc_1",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        67.5,
+        -4.8,
+        -19.4
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sanc_mono_l",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        67.5,
+        -4.8,
+        -34.9
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_sanc_mono_r",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        74.5,
+        -4.8,
+        -34.9
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "annex_torch_foyer_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        81.55,
+        -3.0,
+        -6.9
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_torch_foyer_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        92.45,
+        -3.0,
+        -9.4
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_torch_archive_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        96.45,
+        -3.0,
+        -15.4
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_torch_archive_n",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        81.0,
+        -3.0,
+        -25.85
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_torch_vault",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        93.0,
+        -3.0,
+        -32.85
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_torch_crypt_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        65.55,
+        -3.0,
+        -17.4
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_torch_sanctum_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        65.55,
+        -3.0,
+        -30.4
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "annex_torch_sanctum_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        76.45,
+        -3.0,
+        -30.4
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_threshold",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        64.9,
+        -5.3,
+        -22.0
+      ],
+      "scale": [
+        1.0,
+        0.5,
+        3.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.5,
+        1.2
+      ]
+    },
+    {
+      "id": "vault_stairs_upper",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        62.4,
+        -7.6,
+        -22.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "+x"
+    },
+    {
+      "id": "vault_stairs_lower",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        58.4,
+        -10.4,
+        -22.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "+x"
+    },
+    {
+      "id": "vault_tunnel_wall_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        60.5,
+        -10.4,
+        -20.3
+      ],
+      "scale": [
+        8.2,
+        9.0,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.15,
+        3.0
+      ]
+    },
+    {
+      "id": "vault_tunnel_wall_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        60.5,
+        -10.4,
+        -23.7
+      ],
+      "scale": [
+        8.2,
+        9.0,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.15,
+        3.0
+      ]
+    },
+    {
+      "id": "vault_tunnel_ceiling_upper",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        62.5,
+        -1.8,
+        -22.0
+      ],
+      "scale": [
+        4.2,
+        0.4,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.62,
+        0.13
+      ]
+    },
+    {
+      "id": "vault_tunnel_ceiling_step",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        60.4,
+        -4.6,
+        -22.0
+      ],
+      "scale": [
+        0.3,
+        3.2,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.42,
+        1.07
+      ]
+    },
+    {
+      "id": "vault_tunnel_ceiling_lower",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        58.4,
+        -4.6,
+        -22.0
+      ],
+      "scale": [
+        4.0,
+        0.4,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.54,
+        0.13
+      ]
+    },
+    {
+      "id": "vault_tunnel_ceiling_drop",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        56.4,
+        -7.0,
+        -22.0
+      ],
+      "scale": [
+        0.3,
+        2.8,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.42,
+        0.93
+      ]
+    },
+    {
+      "id": "torch_vault_stairs",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        62.5,
+        -4.9,
+        -20.55
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_landing_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        52.2,
+        -10.9,
+        -22.0
+      ],
+      "scale": [
+        8.4,
+        0.5,
+        3.6
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.36,
+        1.44
+      ]
+    },
+    {
+      "id": "vault_landing_ceiling",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        52.5,
+        -7.0,
+        -22.0
+      ],
+      "scale": [
+        9.0,
+        0.4,
+        4.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.6,
+        1.92
+      ]
+    },
+    {
+      "id": "vault_corridor_wall_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        52.8,
+        -10.4,
+        -19.9
+      ],
+      "scale": [
+        8.4,
+        3.4,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.23,
+        1.13
+      ]
+    },
+    {
+      "id": "vault_corridor_wall_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        52.8,
+        -10.4,
+        -24.1
+      ],
+      "scale": [
+        8.4,
+        3.4,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.23,
+        1.13
+      ]
+    },
+    {
+      "id": "vault_nursery_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        38.3,
+        -10.9,
+        -22.0
+      ],
+      "scale": [
+        20.6,
+        0.5,
+        15.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        8.24,
+        6.08
+      ]
+    },
+    {
+      "id": "vault_nursery_ceiling",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        38.6,
+        -5.4,
+        -22.0
+      ],
+      "scale": [
+        21.2,
+        0.5,
+        15.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        8.48,
+        6.08
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        38.6,
+        -10.4,
+        -14.7
+      ],
+      "scale": [
+        21.2,
+        5.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        8.15,
+        1.67
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        38.6,
+        -10.4,
+        -29.3
+      ],
+      "scale": [
+        21.2,
+        5.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        8.15,
+        1.67
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_e_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        48.3,
+        -10.4,
+        -17.6
+      ],
+      "scale": [
+        0.6,
+        5.0,
+        5.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.0,
+        1.67
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_e_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        48.3,
+        -10.4,
+        -26.4
+      ],
+      "scale": [
+        0.6,
+        5.0,
+        5.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.0,
+        1.67
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_e_lintel",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        48.3,
+        -7.0,
+        -22.0
+      ],
+      "scale": [
+        0.6,
+        1.6,
+        3.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.38,
+        0.53
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_w_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        28.3,
+        -10.4,
+        -17.75
+      ],
+      "scale": [
+        0.6,
+        5.0,
+        5.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.12,
+        1.67
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_w_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        28.3,
+        -10.4,
+        -26.25
+      ],
+      "scale": [
+        0.6,
+        5.0,
+        5.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.12,
+        1.67
+      ]
+    },
+    {
+      "id": "vault_nursery_wall_w_lintel",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        28.3,
+        -7.4,
+        -22.0
+      ],
+      "scale": [
+        0.6,
+        2.0,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        0.67
+      ]
+    },
+    {
+      "id": "vault_nursery_pillar_0n",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        43.6,
+        -10.4,
+        -18.8
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_nursery_pillar_0s",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        43.6,
+        -10.4,
+        -25.2
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_nursery_pillar_1n",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        38.6,
+        -10.4,
+        -18.8
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_nursery_pillar_1s",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        38.6,
+        -10.4,
+        -25.2
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_nursery_pillar_2n",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        33.6,
+        -10.4,
+        -18.8
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_nursery_pillar_2s",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        33.6,
+        -10.4,
+        -25.2
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_n_0",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        45.6,
+        -10.4,
+        -15.95
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_s_0",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        45.6,
+        -10.4,
+        -28.05
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_n_1",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        42.1,
+        -10.4,
+        -15.95
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_s_1",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        42.1,
+        -10.4,
+        -28.05
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_n_2",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        38.6,
+        -10.4,
+        -15.95
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_n_3",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        35.1,
+        -10.4,
+        -15.95
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_s_3",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        35.1,
+        -10.4,
+        -28.05
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_n_4",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        31.6,
+        -10.4,
+        -15.95
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_cradle_s_4",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        31.6,
+        -10.4,
+        -28.05
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_torch_nursery_n1",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        44.6,
+        -8.4,
+        -15.05
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_torch_nursery_n2",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        32.6,
+        -8.4,
+        -15.05
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_torch_nursery_s1",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        41.6,
+        -8.4,
+        -28.95
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_torch_nursery_s2",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        35.6,
+        -8.4,
+        -28.95
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_seal_stairs_upper",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        26.6,
+        -13.2,
+        -22.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "+x"
+    },
+    {
+      "id": "vault_seal_stairs_lower",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        22.6,
+        -16.0,
+        -22.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "+x"
+    },
+    {
+      "id": "vault_seal_tunnel_wall_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        24.3,
+        -16.0,
+        -20.3
+      ],
+      "scale": [
+        8.6,
+        9.0,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.31,
+        3.0
+      ]
+    },
+    {
+      "id": "vault_seal_tunnel_wall_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        24.3,
+        -16.0,
+        -23.7
+      ],
+      "scale": [
+        8.6,
+        9.0,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.31,
+        3.0
+      ]
+    },
+    {
+      "id": "vault_seal_tunnel_ceiling_upper",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        26.6,
+        -7.4,
+        -22.0
+      ],
+      "scale": [
+        4.0,
+        0.4,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.6,
+        1.48
+      ]
+    },
+    {
+      "id": "vault_seal_tunnel_ceiling_step",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        24.6,
+        -10.2,
+        -22.0
+      ],
+      "scale": [
+        0.3,
+        3.2,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.42,
+        1.07
+      ]
+    },
+    {
+      "id": "vault_seal_tunnel_ceiling_lower",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        22.6,
+        -10.2,
+        -22.0
+      ],
+      "scale": [
+        4.0,
+        0.4,
+        3.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.6,
+        1.48
+      ]
+    },
+    {
+      "id": "vault_seal_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        12.3,
+        -16.5,
+        -22.0
+      ],
+      "scale": [
+        16.6,
+        0.5,
+        15.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        6.64,
+        6.08
+      ]
+    },
+    {
+      "id": "vault_seal_ceiling",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        12.6,
+        -9.4,
+        -22.0
+      ],
+      "scale": [
+        17.2,
+        0.5,
+        15.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        6.88,
+        6.08
+      ]
+    },
+    {
+      "id": "vault_seal_wall_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        12.6,
+        -16.0,
+        -14.7
+      ],
+      "scale": [
+        17.2,
+        6.6,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        6.62,
+        2.2
+      ]
+    },
+    {
+      "id": "vault_seal_wall_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        12.6,
+        -16.0,
+        -29.3
+      ],
+      "scale": [
+        17.2,
+        6.6,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        6.62,
+        2.2
+      ]
+    },
+    {
+      "id": "vault_seal_wall_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        4.3,
+        -16.0,
+        -22.0
+      ],
+      "scale": [
+        0.6,
+        6.6,
+        14.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        5.38,
+        2.2
+      ]
+    },
+    {
+      "id": "vault_seal_wall_e_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        20.3,
+        -16.0,
+        -17.75
+      ],
+      "scale": [
+        0.6,
+        6.6,
+        5.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.12,
+        2.2
+      ]
+    },
+    {
+      "id": "vault_seal_wall_e_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        20.3,
+        -16.0,
+        -26.25
+      ],
+      "scale": [
+        0.6,
+        6.6,
+        5.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.12,
+        2.2
+      ]
+    },
+    {
+      "id": "vault_seal_wall_e_lintel",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        20.3,
+        -10.2,
+        -22.0
+      ],
+      "scale": [
+        0.6,
+        0.8,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        0.27
+      ]
+    },
+    {
+      "id": "vault_seal_monolith_0",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        6.1,
+        -16.0,
+        -16.8
+      ],
+      "scale": [
+        0.9,
+        1.1,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_seal_monolith_1",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        6.1,
+        -16.0,
+        -27.2
+      ],
+      "scale": [
+        0.9,
+        1.1,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_seal_monolith_2",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        17.1,
+        -16.0,
+        -16.8
+      ],
+      "scale": [
+        0.9,
+        1.1,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_seal_monolith_3",
+      "model": "assets/models/env/ruin_monolith.glb",
+      "pos": [
+        17.1,
+        -16.0,
+        -27.2
+      ],
+      "scale": [
+        0.9,
+        1.1,
+        0.9
+      ],
+      "solid": true
+    },
+    {
+      "id": "vault_torch_seal_n",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        12.6,
+        -13.8,
+        -15.05
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_torch_seal_s",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        12.6,
+        -13.8,
+        -28.95
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_torch_seal_w1",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        4.65,
+        -13.6,
+        -19.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "vault_torch_seal_w2",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        4.65,
+        -13.6,
+        -25.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    }
+  ],
+  "lights": [
+    {
+      "pos": [
+        -6.0,
+        2.8,
+        -9.5
+      ],
+      "color": [
+        1.0,
+        0.76,
+        0.42
+      ],
+      "radius": 11.0
+    },
+    {
+      "pos": [
+        8.0,
+        2.8,
+        -9.5
+      ],
+      "color": [
+        1.0,
+        0.78,
+        0.46
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        -6.5,
+        2.8,
+        9.5
+      ],
+      "color": [
+        1.0,
+        0.72,
+        0.38
+      ],
+      "radius": 11.0
+    },
+    {
+      "pos": [
+        8.5,
+        2.8,
+        10.5
+      ],
+      "color": [
+        0.85,
+        0.82,
+        1.0
+      ],
+      "radius": 11.0
+    },
+    {
+      "pos": [
+        17.5,
+        3.0,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.72,
+        0.38
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        30.0,
+        2.5,
+        -3.5
+      ],
+      "color": [
+        1.0,
+        0.72,
+        0.35
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        52.0,
+        2.8,
+        -7.5
+      ],
+      "color": [
+        0.45,
+        0.85,
+        1.0
+      ],
+      "radius": 11.0
+    },
+    {
+      "pos": [
+        72.0,
+        2.8,
+        0.0
+      ],
+      "color": [
+        1.0,
+        0.68,
+        0.32
+      ],
+      "radius": 11.0
+    },
+    {
+      "pos": [
+        87.0,
+        -2.0,
+        -6.4
+      ],
+      "color": [
+        1.0,
+        0.68,
+        0.32
+      ],
+      "radius": 10.5
+    },
+    {
+      "pos": [
+        87.0,
+        -2.0,
+        -18.9
+      ],
+      "color": [
+        1.0,
+        0.65,
+        0.3
+      ],
+      "radius": 12.0
+    },
+    {
+      "pos": [
+        95.2,
+        -2.2,
+        -19.4
+      ],
+      "color": [
+        1.0,
+        0.75,
+        0.35
+      ],
+      "radius": 8.5
+    },
+    {
+      "pos": [
+        93.0,
+        -2.0,
+        -30.4
+      ],
+      "color": [
+        0.4,
+        0.88,
+        1.0
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        71.5,
+        -2.0,
+        -19.4
+      ],
+      "color": [
+        0.55,
+        0.85,
+        1.0
+      ],
+      "radius": 11.5
+    },
+    {
+      "pos": [
+        71.0,
+        -1.8,
+        -33.4
+      ],
+      "color": [
+        0.45,
+        0.9,
+        1.0
+      ],
+      "radius": 14.0
+    },
+    {
+      "pos": [
+        38.6,
+        -6.6,
+        -22.0
+      ],
+      "color": [
+        0.45,
+        0.62,
+        0.95
+      ],
+      "radius": 12.0
+    },
+    {
+      "pos": [
+        38.6,
+        -9.3,
+        -27.0
+      ],
+      "color": [
+        1.0,
+        0.72,
+        0.42
+      ],
+      "radius": 3.8
+    },
+    {
+      "pos": [
+        8.6,
+        -12.0,
+        -22.0
+      ],
+      "color": [
+        0.55,
+        0.75,
+        1.0
+      ],
+      "radius": 13.0
+    }
+  ],
+  "npcs": [
+    {
+      "instance_id": "npc_oakhaven",
+      "npc_id": "core:npc.clerk_oakhaven",
+      "pos": [
+        -6.0,
+        0.0,
+        -12.6
+      ],
+      "yaw": 0.0
+    },
+    {
+      "instance_id": "npc_vaelen",
+      "npc_id": "core:npc.merchant_vaelen",
+      "pos": [
+        8.0,
+        0.0,
+        -10.5
+      ],
+      "yaw": 0.0
+    },
+    {
+      "instance_id": "npc_marta",
+      "npc_id": "core:npc.innkeeper_marta",
+      "pos": [
+        -6.5,
+        0.0,
+        11.5
+      ],
+      "yaw": 180.0
+    },
+    {
+      "instance_id": "npc_fenwick",
+      "npc_id": "core:npc.librarian_fenwick",
+      "pos": [
+        6.5,
+        0.0,
+        11.2
+      ],
+      "yaw": 180.0
+    },
+    {
+      "instance_id": "npc_aldous",
+      "npc_id": "core:npc.brother_aldous",
+      "pos": [
+        11.5,
+        0.0,
+        10.5
+      ],
+      "yaw": 180.0
+    },
+    {
+      "instance_id": "npc_kaelen",
+      "npc_id": "core:npc.ashbound_scout",
+      "pos": [
+        30.5,
+        0.0,
+        -3.8
+      ],
+      "yaw": 45.0
+    },
+    {
+      "instance_id": "npc_spirit",
+      "npc_id": "core:npc.erased_spirit",
+      "pos": [
+        67.5,
+        -4.8,
+        -16.2
+      ],
+      "yaw": 45.0
+    }
+  ],
+  "creatures": [
+    {
+      "instance_id": "road_rat_1",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        43.0,
+        0.0,
+        1.2
+      ],
+      "patrol_a": [
+        40.0,
+        0.0,
+        1.2
+      ],
+      "patrol_b": [
+        46.0,
+        0.0,
+        -1.2
+      ]
+    },
+    {
+      "instance_id": "road_rat_2",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        54.0,
+        0.0,
+        -1.5
+      ],
+      "patrol_a": [
+        51.0,
+        0.0,
+        -1.5
+      ],
+      "patrol_b": [
+        58.0,
+        0.0,
+        1.5
+      ]
+    },
+    {
+      "instance_id": "road_crawler_1",
+      "creature_id": "core:enemy.ash_crawler",
+      "pos": [
+        63.5,
+        0.0,
+        2.0
+      ],
+      "patrol_a": [
+        60.0,
+        0.0,
+        2.0
+      ],
+      "patrol_b": [
+        67.0,
+        0.0,
+        -2.0
+      ]
+    },
+    {
+      "instance_id": "foyer_rat",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        89.5,
+        -4.8,
+        -7.9
+      ],
+      "patrol_a": [
+        84.5,
+        -4.8,
+        -7.9
+      ],
+      "patrol_b": [
+        90.0,
+        -4.8,
+        -7.9
+      ]
+    },
+    {
+      "instance_id": "archive_skel_1",
+      "creature_id": "core:enemy.restless_skeleton",
+      "pos": [
+        84.5,
+        -4.8,
+        -17.9
+      ],
+      "patrol_a": [
+        81.0,
+        -4.8,
+        -17.9
+      ],
+      "patrol_b": [
+        91.0,
+        -4.8,
+        -17.9
+      ]
+    },
+    {
+      "instance_id": "archive_crawler_1",
+      "creature_id": "core:enemy.ash_crawler",
+      "pos": [
+        92.5,
+        -4.8,
+        -22.4
+      ],
+      "patrol_a": [
+        89.0,
+        -4.8,
+        -22.4
+      ],
+      "patrol_b": [
+        95.0,
+        -4.8,
+        -20.4
+      ]
+    },
+    {
+      "instance_id": "crypt_sentinel_1",
+      "creature_id": "core:enemy.lost_sentinel",
+      "pos": [
+        72.5,
+        -4.8,
+        -19.9
+      ],
+      "patrol_a": [
+        72.5,
+        -4.8,
+        -17.4
+      ],
+      "patrol_b": [
+        72.5,
+        -4.8,
+        -22.4
+      ]
+    },
+    {
+      "instance_id": "sanctum_boss",
+      "creature_id": "core:enemy.crypt_keeper",
+      "pos": [
+        71.0,
+        -4.8,
+        -32.9
+      ],
+      "patrol_a": [
+        69.0,
+        -4.8,
+        -32.9
+      ],
+      "patrol_b": [
+        73.0,
+        -4.8,
+        -32.9
+      ]
+    },
+    {
+      "instance_id": "nursery_skel_1",
+      "creature_id": "core:enemy.restless_skeleton",
+      "pos": [
+        42.6,
+        -10.4,
+        -20.5
+      ],
+      "patrol_a": [
+        45.6,
+        -10.4,
+        -20.5
+      ],
+      "patrol_b": [
+        31.6,
+        -10.4,
+        -20.5
+      ]
+    },
+    {
+      "instance_id": "nursery_skel_2",
+      "creature_id": "core:enemy.restless_skeleton",
+      "pos": [
+        34.6,
+        -10.4,
+        -23.5
+      ],
+      "patrol_a": [
+        30.6,
+        -10.4,
+        -23.5
+      ],
+      "patrol_b": [
+        44.6,
+        -10.4,
+        -23.5
+      ]
+    },
+    {
+      "instance_id": "nursery_crawler",
+      "creature_id": "core:enemy.ash_crawler",
+      "pos": [
+        30.6,
+        -10.4,
+        -17.5
+      ],
+      "patrol_a": [
+        30.6,
+        -10.4,
+        -17.5
+      ],
+      "patrol_b": [
+        30.6,
+        -10.4,
+        -26.5
+      ]
+    },
+    {
+      "instance_id": "lullaby_warden",
+      "creature_id": "core:enemy.lullaby_warden",
+      "pos": [
+        12.6,
+        -16.0,
+        -22.0
+      ],
+      "patrol_a": [
+        10.6,
+        -16.0,
+        -25.0
+      ],
+      "patrol_b": [
+        10.6,
+        -16.0,
+        -19.0
+      ]
+    }
+  ],
+  "interactables": [
+    {
+      "instance_id": "records_notice_lectern",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -3.5,
+        0.0,
+        -7.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read Bureau Notice",
+      "title": "Municipal Ordinance 404",
+      "text": "NOTICE TO CITIZENS:\nAny resident discovering that their house, spouse, or childhood never existed must file Form 88-A before sundown. Unregistered nostalgia is punishable by a five-crown fine."
+    },
+    {
+      "instance_id": "records_supply_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        -9.2,
+        0.0,
+        -9.0
+      ],
+      "rot_y": 90.0,
+      "locked": false,
+      "loot_table": "core:loot.vermin_drop",
+      "fixed_items": [
+        "core:item.health_potion",
+        "core:item.lockpick"
+      ]
+    },
+    {
+      "instance_id": "shrine_free_tome",
+      "type": "pickup",
+      "item_id": "core:item.tome_mend",
+      "qty": 1,
+      "pos": [
+        10.0,
+        0.2,
+        12.2
+      ]
+    },
+    {
+      "instance_id": "inn_free_bread",
+      "type": "pickup",
+      "item_id": "core:item.bread_loaf",
+      "qty": 2,
+      "pos": [
+        -4.5,
+        0.2,
+        10.0
+      ]
+    },
+    {
+      "instance_id": "census_board",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        3.0,
+        0.0,
+        -6.2
+      ],
+      "rot_y": 180.0,
+      "prompt": "Read the Village Census Board",
+      "title": "Bellwether Census, Spring Posting",
+      "text": "HOUSEHOLDS OF BELLWETHER (PARISH COPY)\n\nKettleburn, M. (innkeeper, no kin recorded)\nVaelen, quartermaster (licensed)\nFenwick, librarian (two cats, unlicensed)\nOakhaven, clerk (Bureau)\n\nThe next line has been scraped from the board with a knife. The wood beneath it is pale and new, the way skin is under a scab. Your fingers find the grooves of letters that are no longer there, and for one dizzy moment they feel like your own name."
+    },
+    {
+      "instance_id": "monolith_inscription",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        52.0,
+        0.0,
+        -5.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Inspect Weathered Boundary Stone",
+      "title": "Boundary Marker of the Third Reign",
+      "text": "\"Here stood the market-borough of Oakhallow, population 412.\"\n\nBeneath the chiseled letters, someone has scratched in fresh charcoal: \"There is only forest here. Why do I remember the baker's daughter?\"",
+      "quest_id": "core:quest.bakers_daughter",
+      "set_stage": 0
+    },
+    {
+      "instance_id": "road_ranger_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        53.5,
+        0.0,
+        -8.8
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "lock_difficulty": 5,
+      "loot_table": "core:loot.crypt_basic",
+      "fixed_items": [
+        "core:item.tome_ember",
+        "core:item.wooden_arrow"
+      ]
+    },
+    {
+      "instance_id": "road_arrow_bundle",
+      "type": "pickup",
+      "item_id": "core:item.wooden_arrow",
+      "qty": 12,
+      "pos": [
+        32.0,
+        0.2,
+        -2.5
+      ]
+    },
+    {
+      "instance_id": "scout_journal",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        28.8,
+        0.0,
+        -2.4
+      ],
+      "rot_y": 120.0,
+      "prompt": "Read Kaelen's Field Journal",
+      "title": "Field Journal of Kaelen, Ashbound",
+      "text": "Day 41. The boundary stone of Oakhallow again. Four hundred and twelve souls, it says. I count the foundations in the bracken: none. I count the wells: one, dry, with a bucket still on the rope.\n\nDay 43. The Annex has sunk. Its upper offices fell into something older underneath, and the stairs now go down further than the building ever went up. The skeletons inside still keep office hours.\n\nDay 44. A traveller from Bellwether asked what we Ashbound are for. I told her: somebody has to remember things on purpose."
+    },
+    {
+      "instance_id": "annex_inner_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        87.0,
+        -4.8,
+        -12.4
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "key_id": "core:item.annex_key",
+      "lock_difficulty": 8,
+      "prompt": "Archive Door"
+    },
+    {
+      "instance_id": "crypt_portcullis",
+      "type": "door",
+      "model": "assets/models/props/iron_gate.glb",
+      "pos": [
+        77.0,
+        -4.8,
+        -19.4
+      ],
+      "rot_y": 90.0,
+      "locked": true,
+      "mechanism_only": true,
+      "prompt": "Lower Crypt Portcullis (Controlled by Archive Lever)"
+    },
+    {
+      "instance_id": "crypt_gate_lever",
+      "type": "lever",
+      "model": "assets/models/props/iron_lever.glb",
+      "pos": [
+        95.6,
+        -4.8,
+        -19.4
+      ],
+      "rot_y": -90.0,
+      "target_id": "crypt_portcullis",
+      "prompt": "Pull Iron Archive Lever"
+    },
+    {
+      "instance_id": "secret_wall_door",
+      "type": "door",
+      "model": "assets/models/props/iron_gate.glb",
+      "pos": [
+        93.0,
+        -4.8,
+        -26.4
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "mechanism_only": true,
+      "prompt": "Sealed Royal Vault Gate (Step on Rune Plate)"
+    },
+    {
+      "instance_id": "secret_plate",
+      "type": "pressure_plate",
+      "model": "assets/models/props/pressure_plate.glb",
+      "pos": [
+        79.5,
+        -4.8,
+        -23.9
+      ],
+      "rot_y": 0.0,
+      "target_id": "secret_wall_door",
+      "prompt": "Ancient Rune Pressure Plate"
+    },
+    {
+      "instance_id": "sanctum_gate",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        71.0,
+        -4.8,
+        -24.4
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "key_id": "core:item.crypt_key",
+      "lock_difficulty": 12,
+      "prompt": "Sanctum of the Uncounted Gate"
+    },
+    {
+      "instance_id": "archive_clue_lectern",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        89.2,
+        -4.8,
+        -24.2
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read Chief Archivist's Log",
+      "title": "Chief Archivist Morvath's Log",
+      "text": "\"The portcullis to the lower crypt is controlled by the eastern wall-lever. Should the King's inquisitors ever breach this hall, the Royal Treasury gate to the north opens only when weight is placed upon the rune-plate in the north-west corner.\""
+    },
+    {
+      "instance_id": "secret_widowmaker_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        93.0,
+        -4.8,
+        -31.6
+      ],
+      "rot_y": 0.0,
+      "locked": false,
+      "loot_table": "core:loot.secret_widowmaker",
+      "fixed_items": [
+        "core:item.widowmaker",
+        "core:item.tome_veil"
+      ]
+    },
+    {
+      "instance_id": "archive_supply_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        79.2,
+        -4.8,
+        -14.6
+      ],
+      "rot_y": 0.0,
+      "locked": false,
+      "loot_table": "core:loot.crypt_basic",
+      "fixed_items": [
+        "core:item.health_potion",
+        "core:item.mana_potion"
+      ]
+    },
+    {
+      "instance_id": "grand_ledger_lectern",
+      "type": "quest_pedestal",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        71.0,
+        -4.8,
+        -36.2
+      ],
+      "rot_y": 0.0,
+      "prompt": "Claim Form 27-B & The Uncounted Ledger",
+      "quest_id": "core:quest.legally_deceased",
+      "set_stage": 30,
+      "grant_items": [
+        "core:item.form_27b",
+        "core:item.uncounted_ledger"
+      ]
+    },
+    {
+      "instance_id": "oakhallow_census",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        82.5,
+        -4.8,
+        -25.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Struck Census Folio",
+      "title": "Census of Oakhallow, Folio III (Struck)",
+      "text": "MARKET-BOROUGH OF OAKHALLOW, POP. 412\n\n...Brannock, Tomas. Baker. Ovens on Mill Lane.\nBrannock, Marta. Elder daughter. Apprenticed to the bakehouse.\nBrannock, Ilse. Younger daughter, aged nine.\n\nEvery line on the page has been struck through in red ink, all but one. Beside Ilse's name, in a neat archivist's hand:\n\n\"Moved to Vault III for safekeeping. Elder sister relocated to Bellwether, memory sealed. God forgive us. - M.\"",
+      "quest_id": "core:quest.bakers_daughter",
+      "set_stage": 20
+    },
+    {
+      "instance_id": "duty_roster",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        91.2,
+        -4.8,
+        -4.8
+      ],
+      "rot_y": 200.0,
+      "prompt": "Read the Archivists' Duty Roster",
+      "title": "Annex III Duty Roster",
+      "text": "NIGHT WATCH - VAULT III (THE NURSERY)\n\nMorvath, Chief Archivist - every night. Do not relieve him. He will not be relieved.\n\nREMINDER TO ALL STAFF: the children's names are NOT to be spoken aloud inside the Annex, not even as a kindness. Especially not as a kindness."
+    },
+    {
+      "instance_id": "ilse_cradle",
+      "type": "readable",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        38.6,
+        -10.4,
+        -28.05
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ],
+      "prompt": "Look into the Small Sarcophagus",
+      "title": "Held in Trust",
+      "text": "Under a pane of clouded glass lies a girl of nine, breathing slow as winter. Flour still dusts one sleeve.\n\nA brass plate on the lid: I. BRANNOCK. HELD IN TRUST UNTIL SAFE.\n\nSeventeen years, and she has not aged a day. Her lips move in her sleep, shaping the same word over and over, the way you repeat a thing so as not to forget it.\n\nThe word is \"Marta\".",
+      "quest_id": "core:quest.vault_three",
+      "set_stage": 10,
+      "set_flag": "found_ilse"
+    },
+    {
+      "instance_id": "warden_lullaby",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        46.4,
+        -10.4,
+        -17.4
+      ],
+      "rot_y": 90.0,
+      "prompt": "Read the Night-Warden's Hymnal",
+      "title": "The Night-Warden's Lullaby",
+      "text": "Hush, little names, the ink is deep,\nthe Hunger walks but cannot keep\nwhat no one speaks and no one knows.\nSleep in the ledger. Sleep in the snows.\n\nHush, little names, till morning comes,\ntill someone signs the Seal for sums\nof all the souls we hid below.\nUntil then, sleep. And I will not go.\n\nIn the margin, in a shaking hand: \"Morning never comes. The Chief Archivist went mad. I sing anyway.\""
+    },
+    {
+      "instance_id": "nursery_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        30.0,
+        -10.4,
+        -26.4
+      ],
+      "rot_y": 90.0,
+      "locked": true,
+      "lock_difficulty": 9,
+      "loot_table": "core:loot.crypt_basic",
+      "fixed_items": [
+        "core:item.health_potion",
+        "core:item.mana_potion"
+      ]
+    },
+    {
+      "instance_id": "seal_of_names",
+      "type": "quest_pedestal",
+      "model": "assets/models/props/altar_dawn.glb",
+      "pos": [
+        8.6,
+        -16.0,
+        -22.0
+      ],
+      "rot_y": 90.0,
+      "prompt": "Sign the Seal of Names",
+      "quest_id": "core:quest.vault_three",
+      "set_stage": 100,
+      "set_flag": "seal_renewed",
+      "requires_dead": "lullaby_warden",
+      "grant_items": [
+        "core:item.seal_quill"
+      ],
+      "narration": [
+        "story.seal.1",
+        "story.seal.2",
+        "story.seal.3",
+        "story.seal.4"
+      ]
+    },
+    {
+      "instance_id": "seal_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        5.6,
+        -16.0,
+        -22.0
+      ],
+      "rot_y": 90.0,
+      "locked": false,
+      "loot_table": "core:loot.crypt_elite",
+      "fixed_items": [
+        "core:item.stamina_tonic",
+        "core:item.tome_ward"
+      ]
+    },
+    {
+      "instance_id": "flour_handprints",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        65.75,
+        -3.8,
+        -19.7
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Marks on the Wall",
+      "title": "Handprints in Old Flour",
+      "text": "Small handprints, a child's, pressed into the stone in old flour. They lead along the wall to a gap where the masonry has been opened, and a stair going down: deeper than the Annex was ever built.\n\nSomeone has chalked beside them, in an archivist's neat hand: \"VAULT III. THE NURSERY. DO NOT WAKE.\"",
+      "quest_id": "core:quest.vault_three",
+      "set_stage": 0
+    },
+    {
+      "instance_id": "landing_warning",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        87.0,
+        -3.8,
+        1.75
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Scratches on the Wall",
+      "title": "Scratched into the Stone",
+      "text": "Dozens of hands have cut the same words into the wall, over and over, in different scripts and different centuries:\n\nTURN BACK. THE NAMES ARE LISTENING.\n\nBeneath them, newer and neater, in Bureau ink: \"Graffiti is a Class III municipal offence.\""
+    }
+  ],
+  "portals": []
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "spells": [
+    {
+      "id": "core:spell.ember_bolt",
+      "name_key": "spell.ember_bolt.name",
+      "description_key": "spell.ember_bolt.desc",
+      "icon": "assets/ui/spells/ember_bolt.png",
+      "skill": "elemental",
+      "mana_cost": 10,
+      "cooldown_seconds": 0.75,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "projectile_damage",
+        "damage_type": "fire",
+        "base_power": 18,
+        "projectile_speed": 16.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ember.png",
+        "light_color": [
+          1.0,
+          0.45,
+          0.15
+        ],
+        "light_radius": 5.5
+      }
+    },
+    {
+      "id": "core:spell.mend",
+      "name_key": "spell.mend.name",
+      "description_key": "spell.mend.desc",
+      "icon": "assets/ui/spells/mend.png",
+      "skill": "restoration",
+      "mana_cost": 14,
+      "cooldown_seconds": 1.2,
+      "cast_sfx": "assets/audio/sfx/spell_heal.wav",
+      "effect": {
+        "primitive": "self_heal",
+        "base_power": 28,
+        "stamina_restore": 15
+      }
+    },
+    {
+      "id": "core:spell.ward",
+      "name_key": "spell.ward.name",
+      "description_key": "spell.ward.desc",
+      "icon": "assets/ui/spells/ward.png",
+      "skill": "restoration",
+      "mana_cost": 12,
+      "cooldown_seconds": 1.0,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "buff_armor",
+        "base_power": 8,
+        "duration_seconds": 35.0
+      }
+    },
+    {
+      "id": "core:spell.glimmer",
+      "name_key": "spell.glimmer.name",
+      "description_key": "spell.glimmer.desc",
+      "icon": "assets/ui/spells/glimmer.png",
+      "skill": "elemental",
+      "mana_cost": 6,
+      "cooldown_seconds": 0.6,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "buff_light",
+        "light_radius": 11.0,
+        "light_color": [
+          0.95,
+          0.88,
+          0.62
+        ],
+        "duration_seconds": 90.0
+      }
+    },
+    {
+      "id": "core:spell.veil",
+      "name_key": "spell.veil.name",
+      "description_key": "spell.veil.desc",
+      "icon": "assets/ui/spells/veil.png",
+      "skill": "illusion",
+      "mana_cost": 14,
+      "cooldown_seconds": 1.5,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "buff_stealth",
+        "visibility_multiplier": 0.35,
+        "duration_seconds": 25.0
+      }
+    }
+  ]
+}

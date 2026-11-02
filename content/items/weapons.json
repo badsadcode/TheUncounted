@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "core:item.rusted_sword",
+      "name_key": "item.rusted_sword.name",
+      "description_key": "item.rusted_sword.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/rusted_sword.png",
+      "world_model": "assets/models/items/rusted_sword.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 15,
+      "weight": 2.4,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "slashing",
+        "base_damage": 11,
+        "attack_time_seconds": 0.55,
+        "stamina_cost": 8,
+        "reach_meters": 2.1
+      }
+    },
+    {
+      "id": "core:item.iron_longsword",
+      "name_key": "item.iron_longsword.name",
+      "description_key": "item.iron_longsword.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/iron_longsword.png",
+      "world_model": "assets/models/items/iron_longsword.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 55,
+      "weight": 2.8,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "slashing",
+        "base_damage": 16,
+        "attack_time_seconds": 0.58,
+        "stamina_cost": 9,
+        "reach_meters": 2.25
+      }
+    },
+    {
+      "id": "core:item.widowmaker",
+      "name_key": "item.widowmaker.name",
+      "description_key": "item.widowmaker.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/widowmaker.png",
+      "world_model": "assets/models/items/widowmaker_blade.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 240,
+      "weight": 3.2,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "slashing",
+        "base_damage": 26,
+        "attack_time_seconds": 0.62,
+        "stamina_cost": 11,
+        "reach_meters": 2.5
+      },
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "might",
+          "amount": 2
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "core:item.steel_dagger",
+      "name_key": "item.steel_dagger.name",
+      "description_key": "item.steel_dagger.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/steel_dagger.png",
+      "world_model": "assets/models/items/steel_dagger.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 38,
+      "weight": 1.1,
+      "weapon": {
+        "kind": "melee",
+        "skill": "daggers",
+        "damage_type": "piercing",
+        "base_damage": 10,
+        "attack_time_seconds": 0.36,
+        "stamina_cost": 5,
+        "reach_meters": 1.75
+      }
+    },
+    {
+      "id": "core:item.iron_mace",
+      "name_key": "item.iron_mace.name",
+      "description_key": "item.iron_mace.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/iron_mace.png",
+      "world_model": "assets/models/items/iron_mace.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 48,
+      "weight": 3.4,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "blunt",
+        "base_damage": 15,
+        "attack_time_seconds": 0.6,
+        "stamina_cost": 10,
+        "reach_meters": 2.0
+      }
+    },
+    {
+      "id": "core:item.oak_staff",
+      "name_key": "item.oak_staff.name",
+      "description_key": "item.oak_staff.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/oak_staff.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 45,
+      "weight": 2.0,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "blunt",
+        "base_damage": 10,
+        "attack_time_seconds": 0.54,
+        "stamina_cost": 7,
+        "reach_meters": 2.35
+      },
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "intellect",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "core:item.hunting_bow",
+      "name_key": "item.hunting_bow.name",
+      "description_key": "item.hunting_bow.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/hunting_bow.png",
+      "world_model": "assets/models/items/hunting_bow.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 52,
+      "weight": 1.8,
+      "weapon": {
+        "kind": "ranged",
+        "skill": "bows",
+        "damage_type": "piercing",
+        "base_damage": 15,
+        "attack_time_seconds": 0.72,
+        "stamina_cost": 8,
+        "reach_meters": 32.0,
+        "ammo_item": "core:item.wooden_arrow",
+        "projectile_speed": 24.0
+      }
+    },
+    {
+      "id": "core:item.wooden_arrow",
+      "name_key": "item.wooden_arrow.name",
+      "description_key": "item.wooden_arrow.description",
+      "category": "ammo",
+      "icon": "assets/ui/items/wooden_arrow.png",
+      "world_model": "assets/models/items/wooden_arrow.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 2,
+      "weight": 0.05
+    }
+  ]
+}

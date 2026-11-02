@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "archetypes": [
+    {
+      "id": "core:archetype.warrior",
+      "name_key": "arch.warrior.name",
+      "description_key": "arch.warrior.desc",
+      "attribute_bonuses": {
+        "might": 2,
+        "endurance": 2
+      },
+      "skill_bonuses": {
+        "swords": 12,
+        "block": 10,
+        "athletics": 6
+      },
+      "starting_equipment": [
+        "core:item.iron_longsword",
+        "core:item.iron_shield",
+        "core:item.chain_hauberk"
+      ],
+      "starting_inventory": [
+        "core:item.health_potion",
+        "core:item.health_potion",
+        "core:item.death_notice"
+      ],
+      "starting_spells": [
+        "core:spell.glimmer"
+      ]
+    },
+    {
+      "id": "core:archetype.ranger",
+      "name_key": "arch.ranger.name",
+      "description_key": "arch.ranger.desc",
+      "attribute_bonuses": {
+        "agility": 2,
+        "endurance": 1,
+        "will": 1
+      },
+      "skill_bonuses": {
+        "bows": 14,
+        "perception": 10,
+        "stealth": 6
+      },
+      "starting_equipment": [
+        "core:item.hunting_bow",
+        "core:item.leather_jerkin",
+        "core:item.traveler_boots"
+      ],
+      "starting_inventory": [
+        "core:item.rusted_sword",
+        "core:item.wooden_arrow",
+        "core:item.health_potion",
+        "core:item.death_notice"
+      ],
+      "starting_ammo": 28,
+      "starting_spells": [
+        "core:spell.glimmer"
+      ]
+    },
+    {
+      "id": "core:archetype.mage",
+      "name_key": "arch.mage.name",
+      "description_key": "arch.mage.desc",
+      "attribute_bonuses": {
+        "intellect": 3,
+        "will": 1
+      },
+      "skill_bonuses": {
+        "elemental": 14,
+        "lore": 10,
+        "restoration": 6
+      },
+      "starting_equipment": [
+        "core:item.oak_staff",
+        "core:item.scholar_robe"
+      ],
+      "starting_inventory": [
+        "core:item.mana_potion",
+        "core:item.mana_potion",
+        "core:item.health_potion",
+        "core:item.death_notice"
+      ],
+      "starting_spells": [
+        "core:spell.ember_bolt",
+        "core:spell.glimmer",
+        "core:spell.ward"
+      ]
+    },
+    {
+      "id": "core:archetype.rogue",
+      "name_key": "arch.rogue.name",
+      "description_key": "arch.rogue.desc",
+      "attribute_bonuses": {
+        "agility": 3,
+        "presence": 1
+      },
+      "skill_bonuses": {
+        "daggers": 12,
+        "stealth": 12,
+        "lockpicking": 12
+      },
+      "starting_equipment": [
+        "core:item.steel_dagger",
+        "core:item.leather_jerkin",
+        "core:item.traveler_boots"
+      ],
+      "starting_inventory": [
+        "core:item.lockpick",
+        "core:item.lockpick",
+        "core:item.lockpick",
+        "core:item.health_potion",
+        "core:item.death_notice"
+      ],
+      "starting_spells": [
+        "core:spell.veil",
+        "core:spell.glimmer"
+      ]
+    },
+    {
+      "id": "core:archetype.cleric",
+      "name_key": "arch.cleric.name",
+      "description_key": "arch.cleric.desc",
+      "attribute_bonuses": {
+        "will": 2,
+        "endurance": 1,
+        "presence": 1
+      },
+      "skill_bonuses": {
+        "restoration": 14,
+        "swords": 8,
+        "block": 8,
+        "lore": 6
+      },
+      "starting_equipment": [
+        "core:item.iron_mace",
+        "core:item.iron_shield",
+        "core:item.chain_hauberk"
+      ],
+      "starting_inventory": [
+        "core:item.health_potion",
+        "core:item.mana_potion",
+        "core:item.death_notice"
+      ],
+      "starting_spells": [
+        "core:spell.mend",
+        "core:spell.ward",
+        "core:spell.glimmer"
+      ]
+    },
+    {
+      "id": "core:archetype.adventurer",
+      "name_key": "arch.adventurer.name",
+      "description_key": "arch.adventurer.desc",
+      "attribute_bonuses": {
+        "might": 1,
+        "agility": 1,
+        "intellect": 1,
+        "presence": 1
+      },
+      "skill_bonuses": {
+        "swords": 10,
+        "bows": 8,
+        "elemental": 8,
+        "perception": 8,
+        "lockpicking": 6
+      },
+      "starting_equipment": [
+        "core:item.rusted_sword",
+        "core:item.leather_jerkin",
+        "core:item.traveler_boots"
+      ],
+      "starting_inventory": [
+        "core:item.hunting_bow",
+        "core:item.wooden_arrow",
+        "core:item.lockpick",
+        "core:item.health_potion",
+        "core:item.death_notice"
+      ],
+      "starting_ammo": 15,
+      "starting_spells": [
+        "core:spell.ember_bolt",
+        "core:spell.mend",
+        "core:spell.glimmer"
+      ]
+    }
+  ]
+}

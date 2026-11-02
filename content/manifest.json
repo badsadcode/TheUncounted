@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "pack_id": "core",
+  "pack_name": "The Uncounted: Chapter Zero - Legally Deceased",
+  "version": "1.0.0",
+  "localization": [
+    "content/localization/en.json"
+  ],
+  "balancing": "content/balancing/combat_and_progression.json",
+  "attributes": "content/attributes/attributes.json",
+  "races": "content/races/races.json",
+  "backgrounds": "content/backgrounds/backgrounds.json",
+  "archetypes": "content/archetypes/archetypes.json",
+  "skills": "content/skills/skills.json",
+  "synergies": "content/synergies/synergies.json",
+  "factions": "content/factions/factions.json",
+  "spells": [
+    "content/spells/core_spells.json"
+  ],
+  "items": [
+    "content/items/weapons.json",
+    "content/items/armor_and_gear.json",
+    "content/items/consumables_and_books.json",
+    "content/items/quest_and_keys.json"
+  ],
+  "loot_tables": [
+    "content/loot_tables/core_loot.json"
+  ],
+  "creatures": [
+    "content/creatures/core_creatures.json"
+  ],
+  "npcs": [
+    "content/npcs/core_npcs.json"
+  ],
+  "dialogue": [
+    "content/dialogue/chapter_zero_dialogue.json"
+  ],
+  "quests": [
+    "content/quests/chapter_zero_quests.json"
+  ],
+  "maps": [
+    "content/maps/edrath_world.json"
+  ]
+}

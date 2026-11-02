@@ -1,0 +1,380 @@
+#pragma once
+
+#include "content/ContentRegistry.h"
+#include "renderer/WorldRenderer.h"
+#include "resource/ResourceManager.h"
+#include "world/Scene.h"
+#include <array>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
+namespace uncounted {
+
+enum class Screen { Title, Creation, Playing, Dead, Ending };
+enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration };
+
+struct InvItem {
+    std::string id;
+    int qty = 1;
+};
+
+struct SkillState {
+    int level = 5;
+    float xp = 0.0f;
+    double last_gain = -100.0;
+};
+
+struct ActiveBuff {
+    std::string spell_id;
+    std::string primitive;
+    float remaining = 0.0f;
+    float duration = 0.0f;
+    float power = 0.0f;
+    Vector3 light_color{};
+    float light_radius = 0.0f;
+    float visibility = 1.0f;
+};
+
+struct PlayerState {
+    std::string name = "Nameless";
+    std::string race_id, background_id, archetype_id;
+    std::map<std::string, int> attributes; // permanent values (base + race + archetype + spent points)
+    std::map<std::string, SkillState> skills;
+    int level = 1;
+    int xp = 0;
+    int unspent_points = 0;
+    float health = 60, stamina = 70, mana = 40;
+    int gold = 0;
+    std::vector<InvItem> inventory;
+    std::map<std::string, std::string> equipment; // slot -> item id
+    std::vector<std::string> known_spells;
+    int selected_spell = 0;
+    std::array<std::string, 4> quick_slots;
+    std::vector<ActiveBuff> buffs;
+    std::map<std::string, int> quest_stages;
+    std::map<std::string, std::vector<int>> quest_log;
+    std::set<std::string> flags;
+    std::set<std::string> claimed; // one-time dialogue rewards
+    double play_time = 0.0;
+
+    Vector3 pos{};
+    Vector3 vel{};
+    float yaw = 0.0f;   // radians; forward = (sin yaw, 0, cos yaw)
+    float pitch = 0.0f;
+    bool on_ground = true;
+    bool crouching = false;
+    float eye_height = 1.6f;
+};
+
+struct ContainerState {
+    bool generated = false;
+    std::vector<InvItem> items;
+    int gold = 0;
+};
+
+struct MapPersist {
+    std::set<std::string> open;      // doors opened, levers pulled, plates pressed
+    std::set<std::string> unlocked;
+    std::set<std::string> used;      // pedestals claimed, pickups taken, chests opened
+    std::set<std::string> dead;      // defeated creatures
+    std::map<std::string, Vector3> corpse_pos;
+    std::map<std::string, ContainerState> containers;
+};
+
+struct Toast {
+    std::string text;
+    Color color;
+    float time;
+};
+
+struct InteractTarget {
+    enum Kind { None, Interactable, Npc, Corpse, Pickup, Portal } kind = None;
+    int index = -1;
+    std::string prompt;
+};
+
+class GameEngine {
+public:
+    bool Init(int argc, char** argv);
+    void Run();
+    void Shutdown();
+    int RunSelfTest(); // headless quest walkthrough; returns number of failures
+    bool SelfTestRequested() const { return selftest_; }
+    void RunBalanceReport(); // headless archetype-vs-creature duels
+    bool BalanceRequested() const { return balance_; }
+
+private:
+    friend class GameUI;
+
+    // ---- subsystems
+    ContentRegistry content_;
+    ResourceManager res_;
+    WorldRenderer renderer_;
+    Scene scene_;
+
+    // ---- state
+    Screen screen_ = Screen::Title;
+    Overlay overlay_ = Overlay::None;
+    PlayerState player_;
+    std::map<std::string, MapPersist> persist_;
+    std::map<std::string, std::map<std::string, int>> vendor_sold_; // npc -> item -> sold count
+    std::string current_map_;
+    bool running_ = true;
+    float sim_accum_ = 0.0f;
+    float time_ = 0.0f;
+    bool debug_overlay_ = false;
+    bool selftest_ = false;
+    bool balance_ = false;
+    bool mute_ = false;
+    int skip_mouse_frames_ = 0; // ignore the delta spike after the cursor is captured
+    std::vector<Toast> toasts_;
+    // ---- story presentation
+    std::string subtitle_speaker_, subtitle_text_;
+    float subtitle_time_ = 0.0f;
+    float bark_global_cd_ = 4.0f;
+    std::map<std::string, float> bark_cd_;
+    std::map<std::string, int> bark_next_;
+    std::set<std::string> spoke_alert_;
+    std::vector<std::string> narration_pages_;
+    int narration_page_ = 0;
+    float narration_time_ = 0.0f;
+    bool narration_is_prologue_ = false;
+    void StartNarration(const std::vector<std::string>& keys);
+    void Say(const std::string& speaker, const std::string& text, float seconds = 0.0f);
+    void UpdateBarks(float dt);
+    void AdvanceNarration();
+    void DrawNarration();
+    void DrawSubtitle();
+    std::vector<std::string> QuestOrder() const;
+    std::string region_banner_;
+    float region_banner_time_ = 0.0f;
+    std::string validation_summary_;
+    std::string boot_shot_;      // --shot path: render a frame and exit (headless verification)
+    int boot_shot_frames_ = 0;
+    std::string boot_shot_overlay_;
+
+    // ---- combat/animation
+    float attack_timer_ = -1.0f;    // >=0 while a swing is in progress
+    float attack_duration_ = 0.5f;
+    bool attack_heavy_ = false;
+    bool attack_hit_done_ = false;
+    float charge_time_ = 0.0f;
+    bool charging_ = false;
+    float bow_draw_ = 0.0f;
+    bool drawing_bow_ = false;
+    float block_amount_ = 0.0f;
+    bool blocking_ = false;
+    double block_start_ = -10.0;
+    float stamina_delay_ = 0.0f;
+    float spell_cooldown_ = 0.0f;
+    float cast_flash_ = 0.0f;
+    Vector3 cast_color_{1, 0.6f, 0.2f};
+    std::string cast_sprite_;
+    float damage_flash_ = 0.0f;
+    float bob_phase_ = 0.0f;
+    float step_timer_ = 0.0f;
+    float sprint_accum_ = 0.0f;
+    float sneak_accum_ = 0.0f;
+    bool making_noise_ = false;
+    std::string target_enemy_;
+    float target_enemy_time_ = 0.0f;
+    InteractTarget interact_;
+
+    // ---- overlays
+    std::string dialogue_id_;
+    std::string dialogue_node_;
+    int dialogue_npc_ = -1;
+    std::string shop_npc_;
+    std::string container_key_;
+    std::string container_title_;
+    std::string reader_title_;
+    std::string reader_text_;
+    float ui_scroll_ = 0.0f;
+    int inv_filter_ = 0;
+    std::string inv_selected_;
+    int creation_race_ = 0, creation_bg_ = 0, creation_arch_ = 0;
+    std::string creation_name_ = "Wren";
+    bool options_from_title_ = false;
+    int ending_stage_ = 0;
+    bool ending_shown_ = false;
+
+    // ---- audio
+    struct StreamTrack {
+        Music music{};
+        std::string path;
+        bool is_music = true;
+        float vol = 0.0f; // fade level 0..1 (multiplied by the configured volume)
+    };
+    std::vector<StreamTrack> streams_;
+    std::string want_music_, want_ambience_;
+    void SetWantedAudio(const std::string& music, const std::string& ambience);
+    void UpdateAudio(float dt);
+
+    // ---- zones / atmosphere
+    Atmosphere atmo_;
+    std::string zone_id_ = "?";
+    Atmosphere ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant) const;
+    void UpdateAtmosphere(float dt, bool snap);
+    const MapZoneDef* CurrentZone() const;
+
+    // ---- setup / flow
+    void ApplyAudioVolumes();
+    void PlayMapAudio(const MapDef* map);
+    void StopMapAudio();
+    void NewGame();
+    void LoadMap(const std::string& mapId, const std::string& spawnId, bool keepPosition = false);
+    void BuildScene();
+    void HotReload();
+    void ReturnToTitle();
+
+    // ---- frame update
+    void Frame(float dt);
+    void UpdatePlaying(float dt);
+    void FixedUpdate(float dt);
+    void HandleGameplayInput(float dt);
+    void UpdatePlayerMovement(float dt);
+    void UpdateCombat(float dt);
+    void UpdateCreatures(float dt);
+    void UpdateProjectiles(float dt);
+    void UpdateWorldObjects(float dt);
+    void UpdateBuffs(float dt);
+    void UpdateInteractTarget();
+    void Interact();
+    void CheckPressurePlates();
+    void UpdateParticles(float dt);
+    void SpawnBurst(Vector3 pos, Color color, int count, float speed, bool glow, float gravity = 6.0f, float size = 0.05f);
+
+    // ---- input bindings
+    bool ActionDown(const std::string& name) const;
+    bool ActionPressed(const std::string& name) const;
+    bool ActionReleased(const std::string& name) const;
+    std::string BindingLabel(const std::string& name) const;
+
+    // ---- collision & queries
+    std::vector<BoundingBox> solids_;
+    std::vector<BoundingBox> walkables_;
+    std::vector<std::pair<BoundingBox, int>> ramps_;
+    void RebuildColliders();
+    float GroundHeight(Vector3 pos, float stepHeight) const;
+    Vector3 MoveWithCollision(Vector3 pos, Vector3 delta, float radius, float height, bool isPlayer, int selfCreature = -1);
+    bool LineOfSight(Vector3 a, Vector3 b) const;
+    bool SegmentHitsWorld(Vector3 a, Vector3 b, float& tHit, Vector3& normal) const;
+
+    // ---- character
+public:
+    int Attr(const std::string& id) const;
+    int SkillLevel(const std::string& id) const;
+    float SkillEffect(const std::string& id) const;
+    int MaxHealth() const;
+    int MaxStamina() const;
+    int MaxMana() const;
+    float CarryCapacity() const;
+    float CarriedWeight() const;
+    int ArmorRating() const;
+    float SynergyBonus(const std::string& key) const;
+    bool SynergyActive(const SynergyDef& s) const;
+    float MoveSpeed() const;
+    float Visibility() const;
+    const ItemDef* Equipped(const std::string& slot) const;
+private:
+    void GainSkillXp(const std::string& skill, float amount, bool bypassCooldown = false);
+    void GainXp(int amount);
+    void ClampVitals();
+
+    // ---- inventory
+public:
+    int CountItem(const std::string& id) const;
+    bool IsEquipped(const std::string& id) const;
+private:
+    void AddItem(const std::string& id, int qty, bool announce = true);
+    bool RemoveItem(const std::string& id, int qty);
+    void EquipItem(const std::string& id);
+    void UnequipSlot(const std::string& slot);
+    void UseItem(const std::string& id);
+    void UseQuickSlot(int index);
+    void ReadItem(const ItemDef& item);
+
+    // ---- combat
+    void StartAttack(bool heavy);
+    void ResolveMeleeHit();
+    void FireArrow(float power);
+    void CastSelectedSpell();
+    void DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy);
+    void KillCreature(CreatureInstance& c);
+    void DamagePlayer(int raw, Vector3 from, CreatureInstance* attacker);
+    void SpawnEnemyProjectile(CreatureInstance& c);
+    float DifficultyPlayerMult() const;
+    float DifficultyEnemyMult() const;
+
+    // ---- quests & dialogue
+    int QuestStage(const std::string& id) const;
+    void SetQuestStage(const std::string& id, int stage);
+    bool EvalCondition(const DialogueCondition& c) const;
+    void ExecAction(const DialogueAction& a, const std::string& rewardKey);
+    void StartDialogue(int npcIndex);
+    void EnterDialogueNode(const std::string& node);
+    void ChooseDialogue(int choiceIndex);
+    std::vector<int> VisibleChoices() const;
+    void EndDialogue();
+
+    // ---- containers & shop
+    ContainerState& Container(const std::string& key, const std::string& lootTable, const std::vector<std::string>& fixed);
+    void RollLoot(const std::string& tableId, ContainerState& out);
+    void TakeFromContainer(int index);
+    void TakeAllFromContainer();
+    int VendorStock(const NpcDef& npc, const VendorStockEntry& e) const;
+    int BuyPrice(const VendorStockEntry& e) const;
+    int SellPrice(const ItemDef& item) const;
+    void BuyItem(const VendorStockEntry& e);
+    void SellItem(const std::string& id);
+
+    // ---- persistence
+    std::string SavePath(const std::string& slot) const;
+    bool SaveGame(const std::string& slot);
+    bool LoadGame(const std::string& slot);
+    bool SaveExists(const std::string& slot) const;
+
+    // ---- feedback
+    void Toast(const std::string& text, Color color = Color{235, 225, 200, 255});
+    void PlaySfxAt(const std::string& path, Vector3 pos, float volume = 1.0f);
+    MapPersist& Persist() { return persist_[current_map_]; }
+
+    // ---- rendering / UI (GameUI.cpp)
+    void BuildRenderView(RenderView& view);
+    void DrawFrame();
+    void DrawHud();
+    void DrawTitle();
+    void DrawCreation();
+    void DrawPause();
+    void DrawInventory();
+    void DrawCharacter();
+    void DrawJournal();
+    void DrawMapOverlay();
+    void DrawDialogue();
+    void DrawShop();
+    void DrawContainer();
+    void DrawReader();
+    void DrawOptions();
+    void DrawDead();
+    void DrawEnding();
+    void DrawDebug();
+    void DrawToasts();
+    void SetOverlay(Overlay o);
+
+    // UI primitives
+    float U() const; // ui scale factor
+    Font UiFont() const;
+    Font MonoFont() const;
+    void Text(const std::string& s, float x, float y, float size, Color c) const;
+    float TextWidth(const std::string& s, float size) const;
+    float TextWrapped(const std::string& s, Rectangle r, float size, Color c, bool draw = true) const;
+    bool Button(Rectangle r, const std::string& label, bool enabled = true, float size = 22.0f);
+    void Panel(Rectangle r, Color fill = Color{14, 14, 20, 236}) const;
+    void Bar(Rectangle r, float frac, Color fill, const std::string& label) const;
+    void Icon(const std::string& path, Rectangle r, Color tint = WHITE);
+    bool mouse_consumed_ = false;
+};
+
+} // namespace uncounted

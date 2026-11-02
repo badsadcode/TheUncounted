@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "creatures": [
+    {
+      "id": "core:enemy.grave_rat",
+      "name_key": "enemy.grave_rat.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/grave_rat.png",
+        "animation_data": "assets/animations/grave_rat.json",
+        "scale": 1.15
+      },
+      "stats": {
+        "health": 42,
+        "armor": 1,
+        "move_speed": 3.4,
+        "xp_reward": 18
+      },
+      "behavior": "melee_patroller",
+      "perception": {
+        "sight_meters": 11.0,
+        "hearing_meters": 7.0
+      },
+      "attack": {
+        "name": "diseased_bite",
+        "damage": 7,
+        "reach_meters": 1.75,
+        "windup_seconds": 0.42,
+        "cooldown_seconds": 1.15
+      },
+      "loot_table": "core:loot.vermin_drop",
+      "audio": {
+        "alert": "assets/audio/sfx/rat_squeak.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          120,
+          30,
+          28
+        ],
+        "glow": false
+      }
+    },
+    {
+      "id": "core:enemy.restless_skeleton",
+      "name_key": "enemy.restless_skeleton.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/skeleton.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.75
+      },
+      "stats": {
+        "health": 90,
+        "armor": 3,
+        "move_speed": 2.4,
+        "xp_reward": 35
+      },
+      "behavior": "melee_patroller",
+      "perception": {
+        "sight_meters": 13.0,
+        "hearing_meters": 8.0
+      },
+      "attack": {
+        "name": "skeleton_swing",
+        "damage": 12,
+        "reach_meters": 2.1,
+        "windup_seconds": 0.52,
+        "cooldown_seconds": 1.35
+      },
+      "loot_table": "core:loot.crypt_basic",
+      "audio": {
+        "alert": "assets/audio/sfx/skeleton_alert.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          226,
+          216,
+          192
+        ],
+        "glow": false
+      }
+    },
+    {
+      "id": "core:enemy.ash_crawler",
+      "name_key": "enemy.ash_crawler.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/ash_crawler.png",
+        "animation_data": "assets/animations/ash_crawler.json",
+        "scale": 1.35
+      },
+      "stats": {
+        "health": 78,
+        "armor": 4,
+        "move_speed": 3.0,
+        "xp_reward": 30
+      },
+      "behavior": "melee_stalker",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "mandible_lunge",
+        "damage": 10,
+        "reach_meters": 1.9,
+        "windup_seconds": 0.45,
+        "cooldown_seconds": 1.2
+      },
+      "loot_table": "core:loot.crypt_basic",
+      "audio": {
+        "alert": "assets/audio/sfx/crawler_hiss.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          255,
+          120,
+          40
+        ],
+        "glow": true
+      }
+    },
+    {
+      "id": "core:enemy.lost_sentinel",
+      "name_key": "enemy.lost_sentinel.name",
+      "appearance": {
+        "type": "model_glb",
+        "model": "assets/models/characters/lost_sentinel.glb",
+        "scale": 1.0
+      },
+      "stats": {
+        "health": 170,
+        "armor": 7,
+        "move_speed": 1.95,
+        "xp_reward": 65
+      },
+      "behavior": "elite_guardian",
+      "perception": {
+        "sight_meters": 14.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "halberd_cleave",
+        "damage": 19,
+        "reach_meters": 2.5,
+        "windup_seconds": 0.68,
+        "cooldown_seconds": 1.65
+      },
+      "loot_table": "core:loot.crypt_elite",
+      "audio": {
+        "alert": "assets/audio/sfx/sentinel_clang.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/shield_block.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          255,
+          214,
+          120
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.sentinel.alert",
+        "death": "line.sentinel.death"
+      }
+    },
+    {
+      "id": "core:enemy.crypt_keeper",
+      "name_key": "enemy.crypt_keeper.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/crypt_keeper.png",
+        "animation_data": "assets/animations/crypt_keeper.json",
+        "scale": 2.05
+      },
+      "stats": {
+        "health": 280,
+        "armor": 5,
+        "move_speed": 2.25,
+        "xp_reward": 140
+      },
+      "behavior": "boss_archivist",
+      "perception": {
+        "sight_meters": 16.0,
+        "hearing_meters": 12.0
+      },
+      "attack": {
+        "name": "erasure_bolt",
+        "damage": 18,
+        "reach_meters": 2.6,
+        "ranged_range_meters": 13.0,
+        "projectile_speed": 12.5,
+        "projectile_sprite": "assets/sprites/vfx/spell_arcane.png",
+        "windup_seconds": 0.65,
+        "cooldown_seconds": 1.55
+      },
+      "loot_table": "core:loot.crypt_boss",
+      "audio": {
+        "alert": "assets/audio/sfx/boss_roar.wav",
+        "attack": "assets/audio/sfx/spell_cast.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          130,
+          230,
+          255
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.keeper.alert",
+        "death": "line.keeper.death"
+      }
+    },
+    {
+      "id": "core:enemy.lullaby_warden",
+      "name_key": "enemy.lullaby_warden.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/lullaby_warden.png",
+        "animation_data": "assets/animations/crypt_keeper.json",
+        "scale": 2.15
+      },
+      "stats": {
+        "health": 300,
+        "armor": 4,
+        "move_speed": 2.1,
+        "xp_reward": 160
+      },
+      "behavior": "boss_warden",
+      "perception": {
+        "sight_meters": 15.0,
+        "hearing_meters": 11.0
+      },
+      "attack": {
+        "name": "lantern_flare",
+        "damage": 18,
+        "reach_meters": 2.5,
+        "ranged_range_meters": 12.0,
+        "projectile_speed": 11.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ember.png",
+        "windup_seconds": 0.75,
+        "cooldown_seconds": 1.6
+      },
+      "loot_table": "core:loot.vault_warden",
+      "hit_fx": {
+        "color": [
+          255,
+          196,
+          110
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.warden.alert",
+        "death": "line.warden.death"
+      },
+      "audio": {
+        "alert": "assets/audio/sfx/boss_roar.wav",
+        "attack": "assets/audio/sfx/spell_cast.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      }
+    }
+  ]
+}
