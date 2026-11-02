@@ -10,8 +10,8 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   Old Road → underground Registry Annex → boss → two endings. Plus two side quests and a two-level optional dungeon.
 - **One seamless world, no loading screens.** `core:map.edrath` is composed from five region files. The Annex sits
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
-- **Verified on Windows only.** `game.exe --validate` → 0 errors; `--selftest` → 87/87 pass; `--balance` → every
-  calling beats every creature. **Never built or run on Linux yet** — that is your first job (§2).
+- **Verified on Windows and Linux.** `--validate` → 0 errors; `--selftest` → 0 failures (now ~100 checks); `--balance` →
+  every calling beats every creature (36/36 at 100%). Linux (Ubuntu 24.04, GCC 13.3, Xvfb + Mesa) verified 2026-11-02.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
 ## 2. First steps in a Linux cloud box
@@ -36,7 +36,14 @@ xvfb-run -a -s "-screen 0 1280x720x24" ./game --balance       # table lands in u
 xvfb-run -a -s "-screen 0 1280x720x24" ./game --shot /tmp/s.png --pos 48 -10.4 -22 --yaw -90 --frames 20
 ```
 
-Expected Linux snags (untested — fix and note them here):
+Linux notes (verified 2026-11-02 on Ubuntu 24.04 / GCC 13.3):
+- The only fix needed: GCC 13 rejected `GameEngine::Toast()` because it changed the meaning of a `struct Toast` used
+  earlier in the class (`-Wchanges-meaning` is a hard error). The struct is now `ToastMsg`. Keep type and member
+  function names distinct.
+- Xvfb + Mesa llvmpipe gave an OpenGL 3.3 context with no extra env vars; screenshots look identical to Windows.
+- `python3-numpy`/`python3-pil` may already be present; only the X11/GL `-dev` packages had to be installed.
+
+Original expectations (kept for reference):
 - OpenGL 3.3 under Xvfb comes from Mesa llvmpipe; if the context fails, try `LIBGL_ALWAYS_SOFTWARE=1`.
 - No audio device in the cloud: harmless, and automated modes never open audio anyway (see §6).
 - Paths are case-sensitive on Linux. All 181 asset references were checked to match file names exactly at handoff;
@@ -105,7 +112,14 @@ Expected Linux snags (untested — fix and note them here):
   tell Marta "Ilse Brannock" (flag `ilse_remembered`).
 - Side: *The Sleepers of Vault III* — flour handprints in the crypt → Ilse asleep in the Nursery (`found_ilse`) → kill the
   Lullaby Warden → sign the Seal of Names (`seal_renewed`, 4 narration cards, Seal-Quill, rain stops).
-- Ending epilogue reacts to `marta_testimony`, `spirit_clue_learned`, `ilse_remembered`, `seal_renewed`.
+- Marta reacts to Vault III in any order: `found_ilse` before the name is known → `sleeper_unnamed`; name known but
+  Seal unsigned → `ilse_alive` (sets `marta_knows_ilse`, she begs you to go back); Seal signed → `ilse_alive_safe` or,
+  if she already knew, `seal_signed` (both set `marta_knows_seal`, bread gift). The "alive" choices also appear straight
+  after naming Ilse. The clerk's `rain_stopped` topic (flag `clerk_seal_talk`) shows forty Oakhallow children
+  reappearing in the register. Barks can now be gated by `flag` / `not_flag`; Marta's rain bark stops after the Seal.
+- Ending epilogue reacts to `marta_testimony`, `spirit_clue_learned`, `ilse_remembered`, `marta_knows_ilse`, `seal_renewed`.
+- Preview any conversation node: `--shot out.png --overlay dialogue:core:npc.innkeeper_marta:ilse_alive`. The dialogue
+  panel grows upward to fit long text.
 
 ## 8. The user (what they care about)
 
@@ -116,7 +130,7 @@ Expected Linux snags (untested — fix and note them here):
 ## 9. Suggested next steps
 
 1. Get the Linux build + `--selftest` green under Xvfb; record any fixes in this file.
-2. Marta acknowledges `found_ilse` (a bark/dialogue line) and the clerk reacts to `seal_renewed`.
+2. ~~Marta acknowledges `found_ilse` and the clerk reacts to `seal_renewed`~~ — done (see §7).
 3. More world: the mod's unused *Crimson Revenant* could guard a new area; Bellwether interiors (Fenwick's library upstairs).
 4. Visual polish: textures are still simple 64×64 procedurals; the bread pickup and some props reuse generic models.
 5. Combat feel needs a human play-test (sensitivity, swing timing, enemy windups).

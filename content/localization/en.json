@@ -326,6 +326,21 @@
     "line.warden.alert": "Hush now. Hush. It isn't morning yet.",
     "line.warden.death": "Who will... sing them... to sleep...",
     "ending.seal": "Beneath the Annex, the Seal of Names holds, signed in your own hand. The rain has stopped over Bellwether, and at the next new moon the village is still on every map.",
-    "map.seal_chamber.name": "The Seal Chamber"
+    "map.seal_chamber.name": "The Seal Chamber",
+    "dlg.marta.choice_sleeper": "\"Beneath the Annex, there's a girl asleep under glass. Flour on her hands. She looked like you.\"",
+    "dlg.marta.sleeper_unnamed": "Marta sets the bread knife down very carefully, as if it might break.\n\n\"Asleep. Under the ground.\" She presses a floury palm flat against her chest. \"That's a cruel story to tell a baker, traveler. Why does it hurt like it's mine?\"\n\nShe shakes her head. \"If she has a name, find it. I can't. I've tried.\"",
+    "dlg.marta.choice_ilse_alive": "\"Marta, there's more. Ilse isn't dead. I found her asleep in a vault beneath the Annex.\"",
+    "dlg.marta.ilse_alive": "Marta grips the edge of the counter. \"Asleep.\" Her voice is very small. \"Seventeen years, and she's still nine?\"\n\nYou tell her about the Nursery: the clouded glass, the rows of little sarcophagi, the girl whispering her sister's name.\n\n\"Then something down there is keeping her.\" Marta wipes her eyes with the back of her wrist and leaves a streak of flour. \"Whatever it is, you go back down and you make it stop singing. Please. I'll keep the hearth lit.\"",
+    "dlg.marta.choice_ilse_alive_safe": "\"Marta, Ilse isn't dead. She's asleep beneath the Annex, and she's safe now. I signed the Seal that keeps them.\"",
+    "dlg.marta.ilse_alive_safe": "Marta sits down on the flour sacks as if her knees have simply quit.\n\n\"Asleep. Safe.\" She looks toward the window, at the dry street and the first clean sky Bellwether has seen in seventeen years. \"That's why the rain stopped, isn't it? You did that.\"\n\nShe takes your hand in both of hers. They are warm and smell of yeast. \"When she wakes she'll want breakfast. She always wanted breakfast. I'll be ready.\"",
+    "dlg.marta.choice_seal_signed": "\"I went back down, Marta. The Warden is silent and the Seal is signed. Ilse is safe.\"",
+    "dlg.marta.seal_signed": "Marta closes her eyes and listens: no rain on the shutters, only the fire. \"I heard it stop. I was kneading and the whole house went quiet, and I knew.\"\n\nShe presses a warm loaf into your arms, wrapped in a cloth embroidered with an oak leaf. \"Oakhallow's mark. I didn't know I could sew it until this morning.\"",
+    "bark.marta.dry": "No rain. I keep going to the window to make sure.",
+    "bark.marta.alive": "Every morning I set the braid by the window. Every morning is one closer.",
+    "dlg.clerk.choice_rain_stopped": "\"The rain has stopped, Oakhaven.\"",
+    "dlg.clerk.rain_stopped": "\"Yes. I noticed.\" Oakhaven straightens a stack of forms that is already straight. \"I've filed it under Irregularities, Meteorological. Then something else happened, and I have no form for it.\"\n\nHe opens the great register of the dead and turns it toward you. Your entry has faded to the colour of weak tea. Beneath it, in a neat hand that is not his, forty new lines have appeared overnight, all children, all marked Oakhallow, all marked not deceased.\n\n\"Whoever you are,\" he says quietly, \"I think the Bureau owes you an apology. I'm not authorised to issue one. Consider this... unofficial.\"",
+    "bark.clerk.dry": "Forty new entries overnight, and none of them in my handwriting. Most irregular.",
+    "bark.clerk.puddles": "My inkwell has been watered down by the leak for seventeen years. Today it isn't. I don't trust it.",
+    "ending.ilse_alive": "She tells everyone who asks that her sister is only sleeping, and for once in Bellwether nobody argues with a record."
   }
 }

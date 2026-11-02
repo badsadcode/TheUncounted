@@ -28,6 +28,14 @@
           "quest_id": "core:quest.legally_deceased",
           "min_stage": 10,
           "max_stage": 29
+        },
+        {
+          "text_key": "bark.clerk.dry",
+          "flag": "clerk_seal_talk"
+        },
+        {
+          "text_key": "bark.clerk.puddles",
+          "flag": "seal_renewed"
         }
       ]
     },
@@ -131,7 +139,8 @@
       },
       "barks": [
         {
-          "text_key": "bark.marta.1"
+          "text_key": "bark.marta.1",
+          "not_flag": "seal_renewed"
         },
         {
           "text_key": "bark.marta.2",
@@ -147,6 +156,14 @@
           "text_key": "bark.marta.ilse",
           "quest_id": "core:quest.bakers_daughter",
           "min_stage": 100
+        },
+        {
+          "text_key": "bark.marta.dry",
+          "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.marta.alive",
+          "flag": "marta_knows_ilse"
         }
       ]
     },

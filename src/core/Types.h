@@ -275,6 +275,8 @@ struct NpcBarkDef {
     std::string quest_id;      // optional gate
     int min_stage = -1000;
     int max_stage = 100000;
+    std::string flag;          // optional: only once this story flag is set
+    std::string not_flag;      // optional: only while this story flag is unset
 };
 
 struct NpcDef {

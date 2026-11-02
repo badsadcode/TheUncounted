@@ -233,6 +233,17 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (boot_shot_overlay_ == "creation") screen_ = Screen::Creation;
         else if (boot_shot_overlay_ == "dialogue") {
             for (size_t i = 0; i < scene_.npcs.size(); i++) { StartDialogue(static_cast<int>(i)); break; }
+        } else if (boot_shot_overlay_.rfind("dialogue:", 0) == 0) {
+            // dialogue:<npc id>[:<node>] — preview a specific conversation node (all its choices shown)
+            std::string spec = boot_shot_overlay_.substr(9);
+            size_t colon = spec.find(':', spec.find(':') + 1);
+            std::string npcId = spec.substr(0, colon), node = colon == std::string::npos ? "" : spec.substr(colon + 1);
+            for (size_t i = 0; i < scene_.npcs.size(); i++) {
+                if (scene_.npcs[i].def->id != npcId) continue;
+                StartDialogue(static_cast<int>(i));
+                if (!node.empty()) dialogue_node_ = node;
+                break;
+            }
         }
         if (boot_shot_frames_ <= 0) boot_shot_frames_ = 30;
     }
@@ -2655,6 +2666,8 @@ void GameEngine::UpdateBarks(float dt) {
                 int st = QuestStage(b.quest_id);
                 if (st < b.min_stage || st > b.max_stage) continue;
             }
+            if (!b.flag.empty() && !player_.flags.count(b.flag)) continue;
+            if (!b.not_flag.empty() && player_.flags.count(b.not_flag)) continue;
             bark_next_[n.instance_id] = idx + 1;
             Say(content_.Tr(n.def->name_key), content_.Tr(b.text_key));
             bark_cd_[n.instance_id] = 22.0f + RandF() * 18.0f;

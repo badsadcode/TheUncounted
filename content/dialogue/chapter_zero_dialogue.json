@@ -52,6 +52,20 @@
               "next": "annex_directions"
             },
             {
+              "text_key": "dlg.clerk.choice_rain_stopped",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "clerk_seal_talk"
+                }
+              ],
+              "next": "rain_stopped"
+            },
+            {
               "text_key": "dlg.clerk.choice_race_dwarf",
               "conditions": [
                 {
@@ -246,6 +260,28 @@
               "next": "END"
             }
           ]
+        },
+        "rain_stopped": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.rain_stopped",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "clerk_seal_talk",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "greeting"
+            }
+          ]
         }
       }
     },
@@ -330,6 +366,86 @@
                 }
               ],
               "next": "ilse"
+            },
+            {
+              "text_key": "dlg.marta.choice_sleeper",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "found_ilse"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "ilse_remembered"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "marta_heard_sleeper"
+                }
+              ],
+              "next": "sleeper_unnamed"
+            },
+            {
+              "text_key": "dlg.marta.choice_ilse_alive_safe",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "found_ilse"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "ilse_remembered"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "marta_knows_ilse"
+                }
+              ],
+              "next": "ilse_alive_safe"
+            },
+            {
+              "text_key": "dlg.marta.choice_ilse_alive",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "found_ilse"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "ilse_remembered"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "seal_renewed"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "marta_knows_ilse"
+                }
+              ],
+              "next": "ilse_alive"
+            },
+            {
+              "text_key": "dlg.marta.choice_seal_signed",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "marta_knows_ilse"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "marta_knows_seal"
+                }
+              ],
+              "next": "seal_signed"
             },
             {
               "text_key": "dlg.marta.choice_rest",
@@ -436,8 +552,155 @@
           ],
           "choices": [
             {
+              "text_key": "dlg.marta.choice_ilse_alive_safe",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "found_ilse"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "ilse_remembered"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "seal_renewed"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "marta_knows_ilse"
+                }
+              ],
+              "next": "ilse_alive_safe"
+            },
+            {
+              "text_key": "dlg.marta.choice_ilse_alive",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "found_ilse"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "ilse_remembered"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "seal_renewed"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "marta_knows_ilse"
+                }
+              ],
+              "next": "ilse_alive"
+            },
+            {
               "text_key": "dlg.marta.choice_ilse_back",
               "next": "END"
+            }
+          ]
+        },
+        "sleeper_unnamed": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.sleeper_unnamed",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "marta_heard_sleeper",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "ilse_alive": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.ilse_alive",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "marta_knows_ilse",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "ilse_alive_safe": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.ilse_alive_safe",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "marta_knows_ilse",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "marta_knows_seal",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 60
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.bread_loaf",
+              "qty": 2
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "seal_signed": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.seal_signed",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "marta_knows_seal",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 30
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.bread_loaf",
+              "qty": 2
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
             }
           ]
         }

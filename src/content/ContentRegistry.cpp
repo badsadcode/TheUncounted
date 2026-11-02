@@ -705,6 +705,8 @@ void ContentRegistry::LoadNpcsFile(const std::string& rootDir, const std::string
                 b.quest_id = bj.value("quest_id", "");
                 b.min_stage = bj.value("min_stage", -1000);
                 b.max_stage = bj.value("max_stage", 100000);
+                b.flag = bj.value("flag", "");
+                b.not_flag = bj.value("not_flag", "");
                 d.barks.push_back(b);
             }
         }

@@ -960,7 +960,12 @@ void GameEngine::DrawDialogue() {
     auto it = d->nodes.find(dialogue_node_);
     if (it == d->nodes.end()) return;
     const DialogueNode& node = it->second;
-    Rectangle P = {VW * 0.5f - 520, VH - 330, 1040, 310};
+    std::vector<int> vis = VisibleChoices();
+    // The panel grows upward so long story beats never push the choices off-screen.
+    float textH = TextWrapped(content_.Tr(node.text_key), {0, 0, 1040 - 48, 0}, 17, kText, false);
+    float needH = 62 + textH + 32.0f * std::max<size_t>(vis.size(), 1) + 16;
+    float panelH = std::clamp(needH, 310.0f, VH - 40);
+    Rectangle P = {VW * 0.5f - 520, VH - 20 - panelH, 1040, panelH};
     Panel(P, Color{14, 13, 18, 240});
     std::string speaker = content_.Tr(node.speaker_key);
     std::string title;
@@ -973,7 +978,6 @@ void GameEngine::DrawDialogue() {
     if (!title.empty()) Text(title, P.x + 30 + TextWidth(speaker, 24), P.y + 22, 15, kDim);
     float h = TextWrapped(content_.Tr(node.text_key), {P.x + 24, P.y + 52, P.width - 48, 140}, 17, kText);
     float y = P.y + 62 + h;
-    std::vector<int> vis = VisibleChoices();
     if (vis.empty()) {
         if (Button({P.x + 24, y, P.width - 48, 32}, "1. [Continue]", true, 17)) { EndDialogue(); return; }
         return;
@@ -1182,6 +1186,7 @@ void GameEngine::DrawEnding() {
     if (player_.flags.count("marta_testimony")) epi += "Marta's testimony that she remembered you was entered into the record - the first living witness in seventeen years. ";
     if (player_.flags.count("spirit_clue_learned")) epi += "Somewhere beneath the Annex, a spirit with no name waits for the seal to be renewed. ";
     if (player_.flags.count("ilse_remembered")) epi += content_.Tr("ending.ilse") + " ";
+    if (player_.flags.count("ilse_remembered") && player_.flags.count("marta_knows_ilse")) epi += content_.Tr("ending.ilse_alive") + " ";
     if (player_.flags.count("seal_renewed")) epi += content_.Tr("ending.seal");
     else epi += "Bellwether will be uncounted at the next new moon - unless someone does something about it.";
     TextWrapped(epi, {VW * 0.5f - 400, y, 800, 140}, 16, kDim);

@@ -323,16 +323,34 @@ int GameEngine::RunSelfTest() {
     // --- Speak Ilse's name to Marta
     StartDialogue(npcIndex("core:npc.innkeeper_marta"));
     check(chooseNext("ilse"), "spoke Ilse's name to Marta");
+    check(!chooseNext("ilse_alive"), "Marta isn't told the Warden still sings once the Seal is signed");
+    int breadBefore = CountItem("core:item.bread_loaf");
+    check(chooseNext("ilse_alive_safe"), "told Marta that Ilse is alive and safe");
     EndDialogue();
     check(QuestStage(side) == 100 && player_.flags.count("ilse_remembered"), "A Name Worth Keeping completed");
+    check(player_.flags.count("marta_knows_ilse") && player_.flags.count("marta_knows_seal") &&
+          CountItem("core:item.bread_loaf") == breadBefore + 2, "Marta learns Ilse sleeps safely (bread gift)");
     StartDialogue(npcIndex("core:npc.innkeeper_marta"));
-    check(!chooseNext("ilse") && !chooseNext("oakhallow"), "side quest topics retire after completion");
+    check(!chooseNext("ilse") && !chooseNext("oakhallow") && !chooseNext("ilse_alive_safe") && !chooseNext("seal_signed") &&
+          !chooseNext("sleeper_unnamed"), "side quest topics retire after completion");
     EndDialogue();
+    {
+        const NpcDef* marta = content_.GetNpc("core:npc.innkeeper_marta");
+        bool rainyBarkGated = false, dryBark = false;
+        for (const auto& b : marta ? marta->barks : std::vector<NpcBarkDef>{}) {
+            if (b.text_key == "bark.marta.1") rainyBarkGated = b.not_flag == "seal_renewed";
+            if (b.text_key == "bark.marta.dry") dryBark = b.flag == "seal_renewed";
+        }
+        check(rainyBarkGated && dryBark, "Marta's rain barks follow the Seal");
+    }
 
     // --- Return to the clerk and finish the chapter
     player_.pos = {-4.0f, 0.0f, -8.0f};
     UpdateAtmosphere(0.0f, true);
     StartDialogue(npcIndex("core:npc.clerk_oakhaven"));
+    check(chooseNext("rain_stopped"), "clerk remarks on the rain stopping");
+    check(player_.flags.count("clerk_seal_talk") && chooseNext("greeting"), "clerk returns to business");
+    check(!chooseNext("rain_stopped"), "clerk's rain remark plays once");
     check(chooseNext("inspect_ledger"), "clerk recognises the ledger");
     check(chooseNext("ending_independent"), "chose to keep the ledger");
     EndDialogue();
@@ -343,6 +361,29 @@ int GameEngine::RunSelfTest() {
     StartDialogue(npcIndex("core:npc.clerk_oakhaven"));
     check(!chooseNext("inspect_ledger"), "ending cannot be replayed");
     EndDialogue();
+
+    // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
+    {
+        auto savedFlags = player_.flags;
+        auto savedClaimed = player_.claimed;
+        player_.flags = {"found_ilse"};
+        StartDialogue(npcIndex("core:npc.innkeeper_marta"));
+        check(!chooseNext("ilse_alive") && chooseNext("sleeper_unnamed"), "Marta aches for an unnamed sleeper");
+        check(chooseNext("root") && !chooseNext("sleeper_unnamed"), "the unnamed sleeper is mentioned once");
+        EndDialogue();
+        player_.flags = {"found_ilse", "ilse_remembered"};
+        StartDialogue(npcIndex("core:npc.innkeeper_marta"));
+        check(!chooseNext("ilse_alive_safe") && !chooseNext("seal_signed") && chooseNext("ilse_alive"),
+              "before the Seal, Marta begs you to go back down");
+        EndDialogue();
+        player_.flags.insert("seal_renewed");
+        StartDialogue(npcIndex("core:npc.innkeeper_marta"));
+        check(!chooseNext("ilse_alive_safe") && chooseNext("seal_signed") && player_.flags.count("marta_knows_seal"),
+              "after the Seal, Marta hears the sleepers are safe");
+        EndDialogue();
+        player_.flags = savedFlags;
+        player_.claimed = savedClaimed;
+    }
 
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);

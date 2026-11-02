@@ -7,7 +7,7 @@ Continuing development (e.g. in a cloud session)? Start with [HANDOFF.md](HANDOF
 
 ## Build
 
-Requires CMake 3.20+ and MinGW-w64 GCC 13 (or MSVC 2022).
+Requires CMake 3.20+ and MinGW-w64 GCC 13 (or MSVC 2022). Also builds on Linux with GCC 13 (see HANDOFF.md §2).
 
 ```bash
 cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
@@ -29,7 +29,7 @@ cmake --build build -j 8
 |---|---|
 | `--validate` | Load and cross-validate all content, print issues, exit (non-zero on errors) |
 | `--selftest` | Headless walkthrough of the whole chapter (dialogue, keys, lever, plate, boss, pedestal, save/load, ending); exit code 0 = all passed |
-| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
+| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
 | `--balance` | Headless duels of every starting calling vs every creature; prints win rate, time-to-kill, HP left and potions used to the log |
 | `--showcase` | With `--shot`: lines up every wearable/consumable pickup and sample hit particles in front of the camera |
 | `--mods` | Enable `mods/example_mod` for this run |
@@ -59,7 +59,7 @@ cmake --build build -j 8
   *The Sleepers of Vault III*). Re-run the composer after editing a region.
 - **Zones** (`"zones"` in a map) give parts of one map their own name, sky, light, fog, weather, music and ambience;
   the engine blends them spatially and crossfades the audio, and the map screen shows only your zone and storey.
-- **Story systems:** a prologue (`story.prologue.N` strings), ambient NPC `barks` (optionally gated by quest stage),
+- **Story systems:** a prologue (`story.prologue.N` strings), ambient NPC `barks` (optionally gated by quest stage, or by a story `flag` / `not_flag`),
   creature `lines` (`alert` / `death`, shown as subtitles), and readables that advance quests (`quest_id` + `set_stage`).
   Side quest *A Name Worth Keeping* starts at Oakhallow's boundary stone on the Old Road.
 - **Music & ambience** are composed offline by `python tools/build_music_ambience.py` (long, drone-free, seamless loops).
