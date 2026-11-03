@@ -1,0 +1,3110 @@
+{
+  "schema_version": 1,
+  "id": "core:map.hollowmere",
+  "display_name_key": "map.hollowmere.name",
+  "music": "assets/audio/music/vault_lullaby.wav",
+  "ambience": "assets/audio/ambience/village_rain.wav",
+  "sky_color": [
+    20,
+    24,
+    40
+  ],
+  "ambient_color": [
+    0.36,
+    0.38,
+    0.52
+  ],
+  "sun_direction": [
+    -0.3,
+    0.8,
+    -0.4
+  ],
+  "sun_color": [
+    0.45,
+    0.45,
+    0.62
+  ],
+  "fog_color": [
+    0.09,
+    0.11,
+    0.18
+  ],
+  "fog_density": 0.026,
+  "weather": "rain",
+  "spawns": {
+    "hollowmere_gate": {
+      "pos": [
+        0.0,
+        0.0,
+        -19.0
+      ],
+      "yaw_degrees": 0.0
+    }
+  },
+  "props": [
+    {
+      "id": "grounds",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        1.3
+      ],
+      "scale": [
+        40.0,
+        0.5,
+        45.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        16,
+        18
+      ]
+    },
+    {
+      "id": "drive",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.46,
+        -14.7
+      ],
+      "scale": [
+        3.2,
+        0.5,
+        13.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.2,
+        5
+      ]
+    },
+    {
+      "id": "bound_w",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        1.6
+      ],
+      "scale": [
+        1.2,
+        4.5,
+        46.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        17.69,
+        1.5
+      ]
+    },
+    {
+      "id": "bound_e",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        20.0,
+        0.0,
+        1.6
+      ],
+      "scale": [
+        1.2,
+        4.5,
+        46.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        17.69,
+        1.5
+      ]
+    },
+    {
+      "id": "bound_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        24.0
+      ],
+      "scale": [
+        41.2,
+        4.5,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        15.85,
+        1.5
+      ]
+    },
+    {
+      "id": "tree_0",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -17,
+        0.0,
+        -4
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_1",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -17,
+        0.0,
+        6
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_2",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -17,
+        0.0,
+        16
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_3",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        17,
+        0.0,
+        -4
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_4",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        17,
+        0.0,
+        6
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_5",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        17,
+        0.0,
+        16
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_6",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -7,
+        0.0,
+        -19
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_7",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        7,
+        0.0,
+        -19
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_8",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -12,
+        0.0,
+        20
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tree_9",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        12,
+        0.0,
+        20
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.3,
+        1.1
+      ],
+      "solid": true
+    },
+    {
+      "id": "torch_gate_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -2.2,
+        1.6,
+        -20.6
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_gate_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        2.2,
+        1.6,
+        -20.6
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_porch_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -2.0,
+        1.8,
+        -8.35
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_porch_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        2.0,
+        1.8,
+        -8.35
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "grave_mound_0",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -17.0,
+        0.0,
+        -15.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_1",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -14.8,
+        0.0,
+        -15.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_2",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -12.6,
+        0.0,
+        -15.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_3",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -10.4,
+        0.0,
+        -15.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_4",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -8.2,
+        0.0,
+        -15.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_5",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -17.0,
+        0.0,
+        -12.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_6",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -14.8,
+        0.0,
+        -12.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_7",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -12.6,
+        0.0,
+        -12.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_8",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -10.4,
+        0.0,
+        -12.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "grave_mound_9",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -8.2,
+        0.0,
+        -12.45
+      ],
+      "scale": [
+        0.9,
+        0.18,
+        1.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "garden_bed_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        12.0,
+        0.0,
+        -16.3
+      ],
+      "scale": [
+        6.0,
+        0.3,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2,
+        0.2
+      ]
+    },
+    {
+      "id": "garden_bed_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        12.0,
+        0.0,
+        -10.7
+      ],
+      "scale": [
+        6.0,
+        0.3,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2,
+        0.2
+      ]
+    },
+    {
+      "id": "ext_n_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -7.75,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        13.1,
+        8.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        5.04,
+        2.67
+      ]
+    },
+    {
+      "id": "ext_n_lintel0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        2.8,
+        -8.0
+      ],
+      "scale": [
+        2.4,
+        5.2,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.92,
+        1.73
+      ]
+    },
+    {
+      "id": "ext_n_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        7.75,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        13.1,
+        8.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        5.04,
+        2.67
+      ]
+    },
+    {
+      "id": "ext_s_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        16.0
+      ],
+      "scale": [
+        28.6,
+        8.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        11.0,
+        2.67
+      ]
+    },
+    {
+      "id": "ext_w_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        1.65
+      ],
+      "scale": [
+        0.6,
+        8.0,
+        18.7
+      ],
+      "solid": true,
+      "uv_scale": [
+        7.19,
+        2.67
+      ]
+    },
+    {
+      "id": "ext_w_lintel0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.0,
+        2.8,
+        12.0
+      ],
+      "scale": [
+        0.6,
+        5.2,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        1.73
+      ]
+    },
+    {
+      "id": "ext_w_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        14.35
+      ],
+      "scale": [
+        0.6,
+        8.0,
+        2.7
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.04,
+        2.67
+      ]
+    },
+    {
+      "id": "ext_e_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        14.0,
+        0.0,
+        4.0
+      ],
+      "scale": [
+        0.6,
+        8.0,
+        23.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        9.0,
+        2.67
+      ]
+    },
+    {
+      "id": "roof",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        8.0,
+        4.0
+      ],
+      "scale": [
+        29.2,
+        0.4,
+        25.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        10
+      ]
+    },
+    {
+      "id": "chimney_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -10.0,
+        8.0,
+        -4.0
+      ],
+      "scale": [
+        1.6,
+        2.6,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.62,
+        0.87
+      ]
+    },
+    {
+      "id": "chimney_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        10.0,
+        8.0,
+        12.0
+      ],
+      "scale": [
+        1.6,
+        2.6,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.62,
+        0.87
+      ]
+    },
+    {
+      "id": "floor_ground",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        4.0
+      ],
+      "scale": [
+        28.0,
+        0.52,
+        24.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        12,
+        10
+      ]
+    },
+    {
+      "id": "slab_w",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.5,
+        3.7,
+        4.0
+      ],
+      "scale": [
+        15.0,
+        0.3,
+        24.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        6.2,
+        10.0
+      ]
+    },
+    {
+      "id": "slab_e",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        9.0,
+        3.7,
+        4.0
+      ],
+      "scale": [
+        10.0,
+        0.3,
+        24.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.2,
+        10.0
+      ]
+    },
+    {
+      "id": "slab_s",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.5,
+        3.7,
+        9.5
+      ],
+      "scale": [
+        3.0,
+        0.3,
+        13.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        5.4
+      ]
+    },
+    {
+      "id": "slab_n",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.5,
+        3.7,
+        -6.5
+      ],
+      "scale": [
+        3.0,
+        0.3,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        1.2
+      ]
+    },
+    {
+      "id": "rail_w",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.925,
+        4.0,
+        -1.0
+      ],
+      "scale": [
+        0.15,
+        1.0,
+        8.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        0.33
+      ]
+    },
+    {
+      "id": "rail_n",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        2.5,
+        4.0,
+        -5.075
+      ],
+      "scale": [
+        3.0,
+        1.0,
+        0.15
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        0.33
+      ]
+    },
+    {
+      "id": "stairs_lower",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        2.5,
+        0.0,
+        -3.0
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "+z"
+    },
+    {
+      "id": "stairs_upper",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        2.5,
+        2.0,
+        1.0
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "+z"
+    },
+    {
+      "id": "stair_block",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        2.5,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        3.0,
+        2.0,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        0.67
+      ]
+    },
+    {
+      "id": "g_foyer_w_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        0.0,
+        -5.35
+      ],
+      "scale": [
+        0.6,
+        3.7,
+        4.7
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.81,
+        1.23
+      ]
+    },
+    {
+      "id": "g_foyer_w_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        2.8,
+        -2.0
+      ],
+      "scale": [
+        0.6,
+        0.9,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.3
+      ]
+    },
+    {
+      "id": "g_foyer_w_1",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        0.0,
+        4.0
+      ],
+      "scale": [
+        0.6,
+        3.7,
+        10.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.85,
+        1.23
+      ]
+    },
+    {
+      "id": "g_foyer_w_lintel1",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        2.8,
+        10.0
+      ],
+      "scale": [
+        0.6,
+        0.9,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.3
+      ]
+    },
+    {
+      "id": "g_foyer_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        0.0,
+        13.5
+      ],
+      "scale": [
+        0.6,
+        3.7,
+        5.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.92,
+        1.23
+      ]
+    },
+    {
+      "id": "g_foyer_e_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        0.0,
+        -1.95
+      ],
+      "scale": [
+        0.6,
+        3.7,
+        11.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.42,
+        1.23
+      ]
+    },
+    {
+      "id": "g_foyer_e_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        2.8,
+        4.7
+      ],
+      "scale": [
+        0.6,
+        0.9,
+        1.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.69,
+        0.3
+      ]
+    },
+    {
+      "id": "g_foyer_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        0.0,
+        5.8
+      ],
+      "scale": [
+        0.6,
+        3.7,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.23,
+        1.23
+      ]
+    },
+    {
+      "id": "g_mid_w_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -11.85,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        3.7,
+        3.7,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.42,
+        1.23
+      ]
+    },
+    {
+      "id": "g_mid_w_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -9.0,
+        2.8,
+        6.0
+      ],
+      "scale": [
+        2.0,
+        0.9,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.3
+      ]
+    },
+    {
+      "id": "g_mid_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        4.0,
+        3.7,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        1.23
+      ]
+    },
+    {
+      "id": "g_mid_e_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -2.5,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        3.0,
+        3.7,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.23
+      ]
+    },
+    {
+      "id": "g_mid_e_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.0,
+        2.8,
+        6.0
+      ],
+      "scale": [
+        2.0,
+        0.9,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.3
+      ]
+    },
+    {
+      "id": "g_mid_e_1",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.5,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        7.0,
+        3.7,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.69,
+        1.23
+      ]
+    },
+    {
+      "id": "g_mid_e_lintel1",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        9.0,
+        2.8,
+        6.0
+      ],
+      "scale": [
+        2.0,
+        0.9,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.3
+      ]
+    },
+    {
+      "id": "g_mid_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        11.85,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        3.7,
+        3.7,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.42,
+        1.23
+      ]
+    },
+    {
+      "id": "foyer_pillar_-3.2",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        -3.2,
+        0.0,
+        -6.8
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "foyer_pillar_3.2",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        3.2,
+        0.0,
+        -6.8
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "torch_foyer_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -3.65,
+        2.0,
+        -5.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "dining_table",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -9.0,
+        0.75,
+        -0.2
+      ],
+      "scale": [
+        6.0,
+        0.15,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.2,
+        0.4
+      ]
+    },
+    {
+      "id": "dining_leg_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -11.7,
+        0.0,
+        -0.9
+      ],
+      "scale": [
+        0.16,
+        0.75,
+        0.16
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.06,
+        0.25
+      ]
+    },
+    {
+      "id": "dining_leg_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.3,
+        0.0,
+        -0.9
+      ],
+      "scale": [
+        0.16,
+        0.75,
+        0.16
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.06,
+        0.25
+      ]
+    },
+    {
+      "id": "dining_leg_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -11.7,
+        0.0,
+        0.5
+      ],
+      "scale": [
+        0.16,
+        0.75,
+        0.16
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.06,
+        0.25
+      ]
+    },
+    {
+      "id": "dining_leg_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.3,
+        0.0,
+        0.5
+      ],
+      "scale": [
+        0.16,
+        0.75,
+        0.16
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.06,
+        0.25
+      ]
+    },
+    {
+      "id": "torch_dining",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -13.65,
+        2.0,
+        -1.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "lib_shelf_0",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        13.6,
+        0.0,
+        -6.0
+      ],
+      "rot_y": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "lib_shelf_1",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        13.6,
+        0.0,
+        -3.0
+      ],
+      "rot_y": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "lib_shelf_2",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        13.6,
+        0.0,
+        0.0
+      ],
+      "rot_y": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "lib_shelf_3",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        13.6,
+        0.0,
+        3.0
+      ],
+      "rot_y": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "lib_shelf_4",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -7.6
+      ],
+      "rot_y": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "lib_shelf_5",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        10.0,
+        0.0,
+        -7.6
+      ],
+      "rot_y": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "kitchen_counter",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -11.3,
+        0.0,
+        15.1
+      ],
+      "scale": [
+        4.6,
+        0.95,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        2,
+        0.4
+      ]
+    },
+    {
+      "id": "torch_kitchen",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -9.0,
+        2.0,
+        15.65
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "ball_pillar_0",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        11.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "ball_pillar_1",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        6.0,
+        0.0,
+        11.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "ball_pillar_2",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        12.0,
+        0.0,
+        11.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "torch_ball_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        13.65,
+        2.0,
+        9.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "torch_ball_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -3.65,
+        2.0,
+        13.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "u_landing_w_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        4.0,
+        -5.35
+      ],
+      "scale": [
+        0.6,
+        4.0,
+        4.7
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.81,
+        1.33
+      ]
+    },
+    {
+      "id": "u_landing_w_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        6.8,
+        -2.0
+      ],
+      "scale": [
+        0.6,
+        1.2,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.4
+      ]
+    },
+    {
+      "id": "u_landing_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.0,
+        4.0,
+        2.5
+      ],
+      "scale": [
+        0.6,
+        4.0,
+        7.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.69,
+        1.33
+      ]
+    },
+    {
+      "id": "u_landing_e_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        4.0,
+        -1.95
+      ],
+      "scale": [
+        0.6,
+        4.0,
+        11.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.42,
+        1.33
+      ]
+    },
+    {
+      "id": "u_landing_e_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        6.8,
+        4.7
+      ],
+      "scale": [
+        0.6,
+        1.2,
+        1.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.69,
+        0.4
+      ]
+    },
+    {
+      "id": "u_landing_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        4.0,
+        5.8
+      ],
+      "scale": [
+        0.6,
+        4.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.23,
+        1.33
+      ]
+    },
+    {
+      "id": "u_mid_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -7.35,
+        4.0,
+        6.0
+      ],
+      "scale": [
+        12.7,
+        4.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.88,
+        1.33
+      ]
+    },
+    {
+      "id": "u_mid_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.0,
+        6.8,
+        6.0
+      ],
+      "scale": [
+        2.0,
+        1.2,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.4
+      ]
+    },
+    {
+      "id": "u_mid_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        7.35,
+        4.0,
+        6.0
+      ],
+      "scale": [
+        12.7,
+        4.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.88,
+        1.33
+      ]
+    },
+    {
+      "id": "u_sealed_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        8.0,
+        4.0,
+        8.0
+      ],
+      "scale": [
+        0.6,
+        4.0,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        1.33
+      ]
+    },
+    {
+      "id": "u_sealed_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        8.0,
+        6.8,
+        11.0
+      ],
+      "scale": [
+        0.6,
+        1.2,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.4
+      ]
+    },
+    {
+      "id": "u_sealed_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        8.0,
+        4.0,
+        13.85
+      ],
+      "scale": [
+        0.6,
+        4.0,
+        3.7
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.42,
+        1.33
+      ]
+    },
+    {
+      "id": "torch_landing",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -3.65,
+        6.0,
+        2.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.38,
+        "light_color": [
+          1.0,
+          0.62,
+          0.28
+        ],
+        "light_radius": 6.5
+      }
+    },
+    {
+      "id": "coffin",
+      "model": "assets/models/props/sarcophagus.glb",
+      "pos": [
+        -11.0,
+        4.0,
+        -4.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "bed",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -12.3,
+        4.0,
+        3.25
+      ],
+      "scale": [
+        2.6,
+        0.6,
+        3.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.3
+      ]
+    },
+    {
+      "id": "study_desk",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        9.0,
+        4.0,
+        -6.2
+      ],
+      "scale": [
+        4.0,
+        0.85,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.4
+      ]
+    },
+    {
+      "id": "torch_gallery_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -13.65,
+        6.0,
+        11.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/spell_arcane.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.32,
+        "light_color": [
+          0.45,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.5
+      }
+    }
+  ],
+  "lights": [
+    {
+      "pos": [
+        0.0,
+        3.2,
+        -3.0
+      ],
+      "color": [
+        1.0,
+        0.8,
+        0.55
+      ],
+      "radius": 11.0
+    },
+    {
+      "pos": [
+        -9.0,
+        3.0,
+        -1.0
+      ],
+      "color": [
+        1.0,
+        0.74,
+        0.5
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        9.0,
+        3.0,
+        -1.0
+      ],
+      "color": [
+        1.0,
+        0.82,
+        0.6
+      ],
+      "radius": 9.5
+    },
+    {
+      "pos": [
+        -9.0,
+        3.0,
+        11.0
+      ],
+      "color": [
+        1.0,
+        0.7,
+        0.45
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        5.0,
+        3.2,
+        11.0
+      ],
+      "color": [
+        0.55,
+        0.7,
+        1.0
+      ],
+      "radius": 13.0
+    },
+    {
+      "pos": [
+        0.0,
+        7.0,
+        -2.0
+      ],
+      "color": [
+        1.0,
+        0.8,
+        0.55
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        -9.0,
+        7.0,
+        -1.0
+      ],
+      "color": [
+        0.9,
+        0.35,
+        0.4
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        9.0,
+        7.0,
+        -2.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.6
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        -3.0,
+        7.0,
+        11.0
+      ],
+      "color": [
+        0.75,
+        0.75,
+        1.0
+      ],
+      "radius": 12.0
+    },
+    {
+      "pos": [
+        11.0,
+        7.0,
+        11.0
+      ],
+      "color": [
+        1.0,
+        0.85,
+        0.5
+      ],
+      "radius": 8.0
+    }
+  ],
+  "npcs": [
+    {
+      "instance_id": "npc_rolf",
+      "npc_id": "core:npc.werewolf_rolf",
+      "pos": [
+        14.0,
+        0.0,
+        -13.2
+      ],
+      "yaw": -100.0
+    },
+    {
+      "instance_id": "npc_percival",
+      "npc_id": "core:npc.ghost_percival",
+      "pos": [
+        6.0,
+        0.0,
+        13.6
+      ],
+      "yaw": 180.0,
+      "requires_flag": "host_identified",
+      "hidden_flag": "host_banish"
+    },
+    {
+      "instance_id": "npc_ashgrave",
+      "npc_id": "core:npc.vampire_ashgrave",
+      "pos": [
+        -9.0,
+        4.0,
+        -5.5
+      ],
+      "yaw": 150.0
+    }
+  ],
+  "creatures": [
+    {
+      "instance_id": "foyer_armor",
+      "creature_id": "core:enemy.animated_armor",
+      "pos": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "patrol_a": [
+        -2.5,
+        0.0,
+        1.0
+      ],
+      "patrol_b": [
+        0.0,
+        0.0,
+        -4.5
+      ]
+    },
+    {
+      "instance_id": "dining_footman",
+      "creature_id": "core:enemy.wailing_footman",
+      "pos": [
+        -9.0,
+        0.0,
+        3.4
+      ],
+      "patrol_a": [
+        -12.5,
+        0.0,
+        3.4
+      ],
+      "patrol_b": [
+        -6.0,
+        0.0,
+        3.4
+      ]
+    },
+    {
+      "instance_id": "kitchen_rat_0",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        -7.0,
+        0.0,
+        9.0
+      ],
+      "patrol_a": [
+        -8.5,
+        0.0,
+        9.0
+      ],
+      "patrol_b": [
+        -5.5,
+        0.0,
+        9.0
+      ],
+      "group": "rat_king",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 40
+    },
+    {
+      "instance_id": "kitchen_rat_1",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        -11.0,
+        0.0,
+        8.0
+      ],
+      "patrol_a": [
+        -12.5,
+        0.0,
+        8.0
+      ],
+      "patrol_b": [
+        -9.5,
+        0.0,
+        8.0
+      ],
+      "group": "rat_king",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 40
+    },
+    {
+      "instance_id": "kitchen_rat_2",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        -6.0,
+        0.0,
+        13.5
+      ],
+      "patrol_a": [
+        -7.5,
+        0.0,
+        13.5
+      ],
+      "patrol_b": [
+        -4.5,
+        0.0,
+        13.5
+      ],
+      "group": "rat_king",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 40
+    },
+    {
+      "instance_id": "rat_king",
+      "creature_id": "core:enemy.rat_king",
+      "pos": [
+        -9.5,
+        0.0,
+        12.0
+      ],
+      "patrol_a": [
+        -11.0,
+        0.0,
+        12.0
+      ],
+      "patrol_b": [
+        -8.0,
+        0.0,
+        12.0
+      ],
+      "group": "rat_king",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 40
+    },
+    {
+      "instance_id": "wrathful_host",
+      "creature_id": "core:enemy.wrathful_host",
+      "pos": [
+        6.0,
+        0.0,
+        12.5
+      ],
+      "patrol_a": [
+        2.0,
+        0.0,
+        12.5
+      ],
+      "patrol_b": [
+        10.0,
+        0.0,
+        12.5
+      ],
+      "requires_flag": "host_banish",
+      "group": "host",
+      "group_quest_id": "core:quest.hollowmere",
+      "group_set_stage": 100,
+      "group_set_flag": "host_banished"
+    },
+    {
+      "instance_id": "gallery_armor",
+      "creature_id": "core:enemy.animated_armor",
+      "pos": [
+        -6.0,
+        4.0,
+        9.0
+      ],
+      "patrol_a": [
+        -12.0,
+        4.0,
+        9.0
+      ],
+      "patrol_b": [
+        4.0,
+        4.0,
+        9.0
+      ]
+    },
+    {
+      "instance_id": "gallery_footman",
+      "creature_id": "core:enemy.wailing_footman",
+      "pos": [
+        -10.0,
+        4.0,
+        12.5
+      ],
+      "patrol_a": [
+        -12.5,
+        4.0,
+        12.5
+      ],
+      "patrol_b": [
+        -2.0,
+        4.0,
+        12.5
+      ]
+    }
+  ],
+  "interactables": [
+    {
+      "instance_id": "grave_0",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -17.0,
+        0.0,
+        -16.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies GROGNAK THE MIGHTY.\nStrength 18. Intelligence 3.\nHe tried to intimidate a door. The door won.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_1",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.8,
+        0.0,
+        -16.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies SIR REGINALD, who split the party.\n\"You lot take the left corridor, I'll be fine.\"\nHe was not fine.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_2",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -12.6,
+        0.0,
+        -16.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies ELARA MOONWHISPER SHADOWBLADE NIGHTSONG,\nlast of her clan, orphaned twice, cursed thrice.\nHer tragic backstory ran to fourteen pages. The game master read two.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_3",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -10.399999999999999,
+        0.0,
+        -16.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies the BARD, who rolled to seduce the dragon.\nIt was a natural 20.\nThe dragon has not stopped writing letters.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_4",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -8.2,
+        0.0,
+        -16.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies PIP THE QUICK, rogue,\nwho checked the chest for traps.\nThe chest was the trap. It had teeth.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_5",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -17.0,
+        0.0,
+        -13.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies BRANDT, who stepped on the same pressure plate four times\nto see if it would still do that.\nIt still did that.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_6",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.8,
+        0.0,
+        -13.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies a GNOME, name unknown, who ate an amulet\nbecause it was 'probably food'.\nIt was an amulet of strangulation. It was not food.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_7",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -12.6,
+        0.0,
+        -13.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies a HERO who saved the realm, the king, the princess and a goat,\nthen spent eleven hours deciding what to put in the stash.\nHe died of old age at the chest. The goat lived.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_8",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -10.399999999999999,
+        0.0,
+        -13.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies a MONSTER HUNTER who swore he'd finish the contract\nright after one more hand of cards.\nThat was nine years ago. The monster died of old age.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "grave_9",
+      "type": "readable",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -8.2,
+        0.0,
+        -13.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Gravestone",
+      "title": "Here Lies...",
+      "text": "Here lies TOMAS THE SAVE-SCUMMER.\nHe reloaded so many times the world grew suspicious.\nOn the last attempt, the world reloaded him.",
+      "scale": [
+        0.75,
+        1.05,
+        0.2
+      ]
+    },
+    {
+      "instance_id": "graveyard_sign",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -12.6,
+        0.0,
+        -10.8
+      ],
+      "rot_y": 180.0,
+      "prompt": "Read the Little Sign",
+      "title": "The Lawn of Ill-Advised Choices",
+      "text": "A small, cheerful sign planted in the grass:\n\n\"MEMORIAL LAWN for Adventurers Who Came Before You.\nPlease don't loot the graves.\nWe KNOW you're going to loot the graves.\nThey're empty. The previous adventurers looted them.\"\n\n- P. Hollowmere"
+    },
+    {
+      "instance_id": "gate_sign",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        2.6,
+        0.0,
+        -19.6
+      ],
+      "rot_y": 180.0,
+      "prompt": "Read the Gate Sign",
+      "title": "Hollowmere Manor - Private Grounds",
+      "text": "HOLLOWMERE MANOR\nHome of Sir Percival Hollowmere, Bart., Host of the Finest Parties in the Marches\n\nUnderneath, carved later and much less neatly:\n\n\"YOU MUST GATHER YOUR PARTY BEFORE VENTURING FORTH.\"\n\nAnd under that, in fresh chalk: \"we tried. nobody came. - P.\"",
+      "quest_id": "core:quest.hollowmere",
+      "set_stage": 0,
+      "set_flag": "hollowmere_visited"
+    },
+    {
+      "instance_id": "garden_howl",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        12.0,
+        1.2,
+        -13.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Listen to the Wailing",
+      "title": "A Mournful Wail",
+      "text": "A long, heartbroken wail rolls across the garden and makes the hairs on your neck stand up. It is exactly the kind of noise a Banshee is supposed to make.\n\nIt is also exactly the kind of noise a very large, very sad dog would make.\n\nYou note it down as evidence. Probably.",
+      "set_flag": "clue_wailing"
+    },
+    {
+      "instance_id": "hollowmere_front_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "key_id": "core:item.hollowmere_key",
+      "lock_difficulty": 14,
+      "prompt": "Hollowmere Manor Front Door"
+    },
+    {
+      "instance_id": "hollowmere_kitchen_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        12.0
+      ],
+      "rot_y": 90.0,
+      "locked": false,
+      "prompt": "Kitchen Back Door (it's open; it's always open; that's the problem)"
+    },
+    {
+      "instance_id": "foyer_chalkboard",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -2.6,
+        0.0,
+        4.6
+      ],
+      "rot_y": 180.0,
+      "prompt": "Read the Hunter's Chalkboard",
+      "title": "EVIDENCE BOARD (Property of Hollis)",
+      "text": "Somebody has set up a chalkboard in the foyer, like a hunter's wagon parked outside a haunting.\n\nEVIDENCE FOUND:\n[ ] Cold spots\n[ ] Ghost writing\n[ ] Floating objects\n[ ] Spirit box response\n[ ] Ectoplasm handprints\n[ ] Wailing\n\nRULES:\n1. Find three kinds of evidence.\n2. Check the Field Guide.\n3. Do NOT say its name out loud. Especially not in the dark. Especially not as a joke.\n4. If the lights start flickering, that's normal. If they start flickering in Morse code, leave.\n5. Do not hide in the wardrobe. It always finds you in the wardrobe."
+    },
+    {
+      "instance_id": "foyer_tpose",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        2.8,
+        1.2,
+        5.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Inspect the Figure in the Hall",
+      "title": "A Figure in the Hall",
+      "text": "A mannequin stands in the corner of the foyer, arms stuck rigidly straight out to either side, legs together, face perfectly blank.\n\nIt has been standing like that for weeks, the butler's diary says. It doesn't move. It doesn't attack. It just stands there in that pose, as if it is waiting for somebody, somewhere, to finish loading its animations.\n\nYou back away slowly. Its arms do not follow you. You're almost disappointed."
+    },
+    {
+      "instance_id": "dining_floating",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -9.0,
+        1.1,
+        -0.2
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Table Settings",
+      "title": "The Table Is Laid",
+      "text": "The long table is laid for twelve. Silver, crystal, folded napkins shaped like swans.\n\nAs you watch, a fork lifts itself off the tablecloth, turns slowly in the air, and settles back down a finger's width to the left, exactly in line with its neighbours. Then a spoon does the same. Then a whole place setting shuffles over to make room for a guest who isn't there.\n\nFLOATING OBJECTS. Somebody is setting the table. Somebody who has been setting it for a very long time.",
+      "set_flag": "ev_floating"
+    },
+    {
+      "instance_id": "dining_key_plate",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        -12.8,
+        0.0,
+        4.6
+      ],
+      "rot_y": 0.0,
+      "locked": false,
+      "loot_table": "core:loot.vermin_drop",
+      "prompt": "Sideboard Drawer (labelled 'STUDY KEY - DO NOT LOOK HERE')",
+      "fixed_items": [
+        "core:item.study_key"
+      ]
+    },
+    {
+      "instance_id": "library_bestsellers",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        8.0,
+        0.0,
+        2.6
+      ],
+      "rot_y": 180.0,
+      "prompt": "Browse the Bestseller Stand",
+      "title": "Hollowmere Library: Most Borrowed",
+      "text": "A brass placard: MOST BORROWED THIS CENTURY.\n\n1. 'Dusk' - A girl moves to a rainy town and falls for a three-hundred-year-old who still attends school, on purpose.\n2. 'Moon of Longing' - The sequel. The same girl, but now a wolf with abs is also involved. Nobody wears a shirt.\n3. 'A Lament of Frost and Furnace, Vol. 6' - The author promises Vol. 7 'soon'. The placard is very old.\n4. 'The Boy Who Was Prophesied' - Seven volumes. The prophecy turns out to be about a different boy.\n5. 'The Fellowship of the Very Long Walk' - Three hundred pages of walking. Twelve of fighting. Forty of songs.\n6. 'Fifty Shades of Grey Robes' - An archivist romance. Fenwick has borrowed it eleven times. Fenwick denies this.\n7. 'So You've Been Chosen' - A self-help pamphlet for farm boys with mysterious birthmarks.\n\nSomebody has written 'TEAM ROLF' in the margin of the second book, and 'TEAM ASHGRAVE' beneath it, and the two have been arguing in the margins for several pages."
+    },
+    {
+      "instance_id": "library_search",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        11.0,
+        0.8,
+        -6.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Search for Treasure",
+      "title": "You Search for Treasure",
+      "text": "You search the library for treasure.\n\nYou find... nothing.\n\nSomewhere, a deep and booming voice you can't quite place adds, with enormous satisfaction: \"A WANDERING MONSTER APPEARS.\"\n\nNo monster appears. The voice sounds disappointed."
+    },
+    {
+      "instance_id": "library_rules",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        5.0,
+        0.8,
+        -6.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Rulebook on the Floor",
+      "title": "Page 212 of a Very Thick Rulebook",
+      "text": "A heavy rulebook lies open, its margins crowded with arguments in at least six different hands.\n\n\"Technically, page 212 says a crossbow can be fired while falling.\" - \"It does NOT say that.\" - \"It doesn't say you CAN'T.\" - \"We are not doing this again.\" - \"I cast Fireball on the rules discussion.\" - \"You can't, you're a Fighter.\" - \"Page 212.\"\n\nSomeone has drawn a very small, very sad dragon at the bottom, with a speech bubble: \"can we please just play.\""
+    },
+    {
+      "instance_id": "kitchen_claws",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -13.4,
+        1.2,
+        9.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Examine the Claw Marks",
+      "title": "Claw Marks on the Back Door Frame",
+      "text": "Deep gouges, four at a time, scored into the frame of the kitchen's back door at about head height.\n\nSomething big came in this way. Something with claws, that walks on two legs, that apparently also wiped its feet on the mat afterwards, because the mat is spotless.\n\nIt LOOKS like evidence. You note it down.",
+      "set_flag": "clue_claws"
+    },
+    {
+      "instance_id": "kitchen_bucket",
+      "type": "pickup",
+      "item_id": "core:item.dented_bucket",
+      "qty": 1,
+      "pos": [
+        -12.5,
+        1.15,
+        15.1
+      ]
+    },
+    {
+      "instance_id": "ballroom_cold",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        3.0,
+        1.2,
+        13.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Stand in the Cold Patch",
+      "title": "A Cold Spot",
+      "text": "You step into the middle of the dance floor and your breath turns to frost in front of your face. It is much, much colder here than anywhere else in the room. The cold has a shape: a little circle, the size of one person standing still, waiting to be asked to dance.\n\nCOLD SPOTS. You write it down with fingers that have gone stiff.",
+      "set_flag": "ev_cold"
+    },
+    {
+      "instance_id": "ballroom_gramophone",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        9.0,
+        0.0,
+        15.2
+      ],
+      "rot_y": 0.0,
+      "prompt": "Wind the Gramophone",
+      "title": "The Gramophone",
+      "text": "A beautiful brass gramophone with a horn like a lily. The record on it is labelled 'For My Guests - The Last Waltz'.\n\nYou wind it. It plays four bars of a waltz, skips, and plays the same four bars again. And again. Somewhere above you, very faintly, something hums along."
+    },
+    {
+      "instance_id": "study_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        4.0,
+        4.0,
+        4.7
+      ],
+      "rot_y": 90.0,
+      "locked": true,
+      "key_id": "core:item.study_key",
+      "lock_difficulty": 12,
+      "prompt": "Study Door"
+    },
+    {
+      "instance_id": "sealed_door",
+      "type": "door",
+      "model": "assets/models/props/iron_gate.glb",
+      "pos": [
+        8.0,
+        4.0,
+        11.0
+      ],
+      "rot_y": 90.0,
+      "locked": true,
+      "mechanism_only": true,
+      "prompt": "Sealed Room (a lever somewhere opens this)"
+    },
+    {
+      "instance_id": "bedroom_decanter",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -6.0,
+        5.0,
+        -6.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Examine the Decanters",
+      "title": "Sherry Decanters, Bitten",
+      "text": "A row of crystal decanters on the dresser. Every one of them has two neat little puncture holes in the stopper, as if someone tried to drink through them with their teeth.\n\nThey all contain beetroot juice.\n\nIt LOOKS like evidence. You note it down, slightly confused.",
+      "set_flag": "clue_bites"
+    },
+    {
+      "instance_id": "study_writing",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        9.0,
+        5.05,
+        -6.2
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Open Journal",
+      "title": "Sir Percival's Guest Book",
+      "text": "A leather guest book lies open on the desk with a quill beside it. The last hundred pages are blank, every one of them headed with a date, as if waiting for signatures that never came.\n\nWhile you watch, the quill lifts on its own, dips itself in the ink, and writes in a looping, old-fashioned hand:\n\n    you came    you came    please stay for dinner\n\nGHOST WRITING. Your hand is shaking a little as you note it down.",
+      "set_flag": "ev_writing"
+    },
+    {
+      "instance_id": "study_puzzle",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        12.6,
+        5.2,
+        -2.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Note by the Lever",
+      "title": "A Note from the Architect",
+      "text": "\"To whomever it may concern:\n\nThere was going to be a puzzle here. Four rotating busts, a riddle about the seasons, and a sliding-tile mural of Sir Percival's prize hound.\n\nAfter the third guest starved to death trying to solve it, Sir Percival asked us to take it out. The lever opens the sealed room. That's it. That's the whole puzzle. You're welcome.\n\n- G. Fairweather, Architect\n\nP.S. The answer to the riddle was 'a candle'. It's always a candle.\""
+    },
+    {
+      "instance_id": "study_lever",
+      "type": "lever",
+      "model": "assets/models/props/iron_lever.glb",
+      "pos": [
+        13.6,
+        4.0,
+        -0.5
+      ],
+      "rot_y": -90.0,
+      "target_id": "sealed_door",
+      "prompt": "Pull the Lever (no puzzle required)"
+    },
+    {
+      "instance_id": "gallery_spiritbox",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -6.0,
+        4.0,
+        14.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Speak into the Spirit Trumpet",
+      "title": "The Spirit Trumpet",
+      "text": "A brass speaking-trumpet on a stand, the kind ghost-hunters swear by. You lean in and ask, very politely: \"Is anyone here? Give us a sign.\"\n\nStatic.\n\n\"Where are you?\"\n\nStatic.\n\n\"How old are you?\"\n\nA long pause. Then, very faintly, from somewhere downstairs: four bars of a waltz, skipping.\n\nNo voice. No answer. NOT spirit box evidence, then. Whatever lives here doesn't want to chat through a trumpet. It wants company.",
+      "set_flag": "spirit_box_tried"
+    },
+    {
+      "instance_id": "gallery_portrait_0",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -12.0,
+        5.6,
+        15.65
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Portrait",
+      "title": "Portrait: Sir Percival at Thirty",
+      "text": "A handsome young man in a velvet coat, laughing, a glass raised. The plaque reads: 'Host of the Year, eleven years running.' In the background of the painting, a crowded ballroom."
+    },
+    {
+      "instance_id": "gallery_portrait_1",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -8.4,
+        5.6,
+        15.65
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Portrait",
+      "title": "Portrait: Sir Percival at Sixty",
+      "text": "The same man, older, still smiling. The ballroom behind him is half empty. The painter has been very kind about it."
+    },
+    {
+      "instance_id": "gallery_portrait_2",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -4.8,
+        5.6,
+        15.65
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Portrait",
+      "title": "Portrait: Sir Percival at Ninety",
+      "text": "An old man sitting alone at a very long table laid for twelve. He is still smiling. The smile has not reached his eyes for some time."
+    },
+    {
+      "instance_id": "gallery_portrait_3",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -1.1999999999999993,
+        5.6,
+        15.65
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Portrait",
+      "title": "Portrait: A Monster Hunter",
+      "text": "A grizzled, white-haired man with two swords, scowling at the painter. The painting is titled 'Hmm.' He is holding a hand of cards behind his back."
+    },
+    {
+      "instance_id": "sealed_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        11.0,
+        4.0,
+        14.6
+      ],
+      "rot_y": 180.0,
+      "locked": false,
+      "loot_table": "core:loot.crypt_elite",
+      "fixed_items": [
+        "core:item.party_hat",
+        "core:item.tome_frost",
+        "core:item.health_potion"
+      ]
+    },
+    {
+      "instance_id": "sealed_note",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        12.6,
+        5.2,
+        8.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Note on the Chest",
+      "title": "A Note Taped to the Treasure",
+      "text": "\"Congratulations on finding the Secret Treasure of Hollowmere!\n\nIt's a party hat. I'm sorry. I had it made for my last party. Nobody came, so nobody wore it.\n\nThey always say the real treasure is the friends you made along the way. I never made any. Perhaps you could wear it for me, the next time you're somewhere with friends.\n\n- P.\""
+    }
+  ],
+  "portals": []
+}

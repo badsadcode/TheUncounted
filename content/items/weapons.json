@@ -300,6 +300,32 @@
           "value": 0.05
         }
       ]
+    },
+    {
+      "id": "core:item.silver_sword",
+      "name_key": "item.silver_sword.name",
+      "description_key": "item.silver_sword.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/silver_sword.png",
+      "world_model": "assets/models/items/iron_longsword.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 260,
+      "weight": 2.6,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "slashing",
+        "base_damage": 19,
+        "attack_time_seconds": 0.56,
+        "stamina_cost": 9,
+        "reach_meters": 2.3,
+        "crit_chance": 0.08,
+        "crit_mult": 1.7,
+        "bane_family": "spirit",
+        "bane_mult": 1.5
+      }
     }
   ]
 }

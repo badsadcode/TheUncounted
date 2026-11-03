@@ -25,6 +25,7 @@ ROAD_OFF = (48.0, 0.0, 0.0)
 ANNEX_OFF = (87.0, -4.8, -8.4)
 VAULT_OFF = (54.6, -10.4, -22.0)   # Vault III: the Nursery lies 5.6 m below the crypt, the Seal Chamber 5.6 m below that
 VAULT_Z = VAULT_OFF[2]
+HOLLOW_OFF = (0.0, 0.0, 42.0)  # Hollowmere Manor: south of Bellwether, through a gap in the village's south wall
 WALL = "assets/models/env/wall_crypt.glb"
 COBBLE = "assets/models/env/floor_cobble.glb"
 STAIRS = "assets/models/env/stairs_stone.glb"
@@ -124,8 +125,23 @@ def build():
     road = shift_region(load("old_road.json"), ROAD_OFF, "road_")
     annex = shift_region(load("registry_annex.json"), ANNEX_OFF, "annex_")
     vault = shift_region(load("vault_three.json"), VAULT_OFF, "vault_")
+    hollow = shift_region(load("hollowmere.json"), HOLLOW_OFF, "hollow_")
 
-    props = list(bell["props"])
+    props = []
+    for p in bell["props"]:
+        if p["id"] == "bell_wall_south":
+            # A 3.2 m gap in the middle of the south wall leads down the drive to Hollowmere Manor.
+            west = clip_x(copy.deepcopy(p), hi=-1.6)
+            east = clip_x(copy.deepcopy(p), lo=1.6)
+            west["id"], east["id"] = "bell_wall_south_w", "bell_wall_south_e"
+            props += [west, east]
+            continue
+        props.append(p)
+    props += [
+        {"id": "bell_south_gate_w", "model": "assets/models/env/pillar_stone.glb", "pos": [-2.1, 0.0, 20.0], "scale": [1.1, 1.25, 1.4], "solid": True},
+        {"id": "bell_south_gate_e", "model": "assets/models/env/pillar_stone.glb", "pos": [2.1, 0.0, 20.0], "scale": [1.1, 1.25, 1.4], "solid": True},
+    ]
+    props += hollow["props"]
 
     # --- Old Road: drop its west cliff (Bellwether's east wall + gate is the boundary) and trim overlaps.
     road_east_x = ROAD_OFF[0] + 28.0 + 0.75  # outer face of the east cliff
@@ -218,7 +234,7 @@ def build():
     ]
     props += vault["props"]
 
-    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"]
+    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"] + hollow["interactables"]
     interactables.append({
         "instance_id": "flour_handprints", "type": "readable", "model": "", "pos": [65.75, -3.8, VAULT_Z + 2.3], "rot_y": 0.0,
         "prompt": "Look at the Marks on the Wall", "title": "Handprints in Old Flour",
@@ -234,11 +250,11 @@ def build():
                  "centuries:\n\nTURN BACK. THE NAMES ARE LISTENING.\n\n"
                  "Beneath them, newer and neater, in Bureau ink: \"Graffiti is a Class III municipal offence.\""),
     })
-    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"]
-    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"]
-    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"]
+    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"] + hollow["npcs"]
+    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"] + hollow["creatures"]
+    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"] + hollow["lights"]
     spawns = {}
-    for m in (bell, road, annex, vault):
+    for m in (bell, road, annex, vault, hollow):
         spawns.update(m["spawns"])
 
     for kind, items in (("interactable", interactables), ("npc", npcs), ("creature", creatures)):
@@ -256,7 +272,14 @@ def build():
     bell_zone["flag_override"] = {"flag": "seal_renewed", "weather": "", "ambience": "assets/audio/ambience/forest_wind.wav"}
     seal_zone = zone_from(vault, "seal_chamber", [3.5, -17.0, -30.0], [21.0, -10.6, -14.0], 2.0)
     seal_zone.update({"display_name_key": "map.seal_chamber.name", "fog_density": 0.05, "ambient_color": [0.15, 0.19, 0.32]})
+    manor_zone = zone_from(hollow, "hollowmere_manor", [-14.0, -1.0, 34.0], [14.0, 9.0, 58.0], 1.5)
+    manor_zone.update({"display_name_key": "map.hollowmere_manor.name", "weather": "", "fog_density": 0.03,
+                       "ambience": "assets/audio/ambience/crypt_drips.wav", "ambient_color": [0.3, 0.3, 0.42], "sky_color": [10, 10, 16]})
+    grounds_zone = zone_from(hollow, "hollowmere", [-21.0, -1.0, 20.7], [21.0, 40.0, 67.0], 3.0)
+    grounds_zone["flag_override"] = {"flag": "seal_renewed", "weather": "", "ambience": "assets/audio/ambience/forest_wind.wav"}
     zones = [
+        manor_zone,
+        grounds_zone,
         seal_zone,
         zone_from(vault, "vault_three", [3.5, -17.0, -30.0], [57.0, -5.2, -14.0], 3.0),
         zone_from(annex, "annex", [59.0, -14.0, -46.0], [104.0, -0.9, 2.6], 3.0),

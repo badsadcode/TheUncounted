@@ -493,6 +493,13 @@ def rat(style, row):
         foot = v3(0.07 * sx, 0.012, 0.09 * sz + 0.04 * ph)
         p.append(capsule(top, foot, 0.02, body, 0.014))
         p.append(ellipsoid(foot + v3(0, -0.004, 0.015), (0.018, 0.01, 0.024), pink))
+    if style.get("crown"):
+        gold = Mat((230, 190, 70), shine=1.0)
+        p.append(capsule(hc + v3(0, 0.06, -0.01), hc + v3(0, 0.075, -0.01), 0.04, gold))
+        for k in range(5):
+            ang = k * 2 * math.pi / 5
+            base = hc + v3(math.sin(ang) * 0.035, 0.08, -0.01 + math.cos(ang) * 0.035)
+            p.append(capsule(base, base + v3(0, 0.03, 0), 0.009, gold, 0.002))
     prev = v3(0, 0.1, -0.17)
     for i in range(6):
         nxt = prev + v3(0.025 * math.sin(i * 0.9 + walk), -0.012 if i < 3 else 0.004, -0.045)
@@ -644,6 +651,35 @@ SHEETS = {
         "hood": (18, 20, 30), "weapon": "staff", "orb": (90, 255, 140), "bare_arms": True,
     },
     "assets/sprites/enemies/truffle_hog.png": {"kind": "rat", "scale": 2.5, "body": (176, 120, 108), "armor": (112, 74, 62), "eye": (30, 20, 20)},
+    "assets/sprites/enemies/rat_king.png": {"kind": "rat", "scale": 2.6, "body": (96, 80, 72), "armor": (60, 50, 44), "eye": (255, 200, 60), "crown": True},
+    "assets/sprites/npcs/hunter_hollis.png": {
+        "kind": "humanoid", "body": (214, 180, 150), "armor": (52, 46, 42), "legs": (40, 36, 34), "cloak": (36, 32, 30),
+        "trim": (170, 170, 180), "eye": (230, 200, 60), "glow_eyes": True, "hat": "none", "hair": (226, 226, 220), "beard": True,
+        "weapon": "sword", "boots": (30, 26, 24),
+    },
+    "assets/sprites/npcs/vampire_ashgrave.png": {
+        "kind": "humanoid", "body": (236, 230, 236), "armor": (30, 26, 34), "legs": (24, 22, 28), "cloak": (110, 20, 34),
+        "trim": (200, 200, 220), "eye": (200, 40, 60), "glow_eyes": True, "hair": (24, 20, 26), "boots": (20, 18, 22),
+    },
+    "assets/sprites/npcs/werewolf_rolf.png": {
+        "kind": "humanoid", "body": (120, 90, 64), "armor": (130, 98, 70), "legs": (70, 60, 90), "eye": (240, 200, 60),
+        "glow_eyes": True, "hair": (90, 66, 46), "beard": True, "bare_arms": True, "boots": (90, 66, 46), "scale": 1.12,
+    },
+    "assets/sprites/npcs/ghost_percival.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 200, "body": (200, 230, 240), "armor": (120, 150, 190),
+        "cloak": (90, 120, 170), "trim": (230, 240, 255), "eye": (240, 255, 255), "glow_eyes": True, "hat": "bald",
+        "hair": (220, 230, 240), "beard": True,
+    },
+    "assets/sprites/enemies/wrathful_host.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 215, "body": (240, 190, 190), "armor": (150, 40, 50),
+        "cloak": (100, 24, 36), "trim": (255, 200, 120), "eye": (255, 80, 60), "glow_eyes": True, "hat": "bald",
+        "hair": (240, 200, 200), "beard": True, "weapon": "staff", "orb": (255, 90, 60), "bare_arms": True,
+    },
+    "assets/sprites/enemies/wailing_footman.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 205, "body": (190, 220, 235), "armor": (60, 80, 110),
+        "cloak": (40, 56, 80), "trim": (220, 220, 230), "eye": (200, 240, 255), "glow_eyes": True, "hat": "cap",
+        "cap": (40, 50, 70), "weapon": "ledger", "book": (210, 210, 220),
+    },
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),
         "cloak": (110, 190, 222), "trim": (200, 240, 255), "eye": (235, 255, 255), "glow_eyes": True, "hat": "hood",

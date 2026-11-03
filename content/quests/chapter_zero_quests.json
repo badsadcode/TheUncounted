@@ -123,6 +123,73 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.rats",
+      "title_key": "quest.rats.title",
+      "summary_key": "quest.rats.summary",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.rats.stage0",
+          "journal_key": "quest.rats.journal0"
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.rats.stage20",
+          "journal_key": "quest.rats.journal20"
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.rats.stage40",
+          "journal_key": "quest.rats.journal40"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.rats.stage100",
+          "journal_key": "quest.rats.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.hollowmere",
+      "title_key": "quest.haunt.title",
+      "summary_key": "quest.haunt.summary",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.haunt.stage0",
+          "journal_key": "quest.haunt.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.haunt.stage10",
+          "journal_key": "quest.haunt.journal10"
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.haunt.stage20",
+          "journal_key": "quest.haunt.journal20"
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.haunt.stage30",
+          "journal_key": "quest.haunt.journal30"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.haunt.stage100",
+          "journal_key": "quest.haunt.journal100",
+          "completed": true
+        },
+        {
+          "stage": 101,
+          "objective_key": "quest.haunt.stage101",
+          "journal_key": "quest.haunt.journal101",
+          "completed": true
+        }
+      ]
     }
   ]
 }

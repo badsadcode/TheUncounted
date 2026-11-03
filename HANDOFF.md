@@ -12,7 +12,7 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
 - **Target platform: Windows 10/11 only** (MinGW build). Linux is *not* a shipping target; it is only used as a headless
   test box in cloud sessions (which run Linux and cannot execute `game.exe`). Don't add Linux packaging or Linux-only code.
-- `--validate` → 0 errors; `--selftest` → 0 failures (137 checks); `--balance` → every calling beats every creature
+- `--validate` → 0 errors; `--selftest` → 0 failures (158 checks); `--balance` → every calling beats every creature
   (36/36 at 100%). Last cloud verification 2026-11-02; re-check on Windows after pulling.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
@@ -199,6 +199,33 @@ nobody left out.
 - **Monsters:** Bone Clerk (undead, Annex foyer & archive; drops Bone Clerk's Spectacles), Ink Wraith (spirit, ranged;
   archive & Nursery), Truffle Hog (beast — it's a rat; nobody has told it). Self-test checks every spawn is clear of walls.
 - Previews: `--flag <name>` (repeatable) and `--companion <npc id>` for `--shot`; `--overlay narration:<key>`.
+
+### Hollowmere Manor, rats, dice and parody (added 2026-11-03)
+
+The user wants lots of affectionate, *unnamed* references to popular RPGs (open-world fantasy, monster-hunter, party-based
+CRPGs, roguelikes, ghost-hunting co-op, old-school tabletop & board-game dungeon crawls) and pop culture (YA vampires and
+werewolves, fantasy bestsellers), plus typical game bugs players complain about. Never name the games; keep it clever.
+
+- **Hollowmere Manor** (`tools/build_mansion.py` → `content/regions/hollowmere.json`, generated — edit the script) sits
+  south of Bellwether (HOLLOW_OFF = (0, 0, 42)) through a gap cut in the village's south wall. Grounds (graveyard of
+  adventuring-party mistakes, Rolf's garden) + a two-storey house: foyer with grand stair, dining room, library,
+  kitchen, ballroom; landing, master bedroom, locked study, portrait gallery, sealed room. Zones `hollowmere` (grounds,
+  rain) and `hollowmere_manor` (interior).
+- **Quest `core:quest.rats`** (Vaelen): town rats spawn live (`requires_flag: rats_in_town`), clearing group
+  `town_rats` → 20; the kitchen rats + Rat King (group `rat_king`) → 40 (works even if never started) → Vaelen → 100.
+- **Quest `core:quest.hollowmere`** (Hollis or the gate sign): collect ≥3 of `ev_cold`, `ev_writing`, `ev_floating`
+  (true) / `clue_bites`, `clue_claws`, `clue_wailing` (red herrings explained by Ashgrave/Rolf), identify with Hollis
+  (wrong guesses are scolded, retryable) → 20, Percival appears (`host_identified`). Endings: banish via Hollis
+  (`host_banish` spawns the Wrathful Host; group trigger → 100, `host_banished`, Hollis pays + Silver Sword) or a party:
+  Percival + ≥3 dinner guests (`invited_*`) or a DC 15 persuasion roll → 101 (`host_at_peace`, signet).
+- **Engine:** creature spawns may set `requires_flag`, `group`, `group_quest_id`/`group_set_stage`/`group_set_flag`
+  (fires when the whole group is dead). Dialogue choices may carry `"roll": {skill, dc, fail_next, rigged}` — d20 +
+  skill/4 (+ Presence mod for persuasion); the odds show on the choice; `rigged` makes the first attempt a natural 1.
+  Conditions `item_equipped` / `item_not_equipped`. Death screen shows a random `tip.N`. Companion `catchup_lines`.
+- New NPCs: Hollis the Grey (monster hunter, cards, horse on the chapel roof), Lord Ashgrave (sparkly vampire lodger),
+  Rolf (shirtless werewolf gardener), Sir Percival (the Host). Monsters: Animated Armour, Wailing Footman, Rat King,
+  Wrathful Host. Items: Dented Bucket (shopkeeper discount), Party Hat, Crown of the Rat King, Cape of Eternal
+  Brooding, Hollowmere Signet, Silver Sword of the Grey, Moonlit Jerky, Field Guide, keys.
 
 ## 8. The user (what they care about)
 

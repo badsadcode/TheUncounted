@@ -424,6 +424,203 @@
         ],
         "glow": false
       }
+    },
+    {
+      "id": "core:enemy.animated_armor",
+      "name_key": "enemy.animated_armor.name",
+      "appearance": {
+        "type": "model_glb",
+        "model": "assets/models/characters/lost_sentinel.glb",
+        "scale": 0.9
+      },
+      "stats": {
+        "health": 120,
+        "armor": 6,
+        "move_speed": 1.9,
+        "xp_reward": 55
+      },
+      "behavior": "melee_patroller",
+      "family": "construct",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 8.0
+      },
+      "attack": {
+        "name": "gauntlet",
+        "damage": 14,
+        "reach_meters": 2.1,
+        "windup_seconds": 0.65,
+        "cooldown_seconds": 1.5
+      },
+      "loot_table": "core:loot.crypt_basic",
+      "audio": {
+        "alert": "assets/audio/sfx/sentinel_clang.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          200,
+          200,
+          210
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.armor.alert",
+        "death": "line.armor.death"
+      }
+    },
+    {
+      "id": "core:enemy.wailing_footman",
+      "name_key": "enemy.wailing_footman.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/wailing_footman.png",
+        "animation_data": "assets/animations/crypt_keeper.json",
+        "scale": 1.8
+      },
+      "stats": {
+        "health": 70,
+        "armor": 1,
+        "move_speed": 2.1,
+        "xp_reward": 45
+      },
+      "behavior": "melee_patroller",
+      "family": "spirit",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 8.0
+      },
+      "attack": {
+        "name": "cold_tray",
+        "damage": 9,
+        "reach_meters": 2.0,
+        "ranged_range_meters": 10.0,
+        "projectile_speed": 10.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_frost.png",
+        "windup_seconds": 0.7,
+        "cooldown_seconds": 1.8
+      },
+      "loot_table": "core:loot.ink_wraith",
+      "audio": {
+        "alert": "assets/audio/sfx/crawler_hiss.wav",
+        "attack": "assets/audio/sfx/spell_cast.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          200,
+          240,
+          255
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.footman.alert",
+        "death": "line.footman.death"
+      }
+    },
+    {
+      "id": "core:enemy.rat_king",
+      "name_key": "enemy.rat_king.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/rat_king.png",
+        "animation_data": "assets/animations/grave_rat.json",
+        "scale": 1.7
+      },
+      "stats": {
+        "health": 160,
+        "armor": 3,
+        "move_speed": 2.8,
+        "xp_reward": 90
+      },
+      "behavior": "melee_patroller",
+      "family": "beast",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 8.0
+      },
+      "attack": {
+        "name": "royal_bite",
+        "damage": 13,
+        "reach_meters": 1.9,
+        "windup_seconds": 0.5,
+        "cooldown_seconds": 1.2
+      },
+      "loot_table": "core:loot.rat_king",
+      "audio": {
+        "alert": "assets/audio/sfx/rat_squeak.wav",
+        "attack": "assets/audio/sfx/rat_squeak.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          150,
+          110,
+          100
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.rat_king.alert",
+        "death": "line.rat_king.death"
+      }
+    },
+    {
+      "id": "core:enemy.wrathful_host",
+      "name_key": "enemy.wrathful_host.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/wrathful_host.png",
+        "animation_data": "assets/animations/crypt_keeper.json",
+        "scale": 2.1
+      },
+      "stats": {
+        "health": 280,
+        "armor": 4,
+        "move_speed": 2.2,
+        "xp_reward": 170
+      },
+      "behavior": "boss_host",
+      "family": "spirit",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 8.0
+      },
+      "attack": {
+        "name": "last_waltz",
+        "damage": 17,
+        "reach_meters": 2.4,
+        "ranged_range_meters": 12.0,
+        "projectile_speed": 11.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ember.png",
+        "windup_seconds": 0.75,
+        "cooldown_seconds": 1.6
+      },
+      "loot_table": "core:loot.crypt_boss",
+      "audio": {
+        "alert": "assets/audio/sfx/boss_roar.wav",
+        "attack": "assets/audio/sfx/spell_cast.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          255,
+          120,
+          100
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.host.alert",
+        "death": "line.host.death"
+      }
     }
   ]
 }

@@ -736,6 +736,7 @@ void ContentRegistry::LoadNpcsFile(const std::string& rootDir, const std::string
             cd.kill_lines = strs("kill_lines");
             cd.heal_lines = strs("heal_lines");
             cd.level_lines = strs("level_lines");
+            cd.catchup_lines = strs("catchup_lines");
             if (cj.contains("idle_lines")) {
                 for (const auto& lj : cj["idle_lines"]) {
                     CompanionLineDef l;
@@ -805,6 +806,12 @@ void ContentRegistry::LoadDialoguesFile(const std::string& rootDir, const std::s
                         DialogueChoice dc;
                         dc.text_key = cj.value("text_key", "");
                         dc.next = cj.value("next", "END");
+                        if (cj.contains("roll") && cj["roll"].is_object()) {
+                            dc.roll_skill = cj["roll"].value("skill", "persuasion");
+                            dc.roll_dc = cj["roll"].value("dc", 10);
+                            dc.fail_next = cj["roll"].value("fail_next", "END");
+                            dc.roll_rigged = cj["roll"].value("rigged", false);
+                        }
                         if (cj.contains("conditions")) {
                             for (const auto& condj : cj["conditions"]) {
                                 DialogueCondition cond;
@@ -987,6 +994,11 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             cs.pos = JsonToVec3(cj["pos"]);
             cs.patrol_a = cj.contains("patrol_a") ? JsonToVec3(cj["patrol_a"]) : cs.pos;
             cs.patrol_b = cj.contains("patrol_b") ? JsonToVec3(cj["patrol_b"]) : cs.pos;
+            cs.requires_flag = cj.value("requires_flag", "");
+            cs.group = cj.value("group", "");
+            cs.group_quest_id = cj.value("group_quest_id", "");
+            cs.group_set_stage = cj.value("group_set_stage", 0);
+            cs.group_set_flag = cj.value("group_set_flag", "");
             m.creatures.push_back(cs);
         }
     }
@@ -1125,7 +1137,8 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
             std::vector<std::string> keys;
             for (const auto& [z, k] : npc.companion.zone_lines) keys.push_back(k);
             for (const auto& l : npc.companion.idle_lines) keys.push_back(l.text_key);
-            for (const auto* v : {&npc.companion.combat_lines, &npc.companion.kill_lines, &npc.companion.heal_lines, &npc.companion.level_lines})
+            for (const auto* v : {&npc.companion.combat_lines, &npc.companion.kill_lines, &npc.companion.heal_lines, &npc.companion.level_lines,
+                                  &npc.companion.catchup_lines})
                 keys.insert(keys.end(), v->begin(), v->end());
             for (const auto& k : keys)
                 if (!loc_strings.count(k)) RecordIssue("NPC:" + id, "companion", "Missing localization string '" + k + "'");

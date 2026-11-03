@@ -24,6 +24,7 @@ enum class CreatureState { Idle, Patrol, Notice, Chase, Windup, Recover, Stagger
 
 struct CreatureInstance {
     std::string instance_id;
+    const MapCreatureSpawnDef* spawn_def = nullptr;  // for group-clear quest triggers
     const CreatureDef* def = nullptr;
     Vector3 pos{};
     Vector3 spawn{};

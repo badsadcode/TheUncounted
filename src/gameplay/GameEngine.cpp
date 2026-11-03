@@ -669,29 +669,10 @@ void GameEngine::BuildScene() {
         scene_.npcs.push_back(ni);
     }
 
+    pending_spawns_.clear();
     for (const auto& c : map->creatures) {
-        const CreatureDef* def = content_.GetCreature(c.creature_id);
-        if (!def) continue;
-        CreatureInstance ci;
-        ci.instance_id = c.instance_id;
-        ci.def = def;
-        ci.pos = ci.spawn = c.pos;
-        ci.patrol_a = c.patrol_a;
-        ci.patrol_b = c.patrol_b;
-        ci.health = ci.max_health = def->health;
-        ci.yaw = YawTo(c.patrol_a, c.patrol_b);
-        float s = def->appearance.scale;
-        ci.radius = Clamp(s * 0.24f, 0.28f, 0.55f);
-        ci.height = def->appearance.type == "model_glb" ? 1.9f * s : s * 0.92f;
-        ci.anim_time = RandF();
-        ci.state = Vector3Distance(c.patrol_a, c.patrol_b) > 0.5f ? CreatureState::Patrol : CreatureState::Idle;
-        if (ps.dead.count(c.instance_id)) {
-            ci.state = CreatureState::Dead;
-            ci.health = 0;
-            auto cp = ps.corpse_pos.find(c.instance_id);
-            if (cp != ps.corpse_pos.end()) ci.pos = cp->second;
-        }
-        scene_.creatures.push_back(ci);
+        if (!c.requires_flag.empty() && !player_.flags.count(c.requires_flag)) { pending_spawns_.push_back(&c); continue; }
+        SpawnCreature(c);
     }
 
     for (const auto& l : map->lights) scene_.static_lights.push_back({l.pos, l.color, l.radius});
@@ -912,6 +893,7 @@ void GameEngine::FixedUpdate(float dt) {
     if (player_.health <= 0.0f) {
         player_.health = 0.0f;
         screen_ = Screen::Dead;
+        death_tip_ = static_cast<int>(RandF() * 1000.0f);
         overlay_ = Overlay::None;
         PlaySfxAt("assets/audio/sfx/player_hurt.wav", player_.pos, 1.0f);
         EnableCursor();
@@ -1677,6 +1659,48 @@ void GameEngine::UpdateBuffs(float dt) {
 // ============================================================================
 // Companion: follows, fights alongside, looks after the player, and talks
 // ============================================================================
+void GameEngine::SpawnCreature(const MapCreatureSpawnDef& c) {
+    const CreatureDef* def = content_.GetCreature(c.creature_id);
+    if (!def) return;
+    MapPersist& ps = Persist();
+    CreatureInstance ci;
+    ci.instance_id = c.instance_id;
+    ci.spawn_def = &c;
+    ci.def = def;
+    ci.pos = ci.spawn = c.pos;
+    ci.patrol_a = c.patrol_a;
+    ci.patrol_b = c.patrol_b;
+    ci.health = ci.max_health = def->health;
+    ci.yaw = YawTo(c.patrol_a, c.patrol_b);
+    float s = def->appearance.scale;
+    ci.radius = Clamp(s * 0.24f, 0.28f, 0.55f);
+    ci.height = def->appearance.type == "model_glb" ? 1.9f * s : s * 0.92f;
+    ci.anim_time = RandF();
+    ci.state = Vector3Distance(c.patrol_a, c.patrol_b) > 0.5f ? CreatureState::Patrol : CreatureState::Idle;
+    if (ps.dead.count(c.instance_id)) {
+        ci.state = CreatureState::Dead;
+        ci.health = 0;
+        auto cp = ps.corpse_pos.find(c.instance_id);
+        if (cp != ps.corpse_pos.end()) ci.pos = cp->second;
+    }
+    scene_.creatures.push_back(ci);
+}
+
+void GameEngine::CheckGroupCleared(const CreatureInstance& dead) {
+    const MapCreatureSpawnDef* d = dead.spawn_def;
+    if (!d || d->group.empty()) return;
+    for (const auto* p : pending_spawns_) if (p->group == d->group) return;
+    for (const auto& c : scene_.creatures)
+        if (c.spawn_def && c.spawn_def->group == d->group && c.state != CreatureState::Dead) return;
+    // Any member may carry the trigger; use the first that does.
+    for (const auto& c : scene_.creatures) {
+        const MapCreatureSpawnDef* g = c.spawn_def;
+        if (!g || g->group != d->group) continue;
+        if (!g->group_set_flag.empty()) player_.flags.insert(g->group_set_flag);
+        if (!g->group_quest_id.empty()) { SetQuestStage(g->group_quest_id, g->group_set_stage); break; }
+    }
+}
+
 int GameEngine::CompanionIndex() const {
     if (player_.companion.empty()) return -1;
     for (size_t i = 0; i < scene_.npcs.size(); i++)
@@ -1721,6 +1745,7 @@ void GameEngine::UpdateCompanion(float dt) {
         n.pos = behind;
         n.pos.y = GroundHeight({n.pos.x, player_.pos.y + 0.5f, n.pos.z}, kStepHeight);
         hd = HDist(n.pos, player_.pos);
+        if (!companion_last_zone_.empty() && subtitle_time_ <= 0.0f) CompanionSay(cd.catchup_lines, 0.4f);
     }
 
     auto stepToward = [&](Vector3 target, float speed) {
@@ -1881,6 +1906,7 @@ void GameEngine::KillCreature(CreatureInstance& c) {
     if (!c.def->death_line_key.empty()) Say(content_.Tr(c.def->name_key), content_.Tr(c.def->death_line_key));
     Toast("Defeated " + content_.Tr(c.def->name_key) + "  (+" + std::to_string(c.def->xp_reward) + " XP)", Color{230, 200, 160, 255});
     GainXp(c.def->xp_reward);
+    CheckGroupCleared(c);
     if (c.def->behavior == "boss_archivist") {
         Toast("The Archivist Shade dissolves into loose pages. Search its remains.", Color{180, 220, 255, 255});
     }
@@ -2204,6 +2230,14 @@ void GameEngine::UpdateWorldObjects(float dt) {
 
     UpdateBarks(dt);
 
+    for (size_t i = 0; i < pending_spawns_.size();) {
+        if (player_.flags.count(pending_spawns_[i]->requires_flag)) {
+            SpawnCreature(*pending_spawns_[i]);
+            pending_spawns_.erase(pending_spawns_.begin() + i);
+        } else {
+            i++;
+        }
+    }
     for (auto& n : scene_.npcs)
         n.hidden = (!n.requires_flag.empty() && !player_.flags.count(n.requires_flag)) ||
                    (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag) && n.def->id != player_.companion);
@@ -2490,6 +2524,8 @@ bool GameEngine::EvalCondition(const DialogueCondition& c) const {
     if (c.type == "skill_at_least") return SkillLevel(c.skill) >= c.value;
     if (c.type == "flag_set") return player_.flags.count(c.flag) > 0;
     if (c.type == "flag_not_set") return player_.flags.count(c.flag) == 0;
+    if (c.type == "item_equipped") return IsEquipped(c.item_id);
+    if (c.type == "item_not_equipped") return !IsEquipped(c.item_id);
     if (c.type == "flags_at_least") {
         int n = 0;
         for (const auto& f : c.flags) n += player_.flags.count(f) ? 1 : 0;
@@ -2605,6 +2641,17 @@ void GameEngine::ChooseDialogue(int choiceIndex) {
     if (it == d->nodes.end() || choiceIndex >= static_cast<int>(it->second.choices.size())) { EndDialogue(); return; }
     const DialogueChoice ch = it->second.choices[choiceIndex];
     std::string key = dialogue_id_ + "/" + dialogue_node_ + "#" + std::to_string(choiceIndex);
+    if (ch.roll_dc > 0) {
+        int bonus = 0;
+        bool rigged = false;
+        int d20 = RollD20(ch, bonus, rigged);
+        if (rigged) player_.claimed.insert("rigged:" + key);
+        bool ok = d20 == 20 || (d20 != 1 && d20 + bonus >= ch.roll_dc);
+        std::string verdict = d20 == 20 ? "CRITICAL SUCCESS!" : d20 == 1 ? "Natural 1. Critical failure." : ok ? "Success" : "Failure";
+        Toast("[d20] " + std::to_string(d20) + " + " + std::to_string(bonus) + " vs DC " + std::to_string(ch.roll_dc) + "  -  " + verdict,
+              ok ? Color{150, 230, 150, 255} : Color{255, 140, 120, 255});
+        if (!ok) { EnterDialogueNode(ch.fail_next); return; }
+    }
     for (const auto& a : ch.actions) ExecAction(a, key);
     player_.claimed.insert(key);
     if (!shop_npc_.empty()) {
@@ -2613,6 +2660,26 @@ void GameEngine::ChooseDialogue(int choiceIndex) {
         return;
     }
     EnterDialogueNode(ch.next);
+}
+
+int GameEngine::DialogueRollChance(const DialogueChoice& ch) const {
+    int bonus = SkillLevel(ch.roll_skill) / 4 + (ch.roll_skill == "persuasion" ? (Attr("presence") - 10) / 2 : 0);
+    int need = ch.roll_dc - bonus;  // d20 >= need passes; 1 always fails, 20 always passes
+    int pass = 21 - std::clamp(need, 2, 20);
+    return pass * 5;
+}
+
+int GameEngine::RollD20(const DialogueChoice& ch, int& bonus, bool& rigged) {
+    bonus = SkillLevel(ch.roll_skill) / 4 + (ch.roll_skill == "persuasion" ? (Attr("presence") - 10) / 2 : 0);
+    std::string key = dialogue_id_ + "/" + dialogue_node_;
+    rigged = false;
+    if (ch.roll_rigged) {
+        // The dice remember. The first attempt at a 'sure thing' is always a natural 1.
+        bool already = false;
+        for (const auto& c : player_.claimed) if (c.rfind("rigged:" + key, 0) == 0) already = true;
+        if (!already) { rigged = true; return 1; }
+    }
+    return 1 + std::min(19, static_cast<int>(RandF() * 20.0f));
 }
 
 void GameEngine::EndDialogue() {

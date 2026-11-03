@@ -1188,6 +1188,8 @@ void GameEngine::DrawDialogue() {
     int n = 1;
     for (int ci : vis) {
         std::string label = std::to_string(n) + ". " + content_.Tr(node.choices[ci].text_key);
+        if (node.choices[ci].roll_dc > 0)
+            label += "   (d20, DC " + std::to_string(node.choices[ci].roll_dc) + ": " + std::to_string(DialogueRollChance(node.choices[ci])) + "%)";
         Rectangle r = {P.x + 24, y, P.width - 48, 30};
         Rectangle s = {r.x * u, r.y * u, r.width * u, r.height * u};
         bool hover = CheckCollisionPointRec(GetMousePosition(), s);
@@ -1366,6 +1368,13 @@ void GameEngine::DrawDead() {
     Text(t, VW * 0.5f - TextWidth(t, 54) * 0.5f, VH * 0.3f, 54, Color{220, 60, 50, 255});
     std::string s = "The Bureau will be delighted to finally process your paperwork.";
     Text(s, VW * 0.5f - TextWidth(s, 18) * 0.5f, VH * 0.3f + 70, 18, kText);
+    // A loading-screen style tip, chosen per death and kept while the screen is up.
+    int tips = 0;
+    while (content_.Tr("tip." + std::to_string(tips + 1)) != "tip." + std::to_string(tips + 1)) tips++;
+    if (tips > 0) {
+        std::string tip = "TIP: " + content_.Tr("tip." + std::to_string(1 + death_tip_ % tips));
+        TextWrapped(tip, {VW * 0.5f - 380, VH * 0.3f + 120, 760, 80}, 16, kDim);
+    }
     float x = VW * 0.5f - 150, y = VH * 0.55f;
     if (Button({x, y, 300, 46}, "Load Autosave", SaveExists("autosave"))) { LoadGame("autosave"); return; }
     if (Button({x, y + 56, 300, 46}, "Load Quick Save", SaveExists("slot_1"))) { LoadGame("slot_1"); return; }

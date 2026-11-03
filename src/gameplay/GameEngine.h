@@ -200,6 +200,7 @@ private:
     float ui_scroll_ = 0.0f;
     int inv_filter_ = 0;
     int char_tab_ = 0;
+    int death_tip_ = 0;
     bool ui_ignore_hover_ = false;   // screenshot previews: show the selected item, not whatever is under the cursor   // character screen: 0 overview, 1 combat sheet
     std::string inv_selected_;
     int creation_race_ = 0, creation_bg_ = 0, creation_arch_ = 0;
@@ -321,6 +322,11 @@ private:
     void ResolveMeleeHit();
     // Companion
     void UpdateCompanion(float dt);
+    void SpawnCreature(const MapCreatureSpawnDef& c);
+    void CheckGroupCleared(const CreatureInstance& c);
+    std::vector<const MapCreatureSpawnDef*> pending_spawns_;   // waiting for their requires_flag
+    int RollD20(const DialogueChoice& ch, int& bonus, bool& rigged);
+    int DialogueRollChance(const DialogueChoice& ch) const;   // % chance to pass, shown on the choice
     int CompanionIndex() const;
     void CompanionSay(const std::vector<std::string>& keys, float chance = 1.0f);
     float companion_heal_cd_ = 0.0f;

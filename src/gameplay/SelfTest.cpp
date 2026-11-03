@@ -514,6 +514,79 @@ int GameEngine::RunSelfTest() {
         shop_npc_.clear();
     }
 
+    // --- Rats. It's always rats.
+    {
+        const std::string rq = "core:quest.rats";
+        int vi = npcIndex("core:npc.merchant_vaelen");
+        size_t before = scene_.creatures.size();
+        StartDialogue(vi);
+        check(chooseNext("rats_pitch") && QuestStage(rq) == 0 && player_.flags.count("rats_in_town"), "Vaelen apologises for the rats");
+        check(chooseNext("advance_ok") && dialogue_node_ == "advance_fail", "the 95% persuasion check rolls a natural 1 first");
+        EndDialogue();
+        UpdateWorldObjects(0.0f);
+        int townRats = 0;
+        for (auto& c : scene_.creatures) if (c.instance_id.rfind("town_rat_", 0) == 0) townRats++;
+        check(scene_.creatures.size() == before + 5 && townRats == 5, "rats overrun Bellwether's streets");
+        for (auto& c : scene_.creatures) if (c.instance_id.rfind("town_rat_", 0) == 0) DamageCreature(c, 999, false, "swords", false);
+        check(QuestStage(rq) == 20, "clearing the streets points south to Hollowmere");
+        for (auto& c : scene_.creatures)
+            if (c.instance_id == "rat_king" || c.instance_id.rfind("kitchen_rat_", 0) == 0) DamageCreature(c, 999, false, "swords", false);
+        check(QuestStage(rq) == 40, "the Rat King falls");
+        StartDialogue(vi);
+        check(chooseNext("rats_done") && QuestStage(rq) == 100, "Vaelen pays for the rats");
+        EndDialogue();
+        container_key_ = "corpse:rat_king";
+        TakeAllFromContainer();
+        check(CountItem("core:item.rat_crown") == 1, "the Rat King's crown can be looted");
+        AddItem("core:item.dented_bucket", 1, false);
+        EquipItem("core:item.dented_bucket");
+        StartDialogue(vi);
+        check(chooseNext("bucket") && GearBonus("shop_discount") > 0.09f, "a bucket on your head confuses shopkeepers");
+        EndDialogue();
+        UnequipSlot("head");
+    }
+
+    // --- The Hollowmere Haunting
+    {
+        const std::string hq = "core:quest.hollowmere";
+        int hi = npcIndex("core:npc.hunter_hollis");
+        int pi = npcIndex("core:npc.ghost_percival");
+        check(hi >= 0 && pi >= 0 && scene_.npcs[pi].hidden, "Hollis is in town; the ghost hides until identified");
+        StartDialogue(hi);
+        check(chooseNext("contract") && QuestStage(hq) == 10 && CountItem("core:item.hollowmere_key") == 1, "Hollis hands over the contract and key");
+        check(chooseNext("root") && !chooseNext("identify"), "no identification without evidence");
+        EndDialogue();
+        InteractableInstance* front = interactable("hollowmere_front_door");
+        check(front && front->locked, "Hollowmere's front door is locked");
+        for (const char* f : {"ev_cold", "ev_floating", "clue_wailing"}) player_.flags.insert(f);
+        StartDialogue(hi);
+        check(chooseNext("identify") && chooseNext("wrong_banshee") && chooseNext("identify"), "a wrong guess gets a scolding, not a fail");
+        check(chooseNext("right_host") && QuestStage(hq) == 20 && player_.flags.count("host_identified"), "identified the Lingering Host");
+        EndDialogue();
+        UpdateWorldObjects(0.0f);
+        check(!scene_.npcs[pi].hidden, "Sir Percival appears in the ballroom");
+        StartDialogue(pi);
+        check(chooseNext("party") && QuestStage(hq) == 101, "the town comes to Percival's last party");
+        check(overlay_ == Overlay::Narration && narration_pages_.size() == 6, "the party plays out (" + std::to_string(narration_pages_.size()) + " cards)");
+        check(CountItem("core:item.hollowmere_signet") == 1, "Percival leaves his signet");
+        narration_page_ = static_cast<int>(narration_pages_.size());
+        AdvanceNarration();
+        EndDialogue();
+        // The other ending, flags only: banishing spawns the Wrathful Host, whose death raises its flag.
+        player_.flags.insert("host_banish");
+        UpdateWorldObjects(0.0f);
+        CreatureInstance* host = nullptr;
+        for (auto& c : scene_.creatures) if (c.instance_id == "wrathful_host") host = &c;
+        check(host != nullptr && scene_.npcs[pi].hidden, "banishing summons the Wrathful Host in Percival's place");
+        if (host) DamageCreature(*host, 9999, false, "swords", false);
+        check(player_.flags.count("host_banished") && QuestStage(hq) == 101, "the Host's death is recorded; quests still only move forward");
+        player_.flags.erase("host_banish");
+        player_.flags.erase("host_banished");
+        const DialogueDef* vd = content_.GetDialogue("core:dialogue.hunter_hollis");
+        int pct = vd ? DialogueRollChance(vd->nodes.at("cards").choices[0]) : -1;
+        check(pct >= 5 && pct <= 95, "dice odds are shown on rolled choices (" + std::to_string(pct) + "%)");
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

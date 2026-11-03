@@ -490,6 +490,58 @@
               "next": "invite_dinner"
             },
             {
+              "text_key": "dlg.vaelen.choice_work",
+              "next": "rats_pitch",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.rats",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.vaelen.choice_rats_status",
+              "next": "rats_status",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.rats",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.rats",
+                  "stage": 40
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.vaelen.choice_rats_done",
+              "next": "rats_done",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.rats",
+                  "stage": 40
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.vaelen.choice_bucket",
+              "next": "bucket",
+              "conditions": [
+                {
+                  "type": "item_equipped",
+                  "item_id": "core:item.dented_bucket"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "vaelen_bucket"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -539,6 +591,157 @@
               "type": "set_flag",
               "flag": "invited_vaelen",
               "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "rats_pitch": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.rats_pitch",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.rats",
+              "stage": 0
+            },
+            {
+              "type": "set_flag",
+              "flag": "rats_in_town",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.vaelen.choice_advance",
+              "next": "advance_ok",
+              "actions": [
+                {
+                  "type": "give_gold",
+                  "amount": 20
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 3,
+                "fail_next": "advance_fail",
+                "rigged": true
+              }
+            },
+            {
+              "text_key": "dlg.vaelen.choice_fine",
+              "next": "root"
+            }
+          ]
+        },
+        "advance_ok": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.advance_ok",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "advance_fail": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.advance_fail",
+          "choices": [
+            {
+              "text_key": "dlg.vaelen.choice_try_again",
+              "next": "rats_pitch_again"
+            },
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "rats_pitch_again": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.rats_pitch_again",
+          "choices": [
+            {
+              "text_key": "dlg.vaelen.choice_advance",
+              "next": "advance_ok",
+              "actions": [
+                {
+                  "type": "give_gold",
+                  "amount": 20
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 3,
+                "fail_next": "advance_fail",
+                "rigged": true
+              }
+            },
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "rats_status": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.rats_status",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "rats_done": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.rats_done",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.rats",
+              "stage": 100
+            },
+            {
+              "type": "give_gold",
+              "amount": 80
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.health_potion",
+              "qty": 2
+            },
+            {
+              "type": "give_xp",
+              "skill": "swords",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "bucket": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.bucket",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "vaelen_bucket",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.stamina_tonic",
+              "qty": 2
             }
           ],
           "choices": [
@@ -1756,6 +1959,22 @@
               "next": "invite"
             },
             {
+              "text_key": "dlg.baggy.choice_haunt",
+              "next": "haunt",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 20
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -1961,6 +2180,16 @@
               "value": true
             }
           ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "haunt": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.haunt",
           "choices": [
             {
               "text_key": "dlg.baggy.choice_back",
@@ -2320,6 +2549,1134 @@
               "amount": 20
             }
           ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.hunter_hollis",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.greeting",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_met",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_who",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.hollis.choice_contract",
+              "next": "contract",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.hollis.choice_identify",
+              "next": "identify",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 20
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "ev_cold",
+                    "ev_writing",
+                    "ev_floating",
+                    "clue_bites",
+                    "clue_claws",
+                    "clue_wailing"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.hollis.choice_need_evidence",
+              "next": "need_evidence",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 10
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 20
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "ev_cold",
+                    "ev_writing",
+                    "ev_floating",
+                    "clue_bites",
+                    "clue_claws",
+                    "clue_wailing"
+                  ],
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.hollis.choice_banish",
+              "next": "banish",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "host_banish"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.hollis.choice_paid",
+              "next": "paid",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "host_banished"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "hollis_paid"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.hollis.choice_peace",
+              "next": "peace",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "host_at_peace"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "hollis_paid"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.hollis.choice_cards",
+              "next": "cards"
+            },
+            {
+              "text_key": "dlg.hollis.choice_horse",
+              "next": "horse"
+            },
+            {
+              "text_key": "dlg.hollis.choice_knee",
+              "next": "knee"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.who",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "contract": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.contract",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.hollowmere",
+              "stage": 10
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.hollowmere_key",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.field_guide",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_take",
+              "next": "root"
+            }
+          ]
+        },
+        "need_evidence": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.need_evidence",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "identify": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.identify",
+          "choices": [
+            {
+              "text_key": "dlg.hollis.id_banshee",
+              "next": "wrong_banshee"
+            },
+            {
+              "text_key": "dlg.hollis.id_poltergeist",
+              "next": "wrong_poltergeist"
+            },
+            {
+              "text_key": "dlg.hollis.id_wraith",
+              "next": "wrong_wraith"
+            },
+            {
+              "text_key": "dlg.hollis.id_vampire",
+              "next": "wrong_vampire"
+            },
+            {
+              "text_key": "dlg.hollis.id_werewolf",
+              "next": "wrong_werewolf"
+            },
+            {
+              "text_key": "dlg.hollis.id_host",
+              "next": "right_host"
+            },
+            {
+              "text_key": "dlg.hollis.id_trenchcoat",
+              "next": "wrong_trenchcoat"
+            }
+          ]
+        },
+        "wrong_banshee": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.wrong_banshee",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_wrong",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_again",
+              "next": "identify"
+            }
+          ]
+        },
+        "wrong_poltergeist": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.wrong_poltergeist",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_wrong",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_again",
+              "next": "identify"
+            }
+          ]
+        },
+        "wrong_wraith": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.wrong_wraith",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_wrong",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_again",
+              "next": "identify"
+            }
+          ]
+        },
+        "wrong_vampire": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.wrong_vampire",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_wrong",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_again",
+              "next": "identify"
+            }
+          ]
+        },
+        "wrong_werewolf": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.wrong_werewolf",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_wrong",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_again",
+              "next": "identify"
+            }
+          ]
+        },
+        "wrong_trenchcoat": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.wrong_trenchcoat",
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_again",
+              "next": "identify"
+            }
+          ]
+        },
+        "right_host": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.right_host",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.hollowmere",
+              "stage": 20
+            },
+            {
+              "type": "set_flag",
+              "flag": "host_identified",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 80
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "banish": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.banish",
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_do_it",
+              "next": "banish_go"
+            },
+            {
+              "text_key": "dlg.hollis.choice_not_yet",
+              "next": "root"
+            }
+          ]
+        },
+        "banish_go": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.banish_go",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "host_banish",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.hollowmere",
+              "stage": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "paid": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.paid",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_paid",
+              "value": true
+            },
+            {
+              "type": "give_gold",
+              "amount": 200
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.silver_sword",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "swords",
+              "amount": 60
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "peace": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.peace",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollis_paid",
+              "value": true
+            },
+            {
+              "type": "give_gold",
+              "amount": 120
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 60
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "cards": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.cards",
+          "choices": [
+            {
+              "text_key": "dlg.hollis.choice_play",
+              "next": "cards_win",
+              "actions": [
+                {
+                  "type": "give_gold",
+                  "amount": 25
+                },
+                {
+                  "type": "give_xp",
+                  "skill": "perception",
+                  "amount": 15
+                }
+              ],
+              "roll": {
+                "skill": "perception",
+                "dc": 14,
+                "fail_next": "cards_lose"
+              }
+            },
+            {
+              "text_key": "dlg.hollis.choice_no_cards",
+              "next": "root"
+            }
+          ]
+        },
+        "cards_win": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.cards_win",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "cards_lose": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.cards_lose",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "horse": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.horse",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "knee": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.knee",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.vampire_ashgrave",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.greeting",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollowmere_visited",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.ashgrave.choice_ghost",
+              "next": "ghost"
+            },
+            {
+              "text_key": "dlg.ashgrave.choice_decanters",
+              "next": "decanters",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "clue_bites"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ashgrave.choice_why",
+              "next": "why"
+            },
+            {
+              "text_key": "dlg.ashgrave.choice_sparkle",
+              "next": "sparkle"
+            },
+            {
+              "text_key": "dlg.ashgrave.choice_team",
+              "next": "team",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "team_chosen"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "ghost": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.ghost",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "decanters": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.decanters",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "bites_explained",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "why": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.why",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "sparkle": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.sparkle",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "team": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.team",
+          "choices": [
+            {
+              "text_key": "dlg.ashgrave.choice_team_ash",
+              "next": "team_ash"
+            },
+            {
+              "text_key": "dlg.ashgrave.choice_team_rolf",
+              "next": "team_rolf"
+            },
+            {
+              "text_key": "dlg.ashgrave.choice_team_sabrino",
+              "next": "team_sabrino"
+            }
+          ]
+        },
+        "team_ash": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.team_ash",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "team_chosen",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "team_ashgrave",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.cape_brooding",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "team_rolf": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.team_rolf",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "team_chosen",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "team_rolf",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "team_sabrino": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.team_sabrino",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "team_chosen",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "team_sabrino",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.werewolf_rolf",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.greeting",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "hollowmere_visited",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.rolf.choice_howl",
+              "next": "howl",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "clue_wailing"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.rolf.choice_claws",
+              "next": "claws",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "clue_claws"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.rolf.choice_shirt",
+              "next": "shirt"
+            },
+            {
+              "text_key": "dlg.rolf.choice_ghost",
+              "next": "ghost"
+            },
+            {
+              "text_key": "dlg.rolf.choice_team_rolf",
+              "next": "team_rolf",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "team_rolf"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "rolf_thanked"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.rolf.choice_team_other",
+              "next": "team_other",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "team_chosen"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "team_rolf"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "rolf_thanked"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "howl": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.howl",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "wailing_explained",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "claws": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.claws",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "claws_explained",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "shirt": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.shirt",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "ghost": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.ghost",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "team_rolf": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.team_rolf",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "rolf_thanked",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.moonlit_jerky",
+              "qty": 3
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "team_other": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.team_other",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "rolf_thanked",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.moonlit_jerky",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.ghost_percival",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.ghost_percival.name",
+          "text_key": "dlg.percival.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.percival.choice_who",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.percival.choice_why",
+              "next": "why",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "host_at_peace"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.percival.choice_guests",
+              "next": "party",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "host_at_peace"
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "invited_marta",
+                    "invited_baggy",
+                    "invited_kaelen",
+                    "invited_fenwick",
+                    "invited_aldous",
+                    "invited_oakhaven",
+                    "invited_vaelen",
+                    "invited_wendel"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.percival.choice_me",
+              "next": "party_me",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "host_at_peace"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "percival_roll_failed"
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 15,
+                "fail_next": "me_fail"
+              }
+            },
+            {
+              "text_key": "dlg.percival.choice_thanks",
+              "next": "thanks",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "host_at_peace"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.ghost_percival.name",
+          "text_key": "dlg.percival.who",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "why": {
+          "speaker_key": "npc.ghost_percival.name",
+          "text_key": "dlg.percival.why",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "me_fail": {
+          "speaker_key": "npc.ghost_percival.name",
+          "text_key": "dlg.percival.me_fail",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "percival_roll_failed",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "party": {
+          "speaker_key": "npc.ghost_percival.name",
+          "text_key": "dlg.percival.party",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.hollowmere",
+              "stage": 101
+            },
+            {
+              "type": "set_flag",
+              "flag": "host_at_peace",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.hollowmere_signet",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 150
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.party.1"
+                },
+                {
+                  "key": "story.party.dinner",
+                  "flag": "dinner_done"
+                },
+                {
+                  "key": "story.party.baggy",
+                  "flag": "invited_baggy"
+                },
+                {
+                  "key": "story.party.pair"
+                },
+                {
+                  "key": "story.party.hollis",
+                  "flag": "hollis_met"
+                },
+                {
+                  "key": "story.party.end"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.percival.choice_dance",
+              "next": "END"
+            }
+          ]
+        },
+        "party_me": {
+          "speaker_key": "npc.ghost_percival.name",
+          "text_key": "dlg.percival.party_me",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.hollowmere",
+              "stage": 101
+            },
+            {
+              "type": "set_flag",
+              "flag": "host_at_peace",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.hollowmere_signet",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 100
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.party.small"
+                },
+                {
+                  "key": "story.party.end"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.percival.choice_dance",
+              "next": "END"
+            }
+          ]
+        },
+        "thanks": {
+          "speaker_key": "npc.ghost_percival.name",
+          "text_key": "dlg.percival.thanks",
           "choices": [
             {
               "text_key": "dlg.clerk.choice_back",

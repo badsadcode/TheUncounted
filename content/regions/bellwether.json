@@ -1140,9 +1140,135 @@
       ],
       "yaw": 140.0,
       "requires_flag": "sabrino_in_town"
+    },
+    {
+      "instance_id": "npc_hollis",
+      "npc_id": "core:npc.hunter_hollis",
+      "pos": [
+        12.6,
+        0.0,
+        -6.6
+      ],
+      "yaw": -120.0
     }
   ],
-  "creatures": [],
+  "creatures": [
+    {
+      "instance_id": "town_rat_0",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        2,
+        0.0,
+        -2
+      ],
+      "patrol_a": [
+        0,
+        0.0,
+        -2
+      ],
+      "patrol_b": [
+        5,
+        0.0,
+        -2
+      ],
+      "requires_flag": "rats_in_town",
+      "group": "town_rats",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 20
+    },
+    {
+      "instance_id": "town_rat_1",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        7,
+        0.0,
+        4
+      ],
+      "patrol_a": [
+        5,
+        0.0,
+        4
+      ],
+      "patrol_b": [
+        9,
+        0.0,
+        4
+      ],
+      "requires_flag": "rats_in_town",
+      "group": "town_rats",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 20
+    },
+    {
+      "instance_id": "town_rat_2",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        -6,
+        0.0,
+        2
+      ],
+      "patrol_a": [
+        -8,
+        0.0,
+        2
+      ],
+      "patrol_b": [
+        -4,
+        0.0,
+        2
+      ],
+      "requires_flag": "rats_in_town",
+      "group": "town_rats",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 20
+    },
+    {
+      "instance_id": "town_rat_3",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        12.5,
+        0.0,
+        1.5
+      ],
+      "patrol_a": [
+        12.5,
+        0.0,
+        0
+      ],
+      "patrol_b": [
+        12.5,
+        0.0,
+        3
+      ],
+      "requires_flag": "rats_in_town",
+      "group": "town_rats",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 20
+    },
+    {
+      "instance_id": "town_rat_4",
+      "creature_id": "core:enemy.grave_rat",
+      "pos": [
+        0,
+        0.0,
+        16.5
+      ],
+      "patrol_a": [
+        -1,
+        0.0,
+        16
+      ],
+      "patrol_b": [
+        1,
+        0.0,
+        18.5
+      ],
+      "requires_flag": "rats_in_town",
+      "group": "town_rats",
+      "group_quest_id": "core:quest.rats",
+      "group_set_stage": 20
+    }
+  ],
   "interactables": [
     {
       "instance_id": "records_notice_lectern",
@@ -1224,6 +1350,34 @@
       "prompt": "Read the Wanted Poster",
       "title": "WANTED - By Order of the Royal Bureau of Records",
       "text": "WANTED: SABRINO, called \"the Italian Witch\"\n\nCHARGES:\n- 1,412 counts of Unlicensed Fireballing\n- Arson of a Cheese Wheel of Historical Significance (the Great Wheel of Vallo, aged 90 years, now aged 0)\n- Impersonating a Royal Chef\n- Impersonating a Royal Chef while on fire\n- Crimes against the Edrath Accords of Polite Warfare (extensive; see attached ledger, 4 volumes)\n- Teaching a goose to cast Ember Bolt\n\nSabrino is armed with a very tall hat and is extremely charming. DO NOT accept dinner invitations. Do not accept second helpings. Do NOT ask about the goose.\n\nREWARD: 500 crowns, payable upon submission of Form 13-S (Witch, Apprehended) in triplicate.\n\nScrawled across the bottom in a cheerful hand: \"Grazie for the lovely portrait! You got my good side. - S.\""
+    },
+    {
+      "instance_id": "hollis_board",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        14.2,
+        0.0,
+        -8.4
+      ],
+      "rot_y": -90.0,
+      "prompt": "Read the Contract Board",
+      "title": "CONTRACTS (Monster Hunters Only. That Means You, Baggy.)",
+      "text": "CONTRACT: Something haunts Hollowmere Manor, south of the village. Reward: 200 crowns. Previous hunters: 6. Returned: 2. One of them was a horse.\n\nCONTRACT: Bring me ten wolf pelts. NOTE: wolves in this region carry, on average, 0.3 pelts each. Some carry none. Science has no explanation. Bring a big bag.\n\nCONTRACT: Escort my uncle to the Old Road. He walks slightly slower than you walk and slightly faster than you sneak. He will stop to talk to every goat. Do not let him talk to the goat.\n\nCONTRACT: I have lost my grandmother's amulet. It is somewhere on the continent. Please hurry.\n\nCONTRACT: There are rats in the cellar. Crossed out. Underneath, in different ink: 'it's always rats'. Underneath that: 'why is it always rats'. Underneath that, in Vaelen's handwriting: 'please'.\n\nWANTED: Card players. Must not cheat. Must not mind losing to a man who cheats. - H."
+    },
+    {
+      "instance_id": "horse_notice",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        9.6,
+        0.0,
+        9.6
+      ],
+      "rot_y": 180.0,
+      "prompt": "Read the Chapel Notice",
+      "title": "NOTICE from the Church of the Last Dawn",
+      "text": "To the owner of the HORSE currently standing on the chapel roof:\n\nPlease collect your horse.\n\nNobody saw it get up there. There is no way up there. It is not stuck. It is not distressed. It is simply standing on the ridge of the roof, facing slightly to the left, chewing, and every so often it vanishes for a moment and reappears exactly where it was.\n\nBrother Aldous has blessed it twice. The blessing did not stack.\n\nIf it is yours, it answers to 'Trout'. Apparently."
     }
   ],
   "portals": [

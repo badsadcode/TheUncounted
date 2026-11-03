@@ -320,6 +320,42 @@
           "amount": 25
         }
       ]
+    },
+    {
+      "id": "core:item.moonlit_jerky",
+      "name_key": "item.moonlit_jerky.name",
+      "description_key": "item.moonlit_jerky.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/moonlit_jerky.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 20,
+      "weight": 0.2,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 15
+        },
+        {
+          "type": "buff",
+          "stat": "stamina_regen",
+          "value": 4.0,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.field_guide",
+      "name_key": "item.field_guide.name",
+      "description_key": "item.field_guide.description",
+      "category": "book",
+      "icon": "assets/ui/items/field_guide.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 15,
+      "weight": 0.6,
+      "book_text_key": "book.field_guide.text"
     }
   ]
 }

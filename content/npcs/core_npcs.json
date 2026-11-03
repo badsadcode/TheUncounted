@@ -43,6 +43,9 @@
         },
         {
           "text_key": "bark.clerk.sabrino"
+        },
+        {
+          "text_key": "bark.clerk.rules"
         }
       ]
     },
@@ -143,6 +146,9 @@
         {
           "text_key": "bark.vaelen.dry",
           "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.vaelen.hoard"
         }
       ]
     },
@@ -185,6 +191,9 @@
         {
           "text_key": "bark.marta.alive",
           "flag": "marta_knows_ilse"
+        },
+        {
+          "text_key": "bark.marta.quest"
         }
       ]
     },
@@ -216,6 +225,9 @@
         },
         {
           "text_key": "bark.fenwick.sabrino"
+        },
+        {
+          "text_key": "bark.fenwick.respawn"
         }
       ]
     },
@@ -241,6 +253,9 @@
         {
           "text_key": "bark.aldous.dry",
           "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.aldous.stack"
         }
       ]
     },
@@ -271,6 +286,9 @@
         {
           "text_key": "bark.scout.dry",
           "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.scout.chests"
         }
       ]
     },
@@ -346,7 +364,9 @@
           "old_road": "comp.baggy.zone.old_road",
           "annex": "comp.baggy.zone.annex",
           "vault_three": "comp.baggy.zone.vault_three",
-          "seal_chamber": "comp.baggy.zone.seal_chamber"
+          "seal_chamber": "comp.baggy.zone.seal_chamber",
+          "hollowmere": "comp.baggy.zone.hollowmere",
+          "hollowmere_manor": "comp.baggy.zone.hollowmere_manor"
         },
         "idle_lines": [
           {
@@ -400,6 +420,20 @@
           },
           {
             "text_key": "comp.baggy.idle.friend"
+          },
+          {
+            "text_key": "comp.baggy.idle.initiative"
+          },
+          {
+            "text_key": "comp.baggy.idle.map"
+          },
+          {
+            "text_key": "comp.baggy.idle.manor",
+            "flag": "hollowmere_visited"
+          },
+          {
+            "text_key": "comp.baggy.idle.hollis",
+            "flag": "hollis_met"
           }
         ],
         "combat_lines": [
@@ -423,6 +457,12 @@
         "level_lines": [
           "comp.baggy.level.1",
           "comp.baggy.level.2"
+        ],
+        "catchup_lines": [
+          "comp.baggy.catchup.1",
+          "comp.baggy.catchup.2",
+          "comp.baggy.catchup.3",
+          "comp.baggy.catchup.4"
         ]
       }
     },
@@ -479,6 +519,110 @@
         {
           "text_key": "bark.sabrino.4",
           "not_flag": "dinner_done"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.hunter_hollis",
+      "name_key": "npc.hunter_hollis.name",
+      "title_key": "npc.hunter_hollis.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.hunter_hollis",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/hunter_hollis.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.76
+      },
+      "barks": [
+        {
+          "text_key": "bark.hollis.1"
+        },
+        {
+          "text_key": "bark.hollis.2"
+        },
+        {
+          "text_key": "bark.hollis.3"
+        },
+        {
+          "text_key": "bark.hollis.4"
+        },
+        {
+          "text_key": "bark.hollis.dry",
+          "flag": "seal_renewed"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.vampire_ashgrave",
+      "name_key": "npc.vampire_ashgrave.name",
+      "title_key": "npc.vampire_ashgrave.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.vampire_ashgrave",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/vampire_ashgrave.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.76
+      },
+      "barks": [
+        {
+          "text_key": "bark.ashgrave.1"
+        },
+        {
+          "text_key": "bark.ashgrave.2"
+        },
+        {
+          "text_key": "bark.ashgrave.3"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.werewolf_rolf",
+      "name_key": "npc.werewolf_rolf.name",
+      "title_key": "npc.werewolf_rolf.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.werewolf_rolf",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/werewolf_rolf.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.95
+      },
+      "barks": [
+        {
+          "text_key": "bark.rolf.1"
+        },
+        {
+          "text_key": "bark.rolf.2"
+        },
+        {
+          "text_key": "bark.rolf.3"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.ghost_percival",
+      "name_key": "npc.ghost_percival.name",
+      "title_key": "npc.ghost_percival.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.ghost_percival",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/ghost_percival.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.76
+      },
+      "barks": [
+        {
+          "text_key": "bark.percival.1"
+        },
+        {
+          "text_key": "bark.percival.2"
+        },
+        {
+          "text_key": "bark.percival.peace",
+          "flag": "host_at_peace"
         }
       ]
     }

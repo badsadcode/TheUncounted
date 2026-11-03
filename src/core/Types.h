@@ -313,6 +313,7 @@ struct CompanionDef {
     std::vector<std::string> kill_lines;             // a fight ends
     std::vector<std::string> heal_lines;             // hands the player food
     std::vector<std::string> level_lines;            // the player levels up
+    std::vector<std::string> catchup_lines;          // had to catch up (stuck behind a door, left on another floor)
 };
 
 struct NpcDef {
@@ -358,6 +359,11 @@ struct DialogueChoice {
     std::vector<DialogueCondition> conditions;
     std::vector<DialogueAction> actions;
     std::string next = "END";
+    // Optional d20 check: success runs actions and goes to `next`, failure goes to `fail_next`.
+    std::string roll_skill;       // bonus = skill / 4 (+ Presence modifier for persuasion)
+    int roll_dc = 0;
+    std::string fail_next = "END";
+    bool roll_rigged = false;     // the first attempt is always a natural 1 (for comedy)
 };
 
 struct DialogueNode {
@@ -432,6 +438,11 @@ struct MapCreatureSpawnDef {
     Vector3 pos = {0.0f, 0.0f, 0.0f};
     Vector3 patrol_a = {0.0f, 0.0f, 0.0f};
     Vector3 patrol_b = {0.0f, 0.0f, 0.0f};
+    std::string requires_flag;    // spawns only once this story flag is set (appears live, mid-game)
+    std::string group;            // when every creature of a group is dead...
+    std::string group_quest_id;   // ...this quest moves to group_set_stage
+    int group_set_stage = 0;
+    std::string group_set_flag;   // ...and/or this flag is raised
 };
 
 struct MapInteractableDef {

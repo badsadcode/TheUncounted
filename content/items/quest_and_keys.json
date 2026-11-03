@@ -111,6 +111,30 @@
       "stackable": true,
       "value": 25,
       "weight": 1.0
+    },
+    {
+      "id": "core:item.hollowmere_key",
+      "name_key": "item.hollowmere_key.name",
+      "description_key": "item.hollowmere_key.description",
+      "category": "key",
+      "icon": "assets/ui/items/hollowmere_key.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.1,
+      "quest_item": true
+    },
+    {
+      "id": "core:item.study_key",
+      "name_key": "item.study_key.name",
+      "description_key": "item.study_key.description",
+      "category": "key",
+      "icon": "assets/ui/items/study_key.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.1,
+      "quest_item": true
     }
   ]
 }

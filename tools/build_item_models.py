@@ -446,6 +446,61 @@ def dinner_items():
     icon("bone_spectacles", specs)
 
 
+def manor_items():
+    """Icons for the Hollowmere quests (models reuse existing GLBs)."""
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def bucket(d):
+        d.polygon([(8, 10), (24, 10), (22, 27), (10, 27)], fill=(150, 156, 166, 255), outline=(90, 96, 106, 255))
+        d.line([(9, 15), (23, 15)], fill=(110, 116, 126, 255))
+        d.line([(10, 22), (22, 22)], fill=(110, 116, 126, 255))
+        d.arc([7, 3, 25, 19], 180, 360, fill=(120, 126, 136, 255), width=1)
+        d.ellipse([18, 17, 21, 20], fill=(90, 96, 106, 255))  # the dent
+    icon("dented_bucket", bucket)
+
+    def party_hat(d):
+        d.polygon([(16, 3), (8, 27), (24, 27)], fill=(230, 90, 160, 255))
+        for k, col in enumerate([(255, 220, 80, 255), (100, 200, 255, 255), (140, 230, 120, 255)]):
+            y = 10 + k * 6
+            d.line([(16 - (y - 3) // 3, y), (16 + (y - 3) // 3, y)], fill=col, width=2)
+        d.ellipse([13, 1, 19, 6], fill=(255, 230, 120, 255))
+    icon("party_hat", party_hat)
+
+    def crown(d):
+        d.polygon([(6, 24), (6, 11), (11, 17), (16, 8), (21, 17), (26, 11), (26, 24)], fill=(230, 190, 70, 255), outline=(160, 120, 40, 255))
+        for x in (10, 16, 22):
+            d.ellipse([x - 1, 19, x + 1, 21], fill=(200, 40, 60, 255))
+        d.line([(24, 26), (29, 29)], fill=(200, 140, 140, 255))  # a tail, peeking out
+    icon("rat_crown", crown)
+
+    def cape(d):
+        d.polygon([(10, 5), (22, 5), (27, 28), (5, 28)], fill=(30, 24, 34, 255))
+        d.polygon([(12, 7), (20, 7), (24, 26), (8, 26)], fill=(130, 24, 40, 255))
+        for x, y in ((9, 12), (22, 18), (14, 22), (25, 9), (6, 20)):
+            d.point((x, y), fill=(255, 255, 255, 255))  # sparkles
+    icon("cape_brooding", cape)
+
+    def jerky(d):
+        d.polygon([(6, 20), (14, 9), (26, 12), (22, 24), (10, 26)], fill=(130, 70, 40, 255), outline=(90, 46, 26, 255))
+        d.line([(9, 21), (22, 13)], fill=(170, 100, 60, 255))
+    icon("moonlit_jerky", jerky)
+
+    def guide(d):
+        d.rectangle([7, 5, 25, 27], fill=(60, 70, 90, 255), outline=(30, 34, 44, 255))
+        d.rectangle([9, 7, 23, 25], outline=(170, 180, 200, 255))
+        d.ellipse([12, 11, 20, 19], outline=(200, 230, 255, 255))
+        d.line([(16, 19), (16, 23)], fill=(200, 230, 255, 255))
+    icon("field_guide", guide)
+    silver = ((0.95, 0.15), (1.0, 0.15), (1.15, 0.15))
+    tinted("assets/ui/items/iron_longsword.png", "assets/ui/items/silver_sword.png", silver)
+    tinted("assets/ui/items/signet_ring.png", "assets/ui/items/hollowmere_signet.png", ((0.8, 0.0), (0.9, 0.0), (1.4, 0.0)))
+    tinted("assets/ui/items/annex_key.png", "assets/ui/items/hollowmere_key.png", ((1.0, 0.0), (0.7, 0.0), (1.2, 0.0)))
+    tinted("assets/ui/items/crypt_key.png", "assets/ui/items/study_key.png", ((1.2, 0.0), (1.0, 0.0), (0.6, 0.0)))
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -460,6 +515,7 @@ BUILDERS = {
     "sabrino_hat": sabrino_hat,
     "extra_icons": build_extra_icons,
     "dinner_items": dinner_items,
+    "manor_items": manor_items,
 }
 
 
