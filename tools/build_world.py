@@ -96,11 +96,11 @@ SCATTER_KINDS = {  # sprite, height in metres
 }
 # (area name, world x range, world z range, ground models it may sit on, {kind: weight}, count)
 SCATTER_AREAS = [
-    ("bellwether", (-21, 21), (-21, 21), ("floor_grass",), {"grass": 6, "flowers": 3, "bush": 1}, 70),
-    ("old_road", (22, 76), (-17, 17), ("floor_grass",), {"grass": 6, "flowers": 2, "fern": 2, "bush": 2}, 110),
-    ("hollowmere", (-20, 20), (21, 66), ("floor_grass", "floor_graveyard_soil"), {"grass": 6, "flowers": 2, "bush": 2, "mushrooms": 1}, 90),
-    ("whistling_wood", (-69, -25), (-21, 21), ("floor_forest_floor",), {"fern": 5, "grass": 3, "mushrooms": 2, "bush": 2}, 150),
-    ("reef", (-12, 15), (-166, -136), ("floor_sand_wet",), {"grass": 2, "reeds": 3}, 30),
+    ("bellwether", (-21, 21), (-21, 21), ("floor_grass",), {"grass": 6, "flowers": 3, "bush": 1}, 150),
+    ("old_road", (22, 76), (-17, 17), ("floor_grass",), {"grass": 6, "flowers": 2, "fern": 2, "bush": 2}, 240),
+    ("hollowmere", (-20, 20), (21, 66), ("floor_grass", "floor_graveyard_soil"), {"grass": 6, "flowers": 2, "bush": 2, "mushrooms": 1}, 190),
+    ("whistling_wood", (-69, -25), (-21, 21), ("floor_forest_floor",), {"fern": 5, "grass": 3, "mushrooms": 2, "bush": 2}, 320),
+    ("reef", (-12, 15), (-166, -136), ("floor_sand_wet",), {"grass": 2, "reeds": 3}, 60),
 ]
 NO_BLOCK = ("tree_pine", "oak_canopy", "floor_")   # these don't push scatter away (trees only near the trunk)
 
