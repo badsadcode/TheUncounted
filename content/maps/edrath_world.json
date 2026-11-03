@@ -1735,6 +1735,37 @@
       ]
     },
     {
+      "id": "bell_bell_pot_fire",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -3.2,
+        -0.55,
+        13.4
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.4,
+        "light_color": [
+          1.0,
+          0.6,
+          0.3
+        ],
+        "light_radius": 5.0
+      }
+    },
+    {
       "id": "bell_south_gate_w",
       "model": "assets/models/env/pillar_stone.glb",
       "pos": [
@@ -5343,6 +5374,212 @@
       ]
     },
     {
+      "id": "wood_pond_water",
+      "model": "assets/models/env/harbour_water.glb",
+      "pos": [
+        -62.0,
+        0.02,
+        -0.5
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        0.08,
+        1.0,
+        0.15
+      ],
+      "solid": false
+    },
+    {
+      "id": "wood_pond_rim_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -59.9,
+        0.0,
+        -0.5
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -60.301,
+        0.0,
+        0.675
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -61.35,
+        0.0,
+        1.402
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -62.647,
+        0.0,
+        1.403
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -63.697,
+        0.0,
+        0.678
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -64.1,
+        0.0,
+        -0.497
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_6",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -63.701,
+        0.0,
+        -1.672
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_7",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -62.653,
+        0.0,
+        -2.401
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_8",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -61.356,
+        0.0,
+        -2.404
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "wood_pond_rim_9",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -60.305,
+        0.0,
+        -1.68
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
       "id": "reef_reef_sea_floor",
       "model": "assets/models/env/floor_cobble.glb",
       "pos": [
@@ -8751,6 +8988,37 @@
         0.32
       ],
       "solid": false
+    },
+    {
+      "id": "docks_docks_pot_fire",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -9.0,
+        -0.55,
+        -29.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.4,
+        "light_color": [
+          1.0,
+          0.6,
+          0.3
+        ],
+        "light_radius": 5.0
+      }
     },
     {
       "id": "bell_north_gate_w",
@@ -13831,6 +14099,19 @@
       "prompt": "Use the Workbench"
     },
     {
+      "instance_id": "bell_cooking_pot",
+      "type": "station",
+      "station": "cooking",
+      "model": "assets/models/props/cooking_pot.glb",
+      "pos": [
+        -3.2,
+        0.0,
+        13.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Cook at Marta's Hearth"
+    },
+    {
       "instance_id": "monolith_inscription",
       "type": "readable",
       "model": "assets/models/props/lectern_ledger.glb",
@@ -15498,6 +15779,58 @@
       "prompt": "Use Mother Brine's Alchemy Bench"
     },
     {
+      "instance_id": "fish_pier_a",
+      "type": "fishing",
+      "model": "",
+      "pos": [
+        -8.9,
+        0.0,
+        -67.4
+      ],
+      "rot_y": 0.0,
+      "loot_table": "core:loot.fish_harbour",
+      "prompt": "Fish off the pier"
+    },
+    {
+      "instance_id": "fish_pier_b",
+      "type": "fishing",
+      "model": "",
+      "pos": [
+        12.4,
+        0.0,
+        -63.6
+      ],
+      "rot_y": 0.0,
+      "loot_table": "core:loot.fish_harbour",
+      "prompt": "Fish off the pier"
+    },
+    {
+      "instance_id": "fish_quay",
+      "type": "fishing",
+      "model": "",
+      "pos": [
+        -3.4,
+        0.0,
+        -51.6
+      ],
+      "rot_y": 0.0,
+      "loot_table": "core:loot.fish_harbour",
+      "prompt": "Fish from the quay"
+    },
+    {
+      "instance_id": "docks_cooking_pot",
+      "type": "station",
+      "station": "cooking",
+      "model": "assets/models/props/cooking_pot.glb",
+      "pos": [
+        -9.0,
+        0.0,
+        -29.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Cook at Mother Brine's Pot"
+    },
+    {
       "instance_id": "wood_sign",
       "type": "readable",
       "model": "assets/models/props/signpost.glb",
@@ -15796,6 +16129,19 @@
       ]
     },
     {
+      "instance_id": "fish_pond",
+      "type": "fishing",
+      "model": "",
+      "pos": [
+        -62.0,
+        0.0,
+        -0.5
+      ],
+      "rot_y": 0.0,
+      "loot_table": "core:loot.fish_pond",
+      "prompt": "Fish in the pond"
+    },
+    {
       "instance_id": "light_plaque",
       "type": "readable",
       "model": "",
@@ -16026,6 +16372,19 @@
         1.4,
         1.4
       ]
+    },
+    {
+      "instance_id": "fish_jetty",
+      "type": "fishing",
+      "model": "",
+      "pos": [
+        1.6,
+        0.0,
+        -129.4
+      ],
+      "rot_y": 0.0,
+      "loot_table": "core:loot.fish_reef",
+      "prompt": "Fish off the jetty"
     },
     {
       "instance_id": "flour_handprints",

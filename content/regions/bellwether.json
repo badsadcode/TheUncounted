@@ -1105,6 +1105,37 @@
         1,
         0.2
       ]
+    },
+    {
+      "id": "bell_pot_fire",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -3.2,
+        -0.55,
+        13.4
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.4,
+        "light_color": [
+          1.0,
+          0.6,
+          0.3
+        ],
+        "light_radius": 5.0
+      }
     }
   ],
   "lights": [
@@ -1695,6 +1726,19 @@
       ],
       "rot_y": 0.0,
       "prompt": "Use the Workbench"
+    },
+    {
+      "instance_id": "bell_cooking_pot",
+      "type": "station",
+      "station": "cooking",
+      "model": "assets/models/props/cooking_pot.glb",
+      "pos": [
+        -3.2,
+        0.0,
+        13.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Cook at Marta's Hearth"
     }
   ],
   "portals": [

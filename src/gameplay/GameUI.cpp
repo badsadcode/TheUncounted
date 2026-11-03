@@ -276,6 +276,18 @@ void GameEngine::DrawFrame() {
 // HUD
 // ============================================================================
 void GameEngine::DrawHud() {
+    if (fishing_) {
+        float u0 = U();
+        float VW0 = GetScreenWidth() / u0, VH0 = GetScreenHeight() / u0;
+        if (fish_state_ == 1) {
+            bool on = fmodf(time_ * 8.0f, 1.0f) < 0.6f;
+            std::string t = "!  BITE!  Press [" + BindingLabel("interact") + "]  !";
+            Text(t, VW0 * 0.5f - TextWidth(t, 34) * 0.5f, VH0 * 0.5f + 60, 34, on ? Color{255, 230, 120, 255} : Color{255, 160, 90, 255});
+        } else {
+            std::string t = "Fishing...  wait for a bite  (move to reel in)";
+            Text(t, VW0 * 0.5f - TextWidth(t, 18) * 0.5f, VH0 * 0.5f + 70, 18, Color{190, 215, 235, 230});
+        }
+    }
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
 
@@ -1531,9 +1543,10 @@ void GameEngine::DrawCrafting() {
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
     Rectangle P = {VW * 0.5f - 520, VH * 0.5f - 290, 1040, 580};
     Panel(P);
-    std::string title = craft_station_ == "alchemy" ? "Alchemy Bench" : craft_station_ == "workbench" ? "Workbench" : "Crafting";
+    std::string title = craft_station_ == "alchemy" ? "Alchemy Bench" : craft_station_ == "workbench" ? "Workbench" : craft_station_ == "cooking" ? "Cooking" : "Crafting";
     Text(title, P.x + 20, P.y + 14, 28, kGold);
-    Text(craft_station_ == "alchemy" ? "Potions, tonics and weapon oils. Gather herbs out in the world." : "Arrows, lockpicks and tools.",
+    Text(craft_station_ == "alchemy" ? "Potions, tonics and weapon oils. Gather herbs out in the world." :
+         craft_station_ == "cooking" ? "Meals from your catch. Each one heals and gives a buff for a few minutes." : "Arrows, lockpicks and tools.",
          P.x + 260, P.y + 24, 14, kDim);
     std::vector<const RecipeDef*> list;
     for (const auto& r : content_.recipes) if (r.station == craft_station_) list.push_back(&r);

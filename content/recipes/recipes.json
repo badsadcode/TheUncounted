@@ -326,6 +326,118 @@
       ],
       "skill": "lockpicking",
       "skill_level": 15
+    },
+    {
+      "id": "core:recipe.grilled_cod",
+      "station": "cooking",
+      "result": "core:item.grilled_cod",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.fish_cod",
+          "qty": 1
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.smoked_mackerel",
+      "station": "cooking",
+      "result": "core:item.smoked_mackerel",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.fish_mackerel",
+          "qty": 1
+        },
+        {
+          "item": "core:item.pine_resin",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.saltmere_chowder",
+      "station": "cooking",
+      "result": "core:item.saltmere_chowder",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.fish_cod",
+          "qty": 1
+        },
+        {
+          "item": "core:item.fish_mackerel",
+          "qty": 1
+        },
+        {
+          "item": "core:item.wayside_sage",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.eel_pie",
+      "station": "cooking",
+      "result": "core:item.eel_pie",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.fish_eel",
+          "qty": 1
+        },
+        {
+          "item": "core:item.bread_loaf",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.trout_hollis",
+      "station": "cooking",
+      "result": "core:item.trout_hollis",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.fish_trout",
+          "qty": 1
+        },
+        {
+          "item": "core:item.marigold",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.perch_skewers",
+      "station": "cooking",
+      "result": "core:item.perch_skewers",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.fish_perch",
+          "qty": 2
+        },
+        {
+          "item": "core:item.wayside_sage",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
     }
   ]
 }

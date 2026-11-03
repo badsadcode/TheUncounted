@@ -271,6 +271,13 @@ interactables.append({"instance_id": "dock_sea_salt_180_20", "type": "harvest", 
 interactables.append({"instance_id": "dock_sea_salt_40_88", "type": "harvest", "model": "assets/models/props/salt_crust.glb", "pos": [4.0, 0.0, -8.8], "rot_y": 51.19999999999999, "item_id": "core:item.sea_salt", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Scrape Sea Salt", "scale": [1.4, 1.4, 1.4]})
 interactables.append({"instance_id": "docks_alchemy_bench", "type": "station", "station": "alchemy", "model": "assets/models/props/alchemy_bench.glb", "pos": [-17.8, 0.0, 6.2], "rot_y": 90.0, "prompt": "Use Mother Brine's Alchemy Bench"})
 
+# ============================================================================ fishing & cooking (tools/authoring/fishing.py)
+interactables.append({"instance_id": "fish_pier_a", "type": "fishing", "model": "", "pos": [-10.5, 0.0, -25.4], "rot_y": 0.0, "loot_table": "core:loot.fish_harbour", "prompt": "Fish off the pier"})
+interactables.append({"instance_id": "fish_pier_b", "type": "fishing", "model": "", "pos": [10.8, 0.0, -21.6], "rot_y": 0.0, "loot_table": "core:loot.fish_harbour", "prompt": "Fish off the pier"})
+interactables.append({"instance_id": "fish_quay", "type": "fishing", "model": "", "pos": [-5.0, 0.0, -9.6], "rot_y": 0.0, "loot_table": "core:loot.fish_harbour", "prompt": "Fish from the quay"})
+interactables.append({"instance_id": "docks_cooking_pot", "type": "station", "station": "cooking", "model": "assets/models/props/cooking_pot.glb", "pos": [-10.6, 0.0, 13.0], "rot_y": 0.0, "prompt": "Cook at Mother Brine's Pot"})
+props.append({"id": "docks_pot_fire", "model": "assets/models/props/wall_torch.glb", "pos": [-10.6, -0.55, 13.0], "rot_y": 0.0, "scale": [1, 1, 1], "solid": False, "emitter": {"sprite": "assets/sprites/vfx/torch_flame.png", "offset": [0.0, 0.86, 0.0], "size": 0.4, "light_color": [1.0, 0.6, 0.3], "light_radius": 5.0}})
+
 region = {
     "schema_version": 1,
     "id": "core:map.saltmere",

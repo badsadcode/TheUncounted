@@ -853,6 +853,24 @@ def harvest_models():
     m.write_glb(os.path.join(env, "workbench.glb"))
 
 
+def cooking_models():
+    """A cooking pot on a tripod over a little stone hearth (the flame is a separate emitter prop)."""
+    env = os.path.join("..", "props")
+    m = Mesh(41)
+    for k in range(8):  # hearth stones
+        a = k * math.pi / 4
+        m.box((math.cos(a) * 0.42, 0.06, math.sin(a) * 0.42), (0.16, 0.12, 0.16), (110, 108, 104), rot_y=k * 45.0)
+    m.ellipsoid((0, 0.0, 0), (0.3, 0.05, 0.3), (60, 30, 20), seg=8, rings=2, y_min=0.0)      # embers
+    for k in range(3):  # tripod legs
+        a = k * 2.0944
+        _tube(m, [(math.cos(a) * 0.5, 0.0, math.sin(a) * 0.5), (0, 1.0, 0)], [0.025, 0.02], lambda s_, si: (70, 60, 50), sides=4)
+    m.cylinder((0, 0.95, 0), 0.008, 0.06, (60, 60, 60), seg=4)                              # chain
+    m.ellipsoid((0, 0.62, 0), (0.28, 0.24, 0.28), (45, 45, 50), seg=10, rings=5)            # pot
+    m.cylinder((0, 0.8, 0), 0.24, 0.02, (200, 170, 110), seg=10)                            # chowder
+    m.torus((0, 0.82, 0), 0.26, 0.025, (55, 55, 60), seg=12, sides=4, axis="y")
+    m.write_glb(os.path.join(env, "cooking_pot.glb"))
+
+
 def _tube(m, path, radii, color_fn, sides=8):
     """Tapered tube along a polyline (for tentacles). color_fn(segment, side) -> rgb."""
     def sub(a, b): return (a[0] - b[0], a[1] - b[1], a[2] - b[2])
@@ -978,6 +996,7 @@ BUILDERS = {
     "wood_models": wood_models,
     "reef_items": reef_items,
     "harvest_models": harvest_models,
+    "cooking_models": cooking_models,
 }
 
 

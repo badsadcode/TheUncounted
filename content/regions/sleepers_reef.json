@@ -1764,6 +1764,19 @@
         1.4,
         1.4
       ]
+    },
+    {
+      "instance_id": "fish_jetty",
+      "type": "fishing",
+      "model": "",
+      "pos": [
+        0.0,
+        0.0,
+        20.6
+      ],
+      "rot_y": 0.0,
+      "loot_table": "core:loot.fish_reef",
+      "prompt": "Fish off the jetty"
     }
   ],
   "portals": []

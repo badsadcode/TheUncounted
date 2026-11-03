@@ -495,5 +495,12 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   Quiet Mind Tea, Hunter's Draught, Bureaucrat's Brew), 6 workbench recipes (arrows, lockpicks, whetstones, three wands).
   Authoring: `tools/authoring/crafting.py` (already run — do not rerun; it also injected node blocks into the region
   builder scripts). `--shot … --overlay crafting`.
-- Not yet: fishing, cooking station, recipes found as books, rare reagents from bosses.
+- **Fishing** (interactable type `fishing`, `loot_table`; needs `core:item.fishing_rod` from Silas or Vaelen): cast, a
+  random wait (shorter with Perception), then a ~0.75 s bite window to press interact; too early or too late and it's
+  gone; moving or attacking reels in (`StartFishing`/`UpdateFishing`/`FishPress`/`CatchFish`). Spots: Saltmere piers
+  and quay, the Reef jetty, a new pond in the Whistling Wood. Loot tables `fish_harbour`, `fish_reef`, `fish_pond`
+  (cod, mackerel, perch, a trout (fish), eldritch eel, old boot, grumpy frog, glimmering pearl, message in a bottle).
+- **Cooking** (station `cooking`: Marta's hearth in the Lantern Inn, Mother Brine's pot): six meals with build buffs.
+  Authoring: `tools/authoring/fishing.py` (already run — do not rerun). `--shot … --overlay fishing`.
+- Not yet: recipes found as books, rare reagents from bosses.
 

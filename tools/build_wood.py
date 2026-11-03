@@ -187,6 +187,14 @@ interactables.append({"instance_id": "wood_ashwood_branch_70_60", "type": "harve
 interactables.append({"instance_id": "wood_iron_scrap_200_170", "type": "harvest", "model": "assets/models/props/ore_iron.glb", "pos": [-20.0, 0.0, -17.0], "rot_y": 153.0, "item_id": "core:item.iron_scrap", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Mine Iron Ore"})
 interactables.append({"instance_id": "wood_marigold_20_40", "type": "harvest", "model": "assets/models/props/herb_marigold.glb", "pos": [2.0, 0.0, 4.0], "rot_y": 118.0, "item_id": "core:item.marigold", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Marigold", "scale": [1.4, 1.4, 1.4]})
 
+# ============================================================================ fishing & cooking (tools/authoring/fishing.py)
+# The pond
+props.append({"id": "pond_water", "model": "assets/models/env/harbour_water.glb", "pos": [-16.0, 0.02, -0.5], "rot_y": 0.0, "scale": [0.08, 1.0, 0.15], "solid": False})
+for _k in range(10):
+    _a = _k * 0.628
+    box(f"pond_rim_{_k}", STONE, -16.0 + math.cos(_a) * 2.1 - 0.25, -16.0 + math.cos(_a) * 2.1 + 0.25, 0.0, 0.18, -0.5 + math.sin(_a) * 2.0 - 0.25, -0.5 + math.sin(_a) * 2.0 + 0.25, solid=False, uv=[0.3, 0.1])
+interactables.append({"instance_id": "fish_pond", "type": "fishing", "model": "", "pos": [-16.0, 0.0, -0.5], "rot_y": 0.0, "loot_table": "core:loot.fish_pond", "prompt": "Fish in the pond"})
+
 region = {
     "schema_version": 1,
     "id": "core:map.whistling_wood",

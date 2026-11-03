@@ -1168,6 +1168,48 @@ int GameEngine::RunSelfTest() {
         check(SaveGame("selftest_craft"), "saved with harvest state");
     }
 
+    // --- Fishing and cooking
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        int si = -1;
+        for (size_t i = 0; i < scene_.npcs.size(); i++) if (scene_.npcs[i].def->id == "core:npc.silas_gale" && !scene_.npcs[i].hidden) si = static_cast<int>(i);
+        bool rod = false;
+        if (si >= 0) { StartDialogue(si); rod = chooseNext("rod") && chooseNext("root"); if (overlay_ == Overlay::Dialogue) EndDialogue(); }
+        check(rod && CountItem("core:item.fishing_rod") == 1, "Silas hands over one of his nine spare rods");
+        InteractableInstance* spot = interactable("fish_quay");
+        auto cast = [&]() {
+            Vector3 c = Vector3Scale(Vector3Add(spot->world_box.min, spot->world_box.max), 0.5f);
+            standAndUse({c.x, spot->world_box.min.y, c.z + 1.0f}, 180.0f, -30.0f);
+        };
+        check(spot != nullptr, "there is a fishing spot on the Saltmere quay");
+        if (spot) {
+            cast();
+            check(fishing_ && fish_state_ == 0, "cast the line");
+            Interact();
+            check(!fishing_, "pull too soon and it gets away");
+            auto countCatch = [&]() {
+                int n = 0;
+                for (const char* id : {"core:item.fish_cod", "core:item.fish_mackerel", "core:item.fish_eel", "core:item.old_boot", "core:item.bottle_message",
+                                       "core:item.bladderwrack"}) n += CountItem(id);
+                return n;
+            };
+            int before = countCatch();
+            cast();
+            for (int i = 0; i < 600 && fishing_ && fish_state_ == 0; i++) UpdateFishing(1.0f / 60.0f);
+            check(fishing_ && fish_state_ == 1, "something bites");
+            Interact();
+            check(!fishing_ && countCatch() > before, "caught something");
+            cast();
+            player_.pos.x += 2.0f;
+            UpdateFishing(0.016f);
+            check(!fishing_, "walking away reels the line in");
+        }
+        AddItem("core:item.fish_cod", 1, false);
+        AddItem("core:item.sea_salt", 1, false);
+        check(Craft("core:recipe.grilled_cod") && CountItem("core:item.grilled_cod") >= 1, "cooked Grilled Cod");
+    }
+
     // --- Perks: milestones, one choice each, real effects, save/load, and Brother Aldous's respec
     {
         auto savedSkills = player_.skills;

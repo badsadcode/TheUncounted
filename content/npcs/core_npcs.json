@@ -185,6 +185,11 @@
           "item_id": "core:item.thornbow",
           "stock": 1,
           "price": 140
+        },
+        {
+          "item_id": "core:item.fishing_rod",
+          "stock": 2,
+          "price": 15
         }
       ],
       "barks": [

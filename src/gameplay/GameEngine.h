@@ -427,6 +427,16 @@ private:
     bool Craft(const std::string& recipeId);
     void ApplyOilOnHit(CreatureInstance& c);
     std::string craft_station_, craft_selected_;
+    // Fishing: cast at a spot, wait, and press interact quickly when something bites.
+    bool fishing_ = false;
+    int fish_state_ = 0;          // 0 waiting, 1 biting
+    float fish_timer_ = 0.0f;
+    int fish_spot_ = -1;
+    Vector3 fish_from_{}, fish_bob_{};
+    void StartFishing(int spotIndex);
+    void UpdateFishing(float dt);
+    void FishPress();
+    void CatchFish();
     std::string perk_skill_;
     void DrawJournal();
     void DrawMapOverlay();

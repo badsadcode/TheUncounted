@@ -1467,6 +1467,212 @@
         0.7,
         0.3
       ]
+    },
+    {
+      "id": "pond_water",
+      "model": "assets/models/env/harbour_water.glb",
+      "pos": [
+        -16.0,
+        0.02,
+        -0.5
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        0.08,
+        1.0,
+        0.15
+      ],
+      "solid": false
+    },
+    {
+      "id": "pond_rim_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -13.9,
+        0.0,
+        -0.5
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.301,
+        0.0,
+        0.675
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -15.35,
+        0.0,
+        1.402
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -16.647,
+        0.0,
+        1.403
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -17.697,
+        0.0,
+        0.678
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -18.1,
+        0.0,
+        -0.497
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_6",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -17.701,
+        0.0,
+        -1.672
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_7",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -16.653,
+        0.0,
+        -2.401
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_8",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -15.356,
+        0.0,
+        -2.404
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
+    },
+    {
+      "id": "pond_rim_9",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.305,
+        0.0,
+        -1.68
+      ],
+      "scale": [
+        0.5,
+        0.18,
+        0.5
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.3,
+        0.1
+      ]
     }
   ],
   "lights": [
@@ -1956,6 +2162,19 @@
         1.4,
         1.4
       ]
+    },
+    {
+      "instance_id": "fish_pond",
+      "type": "fishing",
+      "model": "",
+      "pos": [
+        -16.0,
+        0.0,
+        -0.5
+      ],
+      "rot_y": 0.0,
+      "loot_table": "core:loot.fish_pond",
+      "prompt": "Fish in the pond"
     }
   ],
   "portals": []

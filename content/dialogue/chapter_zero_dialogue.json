@@ -11196,6 +11196,16 @@
               ]
             },
             {
+              "text_key": "dlg.silas.rod.t",
+              "next": "rod",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "silas_rod"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.silas.root.c3",
               "next": "END"
             }
@@ -11434,6 +11444,28 @@
           "choices": [
             {
               "text_key": "dlg.reef.silas.r_after.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "rod": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.silas.rod",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.fishing_rod",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "silas_rod",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.silas.rod.c0",
               "next": "root"
             }
           ]

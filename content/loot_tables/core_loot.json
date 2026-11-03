@@ -397,6 +397,117 @@
           "max_qty": 3
         }
       ]
+    },
+    {
+      "id": "core:loot.fish_harbour",
+      "gold_min": 0,
+      "gold_max": 0,
+      "entries": [
+        {
+          "item_id": "core:item.fish_cod",
+          "weight": 40,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.fish_mackerel",
+          "weight": 35,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.fish_eel",
+          "weight": 7,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.old_boot",
+          "weight": 10,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.bottle_message",
+          "weight": 3,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.bladderwrack",
+          "weight": 5,
+          "min_qty": 1,
+          "max_qty": 2
+        }
+      ]
+    },
+    {
+      "id": "core:loot.fish_reef",
+      "gold_min": 0,
+      "gold_max": 0,
+      "entries": [
+        {
+          "item_id": "core:item.fish_mackerel",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.fish_eel",
+          "weight": 25,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.glimmering_pearl",
+          "weight": 8,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.fish_cod",
+          "weight": 20,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.bottle_message",
+          "weight": 4,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.fish_pond",
+      "gold_min": 0,
+      "gold_max": 0,
+      "entries": [
+        {
+          "item_id": "core:item.fish_perch",
+          "weight": 45,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.fish_trout",
+          "weight": 25,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.old_boot",
+          "weight": 10,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.grumpy_frog",
+          "weight": 12,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
     }
   ]
 }

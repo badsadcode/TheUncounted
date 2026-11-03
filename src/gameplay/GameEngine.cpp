@@ -262,6 +262,15 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
         else if (boot_shot_overlay_ == "options") overlay_ = Overlay::Options;
+        else if (boot_shot_overlay_ == "fishing") {
+            fishing_ = true;
+            fish_state_ = 1;
+            fish_timer_ = 999.0f;
+            fish_from_ = player_.pos;
+            Vector3 f = Forward(player_.yaw);
+            fish_bob_ = {player_.pos.x + f.x * 3.0f, player_.pos.y + 0.02f, player_.pos.z + f.z * 3.0f};
+            toasts_.clear();
+        }
         else if (boot_shot_overlay_ == "crafting") {
             for (const char* m : {"core:item.marigold", "core:item.pine_resin", "core:item.bladderwrack", "core:item.sea_salt", "core:item.glowcap"})
                 AddItem(m, 3, false);
@@ -882,6 +891,7 @@ void GameEngine::UpdatePlaying(float dt) {
     player_.pitch = Clamp(player_.pitch, -1.45f, 1.45f);
 
     HandleGameplayInput(dt);
+    if (fishing_) UpdateFishing(dt);
     if (overlay_ != Overlay::None || screen_ != Screen::Playing) return;
 
     sim_accum_ += dt;
@@ -2374,6 +2384,68 @@ bool GameEngine::Craft(const std::string& recipeId) {
     return false;
 }
 
+void GameEngine::StartFishing(int spotIndex) {
+    if (CountItem("core:item.fishing_rod") == 0) { Toast("You need a fishing rod. Old Silas might have a spare."); return; }
+    const InteractableInstance& in = scene_.interactables[spotIndex];
+    fishing_ = true;
+    fish_state_ = 0;
+    fish_spot_ = spotIndex;
+    fish_from_ = player_.pos;
+    // The bobber lands a few metres out, in the direction you're facing.
+    Vector3 f = Forward(player_.yaw);
+    fish_bob_ = {player_.pos.x + f.x * 3.0f, in.def.pos.y + 0.02f, player_.pos.z + f.z * 3.0f};
+    fish_timer_ = 2.5f + RandF() * 4.5f - std::min(1.5f, SkillLevel("perception") * 0.03f);
+    res_.PlaySfx("assets/audio/sfx/bow_release.wav", 0.4f, 0.7f);
+    SpawnBurst(fish_bob_, Color{200, 220, 230, 255}, 8, 1.2f, false, 4.0f);
+}
+
+void GameEngine::UpdateFishing(float dt) {
+    if (HDist(player_.pos, fish_from_) > 0.6f || ActionPressed("attack")) {
+        fishing_ = false;
+        Toast("You reel in your line.");
+        return;
+    }
+    fish_timer_ -= dt;
+    if (fish_state_ == 0) {
+        if (RandF() < dt * 1.5f) SpawnBurst(fish_bob_, Color{190, 210, 220, 255}, 1, 0.3f, false, 2.0f, 0.03f);
+        if (fish_timer_ <= 0.0f) {
+            fish_state_ = 1;
+            fish_timer_ = 0.75f + std::min(0.5f, SkillLevel("perception") * 0.01f);
+            SpawnBurst(fish_bob_, Color{230, 240, 255, 255}, 18, 2.4f, false, 5.0f);
+            res_.PlaySfx("assets/audio/sfx/item_pickup.wav", 0.8f, 0.6f);
+        }
+    } else if (fish_timer_ <= 0.0f) {
+        fishing_ = false;
+        Toast("It got away!", Color{255, 190, 150, 255});
+    }
+}
+
+void GameEngine::FishPress() {
+    if (fish_state_ == 1) CatchFish();
+    else Toast("Too soon! You scared it off.", Color{255, 190, 150, 255});
+    fishing_ = false;
+}
+
+void GameEngine::CatchFish() {
+    if (fish_spot_ < 0 || fish_spot_ >= static_cast<int>(scene_.interactables.size())) return;
+    auto lt = content_.loot_tables.find(scene_.interactables[fish_spot_].def.loot_table);
+    if (lt == content_.loot_tables.end() || lt->second.entries.empty()) return;
+    int total = 0;
+    for (const auto& e : lt->second.entries) total += e.weight;
+    int roll = static_cast<int>(RandF() * total);
+    for (const auto& e : lt->second.entries) {
+        if ((roll -= e.weight) >= 0) continue;
+        int q = e.min_qty + static_cast<int>(RandF() * (e.max_qty - e.min_qty + 1));
+        AddItem(e.item_id, std::max(1, q), false);
+        const ItemDef* d = content_.GetItem(e.item_id);
+        Toast("Caught: " + (d ? content_.Tr(d->name_key) : e.item_id) + "!", Color{150, 220, 255, 255});
+        break;
+    }
+    SpawnBurst(fish_bob_, Color{230, 240, 255, 255}, 24, 3.0f, false, 6.0f);
+    res_.PlaySfx("assets/audio/sfx/coin_jingle.wav", 0.5f, 1.4f);
+    GainSkillXp("perception", 1.5f, true);
+}
+
 void GameEngine::ApplyOilOnHit(CreatureInstance& c) {
     for (const auto& b : player_.buffs)
         if (b.primitive == "oil" && !b.status.empty()) TryStatus(c, b.status, b.status_chance, b.status_power, b.status_duration);
@@ -3032,6 +3104,8 @@ void GameEngine::UpdateInteractTarget() {
             prompt = d.prompt;
         } else if (d.type == "station") {
             prompt = d.prompt;
+        } else if (d.type == "fishing") {
+            prompt = CountItem("core:item.fishing_rod") > 0 ? d.prompt : d.prompt + " (needs a fishing rod)";
         } else continue;
         if (!prompt.empty()) consider(InteractTarget::Interactable, static_cast<int>(i), c, r, prompt);
     }
@@ -3067,6 +3141,7 @@ void GameEngine::UpdateInteractTarget() {
 }
 
 void GameEngine::Interact() {
+    if (fishing_) { FishPress(); return; }
     UpdateInteractTarget();
     MapPersist& ps = Persist();
     switch (interact_.kind) {
@@ -3190,6 +3265,8 @@ void GameEngine::Interact() {
         SpawnBurst(c, Color{150, 210, 110, 255}, 12, 1.6f, false, 3.0f);
         res_.PlaySfx("assets/audio/sfx/item_pickup.wav", 0.6f, 1.1f + RandF() * 0.2f);
         GainSkillXp("lore", 0.6f, true);
+    } else if (d.type == "fishing") {
+        StartFishing(interact_.index);
     } else if (d.type == "station") {
         craft_station_ = d.station;
         craft_selected_.clear();
