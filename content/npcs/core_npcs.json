@@ -213,6 +213,10 @@
         },
         {
           "text_key": "bark.vaelen.hoard"
+        },
+        {
+          "text_key": "bark.vaelen.unmasked",
+          "flag": "fig1_done"
         }
       ]
     },
@@ -325,6 +329,10 @@
         },
         {
           "text_key": "bark.aldous.stack"
+        },
+        {
+          "text_key": "bark.aldous.unmasked",
+          "flag": "fig2_done"
         }
       ]
     },
@@ -1042,6 +1050,10 @@
         },
         {
           "text_key": "bark.rolf.3"
+        },
+        {
+          "text_key": "bark.rolf.unmasked",
+          "flag": "fig2_done"
         }
       ]
     },
@@ -1414,6 +1426,124 @@
         }
       ],
       "title_key": "npc.abel_gale.title"
+    },
+    {
+      "id": "core:npc.figure_rodrick",
+      "name_key": "npc.figure_rodrick.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.figure_rodrick",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/figure_rodrick.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "barks": [
+        {
+          "text_key": "bark.fig.rod"
+        }
+      ],
+      "title_key": "npc.figure_rodrick.title"
+    },
+    {
+      "id": "core:npc.figure_primrose",
+      "name_key": "npc.figure_primrose.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.figure_primrose",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/figure_primrose.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.78
+      },
+      "barks": [
+        {
+          "text_key": "bark.fig.prim"
+        }
+      ],
+      "title_key": "npc.figure_primrose.title"
+    },
+    {
+      "id": "core:npc.figure_agnes",
+      "name_key": "npc.figure_agnes.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.figure_agnes",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/figure_agnes.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.6
+      },
+      "barks": [
+        {
+          "text_key": "bark.fig.agn"
+        }
+      ],
+      "title_key": "npc.figure_agnes.title"
+    },
+    {
+      "id": "core:npc.figure_crumbs",
+      "name_key": "npc.figure_crumbs.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.figure_crumbs",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/figure_crumbs.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.82
+      },
+      "barks": [
+        {
+          "text_key": "bark.fig.cru"
+        }
+      ],
+      "title_key": "npc.figure_crumbs.title"
+    },
+    {
+      "id": "core:npc.figure_snacks",
+      "name_key": "npc.figure_snacks.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.figure_snacks",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/figure_snacks.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.5
+      },
+      "barks": [
+        {
+          "text_key": "bark.fig.sna"
+        }
+      ],
+      "title_key": "npc.figure_snacks.title"
+    },
+    {
+      "id": "core:npc.unmask_clerk",
+      "name_key": "npc.unmask_clerk.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.unmask_clerk",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/merchant_vaelen_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 1.75
+      },
+      "barks": [],
+      "title_key": "npc.unmask_clerk.title"
+    },
+    {
+      "id": "core:npc.unmask_howler",
+      "name_key": "npc.unmask_howler.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.unmask_howler",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/brother_aldous_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 1.75
+      },
+      "barks": [],
+      "title_key": "npc.unmask_howler.title"
     }
   ]
 }

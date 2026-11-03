@@ -1309,6 +1309,18 @@
       ],
       "yaw": 180.0,
       "requires_flag": "steve_in_town"
+    },
+    {
+      "instance_id": "npc_unmask_clerk",
+      "npc_id": "core:npc.unmask_clerk",
+      "pos": [
+        0.6,
+        0.0,
+        -2.2
+      ],
+      "yaw": 180.0,
+      "requires_flag": "fig1_caught",
+      "hidden_flag": "fig1_done"
     }
   ],
   "creatures": [
@@ -1426,6 +1438,30 @@
       "group": "town_rats",
       "group_quest_id": "core:quest.rats",
       "group_set_stage": 20
+    },
+    {
+      "instance_id": "fig1_phantom",
+      "creature_id": "core:enemy.phantom_clerk",
+      "pos": [
+        0.0,
+        0.0,
+        -3.0
+      ],
+      "patrol_a": [
+        -2.0,
+        0.0,
+        -3.0
+      ],
+      "patrol_b": [
+        2.0,
+        0.0,
+        -3.0
+      ],
+      "requires_flag": "fig1_trap",
+      "group": "fig1",
+      "group_quest_id": "core:quest.figure_ep1",
+      "group_set_stage": 40,
+      "group_set_flag": "fig1_caught"
     }
   ],
   "interactables": [
@@ -1739,6 +1775,76 @@
       ],
       "rot_y": 0.0,
       "prompt": "Cook at Marta's Hearth"
+    },
+    {
+      "instance_id": "fig1_clue_ink",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -6.5,
+        0.0,
+        -8.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Examine the Glowing Smear",
+      "title": "A Smear of Glowing Ink",
+      "text": "A smear of something that glows faintly green on the Records Office step, like a footprint. You dab it with a finger. It's luminous ink, the expensive kind they sell in Saltmere. It comes off on your hand.\n\nGhosts, as far as you know, don't leave footprints. And they certainly don't buy ink.",
+      "set_flag": "fig1_c1",
+      "requires_flag": "fig1_open"
+    },
+    {
+      "instance_id": "fig1_clue_receipt",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -13.0,
+        0.0,
+        -1.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Crumpled Paper",
+      "title": "A Crumpled Receipt",
+      "text": "A receipt, screwed up and thrown into the alley:\n\nSALTMERE DRAPERS & SUNDRIES\n1 x bedsheet, extra large, white ... 6 silver\n1 x jar luminous ink ... 1 gold\n1 x 'Ghost-B-Gone' charms, crate of 200 ... 40 gold (NO REFUNDS)\nPaid in full. Thank you, V.\n\nThe 'V' is underlined twice.",
+      "set_flag": "fig1_c2",
+      "requires_flag": "fig1_open"
+    },
+    {
+      "instance_id": "fig1_clue_tags",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        7.0,
+        0.0,
+        -12.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look Behind the Stall",
+      "title": "A Box Behind the Market Stall",
+      "text": "Behind the market stall, half-hidden under a tarpaulin: an empty crate stencilled GHOST-B-GONE, a pot of glue, and a stack of new price tags.\n\nThe old tags say 1 SILVER. The new tags say 5 GOLD. The dates on them are the morning after the Phantom Clerk first appeared.",
+      "set_flag": "fig1_c3",
+      "requires_flag": "fig1_open"
+    },
+    {
+      "instance_id": "fig1_trap",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Set Rodrick's Trap",
+      "title": "The Trap",
+      "text": "(The trap is set.)",
+      "set_flag": "fig1_trap",
+      "requires_flag": "fig1_trap_ready",
+      "hidden_flag": "fig1_trap",
+      "quest_id": "core:quest.figure_ep1",
+      "set_stage": 30,
+      "narration": [
+        "story.fig1.trap"
+      ]
     }
   ],
   "portals": [

@@ -871,6 +871,38 @@ def cooking_models():
     m.write_glb(os.path.join(env, "cooking_pot.glb"))
 
 
+def wagon_models():
+    """The Figure It Out Wagon: a gaudily painted travelling caravan (stripes, flowers, a question mark on the side)."""
+    env = os.path.join("..", "props")
+    m = Mesh(51)
+    teal, orange, cream, wood, dark = (60, 170, 160), (240, 140, 40), (240, 230, 200), (120, 85, 55), (60, 45, 35)
+    m.box((0, 1.25, 0), (3.2, 1.5, 1.7), teal)                       # body
+    m.box((0, 1.25, 0.86), (3.2, 0.25, 0.02), orange)                # stripe (+z side)
+    m.box((0, 1.25, -0.86), (3.2, 0.25, 0.02), orange)               # stripe (-z side)
+    for side in (1, -1):                                             # flowers along the side
+        for k in range(5):
+            x = -1.2 + k * 0.6
+            c = (250, 220, 80) if k % 2 else (240, 120, 170)
+            m.ellipsoid((x, 1.7, 0.87 * side), (0.12, 0.12, 0.02), c, seg=6, rings=3)
+        # a big question mark, built from boxes
+        for (qx, qy, w, h) in ((0.0, 1.0, 0.1, 0.1), (0.0, 1.22, 0.1, 0.16), (0.1, 1.38, 0.1, 0.12), (0.0, 1.5, 0.3, 0.1), (-0.12, 1.44, 0.08, 0.1)):
+            m.box((qx + 0.9 * side * 0, qy, 0.875 * side), (w, h, 0.02), cream)
+    m.box((0, 2.08, 0), (3.4, 0.16, 1.9), orange)                    # roof
+    m.box((0, 2.2, 0), (3.0, 0.1, 1.5), cream)
+    m.box((1.62, 1.1, 0), (0.02, 0.9, 0.6), wood)                    # door at the back
+    m.box((-1.75, 0.55, 0), (0.4, 0.1, 1.2), wood)                   # driver's bench
+    _tube(m, [(-1.6, 0.45, 0.4), (-3.0, 0.5, 0.45)], [0.04, 0.03], lambda a, b: wood, sides=4)   # shafts
+    _tube(m, [(-1.6, 0.45, -0.4), (-3.0, 0.5, -0.45)], [0.04, 0.03], lambda a, b: wood, sides=4)
+    for x in (-1.0, 1.0):                                            # wheels (spoked)
+        for z in (0.95, -0.95):
+            m.torus((x, 0.5, z), 0.45, 0.05, dark, seg=14, sides=4, axis="z")
+            for k in range(6):
+                a = k * math.pi / 3
+                m.box((x + math.cos(a) * 0.22, 0.5 + math.sin(a) * 0.22, z), (0.44 * abs(math.cos(a)) + 0.04, 0.44 * abs(math.sin(a)) + 0.04, 0.03), wood)
+    m.box((0, 0.3, 0), (2.4, 0.1, 0.9), wood)                        # axle bed
+    m.write_glb(os.path.join(env, "figure_wagon.glb"))
+
+
 def _tube(m, path, radii, color_fn, sides=8):
     """Tapered tube along a polyline (for tentacles). color_fn(segment, side) -> rgb."""
     def sub(a, b): return (a[0] - b[0], a[1] - b[1], a[2] - b[2])
@@ -972,6 +1004,26 @@ def saltmere_items():
     tinted("assets/ui/items/annex_key.png", "assets/ui/items/cellar_key.png", ((0.6, 0.0), (1.0, 0.0), (0.9, 0.0)))
 
 
+def gang_icons():
+    """Figure It Out Gang: Crumb Cake and the gang scarf (icons only; world models reuse existing meshes)."""
+    img, d = icon_canvas()
+    d.ellipse([6, 14, 26, 26], fill=(150, 96, 44, 255))                   # cake base
+    d.ellipse([6, 10, 26, 22], fill=(200, 140, 66, 255))                  # top
+    d.ellipse([10, 12, 22, 18], fill=(236, 190, 90, 255))                 # honey glaze
+    for x, y in ((9, 21), (14, 23), (20, 22), (24, 19), (12, 16), (18, 14)):
+        d.point((x, y), fill=(110, 66, 30, 255))                          # crumbs
+    d.point((27, 27), fill=(200, 140, 66, 255)); d.point((4, 26), fill=(200, 140, 66, 255))
+    save_icon(img, "crumb_cake")
+    img, d = icon_canvas()
+    d.polygon([(5, 6), (27, 6), (27, 11), (5, 11)], fill=(232, 120, 30, 255))     # wrapped neck band
+    d.polygon([(17, 10), (23, 10), (21, 28), (15, 28)], fill=(220, 106, 24, 255))  # hanging tail
+    d.polygon([(11, 10), (16, 10), (12, 25), (8, 25)], fill=(244, 140, 40, 255))   # second tail
+    for y in (26, 27):
+        for x in range(15, 22, 2): d.point((x, y), fill=(255, 210, 120, 255))     # fringe
+    d.text((17, 14), "?", fill=(40, 160, 170, 255))                               # embroidered question mark
+    save_icon(img, "gang_scarf")
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -997,6 +1049,8 @@ BUILDERS = {
     "reef_items": reef_items,
     "harvest_models": harvest_models,
     "cooking_models": cooking_models,
+    "wagon_models": wagon_models,
+    "gang_icons": gang_icons,
 }
 
 

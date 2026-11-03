@@ -1382,6 +1382,34 @@
           "duration": 240
         }
       ]
+    },
+    {
+      "id": "core:item.crumb_cake",
+      "name_key": "item.crumb_cake.name",
+      "description_key": "item.crumb_cake.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/crumb_cake.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 6,
+      "weight": 0.1,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 15
+        },
+        {
+          "type": "consumable_sanity",
+          "amount": 10
+        },
+        {
+          "type": "buff",
+          "stat": "move_speed_bonus",
+          "value": 0.12,
+          "duration": 60
+        }
+      ]
     }
   ]
 }

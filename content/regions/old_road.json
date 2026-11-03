@@ -496,6 +496,53 @@
         1.0,
         1.0
       ]
+    },
+    {
+      "id": "figure_wagon",
+      "model": "assets/models/props/figure_wagon.glb",
+      "pos": [
+        22.5,
+        0.0,
+        -9.6
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "figure_campfire",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        20.5,
+        -0.55,
+        -6.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.5,
+        "light_color": [
+          1.0,
+          0.6,
+          0.3
+        ],
+        "light_radius": 7.0
+      }
     }
   ],
   "lights": [
@@ -559,6 +606,56 @@
         -5.0
       ],
       "yaw": -110.0
+    },
+    {
+      "instance_id": "npc_figure_rodrick",
+      "npc_id": "core:npc.figure_rodrick",
+      "pos": [
+        18.6,
+        0.0,
+        -6.4
+      ],
+      "yaw": -15.0
+    },
+    {
+      "instance_id": "npc_figure_primrose",
+      "npc_id": "core:npc.figure_primrose",
+      "pos": [
+        20.0,
+        0.0,
+        -4.6
+      ],
+      "yaw": 10.0
+    },
+    {
+      "instance_id": "npc_figure_agnes",
+      "npc_id": "core:npc.figure_agnes",
+      "pos": [
+        22.4,
+        0.0,
+        -5.2
+      ],
+      "yaw": -10.0
+    },
+    {
+      "instance_id": "npc_figure_crumbs",
+      "npc_id": "core:npc.figure_crumbs",
+      "pos": [
+        24.2,
+        0.0,
+        -7.4
+      ],
+      "yaw": -35.0
+    },
+    {
+      "instance_id": "npc_figure_snacks",
+      "npc_id": "core:npc.figure_snacks",
+      "pos": [
+        25.2,
+        0.0,
+        -8.4
+      ],
+      "yaw": -50.0
     }
   ],
   "creatures": [
@@ -901,6 +998,20 @@
         1.4,
         1.4
       ]
+    },
+    {
+      "instance_id": "figure_wagon_sign",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        21.0,
+        0.0,
+        -8.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Wagon's Side",
+      "title": "The Figure It Out Wagon",
+      "text": "Painted along the side in enormous wobbly letters, between the flowers:\n\nTHE FIGURE IT OUT GANG\nMysteries Solved! Monsters Unmasked! Reasonable Rates!\n\nUnderneath, in smaller letters, added later: \"Not responsible for traps.\"\n\nUnderneath THAT, smaller still, in Agnes's handwriting: \"Rodrick is responsible for traps.\""
     }
   ],
   "portals": [

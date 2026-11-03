@@ -1144,6 +1144,8 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             in.qty_max = ij.value("qty_max", 0);
             in.respawn_seconds = ij.value("respawn_seconds", 600.0f);
             in.station = ij.value("station", "");
+            in.requires_flag = ij.value("requires_flag", "");
+            in.hidden_flag = ij.value("hidden_flag", "");
             if (ij.contains("narration") && ij["narration"].is_array())
                 for (const auto& nk : ij["narration"]) in.narration_keys.push_back(nk.get<std::string>());
             m.interactables.push_back(in);

@@ -866,6 +866,136 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.figure_ep1",
+      "title_key": "quest.fig1.title",
+      "summary_key": "quest.fig1.summary",
+      "campaign": "figure_it_out",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.fig1.stage0",
+          "journal_key": "quest.fig1.journal0",
+          "markers": [
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.fig1.stage10",
+          "journal_key": "quest.fig1.journal10",
+          "markers": [
+            "fig1_clue_ink",
+            "fig1_clue_receipt",
+            "fig1_clue_tags",
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.fig1.stage20",
+          "journal_key": "quest.fig1.journal20",
+          "markers": [
+            "fig1_trap"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.fig1.stage30",
+          "journal_key": "quest.fig1.journal30",
+          "markers": [
+            "fig1_phantom"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.fig1.stage40",
+          "journal_key": "quest.fig1.journal40",
+          "markers": [
+            "npc_unmask_clerk"
+          ]
+        },
+        {
+          "stage": 50,
+          "objective_key": "quest.fig1.stage50",
+          "journal_key": "quest.fig1.journal50",
+          "markers": [
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.fig1.stage100",
+          "journal_key": "quest.fig1.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.figure_ep2",
+      "title_key": "quest.fig2.title",
+      "summary_key": "quest.fig2.summary",
+      "campaign": "figure_it_out",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.fig2.stage0",
+          "journal_key": "quest.fig2.journal0",
+          "markers": [
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.fig2.stage10",
+          "journal_key": "quest.fig2.journal10",
+          "markers": [
+            "fig2_clue_prints",
+            "fig2_clue_wool",
+            "fig2_clue_list",
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.fig2.stage20",
+          "journal_key": "quest.fig2.journal20",
+          "markers": [
+            "fig2_trap"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.fig2.stage30",
+          "journal_key": "quest.fig2.journal30",
+          "markers": [
+            "fig2_howler"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.fig2.stage40",
+          "journal_key": "quest.fig2.journal40",
+          "markers": [
+            "npc_unmask_howler"
+          ]
+        },
+        {
+          "stage": 50,
+          "objective_key": "quest.fig2.stage50",
+          "journal_key": "quest.fig2.journal50",
+          "markers": [
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.fig2.stage100",
+          "journal_key": "quest.fig2.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [
@@ -903,6 +1033,13 @@
       "desc_key": "campaign.dnd.desc",
       "kind": "tales",
       "order": 27
+    },
+    {
+      "id": "figure_it_out",
+      "name_key": "campaign.figure.name",
+      "desc_key": "campaign.figure.desc",
+      "kind": "tales",
+      "order": 32
     }
   ]
 }

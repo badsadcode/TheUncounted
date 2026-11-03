@@ -307,6 +307,7 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
     for (const auto& in : scene.interactables) {
         if (in.def.model.empty()) continue;
         if (in.def.type == "harvest" && in.used) continue;  // picked; it'll grow back
+        if (in.hidden) continue;
         Matrix m = in.base_transform;
         const std::string& t = in.def.type;
         BoundingBox lb = res_->GetModelBounds(in.def.model);

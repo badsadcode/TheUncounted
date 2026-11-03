@@ -526,6 +526,8 @@ struct MapInteractableDef {
     int qty_max = 0;                         // harvest: yields qty..qty_max (0 = exactly qty)
     float respawn_seconds = 600.0f;          // harvest: play time before it grows back
     std::string station;                     // station: which recipes it crafts (alchemy, workbench)
+    std::string requires_flag;               // only present once this story flag is set (clues that appear with a case)
+    std::string hidden_flag;                 // gone once this flag is set
 };
 
 struct RecipeDef {

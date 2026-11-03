@@ -915,6 +915,104 @@
         "alert": "line.dreaming_limb.alert",
         "death": "line.dreaming_limb.death"
       }
+    },
+    {
+      "id": "core:enemy.phantom_clerk",
+      "name_key": "enemy.phantom_clerk.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/phantom_clerk.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.9
+      },
+      "stats": {
+        "health": 70,
+        "armor": 0,
+        "move_speed": 2.6,
+        "xp_reward": 30
+      },
+      "behavior": "melee_patroller",
+      "family": "beast",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "spooky_flail",
+        "damage": 6,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.6,
+        "cooldown_seconds": 1.4,
+        "sanity_damage": 2
+      },
+      "loot_table": "core:loot.vermin_drop",
+      "audio": {
+        "alert": "assets/audio/sfx/boss_roar.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          240,
+          240,
+          230
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.phantom_clerk.alert",
+        "death": "line.phantom_clerk.death"
+      }
+    },
+    {
+      "id": "core:enemy.howler",
+      "name_key": "enemy.howler.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/howler.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 2.0
+      },
+      "stats": {
+        "health": 90,
+        "armor": 0,
+        "move_speed": 2.6,
+        "xp_reward": 30
+      },
+      "behavior": "melee_patroller",
+      "family": "beast",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "spooky_flail",
+        "damage": 8,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.6,
+        "cooldown_seconds": 1.4,
+        "sanity_damage": 2
+      },
+      "loot_table": "core:loot.vermin_drop",
+      "audio": {
+        "alert": "assets/audio/sfx/boss_roar.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          240,
+          240,
+          230
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.howler.alert",
+        "death": "line.howler.death"
+      }
     }
   ]
 }

@@ -2381,6 +2381,18 @@
         -5.5
       ],
       "yaw": 150.0
+    },
+    {
+      "instance_id": "npc_unmask_howler",
+      "npc_id": "core:npc.unmask_howler",
+      "pos": [
+        11.8,
+        0.0,
+        -13.6
+      ],
+      "yaw": 180.0,
+      "requires_flag": "fig2_caught",
+      "hidden_flag": "fig2_done"
     }
   ],
   "creatures": [
@@ -2571,6 +2583,30 @@
         4.0,
         12.5
       ]
+    },
+    {
+      "instance_id": "fig2_howler",
+      "creature_id": "core:enemy.howler",
+      "pos": [
+        11.5,
+        0.0,
+        -14.3
+      ],
+      "patrol_a": [
+        10.0,
+        0.0,
+        -14.3
+      ],
+      "patrol_b": [
+        13.0,
+        0.0,
+        -14.3
+      ],
+      "requires_flag": "fig2_trap",
+      "group": "fig2",
+      "group_quest_id": "core:quest.figure_ep2",
+      "group_set_stage": 40,
+      "group_set_flag": "fig2_caught"
     }
   ],
   "interactables": [
@@ -3304,6 +3340,76 @@
         1.4,
         1.4,
         1.4
+      ]
+    },
+    {
+      "instance_id": "fig2_clue_prints",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        10.5,
+        0.0,
+        -12.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Examine the Pawprints",
+      "title": "Pawprints in the Soil",
+      "text": "Huge pawprints, deep in the soft soil between the marrow beds. Very convincing. Very scary.\n\nExcept that pressed into the bottom of every single one is the clear, neat tread of a sandal. A size nine. With a little sun stamped on the heel.",
+      "set_flag": "fig2_c1",
+      "requires_flag": "fig2_open"
+    },
+    {
+      "instance_id": "fig2_clue_wool",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        17.0,
+        0.0,
+        -12.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Fence",
+      "title": "A Scrap Caught on the Fence",
+      "text": "A scrap of rough brown wool caught on a nail in the garden fence. Coarse, hand-woven, the kind used for religious habits.\n\nAnd a single fake claw, made of painted wood, lying in the grass beneath it.",
+      "set_flag": "fig2_c2",
+      "requires_flag": "fig2_open"
+    },
+    {
+      "instance_id": "fig2_clue_list",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        9.0,
+        0.0,
+        -14.3
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Pinned-Up List",
+      "title": "Bellwether Marrow Show: Previous Results",
+      "text": "Pinned to the potting shed, a list in Rolf's enormous handwriting:\n\nBELLWETHER MARROW SHOW\nYear 1: 1st Rolf. 2nd Br. Aldous.\nYear 2: 1st Rolf. 2nd Br. Aldous.\nYear 3: 1st Rolf. 2nd Br. Aldous.\nYear 4: 1st Rolf. 2nd Br. Aldous (protest lodged, dismissed).\n\nAt the bottom: \"This year's show is next week! Good luck everyone! Especially Aldous! -Rolf\"",
+      "set_flag": "fig2_c3",
+      "requires_flag": "fig2_open"
+    },
+    {
+      "instance_id": "fig2_trap",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        12.5,
+        0.0,
+        -14.3
+      ],
+      "rot_y": 0.0,
+      "prompt": "Set Rodrick's Trap",
+      "title": "The Trap",
+      "text": "(The trap is set.)",
+      "set_flag": "fig2_trap",
+      "requires_flag": "fig2_trap_ready",
+      "hidden_flag": "fig2_trap",
+      "quest_id": "core:quest.figure_ep2",
+      "set_stage": 30,
+      "narration": [
+        "story.fig2.trap"
       ]
     }
   ],

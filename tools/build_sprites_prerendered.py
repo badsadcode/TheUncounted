@@ -773,6 +773,34 @@ SHEETS = {
         "kind": "humanoid", "body": (206, 184, 164), "armor": (60, 90, 86), "legs": (48, 56, 54), "cloak": (34, 62, 60),
         "trim": (150, 200, 170), "hair": (130, 100, 70),
     },
+    # The Figure It Out Gang (originals in the spirit of a classic mystery-solving gang)
+    "assets/sprites/npcs/figure_rodrick.png": {
+        "kind": "humanoid", "body": (232, 196, 166), "armor": (240, 240, 235), "legs": (70, 110, 190), "cloak": (60, 100, 180),
+        "trim": (240, 140, 40), "eye": (40, 60, 120), "hair": (240, 210, 110),
+    },
+    "assets/sprites/npcs/figure_primrose.png": {
+        "kind": "humanoid", "robe": True, "body": (236, 200, 176), "armor": (140, 70, 170), "cloak": (110, 50, 140), "trim": (120, 200, 90),
+        "eye": (60, 110, 60), "hat": "bun", "hair": (220, 110, 50),
+    },
+    "assets/sprites/npcs/figure_agnes.png": {
+        "kind": "humanoid", "body": (226, 190, 160), "armor": (230, 130, 40), "legs": (180, 60, 50), "trim": (250, 170, 70),
+        "eye": (30, 30, 30), "hat": "bun", "hair": (110, 70, 40), "weapon": "ledger", "book": (180, 60, 50),
+    },
+    "assets/sprites/npcs/figure_crumbs.png": {
+        "kind": "humanoid", "body": (226, 196, 166), "armor": (120, 160, 70), "legs": (130, 100, 60), "trim": (100, 140, 60),
+        "eye": (40, 30, 24), "hair": (130, 100, 60), "beard": True,
+    },
+    "assets/sprites/npcs/figure_snacks.png": {"kind": "quadruped", "scale": 1.0, "body": (150, 110, 70), "armor": (100, 70, 40),
+                                              "eye": (240, 190, 70)},
+    "assets/sprites/enemies/phantom_clerk.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 230, "body": (230, 245, 230), "armor": (225, 240, 225), "cloak": (210, 230, 210),
+        "trim": (120, 255, 160), "eye": (120, 255, 160), "glow_eyes": True, "hat": "hood", "hood": (225, 240, 225), "weapon": "ledger",
+        "book": (60, 60, 70),
+    },
+    "assets/sprites/enemies/howler.png": {
+        "kind": "humanoid", "body": (110, 82, 58), "armor": (120, 90, 64), "legs": (120, 90, 64), "eye": (255, 220, 80), "glow_eyes": True,
+        "hair": (100, 72, 50), "beard": True, "bare_arms": True, "boots": (150, 120, 80), "scale": 1.15,
+    },
     "assets/sprites/enemies/grey_wolf.png": {"kind": "quadruped", "scale": 1.0, "body": (120, 118, 116), "armor": (72, 70, 70),
                                              "eye": (255, 210, 80), "glow_eyes": True},
     "assets/sprites/enemies/grave_rat.png": {"kind": "rat", "scale": 1.7, "body": (104, 84, 74), "armor": (70, 56, 48), "eye": (255, 60, 50)},

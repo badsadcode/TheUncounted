@@ -320,6 +320,31 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   Wrathful Host. Items: Dented Bucket (shopkeeper discount), Party Hat, Crown of the Rat King, Cape of Eternal
   Brooding, Hollowmere Signet, Silver Sword of the Grey, Moonlit Jerky, Field Guide, keys.
 
+### The Figure It Out Gang (added 2026-11-03)
+
+A spinoff Toasty made up: a meddling mystery gang in the spirit of the classic Saturday-morning sleuths (originals, never
+named after them), with the **Figure It Out Wagon** instead of a famous van. Running gag: Crumbs yells **"I barely knew
+her!"** at every unmasking, whoever (or whatever) is under the mask. Tone: silly, not competent, spooky, successful.
+Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do not rerun). Campaign `figure_it_out` (tales).
+
+- **Camp** on the Old Road (local ~(18..25, -4..-10)): the wagon prop (`figure_wagon.glb`, `build_item_models.py
+  wagon_models`), a campfire, Sir Rodrick (leader, every trap catches the wrong person), Lady Primrose (always kidnapped,
+  punches), Agnes (actually solves it, loses spectacles), Barnaby "Crumbs" Moss, and Snacks the cowardly owlbear cub
+  (feed it Crumb Cakes; scratch it for sanity).
+- **Formula per episode** (stages 0 → 10 clues → 20 trap → 30 catch → 40 unmask → 50 → 100): clue readables use
+  `requires_flag` (`fig1_open` / `fig2_open`) and set `fig*_c1..3`; Rodrick needs all three (`flags_at_least`); the trap is
+  a readable with `requires_flag` + `hidden_flag` + `narration` (readables now play narration as a story scene); it
+  spawns the monster (`requires_flag`, group trigger → 40, `fig*_caught`), then a netted-suspect NPC appears
+  (`requires_flag: fig*_caught`, `hidden_flag: fig*_done`) for the unmasking dialogue.
+  - **Ep 1 "The Phantom Clerk of Bellwether"** (Bellwether): it was Vaelen, selling Ghost-B-Gone charms. Reward: Crumb
+    Cakes + gold.
+  - **Ep 2 "The Howler of Hollowmere"** (Rolf's garden, placed via `tools/build_mansion.py`): Rodrick unmasks Rolf first
+    ("OW. That's my face."); it was Brother Aldous, four years second at the Marrow Show; Rolf offers to teach him.
+    Reward: the Gang Scarf (accessory: crit, speed, sanity regen, +1 dice).
+- **Engine:** interactables may set `requires_flag` / `hidden_flag` (hidden ones are skipped by the prompt and renderer).
+- Sprites are prerendered placeholders (`build_sprites_prerendered.py`: figure_*, phantom_clerk, howler); the user may
+  paint proper sheets later.
+
 ## 8. The user (what they care about)
 
 - **Story and immersion are the priority.** Bigger, multi-level spaces without loading screens. Better graphics/sprites welcome.

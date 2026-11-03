@@ -1304,6 +1304,67 @@ int GameEngine::RunSelfTest() {
         player_.claimed = savedClaimed;
     }
 
+    // --- The Figure It Out Gang: split up, clues, a trap that goes wrong, unmask the culprit
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            return ok;
+        };
+        std::string lastScene;
+        auto use = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            InteractableInstance* in = interactable(id);
+            if (!in || in->hidden) return false;
+            Vector3 c = Vector3Scale(Vector3Add(in->world_box.min, in->world_box.max), 0.5f);
+            standAndUse({c.x, in->world_box.min.y, c.z + 1.0f}, 180.0f, -48.0f);
+            lastScene = (overlay_ == Overlay::Narration && !narration_pages_.empty()) ? narration_pages_[0] : "";
+            narration_page_ = static_cast<int>(narration_pages_.size());
+            if (overlay_ == Overlay::Narration) AdvanceNarration();
+            SetOverlay(Overlay::None);
+            return true;
+        };
+        auto catchMonster = [&](const char* iid) {
+            UpdateWorldObjects(0.0f);
+            for (auto& c : scene_.creatures) if (c.instance_id == iid && c.state != CreatureState::Dead) { DamageCreature(c, 999, false, "swords", false); return true; }
+            return false;
+        };
+        const std::string e1 = "core:quest.figure_ep1", e2 = "core:quest.figure_ep2";
+        check(!use("fig1_clue_ink"), "no clues lying about before anyone asks");
+        check(talk("core:npc.figure_rodrick", {"what", "root", "e1_open", "root"}) && QuestStage(e1) == 10, "Rodrick: 'Let's split up and look for clues!'");
+        check(talk("core:npc.figure_rodrick", {"e1_hint", "root"}), "Rodrick reminds you where the clues are");
+        check(!use("fig1_trap"), "no trap until the clues are in");
+        check(use("fig1_clue_ink") && use("fig1_clue_receipt") && use("fig1_clue_tags") && player_.flags.count("fig1_c3"), "three clues: ink, a receipt from 'V.', price tags");
+        check(talk("core:npc.figure_rodrick", {"e1_trap", "root"}) && QuestStage(e1) == 20, "Rodrick's plan: a net, a pulley, a barrel of feathers, and you");
+        check(visible("core:npc.unmask_clerk") < 0 && use("fig1_trap") && lastScene.find("pigeon") != std::string::npos && QuestStage(e1) == 30 && (UpdateWorldObjects(0.0f), interactable("fig1_trap")->hidden),
+              "the trap catches Baggy, a pigeon and Rodrick");
+        check(catchMonster("fig1_phantom") && QuestStage(e1) == 40, "the Phantom Clerk is caught (it fell over Snacks)");
+        check(talk("core:npc.unmask_clerk", {"reveal", "refund"}) && player_.flags.count("fig1_guessed") && QuestStage(e1) == 50,
+              "it was Vaelen all along (Crumbs barely knew her)");
+        check(visible("core:npc.unmask_clerk") < 0, "the netted suspect is gone once it's done");
+        check(talk("core:npc.figure_rodrick", {"e1_done", "root"}) && QuestStage(e1) == 100 && CountItem("core:item.crumb_cake") == 5, "FIGURED OUT! Paid in Crumb Cakes");
+        check(talk("core:npc.figure_snacks", {"cake", "root"}) && CountItem("core:item.crumb_cake") == 4, "Snacks would not do something brave for a Crumb Cake");
+        check(talk("core:npc.figure_rodrick", {"e2_open", "root"}) && QuestStage(e2) == 10, "episode two: the Howler of Hollowmere");
+        check(use("fig2_clue_prints") && use("fig2_clue_wool") && use("fig2_clue_list") && talk("core:npc.figure_rodrick", {"e2_trap", "root"}) && QuestStage(e2) == 20,
+              "sandal prints, brown wool, four years of second place");
+        check(use("fig2_trap") && QuestStage(e2) == 30 && catchMonster("fig2_howler") && QuestStage(e2) == 40, "the seesaw launches Rodrick; the Howler is caught");
+        check(talk("core:npc.unmask_howler", {"guess", "reveal", "rolf"}) && player_.flags.count("fig2_guessed") && QuestStage(e2) == 50,
+              "Rolf's face is his actual face; the Howler is Brother Aldous");
+        check(talk("core:npc.figure_rodrick", {"e2_done", "root"}) && QuestStage(e2) == 100 && CountItem("core:item.gang_scarf") == 1, "full member of the gang: the scarf");
+    }
+
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
     Logger::Info("Self-test finished with " + std::to_string(failures) + " failure(s).");

@@ -2984,6 +2984,9 @@ void GameEngine::UpdateProjectiles(float dt) {
 }
 
 void GameEngine::UpdateWorldObjects(float dt) {
+    for (auto& in : scene_.interactables)
+        in.hidden = (!in.def.requires_flag.empty() && !player_.flags.count(in.def.requires_flag)) ||
+                    (!in.def.hidden_flag.empty() && player_.flags.count(in.def.hidden_flag));
     for (auto& in : scene_.interactables) {
         if (in.def.type != "harvest" || !in.used) continue;
         auto h = Persist().harvested.find(in.def.instance_id);
@@ -3077,6 +3080,7 @@ void GameEngine::UpdateInteractTarget() {
     for (size_t i = 0; i < scene_.interactables.size(); i++) {
         const auto& in = scene_.interactables[i];
         const auto& d = in.def;
+        if (in.hidden) continue;
         Vector3 c = Vector3Scale(Vector3Add(in.world_box.min, in.world_box.max), 0.5f);
         float r = std::max(0.6f, std::min(1.0f, Vector3Distance(in.world_box.min, in.world_box.max) * 0.45f));
         std::string prompt;
@@ -3243,6 +3247,8 @@ void GameEngine::Interact() {
         if (!d.set_flag.empty()) player_.flags.insert(d.set_flag);
         if (!d.quest_id.empty() && QuestStage(d.quest_id) < d.set_stage) SetQuestStage(d.quest_id, d.set_stage);
         else if (!d.quest_id.empty() && d.set_stage == 0 && QuestStage(d.quest_id) < 0) SetQuestStage(d.quest_id, 0);
+        // A readable with narration plays it as a story scene instead of a page (e.g. a mystery gang's trap going wrong).
+        if (!d.narration_keys.empty()) StartNarration(d.narration_keys);
     } else if (d.type == "lever") {
         in.open = !in.open;
         if (in.open) ps.open.insert(d.instance_id); else ps.open.erase(d.instance_id);

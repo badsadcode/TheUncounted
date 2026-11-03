@@ -87,6 +87,7 @@ struct InteractableInstance {
     bool open = false;
     bool locked = false;
     bool used = false;
+    bool hidden = false;  // requires_flag not yet set, or hidden_flag set
 };
 
 struct Projectile {
