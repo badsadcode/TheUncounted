@@ -442,6 +442,7 @@ bool ContentRegistry::LoadManifestFile(const std::string& rootDir, const std::st
                 d.qty = el.value("qty", 1);
                 d.skill = el.value("skill", "");
                 d.skill_level = el.value("skill_level", 0);
+                d.book = el.value("book", "");
                 if (el.contains("ingredients"))
                     for (const auto& ing : el["ingredients"]) d.ingredients.push_back({ing.value("item", ""), ing.value("qty", 1)});
                 recipes.push_back(d);
@@ -631,6 +632,7 @@ void ContentRegistry::LoadItemsFile(const std::string& rootDir, const std::strin
                 ie.type = ef.value("type", "");
                 ie.stat = ef.value("stat", "");
                 ie.spell_id = ef.value("spell_id", "");
+                ie.recipe_id = ef.value("recipe_id", "");
                 ie.amount = ef.value("amount", 0);
                 ie.value = ef.value("value", 0.0f);
                 ie.duration = ef.value("duration", 0.0f);
@@ -1276,7 +1278,20 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
         if (!GetItem(r.result)) RecordIssue("Recipe:" + r.id, "result", "Unknown item '" + r.result + "'");
         for (const auto& [it, q] : r.ingredients)
             if (!GetItem(it)) RecordIssue("Recipe:" + r.id, "ingredients", "Unknown item '" + it + "'");
+        if (!r.book.empty()) {
+            const ItemDef* b = GetItem(r.book);
+            bool teaches = false;
+            if (b) for (const auto& e : b->effects) teaches = teaches || (e.type == "learn_recipe" && e.recipe_id == r.id);
+            if (!teaches) RecordIssue("Recipe:" + r.id, "book", "Book '" + r.book + "' doesn't teach this recipe (needs a learn_recipe effect)");
+        }
     }
+    for (const auto& [iid, it] : items)
+        for (const auto& e : it.effects)
+            if (e.type == "learn_recipe") {
+                bool found = false;
+                for (const auto& r : recipes) found = found || r.id == e.recipe_id;
+                if (!found) RecordIssue("Item:" + iid, "effects.recipe_id", "Unknown recipe '" + e.recipe_id + "'");
+            }
     for (const auto& [mid, map] : maps)
         for (const auto& in : map.interactables)
             if (in.type == "harvest" && !GetItem(in.item_id)) RecordIssue("Map:" + mid + "/" + in.instance_id, "item_id", "Unknown harvest item '" + in.item_id + "'");

@@ -771,6 +771,91 @@
           "value": 0.15
         }
       ]
+    },
+    {
+      "id": "core:item.ink_heart_quill",
+      "name_key": "item.ink_heart_quill.name",
+      "description_key": "item.ink_heart_quill.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/ink_heart_quill.png",
+      "world_model": "assets/models/items/seal_quill.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 300,
+      "weight": 0.1,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "spell_cost_reduction",
+          "value": 0.15
+        },
+        {
+          "type": "bonus",
+          "stat": "status_chance_bonus",
+          "value": 0.1
+        },
+        {
+          "type": "bonus",
+          "stat": "spell_power_bonus",
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "id": "core:item.fang_unwritten",
+      "name_key": "item.fang_unwritten.name",
+      "description_key": "item.fang_unwritten.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/fang_unwritten.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 360,
+      "weight": 0.1,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "life_steal",
+          "value": 0.06
+        },
+        {
+          "type": "bonus",
+          "stat": "crit_damage_bonus",
+          "value": 0.25
+        }
+      ]
+    },
+    {
+      "id": "core:item.granny_mittens",
+      "name_key": "item.granny_mittens.name",
+      "description_key": "item.granny_mittens.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/granny_mittens.png",
+      "world_model": "assets/models/items/leather_jerkin.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 240,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "armor_bonus",
+          "value": 3.0
+        },
+        {
+          "type": "bonus",
+          "stat": "heal_on_block",
+          "value": 6.0
+        },
+        {
+          "type": "bonus",
+          "stat": "carry_capacity_bonus",
+          "value": 15.0
+        }
+      ]
     }
   ]
 }

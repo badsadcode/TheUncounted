@@ -125,7 +125,8 @@
       "guaranteed": [
         "core:item.form_27b",
         "core:item.uncounted_ledger",
-        "core:item.ring_of_recall"
+        "core:item.ring_of_recall",
+        "core:item.ink_heart"
       ],
       "entries": [
         {
@@ -175,7 +176,8 @@
       "gold_min": 60,
       "gold_max": 100,
       "guaranteed": [
-        "core:item.health_potion"
+        "core:item.health_potion",
+        "core:item.warden_bell"
       ],
       "entries": [
         {
@@ -297,7 +299,8 @@
       "gold_min": 20,
       "gold_max": 40,
       "guaranteed": [
-        "core:item.rat_crown"
+        "core:item.rat_crown",
+        "core:item.rat_whisker"
       ],
       "entries": [
         {
@@ -344,7 +347,8 @@
       "gold_min": 80,
       "gold_max": 140,
       "guaranteed": [
-        "core:item.tide_charm"
+        "core:item.tide_charm",
+        "core:item.name_eater_tooth"
       ],
       "entries": [
         {
@@ -507,6 +511,111 @@
           "min_qty": 1,
           "max_qty": 1
         }
+      ]
+    },
+    {
+      "id": "core:loot.wrathful_host",
+      "gold_min": 80,
+      "gold_max": 120,
+      "guaranteed": [
+        "core:item.host_ember",
+        "core:item.host_ember",
+        "core:item.health_potion"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 100,
+          "min_qty": 2,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 100,
+          "min_qty": 2,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.wand_friendship",
+          "weight": 15,
+          "min_qty": 3,
+          "max_qty": 5
+        },
+        {
+          "item_id": "core:item.tome_friendship",
+          "weight": 10,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.inconvenient_sword",
+          "weight": 8,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.dreaming_limb",
+      "gold_min": 80,
+      "gold_max": 140,
+      "guaranteed": [
+        "core:item.dreaming_ink",
+        "core:item.dreaming_ink"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 60,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.tome_vitality",
+          "weight": 20,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wand_friendship",
+          "weight": 15,
+          "min_qty": 3,
+          "max_qty": 6
+        }
+      ]
+    },
+    {
+      "id": "core:loot.granny_wolf",
+      "gold_min": 3,
+      "gold_max": 9,
+      "entries": [
+        {
+          "item_id": "core:item.bread_loaf",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.carrot",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 18,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wand_bewilder",
+          "weight": 4,
+          "min_qty": 2,
+          "max_qty": 3
+        }
+      ],
+      "guaranteed": [
+        "core:item.bonnet_thread"
       ]
     }
   ]

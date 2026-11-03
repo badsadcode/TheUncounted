@@ -602,7 +602,7 @@
         "windup_seconds": 0.75,
         "cooldown_seconds": 1.6
       },
-      "loot_table": "core:loot.crypt_boss",
+      "loot_table": "core:loot.wrathful_host",
       "audio": {
         "alert": "assets/audio/sfx/boss_roar.wav",
         "attack": "assets/audio/sfx/spell_cast.wav",
@@ -847,7 +847,7 @@
         "windup_seconds": 0.5,
         "cooldown_seconds": 1.25
       },
-      "loot_table": "core:loot.wolf",
+      "loot_table": "core:loot.granny_wolf",
       "audio": {
         "alert": "assets/audio/sfx/boss_roar.wav",
         "attack": "assets/audio/sfx/sword_swing.wav",
@@ -896,7 +896,7 @@
         "cooldown_seconds": 1.7,
         "sanity_damage": 5
       },
-      "loot_table": "core:loot.avatar",
+      "loot_table": "core:loot.dreaming_limb",
       "audio": {
         "alert": "assets/audio/sfx/boss_roar.wav",
         "attack": "assets/audio/sfx/sword_swing.wav",

@@ -1528,6 +1528,22 @@ void GameEngine::ReadItem(const ItemDef& item) {
         player_.claimed.insert("read:" + item.id);
         GainSkillXp("lore", 2.0f, true);
     }
+    bool learnedRecipe = false, hasRecipes = false;
+    for (const auto& e : item.effects) {
+        if (e.type != "learn_recipe") continue;
+        hasRecipes = true;
+        if (player_.flags.insert("recipe:" + e.recipe_id).second) {
+            learnedRecipe = true;
+            for (const auto& r : content_.recipes)
+                if (r.id == e.recipe_id)
+                    if (const ItemDef* res = content_.GetItem(r.result)) {
+                        Toast("Learned recipe: " + content_.Tr(res->name_key), Color{180, 230, 150, 255});
+                        reader_text_ += "\n\n[New recipe: " + content_.Tr(res->name_key) + "]";
+                    }
+        }
+    }
+    if (learnedRecipe) GainSkillXp("lore", 3.0f, true);
+    else if (hasRecipes) reader_text_ += "\n\n[You already know these recipes.]";
     for (const auto& e : item.effects) {
         if (e.type != "learn_spell") continue;
         if (std::find(player_.known_spells.begin(), player_.known_spells.end(), e.spell_id) == player_.known_spells.end()) {
@@ -2366,7 +2382,12 @@ void GameEngine::ApplyStatus(CreatureInstance& c, const std::string& status, flo
     }
 }
 
+bool GameEngine::RecipeKnown(const RecipeDef& r) const {
+    return r.book.empty() || player_.flags.count("recipe:" + r.id) > 0;
+}
+
 bool GameEngine::CanCraft(const RecipeDef& r) const {
+    if (!RecipeKnown(r)) return false;
     if (r.skill_level > 0 && SkillLevel(r.skill) < r.skill_level) return false;
     for (const auto& [it, q] : r.ingredients)
         if (CountItem(it) < q) return false;

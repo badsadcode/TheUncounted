@@ -1410,6 +1410,301 @@
           "duration": 60
         }
       ]
+    },
+    {
+      "id": "core:item.rat_whisker",
+      "name_key": "item.rat_whisker.name",
+      "description_key": "item.rat_whisker.description",
+      "category": "misc",
+      "icon": "assets/ui/items/rat_whisker.png",
+      "world_model": "assets/models/items/seal_quill.glb",
+      "slots": [],
+      "value": 60,
+      "weight": 0.05,
+      "stackable": true
+    },
+    {
+      "id": "core:item.ink_heart",
+      "name_key": "item.ink_heart.name",
+      "description_key": "item.ink_heart.description",
+      "category": "misc",
+      "icon": "assets/ui/items/ink_heart.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 90,
+      "weight": 0.4,
+      "stackable": true
+    },
+    {
+      "id": "core:item.host_ember",
+      "name_key": "item.host_ember.name",
+      "description_key": "item.host_ember.description",
+      "category": "misc",
+      "icon": "assets/ui/items/host_ember.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 90,
+      "weight": 0.2,
+      "stackable": true
+    },
+    {
+      "id": "core:item.warden_bell",
+      "name_key": "item.warden_bell.name",
+      "description_key": "item.warden_bell.description",
+      "category": "misc",
+      "icon": "assets/ui/items/warden_bell.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 90,
+      "weight": 0.2,
+      "stackable": true
+    },
+    {
+      "id": "core:item.name_eater_tooth",
+      "name_key": "item.name_eater_tooth.name",
+      "description_key": "item.name_eater_tooth.description",
+      "category": "misc",
+      "icon": "assets/ui/items/name_eater_tooth.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 120,
+      "weight": 0.3,
+      "stackable": true
+    },
+    {
+      "id": "core:item.dreaming_ink",
+      "name_key": "item.dreaming_ink.name",
+      "description_key": "item.dreaming_ink.description",
+      "category": "misc",
+      "icon": "assets/ui/items/dreaming_ink.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 80,
+      "weight": 0.3,
+      "stackable": true
+    },
+    {
+      "id": "core:item.bonnet_thread",
+      "name_key": "item.bonnet_thread.name",
+      "description_key": "item.bonnet_thread.description",
+      "category": "misc",
+      "icon": "assets/ui/items/bonnet_thread.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 60,
+      "weight": 0.1,
+      "stackable": true
+    },
+    {
+      "id": "core:item.book_monster_bits",
+      "name_key": "item.book_monster_bits.name",
+      "description_key": "item.book_monster_bits.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_paper.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 150,
+      "weight": 0.6,
+      "book_text_key": "book.book_monster_bits.text",
+      "effects": [
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.whiskerblade"
+        },
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.hostbrand"
+        },
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.ink_heart_quill"
+        },
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.fang_unwritten"
+        },
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.granny_mittens"
+        }
+      ]
+    },
+    {
+      "id": "core:item.book_forbidden_footnotes",
+      "name_key": "item.book_forbidden_footnotes.name",
+      "description_key": "item.book_forbidden_footnotes.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_sabrino.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 180,
+      "weight": 0.6,
+      "book_text_key": "book.book_forbidden_footnotes.text",
+      "effects": [
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.ember_draught"
+        },
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.lullaby_tonic"
+        },
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.oil_forgetting"
+        }
+      ]
+    },
+    {
+      "id": "core:item.book_brine_card",
+      "name_key": "item.book_brine_card.name",
+      "description_key": "item.book_brine_card.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_late.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 40,
+      "weight": 0.6,
+      "book_text_key": "book.book_brine_card.text",
+      "effects": [
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.dreaming_calamari"
+        },
+        {
+          "type": "learn_recipe",
+          "recipe_id": "core:recipe.fish_pie"
+        }
+      ]
+    },
+    {
+      "id": "core:item.ember_draught",
+      "name_key": "item.ember_draught.name",
+      "description_key": "item.ember_draught.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/ember_draught.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.3,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "buff",
+          "stat": "burn_damage_bonus",
+          "value": 0.5,
+          "duration": 300
+        },
+        {
+          "type": "buff",
+          "stat": "spell_power_bonus",
+          "value": 0.15,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.lullaby_tonic",
+      "name_key": "item.lullaby_tonic.name",
+      "description_key": "item.lullaby_tonic.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/lullaby_tonic.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.3,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "consumable_sanity",
+          "amount": 100
+        },
+        {
+          "type": "consumable_heal",
+          "amount": 30
+        },
+        {
+          "type": "buff",
+          "stat": "sanity_regen",
+          "value": 1.0,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.oil_forgetting",
+      "name_key": "item.oil_forgetting.name",
+      "description_key": "item.oil_forgetting.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/oil_forgetting.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "value": 60,
+      "weight": 0.3,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "weapon_oil",
+          "stat": "confuse",
+          "value": 0.3,
+          "amount": 0,
+          "duration": 120
+        }
+      ]
+    },
+    {
+      "id": "core:item.dreaming_calamari",
+      "name_key": "item.dreaming_calamari.name",
+      "description_key": "item.dreaming_calamari.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/dreaming_calamari.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 60,
+      "weight": 0.4,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 40
+        },
+        {
+          "type": "buff",
+          "stat": "spell_cost_reduction",
+          "value": 0.2,
+          "duration": 300
+        },
+        {
+          "type": "buff",
+          "stat": "status_duration_bonus",
+          "value": 0.3,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.fish_pie",
+      "name_key": "item.fish_pie.name",
+      "description_key": "item.fish_pie.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/fish_pie.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 30,
+      "weight": 0.5,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 35
+        },
+        {
+          "type": "buff",
+          "stat": "health_regen",
+          "value": 1.5,
+          "duration": 300
+        }
+      ]
     }
   ]
 }

@@ -424,10 +424,12 @@ private:
     void DrawCombatSheet(Rectangle P);
     void DrawPerks(Rectangle P);
     void DrawCrafting();
+    bool RecipeKnown(const RecipeDef& r) const;
     bool CanCraft(const RecipeDef& r) const;
     bool Craft(const std::string& recipeId);
     void ApplyOilOnHit(CreatureInstance& c);
     std::string craft_station_, craft_selected_;
+    float craft_scroll_ = 0.0f;
     // Fishing: cast at a spot, wait, and press interact quickly when something bites.
     bool fishing_ = false;
     int fish_state_ = 0;          // 0 waiting, 1 biting

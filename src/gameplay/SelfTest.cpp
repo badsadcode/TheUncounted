@@ -1400,6 +1400,45 @@ int GameEngine::RunSelfTest() {
         player_.flags = savedFlags;
     }
 
+    // --- Deeper crafting: boss reagents, recipe books, locked recipes
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        auto savedSkills = player_.skills;
+        const RecipeDef* wb = nullptr;
+        for (const auto& r : content_.recipes) if (r.id == "core:recipe.whiskerblade") wb = &r;
+        check(wb && !RecipeKnown(*wb), "the Whiskerblade recipe is locked until you read the book");
+        ContainerState drop;
+        RollLoot("core:loot.rat_king", drop);
+        bool whisker = false;
+        for (const auto& e : drop.items) whisker = whisker || e.id == "core:item.rat_whisker";
+        check(whisker, "the Rat King always drops a whisker");
+        ContainerState host;
+        RollLoot("core:loot.wrathful_host", host);
+        int embers = 0;
+        for (const auto& e : host.items) if (e.id == "core:item.host_ember") embers += e.qty;
+        check(embers == 2, "the Wrathful Host leaves two embers (one for a blade, one for a draught)");
+        if (wb) {
+            AddItem("core:item.rat_whisker", 1, false);
+            AddItem("core:item.iron_scrap", 3, false);
+            AddItem("core:item.ashwood_branch", 1, false);
+            player_.skills["daggers"].level = std::max(player_.skills["daggers"].level, 8);
+            check(!Craft(wb->id), "can't craft from a recipe you don't know");
+            AddItem("core:item.book_monster_bits", 1, false);
+            if (const ItemDef* b = content_.GetItem("core:item.book_monster_bits")) ReadItem(*b);
+            SetOverlay(Overlay::None);
+            check(RecipeKnown(*wb) && player_.flags.count("recipe:core:recipe.granny_mittens") && CountItem("core:item.book_monster_bits") == 1,
+                  "Hollis's Field Notes teach five recipes (and you keep the book)");
+            int whiskers = CountItem("core:item.rat_whisker");
+            check(Craft(wb->id) && CountItem("core:item.whiskerblade") == 1 && CountItem("core:item.rat_whisker") == whiskers - 1, "forged the Whiskerblade from the Rat King's whisker");
+        }
+        bool sells = false;
+        if (const NpcDef* v = content_.GetNpc("core:npc.witch_sabrino"))
+            for (const auto& e : v->vendor_inventory) sells = sells || e.item_id == "core:item.book_forbidden_footnotes";
+        check(sells, "Sabrino sells the Forbidden Footnotes");
+        player_.skills = savedSkills;
+    }
+
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
     Logger::Info("Self-test finished with " + std::to_string(failures) + " failure(s).");

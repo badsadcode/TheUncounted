@@ -195,6 +195,11 @@
           "item_id": "core:item.fishing_rod",
           "stock": 2,
           "price": 15
+        },
+        {
+          "item_id": "core:item.book_monster_bits",
+          "stock": 1,
+          "price": 150
         }
       ],
       "barks": [
@@ -954,6 +959,11 @@
           "item_id": "core:item.mana_potion",
           "stock": 4,
           "price": 22
+        },
+        {
+          "item_id": "core:item.book_forbidden_footnotes",
+          "stock": 1,
+          "price": 180
         }
       ],
       "barks": [
@@ -1206,6 +1216,11 @@
           "item_id": "core:item.health_potion",
           "stock": 4,
           "price": 20
+        },
+        {
+          "item_id": "core:item.book_brine_card",
+          "stock": 1,
+          "price": 40
         }
       ]
     },

@@ -535,6 +535,62 @@
         "crit_chance": 0.05,
         "crit_mult": 1.5
       }
+    },
+    {
+      "id": "core:item.whiskerblade",
+      "name_key": "item.whiskerblade.name",
+      "description_key": "item.whiskerblade.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/whiskerblade.png",
+      "world_model": "assets/models/items/steel_dagger.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 220,
+      "weight": 0.9,
+      "weapon": {
+        "kind": "melee",
+        "skill": "daggers",
+        "damage_type": "piercing",
+        "base_damage": 13,
+        "attack_time_seconds": 0.33,
+        "stamina_cost": 5,
+        "reach_meters": 1.75,
+        "crit_chance": 0.22,
+        "crit_mult": 2.1,
+        "on_hit_status": "bleed",
+        "status_chance": 0.4,
+        "status_power": 4,
+        "status_duration": 4.0
+      }
+    },
+    {
+      "id": "core:item.hostbrand",
+      "name_key": "item.hostbrand.name",
+      "description_key": "item.hostbrand.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/hostbrand.png",
+      "world_model": "assets/models/items/iron_longsword.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 320,
+      "weight": 3.0,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "fire",
+        "base_damage": 19,
+        "attack_time_seconds": 0.55,
+        "stamina_cost": 9,
+        "reach_meters": 2.1,
+        "crit_chance": 0.1,
+        "crit_mult": 1.9,
+        "on_hit_status": "burn",
+        "status_chance": 0.35,
+        "status_power": 6,
+        "status_duration": 4.0
+      }
     }
   ]
 }

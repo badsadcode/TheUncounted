@@ -226,6 +226,7 @@ struct ItemEffectDef {
     std::string type;
     std::string stat;
     std::string spell_id;
+    std::string recipe_id;   // learn_recipe: a recipe book entry
     int amount = 0;
     float value = 0.0f;
     float duration = 0.0f;   // buff: seconds the named bonus lasts (food)
@@ -538,6 +539,7 @@ struct RecipeDef {
     std::vector<std::pair<std::string, int>> ingredients;
     std::string skill;         // skill trained (and required, if skill_level > 0)
     int skill_level = 0;
+    std::string book;          // optional: the recipe book (item id) that teaches it; hidden until read
 };
 
 struct MapPortalDef {

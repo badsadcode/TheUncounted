@@ -1032,6 +1032,41 @@ def gang_icons():
     save_icon(img, "snacks_feather")
 
 
+def boss_crafting_icons():
+    """Boss reagents and what they make (tools/authoring/boss_crafting.py). Mostly recoloured existing icons."""
+    T = lambda src, dst, mul: tinted(f"assets/ui/items/{src}.png", f"assets/ui/items/{dst}.png", mul)
+    pale = ((0.9, 0.3), (0.85, 0.3), (0.75, 0.3))
+    T("ashwood_branch", "rat_whisker", pale)
+    T("glimmering_pearl", "ink_heart", ((0.15, 0.2), (0.12, 0.2), (0.35, 0.4)))
+    T("glowcap", "host_ember", ((1.4, 0.3), (0.55, 0.2), (0.15, 0.1)))
+    T("glimmering_pearl", "name_eater_tooth", ((1.0, 0.25), (0.95, 0.2), (0.8, 0.15)))
+    T("bladderwrack", "dreaming_ink", ((0.55, 0.3), (0.25, 0.2), (0.85, 0.4)))
+    T("wolfsbane", "bonnet_thread", ((1.1, 0.3), (0.8, 0.25), (0.9, 0.3)))
+    T("steel_dagger", "whiskerblade", ((0.9, 0.3), (0.75, 0.3), (0.7, 0.3)))
+    T("iron_longsword", "hostbrand", ((1.2, 0.3), (0.6, 0.2), (0.35, 0.15)))
+    T("seal_quill", "ink_heart_quill", ((0.3, 0.3), (0.3, 0.3), (0.7, 0.4)))
+    T("tide_charm", "fang_unwritten", ((0.95, 0.3), (0.9, 0.25), (0.75, 0.2)))
+    T("health_potion", "ember_draught", ((1.3, 0.3), (0.6, 0.2), (0.2, 0.1)))
+    T("mana_potion", "lullaby_tonic", ((0.85, 0.3), (0.7, 0.25), (1.1, 0.35)))
+    T("oil_ink", "oil_forgetting", ((0.6, 0.3), (0.3, 0.2), (0.9, 0.4)))
+    T("grilled_cod", "dreaming_calamari", ((0.7, 0.3), (0.45, 0.2), (0.85, 0.35)))
+    T("eel_pie", "fish_pie", ((1.05, 0.4), (0.85, 0.35), (0.55, 0.3)))
+    img, d = icon_canvas()
+    d.polygon([(16, 6), (9, 22), (23, 22)], fill=(200, 205, 215, 255))         # silver bell
+    d.ellipse([7, 19, 25, 25], fill=(170, 175, 190, 255))
+    d.line([(14, 9), (11, 20)], fill=(240, 242, 250, 255))
+    d.ellipse([14, 23, 18, 27], fill=(120, 120, 135, 255))                     # clapper
+    d.rectangle([15, 3, 17, 6], fill=(150, 150, 165, 255))                     # loop
+    save_icon(img, "warden_bell")
+    img, d = icon_canvas()
+    for ox, col in ((0, (200, 120, 150, 255)), (9, (180, 100, 135, 255))):    # two knitted mittens
+        d.rounded_rectangle([5 + ox, 10, 15 + ox, 26], 4, fill=col)
+        d.ellipse([2 + ox, 13, 7 + ox, 19], fill=col)                         # thumb
+        d.rectangle([5 + ox, 23, 15 + ox, 26], fill=(240, 230, 220, 255))     # cuff
+        for yy in (14, 18): d.line([(7 + ox, yy), (13 + ox, yy)], fill=(240, 200, 215, 255))
+    save_icon(img, "granny_mittens")
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -1059,6 +1094,7 @@ BUILDERS = {
     "cooking_models": cooking_models,
     "wagon_models": wagon_models,
     "gang_icons": gang_icons,
+    "boss_crafting_icons": boss_crafting_icons,
 }
 
 

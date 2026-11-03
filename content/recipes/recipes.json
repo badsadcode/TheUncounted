@@ -438,6 +438,232 @@
       ],
       "skill": "restoration",
       "skill_level": 0
+    },
+    {
+      "id": "core:recipe.whiskerblade",
+      "station": "workbench",
+      "result": "core:item.whiskerblade",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.rat_whisker",
+          "qty": 1
+        },
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 3
+        },
+        {
+          "item": "core:item.ashwood_branch",
+          "qty": 1
+        }
+      ],
+      "skill": "daggers",
+      "skill_level": 8,
+      "book": "core:item.book_monster_bits"
+    },
+    {
+      "id": "core:recipe.hostbrand",
+      "station": "workbench",
+      "result": "core:item.hostbrand",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.host_ember",
+          "qty": 1
+        },
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 4
+        },
+        {
+          "item": "core:item.ashwood_branch",
+          "qty": 1
+        }
+      ],
+      "skill": "swords",
+      "skill_level": 10,
+      "book": "core:item.book_monster_bits"
+    },
+    {
+      "id": "core:recipe.ink_heart_quill",
+      "station": "workbench",
+      "result": "core:item.ink_heart_quill",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.ink_heart",
+          "qty": 1
+        },
+        {
+          "item": "core:item.ashwood_branch",
+          "qty": 1
+        },
+        {
+          "item": "core:item.glowcap",
+          "qty": 2
+        }
+      ],
+      "skill": "lore",
+      "skill_level": 10,
+      "book": "core:item.book_monster_bits"
+    },
+    {
+      "id": "core:recipe.fang_unwritten",
+      "station": "workbench",
+      "result": "core:item.fang_unwritten",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.name_eater_tooth",
+          "qty": 1
+        },
+        {
+          "item": "core:item.glimmering_pearl",
+          "qty": 1
+        },
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 1
+        }
+      ],
+      "skill": "lore",
+      "skill_level": 12,
+      "book": "core:item.book_monster_bits"
+    },
+    {
+      "id": "core:recipe.granny_mittens",
+      "station": "workbench",
+      "result": "core:item.granny_mittens",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.bonnet_thread",
+          "qty": 1
+        },
+        {
+          "item": "core:item.wolfsbane",
+          "qty": 2
+        },
+        {
+          "item": "core:item.pine_resin",
+          "qty": 1
+        }
+      ],
+      "skill": "block",
+      "skill_level": 6,
+      "book": "core:item.book_monster_bits"
+    },
+    {
+      "id": "core:recipe.ember_draught",
+      "station": "alchemy",
+      "result": "core:item.ember_draught",
+      "qty": 2,
+      "ingredients": [
+        {
+          "item": "core:item.host_ember",
+          "qty": 1
+        },
+        {
+          "item": "core:item.marigold",
+          "qty": 2
+        },
+        {
+          "item": "core:item.pine_resin",
+          "qty": 1
+        }
+      ],
+      "skill": "elemental",
+      "skill_level": 8,
+      "book": "core:item.book_forbidden_footnotes"
+    },
+    {
+      "id": "core:recipe.lullaby_tonic",
+      "station": "alchemy",
+      "result": "core:item.lullaby_tonic",
+      "qty": 2,
+      "ingredients": [
+        {
+          "item": "core:item.warden_bell",
+          "qty": 1
+        },
+        {
+          "item": "core:item.grave_moss",
+          "qty": 1
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 8,
+      "book": "core:item.book_forbidden_footnotes"
+    },
+    {
+      "id": "core:recipe.oil_forgetting",
+      "station": "alchemy",
+      "result": "core:item.oil_forgetting",
+      "qty": 2,
+      "ingredients": [
+        {
+          "item": "core:item.dreaming_ink",
+          "qty": 1
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "illusion",
+      "skill_level": 8,
+      "book": "core:item.book_forbidden_footnotes"
+    },
+    {
+      "id": "core:recipe.dreaming_calamari",
+      "station": "cooking",
+      "result": "core:item.dreaming_calamari",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.dreaming_ink",
+          "qty": 1
+        },
+        {
+          "item": "core:item.fish_cod",
+          "qty": 1
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0,
+      "book": "core:item.book_brine_card"
+    },
+    {
+      "id": "core:recipe.fish_pie",
+      "station": "cooking",
+      "result": "core:item.fish_pie",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.fish_perch",
+          "qty": 2
+        },
+        {
+          "item": "core:item.bread_loaf",
+          "qty": 1
+        },
+        {
+          "item": "core:item.wayside_sage",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0,
+      "book": "core:item.book_brine_card"
     }
   ]
 }

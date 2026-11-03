@@ -895,6 +895,11 @@ void GameEngine::DrawInventory() {
         else if (e.type == "consumable_mana") stat("Restores " + std::to_string(e.amount) + " mana");
         else if (e.type == "consumable_stamina") stat("Restores " + std::to_string(e.amount) + " stamina");
         else if (e.type == "learn_spell") { if (const SpellDef* s = content_.GetSpell(e.spell_id)) stat("Teaches: " + content_.Tr(s->name_key)); }
+        else if (e.type == "learn_recipe") {
+            for (const auto& r : content_.recipes)
+                if (r.id == e.recipe_id)
+                    if (const ItemDef* res = content_.GetItem(r.result)) stat("Recipe: " + content_.Tr(res->name_key) + (player_.flags.count("recipe:" + r.id) ? " (known)" : ""));
+        }
         else if (e.type == "consumable_sanity") stat("Restores " + std::to_string(e.amount) + " sanity");
         else if (e.type == "weapon_oil") {
             static const std::map<std::string, std::string> nm = {{"burn", "burn"}, {"chill", "chill"}, {"shock", "shock"}, {"ink", "blind"}, {"bleed", "bleed"}};
@@ -1550,27 +1555,50 @@ void GameEngine::DrawCrafting() {
     Text(craft_station_ == "alchemy" ? "Potions, tonics and weapon oils. Gather herbs out in the world." :
          craft_station_ == "cooking" ? "Meals from your catch. Each one heals and gives a buff for a few minutes." : "Arrows, lockpicks and tools.",
          P.x + 260, P.y + 24, 14, kDim);
+    // Known recipes first; ones from unread recipe books show greyed out at the end, as a hint of what's out there.
     std::vector<const RecipeDef*> list;
-    for (const auto& r : content_.recipes) if (r.station == craft_station_) list.push_back(&r);
+    for (const auto& r : content_.recipes) if (r.station == craft_station_ && RecipeKnown(r)) list.push_back(&r);
+    for (const auto& r : content_.recipes) if (r.station == craft_station_ && !RecipeKnown(r)) list.push_back(&r);
     if (craft_selected_.empty() && !list.empty()) craft_selected_ = list[0]->id;
-    float y = P.y + 64;
+    const float listTop = P.y + 64, listH = P.height - 64 - 84, rowH = 41.0f;
+    float contentH = list.size() * rowH;
+    Rectangle listArea = {(P.x + 20) * u, listTop * u, 440 * u, listH * u};
+    if (CheckCollisionPointRec(GetMousePosition(), listArea)) craft_scroll_ -= GetMouseWheelMove() * rowH * 2.0f;
+    craft_scroll_ = Clamp(craft_scroll_, 0.0f, std::max(0.0f, contentH - listH));
+    BeginScissorMode(static_cast<int>(listArea.x), static_cast<int>(listArea.y), static_cast<int>(listArea.width), static_cast<int>(listArea.height));
+    float y = listTop - craft_scroll_;
     for (const RecipeDef* r : list) {
         const ItemDef* d = content_.GetItem(r->result);
         if (!d) continue;
+        if (y + rowH < listTop || y > listTop + listH) { y += rowH; continue; }
         Rectangle row = {P.x + 20, y, 440, 38};
         Rectangle s = {row.x * u, row.y * u, row.width * u, row.height * u};
-        bool hover = CheckCollisionPointRec(GetMousePosition(), s);
+        bool hover = CheckCollisionPointRec(GetMousePosition(), s) && CheckCollisionPointRec(GetMousePosition(), listArea);
         bool sel = craft_selected_ == r->id;
+        bool known = RecipeKnown(*r);
         DrawRectangleRec(s, sel ? Color{60, 48, 32, 230} : hover ? Color{40, 36, 30, 220} : Color{20, 20, 24, 160});
         Icon(d->icon, {row.x + 4, row.y + 3, 32, 32});
+        if (!known) DrawRectangleRec({(row.x + 4) * u, (row.y + 3) * u, 32 * u, 32 * u}, Color{10, 10, 14, 170});
         bool can = CanCraft(*r);
-        Text(content_.Tr(d->name_key) + (r->qty > 1 ? "  x" + std::to_string(r->qty) : ""), row.x + 44, row.y + 9, 17, can ? kText : kDim);
+        Text(known ? content_.Tr(d->name_key) + (r->qty > 1 ? "  x" + std::to_string(r->qty) : "") : "Unknown recipe", row.x + 44, row.y + 9, 17,
+             can ? kText : kDim);
         if (can) Text("ready", row.x + row.width - 54, row.y + 11, 14, Color{150, 230, 140, 255});
+        else if (!known) Text("book", row.x + row.width - 50, row.y + 11, 14, Color{200, 170, 120, 255});
         if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) craft_selected_ = r->id;
-        y += 41;
+        y += rowH;
     }
+    EndScissorMode();
+    if (contentH > listH) Text("scroll for more", P.x + 20, listTop + listH + 4, 13, kDim);
     const RecipeDef* cur = nullptr;
     for (const RecipeDef* r : list) if (r->id == craft_selected_) cur = r;
+    if (cur && !RecipeKnown(*cur)) {
+        const ItemDef* b = content_.GetItem(cur->book);
+        float x = P.x + 490, dy = P.y + 64;
+        Text("Unknown recipe", x, dy + 6, 22, kGold);
+        TextWrapped("Somewhere out there is a recipe book that teaches this: " + (b ? content_.Tr(b->name_key) : cur->book) +
+                    ". Read it to learn the recipe.", {x, dy + 40, 520, 80}, 15, kText);
+        cur = nullptr;
+    }
     if (cur) {
         const ItemDef* d = content_.GetItem(cur->result);
         float x = P.x + 490, dy = P.y + 64;
