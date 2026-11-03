@@ -771,6 +771,35 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.overdue",
+      "title_key": "quest.overdue.title",
+      "summary_key": "quest.overdue.summary",
+      "campaign": "tales_of_bellwether",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.overdue.stage0",
+          "journal_key": "quest.overdue.journal0",
+          "markers": [
+            "npc_ashgrave",
+            "npc_pickering",
+            "npc_odette",
+            "npc_odette_stage",
+            "npc_brine",
+            "npc_aldous",
+            "npc_oakhaven",
+            "npc_fenwick"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.overdue.stage100",
+          "journal_key": "quest.overdue.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

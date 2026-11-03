@@ -961,6 +961,118 @@ int GameEngine::RunSelfTest() {
         check(talk("core:npc.silas_gale", {"r_after", "root"}), "Silas has hooks on his lines now");
     }
 
+    // --- Status effects, combos and the new spell types (on test dummies in the square)
+    {
+        auto savedSpells = player_.known_spells;
+        auto savedFlags = player_.flags;
+        const CreatureDef* wolf = content_.GetCreature("core:enemy.grey_wolf");
+        auto dummy = [&](const char* id, Vector3 pos) {
+            CreatureInstance c;
+            c.instance_id = id;
+            c.def = wolf;
+            c.pos = c.spawn = c.patrol_a = c.patrol_b = pos;
+            c.health = c.max_health = 400;
+            c.radius = 0.4f;
+            c.height = 1.2f;
+            c.state = CreatureState::Idle;
+            c.state_timer = 999.0f;
+            scene_.creatures.push_back(c);
+            return static_cast<int>(scene_.creatures.size()) - 1;
+        };
+        auto at = [&](int i) -> CreatureInstance& { return scene_.creatures[i]; };
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        player_.pos = {0.0f, 0.0f, 4.0f};
+        player_.yaw = PI;  // facing -z
+        player_.pitch = 0.0f;
+        int a = dummy("test_a", {0.0f, 0.0f, 0.0f});
+        int b = dummy("test_b", {1.5f, 0.0f, -2.0f});
+        int c3 = dummy("test_c", {-1.5f, 0.0f, -3.5f});
+
+        ApplyStatus(at(a), "burn", 10.0f, 3.0f);
+        int hp0 = at(a).health;
+        for (int i = 0; i < 60; i++) UpdateCreatureStatus(at(a), 1.0f / 60.0f);
+        check(at(a).burn_time > 0.0f && hp0 - at(a).health >= 8 && hp0 - at(a).health <= 12, "burning deals damage over time (" + std::to_string(hp0 - at(a).health) + " in 1s)");
+        for (int i = 0; i < 3; i++) ApplyStatus(at(b), "chill", 0.0f, 3.0f);
+        check(at(b).frozen_time > 0.0f, "three chills freeze a foe solid");
+        int hpB = at(b).health;
+        ApplyStatus(at(b), "burn", 5.0f, 3.0f);
+        check(at(b).frozen_time <= 0.0f && hpB - at(b).health >= 40 && at(b).burn_time <= 0.0f, "fire on a frozen foe SHATTERS (" + std::to_string(hpB - at(b).health) + ")");
+        int hpA = at(a).health, hpC = at(c3).health;
+        at(c3).pos = {0.8f, 0.0f, 0.5f};
+        ApplyStatus(at(a), "shock", 0.0f, 3.0f);
+        check(at(a).burn_time <= 0.0f && hpA - at(a).health > 20 && hpC > at(c3).health, "lightning on a burning foe OVERLOADS, hurting neighbours too");
+        at(c3).pos = {-1.5f, 0.0f, -3.5f};
+        ApplyStatus(at(a), "shock", 0.0f, 3.0f);
+        int before = at(a).health;
+        DamageCreature(at(a), 40, false, "swords", false);
+        int shockedHit = before - at(a).health;
+        check(shockedHit == std::max(1, 50 - static_cast<int>(std::round(wolf->armor * 0.6f))), "shocked foes take 25% more damage (" + std::to_string(shockedHit) + ")");
+        ApplyStatus(at(c3), "ink", 0.0f, 4.0f);
+        check(at(c3).ink_time > 0.0f, "ink blinds a foe");
+
+        for (int i : {a, b, c3}) { at(i).health = 400; at(i).burn_time = at(i).chill_time = at(i).frozen_time = at(i).shock_time = at(i).ink_time = 0.0f; at(i).chill_stacks = 0; }
+        player_.mana = 999.0f;
+        auto cast = [&](const char* sid) {
+            player_.known_spells = {sid};
+            player_.selected_spell = 0;
+            spell_cooldown_ = 0.0f;
+            CastSelectedSpell();
+        };
+        cast("core:spell.chain_of_command");
+        int jumped = 0;
+        for (int i : {a, b, c3}) jumped += at(i).health < 400 ? 1 : 0;
+        check(jumped == 3 && at(a).shock_time > 0.0f, "Chain of Command jumps between all three foes (" + std::to_string(jumped) + ")");
+        for (int i : {a, b, c3}) at(i).health = 400;
+        player_.pos = {0.0f, 0.0f, -1.5f};
+        cast("core:spell.cold_shoulder");
+        int novaHit = 0;
+        for (int i : {a, b, c3}) novaHit += (at(i).health < 400 && at(i).chill_time > 0.0f) ? 1 : 0;
+        check(novaHit == 3, "Cold Shoulder chills everything around you");
+        player_.pos = {0.0f, 0.0f, 8.0f};
+        float z0 = player_.pos.z;
+        cast("core:spell.clerical_error");
+        check(z0 - player_.pos.z > 5.0f, "Clerical Error blinks you six metres forward (" + std::to_string(z0 - player_.pos.z) + ")");
+        const ItemDef* dag = content_.GetItem("core:item.cinderglass_dagger");
+        check(dag && dag->weapon.on_hit_status == "burn" && dag->weapon.status_chance > 0.0f, "the Cinderglass Dagger sets things alight");
+
+        scene_.creatures.erase(scene_.creatures.begin() + a, scene_.creatures.end());
+        player_.known_spells = savedSpells;
+        player_.flags = savedFlags;
+    }
+
+    // --- Overdue: The Restricted Section
+    {
+        const std::string oq = "core:quest.overdue";
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            return ok;
+        };
+        check(talk("core:npc.librarian_fenwick", {"od_start", "od_who", "root"}) && QuestStage(oq) == 0, "Fenwick unlocks the black ledger");
+        bool got = talk("core:npc.vampire_ashgrave", {"od_ash", "od_ash_true", "root"}) && talk("core:npc.professor_pickering", {"od_pick", "root"}) &&
+                   talk("core:npc.odette", {"od_odette", "root"}) && talk("core:npc.mother_brine", {"od_brine", "root"}) &&
+                   talk("core:npc.brother_aldous", {"od_aldous", "root"}) && talk("core:npc.clerk_oakhaven", {"od_oak", "greeting"});
+        int books = 0;
+        for (const char* g : {"cold", "chain", "ovation", "slow", "redacted", "clerical"}) books += CountItem(std::string("core:item.grimoire_") + g);
+        check(got && books == 6, "six borrowers, six grimoires (one under a pot of chowder)");
+        size_t spells = player_.known_spells.size();
+        check(talk("core:npc.librarian_fenwick", {"od_return", "od_r0", "od_return", "od_r1", "od_return", "od_r2", "od_return", "od_r3", "od_return", "od_r4",
+                                                  "od_return", "od_r5", "od_return", "od_done", "root"}) &&
+                  QuestStage(oq) == 100 && CountItem("core:item.library_card") == 1 && player_.known_spells.size() == spells + 6,
+              "every book returned; six spells copied; library card number 0000001");
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

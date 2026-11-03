@@ -501,6 +501,14 @@ void ContentRegistry::LoadSpellsFile(const std::string& rootDir, const std::stri
             d.effect.visibility_multiplier = ef.value("visibility_multiplier", 0.5f);
             d.effect.splash_radius = ef.value("splash_radius", 0.0f);
             d.effect.drain_fraction = ef.value("drain_fraction", 0.0f);
+            d.effect.status = ef.value("status", "");
+            d.effect.status_power = ef.value("status_power", 0.0f);
+            d.effect.status_duration = ef.value("status_duration", 0.0f);
+            d.effect.status_chance = ef.value("status_chance", 1.0f);
+            d.effect.chain_count = ef.value("chain_count", 0);
+            d.effect.chain_range = ef.value("chain_range", 14.0f);
+            d.effect.radius = ef.value("radius", 0.0f);
+            d.effect.blink_distance = ef.value("blink_distance", 0.0f);
             if (ef.contains("light_color") && ef["light_color"].is_array() && ef["light_color"].size() == 3) {
                 d.effect.light_color = {
                     ef["light_color"][0].get<float>(),
@@ -570,6 +578,10 @@ void ContentRegistry::LoadItemsFile(const std::string& rootDir, const std::strin
             d.weapon.mana_on_hit = w.value("mana_on_hit", 0.0f);
             d.weapon.bane_family = w.value("bane_family", "");
             d.weapon.bane_mult = w.value("bane_mult", 1.0f);
+            d.weapon.on_hit_status = w.value("on_hit_status", "");
+            d.weapon.status_chance = w.value("status_chance", 0.0f);
+            d.weapon.status_power = w.value("status_power", 0.0f);
+            d.weapon.status_duration = w.value("status_duration", 0.0f);
         }
         if (el.contains("effects") && el["effects"].is_array()) {
             for (const auto& ef : el["effects"]) {
@@ -803,6 +815,7 @@ static DialogueAction ParseAction(const json& a) {
     da.flag = a.value("flag", "");
     da.bool_value = a.value("value", true);
     da.spawn = a.value("spawn", "");
+    da.spell_id = a.value("spell_id", "");
     if (a.contains("pages")) {
         for (const auto& pj : a["pages"]) {
             if (pj.is_string()) da.pages.push_back({pj.get<std::string>(), ""});

@@ -47,6 +47,12 @@ struct CreatureInstance {
     float height = 1.6f;
     float last_damaged_time = -100.0f;
     double last_stagger_time = -100.0; // poise: brief immunity after being staggered
+    // Status effects
+    float burn_time = 0.0f, burn_dps = 0.0f, burn_tick = 0.0f;
+    float chill_time = 0.0f, frozen_time = 0.0f;
+    int chill_stacks = 0;
+    float shock_time = 0.0f;
+    float ink_time = 0.0f;
 };
 
 struct NpcInstance {
@@ -102,6 +108,8 @@ struct Projectile {
     float splash_radius = 0.0f;
     float drain = 0.0f;
     int sanity = 0;          // enemy projectiles: sanity lost on hit
+    std::string status;      // status applied on hit (burn, chill, shock, ink)
+    float status_power = 0.0f, status_duration = 0.0f, status_chance = 0.0f;
 };
 
 struct WorldPickup {

@@ -336,6 +336,26 @@
               ]
             },
             {
+              "text_key": "dlg.overdue.oak.t",
+              "next": "od_oak",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "got_grimoire_clerical"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -3023,6 +3043,28 @@
               "next": "greeting"
             }
           ]
+        },
+        "od_oak": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.overdue.oak.od_oak",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_clerical",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_clerical",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.oak.od_oak.c0",
+              "next": "greeting"
+            }
+          ]
         }
       }
     },
@@ -3969,6 +4011,49 @@
               ]
             },
             {
+              "text_key": "dlg.overdue.t.start",
+              "next": "od_start",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.t.return",
+              "next": "od_return",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.t.who",
+              "next": "od_who",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -4134,6 +4219,343 @@
               "next": "root"
             }
           ]
+        },
+        "od_start": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_start",
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_start.c0",
+              "next": "od_who",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "overdue_started",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "od_who": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_who",
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_who.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "od_return": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_return",
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c0",
+              "next": "od_r0",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.grimoire_cold"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c1",
+              "next": "od_r1",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.grimoire_chain"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c2",
+              "next": "od_r2",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.grimoire_ovation"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c3",
+              "next": "od_r3",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.grimoire_slow"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c4",
+              "next": "od_r4",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.grimoire_redacted"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c5",
+              "next": "od_r5",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.grimoire_clerical"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c6",
+              "next": "od_done",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "ret_grimoire_cold",
+                    "ret_grimoire_chain",
+                    "ret_grimoire_ovation",
+                    "ret_grimoire_slow",
+                    "ret_grimoire_redacted",
+                    "ret_grimoire_clerical"
+                  ],
+                  "value": 6
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.fenwick.od_return.c7",
+              "next": "root"
+            }
+          ]
+        },
+        "od_r0": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_r0",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.grimoire_cold",
+              "qty": 1
+            },
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.cold_shoulder"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ret_grimoire_cold",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_r0.c0",
+              "next": "od_return"
+            }
+          ]
+        },
+        "od_r1": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_r1",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.grimoire_chain",
+              "qty": 1
+            },
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.chain_of_command"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ret_grimoire_chain",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_r1.c0",
+              "next": "od_return"
+            }
+          ]
+        },
+        "od_r2": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_r2",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.grimoire_ovation",
+              "qty": 1
+            },
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.standing_ovation"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ret_grimoire_ovation",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_r2.c0",
+              "next": "od_return"
+            }
+          ]
+        },
+        "od_r3": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_r3",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.grimoire_slow",
+              "qty": 1
+            },
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.slow_burn"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ret_grimoire_slow",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_r3.c0",
+              "next": "od_return"
+            }
+          ]
+        },
+        "od_r4": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_r4",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.grimoire_redacted",
+              "qty": 1
+            },
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.redacted"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ret_grimoire_redacted",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_r4.c0",
+              "next": "od_return"
+            }
+          ]
+        },
+        "od_r5": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_r5",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.grimoire_clerical",
+              "qty": 1
+            },
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.clerical_error"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ret_grimoire_clerical",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 25
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_r5.c0",
+              "next": "od_return"
+            }
+          ]
+        },
+        "od_done": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.overdue.fenwick.od_done",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.overdue",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.library_card",
+              "qty": 1
+            },
+            {
+              "type": "give_gold",
+              "amount": 150
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 80
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.fenwick.od_done.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -4186,6 +4608,26 @@
                 }
               ],
               "next": "invite_dinner"
+            },
+            {
+              "text_key": "dlg.overdue.aldous.t",
+              "next": "od_aldous",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "got_grimoire_redacted"
+                }
+              ]
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -4253,6 +4695,28 @@
           "choices": [
             {
               "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "od_aldous": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.overdue.aldous.od_aldous",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_redacted",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_redacted",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.aldous.od_aldous.c0",
               "next": "root"
             }
           ]
@@ -6827,6 +7291,26 @@
               ]
             },
             {
+              "text_key": "dlg.overdue.ash.t",
+              "next": "od_ash",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "got_grimoire_cold"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -7014,6 +7498,96 @@
           "choices": [
             {
               "text_key": "dlg.trout.ash.trout.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "od_ash": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.overdue.ash.od_ash",
+          "choices": [
+            {
+              "text_key": "dlg.overdue.ash.od_ash.c0",
+              "next": "od_ash_lie",
+              "roll": {
+                "skill": "persuasion",
+                "dc": 12,
+                "fail_next": "od_ash_caught"
+              }
+            },
+            {
+              "text_key": "dlg.overdue.ash.od_ash.c1",
+              "next": "od_ash_true"
+            }
+          ]
+        },
+        "od_ash_lie": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.overdue.ash.od_ash_lie",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_cold",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_cold",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.ash.od_ash_lie.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "od_ash_caught": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.overdue.ash.od_ash_caught",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_cold",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_cold",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.ash.od_ash_caught.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "od_ash_true": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.overdue.ash.od_ash_true",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_cold",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_cold",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.ash.od_ash_true.c0",
               "next": "root"
             }
           ]
@@ -7657,6 +8231,26 @@
                   "type": "quest_stage_at_least",
                   "quest_id": "core:quest.players_opening",
                   "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.odette.t",
+              "next": "od_odette",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "got_grimoire_ovation"
                 }
               ]
             },
@@ -9543,6 +10137,28 @@
               "next": "END"
             }
           ]
+        },
+        "od_odette": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.overdue.odette.od_odette",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_ovation",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_ovation",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.odette.od_odette.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -10100,6 +10716,26 @@
               ]
             },
             {
+              "text_key": "dlg.overdue.brine.t",
+              "next": "od_brine",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "got_grimoire_slow"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.brine.root.c4",
               "next": "END"
             }
@@ -10143,6 +10779,28 @@
           "choices": [
             {
               "text_key": "dlg.brine.rest.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "od_brine": {
+          "speaker_key": "npc.mother_brine.name",
+          "text_key": "dlg.overdue.brine.od_brine",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_slow",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_slow",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.brine.od_brine.c0",
               "next": "root"
             }
           ]
@@ -10210,6 +10868,26 @@
                 {
                   "type": "flag_not_set",
                   "flag": "pickering_named"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.overdue.pick.t",
+              "next": "od_pick",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.overdue",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "got_grimoire_chain"
                 }
               ]
             },
@@ -10310,6 +10988,28 @@
           "choices": [
             {
               "text_key": "dlg.pickering.named.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "od_pick": {
+          "speaker_key": "npc.professor_pickering.name",
+          "text_key": "dlg.overdue.pick.od_pick",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.grimoire_chain",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "got_grimoire_chain",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.overdue.pick.od_pick.c0",
               "next": "root"
             }
           ]

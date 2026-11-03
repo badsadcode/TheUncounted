@@ -429,8 +429,16 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
     for (const auto& sd : sprites) {
         if (sd.kind == 0) {
             const auto& c = scene.creatures[sd.index];
-            Color tint = c.hit_flash > 0 ? Color{255, 110, 110, 255} : WHITE;
-            float t = (c.state == CreatureState::Recover) ? c.anim_time : c.anim_time;
+            Color tint = WHITE;
+            float fl = 0.5f + 0.5f * sinf(view.time * 14.0f + sd.index);
+            // Status tints are pushed past white (the sprite shader multiplies), so they read even in the dark.
+            if (c.frozen_time > 0.0f) tint = Color{110, 175, 255, 255};
+            else if (c.chill_time > 0.0f) tint = Color{165, 210, 255, 255};
+            else if (c.burn_time > 0.0f) tint = Color{255, static_cast<unsigned char>(120 + 50 * fl), static_cast<unsigned char>(60 + 30 * fl), 255};
+            else if (c.shock_time > 0.0f) tint = fl > 0.6f ? Color{255, 255, 140, 255} : Color{230, 230, 200, 255};
+            if (c.ink_time > 0.0f) tint = Color{static_cast<unsigned char>(tint.r * 0.35f), static_cast<unsigned char>(tint.g * 0.35f), static_cast<unsigned char>(tint.b * 0.42f), 255};
+            if (c.hit_flash > 0) tint = Color{255, 110, 110, 255};
+            float t = c.frozen_time > 0.0f ? 0.0f : c.anim_time;
             if (emissive != 0.0f) { rlDrawRenderBatchActive(); emissive = 0.0f; SetEmissive(sprite_shader_, sl_, 0.0f); }
             DrawSprite8(c.def->appearance.sprite_sheet, c.def->appearance.animation_data, AnimStateFor(c), t, c.pos, c.yaw,
                         c.def->appearance.scale, view.camera, tint);

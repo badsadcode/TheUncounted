@@ -44,6 +44,10 @@ static std::string BonusLabel(const std::string& key, float v) {
     else if (key == "dice_bonus") snprintf(b, sizeof(b), "+%.0f to dice rolls", v);
     else if (key == "health_regen") snprintf(b, sizeof(b), "+%.1f health per second", v);
     else if (key == "stamina_regen") snprintf(b, sizeof(b), "+%.1f stamina per second", v);
+    else if (key == "status_duration_bonus") snprintf(b, sizeof(b), "+%.0f%% status effect duration", v * 100);
+    else if (key == "status_chance_bonus") snprintf(b, sizeof(b), "+%.0f%% chance to apply status effects", v * 100);
+    else if (key == "burn_damage_bonus") snprintf(b, sizeof(b), "+%.0f%% burning damage", v * 100);
+    else if (key == "combo_damage_bonus") snprintf(b, sizeof(b), "+%.0f%% Shatter and Overload damage", v * 100);
     else snprintf(b, sizeof(b), "%s %+.2f", key.c_str(), v);
     return b;
 }
@@ -852,6 +856,13 @@ void GameEngine::DrawInventory() {
         if (!wp.bane_family.empty()) statC("Bane: x" + Fmt1(wp.bane_mult) + " vs " + wp.bane_family, kGold);
         if (wp.life_steal > 0.0f) statC("Life steal " + Pct(wp.life_steal), kGold);
         if (wp.mana_on_hit > 0.0f) statC("+" + Fmt1(wp.mana_on_hit) + " mana per hit", kGold);
+        if (!wp.on_hit_status.empty()) {
+            static const std::map<std::string, std::string> nm = {{"burn", "Burns"}, {"chill", "Chills"}, {"shock", "Shocks"}, {"ink", "Blinds"}};
+            std::string st = (nm.count(wp.on_hit_status) ? nm.at(wp.on_hit_status) : wp.on_hit_status) + " on hit: " + Pct(wp.status_chance) +
+                             " chance, " + Fmt1(wp.status_duration) + "s";
+            if (wp.on_hit_status == "burn") st += ", " + Fmt1(wp.status_power) + " dmg/s";
+            statC(st, Color{255, 190, 120, 255});
+        }
     }
     if (d->armor > 0) {
         std::string a = "Armor +" + std::to_string(d->armor);
@@ -1048,10 +1059,18 @@ void GameEngine::DrawCombatSheet(Rectangle P) {
             what = Fmt1(pw) + " dmg";
             if (s->effect.splash_radius > 0) what += ", splash " + Fmt1(s->effect.splash_radius) + "m";
             if (s->effect.drain_fraction > 0) what += ", drain " + Pct(s->effect.drain_fraction);
-        } else if (pr == "self_heal") what = "heals " + Fmt1(pw);
+        } else if (pr == "chain") what = Fmt1(pw) + " dmg, jumps " + std::to_string(s->effect.chain_count) + "x";
+        else if (pr == "nova") what = Fmt1(pw) + " dmg in " + Fmt1(s->effect.radius) + "m";
+        else if (pr == "blink") what = "blink " + Fmt1(s->effect.blink_distance) + "m";
+        else if (pr == "self_heal") what = "heals " + Fmt1(pw);
         else if (pr == "buff_armor") what = "+" + Fmt1(pw) + " armor, " + Fmt1(s->effect.duration_seconds) + "s";
         else if (pr == "buff_stealth") what = Pct(1.0f - s->effect.visibility_multiplier) + " less visible";
         else what = Fmt1(s->effect.duration_seconds) + "s light";
+        if (!s->effect.status.empty()) {
+            static const std::map<std::string, std::string> nm = {{"burn", "burns"}, {"chill", "chills"}, {"shock", "shocks"}, {"ink", "blinds"}};
+            what += ", " + (s->effect.status_chance < 1.0f ? Pct(s->effect.status_chance) + " " : std::string()) +
+                    (nm.count(s->effect.status) ? nm.at(s->effect.status) : s->effect.status);
+        }
         Text(content_.Tr(s->name_key), x, y, 15, kText);
         std::string cost = Fmt1(SpellCost(*s)) + " mp";
         Text(cost, x + 330 - TextWidth(cost, 15), y, 15, kAccent);

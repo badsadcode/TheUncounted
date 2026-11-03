@@ -250,7 +250,8 @@ bool GameEngine::Init(int argc, char** argv) {
             for (const char* id : {"core:item.letter_opener", "core:item.sabrino_hat", "core:item.baggy_umbrella"}) AddItem(id, 1, false);
             EquipItem("core:item.letter_opener");
             EquipItem("core:item.sabrino_hat");
-            for (const char* sp : {"core:spell.sabrino_fireball", "core:spell.siphon_ink", "core:spell.frost_lance"}) player_.known_spells.push_back(sp);
+            for (const char* sp : {"core:spell.sabrino_fireball", "core:spell.siphon_ink", "core:spell.frost_lance", "core:spell.chain_of_command",
+                                   "core:spell.cold_shoulder", "core:spell.clerical_error"}) player_.known_spells.push_back(sp);
             char_tab_ = 1;
             overlay_ = Overlay::Character;
         } else if (boot_shot_overlay_ == "compare") {
@@ -261,6 +262,32 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
         else if (boot_shot_overlay_ == "options") overlay_ = Overlay::Options;
+        else if (boot_shot_overlay_ == "status_demo") {
+            // Four wolves in a row in front of the camera: burning, chilled, frozen, shocked + inked.
+            const CreatureDef* wolf = content_.GetCreature("core:enemy.grey_wolf");
+            Vector3 fwd = Forward(player_.yaw), side = {-fwd.z, 0.0f, fwd.x};
+            for (int i = 0; i < 4; i++) {
+                CreatureInstance c;
+                c.instance_id = "demo_" + std::to_string(i);
+                c.def = wolf;
+                c.pos = c.spawn = c.patrol_a = c.patrol_b = Vector3Add(player_.pos, Vector3Add(Vector3Scale(fwd, 4.5f), Vector3Scale(side, (i - 1.8f) * 1.5f)));
+                c.yaw = player_.yaw + PI + 0.5f;
+                c.health = c.max_health = 999;
+                c.radius = 0.4f; c.height = 1.2f;
+                c.state = CreatureState::Idle; c.state_timer = 999.0f;
+                scene_.creatures.push_back(c);
+            }
+            size_t n = scene_.creatures.size();
+            ApplyStatus(scene_.creatures[n - 4], "burn", 1.0f, 999.0f);
+            ApplyStatus(scene_.creatures[n - 3], "chill", 0.0f, 999.0f);
+            for (int k = 0; k < 3; k++) ApplyStatus(scene_.creatures[n - 2], "chill", 0.0f, 999.0f);
+            scene_.creatures[n - 2].frozen_time = 999.0f;
+            ApplyStatus(scene_.creatures[n - 1], "shock", 0.0f, 999.0f);
+            ApplyStatus(scene_.creatures[n - 1], "ink", 0.0f, 999.0f);
+            player_.known_spells.push_back("core:spell.chain_of_command");
+            player_.known_spells.push_back("core:spell.cold_shoulder");
+            toasts_.clear();
+        }
         else if (boot_shot_overlay_ == "journal_demo") {
             // A journal mid-playthrough: several campaigns under way
             SetQuestStage("core:quest.legally_deceased", 10);
@@ -1555,6 +1582,9 @@ void GameEngine::ResolveMeleeHit() {
     if (w && !w->weapon.bane_family.empty() && w->weapon.bane_family == best->def->family) dmg *= w->weapon.bane_mult;
     player_.mana += Bonus("mana_on_melee_hit") + (w ? w->weapon.mana_on_hit : 0.0f);
     int dealt = DamageCreature(*best, static_cast<int>(std::round(dmg)), sneak, skill, attack_heavy_, crit);
+    if (w && !w->weapon.on_hit_status.empty())
+        TryStatus(*best, w->weapon.on_hit_status, w->weapon.status_chance * (attack_heavy_ ? 1.5f : 1.0f), w->weapon.status_power,
+                  w->weapon.status_duration);
     float steal = (w ? w->weapon.life_steal : 0.0f) + Bonus("life_steal");
     if (steal > 0.0f && dealt > 0) player_.health += dealt * steal;
     ClampVitals();
@@ -1586,6 +1616,10 @@ void GameEngine::FireArrow(float power) {
     p.life = 5.0f;
     p.is_arrow = true;
     p.ammo_item = ammo;
+    p.status = w->weapon.on_hit_status;
+    p.status_chance = w->weapon.status_chance;
+    p.status_power = w->weapon.status_power;
+    p.status_duration = w->weapon.status_duration;
     if (const ItemDef* a = content_.GetItem(ammo)) p.model = a->world_model;
     scene_.projectiles.push_back(p);
     res_.PlaySfx("assets/audio/sfx/bow_release.wav", 0.7f, 0.95f + RandF() * 0.1f);
@@ -1638,11 +1672,91 @@ void GameEngine::CastSelectedSpell() {
         p.drain = s->effect.drain_fraction;
         p.skill = s->skill;
         p.sprite = s->effect.projectile_sprite;
+        p.status = s->effect.status;
+        p.status_chance = s->effect.status_chance;
+        p.status_power = s->effect.status_power * SpellPowerMult(*s);
+        p.status_duration = s->effect.status_duration;
         p.light_color = s->effect.light_color;
         p.light_radius = s->effect.light_radius;
         p.life = 3.0f;
         scene_.projectiles.push_back(p);
         making_noise_ = true;
+    } else if (prim == "chain") {
+        // Lightning: the nearest foe in front (line of sight), then up to N more within 6 m of the last, 80% each jump.
+        Vector3 eye = {player_.pos.x, player_.pos.y + player_.eye_height, player_.pos.z};
+        Vector3 fwd = Forward(player_.yaw);
+        std::vector<CreatureInstance*> hitList;
+        CreatureInstance* cur = nullptr;
+        float best = 1e9f;
+        for (auto& c : scene_.creatures) {
+            if (c.state == CreatureState::Dead) continue;
+            Vector3 to = Vector3Subtract(c.pos, player_.pos);
+            to.y = 0;
+            float d = Vector3Length(to);
+            if (d > s->effect.chain_range || d < 0.01f) continue;
+            if (Vector3DotProduct(Vector3Scale(to, 1.0f / d), fwd) < cosf(40.0f * DEG2RAD)) continue;
+            if (!LineOfSight(eye, {c.pos.x, c.pos.y + c.height * 0.6f, c.pos.z})) continue;
+            if (d < best) { best = d; cur = &c; }
+        }
+        Vector3 from = Vector3Add(eye, Vector3Scale(fwd, 0.5f));
+        float dmg = power;
+        auto arc = [&](Vector3 a, Vector3 b) {
+            Vector3 dv = Vector3Subtract(b, a);
+            float len = Vector3Length(dv);
+            for (float t = 0; t < len; t += 0.35f) {
+                Vector3 p = Vector3Add(a, Vector3Scale(dv, t / len));
+                p.x += (RandF() - 0.5f) * 0.25f; p.y += (RandF() - 0.5f) * 0.25f; p.z += (RandF() - 0.5f) * 0.25f;
+                SpawnBurst(p, Color{255, 240, 150, 255}, 1, 0.4f, true, 0.0f, 0.06f);
+            }
+        };
+        if (!cur) arc(from, Vector3Add(from, Vector3Scale(fwd, 4.0f)));
+        for (int jump = 0; cur && jump <= s->effect.chain_count; jump++) {
+            Vector3 to = {cur->pos.x, cur->pos.y + cur->height * 0.6f, cur->pos.z};
+            arc(from, to);
+            hitList.push_back(cur);
+            CreatureInstance& tgt = *cur;
+            DamageCreature(tgt, static_cast<int>(std::round(dmg)), !tgt.alerted, s->skill, false);
+            TryStatus(tgt, s->effect.status, s->effect.status_chance, s->effect.status_power * SpellPowerMult(*s), s->effect.status_duration);
+            from = to;
+            dmg *= 0.8f;
+            CreatureInstance* next = nullptr;
+            float nd = 6.0f;
+            for (auto& c : scene_.creatures) {
+                if (c.state == CreatureState::Dead || std::find(hitList.begin(), hitList.end(), &c) != hitList.end()) continue;
+                float d = Vector3Distance(c.pos, tgt.pos);
+                if (d < nd && LineOfSight(from, {c.pos.x, c.pos.y + c.height * 0.6f, c.pos.z})) { nd = d; next = &c; }
+            }
+            cur = next;
+        }
+        making_noise_ = true;
+        GainSkillXp(s->skill, hitList.empty() ? 0.5f : 1.5f);
+    } else if (prim == "nova") {
+        // A ring around the caster: damage and a status to every foe within the radius.
+        float r = s->effect.radius;
+        for (int i = 0; i < 36; i++) {
+            float a = i * 2.0f * PI / 36.0f;
+            SpawnBurst({player_.pos.x + sinf(a) * r * 0.9f, player_.pos.y + 0.5f, player_.pos.z + cosf(a) * r * 0.9f},
+                       Color{static_cast<unsigned char>(cast_color_.x * 255), static_cast<unsigned char>(cast_color_.y * 255), static_cast<unsigned char>(cast_color_.z * 255), 255},
+                       2, 1.2f, true, 0.0f, 0.07f);
+        }
+        int n = 0;
+        for (auto& c : scene_.creatures) {
+            if (c.state == CreatureState::Dead || Vector3Distance(c.pos, player_.pos) > r) continue;
+            DamageCreature(c, static_cast<int>(std::round(power)), false, s->skill, s->effect.status == "shock");
+            TryStatus(c, s->effect.status, s->effect.status_chance, s->effect.status_power * SpellPowerMult(*s), s->effect.status_duration);
+            n++;
+        }
+        making_noise_ = true;
+        GainSkillXp(s->skill, n > 0 ? 1.5f : 0.5f);
+    } else if (prim == "blink") {
+        // A short hop forward through open space (never through walls).
+        Vector3 start = player_.pos;
+        SpawnBurst({start.x, start.y + 1.0f, start.z}, Color{190, 160, 255, 255}, 24, 2.0f, true, 0.5f);
+        Vector3 fwd = Forward(player_.yaw);
+        player_.pos = MoveWithCollision(player_.pos, Vector3Scale(fwd, s->effect.blink_distance), kPlayerRadius, 1.75f, true);
+        player_.pos.y = GroundHeight({player_.pos.x, player_.pos.y + 0.5f, player_.pos.z}, kStepHeight);
+        SpawnBurst({player_.pos.x, player_.pos.y + 1.0f, player_.pos.z}, Color{190, 160, 255, 255}, 24, 2.0f, true, 0.5f);
+        GainSkillXp(s->skill, 1.5f);
     } else if (prim == "self_heal") {
         player_.health += power;
         player_.stamina += s->effect.stamina_restore;
@@ -2002,12 +2116,111 @@ int GameEngine::SplashDamage(const Projectile& p, Vector3 at, const std::string&
         if (d > p.splash_radius) continue;
         float falloff = 1.0f - 0.5f * (d / p.splash_radius);
         total += DamageCreature(c, static_cast<int>(std::round(p.damage * 0.6f * falloff)), false, p.skill, false);
+        if (!p.status.empty()) TryStatus(c, p.status, p.status_chance * 0.6f, p.status_power, p.status_duration);
     }
     return total;
 }
 
+// ---------------------------------------------------------------------------- status effects
+// burn: damage over time. chill: slower; three stacks freeze solid. shock: +25% damage taken. ink: blinded.
+// Combos: fire on a chilled/frozen foe SHATTERS (big hit); lightning on a burning foe OVERLOADS (explosion).
+void GameEngine::StatusDamage(CreatureInstance& c, int amount, Color color) {
+    if (c.state == CreatureState::Dead || amount <= 0) return;
+    c.health -= amount;
+    c.last_damaged_time = time_;
+    SpawnBurst({c.pos.x, c.pos.y + c.height * 0.6f, c.pos.z}, color, 4, 1.6f, true, 1.0f);
+    if (c.health <= 0) KillCreature(c);
+}
+
+void GameEngine::TryStatus(CreatureInstance& c, const std::string& status, float chance, float power, float duration) {
+    if (status.empty() || c.state == CreatureState::Dead) return;
+    if (RandF() >= chance + Bonus("status_chance_bonus")) return;
+    ApplyStatus(c, status, power, duration);
+}
+
+void GameEngine::ApplyStatus(CreatureInstance& c, const std::string& status, float power, float duration) {
+    if (c.state == CreatureState::Dead) return;
+    bool boss = c.def->behavior.find("boss") != std::string::npos;
+    duration *= 1.0f + Bonus("status_duration_bonus");
+    if (boss) duration *= 0.6f;  // bosses shake things off faster
+    float combo = 1.0f + Bonus("combo_damage_bonus");
+    Vector3 mid = {c.pos.x, c.pos.y + c.height * 0.6f, c.pos.z};
+    if (status == "burn") {
+        if (c.chill_time > 0.0f || c.frozen_time > 0.0f) {
+            int dmg = static_cast<int>(std::round((18.0f + power * 3.0f) * (c.frozen_time > 0.0f ? 1.6f : 1.0f) * combo));
+            c.chill_time = c.frozen_time = 0.0f;
+            c.chill_stacks = 0;
+            SpawnBurst(mid, Color{200, 235, 255, 255}, 40, 5.0f, true, 3.0f, 0.07f);
+            Toast("Shatter! (" + std::to_string(dmg) + ")", Color{170, 220, 255, 255});
+            StatusDamage(c, dmg, Color{200, 235, 255, 255});
+            return;
+        }
+        c.burn_time = std::max(c.burn_time, duration);
+        c.burn_dps = std::max(c.burn_dps, power * (1.0f + Bonus("burn_damage_bonus")));
+    } else if (status == "shock") {
+        if (c.burn_time > 0.0f) {
+            float dmg = (14.0f + c.burn_dps * 3.0f) * combo;
+            c.burn_time = 0.0f;
+            SpawnBurst(mid, Color{255, 230, 120, 255}, 50, 6.0f, true, 2.0f, 0.07f);
+            Toast("Overload! (" + std::to_string(static_cast<int>(dmg)) + ")", Color{255, 230, 120, 255});
+            res_.PlaySfx("assets/audio/sfx/boss_roar.wav", 0.35f, 1.6f);
+            std::string id = c.instance_id;
+            for (auto& o : scene_.creatures) {
+                if (o.state == CreatureState::Dead) continue;
+                float d = Vector3Distance(o.pos, c.pos);
+                if (d > 3.5f) continue;
+                StatusDamage(o, static_cast<int>(std::round(dmg * (o.instance_id == id ? 1.0f : 0.6f))), Color{255, 230, 120, 255});
+            }
+            return;
+        }
+        c.shock_time = std::max(c.shock_time, duration);
+    } else if (status == "chill") {
+        c.chill_time = std::max(c.chill_time, duration);
+        if (++c.chill_stacks >= (boss ? 5 : 3) && c.frozen_time <= 0.0f) {
+            c.frozen_time = boss ? 1.0f : 2.2f;
+            c.chill_stacks = 0;
+            SpawnBurst(mid, Color{180, 220, 255, 255}, 30, 2.5f, true, 0.5f, 0.06f);
+            Toast("Frozen solid!", Color{170, 220, 255, 255});
+        }
+    } else if (status == "ink") {
+        c.ink_time = std::max(c.ink_time, duration);
+        SpawnBurst(mid, Color{30, 30, 40, 255}, 14, 2.0f, false, 2.0f, 0.06f);
+    }
+}
+
+void GameEngine::UpdateCreatureStatus(CreatureInstance& c, float dt) {
+    if (c.burn_time > 0.0f) {
+        c.burn_time -= dt;
+        c.burn_tick -= dt;
+        if (RandF() < dt * 10.0f) {
+            Particle pt;
+            pt.pos = {c.pos.x + (RandF() - 0.5f) * c.radius * 1.4f, c.pos.y + RandF() * c.height, c.pos.z + (RandF() - 0.5f) * c.radius * 1.4f};
+            pt.vel = {0.0f, 0.8f + RandF() * 0.8f, 0.0f};
+            pt.color = RandF() < 0.5f ? Color{255, 150, 40, 255} : Color{255, 210, 90, 255};
+            pt.life = pt.max_life = 0.5f + RandF() * 0.4f;
+            pt.glow = true;
+            pt.size = 0.05f;
+            pt.gravity = -0.5f;
+            scene_.particles.push_back(pt);
+        }
+        if (c.burn_tick <= 0.0f) {
+            c.burn_tick = 0.5f;
+            StatusDamage(c, std::max(1, static_cast<int>(std::round(c.burn_dps * 0.5f))), Color{255, 140, 50, 255});
+        }
+        if (c.burn_time <= 0.0f) c.burn_dps = 0.0f;
+    }
+    if (c.chill_time > 0.0f && (c.chill_time -= dt) <= 0.0f) c.chill_stacks = 0;
+    if (c.frozen_time > 0.0f) c.frozen_time -= dt;
+    if (c.shock_time > 0.0f) {
+        c.shock_time -= dt;
+        if (RandF() < dt * 6.0f) SpawnBurst({c.pos.x, c.pos.y + c.height * (0.3f + RandF() * 0.6f), c.pos.z}, Color{255, 240, 150, 255}, 2, 2.5f, true, 0.0f, 0.04f);
+    }
+    if (c.ink_time > 0.0f) c.ink_time -= dt;
+}
+
 int GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy, bool crit) {
     if (c.state == CreatureState::Dead) return 0;
+    if (c.shock_time > 0.0f) amount = static_cast<int>(std::round(amount * 1.25f));
     // Armour blunts each blow; 60% weighting keeps fast light weapons viable against armoured foes.
     int final = std::max(1, amount - static_cast<int>(std::round(c.def->armor * 0.6f)));
     c.health -= final;
@@ -2141,9 +2354,13 @@ void GameEngine::UpdateCreatures(float dt) {
         c.anim_time += dt;
         c.hit_flash = std::max(0.0f, c.hit_flash - dt);
         if (c.state == CreatureState::Dead) continue;
+        UpdateCreatureStatus(c, dt);
+        if (c.state == CreatureState::Dead) continue;
         const CreatureDef& d = *c.def;
-        c.attack_cooldown -= dt;
         c.moving = false;
+        if (c.frozen_time > 0.0f) continue;  // frozen solid: no thinking, no moving, no attacking
+        float slow = c.chill_time > 0.0f ? 0.55f : 1.0f;
+        c.attack_cooldown -= dt * (c.chill_time > 0.0f ? 0.65f : 1.0f);
 
         Vector3 eye = {c.pos.x, c.pos.y + c.height * 0.85f, c.pos.z};
         float dist = Vector3Distance(c.pos, player_.pos);
@@ -2151,12 +2368,13 @@ void GameEngine::UpdateCreatures(float dt) {
         float facingDiff = fabsf(WrapAngle(yawToPlayer - c.yaw));
         float sight = d.sight_meters * vis;
         bool inCone = c.alerted ? true : facingDiff < 70.0f * DEG2RAD;
+        if (c.ink_time > 0.0f) sight = std::min(sight, 2.5f);  // inked: can barely see past its own nose
         bool canSee = dist < sight && inCone && LineOfSight(eye, playerEye);
         bool heard = dist < d.hearing_meters * noise && LineOfSight(eye, playerEye);
         if (!canSee && dist < 1.6f) canSee = true; // bumping into someone is hard to miss
         bool boss = d.behavior.find("boss") != std::string::npos;
         bool guardian = d.behavior.find("guardian") != std::string::npos;
-        float speed = d.move_speed * (boss && c.health < c.max_health / 2 ? 1.3f : 1.0f);
+        float speed = d.move_speed * (boss && c.health < c.max_health / 2 ? 1.3f : 1.0f) * slow;
 
         auto turnTo = [&](float targetYaw, float rate) {
             float diff = WrapAngle(targetYaw - c.yaw);
@@ -2235,7 +2453,7 @@ void GameEngine::UpdateCreatures(float dt) {
             }
             case CreatureState::Windup:
                 turnTo(yawToPlayer, c.ranged_attack ? 6.0f : 3.5f);
-                c.state_timer -= dt;
+                c.state_timer -= dt * slow;
                 if (c.state_timer <= 0) {
                     if (c.ranged_attack) {
                         SpawnEnemyProjectile(c);
@@ -2243,9 +2461,11 @@ void GameEngine::UpdateCreatures(float dt) {
                     } else {
                         PlaySfxAt(d.sfx_attack, c.pos, 0.7f);
                         float facing = fabsf(WrapAngle(yawToPlayer - c.yaw));
-                        if (dist <= d.attack.reach_meters + kPlayerRadius + 0.25f && facing < 60.0f * DEG2RAD && LineOfSight(eye, playerEye))
+                        bool inkMiss = c.ink_time > 0.0f && RandF() < 0.45f;
+                        if (dist <= d.attack.reach_meters + kPlayerRadius + 0.25f && facing < 60.0f * DEG2RAD && LineOfSight(eye, playerEye) && !inkMiss) {
                             DamagePlayer(d.attack.damage, c.pos, &c);
                             if (d.attack.sanity_damage > 0) ChangeSanity(-static_cast<float>(d.attack.sanity_damage));
+                        }
                     }
                     float cd = d.attack.cooldown_seconds * (boss && c.health < c.max_health / 2 ? 0.7f : 1.0f);
                     if (c.ranged_attack) cd *= 1.7f; // bolts are the opener, not a machine gun
@@ -2321,7 +2541,9 @@ void GameEngine::UpdateProjectiles(float dt) {
                       static_cast<unsigned char>(Clamp(p.light_color.z * 255, 0.0f, 255.0f)), 255}, 16, 3.0f, true, 2.0f);
                 Vector3 impact = {hit->pos.x, hit->pos.y + hit->height * 0.5f, hit->pos.z};
                 std::string hitId = hit->instance_id;
+                CreatureInstance* hitPtr = hit;
                 int dealt = DamageCreature(*hit, static_cast<int>(std::round(dmg)), sneak, p.skill, false, crit);
+                if (!p.status.empty()) TryStatus(*hitPtr, p.status, p.status_chance, p.status_power, p.status_duration);
                 if (p.splash_radius > 0.0f) dealt += SplashDamage(p, impact, hitId);
                 float heal = dealt * (p.drain + p.life_steal);
                 if (heal > 0.0f) { player_.health += heal; ClampVitals(); }
@@ -2761,6 +2983,11 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
                 n.anim = "idle";
                 Toast(content_.Tr(n.def->name_key) + " heads back to wait for you");
             }
+        }
+    } else if (a.type == "learn_spell") {
+        if (std::find(player_.known_spells.begin(), player_.known_spells.end(), a.spell_id) == player_.known_spells.end()) {
+            player_.known_spells.push_back(a.spell_id);
+            if (const SpellDef* s = content_.GetSpell(a.spell_id)) Toast("Learned spell: " + content_.Tr(s->name_key), Color{180, 160, 255, 255});
         }
     } else if (a.type == "travel") {
         // Boats and the like: jump to a spawn in the current map. Companions catch up on their own (they're "lost").

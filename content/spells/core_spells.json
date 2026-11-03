@@ -21,7 +21,11 @@
           0.45,
           0.15
         ],
-        "light_radius": 5.5
+        "light_radius": 5.5,
+        "status": "burn",
+        "status_power": 4,
+        "status_duration": 3.0,
+        "status_chance": 0.35
       }
     },
     {
@@ -109,7 +113,10 @@
           0.8,
           1.0
         ],
-        "light_radius": 5.0
+        "light_radius": 5.0,
+        "status": "chill",
+        "status_duration": 3.5,
+        "status_chance": 1.0
       }
     },
     {
@@ -133,7 +140,10 @@
           0.5
         ],
         "light_radius": 4.5,
-        "drain_fraction": 0.6
+        "drain_fraction": 0.6,
+        "status": "ink",
+        "status_duration": 3.0,
+        "status_chance": 0.5
       }
     },
     {
@@ -157,7 +167,155 @@
           0.1
         ],
         "light_radius": 7.5,
-        "splash_radius": 3.5
+        "splash_radius": 3.5,
+        "status": "burn",
+        "status_power": 5,
+        "status_duration": 4.0,
+        "status_chance": 1.0
+      }
+    },
+    {
+      "id": "core:spell.cold_shoulder",
+      "name_key": "spell.cold_shoulder.name",
+      "description_key": "spell.cold_shoulder.desc",
+      "icon": "assets/ui/spells/cold_shoulder.png",
+      "skill": "elemental",
+      "mana_cost": 18,
+      "cooldown_seconds": 1.6,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "nova",
+        "damage_type": "frost",
+        "base_power": 10,
+        "radius": 4.5,
+        "status": "chill",
+        "status_duration": 4.0,
+        "light_color": [
+          0.55,
+          0.8,
+          1.0
+        ],
+        "light_radius": 6.0
+      }
+    },
+    {
+      "id": "core:spell.chain_of_command",
+      "name_key": "spell.chain_of_command.name",
+      "description_key": "spell.chain_of_command.desc",
+      "icon": "assets/ui/spells/chain_of_command.png",
+      "skill": "elemental",
+      "mana_cost": 16,
+      "cooldown_seconds": 1.1,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "chain",
+        "damage_type": "shock",
+        "base_power": 16,
+        "chain_count": 3,
+        "chain_range": 14.0,
+        "status": "shock",
+        "status_duration": 4.0,
+        "light_color": [
+          1.0,
+          0.95,
+          0.55
+        ],
+        "light_radius": 6.0
+      }
+    },
+    {
+      "id": "core:spell.standing_ovation",
+      "name_key": "spell.standing_ovation.name",
+      "description_key": "spell.standing_ovation.desc",
+      "icon": "assets/ui/spells/standing_ovation.png",
+      "skill": "illusion",
+      "mana_cost": 22,
+      "cooldown_seconds": 2.4,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "nova",
+        "damage_type": "shock",
+        "base_power": 14,
+        "radius": 5.0,
+        "status": "shock",
+        "status_duration": 5.0,
+        "light_color": [
+          1.0,
+          0.85,
+          0.5
+        ],
+        "light_radius": 7.0
+      }
+    },
+    {
+      "id": "core:spell.slow_burn",
+      "name_key": "spell.slow_burn.name",
+      "description_key": "spell.slow_burn.desc",
+      "icon": "assets/ui/spells/slow_burn.png",
+      "skill": "elemental",
+      "mana_cost": 12,
+      "cooldown_seconds": 0.9,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "projectile_damage",
+        "damage_type": "fire",
+        "base_power": 7,
+        "projectile_speed": 15.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ember.png",
+        "status": "burn",
+        "status_power": 9,
+        "status_duration": 6.0,
+        "light_color": [
+          1.0,
+          0.5,
+          0.15
+        ],
+        "light_radius": 5.0
+      }
+    },
+    {
+      "id": "core:spell.redacted",
+      "name_key": "spell.redacted.name",
+      "description_key": "spell.redacted.desc",
+      "icon": "assets/ui/spells/redacted.png",
+      "skill": "illusion",
+      "mana_cost": 11,
+      "cooldown_seconds": 1.0,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "projectile_damage",
+        "damage_type": "ink",
+        "base_power": 9,
+        "projectile_speed": 18.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ink.png",
+        "status": "ink",
+        "status_duration": 6.0,
+        "light_color": [
+          0.3,
+          0.3,
+          0.45
+        ],
+        "light_radius": 3.0
+      }
+    },
+    {
+      "id": "core:spell.clerical_error",
+      "name_key": "spell.clerical_error.name",
+      "description_key": "spell.clerical_error.desc",
+      "icon": "assets/ui/spells/clerical_error.png",
+      "skill": "illusion",
+      "mana_cost": 10,
+      "cooldown_seconds": 1.4,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "blink",
+        "blink_distance": 6.0,
+        "light_color": [
+          0.75,
+          0.6,
+          1.0
+        ],
+        "light_radius": 4.0
       }
     }
   ]

@@ -488,6 +488,78 @@
       "value": 0,
       "weight": 0.01,
       "book_text_key": "book.silas_shanty.text"
+    },
+    {
+      "id": "core:item.grimoire_cold",
+      "name_key": "item.grimoire_cold.name",
+      "description_key": "item.grimoire_cold.description",
+      "category": "book",
+      "icon": "assets/ui/items/grimoire_cold.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.8,
+      "book_text_key": "book.grimoire_cold.text"
+    },
+    {
+      "id": "core:item.grimoire_chain",
+      "name_key": "item.grimoire_chain.name",
+      "description_key": "item.grimoire_chain.description",
+      "category": "book",
+      "icon": "assets/ui/items/grimoire_chain.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.8,
+      "book_text_key": "book.grimoire_chain.text"
+    },
+    {
+      "id": "core:item.grimoire_ovation",
+      "name_key": "item.grimoire_ovation.name",
+      "description_key": "item.grimoire_ovation.description",
+      "category": "book",
+      "icon": "assets/ui/items/grimoire_ovation.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.8,
+      "book_text_key": "book.grimoire_ovation.text"
+    },
+    {
+      "id": "core:item.grimoire_slow",
+      "name_key": "item.grimoire_slow.name",
+      "description_key": "item.grimoire_slow.description",
+      "category": "book",
+      "icon": "assets/ui/items/grimoire_slow.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.8,
+      "book_text_key": "book.grimoire_slow.text"
+    },
+    {
+      "id": "core:item.grimoire_redacted",
+      "name_key": "item.grimoire_redacted.name",
+      "description_key": "item.grimoire_redacted.description",
+      "category": "book",
+      "icon": "assets/ui/items/grimoire_redacted.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.8,
+      "book_text_key": "book.grimoire_redacted.text"
+    },
+    {
+      "id": "core:item.grimoire_clerical",
+      "name_key": "item.grimoire_clerical.name",
+      "description_key": "item.grimoire_clerical.description",
+      "category": "book",
+      "icon": "assets/ui/items/grimoire_clerical.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.8,
+      "book_text_key": "book.grimoire_clerical.text"
     }
   ]
 }

@@ -422,3 +422,24 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   reading is random, purely for show), `ega` (16-colour PC palette at 200 lines, saturation boosted before matching),
   `ale` (tavern-ale sway, breathing zoom, drifting double vision, warm vignette).
 
+### Status effects, new spell types, "Overdue: The Restricted Section" (added 2026-11-03)
+
+- **Creature statuses** (`CreatureInstance` burn/chill/frozen/shock/ink fields; `GameEngine::ApplyStatus`, `TryStatus`,
+  `UpdateCreatureStatus`, `StatusDamage`): **burn** = damage per second (`status_power`), embers; **chill** = 55% speed,
+  slower attacks/windups, 3 stacks (5 for bosses) freeze for 2.2 s (1 s); **shock** = +25% damage taken; **ink** =
+  sight 2.5 m and 45% melee misses. Combos: fire on chilled/frozen = **Shatter**; shock on burning = **Overload**
+  (3.5 m explosion). Bosses get 60% durations. Sprites are tinted per status.
+- Sources: spell `effect.status / status_power / status_duration / status_chance`; weapon `on_hit_status /
+  status_chance / status_power / status_duration` (melee heavy hits x1.5 chance; arrows carry it). Build bonuses
+  `status_duration_bonus`, `status_chance_bonus`, `burn_damage_bonus`, `combo_damage_bonus`.
+- New spell primitives: `chain` (`chain_count`, `chain_range`; 80% per jump, 6 m hops, LOS), `nova` (`radius`), `blink`
+  (`blink_distance`, collision-safe). Dialogue action `learn_spell` (`spell_id`).
+- Existing spells now apply statuses (Ember Bolt 35% burn, Frost Lance chill, Sabrino's Fireball burn, Siphon Ink 50% ink).
+  New spells: Cold Shoulder (frost nova), Chain of Command (chain shock), Standing Ovation (shock nova, staggers), Slow
+  Burn (DoT bolt), [REDACTED] (ink bolt), Clerical Error (blink). Vaelen sells the Cinderglass Dagger (burn), Rimecaller
+  Mace (chill) and the Storm-Clerk's Stamp (+35% combo). Synergy **Thermal Paperwork** (Elemental 14 + Illusion 8).
+- **Quest `core:quest.overdue`** (tales_of_bellwether): Fenwick's black ledger; grimoires from Ashgrave (persuasion
+  option), Pickering, Odette, Mother Brine, Brother Aldous, Oakhaven (filed under Q). Returning each teaches its spell;
+  all six = Fenwick's Library Card (accessory). Authoring: `tools/authoring/grimoires.py` (already run — do not rerun).
+- `--shot … --overlay status_demo` lines up four wolves with each status.
+

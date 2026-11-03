@@ -616,6 +616,63 @@
           "amount": 1
         }
       ]
+    },
+    {
+      "id": "core:item.storm_stamp",
+      "name_key": "item.storm_stamp.name",
+      "description_key": "item.storm_stamp.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/storm_stamp.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 160,
+      "weight": 0.3,
+      "armor": 0,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "combo_damage_bonus",
+          "value": 0.35
+        },
+        {
+          "type": "bonus",
+          "stat": "status_chance_bonus",
+          "value": 0.05
+        }
+      ]
+    },
+    {
+      "id": "core:item.library_card",
+      "name_key": "item.library_card.name",
+      "description_key": "item.library_card.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/library_card.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 300,
+      "weight": 0.05,
+      "armor": 0,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "intellect",
+          "amount": 1
+        },
+        {
+          "type": "bonus",
+          "stat": "status_duration_bonus",
+          "value": 0.3
+        },
+        {
+          "type": "bonus",
+          "stat": "spell_cost_reduction",
+          "value": 0.06
+        }
+      ]
     }
   ]
 }

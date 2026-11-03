@@ -150,7 +150,7 @@ struct FactionDef {
 };
 
 struct SpellEffectDef {
-    std::string primitive; // projectile_damage, self_heal, buff_armor, buff_light, buff_stealth
+    std::string primitive; // projectile_damage, chain, nova, blink, self_heal, buff_armor, buff_light, buff_stealth
     std::string damage_type = "fire";
     int base_power = 15;
     int stamina_restore = 0;
@@ -162,6 +162,15 @@ struct SpellEffectDef {
     float visibility_multiplier = 0.5f;
     float splash_radius = 0.0f;   // projectile_damage: also hurts other creatures within this radius of impact
     float drain_fraction = 0.0f;  // projectile_damage: heals the caster for this share of damage dealt
+    // Status effect applied to creatures hit: burn, chill, shock, ink (see GameEngine::ApplyStatus)
+    std::string status;
+    float status_power = 0.0f;     // burn: damage/second; others: unused (shock bonus and chill slow are fixed)
+    float status_duration = 0.0f;
+    float status_chance = 1.0f;
+    int chain_count = 0;           // chain: extra jumps after the first target
+    float chain_range = 14.0f;     // chain: reach to the first target (jumps are 6 m)
+    float radius = 0.0f;           // nova: radius around the caster
+    float blink_distance = 0.0f;   // blink: metres moved forward
 };
 
 struct SpellDef {
@@ -194,6 +203,10 @@ struct WeaponStatsDef {
     float mana_on_hit = 0.0f;      // mana restored per hit
     std::string bane_family;       // creature family this weapon is especially good against
     float bane_mult = 1.0f;
+    std::string on_hit_status;     // burn, chill, shock, ink
+    float status_chance = 0.0f;
+    float status_power = 0.0f;
+    float status_duration = 0.0f;
 };
 
 struct ItemEffectDef {
@@ -364,6 +377,7 @@ struct DialogueAction {
     std::string skill;
     std::string flag;
     bool bool_value = true;
+    std::string spell_id;  // learn_spell: adds a spell to the player's spellbook
     std::string spawn;  // travel: move the player to this map spawn (boats, carts, shortcuts); the party catches up
     // narrate: full-screen cards; each shown only if its flag is set (empty = always)
     std::vector<std::pair<std::string, std::string>> pages;

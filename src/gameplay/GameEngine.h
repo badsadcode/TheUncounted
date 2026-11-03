@@ -355,6 +355,10 @@ private:
     std::string companion_last_zone_;
     size_t companion_idle_next_ = 0;
     int SplashDamage(const Projectile& p, Vector3 at, const std::string& skipId);
+    void ApplyStatus(CreatureInstance& c, const std::string& status, float power, float duration);
+    void TryStatus(CreatureInstance& c, const std::string& status, float chance, float power, float duration);
+    void StatusDamage(CreatureInstance& c, int amount, Color color);
+    void UpdateCreatureStatus(CreatureInstance& c, float dt);
     void FireArrow(float power);
     void CastSelectedSpell();
     int DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy, bool crit = false);

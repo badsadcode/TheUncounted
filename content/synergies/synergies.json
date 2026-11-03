@@ -91,6 +91,19 @@
         "life_steal": 0.05,
         "heal_on_block": 2
       }
+    },
+    {
+      "id": "core:synergy.storm_clerk",
+      "name_key": "synergy.storm_clerk.name",
+      "description_key": "synergy.storm_clerk.desc",
+      "requirements": {
+        "elemental": 14,
+        "illusion": 8
+      },
+      "bonuses": {
+        "status_duration_bonus": 0.25,
+        "combo_damage_bonus": 0.25
+      }
     }
   ]
 }

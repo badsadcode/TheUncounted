@@ -378,6 +378,59 @@
         "bane_family": "beast",
         "bane_mult": 1.5
       }
+    },
+    {
+      "id": "core:item.cinderglass_dagger",
+      "name_key": "item.cinderglass_dagger.name",
+      "description_key": "item.cinderglass_dagger.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/cinderglass_dagger.png",
+      "world_model": "assets/models/items/steel_dagger.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 120,
+      "weight": 1.0,
+      "weapon": {
+        "kind": "melee",
+        "skill": "daggers",
+        "damage_type": "fire",
+        "base_damage": 11,
+        "attack_time_seconds": 0.36,
+        "stamina_cost": 5,
+        "reach_meters": 1.7,
+        "crit_chance": 0.12,
+        "crit_mult": 1.8,
+        "on_hit_status": "burn",
+        "status_chance": 0.3,
+        "status_power": 5,
+        "status_duration": 3.0
+      }
+    },
+    {
+      "id": "core:item.rimecaller_mace",
+      "name_key": "item.rimecaller_mace.name",
+      "description_key": "item.rimecaller_mace.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/rimecaller_mace.png",
+      "world_model": "assets/models/items/iron_mace.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 135,
+      "weight": 3.4,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "frost",
+        "base_damage": 16,
+        "attack_time_seconds": 0.62,
+        "stamina_cost": 10,
+        "reach_meters": 2.0,
+        "on_hit_status": "chill",
+        "status_chance": 0.4,
+        "status_duration": 3.0
+      }
     }
   ]
 }

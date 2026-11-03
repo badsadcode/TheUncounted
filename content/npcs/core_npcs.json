@@ -140,6 +140,21 @@
           "item_id": "core:item.vallo_red",
           "stock": 3,
           "price": 25
+        },
+        {
+          "item_id": "core:item.cinderglass_dagger",
+          "stock": 1,
+          "price": 120
+        },
+        {
+          "item_id": "core:item.rimecaller_mace",
+          "stock": 1,
+          "price": 135
+        },
+        {
+          "item_id": "core:item.storm_stamp",
+          "stock": 1,
+          "price": 160
         }
       ],
       "barks": [
@@ -237,6 +252,11 @@
         },
         {
           "text_key": "bark.fenwick.respawn"
+        },
+        {
+          "text_key": "bark.fenwick.overdue_done",
+          "quest_id": "core:quest.overdue",
+          "min_stage": 100
         }
       ]
     },
