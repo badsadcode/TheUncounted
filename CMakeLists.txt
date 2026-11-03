@@ -36,6 +36,10 @@ target_include_directories(game PRIVATE
 
 target_link_libraries(game PRIVATE raylib)
 
+# Shown on the title screen so players can tell which build they have (the release workflow sets it).
+set(GAME_BUILD "dev" CACHE STRING "Build label shown on the title screen")
+target_compile_definitions(game PRIVATE UNCOUNTED_BUILD="${GAME_BUILD}")
+
 if(WIN32)
     target_link_libraries(game PRIVATE winmm gdi32 opengl32)
 endif()

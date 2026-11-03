@@ -5,6 +5,15 @@ A data-driven, first-person action RPG built on raylib 5.5 and C++20. The execut
 
 Continuing development (e.g. in a cloud session)? Start with [HANDOFF.md](HANDOFF.md).
 
+## Get the game (Windows)
+
+Every push builds a ready-to-play zip: open the repository's **Actions** tab, pick the latest **Windows build** run, and
+download **TheUncounted-windows** under *Artifacts*. Unzip, double-click `game.exe` (if Windows SmartScreen complains:
+*More info* → *Run anyway*). Pushing a tag such as `v1.0` also attaches the zip to a GitHub Release. The build label is
+shown in the bottom-left corner of the title screen.
+
+To cross-compile `game.exe` yourself from Linux: `cmake -S . -B build-win -DCMAKE_TOOLCHAIN_FILE=tools/mingw-w64.cmake -DCMAKE_BUILD_TYPE=Release`.
+
 ## Build
 
 **Target platform: Windows 10/11.** Requires CMake 3.20+ and MinGW-w64 GCC 13 (or MSVC 2022).

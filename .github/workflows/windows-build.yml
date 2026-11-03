@@ -1,0 +1,73 @@
+# Builds a ready-to-play Windows zip of The Uncounted on every push.
+# Download it from the run's "Artifacts" section (Actions tab). Pushing a tag like v1.2 also attaches it to a GitHub Release.
+name: Windows build
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toolchains
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq cmake ninja-build xvfb libgl1-mesa-dev libx11-dev libxrandr-dev libxinerama-dev \
+            libxcursor-dev libxi-dev g++-mingw-w64-x86-64-posix gcc-mingw-w64-x86-64-posix
+
+      # Quality gate: build for Linux and run the content validator and the self-test before packaging anything.
+      - name: Build (Linux) and test
+        run: |
+          cmake -S . -B build-linux -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build-linux
+          ./game --validate
+          xvfb-run -a -s "-screen 0 1280x720x24" ./game --selftest | tee selftest.log
+          grep -q "Self-test finished with 0 failure(s)" selftest.log
+
+      - name: Build game.exe (Windows, cross-compiled)
+        run: |
+          LABEL="${GITHUB_REF_NAME//\//-}-${GITHUB_RUN_NUMBER}-${GITHUB_SHA::7}"
+          cmake -S . -B build-win -G Ninja -DCMAKE_TOOLCHAIN_FILE=tools/mingw-w64.cmake -DCMAKE_BUILD_TYPE=Release -DGAME_BUILD="$LABEL"
+          cmake --build build-win
+          ls -la game.exe
+
+      - name: Package
+        run: |
+          mkdir -p dist/TheUncounted
+          cp game.exe dist/TheUncounted/
+          cp -r assets content config mods docs README.md dist/TheUncounted/
+          cat > dist/TheUncounted/HOW_TO_PLAY.txt <<'TXT'
+          THE UNCOUNTED
+          =============
+          1. Unzip this folder anywhere (Desktop is fine).
+          2. Double-click game.exe.
+          3. Windows may say "Windows protected your PC" because the game isn't signed:
+             click "More info", then "Run anyway".
+
+          Saves go in the "saves" folder next to game.exe. Keep it when you update to a newer build.
+          Options (graphics, screen effects, text size for streaming, key bindings) are on the title screen.
+          The build number is shown in the bottom-left corner of the title screen.
+          TXT
+          sed -i 's/^          //' dist/TheUncounted/HOW_TO_PLAY.txt
+          cd dist && zip -qr TheUncounted-windows.zip TheUncounted && ls -la
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TheUncounted-windows
+          path: dist/TheUncounted-windows.zip
+          retention-days: 30
+
+      - name: Attach to release (tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/TheUncounted-windows.zip

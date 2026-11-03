@@ -528,6 +528,10 @@ void GameEngine::DrawTitle() {
     Text(sub, VW * 0.5f - TextWidth(sub, 28) * 0.5f, VH * 0.14f + 88, 28, kText);
     std::string quote = content_.Tr("game.quote");
     Text(quote, VW * 0.5f - TextWidth(quote, 17) * 0.5f, VH * 0.14f + 130, 17, kDim);
+#ifndef UNCOUNTED_BUILD
+#define UNCOUNTED_BUILD "dev"
+#endif
+    Text(std::string("build ") + UNCOUNTED_BUILD, 12, VH - 26, 14, kDim);   // which version is this? (set by the Windows release build)
 
     std::string latest;
     {
