@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 7, 0),
+    "version": (4, 8, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -1250,6 +1250,57 @@ class UNC_OT_tile(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class UNC_OT_move_work(bpy.types.Operator):
+    bl_idname = "uncounted.move_work"
+    bl_label = "Move My Work to New Version"
+    bl_description = ("After downloading a new version of the game: unzip it to a NEW folder, pick that folder here. Your "
+                      "level changes, models and maps are copied into it and its level is rebuilt with your changes")
+    directory: bpy.props.StringProperty(subtype="DIR_PATH")
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {"RUNNING_MODAL"}
+
+    def execute(self, context):
+        src, dst = game_dir(context), bpy.path.abspath(self.directory)
+        if not os.path.exists(os.path.join(dst, MAP_REL)):
+            self.report({"ERROR"}, f"{dst} isn't a game folder (no {MAP_REL}). Pick the folder with game.exe in it.")
+            return {"CANCELLED"}
+        if os.path.normpath(src) == os.path.normpath(dst):
+            self.report({"ERROR"}, "That's the folder you're already using. Unzip the new version to a different folder.")
+            return {"CANCELLED"}
+        copied = 0
+        for rel in (CHANGES_REL, LEVEL_MODELS, CUSTOM_MAPS, CUSTOM_MODELS):
+            a, b = os.path.join(src, rel), os.path.join(dst, rel)
+            if os.path.isfile(a):
+                os.makedirs(os.path.dirname(b), exist_ok=True)
+                shutil.copyfile(a, b)
+                copied += 1
+            elif os.path.isdir(a):
+                shutil.copytree(a, b, dirs_exist_ok=True)
+                copied += sum(len(f) for _, _, f in os.walk(a))
+        base_path = os.path.join(dst, BASE_REL)
+        if not os.path.exists(base_path):
+            shutil.copyfile(os.path.join(dst, MAP_REL), base_path)
+        missing = []
+        changes = os.path.join(dst, CHANGES_REL)
+        if os.path.exists(changes):
+            base = read_json(base_path)
+            edits = read_json(changes)
+            ids = {p["id"] for p in base.get("props", [])}
+            pe = edits.get("props", {})
+            missing = [i for i in list(pe.get("remove", [])) + list(pe.get("modify", {})) if i not in ids]
+            with open(os.path.join(dst, MAP_REL), "w", encoding="utf-8") as f:
+                json.dump(apply_edits(base, edits), f, indent=2, ensure_ascii=False)
+        _DEFS.clear()
+        context.scene.uncounted_game_dir = dst
+        msg = f"Moved {copied} files of your work into {dst} and rebuilt its level. Game folder is now the new one."
+        if missing:
+            msg += f" Note: {len(missing)} changed piece(s) no longer exist in the new version: {', '.join(missing[:5])}"
+        self.report({"INFO"}, msg + " Press Import World to see it.")
+        return {"FINISHED"}
+
+
 class UNC_OT_pack(bpy.types.Operator):
     bl_idname = "uncounted.pack"
     bl_label = "Pack My Changes"
@@ -1305,6 +1356,7 @@ class UNC_PT_panel(bpy.types.Panel):
                 box.prop(sc, p)
         lay.operator("uncounted.export", icon="EXPORT")
         lay.operator("uncounted.pack", icon="PACKAGE")
+        lay.operator("uncounted.move_work", icon="FILE_REFRESH")
         o = context.active_object
         if o is not None:
             box = lay.box()
@@ -1336,7 +1388,7 @@ class UNC_PT_panel(bpy.types.Panel):
         col.label(text="Name a mesh COL... for an invisible wall")
 
 
-CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_sprite, UNC_OT_trunk, UNC_OT_unique, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
+CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_sprite, UNC_OT_trunk, UNC_OT_unique, UNC_OT_tile, UNC_OT_move_work, UNC_OT_pack, UNC_PT_panel)
 
 
 def register():

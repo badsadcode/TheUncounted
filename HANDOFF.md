@@ -425,6 +425,9 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   emitter unless it sets its own (`ContentRegistry::ApplyPropPresets`, after edits). Emitter offset scales with the
   prop's scale, size with max(scale.x, scale.z), light radius with its square root. Noor's brief for a proper flame
   sheet: `docs/FIRE_SPRITE_BRIEF.md`. Maps may leave music/ambience empty (silent).
+- **Updating Toasty's copy**: never "just game.exe" (content/assets go stale: an old placeholder dragon showed up). The
+  add-on's "Move My Work to New Version" copies edrath_blender.json, assets/models/level, content/maps/custom and
+  assets/models/custom into a freshly unzipped build and rebuilds its edrath_world.json = new base + changes.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

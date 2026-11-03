@@ -200,7 +200,14 @@ that belong together (**Ctrl+J**).
 - **Tilting** something (rotating around X or Y) isn't kept, and Export warns you.
 - **Undo everything**: delete `content/maps/edrath_blender.json` and copy `edrath_world.base.json` over
   `edrath_world.json` (or delete your map's folder in `content/maps/custom`).
-- **Updating the game**: Pack My Changes first and send the zip, so the next version has them.
+- **Updating the game** (new characters, fixes, new pieces all live in the game's folders, so take the whole new
+  version, not just game.exe):
+  1. Unzip the new version into a **new, empty folder**.
+  2. In Blender, install the add-on from the new folder (`tools/blender/uncounted_level_editor.py`).
+  3. Press **Move My Work to New Version** and pick the new folder. Your changes, models and maps are copied in, the
+     level is rebuilt on the new version with your changes, and the Game folder switches to the new one.
+  4. Press **Import World** (or open your .blend and Export).
+  Keep the old folder until you've checked the new one.
 - Maps or edits saved by the older add-on (in `mods/`) are picked up by Import and moved into the game on your next Export.
 - Blender lights only count in a new map; in Edit World they are ignored.
 - Coordinates: the game is Y-up and Blender is Z-up. The add-on converts between them; you never need to.
