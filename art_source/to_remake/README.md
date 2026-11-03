@@ -12,7 +12,6 @@ Suggested order: the characters Toasty spends the most time with first.
 | File | Who | Notes for the remake |
 |---|---|---|
 | `hunter_hollis.png` | **Hollis the Grey** | Old monster hunter, white hair, cat-yellow eyes, scarred, dark leather, two swords on his back. Grumpy, says "Hmm". |
-| `witch_sabrino.png` | **Sabrino** | Italian witch, tall dented pointed hat with a faded sash, purple robes, very dramatic. A nod to Toasty's ESO character. |
 | `steve.png` | **Steve** | Level-one bandit: a cooking pot worn as a helmet, a patched coat, a bent spoon as his only weapon. Nervous, lovable. |
 | `trout.png` | **Trout**, Hollis's horse | Bay mare, white blaze, red saddle. Calm, unbothered. (Four-legged: the walk rows should be a trot.) |
 
@@ -21,7 +20,6 @@ Suggested order: the characters Toasty spends the most time with first.
 |---|---|---|
 | `werewolf_rolf.png` | **Rolf** | Huge shaggy werewolf-man, golden eyes, no shirt, gardener with a trowel. Gentle. |
 | `vampire_ashgrave.png` | **Lord Ashgrave** | Pale brooding young vampire, long black coat, blood-red cloak lining, skin that glitters faintly. |
-| `ghost_percival.png` | **Sir Percival** (friendly ghost) | Translucent pale-blue knight-ghost in old finery, slightly see-through. |
 | `wrathful_host.png` | **The Wrathful Host** (boss) | Same ghost as Percival but furious: red, flaring, floating robes. |
 | `impresario_odette.png` | **Odette** | Flamboyant theatre impresario, magenta and gold, big gestures. |
 | `wailing_footman.png` | **Wailing Footman** (enemy) | Ghostly servant in old livery, pale blue, mouth open in a wail. |
@@ -35,7 +33,6 @@ Suggested order: the characters Toasty spends the most time with first.
 | `professor_pickering.png` | **Professor Pickering** | Scholar in a brown tweed coat, frazzled, notes everywhere. |
 | `tide_priest.png` | **The Tide Priest** | Cult leader, dark teal robes with gold trim, unsettling. |
 | `keeper_ondine.png` | **Ondine Marsh** | Ghost lighthouse keeper, hooded navy cloak, translucent, a lantern on a pole. |
-| `gale_elder.png` / `gale_younger.png` | **Tom and Abel Gale** | Silas's sons, ex-cultists in torn teal robes, same nose. Tom balding with a beard, Abel younger with brown hair. |
 
 ## Monsters
 | File | What | Notes |
@@ -47,4 +44,3 @@ Suggested order: the characters Toasty spends the most time with first.
 | `rat_king.png` | The Rat King (boss) | A giant rat wearing a tiny gold crown. |
 | `truffle_hog.png` | Truffle Hog | A pink-brown pig snuffling for truffles. |
 | `grey_wolf.png` | Grey Wolf | Grey wolf with yellow glowing eyes. |
-| `granny_wolf.png` | Wolf in Grandmother's Nightgown | The same wolf wearing a white lace bonnet and a lilac nightgown. |

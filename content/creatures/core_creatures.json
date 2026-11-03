@@ -824,8 +824,8 @@
       "name_key": "enemy.granny_wolf.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/granny_wolf.png",
-        "animation_data": "assets/animations/grave_rat.json",
+        "sprite_sheet": "assets/sprites/enemies/granny_wolf_painted.png",
+        "animation_data": "assets/animations/grave_rat_128.json",
         "scale": 2.0
       },
       "stats": {

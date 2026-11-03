@@ -853,8 +853,8 @@
       "dialogue_id": "core:dialogue.witch_sabrino",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/witch_sabrino.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/witch_sabrino_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.8
       },
       "vendor_inventory": [
@@ -993,8 +993,8 @@
       "dialogue_id": "core:dialogue.ghost_percival",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/ghost_percival.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/ghost_percival_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.76
       },
       "barks": [
@@ -1286,8 +1286,8 @@
       "dialogue_id": "core:dialogue.gale_brothers",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/gale_elder.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/gale_elder_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.78
       },
       "barks": [
@@ -1304,8 +1304,8 @@
       "dialogue_id": "core:dialogue.gale_brothers",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/gale_younger.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/gale_younger_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.72
       },
       "barks": [
@@ -1322,8 +1322,8 @@
       "dialogue_id": "core:dialogue.gale_home",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/gale_elder.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/gale_elder_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.78
       },
       "barks": [
@@ -1340,8 +1340,8 @@
       "dialogue_id": "core:dialogue.gale_home",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/gale_younger.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/gale_younger_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.72
       },
       "barks": [
