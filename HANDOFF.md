@@ -407,6 +407,8 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   overlapping boxes and imperfect meshes work (no closed-mesh requirement), grid >= 0.12 m, <= 150k cells per part.
   v4.3: `uncounted_tile` defaults to 0 (keep the user's unwrap; it used to overwrite UVs at 2 m). Reshaped game pieces
   whose UVs differ from the original (`unc_uvhash`) export with `uv_scale` [1, 1].
+  Tested headless on Blender 4.0.2 (`blender -b --python`) and 5.1.1 (`pip install bpy==5.1.1` in a venv, then
+  `python script.py`): Toasty uses 5.1.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)
