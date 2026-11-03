@@ -24,11 +24,36 @@ COLS, ROWS, PIVOT_Y = 8, 6, 0.92
 
 
 def remove_background(img, bg, lo, hi):
+    """Background = near-bg pixels CONNECTED to the outside of the image (flood fill from the border), plus enclosed
+    pockets (gaps between a staff and a robe) that are flat, pure background colour. Dark paint inside a character (a
+    black face in a hood, deep cloak shadows) touches the background only through the figure's outline, so it stays
+    opaque. Pixels next to the background are feathered a little so edges don't look cut out with scissors."""
+    from PIL import ImageDraw, ImageFilter
     a = np.asarray(img.convert("RGB")).astype(np.int32)
     d = np.abs(a - np.array(bg)).max(axis=2)
-    alpha = np.clip((d - lo) * 255 // max(1, hi - lo), 0, 255).astype(np.uint8)
-    rgba = np.dstack([a.astype(np.uint8), alpha])
-    return Image.fromarray(rgba, "RGBA")
+    low = d <= lo
+    h, w = d.shape
+    mask = Image.new("L", (w + 2, h + 2), 255)
+    mask.paste(Image.fromarray(np.where(low, 255, 0).astype(np.uint8), "L"), (1, 1))
+    ImageDraw.floodfill(mask, (0, 0), 128)
+    m = np.asarray(mask)[1:-1, 1:-1]
+    outside = m == 128
+    # Enclosed low pockets: background only if big enough and flat (true background has almost no noise).
+    pockets = m == 255
+    if pockets.any():
+        labels, stats = label_components(np.where(pockets, 255, 0).astype(np.uint8))
+        flat = np.zeros(len(stats), dtype=bool)
+        sums = np.bincount(labels.ravel(), weights=d.ravel(), minlength=len(stats))
+        for lab in range(1, len(stats)):
+            n = stats[lab][0]
+            flat[lab] = n >= 25 and sums[lab] / n < 2.5
+        outside |= flat[labels] & pockets
+    alpha = np.where(outside, 0, 255).astype(np.uint8)
+    # Feather: a non-background pixel touching the background, and itself nearly background-dark, is partly see-through.
+    near = np.asarray(Image.fromarray(alpha, "L").filter(ImageFilter.MinFilter(3))) == 0
+    edge = near & ~outside
+    alpha = np.where(edge, np.clip((d - lo) * 255 // max(1, hi - lo), 96, 255), alpha).astype(np.uint8)
+    return Image.fromarray(np.dstack([a.astype(np.uint8), alpha]), "RGBA")
 
 
 def label_components(alpha, thresh=8):
@@ -77,7 +102,7 @@ def main():
     ap.add_argument("--match-col", type=int, default=2, help="idle column used to compare heights")
     ap.add_argument("--height", type=float, default=0.85, help="target idle height fraction when --match is not given")
     ap.add_argument("--bg", default="0,0,0")
-    ap.add_argument("--lo", type=int, default=10)
+    ap.add_argument("--lo", type=int, default=8)
     ap.add_argument("--hi", type=int, default=34)
     ap.add_argument("--anim-from")
     ap.add_argument("--anim-out")

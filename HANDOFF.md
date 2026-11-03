@@ -363,7 +363,8 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
 ### Hand-painted sprite sheets (added 2026-11-03, trial)
 
 - `tools/import_spritesheet.py SRC DST --frame 128 --match OLD.png [--match-col N] --anim-from OLD.json --anim-out NEW.json`
-  converts an external 8x6 sheet (same direction/row order as the engine) on a flat background: soft background removal,
+  converts an external 8x6 sheet (same direction/row order as the engine) on a flat background: background removal by
+  connectivity (flood fill from the border + flat enclosed pockets only, so dark paint inside a figure stays opaque),
   blob-to-cell assignment (limbs/tails crossing cell borders stay with their owner), one shared scale matched to the old
   sheet's in-frame height, feet on the pivot, and an animation JSON with the new frame size (world size is unchanged).
 - In use (trial, from the user's own art): `grave_rat_painted.png` / `grave_rat_128.json` and `skeleton_painted.png` /
