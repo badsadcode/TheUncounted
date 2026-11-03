@@ -134,7 +134,7 @@ bool GameEngine::Button(Rectangle r, const std::string& label, bool enabled, flo
     DrawRectangleLinesEx(s, std::max(1.0f, 1.5f * u), hover ? kGold : kPanelEdge);
     float tw = TextWidth(label, size);
     Text(label, r.x + (r.width - tw) * 0.5f, r.y + (r.height - size) * 0.5f, size, enabled ? (hover ? kGold : kText) : kDim);
-    return hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+    return hover && UiClick();
 }
 
 void GameEngine::Bar(Rectangle r, float frac, Color fill, const std::string& label) const {
@@ -709,7 +709,7 @@ void GameEngine::DrawPause() {
     if (Button({x, y + g * 4, bw, bh}, "Options")) { options_from_title_ = false; SetOverlay(Overlay::Options); return; }
     if (Button({x, y + g * 5, bw, bh}, "Quit to Title")) { ReturnToTitle(); return; }
     if (Button({x, y + g * 6, bw, bh}, "Quit Game")) running_ = false;
-    std::string help = "WASD move  Shift sprint  Ctrl sneak  Space jump  E interact  LMB attack (hold: heavy)  RMB block  Q cast  R next spell  I/C/J/M menus  T wait  F6/F9 quick save/load";
+    std::string help = "WASD move  Shift sprint  Ctrl sneak  Space jump  E interact  LMB attack (hold: heavy)  RMB block  Q cast  R next spell  I/C/J/M menus  T wait  F6/F9 quick save/load.  Gamepad: sticks move/look, A jump, X use, RT attack, LT block, RB cast, Y next spell, B sneak, LB map, Back inventory, Start pause";
     TextWrapped(help, {VW * 0.5f - 190, y + g * 7 + 4, 380, 80}, 12, kDim);
 }
 
@@ -726,11 +726,11 @@ void GameEngine::DrawOptions() {
     bool changed = false;
     float x = VW * 0.5f - 300, y = VH * 0.5f - 296;
     auto row = [&](const std::string& label, const std::string& value, auto onLeft, auto onRight) {
-        Text(label, x, y + 6, 18, kText);
-        if (Button({x + 330, y, 40, 32}, "<")) { onLeft(); changed = true; }
-        Text(value, x + 380 + (170 - TextWidth(value, 18)) * 0.5f, y + 6, 18, kGold);
-        if (Button({x + 560, y, 40, 32}, ">")) { onRight(); changed = true; }
-        y += 30;
+        Text(label, x, y + 4, 17, kText);
+        if (Button({x + 330, y, 40, 26}, "<", true, 18)) { onLeft(); changed = true; }
+        Text(value, x + 380 + (170 - TextWidth(value, 17)) * 0.5f, y + 4, 17, kGold);
+        if (Button({x + 560, y, 40, 26}, ">", true, 18)) { onRight(); changed = true; }
+        y += 27;
     };
     auto pct = [](float v) { return std::to_string(static_cast<int>(std::round(v * 100))) + "%"; };
     auto step = [](float& v, float d) { v = Clamp(std::round((v + d) * 100) / 100, 0.0f, 1.0f); };
@@ -741,6 +741,8 @@ void GameEngine::DrawOptions() {
     row("Mouse sensitivity", Fmt1(cc.mouse_sensitivity * 10), [&] { cc.mouse_sensitivity = std::max(0.02f, cc.mouse_sensitivity - 0.02f); },
         [&] { cc.mouse_sensitivity = std::min(1.0f, cc.mouse_sensitivity + 0.02f); });
     row("Invert mouse Y", cc.invert_y ? "On" : "Off", [&] { cc.invert_y = !cc.invert_y; }, [&] { cc.invert_y = !cc.invert_y; });
+    row("Gamepad look speed", std::to_string(static_cast<int>(cc.pad_look_speed)), [&] { cc.pad_look_speed = std::max(40.0f, cc.pad_look_speed - 20.0f); },
+        [&] { cc.pad_look_speed = std::min(400.0f, cc.pad_look_speed + 20.0f); });
     row("Head bob", cc.head_bob ? "On" : "Off", [&] { cc.head_bob = !cc.head_bob; }, [&] { cc.head_bob = !cc.head_bob; });
     row("Field of view", std::to_string(static_cast<int>(gfx.fov_degrees)), [&] { gfx.fov_degrees = std::max(55.0f, gfx.fov_degrees - 5); },
         [&] { gfx.fov_degrees = std::min(110.0f, gfx.fov_degrees + 5); });
@@ -801,7 +803,7 @@ void GameEngine::DrawOptions() {
         ApplyAudioVolumes();
         content_.SaveConfigs(".");
     }
-    bool back = Button({VW * 0.5f - 120, VH * 0.5f + 296, 240, 44}, "Back") || (screen_ == Screen::Title && IsKeyPressed(KEY_ESCAPE));
+    bool back = Button({VW * 0.5f - 120, VH * 0.5f + 296, 240, 44}, "Back") || (screen_ == Screen::Title && BackPressed());
     if (back) {
         content_.SaveConfigs(".");
         overlay_ = (screen_ == Screen::Title || options_from_title_) && screen_ != Screen::Playing ? Overlay::None : Overlay::Pause;
@@ -860,8 +862,8 @@ void GameEngine::DrawInventory() {
         bool sel = inv_selected_ == d->id;
         DrawRectangleRec(s, sel ? Color{70, 56, 36, 220} : hover ? Color{40, 36, 34, 220} : Color{20, 20, 24, 160});
         if (hover) hovered = d->id;
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) inv_selected_ = d->id;
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) UseItem(d->id);
+        if (hover && UiClick()) inv_selected_ = d->id;
+        if (hover && UiRightClick()) UseItem(d->id);
         Icon(d->icon, {r.x + 4, r.y + 2, 32, 32});
         std::string name = content_.Tr(d->name_key) + (rows[i].second > 1 ? "  (" + std::to_string(rows[i].second) + ")" : "");
         Text(name, r.x + 44, r.y + 8, 18, IsEquipped(d->id) ? kGold : kText);
@@ -1014,7 +1016,7 @@ void GameEngine::DrawBestiary(Rectangle P) {
         int k = player_.kills[d->id];
         Text(content_.Tr(d->name_key), r.x + 10, r.y + 7, 16, kText);
         Text("x" + std::to_string(k), r.x + r.width - 50, r.y + 8, 15, k >= 10 ? kGold : kDim);
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) bestiary_sel_ = d->id;
+        if (hover && UiClick()) bestiary_sel_ = d->id;
         y += rowH;
     }
     EndScissorMode();
@@ -1408,7 +1410,7 @@ void GameEngine::DrawJournal() {
                 bool sel = qid == journal_selected_;
                 if (sel) DrawRectangleRec({r.x * u, r.y * u, r.width * u, r.height * u}, Color{70, 56, 36, 220});
                 else if (hit(r)) DrawRectangleRec({r.x * u, r.y * u, r.width * u, r.height * u}, Color{44, 38, 30, 220});
-                if (hit(r) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) { journal_selected_ = qid; journal_scroll_ = 0; }
+                if (hit(r) && UiClick()) { journal_selected_ = qid; journal_scroll_ = 0; }
                 std::string mark = qid == content_.game_cfg.starting_quest ? "* " : qid == player_.tracked_quest ? "> " : "  ";
                 Text(mark + content_.Tr(q->title_key), r.x + 8, r.y + 4, 16, done ? kDim : sel ? kGold : kText);
                 y += 28;
@@ -1631,7 +1633,7 @@ void GameEngine::DrawDialogue() {
         bool hover = CheckCollisionPointRec(GetMousePosition(), s);
         if (hover) DrawRectangleRec(s, Color{60, 48, 32, 200});
         TextWrapped(labels[k], {r.x + 8, r.y + 4, r.width - 16, h}, fs, hover ? kGold : Color{210, 200, 180, 255});
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) { ChooseDialogue(vis[k]); return; }
+        if (hover && UiClick()) { ChooseDialogue(vis[k]); return; }
         y += h + 2;
     }
     if (y > VH) ui_scroll_ = 0;
@@ -1667,7 +1669,7 @@ void GameEngine::DrawShop() {
         Text(content_.Tr(d->name_key), r.x + 44, r.y + 7, 17, stock > 0 ? kText : kDim);
         Text("x" + std::to_string(stock), r.x + 340, r.y + 8, 15, kDim);
         Text(std::to_string(price) + "g", r.x + 440, r.y + 7, 17, can ? Color{255, 215, 100, 255} : Color{160, 90, 80, 255});
-        if (hover && can && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) BuyItem(e);
+        if (hover && can && UiClick()) BuyItem(e);
         y += 38;
     }
     y = P.y + 84;
@@ -1686,7 +1688,7 @@ void GameEngine::DrawShop() {
         int cnt = CountItem(it.id);
         Text(content_.Tr(d->name_key) + (cnt > 1 ? " (" + std::to_string(cnt) + ")" : "") + (IsEquipped(it.id) ? " [E]" : ""), r.x + 44, r.y + 7, 17, kText);
         Text(std::to_string(SellPrice(*d)) + "g", r.x + 440, r.y + 7, 17, Color{255, 215, 100, 255});
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) { SellItem(it.id); break; }
+        if (hover && UiClick()) { SellItem(it.id); break; }
         y += 38;
     }
     if (Button({P.x + P.width * 0.5f - 100, P.y + P.height - 60, 200, 42}, "Leave")) SetOverlay(Overlay::None);
@@ -1734,7 +1736,7 @@ void GameEngine::DrawCrafting() {
              can ? kText : kDim);
         if (can) Text("ready", row.x + row.width - 54, row.y + 11, 14, Color{150, 230, 140, 255});
         else if (!known) Text("book", row.x + row.width - 50, row.y + 11, 14, Color{200, 170, 120, 255});
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) craft_selected_ = r->id;
+        if (hover && UiClick()) craft_selected_ = r->id;
         y += rowH;
     }
     EndScissorMode();
@@ -1774,7 +1776,7 @@ void GameEngine::DrawCrafting() {
         bool can = CanCraft(*cur);
         if (Button({x, P.y + P.height - 64, 240, 44}, can ? "Craft" : "Missing ingredients", can)) Craft(cur->id);
     }
-    if (Button({P.x + P.width - 180, P.y + P.height - 64, 160, 44}, "Close") || IsKeyPressed(KEY_ESCAPE)) SetOverlay(Overlay::None);
+    if (Button({P.x + P.width - 180, P.y + P.height - 64, 160, 44}, "Close") || BackPressed()) SetOverlay(Overlay::None);
 }
 
 void GameEngine::DrawContainer() {
@@ -1793,7 +1795,7 @@ void GameEngine::DrawContainer() {
         DrawRectangleRec(s, hover ? Color{60, 48, 32, 220} : Color{20, 20, 24, 160});
         Icon(icon, {r.x + 4, r.y + 2, 32, 32});
         Text(label, r.x + 44, r.y + 8, 18, kText);
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) clicked = index;
+        if (hover && UiClick()) clicked = index;
         y += 40;
     };
     if (c.gold > 0) row(-1, "assets/ui/items/gold_coins.png", std::to_string(c.gold) + " gold");

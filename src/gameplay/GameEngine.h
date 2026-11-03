@@ -249,6 +249,19 @@ private:
     bool IsAuditCreature(const CreatureInstance& c) const { return c.instance_id.rfind("audit_", 0) == 0; }
     std::string AuditFormName(int form) const;
     std::string AuditRecordsText() const;
+    // --- Gamepad: the first connected pad plays alongside mouse and keyboard; in menus the left stick moves the cursor
+    bool pad_active_ = false;       // the pad was the last thing used (prompts show pad buttons)
+    int Pad() const;                // index of the first connected gamepad, or -1
+    bool PadDown(int button) const;
+    bool PadPressed(int button) const;
+    bool PadReleased(int button) const;
+    float PadAxis(int axis) const;  // with a dead zone
+    int PadButtonFor(const std::string& action) const;
+    bool UiClick() const;           // left mouse button, or A on the pad
+    bool UiRightClick() const;      // right mouse button, or X on the pad
+    bool BackPressed() const;       // Escape, Start, or B while a menu is open
+    void UpdateGamepad(float dt);
+    Vector2 pad_cursor_ = {-1.0f, -1.0f};   // where the stick last put the cursor (so that move isn't taken for the mouse)
     bool night_outdoors_ = false;
     float boot_shot_hour_ = -1.0f;
     std::string creation_name_ = "Wren";

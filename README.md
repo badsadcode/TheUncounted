@@ -56,6 +56,11 @@ cmake --build build -j 8
 | Quick slots | 1–4 (hover a consumable in the inventory and press 1–4 to assign) |
 | Inventory / character / journal / map | I / C / J / M |
 | Wait (an hour, until morning...) | T |
+
+**Gamepad** (any XInput / Xbox-style pad; plug it in and play, mouse and keyboard keep working): left stick move (tilt
+gently to walk), right stick look, A jump, X use, Y next spell, B sneak, RT attack (hold for heavy), LT block / aim, RB cast,
+LB map, L3 sprint, R3 journal, d-pad quick slots 1-4, Back inventory, Start pause. In menus the left stick or d-pad moves the
+cursor, A clicks, X right-clicks, B goes back. On-screen prompts show whichever you used last. Look speed is in Options.
 | Quick save / quick load | F6 / F9 |
 | Hot-reload content & shaders / debug overlay | F5 / F3 |
 | Pause | Esc |

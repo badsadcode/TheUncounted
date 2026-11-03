@@ -40,6 +40,7 @@ struct ControlsConfig {
     bool invert_y = false;
     bool head_bob = true;
     float head_bob_amount = 0.035f;
+    float pad_look_speed = 160.0f;   // gamepad right stick: degrees per second at full tilt
     std::map<std::string, std::string> bindings;
 };
 

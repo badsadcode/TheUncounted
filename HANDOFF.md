@@ -734,3 +734,12 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   - half the damage taken + 1000 for passing; top 10 runs with build (race, calling, level, weapon, spells) in
   `saves/audit_records.json`. Passing once gives the Certificate of Existence (Audited). HUD banner while running;
   `--shot X --overlay audit` shows wave 3.
+
+### Gamepad (added 2026-11-03)
+
+- `GameEngine` "gamepad" block: `Pad()` (first connected), `PadButtonFor(action)` (Xbox layout; triggers are buttons in
+  raylib 5.5), `ActionDown/Pressed/Released` also accept the pad; left stick feeds movement (analog speed), right stick
+  look (squared response, `controls.pad_look_speed` deg/s, Options "Gamepad look speed"); `UiClick()`/`UiRightClick()`
+  replace raw mouse clicks in the UI (A / X), `BackPressed()` = Escape, Start, or B while a menu is open. In menus the
+  left stick / d-pad move the OS cursor (`pad_cursor_` remembers where, so that move isn't mistaken for the mouse).
+  `pad_active_` makes `BindingLabel` show pad names. Not tested on real hardware here (no device in the container).

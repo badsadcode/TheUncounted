@@ -86,6 +86,7 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         controls.invert_y = j.value("invert_y", false);
         controls.head_bob = j.value("head_bob", true);
         controls.head_bob_amount = j.value("head_bob_amount", 0.035f);
+        controls.pad_look_speed = std::clamp(j.value("pad_look_speed", 160.0f), 40.0f, 400.0f);
         if (j.contains("bindings") && j["bindings"].is_object()) {
             for (auto it = j["bindings"].begin(); it != j["bindings"].end(); ++it) {
                 controls.bindings[it.key()] = it.value().get<std::string>();
@@ -150,6 +151,7 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["invert_y"] = controls.invert_y;
         j["head_bob"] = controls.head_bob;
         j["head_bob_amount"] = controls.head_bob_amount;
+        j["pad_look_speed"] = controls.pad_look_speed;
         j["bindings"] = controls.bindings;
         std::ofstream ofs((fs::path(rootDir) / "config/controls.json").string());
         if (ofs.is_open()) ofs << j.dump(2);

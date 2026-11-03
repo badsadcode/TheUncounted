@@ -1889,6 +1889,25 @@ int GameEngine::RunSelfTest() {
         LoadMap("core:map.edrath", "village_gate");
     }
 
+    // --- Gamepad: prompts follow the last device; every action has its own button
+    {
+        const bool was = pad_active_;
+        pad_active_ = true;
+        bool padLabels = BindingLabel("interact") == "X" && BindingLabel("attack") == "RT" && BindingLabel("cast_spell") == "RB" &&
+                         BindingLabel("jump") == "A";
+        pad_active_ = false;
+        bool keyLabels = BindingLabel("interact") == "E" && BindingLabel("attack") == "LMB";
+        pad_active_ = was;
+        std::set<int> used;
+        bool unique = true;
+        for (const char* a : {"jump", "interact", "cycle_spell", "crouch", "attack", "block_or_aim", "cast_spell", "map", "sprint", "journal",
+                              "inventory", "quick_slot_1", "quick_slot_2", "quick_slot_3", "quick_slot_4"}) {
+            int b = PadButtonFor(a);
+            unique = unique && b > 0 && used.insert(b).second;
+        }
+        check(padLabels && keyLabels && unique, "gamepad: prompts show pad buttons after using the pad, keys after the keyboard; no button does two jobs");
+    }
+
     // --- Day and night
     {
         const float savedHour = player_.hour, savedLen = content_.game_cfg.day_length_minutes;

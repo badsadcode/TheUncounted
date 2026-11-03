@@ -87,21 +87,98 @@ static int BindingCode(const ControlsConfig& c, const std::string& name) {
 }
 
 bool GameEngine::ActionDown(const std::string& name) const {
+    if (PadDown(PadButtonFor(name))) return true;
     int code = BindingCode(content_.controls, name);
     if (code >= 1000) return IsMouseButtonDown(code - 1000);
     return code > 0 && IsKeyDown(code);
 }
 bool GameEngine::ActionPressed(const std::string& name) const {
+    if (PadPressed(PadButtonFor(name))) return true;
     int code = BindingCode(content_.controls, name);
     if (code >= 1000) return IsMouseButtonPressed(code - 1000);
     return code > 0 && IsKeyPressed(code);
 }
 bool GameEngine::ActionReleased(const std::string& name) const {
+    if (PadReleased(PadButtonFor(name))) return true;
     int code = BindingCode(content_.controls, name);
     if (code >= 1000) return IsMouseButtonReleased(code - 1000);
     return code > 0 && IsKeyReleased(code);
 }
+
+// ---------------------------------------------------------------------------- gamepad
+int GameEngine::Pad() const {
+    for (int i = 0; i < 4; i++) if (IsGamepadAvailable(i)) return i;
+    return -1;
+}
+bool GameEngine::PadDown(int b) const { int p = Pad(); return p >= 0 && b > 0 && IsGamepadButtonDown(p, b); }
+bool GameEngine::PadPressed(int b) const { int p = Pad(); return p >= 0 && b > 0 && IsGamepadButtonPressed(p, b); }
+bool GameEngine::PadReleased(int b) const { int p = Pad(); return p >= 0 && b > 0 && IsGamepadButtonReleased(p, b); }
+float GameEngine::PadAxis(int axis) const {
+    int p = Pad();
+    if (p < 0) return 0.0f;
+    float v = GetGamepadAxisMovement(p, axis);
+    const float dead = 0.2f;
+    return fabsf(v) < dead ? 0.0f : (v - (v > 0 ? dead : -dead)) / (1.0f - dead);
+}
+// Xbox-style layout (A bottom, B right, X left, Y top); Back opens the inventory, Start pauses (see BackPressed).
+int GameEngine::PadButtonFor(const std::string& a) const {
+    static const std::map<std::string, int> m = {
+        {"jump", GAMEPAD_BUTTON_RIGHT_FACE_DOWN}, {"interact", GAMEPAD_BUTTON_RIGHT_FACE_LEFT}, {"cycle_spell", GAMEPAD_BUTTON_RIGHT_FACE_UP},
+        {"crouch", GAMEPAD_BUTTON_RIGHT_FACE_RIGHT}, {"attack", GAMEPAD_BUTTON_RIGHT_TRIGGER_2}, {"block_or_aim", GAMEPAD_BUTTON_LEFT_TRIGGER_2},
+        {"cast_spell", GAMEPAD_BUTTON_RIGHT_TRIGGER_1}, {"map", GAMEPAD_BUTTON_LEFT_TRIGGER_1}, {"sprint", GAMEPAD_BUTTON_LEFT_THUMB},
+        {"journal", GAMEPAD_BUTTON_RIGHT_THUMB}, {"inventory", GAMEPAD_BUTTON_MIDDLE_LEFT},
+        {"quick_slot_1", GAMEPAD_BUTTON_LEFT_FACE_UP}, {"quick_slot_2", GAMEPAD_BUTTON_LEFT_FACE_RIGHT},
+        {"quick_slot_3", GAMEPAD_BUTTON_LEFT_FACE_DOWN}, {"quick_slot_4", GAMEPAD_BUTTON_LEFT_FACE_LEFT}};
+    auto it = m.find(a);
+    return it == m.end() ? 0 : it->second;
+}
+bool GameEngine::UiClick() const { return IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || PadPressed(GAMEPAD_BUTTON_RIGHT_FACE_DOWN); }
+bool GameEngine::UiRightClick() const { return IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) || PadPressed(GAMEPAD_BUTTON_RIGHT_FACE_LEFT); }
+bool GameEngine::BackPressed() const {
+    return IsKeyPressed(KEY_ESCAPE) || PadPressed(GAMEPAD_BUTTON_MIDDLE_RIGHT) ||
+           ((overlay_ != Overlay::None || screen_ != Screen::Playing) && PadPressed(GAMEPAD_BUTTON_RIGHT_FACE_RIGHT));
+}
+void GameEngine::UpdateGamepad(float dt) {
+    int p = Pad();
+    if (p < 0) { pad_active_ = false; return; }
+    bool any = GetGamepadButtonPressed() != GAMEPAD_BUTTON_UNKNOWN || fabsf(PadAxis(GAMEPAD_AXIS_LEFT_X)) + fabsf(PadAxis(GAMEPAD_AXIS_LEFT_Y)) +
+               fabsf(PadAxis(GAMEPAD_AXIS_RIGHT_X)) + fabsf(PadAxis(GAMEPAD_AXIS_RIGHT_Y)) > 0.0f;
+    if (any) pad_active_ = true;
+    // Back to mouse and keyboard as soon as they're used (the cursor moving where the stick put it doesn't count).
+    Vector2 mp = GetMousePosition(), md = GetMouseDelta();
+    bool ourMove = fabsf(mp.x - pad_cursor_.x) < 1.0f && fabsf(mp.y - pad_cursor_.y) < 1.0f;
+    bool keys = false;
+    for (int k : {KEY_W, KEY_A, KEY_S, KEY_D, KEY_E, KEY_SPACE, KEY_ESCAPE, KEY_I, KEY_Q, KEY_ENTER}) keys = keys || IsKeyPressed(k);
+    if (!any && (keys || (!ourMove && fabsf(md.x) + fabsf(md.y) > 2.0f) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT))) pad_active_ = false;
+    // In menus the left stick (or the d-pad) moves the cursor; A clicks, X right-clicks, B goes back.
+    bool menu = !(screen_ == Screen::Playing && overlay_ == Overlay::None);
+    if (menu && any) {
+        float sp = 900.0f * dt * (GetScreenHeight() / 720.0f);
+        Vector2 m = GetMousePosition();
+        m.x += PadAxis(GAMEPAD_AXIS_LEFT_X) * sp;
+        m.y += PadAxis(GAMEPAD_AXIS_LEFT_Y) * sp;
+        float step = 40.0f * (GetScreenHeight() / 720.0f);
+        if (PadPressed(GAMEPAD_BUTTON_LEFT_FACE_UP)) m.y -= step;
+        if (PadPressed(GAMEPAD_BUTTON_LEFT_FACE_DOWN)) m.y += step;
+        if (PadPressed(GAMEPAD_BUTTON_LEFT_FACE_LEFT)) m.x -= step;
+        if (PadPressed(GAMEPAD_BUTTON_LEFT_FACE_RIGHT)) m.x += step;
+        m.x = Clamp(m.x, 0.0f, static_cast<float>(GetScreenWidth() - 1));
+        m.y = Clamp(m.y, 0.0f, static_cast<float>(GetScreenHeight() - 1));
+        SetMousePosition(static_cast<int>(m.x), static_cast<int>(m.y));
+        pad_cursor_ = {std::floor(m.x), std::floor(m.y)};
+    }
+}
 std::string GameEngine::BindingLabel(const std::string& name) const {
+    if (pad_active_) {   // prompts follow whatever was used last
+        static const std::map<int, std::string> pad = {
+            {GAMEPAD_BUTTON_RIGHT_FACE_DOWN, "A"}, {GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, "B"}, {GAMEPAD_BUTTON_RIGHT_FACE_LEFT, "X"},
+            {GAMEPAD_BUTTON_RIGHT_FACE_UP, "Y"}, {GAMEPAD_BUTTON_RIGHT_TRIGGER_2, "RT"}, {GAMEPAD_BUTTON_LEFT_TRIGGER_2, "LT"},
+            {GAMEPAD_BUTTON_RIGHT_TRIGGER_1, "RB"}, {GAMEPAD_BUTTON_LEFT_TRIGGER_1, "LB"}, {GAMEPAD_BUTTON_LEFT_THUMB, "L3"},
+            {GAMEPAD_BUTTON_RIGHT_THUMB, "R3"}, {GAMEPAD_BUTTON_MIDDLE_LEFT, "Back"}, {GAMEPAD_BUTTON_LEFT_FACE_UP, "Up"},
+            {GAMEPAD_BUTTON_LEFT_FACE_RIGHT, "Right"}, {GAMEPAD_BUTTON_LEFT_FACE_DOWN, "Down"}, {GAMEPAD_BUTTON_LEFT_FACE_LEFT, "Left"}};
+        auto pb = pad.find(PadButtonFor(name));
+        if (pb != pad.end()) return pb->second;
+    }
     auto it = content_.controls.bindings.find(name);
     std::string s = it != content_.controls.bindings.end() ? it->second : DefaultBindings().at(name);
     if (s == "MOUSE_LEFT") return "LMB";
@@ -921,6 +998,7 @@ void GameEngine::Frame(float dt) {
     toasts_.erase(std::remove_if(toasts_.begin(), toasts_.end(), [](const ToastMsg& t) { return t.time <= 0; }), toasts_.end());
     if (region_banner_time_ > 0) region_banner_time_ -= dt;
 
+    UpdateGamepad(dt);
     if (ActionPressed("debug_overlay")) debug_overlay_ = !debug_overlay_;
     if (IsKeyPressed(KEY_ENTER) && (IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT))) ToggleBorderlessWindowed();
 
@@ -937,7 +1015,7 @@ void GameEngine::UpdatePlaying(float dt) {
     if (ActionPressed("hot_reload")) { HotReload(); return; }
 
     if (overlay_ != Overlay::None) {
-        bool esc = IsKeyPressed(KEY_ESCAPE);
+        bool esc = BackPressed();
         auto toggle = [&](const char* action, Overlay o) {
             if (ActionPressed(action) && overlay_ == o) { SetOverlay(Overlay::None); return true; }
             if (ActionPressed(action) && (overlay_ == Overlay::Inventory || overlay_ == Overlay::Character ||
@@ -963,7 +1041,7 @@ void GameEngine::UpdatePlaying(float dt) {
         if (overlay_ == Overlay::Reader && (ActionPressed("interact") || IsKeyPressed(KEY_ENTER))) { SetOverlay(Overlay::None); return; }
         if (overlay_ == Overlay::Narration) {
             narration_time_ += dt;
-            bool next = ActionPressed("interact") || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+            bool next = ActionPressed("interact") || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE) || UiClick();
             if (esc) { narration_page_ = static_cast<int>(narration_pages_.size()); AdvanceNarration(); return; }
             if (next && narration_time_ > 0.35f) { narration_page_++; narration_time_ = 0.0f; AdvanceNarration(); }
             return;
@@ -984,6 +1062,12 @@ void GameEngine::UpdatePlaying(float dt) {
     float sens = content_.controls.mouse_sensitivity * DEG2RAD;
     player_.yaw -= md.x * sens;
     player_.pitch += (content_.controls.invert_y ? md.y : -md.y) * sens;
+    {   // the right stick
+        float k = content_.controls.pad_look_speed * DEG2RAD * dt;
+        float rx = PadAxis(GAMEPAD_AXIS_RIGHT_X), ry = PadAxis(GAMEPAD_AXIS_RIGHT_Y);
+        player_.yaw -= rx * fabsf(rx) * k;          // squared response: fine aiming near the centre
+        player_.pitch += (content_.controls.invert_y ? 1.0f : -1.0f) * ry * fabsf(ry) * k * 0.75f;
+    }
     player_.pitch = Clamp(player_.pitch, -1.45f, 1.45f);
 
     HandleGameplayInput(dt);
@@ -1004,7 +1088,7 @@ void GameEngine::UpdatePlaying(float dt) {
 }
 
 void GameEngine::HandleGameplayInput(float dt) {
-    if (IsKeyPressed(KEY_ESCAPE)) { SetOverlay(Overlay::Pause); return; }
+    if (BackPressed()) { SetOverlay(Overlay::Pause); return; }
     if (ActionPressed("inventory")) { SetOverlay(Overlay::Inventory); return; }
     if (ActionPressed("character")) { SetOverlay(Overlay::Character); return; }
     if (ActionPressed("journal")) { SetOverlay(Overlay::Journal); return; }
@@ -1102,6 +1186,11 @@ void GameEngine::UpdatePlayerMovement(float dt) {
     if (ActionDown("move_left")) wish = Vector3Subtract(wish, right);
     bool moving = Vector3LengthSqr(wish) > 0.01f;
     if (moving) wish = Vector3Normalize(wish);
+    if (!moving) {   // the left stick: tilt a little to walk slowly
+        Vector3 s = Vector3Add(Vector3Scale(fwd, -PadAxis(GAMEPAD_AXIS_LEFT_Y)), Vector3Scale(right, PadAxis(GAMEPAD_AXIS_LEFT_X)));
+        float len = Vector3Length(s);
+        if (len > 0.05f) { wish = Vector3Scale(s, std::min(1.0f, len) / len); moving = true; }
+    }
 
     player_.crouching = ActionDown("crouch");
     float targetEye = player_.crouching ? 1.05f : 1.6f;
