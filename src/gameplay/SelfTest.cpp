@@ -740,6 +740,28 @@ int GameEngine::RunSelfTest() {
         int without = hd ? DialogueRollChance(hd->nodes.at("cards").choices[0]) : 0;
         check(withDie == std::min(95, without + 10), "the lucky d20 adds +2 to every roll (" + std::to_string(without) + "% -> " +
               std::to_string(withDie) + "%)");
+
+        // Campaign Two: The Lich Who Forgot to File (non-roll path, Barbarian carried over from Campaign One)
+        const char* ls[] = {"core:quest.lich_s1", "core:quest.lich_s2", "core:quest.lich_s3", "core:quest.lich_s4"};
+        StartDialogue(npcIndex("core:npc.clerk_oakhaven"));
+        bool d1 = chooseNext("l1_start") && QuestStage(ls[0]) == 0 && chooseNext("l1_sabrino") && chooseNext("l1_lore") &&
+                  chooseNext(player_.flags.count("dnd_dragon_down") ? "l1_recap_win" : "l1_recap_friend") && chooseNext("l1_mush") &&
+                  chooseNext("l1_mush_barb") && chooseNext("l1_rivals") && chooseNext("l1_hollis_hmm") && chooseNext("l1_steve") &&
+                  chooseNext("l1_end") && chooseNext("greeting");
+        EndDialogue();
+        check(d1 && QuestStage(ls[0]) == 100 && player_.flags.count("lich_steve"), "Lich I: a recap from Kaelen, a hallucinogenic mushroom, Steve rejoins");
+        check(play({"l2_start", "l2_gerald", "l2_city", "l2_tavern", "l2_plan", "l2_end", "greeting"}) && QuestStage(ls[1]) == 100,
+              "Lich II: Gerald conquers Form 1-UD; the city of Inkwell");
+        check(play({"l3_start", "l3_ruined", "l3_moments", "l3_vault_kick", "l3_cabinet", "l3_end", "greeting"}) && QuestStage(ls[2]) == 100,
+              "Lich III: the plan dies in ten seconds; the phylactery is a filing cabinet");
+        int winsBefore = 0;
+        for (int i = 1; i <= 8; i++) winsBefore += player_.flags.count("lich_win_" + std::to_string(i)) ? 1 : 0;
+        check(play({"l4_start", "l4_talk", "l4_file", "l4_rest", "l4_bow_great", "greeting"}) && QuestStage(ls[3]) == 100 &&
+                  CountItem("core:item.lich_quill") == 1 && CountItem("core:item.oakhaven_postcard") == 1 && player_.flags.count("lich_legend"),
+              "Lich IV: Gerald helps the Lich file; a quill and a postcard (" + std::to_string(winsBefore + 1) + "/8 table wins)");
+        StartDialogue(npcIndex("core:npc.clerk_oakhaven"));
+        check(chooseNext("l_after") && screen_ == Screen::Playing, "Oakhaven took his first day off in nineteen years");
+        EndDialogue();
     }
 
     // --- Sanity: eldritch places drain it, company slows the drain, breaking point wakes you on the quay

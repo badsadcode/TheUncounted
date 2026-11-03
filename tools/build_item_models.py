@@ -581,6 +581,38 @@ def dnd_items():
     icon("gm_screen", screen)
 
 
+def lich_items():
+    """Icons for The Lich Who Forgot to File."""
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def quill(d):  # a black quill with a silver nib and a single drop of ink
+        for k in range(16):
+            x, y = 24 - k, 5 + k
+            w = 3 if 2 < k < 12 else (2 if k > 0 else 1)
+            for t in range(-w, w + 1):
+                col = (70, 70, 96, 255) if (k + t) % 5 == 0 else (22, 20, 30, 255)
+                d.point((x + t, y + t), fill=col)
+                d.point((x + t + 1, y + t), fill=col)
+        d.line([(25, 4), (9, 20)], fill=(150, 150, 170, 255))          # shaft
+        d.line([(9, 20), (6, 25)], fill=(220, 224, 236, 255))          # silver nib
+        d.point((7, 23), fill=(255, 255, 255, 255))
+        d.ellipse([3, 25, 7, 29], fill=(40, 20, 70, 255))              # ink
+    icon("lich_quill", quill)
+
+    def postcard(d):  # a beach postcard: sky, sea, sand, a little sun
+        d.rectangle([4, 7, 27, 24], fill=(110, 170, 230, 255), outline=(240, 236, 220, 255))
+        d.rectangle([5, 15, 26, 18], fill=(70, 110, 160, 255))
+        d.rectangle([5, 19, 26, 23], fill=(226, 206, 150, 255))
+        d.ellipse([20, 9, 24, 13], fill=(255, 220, 90, 255))
+        d.line([(8, 11), (10, 10), (12, 11)], fill=(240, 240, 240, 255))  # a gull
+        d.point((11, 21), fill=(236, 170, 180, 255))                      # the seashell
+        d.point((12, 21), fill=(236, 170, 180, 255))
+    icon("oakhaven_postcard", postcard)
+
+
 def _tube(m, path, radii, color_fn, sides=8):
     """Tapered tube along a polyline (for tentacles). color_fn(segment, side) -> rgb."""
     def sub(a, b): return (a[0] - b[0], a[1] - b[1], a[2] - b[2])
@@ -701,6 +733,7 @@ BUILDERS = {
     "dnd_items": dnd_items,
     "docks_models": docks_models,
     "saltmere_items": saltmere_items,
+    "lich_items": lich_items,
 }
 
 

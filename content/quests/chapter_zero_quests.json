@@ -563,6 +563,94 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.lich_s1",
+      "title_key": "quest.lich1.title",
+      "summary_key": "quest.lich1.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.lich1.stage0",
+          "journal_key": "quest.lich1.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.lich1.stage100",
+          "journal_key": "quest.lich1.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.lich_s2",
+      "title_key": "quest.lich2.title",
+      "summary_key": "quest.lich2.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.lich2.stage0",
+          "journal_key": "quest.lich2.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.lich2.stage100",
+          "journal_key": "quest.lich2.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.lich_s3",
+      "title_key": "quest.lich3.title",
+      "summary_key": "quest.lich3.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.lich3.stage0",
+          "journal_key": "quest.lich3.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.lich3.stage100",
+          "journal_key": "quest.lich3.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.lich_s4",
+      "title_key": "quest.lich4.title",
+      "summary_key": "quest.lich4.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.lich4.stage0",
+          "journal_key": "quest.lich4.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.lich4.stage100",
+          "journal_key": "quest.lich4.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

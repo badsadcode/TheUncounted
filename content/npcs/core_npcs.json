@@ -46,6 +46,11 @@
         },
         {
           "text_key": "bark.clerk.rules"
+        },
+        {
+          "text_key": "bark.clerk.holiday",
+          "quest_id": "core:quest.lich_s4",
+          "min_stage": 100
         }
       ]
     },

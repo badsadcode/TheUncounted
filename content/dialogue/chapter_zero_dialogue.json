@@ -246,6 +246,81 @@
               "next": "after"
             },
             {
+              "text_key": "dlg.lich.topic.s1",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.dnd_session3",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.lich_s1",
+                  "stage": 100
+                }
+              ],
+              "next": "l1_start"
+            },
+            {
+              "text_key": "dlg.lich.topic.s2",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.lich_s1",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.lich_s2",
+                  "stage": 100
+                }
+              ],
+              "next": "l2_start"
+            },
+            {
+              "text_key": "dlg.lich.topic.s3",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.lich_s2",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.lich_s3",
+                  "stage": 100
+                }
+              ],
+              "next": "l3_start"
+            },
+            {
+              "text_key": "dlg.lich.topic.s4",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.lich_s3",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.lich_s4",
+                  "stage": 100
+                }
+              ],
+              "next": "l4_start"
+            },
+            {
+              "text_key": "dlg.lich.topic.after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.lich_s4",
+                  "stage": 100
+                }
+              ],
+              "next": "l_after"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -1698,6 +1773,1221 @@
           "choices": [
             {
               "text_key": "dlg.dnd.after.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "l1_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_start",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_start.c0",
+              "next": "l1_lore"
+            },
+            {
+              "text_key": "dlg.lich.l1_start.c1",
+              "next": "l1_sabrino"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s1",
+              "stage": 0
+            }
+          ]
+        },
+        "l1_sabrino": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_sabrino",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_sabrino.c0",
+              "next": "l1_lore"
+            }
+          ]
+        },
+        "l1_lore": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_lore",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_lore.c0",
+              "next": "l1_recap_win",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_dragon_down"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l1_lore.c1",
+              "next": "l1_recap_friend",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "dnd_dragon_down"
+                }
+              ]
+            }
+          ]
+        },
+        "l1_recap_win": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.lich.l1_recap_win",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_recap_win.c0",
+              "next": "l1_mush"
+            }
+          ]
+        },
+        "l1_recap_friend": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.lich.l1_recap_friend",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_recap_friend.c0",
+              "next": "l1_mush"
+            }
+          ]
+        },
+        "l1_mush": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_mush",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_mush.c0",
+              "next": "l1_mush_barb",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_barbarian"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l1_mush.c1",
+              "next": "l1_mush_bard",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_bard"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_1",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l1_mush.c2",
+              "next": "l1_mush_rogue",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_rogue"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_1",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "stealth",
+                "dc": 10,
+                "fail_next": "l1_mush_rogue_fail"
+              }
+            },
+            {
+              "text_key": "dlg.lich.l1_mush.c3",
+              "next": "l1_mush_wiz",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_wizard"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_1",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l1_mush.c4",
+              "next": "l1_mush_pal",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_paladin"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_1",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l1_mush.c5",
+              "next": "l1_rivals"
+            }
+          ]
+        },
+        "l1_mush_barb": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_mush_barb",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_win_1",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_mush_barb.c0",
+              "next": "l1_rivals"
+            }
+          ]
+        },
+        "l1_mush_bard": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_mush_bard",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_mush_bard.c0",
+              "next": "l1_rivals"
+            }
+          ]
+        },
+        "l1_mush_rogue": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_mush_rogue",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_mush_rogue.c0",
+              "next": "l1_rivals"
+            }
+          ]
+        },
+        "l1_mush_rogue_fail": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_mush_rogue_fail",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_mush_rogue_fail.c0",
+              "next": "l1_rivals"
+            }
+          ]
+        },
+        "l1_mush_wiz": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_mush_wiz",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_mush_wiz.c0",
+              "next": "l1_rivals"
+            }
+          ]
+        },
+        "l1_mush_pal": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_mush_pal",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_mush_pal.c0",
+              "next": "l1_rivals"
+            }
+          ]
+        },
+        "l1_rivals": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_rivals",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_rivals.c0",
+              "next": "l1_race",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_2",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "athletics",
+                "dc": 12,
+                "fail_next": "l1_race_lose"
+              }
+            },
+            {
+              "text_key": "dlg.lich.l1_rivals.c1",
+              "next": "l1_steal_map",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_rogue"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_2",
+                  "value": true
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "lich_their_map",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l1_rivals.c2",
+              "next": "l1_hollis_hmm"
+            },
+            {
+              "text_key": "dlg.lich.l1_rivals.c3",
+              "next": "l1_kind"
+            }
+          ]
+        },
+        "l1_race": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_race",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_race.c0",
+              "next": "l1_steve"
+            }
+          ]
+        },
+        "l1_race_lose": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_race_lose",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_race_lose.c0",
+              "next": "l1_steve"
+            }
+          ]
+        },
+        "l1_steal_map": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_steal_map",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_steal_map.c0",
+              "next": "l1_steve"
+            }
+          ]
+        },
+        "l1_hollis_hmm": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_hollis_hmm",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_win_2",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_hollis_hmm.c0",
+              "next": "l1_steve"
+            }
+          ]
+        },
+        "l1_kind": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_kind",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_win_2",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "lich_glorious_kind",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_kind.c0",
+              "next": "l1_steve"
+            }
+          ]
+        },
+        "l1_steve": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_steve",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_steve.c0",
+              "next": "l1_end",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_steve",
+                  "value": true
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_3",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l1_steve.c1",
+              "next": "l1_end_nosteve"
+            }
+          ]
+        },
+        "l1_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_end",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s1",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_end.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "l1_end_nosteve": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l1_end_nosteve",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s1",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l1_end_nosteve.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "l2_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_start",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_start.c0",
+              "next": "l2_form"
+            },
+            {
+              "text_key": "dlg.lich.l2_start.c1",
+              "next": "l2_gerald",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_4",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l2_start.c2",
+              "next": "l2_sabrino_form"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s2",
+              "stage": 0
+            }
+          ]
+        },
+        "l2_form": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_form",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_form.c0",
+              "next": "l2_form2"
+            },
+            {
+              "text_key": "dlg.lich.l2_form.c1",
+              "next": "l2_form2_honest"
+            }
+          ]
+        },
+        "l2_form2": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_form2",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_win_4",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_form2.c0",
+              "next": "l2_city"
+            }
+          ]
+        },
+        "l2_form2_honest": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_form2_honest",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_win_4",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_form2_honest.c0",
+              "next": "l2_city"
+            }
+          ]
+        },
+        "l2_gerald": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_gerald",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_gerald.c0",
+              "next": "l2_city"
+            }
+          ]
+        },
+        "l2_sabrino_form": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_sabrino_form",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_sabrino_form.c0",
+              "next": "l2_city"
+            }
+          ]
+        },
+        "l2_city": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_city",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_city.c0",
+              "next": "l2_tavern"
+            },
+            {
+              "text_key": "dlg.lich.l2_city.c1",
+              "next": "l2_baggy"
+            }
+          ]
+        },
+        "l2_tavern": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_tavern",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_win_5",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "lich_heard_rumour",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_tavern.c0",
+              "next": "l2_plan"
+            }
+          ]
+        },
+        "l2_baggy": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_baggy",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_win_5",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "lich_their_map",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_baggy.c0",
+              "next": "l2_plan"
+            }
+          ]
+        },
+        "l2_plan": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_plan",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_plan.c0",
+              "next": "l2_end",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_plan_elaborate",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l2_plan.c1",
+              "next": "l2_end",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_plan_simple",
+                  "value": true
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_6",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l2_plan.c2",
+              "next": "l2_end",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_plan_sabrino",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "l2_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l2_end",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s2",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l2_end.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "l3_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_start",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_start.c0",
+              "next": "l3_ruined"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s3",
+              "stage": 0
+            }
+          ]
+        },
+        "l3_ruined": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_ruined",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_ruined.c0",
+              "next": "l3_moments",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_6",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l3_ruined.c1",
+              "next": "l3_moments"
+            }
+          ]
+        },
+        "l3_moments": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_moments",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_moments.c0",
+              "next": "l3_vault",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_rogue"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_7",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "lockpicking",
+                "dc": 11,
+                "fail_next": "l3_vault_kick"
+              }
+            },
+            {
+              "text_key": "dlg.lich.l3_moments.c1",
+              "next": "l3_vault_kick",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_barbarian"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_7",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l3_moments.c2",
+              "next": "l3_vault",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_bard"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_7",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l3_moments.c3",
+              "next": "l3_vault",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_wizard"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_7",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l3_moments.c4",
+              "next": "l3_vault_polite",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_paladin"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_7",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l3_moments.c5",
+              "next": "l3_steve",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "lich_steve"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_7",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "l3_vault": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_vault",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_vault.c0",
+              "next": "l3_cabinet"
+            }
+          ]
+        },
+        "l3_vault_kick": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_vault_kick",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_vault_kick.c0",
+              "next": "l3_cabinet"
+            }
+          ]
+        },
+        "l3_vault_polite": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_vault_polite",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_knocked",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_vault_polite.c0",
+              "next": "l3_cabinet"
+            }
+          ]
+        },
+        "l3_steve": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_steve",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_steve.c0",
+              "next": "l3_cabinet"
+            }
+          ]
+        },
+        "l3_cabinet": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_cabinet",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_cabinet.c0",
+              "next": "l3_end"
+            }
+          ]
+        },
+        "l3_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l3_end",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s3",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "lockpicking",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l3_end.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "l4_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_start",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_start.c0",
+              "next": "l4_fight"
+            },
+            {
+              "text_key": "dlg.lich.l4_start.c1",
+              "next": "l4_talk"
+            },
+            {
+              "text_key": "dlg.lich.l4_start.c2",
+              "next": "l4_talk",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "lich_knocked"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_8",
+                  "value": true
+                }
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s4",
+              "stage": 0
+            }
+          ]
+        },
+        "l4_fight": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_fight",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_fight.c0",
+              "next": "l4_fight_win",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "lich_win_8",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "athletics",
+                "dc": 13,
+                "fail_next": "l4_fight_stop"
+              }
+            },
+            {
+              "text_key": "dlg.lich.l4_fight.c1",
+              "next": "l4_fight_stop"
+            }
+          ]
+        },
+        "l4_fight_win": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_fight_win",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_fight_win.c0",
+              "next": "l4_talk"
+            }
+          ]
+        },
+        "l4_fight_stop": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_fight_stop",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_fight_stop.c0",
+              "next": "l4_talk"
+            }
+          ]
+        },
+        "l4_talk": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_talk",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_talk.c0",
+              "next": "l4_file"
+            },
+            {
+              "text_key": "dlg.lich.l4_talk.c1",
+              "next": "l4_song",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_bard"
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 12,
+                "fail_next": "l4_song_crack"
+              }
+            },
+            {
+              "text_key": "dlg.lich.l4_talk.c2",
+              "next": "l4_heart"
+            }
+          ]
+        },
+        "l4_file": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_file",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_filed",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "lich_win_8",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_file.c0",
+              "next": "l4_rest"
+            }
+          ]
+        },
+        "l4_song": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_song",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_sung",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_song.c0",
+              "next": "l4_rest"
+            }
+          ]
+        },
+        "l4_song_crack": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_song_crack",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_sung",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "lich_win_8",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_song_crack.c0",
+              "next": "l4_rest"
+            }
+          ]
+        },
+        "l4_heart": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_heart",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lich_heart",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "lich_win_8",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_heart.c0",
+              "next": "l4_rest"
+            },
+            {
+              "text_key": "dlg.lich.l4_heart.c1",
+              "next": "l4_rest"
+            }
+          ]
+        },
+        "l4_rest": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_rest",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_rest.c0",
+              "next": "l4_bow_great",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "lich_win_1",
+                    "lich_win_2",
+                    "lich_win_3",
+                    "lich_win_4",
+                    "lich_win_5",
+                    "lich_win_6",
+                    "lich_win_7",
+                    "lich_win_8"
+                  ],
+                  "value": 6
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.lich.l4_rest.c1",
+              "next": "l4_bow",
+              "conditions": [
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "lich_win_1",
+                    "lich_win_2",
+                    "lich_win_3",
+                    "lich_win_4",
+                    "lich_win_5",
+                    "lich_win_6",
+                    "lich_win_7",
+                    "lich_win_8"
+                  ],
+                  "value": 6
+                }
+              ]
+            }
+          ]
+        },
+        "l4_bow_great": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_bow_great",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s4",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.lich_quill",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.oakhaven_postcard",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 150
+            },
+            {
+              "type": "give_gold",
+              "amount": 160
+            },
+            {
+              "type": "set_flag",
+              "flag": "lich_legend",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_bow_great.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "l4_bow": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l4_bow",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.lich_s4",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.lich_quill",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.oakhaven_postcard",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 150
+            },
+            {
+              "type": "give_gold",
+              "amount": 100
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.lich.l4_bow.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "l_after": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.lich.l_after",
+          "choices": [
+            {
+              "text_key": "dlg.lich.l_after.c0",
               "next": "greeting"
             }
           ]

@@ -94,6 +94,6 @@ cmake --build build -j 8
 - Enemies are staggered by heavy attacks or blows dealing 35%+ of their health, then get 2 s of stagger immunity;
   elites (`*guardian*`) only stagger from heavy attacks and bosses never do. Armour subtracts 60% of its value per hit.
 - Small item models (bread, garments, boots, helm, rings) are built by `python tools/build_item_models.py`
-  (flat-shaded vertex-coloured GLBs, no textures).
+  (flat-shaded vertex-coloured GLBs, no textures). Pass builder names (e.g. `lich_items`) to rebuild only those.
 - Character sprites are pre-rendered by `tools/build_sprites_prerendered.py` (SDF models raymarched from 8 directions,
   cel-shaded and outlined). Edit a style in `SHEETS` and run `python tools/build_sprites_prerendered.py [name-filter]`.

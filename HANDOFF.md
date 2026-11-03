@@ -198,6 +198,24 @@ Engine additions: condition `flags_fewer_than`; dialogue box shows the node spea
 - Lore tie-in: the Name-Eater *is* the Hunger from Chapter Zero; the player is invisible to it because their name was
   struck. Keep future eldritch content consistent with that.
 
+### Dungeons & Debtors II: The Lich Who Forgot to File (added 2026-11-03)
+
+- Oakhaven's second tabletop campaign: four sessions (`core:quest.lich_s1`..`lich_s4`, campaign `dungeons_debtors`),
+  unlocked by finishing Campaign One (`dnd_session3` = 100); topics on Oakhaven's greeting, one per Thursday. Each
+  session's first node sets its quest to stage 0; the last sets 100.
+- New at the table: **Sabrino** (playing the wizard *Sabrino the Second*: only casts Fireball) and **Kaelen** (the
+  chronicler: reads a "PREVIOUSLY…" recap at the start of every session; Campaign One's recap branches on `dnd_dragon_down`).
+- I The Descent (opinionated mushrooms, rival party *The Glorious Five*, Steve returns → `lich_steve`); II The City of
+  Inkwell (gnome bureaucracy, Form 1-UD, Gerald's finest hour, heist plan → `lich_plan_*`); III The Heist (the plan dies
+  on a natural 1; everyone improvises; class moves on the vault door, incl. Steve's; the phylactery is a filing cabinet
+  with an empty OUT tray); IV The Lich (Archchancellor Vellum Dreadquill: fight/stop, help him file it, a Bard's
+  lullaby, or "you don't have to finish everything to be allowed to rest" → Oakhaven breaks character: the Lich was
+  about him). `lich_win_1..8` tally good play (≥6 → `lich_legend`, bigger gold).
+- Rewards: **The Archchancellor's Quill** (accessory: +2 Intellect, +8% spell power, +1 dice) and **A Postcard from
+  Oakhaven** (book). Afterwards Oakhaven has a seashell, a sunburn, a new bark, and teases Campaign Three ("The Mimic Who
+  Wanted to Be a Real Chest"). Icons: `python tools/build_item_models.py lich_items`.
+- Authoring script: `tools/authoring/lich_campaign.py` (already run — do not rerun). Selftest plays all four sessions.
+
 ### Story canon (keep new writing consistent with this)
 
 - **412 years ago — the Great Silence.** Something beyond the world, *the Hunger*, finds its way in through spoken names.

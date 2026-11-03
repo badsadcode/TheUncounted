@@ -416,6 +416,18 @@
           "duration": 300
         }
       ]
+    },
+    {
+      "id": "core:item.oakhaven_postcard",
+      "name_key": "item.oakhaven_postcard.name",
+      "description_key": "item.oakhaven_postcard.description",
+      "category": "book",
+      "icon": "assets/ui/items/oakhaven_postcard.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.01,
+      "book_text_key": "book.oakhaven_postcard.text"
     }
   ]
 }
