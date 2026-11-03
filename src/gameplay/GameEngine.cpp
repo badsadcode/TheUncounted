@@ -1121,6 +1121,7 @@ void GameEngine::RebuildColliders() {
     }
     for (const auto& in : scene_.interactables) {
         const std::string& t = in.def.type;
+        if (in.hidden || in.def.model.empty()) continue;   // hidden, or nothing there to bump into (a smear, a spot, a voice)
         if (t == "door") {
             if (in.open_anim < 0.5f && !in.open) solids_.push_back(in.world_box);
         } else if (t == "chest" || t == "readable" || t == "quest_pedestal") {
@@ -3022,9 +3023,14 @@ void GameEngine::UpdateProjectiles(float dt) {
 }
 
 void GameEngine::UpdateWorldObjects(float dt) {
-    for (auto& in : scene_.interactables)
-        in.hidden = (!in.def.requires_flag.empty() && !player_.flags.count(in.def.requires_flag)) ||
-                    (!in.def.hidden_flag.empty() && player_.flags.count(in.def.hidden_flag));
+    bool visibilityChanged = false;
+    for (auto& in : scene_.interactables) {
+        const bool h = (!in.def.requires_flag.empty() && !player_.flags.count(in.def.requires_flag)) ||
+                       (!in.def.hidden_flag.empty() && player_.flags.count(in.def.hidden_flag));
+        if (h != in.hidden) visibilityChanged = true;
+        in.hidden = h;
+    }
+    if (visibilityChanged) RebuildColliders();   // hidden objects don't block
     for (auto& in : scene_.interactables) {
         if (in.def.type != "harvest" || !in.used) continue;
         auto h = Persist().harvested.find(in.def.instance_id);

@@ -1698,6 +1698,11 @@ int GameEngine::RunSelfTest() {
             check(stopped.z < 2.8f, "the invisible wall stops the player (z=" + std::to_string(stopped.z) + ")");
             standAndUse({0, 0, -4}, 0.0f, 0.0f);
             check(scene_.map && scene_.map->id == homeMap, "the portal in your map leads back to Bellwether");
+            UpdateWorldObjects(0.0f);
+            bool smearBlocks = false;
+            for (const auto& b : solids_)
+                if (CheckCollisionBoxSphere(b, {-6.5f, 0.4f, -8.6f}, 0.1f)) smearBlocks = true;
+            check(!smearBlocks, "model-less and hidden objects (the glowing ink smear) don't block the way to the clerk");
         }
     }
 
