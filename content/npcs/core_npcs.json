@@ -1104,8 +1104,8 @@
       "dialogue_id": "core:dialogue.mother_brine",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/mother_brine.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/mother_brine_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.55
       },
       "barks": [
@@ -1141,8 +1141,8 @@
       "dialogue_id": "core:dialogue.professor_pickering",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/professor_pickering.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/professor_pickering_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -1263,8 +1263,8 @@
       "dialogue_id": "core:dialogue.keeper_ondine",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/keeper_ondine.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/keeper_ondine_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.72
       },
       "barks": [

@@ -528,8 +528,8 @@
       "name_key": "enemy.rat_king.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/rat_king.png",
-        "animation_data": "assets/animations/grave_rat.json",
+        "sprite_sheet": "assets/sprites/enemies/rat_king_painted.png",
+        "animation_data": "assets/animations/grave_rat_128.json",
         "scale": 1.7
       },
       "stats": {
@@ -728,8 +728,8 @@
       "name_key": "enemy.name_eater_avatar.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/name_eater_avatar.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/name_eater_avatar_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 3.4
       },
       "stats": {

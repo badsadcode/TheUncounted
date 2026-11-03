@@ -26,16 +26,11 @@ Suggested order: the characters Toasty spends the most time with first.
 | File | Who | Notes |
 |---|---|---|
 | `silas_gale.png` | **Old Silas** | Very old fisherman in bright yellow oilskins, pale eyes, fishing line. |
-| `mother_brine.png` | **Mother Brine** | Tavern keeper, grey-blue dress and apron, hair in a bun, tough. |
-| `professor_pickering.png` | **Professor Pickering** | Scholar in a brown tweed coat, frazzled, notes everywhere. |
 | `tide_priest.png` | **The Tide Priest** | Cult leader, dark teal robes with gold trim, unsettling. |
-| `keeper_ondine.png` | **Ondine Marsh** | Ghost lighthouse keeper, hooded navy cloak, translucent, a lantern on a pole. |
 
 ## Monsters
 | File | What | Notes |
 |---|---|---|
 | `the_drowned.png` | The Drowned | Waterlogged greenish corpse-men, glowing eyes, seaweed. |
 | `tide_acolyte.png` | Tide Acolyte | Hooded teal cultist with a glowing green spell. |
-| `name_eater_avatar.png` | Avatar of the Name-Eater (boss) | A heaving mass of tentacles and many eyes rising from water. |
-| `rat_king.png` | The Rat King (boss) | A giant rat wearing a tiny gold crown. |
 | `truffle_hog.png` | Truffle Hog | A pink-brown pig snuffling for truffles. |

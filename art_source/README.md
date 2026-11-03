@@ -32,6 +32,11 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/hunter_hollis.webp` | `assets/sprites/npcs/hunter_hollis_painted.png` | Hollis the Grey |
 | `spritesheets/impresario_odette.webp` | `assets/sprites/npcs/impresario_odette_painted.png` | Odette |
 | `spritesheets/ink_wraith.webp` | `assets/sprites/enemies/ink_wraith_painted.png` | Ink Wraith |
+| `spritesheets/keeper_ondine.webp` | `assets/sprites/npcs/keeper_ondine_painted.png` | Ondine Marsh |
+| `spritesheets/mother_brine.webp` | `assets/sprites/npcs/mother_brine_painted.png` | Mother Brine |
+| `spritesheets/name_eater_avatar.webp` | `assets/sprites/enemies/name_eater_avatar_painted.png` | Avatar of the Name-Eater |
+| `spritesheets/professor_pickering.webp` | `assets/sprites/npcs/professor_pickering_painted.png` | Professor Pickering |
+| `spritesheets/rat_king.webp` | `assets/sprites/enemies/rat_king_painted.png` | The Rat King |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):
