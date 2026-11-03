@@ -388,6 +388,14 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   meshes carry `uncounted_solid`, `uncounted_ramp` and `uncounted_tile` (box-projected UVs, one repeat per N metres);
   Blender POINT lights become map lights (radius = W / 60) in New Map mode only. Selftest builds a tiny user map, walks
   into its invisible wall and takes its portal home.
+  v4 (not a mod any more): World Export writes `content/maps/edrath_blender.json` (the cumulative diff against
+  `content/maps/edrath_world.base.json`) and rewrites `content/maps/edrath_world.json` = base + diff; own models go to
+  `assets/models/level/`. `tools/build_world.py` writes the base, then applies `edrath_blender.json` (via
+  `tools/map_edits.py`, warning about changes to props that no longer exist), so region rebuilds keep Blender work. New
+  maps: `content/maps/custom/<slug>/map.json` (id `core:map.<slug>`), models `assets/models/custom/<slug>/`; the engine
+  loads them (and the legacy `mods/user_maps`). Older `mods/` saves are imported and renamed `*.moved_into_game` on export.
+  Blender preview: imported materials get a node chain multiplying UVs by the object's `game_uv_x/y` (Attribute nodes),
+  so Material Preview tiles like the game. "Pack My Changes" zips the level files for sending.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

@@ -6,8 +6,8 @@ Edit the game world, or build brand-new maps, in Blender. Full guide: docs/LEVEL
   Install:  Edit > Preferences > Add-ons > Install... > pick this file > tick "The Uncounted: Level Editor".
   Use:      3D Viewport > press N > "Uncounted" tab. Set "Game folder" (the folder with game.exe).
 
-  Edit the world:  Import World -> edit -> Export. Saved to mods/level_edits/ (only your changes).
-  Build a map:     New Map (or Import My Map) -> build -> Export. Saved to mods/user_maps/<name>/ (the whole map).
+  Edit the world:  Import World -> edit -> Export. Saved straight into the game's level (content/maps/edrath_world.json).
+  Build a map:     New Map (or Import My Map) -> build -> Export. Saved into the game as content/maps/custom/<name>/.
                    Put a portal (palette template) in the world that leads to it, and one in your map that leads back.
 
   * Everything can be moved, turned (around Z), stretched, copied and deleted.
@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (3, 0, 0),
+    "version": (4, 0, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -41,11 +41,18 @@ import shutil
 import bpy
 from mathutils import Vector
 
-EDITS_DIR = "mods/level_edits"
-EDITS_REL = EDITS_DIR + "/map_edits.json"
-USER_MAPS = "mods/user_maps"
-MAP_REL = "content/maps/edrath_world.json"
+MAP_REL = "content/maps/edrath_world.json"              # the level the game plays
+BASE_REL = "content/maps/edrath_world.base.json"        # the level before your Blender changes (made by tools/build_world.py)
+CHANGES_REL = "content/maps/edrath_blender.json"        # your Blender changes, kept so rebuilding the world never loses them
+LEVEL_MODELS = "assets/models/level"                    # your own models in the world
+CUSTOM_MAPS = "content/maps/custom"                     # your new maps: content/maps/custom/<name>/map.json
+CUSTOM_MODELS = "assets/models/custom"                  # their models: assets/models/custom/<name>/
+OLD_EDITS_DIR = "mods/level_edits"                      # where version 2 and 3 saved (moved into the game on the next Export)
+OLD_EDITS_REL = OLD_EDITS_DIR + "/map_edits.json"
+OLD_USER_MAPS = "mods/user_maps"
+OWN_MODEL_DIRS = (LEVEL_MODELS + "/", CUSTOM_MODELS + "/", OLD_EDITS_DIR + "/models", OLD_USER_MAPS + "/")
 WORLD_ID = "core:map.edrath"
+PACK_NAME = "my_level_changes.zip"
 COL_WORLD, COL_OBJECTS, COL_PALETTE = "Uncounted World", "Uncounted Objects", "Uncounted Palette"
 KINDS = ("npcs", "creatures", "interactables", "portals")
 IDKEY = {"npcs": "instance_id", "creatures": "instance_id", "interactables": "instance_id", "portals": "id", "spawns": "id"}
@@ -147,6 +154,54 @@ def clear_collection(name):
             bpy.data.objects.remove(o, do_unlink=True)
 
 
+def game_tiling(mat):
+    """Make Blender repeat a texture the way the game does: the mesh's UVs times the object's game_uv_x / game_uv_y."""
+    if mat is None or not mat.use_nodes or mat.get("unc_tiled"):
+        return
+    nt = mat.node_tree
+    images = [n for n in nt.nodes if n.type == "TEX_IMAGE"]
+    if not images:
+        return
+    uvn = nt.nodes.new("ShaderNodeUVMap")
+    comb = nt.nodes.new("ShaderNodeCombineXYZ")
+    comb.inputs[2].default_value = 1.0
+    for axis, name in ((0, "game_uv_x"), (1, "game_uv_y")):
+        attr = nt.nodes.new("ShaderNodeAttribute")
+        attr.attribute_type = "OBJECT"
+        attr.attribute_name = name
+        none = nt.nodes.new("ShaderNodeMath")             # objects without the field (doors, chests...) repeat once
+        none.operation = "COMPARE"
+        none.inputs[1].default_value = 0.0
+        none.inputs[2].default_value = 1e-4
+        nt.links.new(attr.outputs["Fac"], none.inputs[0])
+        add = nt.nodes.new("ShaderNodeMath")
+        add.operation = "ADD"
+        nt.links.new(attr.outputs["Fac"], add.inputs[0])
+        nt.links.new(none.outputs[0], add.inputs[1])
+        nt.links.new(add.outputs[0], comb.inputs[axis])
+    mul = nt.nodes.new("ShaderNodeVectorMath")
+    mul.operation = "MULTIPLY"
+    nt.links.new(uvn.outputs["UV"], mul.inputs[0])
+    nt.links.new(comb.outputs[0], mul.inputs[1])
+    for img in images:
+        img.interpolation = "Closest"
+        if not img.inputs["Vector"].is_linked:
+            nt.links.new(mul.outputs[0], img.inputs["Vector"])
+    mat["unc_tiled"] = True
+
+
+def game_view(context, sc=None):
+    """Show the scene textured, as in the game: Material Preview in every 3D view, the map's sky colour behind it."""
+    for win in context.window_manager.windows:
+        for area in win.screen.areas:
+            if area.type == "VIEW_3D":
+                for sp in area.spaces:
+                    if sp.type == "VIEW_3D":
+                        sp.shading.type = "MATERIAL"
+                        sp.shading.use_scene_world = False
+                        sp.clip_end = 2000.0
+
+
 def model_mesh(gdir, model, cache):
     """Import a .glb once and join it into one mesh whose origin is the bottom-centre (the game's anchor)."""
     if model in cache:
@@ -175,10 +230,7 @@ def model_mesh(gdir, model, cache):
                 v.co -= anchor
             mesh.name = "UNC:" + model
             for mat in mesh.materials:
-                if mat and mat.use_nodes:
-                    for n in mat.node_tree.nodes:
-                        if n.type == "TEX_IMAGE":
-                            n.interpolation = "Closest"
+                game_tiling(mat)
         for o in new:
             bpy.data.objects.remove(o, do_unlink=True)
     cache[model] = mesh
@@ -304,7 +356,7 @@ def add_prop_object(gdir, cache, p, col, base_props=None):
     if p.get("invisible"):
         o["game_invisible"] = True
         o.display_type = "WIRE"
-    if p["model"].startswith(EDITS_DIR + "/models") or p["model"].startswith(USER_MAPS + "/"):
+    if p["model"].startswith(OWN_MODEL_DIRS):
         o.uncounted_solid = bool(p.get("solid", True))       # one of your own models, already baked: keep its settings
         o.uncounted_ramp = {"+x": "PX", "-x": "NX", "-z": "PY", "+z": "NY"}.get(p.get("ramp", ""), "NONE")
         o.uncounted_tile = 0.0                                # its texture tiling is already in the model
@@ -364,9 +416,12 @@ class UNC_OT_import_world(bpy.types.Operator):
             self.report({"ERROR"}, f"Can't find {MAP_REL} in {gdir}. Set the game folder first.")
             return {"CANCELLED"}
         context.scene.uncounted_mode = "WORLD"
-        base = read_json(map_path)
-        edits_path = os.path.join(gdir, EDITS_REL)
-        world = apply_edits(json.loads(json.dumps(base)), read_json(edits_path)) if os.path.exists(edits_path) else base
+        base_path = os.path.join(gdir, BASE_REL)
+        base = read_json(base_path if os.path.exists(base_path) else map_path)
+        world = json.loads(json.dumps(base))
+        for rel in (CHANGES_REL, OLD_EDITS_REL):        # your changes so far (and any saved by the older version)
+            if os.path.exists(os.path.join(gdir, rel)):
+                world = apply_edits(world, read_json(os.path.join(gdir, rel)))
         for name in (COL_WORLD, COL_OBJECTS, COL_PALETTE):
             clear_collection(name)
         cw, co = collection(COL_WORLD), collection(COL_OBJECTS)
@@ -384,6 +439,7 @@ class UNC_OT_import_world(bpy.types.Operator):
         build_palette(gdir, cache, base.get("props", []))
         context.scene["unc_base"] = json.dumps({k: {e[IDKEY[k]]: e for e in base.get(k, [])} for k in KINDS})
         context.scene["unc_base_ids"] = json.dumps(sorted(base_props))
+        game_view(context)
         self.report({"INFO"}, f"Imported the world: {len(cw.objects)} pieces, {len(co.objects)} objects"
                               + (f" ({skipped} skipped: model missing)" if skipped else ""))
         return {"FINISHED"}
@@ -399,6 +455,9 @@ class UNC_OT_new_map(bpy.types.Operator):
         if not os.path.exists(os.path.join(gdir, MAP_REL)):
             self.report({"ERROR"}, "Set the game folder first.")
             return {"CANCELLED"}
+        if map_slug(context) == "edrath":
+            self.report({"ERROR"}, "That name belongs to the game's world. Pick another map name.")
+            return {"CANCELLED"}
         context.scene.uncounted_mode = "MAP"
         for name in (COL_WORLD, COL_OBJECTS, COL_PALETTE):
             clear_collection(name)
@@ -407,6 +466,7 @@ class UNC_OT_new_map(bpy.types.Operator):
                                       "scale": [20, 0.5, 20], "solid": False, "uv_scale": [8, 8]}, cw)
         co.objects.link(make_object(gdir, cache, "spawns", {"id": "start", "pos": [0, 0, 0]}, "spawn:start"))
         build_palette(gdir, cache, read_json(os.path.join(gdir, MAP_REL)).get("props", []))
+        game_view(context)
         self.report({"INFO"}, f"New map '{context.scene.uncounted_map_name}': build away, then Export.")
         return {"FINISHED"}
 
@@ -418,7 +478,9 @@ class UNC_OT_import_map(bpy.types.Operator):
 
     def execute(self, context):
         gdir = game_dir(context)
-        path = os.path.join(gdir, USER_MAPS, map_slug(context), "map.json")
+        path = os.path.join(gdir, CUSTOM_MAPS, map_slug(context), "map.json")
+        if not os.path.exists(path):
+            path = os.path.join(gdir, OLD_USER_MAPS, map_slug(context), "map.json")
         if not os.path.exists(path):
             self.report({"ERROR"}, f"No map called '{context.scene.uncounted_map_name}' yet ({path}). Use New Map.")
             return {"CANCELLED"}
@@ -456,21 +518,25 @@ class UNC_OT_import_map(bpy.types.Operator):
             lo.location = to_blender(l["pos"])
             cw.objects.link(lo)
         build_palette(gdir, cache, read_json(os.path.join(gdir, MAP_REL)).get("props", []))
+        game_view(context)
         self.report({"INFO"}, f"Loaded your map '{sc.uncounted_map_name}'.")
         return {"FINISHED"}
 
 
 # ----------------------------------------------------------------------------------------------- export
-def tile_uvs(mesh, size):
-    """Box-project the texture so it repeats every `size` metres, however big the mesh is (like the game's walls)."""
+def tile_uvs(mesh, size, matrix=None):
+    """Box-project the texture so it repeats every `size` metres, however big the mesh is (like the game's walls).
+    With `matrix` (the object's), works in world space on the object's own mesh, so Blender shows what the game will."""
     if not mesh.uv_layers:
         mesh.uv_layers.new(name="UVMap")
     uv = mesh.uv_layers.active.data
     for poly in mesh.polygons:
-        n = poly.normal
+        n = poly.normal if matrix is None else (matrix.to_3x3() @ poly.normal)
         ax = max(range(3), key=lambda i: abs(n[i]))
         for li in poly.loop_indices:
             co = mesh.vertices[mesh.loops[li].vertex_index].co
+            if matrix is not None:
+                co = matrix @ co
             u, v = ((co.y, co.z) if ax == 0 else (co.x, co.z) if ax == 1 else (co.x, co.y))
             if (ax == 0 and n[0] < 0) or (ax == 1 and n[1] > 0):
                 u = -u
@@ -483,6 +549,7 @@ def export_mesh_glb(o, gdir, rel):
     mesh.transform(o.matrix_world)
     if o.uncounted_tile > 0.0:
         tile_uvs(mesh, o.uncounted_tile)
+        tile_uvs(o.data, o.uncounted_tile, o.matrix_world)   # and show the same tiling in Blender
     xs = [v.co.x for v in mesh.vertices]
     ys = [v.co.y for v in mesh.vertices]
     zs = [v.co.z for v in mesh.vertices]
@@ -510,7 +577,7 @@ def world_box(o):
 
 def is_own_model(o):
     m = o.get("unc_model", "")
-    return o.type == "MESH" and (o.get("unc_kind") is None or m.startswith(EDITS_DIR + "/models") or m.startswith(USER_MAPS + "/"))
+    return o.type == "MESH" and (o.get("unc_kind") is None or m.startswith(OWN_MODEL_DIRS))
 
 
 def collect(context, models_rel, base_ids, base_objs):
@@ -628,7 +695,7 @@ def collect(context, models_rel, base_ids, base_objs):
 class UNC_OT_export(bpy.types.Operator):
     bl_idname = "uncounted.export"
     bl_label = "Export"
-    bl_description = "World: save your changes to mods/level_edits. New map: save the whole map to mods/user_maps/<name>"
+    bl_description = "Save into the game: the world's level, or your new map in content/maps/custom/<name>"
 
     def execute(self, context):
         gdir = game_dir(context)
@@ -639,23 +706,35 @@ class UNC_OT_export(bpy.types.Operator):
                 return {"CANCELLED"}
             base_ids = set(json.loads(sc["unc_base_ids"]))
             base_objs = json.loads(sc["unc_base"])
-            r = collect(context, EDITS_DIR + "/models", base_ids, base_objs)
-            edits = {"schema": 3, "map": WORLD_ID,
+            r = collect(context, LEVEL_MODELS, base_ids, base_objs)
+            edits = {"schema": 4, "map": WORLD_ID,
                      "props": {"modify": r["modify"], "add": r["props"], "remove": sorted(base_ids - r["seen_props"])}}
             for k in KINDS:
                 edits[k] = {"set": r["objs"][k], "remove": sorted(set(base_objs.get(k, {})) - r["seen"][k])}
-            os.makedirs(os.path.join(gdir, EDITS_DIR), exist_ok=True)
-            with open(os.path.join(gdir, EDITS_REL), "w", encoding="utf-8") as f:
+            base_path, map_path = os.path.join(gdir, BASE_REL), os.path.join(gdir, MAP_REL)
+            if not os.path.exists(base_path):
+                shutil.copyfile(map_path, base_path)        # first save: keep the untouched level as the base
+            base = read_json(base_path)
+            ids = {p["id"] for p in base.get("props", [])}
+            if ids != base_ids:
+                self.report({"ERROR"}, "The game's level changed since you imported it. Import World again, then redo this change.")
+                return {"CANCELLED"}
+            with open(os.path.join(gdir, CHANGES_REL), "w", encoding="utf-8") as f:
                 json.dump(edits, f, indent=2)
-            msg = (f"Saved world edits: {len(r['modify'])} changed, {len(r['props'])} added ({r['custom']} your own models), "
+            with open(map_path, "w", encoding="utf-8") as f:   # the level the game plays: the base plus your changes
+                json.dump(apply_edits(base, edits), f, indent=2, ensure_ascii=False)
+            old = os.path.join(gdir, OLD_EDITS_REL)
+            if os.path.exists(old):                            # changes saved by the older version are now in the game
+                os.replace(old, old + ".moved_into_game")
+            msg = (f"Saved into the game's level: {len(r['modify'])} changed, {len(r['props'])} added ({r['custom']} your own models), "
                    f"{len(edits['props']['remove'])} removed; {sum(len(edits[k]['set']) for k in KINDS)} objects added or changed, "
                    f"{sum(len(edits[k]['remove']) for k in KINDS)} removed")
         else:
             slug = map_slug(context)
-            r = collect(context, f"{USER_MAPS}/{slug}/models", set(), {})
+            r = collect(context, f"{CUSTOM_MODELS}/{slug}", set(), {})
             spawns = r["spawns"] or {"start": {"pos": [0.0, 0.0, 0.0], "yaw_degrees": 0.0}}
             pano = {"NONE": "", "NIGHT": "assets/textures/sky/sky_night.png", "DUSK": "assets/textures/sky/sky_dusk.png"}[sc.uncounted_panorama]
-            m = {"schema_version": 1, "id": "user:map." + slug, "display_name_key": sc.uncounted_map_name,
+            m = {"schema_version": 1, "id": "core:map." + slug, "display_name_key": sc.uncounted_map_name,
                  "music": sc.uncounted_music, "ambience": sc.uncounted_ambience,
                  "sky_color": [int(round(c * 255)) for c in sc.uncounted_sky], "ambient_color": [round(c, 3) for c in sc.uncounted_ambient],
                  "sun_direction": [-0.3, 0.8, -0.3], "sun_color": [round(c, 3) for c in sc.uncounted_sun],
@@ -664,14 +743,58 @@ class UNC_OT_export(bpy.types.Operator):
                  "spawns": spawns, "props": r["props"], "lights": r["lights"]}
             for k in KINDS:
                 m[k] = r["objs"][k]
-            os.makedirs(os.path.join(gdir, USER_MAPS, slug), exist_ok=True)
-            with open(os.path.join(gdir, USER_MAPS, slug, "map.json"), "w", encoding="utf-8") as f:
+            os.makedirs(os.path.join(gdir, CUSTOM_MAPS, slug), exist_ok=True)
+            with open(os.path.join(gdir, CUSTOM_MAPS, slug, "map.json"), "w", encoding="utf-8") as f:
                 json.dump(m, f, indent=2)
-            msg = (f"Saved map '{sc.uncounted_map_name}' (id user:map.{slug}): {len(r['props'])} pieces ({r['custom']} your own), "
+            old = os.path.join(gdir, OLD_USER_MAPS, slug, "map.json")
+            if os.path.exists(old):                            # saved by the older version: now it's in the game
+                os.replace(old, old + ".moved_into_game")
+            msg = (f"Saved map '{sc.uncounted_map_name}' (id core:map.{slug}): {len(r['props'])} pieces ({r['custom']} your own), "
                    f"{sum(len(m[k]) for k in KINDS)} objects, {len(spawns)} spawn points, {len(r['lights'])} lights")
         if r["tilted"]:
             msg += f". Note: {r['tilted']} tilted object(s): the game only turns things around Z"
         self.report({"INFO"}, msg)
+        return {"FINISHED"}
+
+
+class UNC_OT_tile(bpy.types.Operator):
+    bl_idname = "uncounted.tile"
+    bl_label = "Tile Texture Now"
+    bl_description = "Repeat the texture of the selected meshes every 'Texture size' metres, as the game will (Export does it too)"
+
+    def execute(self, context):
+        n = 0
+        for o in context.selected_objects:
+            if o.type == "MESH" and is_own_model(o) and o.uncounted_tile > 0.0:
+                tile_uvs(o.data, o.uncounted_tile, o.matrix_world)
+                n += 1
+        self.report({"INFO"}, f"Tiled {n} mesh(es)")
+        return {"FINISHED"}
+
+
+class UNC_OT_pack(bpy.types.Operator):
+    bl_idname = "uncounted.pack"
+    bl_label = "Pack My Changes"
+    bl_description = "Zip your level changes, new maps and models into my_level_changes.zip in the game folder, to send to the developer"
+
+    def execute(self, context):
+        import zipfile
+        gdir = game_dir(context)
+        out = os.path.join(gdir, PACK_NAME)
+        n = 0
+        with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
+            for rel in (MAP_REL, BASE_REL, CHANGES_REL, LEVEL_MODELS, CUSTOM_MAPS, CUSTOM_MODELS):
+                path = os.path.join(gdir, rel)
+                if os.path.isfile(path):
+                    z.write(path, rel)
+                    n += 1
+                elif os.path.isdir(path):
+                    for root, _, files in os.walk(path):
+                        for f in files:
+                            full = os.path.join(root, f)
+                            z.write(full, os.path.relpath(full, gdir).replace(os.sep, "/"))
+                            n += 1
+        self.report({"INFO"}, f"Packed {n} files into {out}")
         return {"FINISHED"}
 
 
@@ -702,6 +825,7 @@ class UNC_PT_panel(bpy.types.Panel):
                       "uncounted_weather", "uncounted_panorama", "uncounted_music", "uncounted_ambience"):
                 box.prop(sc, p)
         lay.operator("uncounted.export", icon="EXPORT")
+        lay.operator("uncounted.pack", icon="PACKAGE")
         o = context.active_object
         if o is not None:
             box = lay.box()
@@ -711,6 +835,7 @@ class UNC_PT_panel(bpy.types.Panel):
                 box.prop(o, "uncounted_solid")
                 box.prop(o, "uncounted_ramp")
                 box.prop(o, "uncounted_tile")
+                box.operator("uncounted.tile", icon="TEXTURE")
             elif o.type == "MESH" and o.get("unc_kind") is None and o.name.lower().startswith("col"):
                 box.label(text="Invisible collision box")
             for k in sorted(k for k in o.keys() if k.startswith("game_")):
@@ -721,7 +846,7 @@ class UNC_PT_panel(bpy.types.Panel):
         col.label(text="Name a mesh COL... for an invisible wall")
 
 
-CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_PT_panel)
+CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
 
 
 def register():

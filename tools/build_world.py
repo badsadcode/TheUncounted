@@ -17,10 +17,13 @@ import copy
 import json
 import math
 import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REGIONS = os.path.join(ROOT, "content", "regions")
 OUT = os.path.join(ROOT, "content", "maps", "edrath_world.json")
+BASE_OUT = os.path.join(ROOT, "content", "maps", "edrath_world.base.json")    # the level before the Blender changes
+BLENDER_EDITS = os.path.join(ROOT, "content", "maps", "edrath_blender.json")  # the changes made in Blender
 
 ROAD_OFF = (48.0, 0.0, 0.0)
 ANNEX_OFF = (87.0, -4.8, -8.4)
@@ -585,6 +588,15 @@ def build():
         "interactables": interactables,
         "portals": [],
     }
+    with open(BASE_OUT, "w", encoding="utf-8") as f:
+        json.dump(world, f, indent=2, ensure_ascii=False)
+    if os.path.exists(BLENDER_EDITS):
+        # The level as changed in Blender (tools/blender/uncounted_level_editor.py): those changes always win.
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from map_edits import apply_edits
+        with open(BLENDER_EDITS, encoding="utf-8") as f:
+            world = apply_edits(world, json.load(f), warn=lambda m: print("  warning:", m))
+        print("Applied the Blender changes from", os.path.relpath(BLENDER_EDITS, ROOT))
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(world, f, indent=2, ensure_ascii=False)
     print("Wrote %s: %d props, %d interactables, %d creatures, %d zones" % (os.path.relpath(OUT, ROOT), len(props), len(interactables),

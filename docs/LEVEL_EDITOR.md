@@ -5,11 +5,25 @@ whole buildings), or build a **brand-new map** from scratch in Blender, then pla
 
 The add-on has two modes (the buttons at the top of the **Uncounted** tab):
 
-- **Edit World** changes the game's world. Saved to `mods/level_edits/` (only your changes, plus a `models/` folder).
-- **New Map** builds a map of your own. Saved to `mods/user_maps/<map name>/` (`map.json` plus a `models/` folder).
+- **Edit World** changes the game's own level: Export saves straight into `content/maps/edrath_world.json`, the file
+  the game plays. Your own models go to `assets/models/level/`.
+- **New Map** builds a new map for the game: `content/maps/custom/<map name>/map.json`, models in
+  `assets/models/custom/<map name>/`.
 
-Game updates never overwrite the `mods` folder. Send those folders to the developer to make them a permanent part of
-the game.
+Nothing is a mod: it's the game's real level. Behind the scenes Export also keeps a list of your changes
+(`content/maps/edrath_blender.json`, measured against `edrath_world.base.json`, the level before Blender). That way, when
+the developer rebuilds the world from its source, your changes are put back on top instead of lost.
+
+**Getting your changes into the official game**: press **Pack My Changes**. It makes `my_level_changes.zip` in the game
+folder with everything you changed. Send that zip to the developer. Do this before you download a new version of the
+game, because unzipping a new version over your folder replaces the level files.
+
+## Seeing it as it looks in the game
+
+Import switches the 3D view to **Material Preview**, with textures repeated exactly as the game repeats them (walls and
+floors are stretched boxes whose texture repeats `uv_x` × `uv_y` times). If the view goes grey or untextured, press
+**Z** in the 3D view and pick **Material Preview**. Pixels stay sharp (no blur), like the game. Lighting in Blender is
+brighter than the game's night, so judge colours in the game.
 
 ## One-time setup
 
@@ -58,7 +72,7 @@ your own models stay as you left them.
 - **NPCs**: `npc_id` (who it is, for example `core:npc.figure_snacks`). **Monsters**: `creature_id` (for example
   `core:enemy.grey_wolf`). A monster patrols the same route relative to wherever you put it.
 - **Walls, floors, props**: `solid` (can you walk through it?), `uv_x` / `uv_y` (how many times the texture repeats).
-- **Portals** (the cones): `destination_map` (a map id: `core:map.edrath` for the game's world, `user:map.<name>` for
+- **Portals** (the cones): `destination_map` (a map id: `core:map.edrath` for the game's world, `core:map.<name>` for
   yours), `destination_spawn` (a spawn point in that map), `prompt` (shown as "[E] *prompt*"), `radius` (how close you
   must stand). A portal is an invisible spot: put a door, archway or stairs model on it so players see where to go.
 - Fields ending in `_flag` control when things appear or vanish in the story. Leave them alone unless you know the flag.
@@ -85,6 +99,10 @@ export. Put it in any collection; hidden meshes are skipped.
 - Each model is saved in the mode's `models/` folder as `<name>.glb`. Keep the object's name stable and it keeps the
   same file. Any texture image you put in a material is packed into the model, so your own textures work too.
 - A mesh with no material shows plain white in the game.
+- **Several materials on one mesh** work: add them in the Material tab, then in Edit Mode select faces and press
+  **Assign** (for example shingles on the roof faces, planks on the gable). Each keeps its own texture in the game.
+- **Tile Texture Now** (under Texture size) shows the game's texture repeat on the selected meshes straight away;
+  Export does it anyway.
 
 ## Making a new map
 
@@ -98,8 +116,8 @@ export. Put it in any collection; hidden meshes are skipped.
    under `assets/audio/...`).
 5. **Spawn points**: the `start` arrows are where players arrive. Copy the spawn template for more (each gets a name in
    the export; rename the copy to `spawn:<name>` to choose it). Turn the arrows to set which way players face.
-6. **Export**. Your map is `mods/user_maps/<name>/map.json`, with the id `user:map.<name>` (lower case, spaces become
-   underscores: "Toasty Test" is `user:map.toasty_test`).
+6. **Export**. Your map is `content/maps/custom/<name>/map.json`, with the id `core:map.<name>` (lower case, spaces
+   become underscores: "Toasty Test" is `core:map.toasty_test`).
 7. **A way in**: switch to **Edit World**, **Import World**, copy the **portal** template next to a door somewhere in
    the world, set `destination_map` to your map's id and `destination_spawn` to `start`, and Export. And a **way back**:
    in your map, a portal with `destination_map` `core:map.edrath` and `destination_spawn` `village_gate` (outside
@@ -116,7 +134,9 @@ that belong together (**Ctrl+J**).
 - **Textures look stretched in Blender** on big walls and floors. The game tiles them, so ignore it.
 - **Doors and gaps**: doors are 1.84 m wide and 2.8 m tall. Move the walls in (with snapping) or model a frame around them.
 - **Tilting** something (rotating around X or Y) isn't kept, and Export warns you.
-- **Undo everything**: delete or rename `mods/level_edits` (or your map's folder in `mods/user_maps`).
-- **Updating the game**: copy your `mods` folder into the new game folder.
+- **Undo everything**: delete `content/maps/edrath_blender.json` and copy `edrath_world.base.json` over
+  `edrath_world.json` (or delete your map's folder in `content/maps/custom`).
+- **Updating the game**: Pack My Changes first and send the zip, so the next version has them.
+- Maps or edits saved by the older add-on (in `mods/`) are picked up by Import and moved into the game on your next Export.
 - Blender lights only count in a new map; in Edit World they are ignored.
 - Coordinates: the game is Y-up and Blender is Z-up. The add-on converts between them; you never need to.

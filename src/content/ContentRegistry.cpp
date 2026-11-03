@@ -1094,9 +1094,11 @@ static MapPropDef PropFromJson(const json& pj) {
 void ContentRegistry::LoadUserMaps(const std::string& rootDir) {
     std::error_code uec;
     std::vector<std::string> userMaps;
-    for (const auto& e : fs::directory_iterator(fs::path(rootDir) / "mods" / "user_maps", uec))
-        if (e.is_directory() && fs::exists(e.path() / "map.json"))
-            userMaps.push_back("mods/user_maps/" + e.path().filename().string() + "/map.json");
+    // New maps built in Blender: content/maps/custom/<name>/map.json (part of the game); mods/user_maps/<name>/ (older add-on)
+    for (const char* dir : {"content/maps/custom", "mods/user_maps"})
+        for (const auto& e : fs::directory_iterator(fs::path(rootDir) / dir, uec))
+            if (e.is_directory() && fs::exists(e.path() / "map.json"))
+                userMaps.push_back(std::string(dir) + "/" + e.path().filename().string() + "/map.json");
     std::sort(userMaps.begin(), userMaps.end());
     for (const auto& um : userMaps) { Logger::Info("Loading your map: " + um); LoadMapFile(rootDir, um); }
 }
