@@ -61,6 +61,7 @@ struct PlayerState {
     std::set<std::string> flags;
     std::set<std::string> claimed; // one-time dialogue rewards
     std::string companion;         // NPC def id of whoever travels with the player (empty = alone)
+    std::string tracked_quest;     // side quest shown on the HUD next to the main story
     double play_time = 0.0;
 
     Vector3 pos{};
@@ -200,6 +201,8 @@ private:
     float ui_scroll_ = 0.0f;
     int inv_filter_ = 0;
     int char_tab_ = 0;
+    std::string journal_selected_;
+    float journal_scroll_ = 0.0f;
     int death_tip_ = 0;
     bool ui_ignore_hover_ = false;   // screenshot previews: show the selected item, not whatever is under the cursor   // character screen: 0 overview, 1 combat sheet
     std::string inv_selected_;

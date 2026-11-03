@@ -587,6 +587,17 @@ int GameEngine::RunSelfTest() {
         check(pct >= 5 && pct <= 95, "dice odds are shown on rolled choices (" + std::to_string(pct) + "%)");
     }
 
+    // --- Campaigns: every quest belongs to one; the HUD shows the main story + one tracked side quest
+    {
+        bool allTagged = true;
+        for (const auto& [qid, q] : content_.quests) if (!content_.GetCampaign(q.campaign)) allTagged = false;
+        check(content_.campaigns.size() >= 3 && allTagged, "quests are grouped into campaigns");
+        check(content_.campaigns.front().kind == "main", "the main chapter is listed first");
+        player_.tracked_quest.clear();
+        SetQuestStage("core:quest.test_dummy_never", 0);  // unknown quests are ignored
+        check(player_.tracked_quest.empty(), "unknown quests don't steal the HUD");
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

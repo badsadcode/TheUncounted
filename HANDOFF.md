@@ -123,6 +123,17 @@ Original expectations (kept for reference):
 - Preview any conversation node: `--shot out.png --overlay dialogue:core:npc.innkeeper_marta:ilse_alive`. The dialogue
   panel grows upward to fit long text.
 
+### Content structure: campaigns, not one storyline
+
+The user's direction: not everything has to belong to one plot. New content should usually be its **own campaign,
+chapter or tale** that stands on its own, with optional light cross-links (a cameo, a bark, a bonus ending) rather than
+hard dependencies. Quests carry a `campaign` id; campaigns are defined in a quests file (`"campaigns"`: id, name_key,
+desc_key, kind main/side/tales, order). The journal groups quests by campaign; the HUD shows the main story plus one
+tracked side quest (`player.tracked_quest`: the latest side quest advanced, or whatever the player picks in the
+journal). Current campaigns: **Chapter Zero: Legally Deceased** (main + its own side threads), **Tales of Bellwether**
+(rats, Dinner at Eight), **The Hollowmere Mysteries** (Hollis's case files; Case #1 is the haunting — add Case #2...).
+A future main chapter would be a new campaign (`chapter_one`, kind main) with its own quests and regions.
+
 ### Story canon (keep new writing consistent with this)
 
 - **412 years ago — the Great Silence.** Something beyond the world, *the Hunger*, finds its way in through spoken names.

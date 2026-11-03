@@ -391,7 +391,17 @@ struct QuestDef {
     std::string id;
     std::string title_key;
     std::string summary_key;
+    std::string campaign;   // campaign id: groups quests in the journal (chapters, side campaigns, tales)
     std::vector<QuestStageDef> stages;
+};
+
+// A campaign is a set of quests told together: a chapter of the main story, a side campaign, a collection of tales.
+struct CampaignDef {
+    std::string id;
+    std::string name_key;
+    std::string desc_key;
+    std::string kind = "side";   // main, side, tales
+    int order = 100;
 };
 
 // Map Definitions

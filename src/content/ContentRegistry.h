@@ -37,6 +37,8 @@ public:
     std::unordered_map<std::string, NpcDef> npcs;
     std::unordered_map<std::string, DialogueDef> dialogues;
     std::unordered_map<std::string, QuestDef> quests;
+    std::vector<CampaignDef> campaigns;   // sorted by order
+    const CampaignDef* GetCampaign(const std::string& id) const;
     std::unordered_map<std::string, MapDef> maps;
 
     std::vector<ValidationIssue> validation_issues;

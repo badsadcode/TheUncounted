@@ -255,6 +255,19 @@ bool GameEngine::Init(int argc, char** argv) {
             ui_ignore_hover_ = true;
         }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
+        else if (boot_shot_overlay_ == "journal_demo") {
+            // A journal mid-playthrough: several campaigns under way
+            SetQuestStage("core:quest.legally_deceased", 10);
+            SetQuestStage("core:quest.bakers_daughter", 0);
+            SetQuestStage("core:quest.bakers_daughter", 10);
+            SetQuestStage("core:quest.rats", 0);
+            SetQuestStage("core:quest.rats", 100);
+            SetQuestStage("core:quest.dinner_at_eight", 0);
+            SetQuestStage("core:quest.hollowmere", 0);
+            SetQuestStage("core:quest.hollowmere", 10);
+            toasts_.clear();
+            overlay_ = Overlay::Journal;
+        }
         else if (boot_shot_overlay_ == "map") overlay_ = Overlay::Map;
         else if (boot_shot_overlay_ == "title") screen_ = Screen::Title;
         else if (boot_shot_overlay_ == "creation") screen_ = Screen::Creation;
@@ -2502,13 +2515,18 @@ int GameEngine::QuestStage(const std::string& id) const {
 
 void GameEngine::SetQuestStage(const std::string& id, int stage) {
     if (QuestStage(id) >= stage) return; // quests only move forward
+    const QuestDef* q = content_.GetQuest(id);
+    if (!q) { Logger::Warn("SetQuestStage: unknown quest '" + id + "'"); return; }
     player_.quest_stages[id] = stage;
     player_.quest_log[id].push_back(stage);
-    const QuestDef* q = content_.GetQuest(id);
-    if (!q) return;
     for (const auto& st : q->stages) {
         if (st.stage != stage) continue;
         Toast("Journal: " + content_.Tr(st.objective_key), Color{255, 225, 150, 255});
+        // The side quest you last made progress in is the one on screen; finishing it frees the slot.
+        if (id != content_.game_cfg.starting_quest) {
+            if (!st.completed) player_.tracked_quest = id;
+            else if (player_.tracked_quest == id) player_.tracked_quest.clear();
+        }
         // Only the main quest ends the chapter; side quests completing must not trigger the ending screen.
         if (st.completed && id == content_.game_cfg.starting_quest) ending_stage_ = stage;
     }
@@ -2863,6 +2881,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     pj["quest_log"] = p.quest_log;
     pj["flags"] = p.flags;
     pj["companion"] = p.companion;
+    pj["tracked_quest"] = p.tracked_quest;
     pj["claimed"] = p.claimed;
     pj["play_time"] = p.play_time;
     pj["pos"] = V3(p.pos);
@@ -2958,6 +2977,7 @@ bool GameEngine::LoadGame(const std::string& slot) {
         p.quest_log = pj.value("quest_log", std::map<std::string, std::vector<int>>{});
         p.flags = pj.value("flags", std::set<std::string>{});
         p.companion = pj.value("companion", std::string{});
+        p.tracked_quest = pj.value("tracked_quest", std::string{});
         p.claimed = pj.value("claimed", std::set<std::string>{});
         p.play_time = pj.value("play_time", 0.0);
         p.pos = V3(pj["pos"]);

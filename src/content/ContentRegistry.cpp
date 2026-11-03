@@ -178,6 +178,7 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     npcs.clear();
     dialogues.clear();
     quests.clear();
+    campaigns.clear();
     maps.clear();
     validation_issues.clear();
     loaded_packs.clear();
@@ -852,6 +853,7 @@ void ContentRegistry::LoadQuestsFile(const std::string& rootDir, const std::stri
         d.id = el.value("id", "");
         d.title_key = el.value("title_key", "");
         d.summary_key = el.value("summary_key", "");
+        d.campaign = el.value("campaign", "");
         if (el.contains("stages")) {
             for (const auto& sj : el["stages"]) {
                 QuestStageDef qs;
@@ -864,6 +866,24 @@ void ContentRegistry::LoadQuestsFile(const std::string& rootDir, const std::stri
         }
         quests[d.id] = d;
     }
+    if (j.contains("campaigns")) {
+        for (const auto& cj : j["campaigns"]) {
+            CampaignDef c;
+            c.id = cj.value("id", "");
+            c.name_key = cj.value("name_key", "");
+            c.desc_key = cj.value("desc_key", "");
+            c.kind = cj.value("kind", "side");
+            c.order = cj.value("order", 100);
+            campaigns.erase(std::remove_if(campaigns.begin(), campaigns.end(), [&](const CampaignDef& o) { return o.id == c.id; }), campaigns.end());
+            campaigns.push_back(c);
+        }
+        std::sort(campaigns.begin(), campaigns.end(), [](const CampaignDef& a, const CampaignDef& b) { return a.order < b.order; });
+    }
+}
+
+const CampaignDef* ContentRegistry::GetCampaign(const std::string& id) const {
+    for (const auto& c : campaigns) if (c.id == id) return &c;
+    return nullptr;
 }
 
 static Vector3 JsonToVec3(const json& j, Vector3 fallback = {0.0f, 0.0f, 0.0f}) {
@@ -1056,6 +1076,13 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
 }
 
 bool ContentRegistry::ValidateAll(const std::string& rootDir) {
+    for (const auto& [qid, q] : quests) {
+        if (!q.campaign.empty() && !GetCampaign(q.campaign)) RecordIssue("Quest:" + qid, "campaign", "Unknown campaign '" + q.campaign + "'");
+    }
+    for (const auto& c : campaigns) {
+        if (!loc_strings.count(c.name_key)) RecordIssue("Campaign:" + c.id, "name_key", "Missing localization string '" + c.name_key + "'");
+        if (!loc_strings.count(c.desc_key)) RecordIssue("Campaign:" + c.id, "desc_key", "Missing localization string '" + c.desc_key + "'");
+    }
     // 1. Validate Races
     for (const auto& r : races) {
         CheckFileExists(rootDir, r.portrait, "Race:" + r.id, "portrait");

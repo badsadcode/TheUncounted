@@ -615,7 +615,7 @@
     "quest.rats.journal40": "In Hollowmere's kitchen I found the Rat King: a rat the size of a dog, wearing a tiny golden crown, sitting on a throne of stolen bread. I have killed a king. It was a rat. I feel complicated about this.",
     "quest.rats.stage100": "Completed: Bellwether is rat-free (for now).",
     "quest.rats.journal100": "Vaelen paid me, thanked me, and then apologised again, for the rats, the cliché, and the fact that there will absolutely be more rats one day. There are always more rats.",
-    "quest.haunt.title": "The Hollowmere Haunting",
+    "quest.haunt.title": "Case File #1: The Hollowmere Haunting",
     "quest.haunt.summary": "Something haunts Hollowmere Manor, south of Bellwether. Six hunters have gone in. Two came back. One was a horse.",
     "quest.haunt.stage0": "Something haunts Hollowmere Manor. Hollis the Grey, the monster hunter by Bellwether's east gate, is offering a contract (and a key). Or try the kitchen door.",
     "quest.haunt.journal0": "The sign at Hollowmere's gate says 'You must gather your party before venturing forth', and somebody has written underneath it, 'we tried, nobody came.' The manor is supposedly haunted. A monster hunter in Bellwether has the contract.",
@@ -798,6 +798,12 @@
     "tip.19": "Wearing a bucket on your head may affect how shopkeepers perceive you. And their stock.",
     "tip.20": "Ninety-five percent is not one hundred percent. The dice know this. The dice have always known this.",
     "tip.21": "When in doubt, eat something. Sabrino insists.",
-    "tip.22": "Rats. It's always rats. You may as well get good at rats."
+    "tip.22": "Rats. It's always rats. You may as well get good at rats.",
+    "campaign.chapter_zero.name": "Chapter Zero: Legally Deceased",
+    "campaign.chapter_zero.desc": "The main story. The Bureau says you died seventeen years ago. The Bureau is wrong, mostly.",
+    "campaign.tales.name": "Tales of Bellwether",
+    "campaign.tales.desc": "Small stories from a rainy village: rats, dinners, and the people who live there.",
+    "campaign.hollowmere.name": "The Hollowmere Mysteries",
+    "campaign.hollowmere.desc": "Hollis the Grey's case files. More cases to come, just as soon as he finishes this hand of cards."
   }
 }

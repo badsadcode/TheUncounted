@@ -5,6 +5,7 @@
       "id": "core:quest.legally_deceased",
       "title_key": "quest.legally_deceased.title",
       "summary_key": "quest.legally_deceased.summary",
+      "campaign": "chapter_zero",
       "stages": [
         {
           "stage": 0,
@@ -44,6 +45,7 @@
       "id": "core:quest.bakers_daughter",
       "title_key": "quest.bakers_daughter.title",
       "summary_key": "quest.bakers_daughter.summary",
+      "campaign": "chapter_zero",
       "stages": [
         {
           "stage": 0,
@@ -77,6 +79,7 @@
       "id": "core:quest.vault_three",
       "title_key": "quest.vault_three.title",
       "summary_key": "quest.vault_three.summary",
+      "campaign": "chapter_zero",
       "stages": [
         {
           "stage": 0,
@@ -100,6 +103,7 @@
       "id": "core:quest.dinner_at_eight",
       "title_key": "quest.dinner.title",
       "summary_key": "quest.dinner.summary",
+      "campaign": "tales_of_bellwether",
       "stages": [
         {
           "stage": 0,
@@ -128,6 +132,7 @@
       "id": "core:quest.rats",
       "title_key": "quest.rats.title",
       "summary_key": "quest.rats.summary",
+      "campaign": "tales_of_bellwether",
       "stages": [
         {
           "stage": 0,
@@ -156,6 +161,7 @@
       "id": "core:quest.hollowmere",
       "title_key": "quest.haunt.title",
       "summary_key": "quest.haunt.summary",
+      "campaign": "hollowmere_mysteries",
       "stages": [
         {
           "stage": 0,
@@ -190,6 +196,29 @@
           "completed": true
         }
       ]
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "chapter_zero",
+      "name_key": "campaign.chapter_zero.name",
+      "desc_key": "campaign.chapter_zero.desc",
+      "kind": "main",
+      "order": 0
+    },
+    {
+      "id": "tales_of_bellwether",
+      "name_key": "campaign.tales.name",
+      "desc_key": "campaign.tales.desc",
+      "kind": "tales",
+      "order": 20
+    },
+    {
+      "id": "hollowmere_mysteries",
+      "name_key": "campaign.hollowmere.name",
+      "desc_key": "campaign.hollowmere.desc",
+      "kind": "side",
+      "order": 30
     }
   ]
 }

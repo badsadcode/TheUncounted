@@ -371,6 +371,7 @@ void GameEngine::DrawHud() {
                 if (st.stage != stage) continue;
                 bool main = qid == content_.game_cfg.starting_quest;
                 if (!main && st.completed) break;
+                if (!main && qid != player_.tracked_quest) break;  // only the tracked side quest; the rest live in the journal
                 if (draw) Text(content_.Tr(q->title_key), 20, questY, main ? 18 : 15, main ? kGold : Color{214, 190, 140, 255});
                 questY += main ? 22 : 18;
                 questY += TextWrapped(content_.Tr(st.objective_key), {20, questY, 420, 80}, main ? 15 : 13,
@@ -1031,34 +1032,104 @@ void GameEngine::DrawCombatSheet(Rectangle P) {
 void GameEngine::DrawJournal() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
-    Rectangle P = {VW * 0.5f - 460, VH * 0.5f - 310, 920, 620};
+    Rectangle P = {VW * 0.5f - 560, VH * 0.5f - 310, 1120, 620};
     Panel(P, Color{30, 26, 20, 245});
     Text("Journal", P.x + 24, P.y + 16, 32, kGold);
-    float y = P.y + 70;
+    auto hit = [&](Rectangle r) { return CheckCollisionPointRec(GetMousePosition(), {r.x * u, r.y * u, r.width * u, r.height * u}); };
+
+    // Which quest is each started quest's campaign, in campaign order; quests without one go last.
+    std::vector<std::pair<const CampaignDef*, std::vector<std::string>>> groups;
+    for (const auto& c : content_.campaigns) groups.push_back({&c, {}});
+    groups.push_back({nullptr, {}});
     for (const auto& qid : QuestOrder()) {
-        int stage = player_.quest_stages.at(qid);
         const QuestDef* q = content_.GetQuest(qid);
         if (!q) continue;
-        bool done = false;
-        std::string objective;
-        for (const auto& st : q->stages) if (st.stage == stage) { objective = content_.Tr(st.objective_key); done = st.completed; }
-        Text(content_.Tr(q->title_key) + (done ? "  (completed)" : ""), P.x + 24, y, 24, done ? kDim : kGold);
-        y += 32;
-        y += TextWrapped(content_.Tr(q->summary_key), {P.x + 24, y, P.width - 48, 80}, 15, kDim) + 8;
-        Text("Current objective:", P.x + 24, y, 16, kAccent);
-        y += 22;
-        y += TextWrapped(objective, {P.x + 24, y, P.width - 48, 60}, 17, kText) + 14;
-        auto log = player_.quest_log[qid];
+        bool placed = false;
+        for (auto& [c, list] : groups) if (c && c->id == q->campaign) { list.push_back(qid); placed = true; }
+        if (!placed) groups.back().second.push_back(qid);
+    }
+    auto stageOf = [&](const std::string& qid, bool& done) -> const QuestStageDef* {
+        const QuestDef* q = content_.GetQuest(qid);
+        done = false;
+        if (!q) return nullptr;
+        int stage = player_.quest_stages.at(qid);
+        for (const auto& st : q->stages) if (st.stage == stage) { done = st.completed; return &st; }
+        return nullptr;
+    };
+    if (journal_selected_.empty() || !player_.quest_stages.count(journal_selected_))
+        journal_selected_ = !player_.tracked_quest.empty() ? player_.tracked_quest : content_.game_cfg.starting_quest;
+
+    // --- Left: campaigns and their quests (active first, then completed)
+    Rectangle L = {P.x + 20, P.y + 64, 380, P.height - 84};
+    float y = L.y;
+    for (auto& [c, list] : groups) {
+        if (list.empty()) continue;
+        std::string head = c ? content_.Tr(c->name_key) : std::string("Other Tales");
+        Text(head, L.x, y, 18, kAccent);
+        y += 24;
+        for (int pass = 0; pass < 2; pass++) {
+            for (const auto& qid : list) {
+                bool done;
+                stageOf(qid, done);
+                if ((pass == 0) == done) continue;
+                const QuestDef* q = content_.GetQuest(qid);
+                Rectangle r = {L.x, y, L.width, 26};
+                bool sel = qid == journal_selected_;
+                if (sel) DrawRectangleRec({r.x * u, r.y * u, r.width * u, r.height * u}, Color{70, 56, 36, 220});
+                else if (hit(r)) DrawRectangleRec({r.x * u, r.y * u, r.width * u, r.height * u}, Color{44, 38, 30, 220});
+                if (hit(r) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) { journal_selected_ = qid; journal_scroll_ = 0; }
+                std::string mark = qid == content_.game_cfg.starting_quest ? "* " : qid == player_.tracked_quest ? "> " : "  ";
+                Text(mark + content_.Tr(q->title_key), r.x + 8, r.y + 4, 16, done ? kDim : sel ? kGold : kText);
+                y += 28;
+            }
+        }
+        y += 10;
+    }
+    Text("* main story    > shown on screen", L.x, P.y + P.height - 30, 13, kDim);
+
+    // --- Right: the selected quest
+    Rectangle D = {P.x + 420, P.y + 64, P.width - 440, P.height - 84};
+    Panel(D, Color{22, 20, 16, 235});
+    const QuestDef* q = content_.GetQuest(journal_selected_);
+    if (!q) return;
+    bool done;
+    const QuestStageDef* cur = stageOf(journal_selected_, done);
+    if (const CampaignDef* c = content_.GetCampaign(q->campaign)) Text(content_.Tr(c->name_key), D.x + 20, D.y + 14, 14, kDim);
+    Text(content_.Tr(q->title_key) + (done ? "  (completed)" : ""), D.x + 20, D.y + 32, 24, done ? kDim : kGold);
+    bool isMain = journal_selected_ == content_.game_cfg.starting_quest;
+    if (!done && !isMain) {
+        bool tracked = player_.tracked_quest == journal_selected_;
+        if (Button({D.x + D.width - 150, D.y + 14, 130, 30}, tracked ? "On screen" : "Show on screen", !tracked, 14))
+            player_.tracked_quest = journal_selected_;
+    }
+    Rectangle body = {D.x + 20, D.y + 70, D.width - 40, D.height - 84};
+    float wheel = GetMouseWheelMove();
+    if (hit(D)) journal_scroll_ -= wheel * 40;
+    // Measure, clamp, then draw clipped.
+    auto layout = [&](bool draw) {
+        float yy = body.y - journal_scroll_;
+        yy += TextWrapped(content_.Tr(q->summary_key), {body.x, yy, body.width, 400}, 15, kDim, draw) + 12;
+        if (cur) {
+            if (draw) Text(done ? "Outcome:" : "Current objective:", body.x, yy, 16, kAccent);
+            yy += 22;
+            yy += TextWrapped(content_.Tr(cur->objective_key), {body.x, yy, body.width, 200}, 17, kText, draw) + 16;
+        }
+        auto log = player_.quest_log[journal_selected_];
         for (auto it = log.rbegin(); it != log.rend(); ++it) {
             for (const auto& st : q->stages) {
                 if (st.stage != *it) continue;
-                if (y > P.y + P.height - 40) break;
-                Text("-", P.x + 24, y, 15, kDim);
-                y += TextWrapped(content_.Tr(st.journal_key), {P.x + 44, y, P.width - 70, 120}, 15, kText) + 10;
+                if (draw) Text("-", body.x, yy, 15, kDim);
+                yy += TextWrapped(content_.Tr(st.journal_key), {body.x + 18, yy, body.width - 18, 400}, 15, kText, draw) + 10;
             }
         }
-        y += 20;
-    }
+        return yy + journal_scroll_ - body.y;
+    };
+    float total = layout(false);
+    journal_scroll_ = Clamp(journal_scroll_, 0.0f, std::max(0.0f, total - body.height));
+    BeginScissorMode(static_cast<int>(body.x * u), static_cast<int>(body.y * u), static_cast<int>(body.width * u), static_cast<int>(body.height * u));
+    layout(true);
+    EndScissorMode();
+    if (journal_scroll_ < total - body.height - 1.0f) Text("(scroll for more)", D.x + D.width - 140, D.y + D.height - 20, 13, kDim);
 }
 
 // ============================================================================
