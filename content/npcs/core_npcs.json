@@ -304,7 +304,9 @@
           "vault_three": "comp.kaelen.zone.vault_three",
           "seal_chamber": "comp.kaelen.zone.seal_chamber",
           "hollowmere": "comp.kaelen.zone.hollowmere",
-          "hollowmere_manor": "comp.kaelen.zone.hollowmere_manor"
+          "hollowmere_manor": "comp.kaelen.zone.hollowmere_manor",
+          "saltmere": "comp.kaelen.zone.saltmere",
+          "sunken_chapel": "comp.kaelen.zone.sunken_chapel"
         },
         "idle_lines": [
           {
@@ -595,6 +597,38 @@
               }
             ],
             "flag": "seal_renewed"
+          },
+          {
+            "id": "tentacle",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.tentacle.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.tentacle.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.tentacle.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.tentacle.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.tentacle.4"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.tentacle.5"
+              }
+            ],
+            "flag": "saltmere_visited",
+            "not_flag": "saltmere_resolved"
           }
         ]
       }
@@ -673,7 +707,9 @@
           "vault_three": "comp.baggy.zone.vault_three",
           "seal_chamber": "comp.baggy.zone.seal_chamber",
           "hollowmere": "comp.baggy.zone.hollowmere",
-          "hollowmere_manor": "comp.baggy.zone.hollowmere_manor"
+          "hollowmere_manor": "comp.baggy.zone.hollowmere_manor",
+          "saltmere": "comp.baggy.zone.saltmere",
+          "sunken_chapel": "comp.baggy.zone.sunken_chapel"
         },
         "idle_lines": [
           {
@@ -989,6 +1025,141 @@
           "text_key": "bark.mortimer.after",
           "quest_id": "core:quest.players_opening",
           "min_stage": 100
+        }
+      ]
+    },
+    {
+      "id": "core:npc.harbourmaster",
+      "name_key": "npc.harbourmaster.name",
+      "title_key": "npc.harbourmaster.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.harbourmaster",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/harbourmaster.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.harbour.1",
+          "not_flag": "saltmere_resolved"
+        },
+        {
+          "text_key": "bark.harbour.2",
+          "not_flag": "saltmere_resolved"
+        },
+        {
+          "text_key": "bark.harbour.after",
+          "flag": "saltmere_resolved"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.mother_brine",
+      "name_key": "npc.mother_brine.name",
+      "title_key": "npc.mother_brine.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.mother_brine",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/mother_brine.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.55
+      },
+      "barks": [
+        {
+          "text_key": "bark.brine.1"
+        },
+        {
+          "text_key": "bark.brine.2"
+        },
+        {
+          "text_key": "bark.brine.after",
+          "flag": "saltmere_resolved"
+        }
+      ],
+      "vendor_inventory": [
+        {
+          "item_id": "core:item.brine_chowder",
+          "stock": 10,
+          "price": 8
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "stock": 4,
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": "core:npc.professor_pickering",
+      "name_key": "npc.professor_pickering.name",
+      "title_key": "npc.professor_pickering.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.professor_pickering",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/professor_pickering.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.pickering.1"
+        },
+        {
+          "text_key": "bark.pickering.2"
+        },
+        {
+          "text_key": "bark.pickering.after",
+          "flag": "pickering_named"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.silas_gale",
+      "name_key": "npc.silas_gale.name",
+      "title_key": "npc.silas_gale.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.silas_gale",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/silas_gale.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.silas.1"
+        },
+        {
+          "text_key": "bark.silas.2"
+        },
+        {
+          "text_key": "bark.silas.after",
+          "flag": "saltmere_resolved"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.tide_priest",
+      "name_key": "npc.tide_priest.name",
+      "title_key": "npc.tide_priest.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.tide_priest",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/tide_priest.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.95
+      },
+      "barks": [
+        {
+          "text_key": "bark.priest.1"
+        },
+        {
+          "text_key": "bark.priest.2"
         }
       ]
     }

@@ -183,6 +183,29 @@
       "value": 0,
       "weight": 0.5,
       "quest_item": true
+    },
+    {
+      "id": "core:item.cellar_key",
+      "name_key": "item.cellar_key.name",
+      "description_key": "item.cellar_key.description",
+      "category": "key",
+      "icon": "assets/ui/items/cellar_key.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.1,
+      "quest_item": true
+    },
+    {
+      "id": "core:item.fish_idol",
+      "name_key": "item.fish_idol.name",
+      "description_key": "item.fish_idol.description",
+      "category": "misc",
+      "icon": "assets/ui/items/fish_idol.png",
+      "world_model": "assets/models/items/grave_truffle.glb",
+      "slots": [],
+      "value": 40,
+      "weight": 0.6
     }
   ]
 }

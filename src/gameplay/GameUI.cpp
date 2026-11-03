@@ -40,6 +40,7 @@ static std::string BonusLabel(const std::string& key, float v) {
     else if (key == "spell_cost_reduction") snprintf(b, sizeof(b), "-%.0f%% spell cost", v * 100);
     else if (key == "shop_discount") snprintf(b, sizeof(b), "+%.0f%% shop discount", v * 100);
     else if (key == "lockpick_bonus") snprintf(b, sizeof(b), "+%.0f%% lockpick chance", v * 100);
+    else if (key == "sanity_regen") snprintf(b, sizeof(b), "+%.1f sanity per second", v);
     else if (key == "dice_bonus") snprintf(b, sizeof(b), "+%.0f to dice rolls", v);
     else if (key == "health_regen") snprintf(b, sizeof(b), "+%.1f health per second", v);
     else if (key == "stamina_regen") snprintf(b, sizeof(b), "+%.1f stamina per second", v);
@@ -273,6 +274,17 @@ void GameEngine::DrawHud() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
 
+    // Sanity: a slow violet pulse at the edges of vision below 60
+    if (player_.sanity < 60.0f) {
+        float k = (60.0f - player_.sanity) / 60.0f;
+        float pulse = 0.6f + 0.4f * sinf(time_ * (1.5f + k * 3.0f));
+        unsigned char a = static_cast<unsigned char>(Clamp(k * pulse * 150.0f, 0.0f, 150.0f));
+        int w = GetScreenWidth(), h = GetScreenHeight(), e = static_cast<int>(h * (0.12f + 0.15f * k));
+        DrawRectangleGradientV(0, 0, w, e, Color{70, 20, 110, a}, Color{70, 20, 110, 0});
+        DrawRectangleGradientV(0, h - e, w, e, Color{70, 20, 110, 0}, Color{70, 20, 110, a});
+        DrawRectangleGradientH(0, 0, e, h, Color{70, 20, 110, a}, Color{70, 20, 110, 0});
+        DrawRectangleGradientH(w - e, 0, e, h, Color{70, 20, 110, 0}, Color{70, 20, 110, a});
+    }
     // Damage vignette
     if (damage_flash_ > 0.01f || player_.health < MaxHealth() * 0.25f) {
         float a = damage_flash_ * 0.55f;
@@ -306,6 +318,10 @@ void GameEngine::DrawHud() {
     Bar({bx, by, 250, 22}, player_.health / MaxHealth(), Color{176, 40, 40, 255}, "Health " + std::to_string(static_cast<int>(std::ceil(player_.health))) + "/" + std::to_string(MaxHealth()));
     Bar({bx, by + 26, 250, 22}, player_.stamina / std::max(1, MaxStamina()), Color{70, 150, 60, 255}, "Stamina " + std::to_string(static_cast<int>(player_.stamina)));
     Bar({bx, by + 52, 250, 22}, MaxMana() > 0 ? player_.mana / MaxMana() : 0.0f, Color{50, 90, 190, 255}, "Mana " + std::to_string(static_cast<int>(player_.mana)) + "/" + std::to_string(MaxMana()));
+    if (player_.sanity < 99.5f || sanity_drain_now_ > 0.0f) {
+        Bar({bx, by + 78, 250, 10}, player_.sanity / 100.0f, Color{140, 80, 200, 255}, "");
+        Text(player_.sanity < 30.0f ? "S A N I T Y" : "Sanity", bx + 256, by + 75, 13, Color{190, 150, 240, 255});
+    }
     float xpFrac = static_cast<float>(player_.xp) / (100.0f * player_.level);
     Bar({bx, by - 14, 250, 8}, xpFrac, Color{200, 170, 90, 255}, "");
     Text("Lv " + std::to_string(player_.level) + (player_.unspent_points > 0 ? "  (+" + std::to_string(player_.unspent_points) + " pt)" : ""), bx, by - 34, 16, kGold);
@@ -448,6 +464,11 @@ void GameEngine::DrawCompass() {
     DrawPoly({x * u, (y + 1) * u}, 4, 7 * u, 45.0f, c);
     float dist = sqrtf((obj.x - player_.pos.x) * (obj.x - player_.pos.x) + (obj.z - player_.pos.z) * (obj.z - player_.pos.z));
     std::string lbl = std::to_string(static_cast<int>(dist)) + " m";
+    if (player_.sanity < 30.0f) {  // the mind stops trusting numbers
+        static const char* odd[] = {"?? m", "it is close", "too many m", "behind you", "count again"};
+        lbl = odd[static_cast<int>(time_ * 0.7f) % 5];
+        x += sinf(time_ * 3.1f) * 30.0f * (30.0f - player_.sanity) / 30.0f;
+    }
     if (obj.y > player_.pos.y + 2.0f) lbl += "  (up)";
     else if (obj.y < player_.pos.y - 2.0f) lbl += "  (down)";
     Text(lbl, x - TextWidth(lbl, 13) * 0.5f, y + 9, 13, Color{255, 200, 140, 230});

@@ -581,6 +581,107 @@ def dnd_items():
     icon("gm_screen", screen)
 
 
+def _tube(m, path, radii, color_fn, sides=8):
+    """Tapered tube along a polyline (for tentacles). color_fn(segment, side) -> rgb."""
+    def sub(a, b): return (a[0] - b[0], a[1] - b[1], a[2] - b[2])
+    def norm(v):
+        l = math.sqrt(v[0] ** 2 + v[1] ** 2 + v[2] ** 2) or 1.0
+        return (v[0] / l, v[1] / l, v[2] / l)
+    def cross(a, b): return (a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0])
+    rings = []
+    for i, c in enumerate(path):
+        t = norm(sub(path[min(i + 1, len(path) - 1)], path[max(i - 1, 0)]))
+        ref = (1, 0, 0) if abs(t[0]) < 0.9 else (0, 0, 1)
+        u = norm(cross(t, ref))
+        v = cross(t, u)
+        ring = []
+        for k in range(sides):
+            a = 2 * math.pi * k / sides
+            ring.append((c[0] + (u[0] * math.cos(a) + v[0] * math.sin(a)) * radii[i],
+                         c[1] + (u[1] * math.cos(a) + v[1] * math.sin(a)) * radii[i],
+                         c[2] + (u[2] * math.cos(a) + v[2] * math.sin(a)) * radii[i]))
+        rings.append(ring)
+    for i in range(len(rings) - 1):
+        for k in range(sides):
+            a, b = rings[i][k], rings[i][(k + 1) % sides]
+            c, d = rings[i + 1][(k + 1) % sides], rings[i + 1][k]
+            m.quad(a, b, c, d, color_fn(i, k))
+
+
+def docks_models():
+    """Saltmere: a rippling harbour surface, a glowing chapel pool, and giant tentacles for the skyline."""
+    env = os.path.join("..", "env")
+
+    def water(name, w, d, cells_x, cells_z, deep, shallow, amp, seed, glow=None):
+        m = Mesh(seed)
+        rnd = random.Random(seed)
+        def h(i, j):
+            return amp * (math.sin(i * 0.9 + j * 0.4) + 0.6 * math.sin(i * 0.31 - j * 1.1))
+        for i in range(cells_x):
+            for j in range(cells_z):
+                x0, x1 = -w / 2 + w * i / cells_x, -w / 2 + w * (i + 1) / cells_x
+                z0, z1 = -d / 2 + d * j / cells_z, -d / 2 + d * (j + 1) / cells_z
+                t = rnd.random()
+                col = tuple(int(deep[k] + (shallow[k] - deep[k]) * t * 0.6) for k in range(3))
+                if glow and rnd.random() < 0.06:
+                    col = glow
+                m.quad((x0, h(i, j), z0), (x1, h(i + 1, j), z0), (x1, h(i + 1, j + 1), z1), (x0, h(i, j + 1), z1), col)
+        m.write_glb(os.path.join(env, name))
+
+    water("harbour_water.glb", 48.0, 24.0, 40, 20, (18, 40, 46), (40, 76, 80), 0.05, 61)
+    water("chapel_pool.glb", 8.0, 8.0, 12, 12, (14, 40, 34), (30, 90, 70), 0.04, 67, glow=(90, 220, 160))
+
+    def tentacle(name, height, curl, seed):
+        m = Mesh(seed)
+        n = 22
+        path, radii = [], []
+        for i in range(n):
+            t = i / (n - 1)
+            ang = t * curl
+            path.append((math.sin(ang) * 1.6 * t * t, t * height, (1 - math.cos(ang)) * 1.4 * t))
+            radii.append(0.9 * (1 - t) ** 0.8 + 0.06)
+        skin, under = (52, 70, 62), (120, 150, 120)
+        _tube(m, path, radii, lambda seg, side: under if side in (3, 4) else (skin if (seg + side) % 5 else (40, 56, 50)), sides=8)
+        for i in range(2, n - 2, 2):  # suckers along the underside
+            t = i / (n - 1)
+            p = path[i]
+            m.ellipsoid((p[0], p[1], p[2] + radii[i] * 0.9), (radii[i] * 0.35, radii[i] * 0.35, radii[i] * 0.15), (190, 170, 160), seg=6, rings=3)
+        m.write_glb(os.path.join(env, name))
+
+    tentacle("tentacle_a.glb", 9.0, 2.6, 71)
+    tentacle("tentacle_b.glb", 6.5, 3.4, 73)
+
+
+def saltmere_items():
+    """Icons for Case File #2."""
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def idol(d):
+        d.ellipse([6, 11, 24, 21], fill=(110, 120, 100, 255), outline=(60, 70, 56, 255))
+        d.polygon([(23, 16), (29, 10), (29, 22)], fill=(110, 120, 100, 255))
+        for x, y in ((9, 14), (12, 13), (10, 17), (14, 16)):
+            d.ellipse([x, y, x + 2, y + 2], fill=(240, 220, 90, 255))
+    icon("fish_idol", idol)
+
+    def harpoon(d):
+        d.line([(5, 27), (24, 8)], fill=(50, 46, 44, 255), width=3)
+        d.polygon([(24, 8), (29, 3), (27, 11)], fill=(150, 150, 160, 255))
+        d.line([(22, 12), (26, 13)], fill=(150, 150, 160, 255), width=2)
+        d.line([(8, 23), (11, 26)], fill=(160, 130, 100, 255), width=3)
+    icon("saltmere_harpoon", harpoon)
+
+    def charm(d):
+        d.line([(16, 3), (16, 10)], fill=(200, 200, 190, 255))
+        d.ellipse([8, 10, 24, 26], fill=(130, 136, 140, 255), outline=(90, 96, 100, 255))
+        d.ellipse([14, 16, 18, 20], fill=(26, 22, 30, 255))
+    icon("tide_charm", charm)
+    tinted("assets/ui/items/ash_pepper_stew.png", "assets/ui/items/brine_chowder.png", ((1.0, 0.1), (1.0, 0.1), (0.85, 0.1)))
+    tinted("assets/ui/items/annex_key.png", "assets/ui/items/cellar_key.png", ((0.6, 0.0), (1.0, 0.0), (0.9, 0.0)))
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -598,6 +699,8 @@ BUILDERS = {
     "manor_items": manor_items,
     "players_items": players_items,
     "dnd_items": dnd_items,
+    "docks_models": docks_models,
+    "saltmere_items": saltmere_items,
 }
 
 

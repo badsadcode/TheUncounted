@@ -25,7 +25,8 @@ ROAD_OFF = (48.0, 0.0, 0.0)
 ANNEX_OFF = (87.0, -4.8, -8.4)
 VAULT_OFF = (54.6, -10.4, -22.0)   # Vault III: the Nursery lies 5.6 m below the crypt, the Seal Chamber 5.6 m below that
 VAULT_Z = VAULT_OFF[2]
-HOLLOW_OFF = (0.0, 0.0, 42.0)  # Hollowmere Manor: south of Bellwether, through a gap in the village's south wall
+HOLLOW_OFF = (0.0, 0.0, 42.0)
+DOCKS_OFF = (1.6, 0.0, -42.0)   # Saltmere Docks: north of Bellwether, through a gap in the village's north wall  # Hollowmere Manor: south of Bellwether, through a gap in the village's south wall
 WALL = "assets/models/env/wall_crypt.glb"
 COBBLE = "assets/models/env/floor_cobble.glb"
 STAIRS = "assets/models/env/stairs_stone.glb"
@@ -126,9 +127,16 @@ def build():
     annex = shift_region(load("registry_annex.json"), ANNEX_OFF, "annex_")
     vault = shift_region(load("vault_three.json"), VAULT_OFF, "vault_")
     hollow = shift_region(load("hollowmere.json"), HOLLOW_OFF, "hollow_")
+    docks = shift_region(load("saltmere.json"), DOCKS_OFF, "docks_")
 
     props = []
     for p in bell["props"]:
+        if p["id"] == "bell_wall_north":
+            west = clip_x(copy.deepcopy(p), hi=0.0)
+            east = clip_x(copy.deepcopy(p), lo=3.2)
+            west["id"], east["id"] = "bell_wall_north_w", "bell_wall_north_e"
+            props += [west, east]
+            continue
         if p["id"] == "bell_wall_south":
             # A 3.2 m gap in the middle of the south wall leads down the drive to Hollowmere Manor.
             west = clip_x(copy.deepcopy(p), hi=-1.6)
@@ -142,6 +150,11 @@ def build():
         {"id": "bell_south_gate_e", "model": "assets/models/env/pillar_stone.glb", "pos": [2.1, 0.0, 20.0], "scale": [1.1, 1.25, 1.4], "solid": True},
     ]
     props += hollow["props"]
+    props += docks["props"]
+    props += [
+        {"id": "bell_north_gate_w", "model": "assets/models/env/pillar_stone.glb", "pos": [-0.5, 0.0, -20.0], "scale": [1.1, 1.25, 1.4], "solid": True},
+        {"id": "bell_north_gate_e", "model": "assets/models/env/pillar_stone.glb", "pos": [3.7, 0.0, -20.0], "scale": [1.1, 1.25, 1.4], "solid": True},
+    ]
 
     # --- Old Road: drop its west cliff (Bellwether's east wall + gate is the boundary) and trim overlaps.
     road_east_x = ROAD_OFF[0] + 28.0 + 0.75  # outer face of the east cliff
@@ -234,7 +247,7 @@ def build():
     ]
     props += vault["props"]
 
-    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"] + hollow["interactables"]
+    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"] + hollow["interactables"] + docks["interactables"]
     interactables.append({
         "instance_id": "flour_handprints", "type": "readable", "model": "", "pos": [65.75, -3.8, VAULT_Z + 2.3], "rot_y": 0.0,
         "prompt": "Look at the Marks on the Wall", "title": "Handprints in Old Flour",
@@ -250,11 +263,11 @@ def build():
                  "centuries:\n\nTURN BACK. THE NAMES ARE LISTENING.\n\n"
                  "Beneath them, newer and neater, in Bureau ink: \"Graffiti is a Class III municipal offence.\""),
     })
-    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"] + hollow["npcs"]
-    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"] + hollow["creatures"]
-    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"] + hollow["lights"]
+    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"] + hollow["npcs"] + docks["npcs"]
+    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"] + hollow["creatures"] + docks["creatures"]
+    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"] + hollow["lights"] + docks["lights"]
     spawns = {}
-    for m in (bell, road, annex, vault, hollow):
+    for m in (bell, road, annex, vault, hollow, docks):
         spawns.update(m["spawns"])
 
     for kind, items in (("interactable", interactables), ("npc", npcs), ("creature", creatures)):
@@ -277,7 +290,15 @@ def build():
                        "ambience": "assets/audio/ambience/crypt_drips.wav", "ambient_color": [0.3, 0.3, 0.42], "sky_color": [10, 10, 16]})
     grounds_zone = zone_from(hollow, "hollowmere", [-21.0, -1.0, 20.7], [21.0, 40.0, 67.0], 3.0)
     grounds_zone["flag_override"] = {"flag": "seal_renewed", "weather": "", "ambience": "assets/audio/ambience/forest_wind.wav"}
+    ox, oz = DOCKS_OFF[0], DOCKS_OFF[2]
+    chapel_zone = zone_from(docks, "sunken_chapel", [ox + 2.0, -7.5, oz - 22.0], [ox + 19.0, -1.6, oz - 4.0], 2.0)
+    chapel_zone.update({"display_name_key": "map.sunken_chapel.name", "fog_color": [0.04, 0.12, 0.09], "fog_density": 0.06,
+                        "ambient_color": [0.18, 0.32, 0.26], "sky_color": [6, 14, 12], "ambience": "assets/audio/ambience/crypt_drips.wav",
+                        "music": "assets/audio/music/crypt_theme.wav", "sanity_drain": 1.6})
+    docks_zone = zone_from(docks, "saltmere", [ox - 20.6, -1.6, oz - 35.0], [ox + 20.6, 40.0, -20.6], 3.0)
     zones = [
+        chapel_zone,
+        docks_zone,
         manor_zone,
         grounds_zone,
         seal_zone,

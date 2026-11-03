@@ -49,6 +49,7 @@ struct PlayerState {
     int xp = 0;
     int unspent_points = 0;
     float health = 60, stamina = 70, mana = 40;
+    float sanity = 100.0f;         // 0..100; eldritch things wear it down, company and rest restore it
     int gold = 0;
     std::vector<InvItem> inventory;
     std::map<std::string, std::string> equipment; // slot -> item id
@@ -160,6 +161,7 @@ private:
     int boot_shot_frames_ = 0;
     std::string boot_shot_overlay_;
     std::vector<std::string> boot_shot_flags_;
+    float boot_shot_sanity_ = -1.0f;
     std::vector<std::string> boot_shot_companions_;
 
     // ---- combat/animation
@@ -325,6 +327,11 @@ private:
     void ResolveMeleeHit();
     // Companion
     void UpdateCompanion(float dt);
+    // Sanity
+    void ChangeSanity(float delta);
+    void UpdateSanity(float dt);
+    float whisper_cd_ = 20.0f;
+    float sanity_drain_now_ = 0.0f;  // for the HUD
     // Objective markers for the HUD compass and the map: the tracked side quest, else the main story.
     bool ObjectiveMarker(Vector3& out, std::string& questTitle) const;
     void DrawCompass();

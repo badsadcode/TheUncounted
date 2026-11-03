@@ -12,7 +12,7 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
 - **Target platform: Windows 10/11 only** (MinGW build). Linux is *not* a shipping target; it is only used as a headless
   test box in cloud sessions (which run Linux and cannot execute `game.exe`). Don't add Linux packaging or Linux-only code.
-- `--validate` → 0 errors; `--selftest` → 0 failures (184 checks); `--balance` → every calling beats every creature
+- `--validate` → 0 errors; `--selftest` → 0 failures (197 checks); `--balance` → every calling beats every creature
   (36/36 at 100%). Last cloud verification 2026-11-02; re-check on Windows after pulling.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
@@ -174,6 +174,29 @@ Engine additions: condition `flags_fewer_than`; dialogue box shows the node spea
   added to every dialogue roll) and the GM's Screen (off-hand). Authoring script: `tools/authoring/dungeons_debtors.py`
   (already run — do not rerun).
 - Fixes: hidden NPCs no longer appear on the map, and NPC visibility is right from the first frame.
+
+### Saltmere Docks, sanity, Case File #2 (added 2026-11-03)
+
+- **Saltmere Docks** (`tools/build_docks.py` → `content/regions/saltmere.json`, generated) north of Bellwether through a
+  gap in the north wall (DOCKS_OFF = (1.6, 0, -42)): fog-bound quay, shallow harbour (walkable sea floor under a water
+  model — you can wade, never get stuck), two piers, boats, giant tentacles in the fog, the Drowned Lantern tavern
+  (Mother Brine, Professor Pickering), the Harbourmaster's post, Silas on the north pier, Gale & Sons' warehouse with a
+  gated stair (cellar key from Silas / lockpick 13) down 5.6 m to the **Sunken Chapel** (zone `sunken_chapel`, drains
+  sanity). Models from `python tools/build_item_models.py docks_models`; the Avatar uses the new `eldritch` sprite kind.
+- **Sanity** (`player.sanity`, 0–100, saved): zones may set `sanity_drain`; readables `sanity` (first read); dialogue
+  action `sanity` (amount); creature attacks `sanity_damage` (melee and projectiles). Companions cut the drain by 25%
+  each and speed regeneration; resting (`heal_player`) restores it; food bonus `sanity_regen`. Below 60: whispers
+  (`whisper.N`) and a violet pulse; below 30 the compass stops making sense; at 0 you black out and wake on the quay
+  (spawn `saltmere_quay`) at 50. HUD bar appears whenever sanity < 100 or the zone drains it.
+- **Case File #2: The Silence at Saltmere** (`core:quest.saltmere`, campaign `hollowmere_mysteries`): from Hollis
+  (after the haunting is identified) or the Harbourmaster directly → interview ≥3 (`saltmere_t_*`) → Pickering's theory
+  (stage 20) → cellar → silence the three tide bells (stage 30) → the Tide Priest. Four endings: fight the Avatar of the
+  Name-Eater (group trigger → 40 + `saltmere_resolved`), read the hymn backwards (lore DC 14, needs `hymn_read`), say
+  the Priest's real name (Ezekiel Wick — learned from his brother the Harbourmaster), or feed it **Form 27-B** (needs
+  the item). Then Hollis → 100 (harpoon, bane `eldritch`). New family `eldritch`; Kaelen/Baggy zone lines and a banter.
+  Authoring script: `tools/authoring/saltmere.py` (already run — do not rerun).
+- Lore tie-in: the Name-Eater *is* the Hunger from Chapter Zero; the player is invisible to it because their name was
+  struck. Keep future eldritch content consistent with that.
 
 ### Story canon (keep new writing consistent with this)
 

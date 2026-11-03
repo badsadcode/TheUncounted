@@ -621,6 +621,159 @@
         "alert": "line.host.alert",
         "death": "line.host.death"
       }
+    },
+    {
+      "id": "core:enemy.the_drowned",
+      "name_key": "enemy.the_drowned.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/the_drowned.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.8
+      },
+      "stats": {
+        "health": 85,
+        "armor": 3,
+        "move_speed": 2.3,
+        "xp_reward": 45
+      },
+      "behavior": "melee_patroller",
+      "family": "eldritch",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "drowning_grip",
+        "damage": 11,
+        "reach_meters": 2.0,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3,
+        "sanity_damage": 3
+      },
+      "loot_table": "core:loot.drowned",
+      "audio": {
+        "alert": "assets/audio/sfx/crawler_hiss.wav",
+        "attack": "assets/audio/sfx/spell_cast.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          110,
+          200,
+          160
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.drowned.alert",
+        "death": "line.drowned.death"
+      }
+    },
+    {
+      "id": "core:enemy.tide_acolyte",
+      "name_key": "enemy.tide_acolyte.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/tide_acolyte.png",
+        "animation_data": "assets/animations/crypt_keeper.json",
+        "scale": 1.8
+      },
+      "stats": {
+        "health": 65,
+        "armor": 1,
+        "move_speed": 2.0,
+        "xp_reward": 50
+      },
+      "behavior": "melee_patroller",
+      "family": "eldritch",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "brine_bolt",
+        "damage": 9,
+        "reach_meters": 2.0,
+        "ranged_range_meters": 11.0,
+        "projectile_speed": 10.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ink.png",
+        "windup_seconds": 0.7,
+        "cooldown_seconds": 1.8,
+        "sanity_damage": 4
+      },
+      "loot_table": "core:loot.drowned",
+      "audio": {
+        "alert": "assets/audio/sfx/crawler_hiss.wav",
+        "attack": "assets/audio/sfx/spell_cast.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          110,
+          255,
+          170
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.acolyte.alert",
+        "death": "line.acolyte.death"
+      }
+    },
+    {
+      "id": "core:enemy.name_eater_avatar",
+      "name_key": "enemy.name_eater_avatar.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/name_eater_avatar.png",
+        "animation_data": "assets/animations/crypt_keeper.json",
+        "scale": 3.4
+      },
+      "stats": {
+        "health": 340,
+        "armor": 4,
+        "move_speed": 1.6,
+        "xp_reward": 260
+      },
+      "behavior": "boss_avatar",
+      "family": "eldritch",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "unwriting",
+        "damage": 16,
+        "reach_meters": 3.2,
+        "ranged_range_meters": 13.0,
+        "projectile_speed": 9.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_ink.png",
+        "windup_seconds": 0.9,
+        "cooldown_seconds": 1.9,
+        "sanity_damage": 6
+      },
+      "loot_table": "core:loot.avatar",
+      "audio": {
+        "alert": "assets/audio/sfx/boss_roar.wav",
+        "attack": "assets/audio/sfx/spell_cast.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          120,
+          255,
+          180
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.avatar.alert",
+        "death": "line.avatar.death"
+      }
     }
   ]
 }

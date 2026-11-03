@@ -4321,6 +4321,33 @@
               "next": "cast_hollis"
             },
             {
+              "text_key": "dlg.hollis.saltmere.topic_case2",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.hollowmere",
+                  "stage": 20
+                }
+              ],
+              "next": "case2"
+            },
+            {
+              "text_key": "dlg.hollis.saltmere.topic_done",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 40
+                }
+              ],
+              "next": "case2_done"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -4746,6 +4773,54 @@
           "choices": [
             {
               "text_key": "dlg.hollis.players.cast_hollis_cards.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "case2": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.saltmere.case2",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 0
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.saltmere.case2.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "case2_done": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.saltmere.case2_done",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 100
+            },
+            {
+              "type": "give_gold",
+              "amount": 250
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.saltmere_harpoon",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 60
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.saltmere.case2_done.c0",
               "next": "root"
             }
           ]
@@ -7832,6 +7907,877 @@
             },
             {
               "text_key": "dlg.mortimer.after_show.c1",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.harbourmaster",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.harbourmaster.name",
+          "text_key": "dlg.harbour.root",
+          "choices": [
+            {
+              "text_key": "dlg.harbour.root.c0",
+              "next": "case",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 10
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 10
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "saltmere_visited",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.harbour.root.c1",
+              "next": "fog",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "saltmere_t_harbour",
+                  "value": true
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "saltmere_visited",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.harbour.root.c2",
+              "next": "missing",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "priest_name_known"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.harbour.root.c3",
+              "next": "named",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "saltmere_resolved"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "harbour_named"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.harbour.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "case": {
+          "speaker_key": "npc.harbourmaster.name",
+          "text_key": "dlg.harbour.case",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "saltmere_t_harbour",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.harbour.case.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "fog": {
+          "speaker_key": "npc.harbourmaster.name",
+          "text_key": "dlg.harbour.fog",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -3
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.harbour.fog.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "missing": {
+          "speaker_key": "npc.harbourmaster.name",
+          "text_key": "dlg.harbour.missing",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "priest_name_known",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "saltmere_t_harbour",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.harbour.missing.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "named": {
+          "speaker_key": "npc.harbourmaster.name",
+          "text_key": "dlg.harbour.named",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "harbour_named",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.harbour.named.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.mother_brine",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.mother_brine.name",
+          "text_key": "dlg.brine.root",
+          "choices": [
+            {
+              "text_key": "dlg.brine.root.c0",
+              "next": "town",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "saltmere_t_brine",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.brine.root.c1",
+              "next": "order",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "saltmere_t_brine",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.brine.root.c2",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "open_shop"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.brine.root.c3",
+              "next": "rest",
+              "actions": [
+                {
+                  "type": "heal_player"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.brine.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "town": {
+          "speaker_key": "npc.mother_brine.name",
+          "text_key": "dlg.brine.town",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -2
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.brine.town.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "order": {
+          "speaker_key": "npc.mother_brine.name",
+          "text_key": "dlg.brine.order",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -4
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.brine.order.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "rest": {
+          "speaker_key": "npc.mother_brine.name",
+          "text_key": "dlg.brine.rest",
+          "choices": [
+            {
+              "text_key": "dlg.brine.rest.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.professor_pickering",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.professor_pickering.name",
+          "text_key": "dlg.pickering.root",
+          "choices": [
+            {
+              "text_key": "dlg.pickering.root.c0",
+              "next": "phenomenon",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "saltmere_t_pickering",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.pickering.root.c1",
+              "next": "idol",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.fish_idol"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.pickering.root.c2",
+              "next": "theory",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 10
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "saltmere_t_harbour",
+                    "saltmere_t_brine",
+                    "saltmere_t_pickering",
+                    "saltmere_t_silas"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.pickering.root.c3",
+              "next": "named",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "pickering_notes_read"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "pickering_named"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.pickering.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "phenomenon": {
+          "speaker_key": "npc.professor_pickering.name",
+          "text_key": "dlg.pickering.phenomenon",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -5
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.pickering.phenomenon.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "idol": {
+          "speaker_key": "npc.professor_pickering.name",
+          "text_key": "dlg.pickering.idol",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -3
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            },
+            {
+              "type": "set_flag",
+              "flag": "pickering_idol",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.pickering.idol.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "theory": {
+          "speaker_key": "npc.professor_pickering.name",
+          "text_key": "dlg.pickering.theory",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 20
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 50
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.pickering.theory.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "named": {
+          "speaker_key": "npc.professor_pickering.name",
+          "text_key": "dlg.pickering.named",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "pickering_named",
+              "value": true
+            },
+            {
+              "type": "sanity",
+              "amount": 10
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.pickering.named.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.silas_gale",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.silas.root",
+          "choices": [
+            {
+              "text_key": "dlg.silas.root.c0",
+              "next": "list",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "saltmere_t_silas",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.silas.root.c1",
+              "next": "shanty"
+            },
+            {
+              "text_key": "dlg.silas.root.c2",
+              "next": "key",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "silas_key_given"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.silas.root.c3",
+              "next": "END"
+            }
+          ]
+        },
+        "list": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.silas.list",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -4
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.silas.list.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "shanty": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.silas.shanty",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            },
+            {
+              "type": "set_flag",
+              "flag": "shanty_heard",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.silas.shanty.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "key": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.silas.key",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "silas_key_given",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.cellar_key",
+              "qty": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "saltmere_t_silas",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.silas.key.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.tide_priest",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.root",
+          "choices": [
+            {
+              "text_key": "dlg.priest.root.c0",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.priest.root.c1",
+              "next": "eater"
+            },
+            {
+              "text_key": "dlg.priest.root.c2",
+              "next": "want",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "bell_1",
+                    "bell_2",
+                    "bell_3"
+                  ],
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.priest.root.c3",
+              "next": "final",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "bell_1",
+                    "bell_2",
+                    "bell_3"
+                  ],
+                  "value": 3
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "saltmere_resolved"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.priest.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.who",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -4
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.priest.who.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "eater": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.eater",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": -8
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.priest.eater.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "want": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.want",
+          "choices": [
+            {
+              "text_key": "dlg.priest.want.c0",
+              "next": "root"
+            },
+            {
+              "text_key": "dlg.priest.want.c1",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "sanity",
+                  "amount": -6
+                }
+              ]
+            }
+          ]
+        },
+        "final": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.final",
+          "choices": [
+            {
+              "text_key": "dlg.priest.final.c0",
+              "next": "fight"
+            },
+            {
+              "text_key": "dlg.priest.final.c1",
+              "next": "hymn_win",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "hymn_read"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "sanity",
+                  "amount": -25
+                }
+              ],
+              "roll": {
+                "skill": "lore",
+                "dc": 14,
+                "fail_next": "hymn_fail"
+              }
+            },
+            {
+              "text_key": "dlg.priest.final.c2",
+              "next": "brother",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "priest_name_known"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.priest.final.c3",
+              "next": "form",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.form_27b"
+                }
+              ]
+            }
+          ]
+        },
+        "fight": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.fight",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "avatar_rises",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 30
+            },
+            {
+              "type": "sanity",
+              "amount": -10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.priest.fight.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "hymn_fail": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.hymn_fail",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "avatar_rises",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.priest.hymn_fail.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "hymn_win": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.hymn_win",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "saltmere_resolved",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "saltmere_hymn_ending",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 40
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 120
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.saltmere.calm"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.priest.hymn_win.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "brother": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.brother",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "saltmere_resolved",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "saltmere_brother_ending",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 40
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 120
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.saltmere.brothers"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.priest.brother.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "form": {
+          "speaker_key": "npc.tide_priest.name",
+          "text_key": "dlg.priest.form",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "saltmere_resolved",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "saltmere_form_ending",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.saltmere",
+              "stage": 40
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 80
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 80
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.saltmere.form"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.priest.form.c0",
               "next": "END"
             }
           ]

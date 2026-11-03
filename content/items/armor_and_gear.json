@@ -466,6 +466,32 @@
           "amount": 1
         }
       ]
+    },
+    {
+      "id": "core:item.tide_charm",
+      "name_key": "item.tide_charm.name",
+      "description_key": "item.tide_charm.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/tide_charm.png",
+      "world_model": "assets/models/items/ring_of_recall.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 180,
+      "weight": 0.1,
+      "armor": 0,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": 2
+        },
+        {
+          "type": "bonus",
+          "stat": "sanity_regen",
+          "value": 0.6
+        }
+      ]
     }
   ]
 }

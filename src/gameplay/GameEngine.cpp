@@ -143,6 +143,7 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (a == "--pitch") shotPitch = static_cast<float>(atof(next().c_str()));
         else if (a == "--overlay") boot_shot_overlay_ = next();
         else if (a == "--flag") boot_shot_flags_.push_back(next());          // --shot: set a story flag first
+        else if (a == "--sanity") boot_shot_sanity_ = static_cast<float>(atof(next().c_str()));  // --shot: start at this sanity
         else if (a == "--companion") boot_shot_companions_.push_back(next());  // --shot: travel with this NPC (repeatable)
         else if (a == "--pos" && i + 3 < argc) {
             shotPos = {static_cast<float>(atof(argv[i + 1])), static_cast<float>(atof(argv[i + 2])), static_cast<float>(atof(argv[i + 3]))};
@@ -200,6 +201,7 @@ bool GameEngine::Init(int argc, char** argv) {
         player_.pitch = shotPitch * DEG2RAD;
         overlay_ = Overlay::None;
         for (const auto& f : boot_shot_flags_) player_.flags.insert(f);
+        if (boot_shot_sanity_ >= 0.0f) player_.sanity = boot_shot_sanity_;
         for (size_t k = 0; k < boot_shot_companions_.size(); k++) {
             player_.companions.push_back(boot_shot_companions_[k]);
             for (auto& n : scene_.npcs) {
@@ -1005,6 +1007,7 @@ void GameEngine::UpdatePlayerMovement(float dt) {
         }
     }
     making_noise_ = (sprinting || attack_timer_ >= 0.0f) || (hspeed > 0.5f && !player_.crouching);
+    UpdateSanity(dt);
 
     if (player_.crouching && hspeed > 0.3f) {
         for (const auto& c : scene_.creatures) {
@@ -1756,6 +1759,55 @@ bool GameEngine::ObjectiveMarker(Vector3& out, std::string& questTitle) const {
     return found;
 }
 
+void GameEngine::ChangeSanity(float delta) {
+    float before = player_.sanity;
+    player_.sanity = Clamp(player_.sanity + delta, 0.0f, 100.0f);
+    if (delta < -4.0f) {
+        damage_flash_ = std::max(damage_flash_, 0.25f);
+        Toast("Sanity " + std::to_string(static_cast<int>(std::round(delta))), Color{190, 130, 255, 255});
+    }
+    if (before >= 60.0f && player_.sanity < 60.0f) whisper_cd_ = std::min(whisper_cd_, 3.0f);
+}
+
+void GameEngine::UpdateSanity(float dt) {
+    const MapZoneDef* z = CurrentZone();
+    float drain = z ? z->sanity_drain : 0.0f;
+    sanity_drain_now_ = drain;
+    if (drain > 0.0f) {
+        // Company steadies the mind, even in the worst places.
+        drain *= 1.0f - 0.25f * std::min<size_t>(player_.companions.size(), 2);
+        player_.sanity = std::max(0.0f, player_.sanity - drain * dt);
+    } else if (player_.sanity < 100.0f) {
+        float regen = 0.25f + 0.35f * std::min<size_t>(player_.companions.size(), 2) + Bonus("sanity_regen");
+        player_.sanity = std::min(100.0f, player_.sanity + regen * dt);
+    }
+    // Whispers below 60; more often the lower it goes.
+    if (player_.sanity < 60.0f && screen_ == Screen::Playing && overlay_ == Overlay::None) {
+        whisper_cd_ -= dt;
+        if (whisper_cd_ <= 0.0f) {
+            int n = 0;
+            while (content_.Tr("whisper." + std::to_string(n + 1)) != "whisper." + std::to_string(n + 1)) n++;
+            if (n > 0) QueueSay("...", content_.Tr("whisper." + std::to_string(1 + static_cast<int>(RandF() * n) % n)));
+            whisper_cd_ = 12.0f + player_.sanity * 0.5f + RandF() * 10.0f;
+        }
+    }
+    // Breaking point: you black out and wake somewhere safer, soaked and shaken.
+    if (player_.sanity <= 0.0f && screen_ == Screen::Playing) {
+        player_.sanity = 50.0f;
+        say_queue_.clear();
+        if (scene_.map) {
+            auto it = scene_.map->spawns.find("saltmere_quay");
+            if (it == scene_.map->spawns.end()) it = scene_.map->spawns.find(content_.game_cfg.starting_spawn);
+            if (it != scene_.map->spawns.end()) {
+                player_.pos = it->second.pos;
+                player_.yaw = it->second.yaw_degrees * DEG2RAD;
+                player_.vel = {0, 0, 0};
+            }
+        }
+        StartNarration({"story.sanity.break"});
+    }
+}
+
 int GameEngine::CompanionIndex() const {
     auto all = CompanionIndices();
     return all.empty() ? -1 : all.front();
@@ -2070,6 +2122,7 @@ void GameEngine::SpawnEnemyProjectile(CreatureInstance& c) {
     p.vel = Vector3Scale(dir, c.def->attack.projectile_speed);
     p.from_player = false;
     p.damage = c.def->attack.damage;
+    p.sanity = c.def->attack.sanity_damage;
     p.sprite = c.def->attack.projectile_sprite.empty() ? "assets/sprites/vfx/spell_arcane.png" : c.def->attack.projectile_sprite;
     p.light_color = {0.45f, 0.75f, 1.0f};
     p.light_radius = 5.0f;
@@ -2191,6 +2244,7 @@ void GameEngine::UpdateCreatures(float dt) {
                         float facing = fabsf(WrapAngle(yawToPlayer - c.yaw));
                         if (dist <= d.attack.reach_meters + kPlayerRadius + 0.25f && facing < 60.0f * DEG2RAD && LineOfSight(eye, playerEye))
                             DamagePlayer(d.attack.damage, c.pos, &c);
+                            if (d.attack.sanity_damage > 0) ChangeSanity(-static_cast<float>(d.attack.sanity_damage));
                     }
                     float cd = d.attack.cooldown_seconds * (boss && c.health < c.max_health / 2 ? 0.7f : 1.0f);
                     if (c.ranged_attack) cd *= 1.7f; // bolts are the opener, not a machine gun
@@ -2285,6 +2339,7 @@ void GameEngine::UpdateProjectiles(float dt) {
             Vector3 q = Vector3Add(p.pos, Vector3Scale(seg, t));
             if (Vector3Distance(q, center) < 0.65f && (!worldHit || t <= tWorld)) {
                 DamagePlayer(p.damage, p.pos, nullptr);
+                if (p.sanity > 0) ChangeSanity(-static_cast<float>(p.sanity));
                 p.alive = false;
                 continue;
             }
@@ -2561,6 +2616,7 @@ void GameEngine::Interact() {
         if (!ps.used.count(d.instance_id)) {
             ps.used.insert(d.instance_id);
             GainSkillXp("lore", 2.0f, true);
+            if (d.sanity != 0) ChangeSanity(static_cast<float>(d.sanity));
         }
         SetOverlay(Overlay::Reader);
         if (!d.set_flag.empty()) player_.flags.insert(d.set_flag);
@@ -2666,7 +2722,10 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
         if (!a.skill.empty()) GainSkillXp(a.skill, a.amount * 0.15f, true);
     } else if (a.type == "set_flag") {
         if (a.bool_value) player_.flags.insert(a.flag); else player_.flags.erase(a.flag);
+    } else if (a.type == "sanity") {
+        ChangeSanity(static_cast<float>(a.amount));
     } else if (a.type == "heal_player") {
+        player_.sanity = 100.0f;
         player_.health = static_cast<float>(MaxHealth());
         player_.stamina = static_cast<float>(MaxStamina());
         player_.mana = static_cast<float>(MaxMana());
@@ -2985,6 +3044,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     pj["quest_log"] = p.quest_log;
     pj["flags"] = p.flags;
     pj["companions"] = p.companions;
+    pj["sanity"] = p.sanity;
     pj["tracked_quest"] = p.tracked_quest;
     pj["claimed"] = p.claimed;
     pj["play_time"] = p.play_time;
@@ -3083,6 +3143,7 @@ bool GameEngine::LoadGame(const std::string& slot) {
         p.companions = pj.value("companions", std::vector<std::string>{});
         if (p.companions.empty() && !pj.value("companion", std::string{}).empty()) p.companions.push_back(pj["companion"].get<std::string>());
         p.tracked_quest = pj.value("tracked_quest", std::string{});
+        p.sanity = pj.value("sanity", 100.0f);
         p.claimed = pj.value("claimed", std::set<std::string>{});
         p.play_time = pj.value("play_time", 0.0);
         p.pos = V3(pj["pos"]);

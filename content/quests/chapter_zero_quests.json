@@ -502,6 +502,67 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.saltmere",
+      "title_key": "quest.saltmere.title",
+      "summary_key": "quest.saltmere.summary",
+      "campaign": "hollowmere_mysteries",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.saltmere.stage0",
+          "journal_key": "quest.saltmere.journal0",
+          "markers": [
+            "npc_harbourmaster"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.saltmere.stage10",
+          "journal_key": "quest.saltmere.journal10",
+          "markers": [
+            "npc_brine",
+            "npc_pickering",
+            "npc_silas",
+            "npc_harbourmaster"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.saltmere.stage20",
+          "journal_key": "quest.saltmere.journal20",
+          "markers": [
+            "cellar_gate"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.saltmere.stage30",
+          "journal_key": "quest.saltmere.journal30",
+          "markers": [
+            "tide_bell_1",
+            "tide_bell_2",
+            "tide_bell_3",
+            "npc_tide_priest",
+            "avatar"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.saltmere.stage40",
+          "journal_key": "quest.saltmere.journal40",
+          "markers": [
+            "npc_hollis"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.saltmere.stage100",
+          "journal_key": "quest.saltmere.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

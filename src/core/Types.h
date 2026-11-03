@@ -253,6 +253,7 @@ struct CreatureAttackDef {
     std::string projectile_sprite;
     float windup_seconds = 0.5f;
     float cooldown_seconds = 1.3f;
+    int sanity_damage = 0;      // eldritch attacks also cost sanity
 };
 
 struct CreatureDef {
@@ -489,6 +490,7 @@ struct MapInteractableDef {
     std::vector<std::string> grant_items;
     Vector3 scale = {1.0f, 1.0f, 1.0f};
     std::string set_flag;                    // flag raised when used (readables, pedestals)
+    int sanity = 0;                          // readables: sanity change the first time it's read (forbidden texts are negative)
     std::vector<std::string> narration_keys; // full-screen narration cards shown after use
     std::string requires_dead;               // creature instance that must be defeated before use
 };
@@ -523,6 +525,7 @@ struct MapZoneDef {
     std::string override_flag;
     std::string override_weather;
     std::string override_ambience;
+    float sanity_drain = 0.0f;   // sanity lost per second while this is the dominant zone (eldritch places)
 };
 
 struct MapDef {

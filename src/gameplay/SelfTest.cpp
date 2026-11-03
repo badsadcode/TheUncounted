@@ -742,6 +742,75 @@ int GameEngine::RunSelfTest() {
               std::to_string(withDie) + "%)");
     }
 
+    // --- Sanity: eldritch places drain it, company slows the drain, breaking point wakes you on the quay
+    {
+        auto savedParty = player_.companions;
+        player_.companions.clear();
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        player_.pos = {12.1f, -5.6f, -56.0f};  // the Sunken Chapel
+        UpdateAtmosphere(0.0f, true);
+        check(zone_id_ == "sunken_chapel", "standing in the Sunken Chapel");
+        player_.sanity = 100.0f;
+        for (int i = 0; i < 60; i++) UpdateSanity(0.1f);
+        float alone = 100.0f - player_.sanity;
+        player_.sanity = 100.0f;
+        player_.companions = {"core:npc.detective_baggy", "core:npc.ashbound_scout"};
+        for (int i = 0; i < 60; i++) UpdateSanity(0.1f);
+        float together = 100.0f - player_.sanity;
+        check(alone > 5.0f && together < alone * 0.6f, "the chapel drains sanity; company halves it (" + std::to_string(static_cast<int>(alone)) +
+              " vs " + std::to_string(static_cast<int>(together)) + ")");
+        player_.companions.clear();
+        player_.sanity = 0.5f;
+        UpdateSanity(1.0f);
+        check(player_.sanity == 50.0f && overlay_ == Overlay::Narration && player_.pos.z > -30.0f && player_.pos.z < -20.0f,
+              "at breaking point you black out and wake on Saltmere quay");
+        narration_page_ = static_cast<int>(narration_pages_.size());
+        AdvanceNarration();
+        player_.companions = savedParty;
+        player_.sanity = 100.0f;
+    }
+
+    // --- Case File #2: The Silence at Saltmere
+    {
+        const std::string sq = "core:quest.saltmere";
+        auto talk = [&](const char* npc, std::initializer_list<const char*> path) {
+            StartDialogue(npcIndex(npc));
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            EndDialogue();
+            return ok;
+        };
+        check(talk("core:npc.harbourmaster", {"case", "root", "missing"}) && QuestStage(sq) == 10 && player_.flags.count("priest_name_known"),
+              "the Harbourmaster takes the case (and writes his brother's name on your hand)");
+        check(talk("core:npc.mother_brine", {"town"}) && talk("core:npc.silas_gale", {"list", "root", "key"}) &&
+              CountItem("core:item.cellar_key") == 1, "Mother Brine and old Silas talk; Silas hands over the cellar key");
+        check(talk("core:npc.professor_pickering", {"theory"}) && QuestStage(sq) == 20, "the Professor strings it all together");
+        for (const char* b : {"bell_1", "bell_2", "bell_3"}) player_.flags.insert(b);
+        SetQuestStage(sq, 30);
+        int pi = npcIndex("core:npc.tide_priest");
+        UpdateWorldObjects(0.0f);
+        check(pi >= 0 && !scene_.npcs[pi].hidden, "the Tide Priest waits at the altar");
+        check(talk("core:npc.tide_priest", {"final", "brother"}) && QuestStage(sq) == 40 && player_.flags.count("saltmere_resolved"),
+              "Ezekiel remembers his name; the Name-Eater goes back to sleep");
+        narration_page_ = static_cast<int>(narration_pages_.size());
+        AdvanceNarration();
+        UpdateWorldObjects(0.0f);
+        check(scene_.npcs[pi].hidden, "the Tide Priest is gone from the altar");
+        check(talk("core:npc.harbourmaster", {"named"}) && player_.flags.count("harbour_named"), "Josiah Wick shouts his name at the sea");
+        check(talk("core:npc.hunter_hollis", {"case2_done"}) && QuestStage(sq) == 100 && CountItem("core:item.saltmere_harpoon") == 1,
+              "Hollis closes Case File #2 and hands over his master's harpoon");
+        player_.flags.insert("avatar_rises");  // the fight ending, flags only
+        UpdateWorldObjects(0.0f);
+        CreatureInstance* av = nullptr;
+        for (auto& c : scene_.creatures) if (c.instance_id == "avatar") av = &c;
+        check(av != nullptr && av->def->family == "eldritch", "the Avatar of the Name-Eater can rise from the pool");
+        const ItemDef* harpoon = content_.GetItem("core:item.saltmere_harpoon");
+        check(harpoon && harpoon->weapon.bane_family == "eldritch", "the harpoon is the bane of eldritch things");
+        if (av) DamageCreature(*av, 99999, false, "swords", false);
+        player_.flags.erase("avatar_rises");
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

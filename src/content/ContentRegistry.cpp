@@ -657,6 +657,7 @@ void ContentRegistry::LoadCreaturesFile(const std::string& rootDir, const std::s
             d.attack.projectile_sprite = at.value("projectile_sprite", "");
             d.attack.windup_seconds = at.value("windup_seconds", 0.5f);
             d.attack.cooldown_seconds = at.value("cooldown_seconds", 1.3f);
+            d.attack.sanity_damage = at.value("sanity_damage", 0);
         }
         d.loot_table = el.value("loot_table", "");
         if (el.contains("hit_fx") && el["hit_fx"].is_object()) {
@@ -959,6 +960,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
                 z.override_weather = fo.value("weather", "");
                 z.override_ambience = fo.value("ambience", z.ambience);
             }
+            z.sanity_drain = zj.value("sanity_drain", 0.0f);
             m.zones.push_back(z);
         }
     }
@@ -1066,6 +1068,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             }
             if (ij.contains("scale")) in.scale = JsonToVec3(ij["scale"], {1.0f, 1.0f, 1.0f});
             in.set_flag = ij.value("set_flag", "");
+            in.sanity = ij.value("sanity", 0);
             in.requires_dead = ij.value("requires_dead", "");
             if (ij.contains("narration") && ij["narration"].is_array())
                 for (const auto& nk : ij["narration"]) in.narration_keys.push_back(nk.get<std::string>());

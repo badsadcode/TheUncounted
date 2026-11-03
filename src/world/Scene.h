@@ -101,6 +101,7 @@ struct Projectile {
     float life_steal = 0.0f;
     float splash_radius = 0.0f;
     float drain = 0.0f;
+    int sanity = 0;          // enemy projectiles: sanity lost on hit
 };
 
 struct WorldPickup {

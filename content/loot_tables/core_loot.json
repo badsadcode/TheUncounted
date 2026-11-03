@@ -253,6 +253,47 @@
           "max_qty": 3
         }
       ]
+    },
+    {
+      "id": "core:loot.drowned",
+      "gold_min": 4,
+      "gold_max": 14,
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 25,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.brine_chowder",
+          "weight": 25,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.avatar",
+      "gold_min": 80,
+      "gold_max": 140,
+      "guaranteed": [
+        "core:item.tide_charm"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 60,
+          "min_qty": 1,
+          "max_qty": 2
+        }
+      ]
     }
   ]
 }

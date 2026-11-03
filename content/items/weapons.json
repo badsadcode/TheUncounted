@@ -326,6 +326,32 @@
         "bane_family": "spirit",
         "bane_mult": 1.5
       }
+    },
+    {
+      "id": "core:item.saltmere_harpoon",
+      "name_key": "item.saltmere_harpoon.name",
+      "description_key": "item.saltmere_harpoon.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/saltmere_harpoon.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 280,
+      "weight": 3.0,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "piercing",
+        "base_damage": 20,
+        "attack_time_seconds": 0.62,
+        "stamina_cost": 10,
+        "reach_meters": 2.7,
+        "crit_chance": 0.1,
+        "crit_mult": 1.8,
+        "bane_family": "eldritch",
+        "bane_mult": 1.6
+      }
     }
   ]
 }

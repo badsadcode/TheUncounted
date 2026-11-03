@@ -392,6 +392,30 @@
           "duration": 120
         }
       ]
+    },
+    {
+      "id": "core:item.brine_chowder",
+      "name_key": "item.brine_chowder.name",
+      "description_key": "item.brine_chowder.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/brine_chowder.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 8,
+      "weight": 0.5,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 22
+        },
+        {
+          "type": "buff",
+          "stat": "sanity_regen",
+          "value": 1.2,
+          "duration": 300
+        }
+      ]
     }
   ]
 }

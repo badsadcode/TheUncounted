@@ -541,6 +541,38 @@ def crawler(style, row):
     return p
 
 
+def eldritch(style, row):
+    """A heaving mass of tentacles and eyes rising from water (the Name-Eater's avatar)."""
+    skin = Mat(style["body"], shine=0.3)
+    dark = Mat(style["armor"])
+    eye = Mat(style["eye"], emissive=True)
+    glow = Mat(style.get("glow", (90, 255, 160)), emissive=True)
+    sway = {1: 0.6, 2: -0.6, 3: 1.2, 4: -0.4, 5: 0.0}.get(row, 0.0)
+    rise = 0.06 if row == 3 else (-0.04 if row == 4 else 0.0)
+    p = []
+    core = v3(0, 0.42 + rise, 0)
+    p.append(ellipsoid(core, (0.2, 0.26, 0.18), skin))
+    p.append(ellipsoid(core + v3(0, -0.2, 0), (0.28, 0.08, 0.26), dark))  # the water-line skirt
+    for k, (ex, ey, r) in enumerate([(0.0, 0.1, 0.05), (-0.09, 0.02, 0.03), (0.09, 0.03, 0.035), (-0.05, -0.08, 0.025),
+                                      (0.06, -0.09, 0.02), (0.0, 0.2, 0.025), (-0.12, 0.14, 0.018), (0.12, 0.15, 0.02)]):
+        p.append(sphere(core + v3(ex, ey, 0.16 - abs(ex) * 0.3), r, eye))
+    for t in range(7):  # tentacles, each a chain of capsules
+        ang = t * 2 * math.pi / 7
+        base = core + v3(math.sin(ang) * 0.18, -0.15, math.cos(ang) * 0.16)
+        prev = base
+        for seg in range(5):
+            f = (seg + 1) / 5
+            lift = 0.08 * seg * (1.0 + 0.4 * math.sin(t + sway))
+            nxt = base + v3(math.sin(ang) * (0.08 + 0.07 * seg) + 0.05 * sway * math.cos(ang + seg),
+                            lift - 0.02 * seg * seg * 0.3 + (0.12 * f if row == 4 and t % 2 == 0 else 0.0),
+                            math.cos(ang) * (0.08 + 0.07 * seg))
+            rr = 0.045 * (1 - f) + 0.01
+            p.append(capsule(prev, nxt, rr + 0.006, skin if seg % 2 == 0 else dark, rr))
+            prev = nxt
+        p.append(sphere(prev, 0.012, glow))
+    return p
+
+
 def corpse_transform(kind):
     if kind == "humanoid":
         return rot_x(math.radians(-88)), v3(0, 0.07, 0.42)
@@ -551,6 +583,8 @@ def corpse_transform(kind):
 
 def build_prims(style, row):
     kind = style["kind"]
+    if kind == "eldritch":
+        return eldritch(style, row)
     if kind == "rat":
         return rat(style, row)
     if kind == "crawler":
@@ -689,6 +723,37 @@ SHEETS = {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 205, "body": (210, 226, 210), "armor": (90, 110, 96),
         "cloak": (60, 76, 66), "trim": (230, 240, 230), "eye": (240, 255, 240), "glow_eyes": True, "hat": "fedora",
         "cap": (50, 60, 56), "band": (160, 30, 40), "weapon": "ledger", "book": (170, 30, 40),
+    },
+    "assets/sprites/enemies/name_eater_avatar.png": {"kind": "eldritch", "scale": 1.6, "body": (60, 92, 80), "armor": (30, 48, 44),
+                                                    "eye": (255, 230, 90), "glow": (110, 255, 170)},
+    "assets/sprites/enemies/the_drowned.png": {
+        "kind": "humanoid", "body": (96, 140, 120), "armor": (60, 84, 78), "legs": (50, 64, 60), "cloak": (40, 60, 56),
+        "trim": (140, 170, 150), "eye": (240, 240, 140), "glow_eyes": True, "hat": "bald", "hair": (70, 104, 92), "bare_arms": True,
+    },
+    "assets/sprites/enemies/tide_acolyte.png": {
+        "kind": "humanoid", "robe": True, "body": (110, 150, 130), "armor": (34, 70, 66), "cloak": (24, 48, 46), "trim": (150, 200, 170),
+        "eye": (140, 255, 190), "glow_eyes": True, "hat": "hood", "hood": (28, 58, 54), "weapon": "staff", "orb": (110, 255, 170),
+    },
+    "assets/sprites/npcs/tide_priest.png": {
+        "kind": "humanoid", "robe": True, "body": (150, 176, 160), "armor": (20, 54, 60), "cloak": (14, 36, 40), "trim": (200, 180, 90),
+        "eye": (255, 230, 90), "glow_eyes": True, "hat": "crown", "weapon": "staff", "orb": (255, 230, 90), "bare_arms": True,
+    },
+    "assets/sprites/npcs/mother_brine.png": {
+        "kind": "humanoid", "body": (214, 180, 160), "armor": (70, 80, 96), "legs": (50, 52, 60), "trim": (220, 210, 190),
+        "eye": (40, 40, 50), "hat": "bun", "hair": (190, 190, 196), "apron": True,
+    },
+    "assets/sprites/npcs/professor_pickering.png": {
+        "kind": "humanoid", "body": (226, 196, 172), "armor": (110, 84, 60), "legs": (64, 54, 46), "cloak": (90, 70, 52),
+        "trim": (200, 170, 100), "eye": (40, 40, 40), "hat": "fedora", "cap": (70, 60, 50), "band": (120, 40, 40), "weapon": "ledger",
+        "book": (60, 40, 30), "beard": True, "hair": (150, 130, 110),
+    },
+    "assets/sprites/npcs/harbourmaster.png": {
+        "kind": "humanoid", "body": (200, 168, 140), "armor": (34, 46, 74), "legs": (30, 34, 44), "cloak": (26, 36, 58),
+        "trim": (210, 180, 90), "eye": (40, 40, 40), "hat": "cap", "cap": (24, 30, 48), "beard": True, "hair": (120, 120, 126),
+    },
+    "assets/sprites/npcs/silas_gale.png": {
+        "kind": "humanoid", "body": (196, 160, 136), "armor": (210, 180, 50), "legs": (180, 150, 40), "cloak": (200, 170, 46),
+        "trim": (120, 100, 30), "eye": (230, 230, 230), "hat": "hood", "hood": (210, 180, 50), "beard": True, "hair": (200, 200, 200),
     },
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),
