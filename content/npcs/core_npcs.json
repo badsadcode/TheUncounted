@@ -701,8 +701,8 @@
       "dialogue_id": "core:dialogue.detective_baggy",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/detective_baggy.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/detective_baggy_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.76
       },
       "barks": [
@@ -1051,8 +1051,8 @@
       "dialogue_id": "core:dialogue.mortimer",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/critic_mortimer.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/critic_mortimer_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [

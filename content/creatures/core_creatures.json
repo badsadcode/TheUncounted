@@ -287,8 +287,8 @@
       "name_key": "enemy.bone_clerk.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/bone_clerk.png",
-        "animation_data": "assets/animations/skeleton.json",
+        "sprite_sheet": "assets/sprites/enemies/bone_clerk_painted.png",
+        "animation_data": "assets/animations/skeleton_128.json",
         "scale": 1.7
       },
       "stats": {
@@ -872,8 +872,8 @@
       "name_key": "enemy.dreaming_limb.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/dreaming_limb.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/dreaming_limb_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 4.2
       },
       "stats": {

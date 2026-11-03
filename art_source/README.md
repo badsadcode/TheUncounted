@@ -18,6 +18,10 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/innkeeper_marta.webp` | `assets/sprites/npcs/innkeeper_marta_painted.png` | Marta |
 | `spritesheets/librarian_fenwick.webp` | `assets/sprites/npcs/librarian_fenwick_painted.png` | Fenwick |
 | `spritesheets/merchant_vaelen.webp` | `assets/sprites/npcs/merchant_vaelen_painted.png` | Vaelen |
+| `spritesheets/bone_clerk.webp` | `assets/sprites/enemies/bone_clerk_painted.png` | Bone Clerk |
+| `spritesheets/critic_mortimer.webp` | `assets/sprites/npcs/critic_mortimer_painted.png` | Mortimer Quill |
+| `spritesheets/detective_baggy.webp` | `assets/sprites/npcs/detective_baggy_painted.png` | Baggy |
+| `spritesheets/dreaming_limb.webp` | `assets/sprites/enemies/dreaming_limb_painted.png` | The Dreaming Limb |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):
