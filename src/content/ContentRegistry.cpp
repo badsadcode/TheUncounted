@@ -62,6 +62,9 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         graphics.ui_scale = j.value("ui_scale", 1.0f);
         graphics.fog_enabled = j.value("fog_enabled", true);
         graphics.dynamic_lights_enabled = j.value("dynamic_lights_enabled", true);
+        graphics.retro_dither = j.value("retro_dither", true);
+        graphics.glow = j.value("glow", true);
+        graphics.world_motion = j.value("world_motion", true);
         if (j.contains("available_internal_resolutions") && j["available_internal_resolutions"].is_array()) {
             graphics.available_internal_resolutions.clear();
             for (const auto& r : j["available_internal_resolutions"]) {
@@ -127,6 +130,9 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["ui_scale"] = graphics.ui_scale;
         j["fog_enabled"] = graphics.fog_enabled;
         j["dynamic_lights_enabled"] = graphics.dynamic_lights_enabled;
+        j["retro_dither"] = graphics.retro_dither;
+        j["glow"] = graphics.glow;
+        j["world_motion"] = graphics.world_motion;
         std::ofstream ofs((fs::path(rootDir) / "config/graphics.json").string());
         if (ofs.is_open()) ofs << j.dump(2);
     }

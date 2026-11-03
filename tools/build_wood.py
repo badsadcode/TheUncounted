@@ -186,7 +186,7 @@ region = {
     "sun_color": [0.62, 0.66, 0.52],
     "fog_color": [0.2, 0.26, 0.22],
     "fog_density": 0.04,
-    "weather": "",
+    "weather": "fireflies",
     "spawns": {"wood_lane": {"pos": [20.0, 0.0, 0.0], "yaw_degrees": -90.0}},
     "props": props, "lights": lights, "npcs": npcs, "creatures": creatures, "interactables": interactables, "portals": [],
 }

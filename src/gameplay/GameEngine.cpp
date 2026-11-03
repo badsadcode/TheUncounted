@@ -260,6 +260,7 @@ bool GameEngine::Init(int argc, char** argv) {
             ui_ignore_hover_ = true;
         }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
+        else if (boot_shot_overlay_ == "options") overlay_ = Overlay::Options;
         else if (boot_shot_overlay_ == "journal_demo") {
             // A journal mid-playthrough: several campaigns under way
             SetQuestStage("core:quest.legally_deceased", 10);

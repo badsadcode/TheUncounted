@@ -30,7 +30,7 @@
     0.22
   ],
   "fog_density": 0.04,
-  "weather": "",
+  "weather": "fireflies",
   "spawns": {
     "wood_lane": {
       "pos": [

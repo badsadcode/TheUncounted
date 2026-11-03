@@ -12,6 +12,7 @@ static const char* kWorldVs = "assets/shaders/world_lit.vs";
 static const char* kWorldFs = "assets/shaders/world_lit.fs";
 static const char* kSpriteVs = "assets/shaders/sprite_lit.vs";
 static const char* kSpriteFs = "assets/shaders/sprite_lit.fs";
+static const char* kPostFs = "assets/shaders/post.fs";
 
 Matrix AnchoredTransform(const BoundingBox& local, Vector3 pos, float rotYDeg, Vector3 scale) {
     Vector3 c = {(local.min.x + local.max.x) * 0.5f, local.min.y, (local.min.z + local.max.z) * 0.5f};
@@ -73,6 +74,9 @@ void WorldRenderer::ResolveLocs(Shader s, ShaderLocs& l) {
     l.fog_density = loc("uFogDensity", nullptr);
     l.emissive = loc("uEmissive", nullptr);
     l.uv_scale = loc("uUvScale", nullptr);
+    l.time = loc("uTime", nullptr);
+    l.sway = loc("uSway", nullptr);
+    l.wave = loc("uWave", nullptr);
 }
 
 void WorldRenderer::ReloadShaders() {
@@ -87,6 +91,13 @@ void WorldRenderer::ReloadShaders() {
     if (sprite_shader_.id == 0 || sprite_shader_.id == rlGetShaderIdDefault()) {
         Logger::Error(std::string("Sprite shader failed to compile/load: '") + kSpriteVs + "' / '" + kSpriteFs + "'.");
     }
+    if (post_shader_.id > 0 && post_shader_.id != rlGetShaderIdDefault()) UnloadShader(post_shader_);
+    post_shader_ = LoadShader(nullptr, res_->Resolve(kPostFs).c_str());
+    if (post_shader_.id == 0 || post_shader_.id == rlGetShaderIdDefault()) Logger::Error(std::string("Post shader failed to load: '") + kPostFs + "'.");
+    post_texel_ = GetShaderLocation(post_shader_, "uTexel");
+    post_dither_ = GetShaderLocation(post_shader_, "uDither");
+    post_glow_ = GetShaderLocation(post_shader_, "uGlow");
+    post_vignette_ = GetShaderLocation(post_shader_, "uVignette");
     ResolveLocs(world_shader_, wl_);
     ResolveLocs(sprite_shader_, sl_);
     res_->SetModelShader(world_shader_);
@@ -114,6 +125,8 @@ void WorldRenderer::Shutdown() {
     vm_target_ = {};
     if (world_shader_.id > 0 && world_shader_.id != rlGetShaderIdDefault()) UnloadShader(world_shader_);
     if (sprite_shader_.id > 0 && sprite_shader_.id != rlGetShaderIdDefault()) UnloadShader(sprite_shader_);
+    if (post_shader_.id > 0 && post_shader_.id != rlGetShaderIdDefault()) UnloadShader(post_shader_);
+    post_shader_ = {};
     world_shader_ = {};
     sprite_shader_ = {};
 }
@@ -151,15 +164,42 @@ void WorldRenderer::ApplyEnvironment(Shader s, const ShaderLocs& l, const Render
     SetShaderValue(s, l.sun_color, &sunCol, SHADER_UNIFORM_VEC3);
     SetShaderValue(s, l.fog_color, &fogCol, SHADER_UNIFORM_VEC3);
     SetShaderValue(s, l.fog_density, &fogD, SHADER_UNIFORM_FLOAT);
+    time_ = view.time;
+    if (l.time >= 0) SetShaderValue(s, l.time, &time_, SHADER_UNIFORM_FLOAT);
     SetEmissive(s, l, 0.0f);
 }
 
 void WorldRenderer::DrawModelAt(const std::string& path, const Matrix& m, Vector2 uv, Color tint) {
     Model& model = res_->GetModel(path);
     if (wl_.uv_scale >= 0) SetShaderValue(world_shader_, wl_.uv_scale, &uv, SHADER_UNIFORM_VEC2);
+    // World motion by model family (looked up once per path): trees sway, water ripples, tentacles breathe.
+    auto it = motion_kind_.find(path);
+    if (it == motion_kind_.end()) {
+        int k = 0;
+        if (path.find("tree") != std::string::npos || path.find("canopy") != std::string::npos) k = 1;
+        else if (path.find("water") != std::string::npos || path.find("pool") != std::string::npos) k = 2;
+        else if (path.find("tentacle") != std::string::npos) k = 3;
+        it = motion_kind_.emplace(path, k).first;
+    }
+    int kind = gfx_->world_motion ? it->second : 0;
+    float sway = kind == 1 ? 0.012f : (kind == 3 ? 0.018f : 0.0f);
+    float wave = kind == 2 ? 0.045f : 0.0f;
+    if (kind == 3) {  // slower, heavier: tentacles drift like something asleep
+        float slow = time_ * 0.45f;
+        if (wl_.time >= 0) SetShaderValue(world_shader_, wl_.time, &slow, SHADER_UNIFORM_FLOAT);
+    }
+    if (wl_.sway >= 0) SetShaderValue(world_shader_, wl_.sway, &sway, SHADER_UNIFORM_FLOAT);
+    if (wl_.wave >= 0) SetShaderValue(world_shader_, wl_.wave, &wave, SHADER_UNIFORM_FLOAT);
     model.transform = m;
     DrawModel(model, {0, 0, 0}, 1.0f, tint);
     model.transform = MatrixIdentity();
+    if (kind != 0) {
+        rlDrawRenderBatchActive();
+        float zero = 0.0f;
+        if (wl_.sway >= 0) SetShaderValue(world_shader_, wl_.sway, &zero, SHADER_UNIFORM_FLOAT);
+        if (wl_.wave >= 0) SetShaderValue(world_shader_, wl_.wave, &zero, SHADER_UNIFORM_FLOAT);
+        if (kind == 3 && wl_.time >= 0) SetShaderValue(world_shader_, wl_.time, &time_, SHADER_UNIFORM_FLOAT);
+    }
 }
 
 static const char* AnimStateFor(const CreatureInstance& c) {
@@ -229,6 +269,28 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
         int top = hy - static_cast<int>(th * 0.9f);
         DrawRectangleGradientV(0, top, tw, hy - top, view.atmo.sky, fogC);
         if (hy < th) DrawRectangle(0, hy, tw, static_cast<int>(th) - hy + 1, fogC);
+        int skyLum = view.atmo.sky.r + view.atmo.sky.g + view.atmo.sky.b;
+        if (skyLum < 180 && view.atmo.weather != "rain" && view.atmo.fog_density < 0.045f) {
+            // A fixed star field on a sphere, projected with the camera's yaw and pitch; twinkling, chunky pixels.
+            float yaw = atan2f(dir.x, dir.z);
+            float fovY = view.camera.fovy * DEG2RAD, fovX = 2.0f * atanf(tanf(fovY * 0.5f) * tw / th);
+            int px = std::max(1, static_cast<int>(th / 240.0f));
+            for (int i = 0; i < 260; i++) {
+                float az = fabsf(fmodf(sinf(i * 91.7f) * 43758.5453f, 1.0f)) * 2.0f * PI;
+                float el = 0.12f + fabsf(fmodf(sinf(i * 17.3f) * 24634.63f, 1.0f)) * 1.3f;
+                float da = az - yaw;
+                while (da > PI) da -= 2 * PI;
+                while (da < -PI) da += 2 * PI;
+                if (fabsf(da) > fovX * 0.6f) continue;
+                float sx = tw * 0.5f + tanf(da) / tanf(fovX * 0.5f) * tw * 0.5f;
+                float sy = th * 0.5f - tanf(el - pitch) / tanf(fovY * 0.5f) * th * 0.5f;
+                if (sy > hy - th * 0.04f || sy < 0 || sx < 0 || sx >= tw) continue;
+                float tw8 = 0.55f + 0.45f * sinf(view.time * (0.8f + (i % 7) * 0.3f) + i);
+                unsigned char a = static_cast<unsigned char>(Clamp((140 + (i % 5) * 25) * tw8, 0.0f, 255.0f));
+                int s = (i % 23 == 0) ? px * 2 : px;
+                DrawRectangle(static_cast<int>(sx), static_cast<int>(sy), s, s, Color{225, 230, 255, a});
+            }
+        }
     }
     BeginMode3D(view.camera);
 
@@ -428,6 +490,25 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
         }
         rlDrawRenderBatchActive();
     }
+    if (map && view.atmo.weather == "fireflies") {
+        // Slow, wandering glow-motes that pulse on and off (the Whistling Wood).
+        SetEmissive(sprite_shader_, sl_, 1.0f);
+        Vector3 c = view.camera.position;
+        for (int i = 0; i < 70; i++) {
+            float h1 = fabsf(fmodf(sinf(i * 12.9898f) * 43758.5453f, 1.0f));
+            float h2 = fabsf(fmodf(sinf(i * 78.233f) * 12345.678f, 1.0f));
+            float h3 = fabsf(fmodf(sinf(i * 39.42f) * 24634.63f, 1.0f));
+            float span = 12.0f, t = view.time;
+            float x = c.x - span + fmodf(h1 * span * 2 - c.x + span * 64 + sinf(t * 0.4f + i) * 1.2f, span * 2.0f);
+            float z = c.z - span + fmodf(h2 * span * 2 - c.z + span * 64 + cosf(t * 0.33f + i * 1.3f) * 1.2f, span * 2.0f);
+            float y = c.y - 1.2f + h3 * 2.6f + sinf(t * 0.8f + i * 2.1f) * 0.3f;
+            float pulse = 0.5f + 0.5f * sinf(t * (1.2f + h1) + i * 4.7f);
+            if (pulse < 0.25f) continue;
+            unsigned char a = static_cast<unsigned char>(255 * pulse);
+            DrawBillboardRec(view.camera, white, {0, 0, 1, 1}, {x, y, z}, {0.05f, 0.05f}, Color{210, 255, 120, a});
+        }
+        rlDrawRenderBatchActive();
+    }
     SetEmissive(sprite_shader_, sl_, 0.0f);
     EndShaderMode();
 
@@ -602,7 +683,18 @@ void WorldRenderer::BlitToScreen() {
     float dw = tw * scale, dh = th * scale;
     Rectangle src = {0, 0, tw, -th};
     Rectangle dst = {(sw - dw) * 0.5f, (sh - dh) * 0.5f, dw, dh};
+    bool post = post_shader_.id > 0 && post_shader_.id != rlGetShaderIdDefault();
+    if (post) {
+        Vector2 texel = {1.0f / tw, 1.0f / th};
+        float dither = gfx_->retro_dither ? 1.0f : 0.0f, glow = gfx_->glow ? 1.0f : 0.0f, vig = 0.55f;
+        BeginShaderMode(post_shader_);
+        SetShaderValue(post_shader_, post_texel_, &texel, SHADER_UNIFORM_VEC2);
+        SetShaderValue(post_shader_, post_dither_, &dither, SHADER_UNIFORM_FLOAT);
+        SetShaderValue(post_shader_, post_glow_, &glow, SHADER_UNIFORM_FLOAT);
+        SetShaderValue(post_shader_, post_vignette_, &vig, SHADER_UNIFORM_FLOAT);
+    }
     DrawTexturePro(target_.texture, src, dst, {0, 0}, 0.0f, WHITE);
+    if (post) EndShaderMode();
 }
 
 } // namespace uncounted

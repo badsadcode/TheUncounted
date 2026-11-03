@@ -402,3 +402,16 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
 - With `--mods` / `enable_mods`, every `mods/<name>/manifest.json` loads in alphabetical order (previously only
   `example_mod`). Redefining an existing id replaces it (last wins), so mods can swap models and sprites. Guide for
   3D replacements: `docs/MODDING_3D.md`.
+
+### Retro visuals pass (added 2026-11-03)
+
+- **Post pass** (`assets/shaders/post.fs`, applied in `WorldRenderer::BlitToScreen`): soft glow around bright pixels
+  (`glow`), ordered 4x4 Bayer dithering with 22-level colour banding on a ~360-line grid even at native resolution
+  (`retro_dither`), and a light vignette. Options: Retro dithering / Glow.
+- **World motion** (`world_lit.vs` uniforms `uTime`, `uSway`, `uWave`; option `world_motion`): models whose path
+  contains `tree`/`canopy` sway (bend grows with height, phase from position), `water`/`pool` ripple, `tentacle`
+  breathe slowly. Collision is unaffected (it uses the static bounds).
+- **Weather `fireflies`** (pulsing emissive motes around the camera; the Whistling Wood) and **stars** in dark,
+  clear, low-fog skies (none when raining or fog density >= 0.045).
+- New graphics config keys: `retro_dither`, `glow`, `world_motion`. `--shot … --overlay options` shows the menu.
+

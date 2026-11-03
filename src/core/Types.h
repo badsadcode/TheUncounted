@@ -28,6 +28,9 @@ struct GraphicsConfig {
     float ui_scale = 1.0f;
     bool fog_enabled = true;
     bool dynamic_lights_enabled = true;
+    bool retro_dither = true;   // post pass: ordered dithering + colour banding on the internal-resolution grid
+    bool glow = true;           // post pass: soft bloom around bright, emissive things (torches, spells, eyes)
+    bool world_motion = true;   // foliage sway, rippling water, breathing tentacles
 };
 
 struct ControlsConfig {

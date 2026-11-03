@@ -654,20 +654,20 @@ void GameEngine::DrawOptions() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
     if (screen_ == Screen::Title) DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{8, 8, 12, 255});
-    Panel({VW * 0.5f - 330, VH * 0.5f - 320, 660, 640});
-    Text("Options", VW * 0.5f - TextWidth("Options", 32) * 0.5f, VH * 0.5f - 306, 32, kGold);
+    Panel({VW * 0.5f - 330, VH * 0.5f - 350, 660, 700});
+    Text("Options", VW * 0.5f - TextWidth("Options", 32) * 0.5f, VH * 0.5f - 338, 32, kGold);
 
     GameConfig& gc = content_.game_cfg;
     GraphicsConfig& gfx = content_.graphics;
     ControlsConfig& cc = content_.controls;
     bool changed = false;
-    float x = VW * 0.5f - 300, y = VH * 0.5f - 255;
+    float x = VW * 0.5f - 300, y = VH * 0.5f - 292;
     auto row = [&](const std::string& label, const std::string& value, auto onLeft, auto onRight) {
         Text(label, x, y + 6, 18, kText);
         if (Button({x + 330, y, 40, 32}, "<")) { onLeft(); changed = true; }
         Text(value, x + 380 + (170 - TextWidth(value, 18)) * 0.5f, y + 6, 18, kGold);
         if (Button({x + 560, y, 40, 32}, ">")) { onRight(); changed = true; }
-        y += 34;
+        y += 32;
     };
     auto pct = [](float v) { return std::to_string(static_cast<int>(std::round(v * 100))) + "%"; };
     auto step = [](float& v, float d) { v = Clamp(std::round((v + d) * 100) / 100, 0.0f, 1.0f); };
@@ -699,6 +699,10 @@ void GameEngine::DrawOptions() {
     row("Fog", gfx.fog_enabled ? "On" : "Off", [&] { gfx.fog_enabled = !gfx.fog_enabled; }, [&] { gfx.fog_enabled = !gfx.fog_enabled; });
     row("Dynamic lights", gfx.dynamic_lights_enabled ? "On" : "Off", [&] { gfx.dynamic_lights_enabled = !gfx.dynamic_lights_enabled; },
         [&] { gfx.dynamic_lights_enabled = !gfx.dynamic_lights_enabled; });
+    row("Retro dithering", gfx.retro_dither ? "On" : "Off", [&] { gfx.retro_dither = !gfx.retro_dither; }, [&] { gfx.retro_dither = !gfx.retro_dither; });
+    row("Glow", gfx.glow ? "On" : "Off", [&] { gfx.glow = !gfx.glow; }, [&] { gfx.glow = !gfx.glow; });
+    row("Swaying trees & water", gfx.world_motion ? "On" : "Off", [&] { gfx.world_motion = !gfx.world_motion; },
+        [&] { gfx.world_motion = !gfx.world_motion; });
     auto cycleDiff = [&](int d) {
         std::vector<std::string> ds = {"story", "standard", "veteran"};
         auto it = std::find(ds.begin(), ds.end(), gc.difficulty);
@@ -714,7 +718,7 @@ void GameEngine::DrawOptions() {
         ApplyAudioVolumes();
         content_.SaveConfigs(".");
     }
-    bool back = Button({VW * 0.5f - 120, VH * 0.5f + 262, 240, 44}, "Back") || (screen_ == Screen::Title && IsKeyPressed(KEY_ESCAPE));
+    bool back = Button({VW * 0.5f - 120, VH * 0.5f + 296, 240, 44}, "Back") || (screen_ == Screen::Title && IsKeyPressed(KEY_ESCAPE));
     if (back) {
         content_.SaveConfigs(".");
         overlay_ = (screen_ == Screen::Title || options_from_title_) && screen_ != Screen::Playing ? Overlay::None : Overlay::Pause;
