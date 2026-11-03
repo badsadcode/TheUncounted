@@ -6,8 +6,8 @@
       "name_key": "enemy.grave_rat.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/grave_rat.png",
-        "animation_data": "assets/animations/grave_rat.json",
+        "sprite_sheet": "assets/sprites/enemies/grave_rat_painted.png",
+        "animation_data": "assets/animations/grave_rat_128.json",
         "scale": 1.15
       },
       "stats": {
@@ -50,8 +50,8 @@
       "name_key": "enemy.restless_skeleton.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/skeleton.png",
-        "animation_data": "assets/animations/skeleton.json",
+        "sprite_sheet": "assets/sprites/enemies/skeleton_painted.png",
+        "animation_data": "assets/animations/skeleton_128.json",
         "scale": 1.75
       },
       "stats": {

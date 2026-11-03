@@ -359,3 +359,13 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   Authoring script: `tools/authoring/case3.py` (already run — do not rerun).
 - Steve is canon now: a real bandit Oakhaven met nineteen years ago and wrote into his game. Keep that consistent.
 
+
+### Hand-painted sprite sheets (added 2026-11-03, trial)
+
+- `tools/import_spritesheet.py SRC DST --frame 128 --match OLD.png [--match-col N] --anim-from OLD.json --anim-out NEW.json`
+  converts an external 8x6 sheet (same direction/row order as the engine) on a flat background: soft background removal,
+  blob-to-cell assignment (limbs/tails crossing cell borders stay with their owner), one shared scale matched to the old
+  sheet's in-frame height, feet on the pivot, and an animation JSON with the new frame size (world size is unchanged).
+- In use (trial, from the user's own art): `grave_rat_painted.png` / `grave_rat_128.json` and `skeleton_painted.png` /
+  `skeleton_128.json` for `core:enemy.grave_rat` and `core:enemy.restless_skeleton`. The old generated sheets are kept;
+  revert by pointing the creatures back at them.
