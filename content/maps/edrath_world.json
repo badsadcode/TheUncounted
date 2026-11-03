@@ -23647,6 +23647,101 @@
       "group_set_flag": "fig3_caught"
     },
     {
+      "instance_id": "road_kevin_0",
+      "creature_id": "core:enemy.kevin_bandit",
+      "pos": [
+        56.0,
+        0.0,
+        9.0
+      ],
+      "patrol_a": [
+        52.0,
+        0.0,
+        9.0
+      ],
+      "patrol_b": [
+        60.0,
+        0.0,
+        9.0
+      ]
+    },
+    {
+      "instance_id": "road_kevin_1",
+      "creature_id": "core:enemy.kevin_bandit",
+      "pos": [
+        33.0,
+        0.0,
+        -9.0
+      ],
+      "patrol_a": [
+        30.0,
+        0.0,
+        -9.0
+      ],
+      "patrol_b": [
+        37.0,
+        0.0,
+        -9.0
+      ]
+    },
+    {
+      "instance_id": "road_goblin_0",
+      "creature_id": "core:enemy.hedge_goblin",
+      "pos": [
+        36.0,
+        0.0,
+        10.0
+      ],
+      "patrol_a": [
+        34.0,
+        0.0,
+        11.0
+      ],
+      "patrol_b": [
+        40.0,
+        0.0,
+        11.0
+      ]
+    },
+    {
+      "instance_id": "road_goblin_1",
+      "creature_id": "core:enemy.hedge_goblin",
+      "pos": [
+        44.0,
+        0.0,
+        12.0
+      ],
+      "patrol_a": [
+        42.0,
+        0.0,
+        13.0
+      ],
+      "patrol_b": [
+        47.0,
+        0.0,
+        13.0
+      ]
+    },
+    {
+      "instance_id": "road_goblin_2",
+      "creature_id": "core:enemy.hedge_goblin",
+      "pos": [
+        50.0,
+        0.0,
+        -12.0
+      ],
+      "patrol_a": [
+        47.0,
+        0.0,
+        -12.5
+      ],
+      "patrol_b": [
+        53.0,
+        0.0,
+        -12.5
+      ]
+    },
+    {
       "instance_id": "foyer_rat",
       "creature_id": "core:enemy.grave_rat",
       "pos": [
@@ -23815,6 +23910,44 @@
         70.0,
         -4.8,
         -22.6
+      ]
+    },
+    {
+      "instance_id": "archive_paperwork_0",
+      "creature_id": "core:enemy.paperwork_elemental",
+      "pos": [
+        88.0,
+        -4.8,
+        -19.4
+      ],
+      "patrol_a": [
+        86.0,
+        -4.8,
+        -19.4
+      ],
+      "patrol_b": [
+        90.5,
+        -4.8,
+        -19.4
+      ]
+    },
+    {
+      "instance_id": "crypt_paperwork_1",
+      "creature_id": "core:enemy.paperwork_elemental",
+      "pos": [
+        75.5,
+        -4.8,
+        -21.4
+      ],
+      "patrol_a": [
+        74.5,
+        -4.8,
+        -18.9
+      ],
+      "patrol_b": [
+        74.5,
+        -4.8,
+        -23.4
       ]
     },
     {
@@ -24144,6 +24277,25 @@
       "group_set_flag": "fig2_caught"
     },
     {
+      "instance_id": "grave_ghoul_0",
+      "creature_id": "core:enemy.ghoul_gravedigger",
+      "pos": [
+        -12.6,
+        0.0,
+        28.0
+      ],
+      "patrol_a": [
+        -16.5,
+        0.0,
+        28.0
+      ],
+      "patrol_b": [
+        -8.5,
+        0.0,
+        28.0
+      ]
+    },
+    {
       "instance_id": "chapel_drowned_0",
       "creature_id": "core:enemy.the_drowned",
       "pos": [
@@ -24280,6 +24432,44 @@
       "group_quest_id": "core:quest.saltmere",
       "group_set_stage": 40,
       "group_set_flag": "saltmere_resolved"
+    },
+    {
+      "instance_id": "quay_crab_0",
+      "creature_id": "core:enemy.pinchwick_crab",
+      "pos": [
+        -4.4,
+        0.0,
+        -50.0
+      ],
+      "patrol_a": [
+        -7.4,
+        0.0,
+        -50.0
+      ],
+      "patrol_b": [
+        -1.4,
+        0.0,
+        -50.0
+      ]
+    },
+    {
+      "instance_id": "quay_crab_1",
+      "creature_id": "core:enemy.pinchwick_crab",
+      "pos": [
+        6.6,
+        0.0,
+        -50.5
+      ],
+      "patrol_a": [
+        3.6,
+        0.0,
+        -50.5
+      ],
+      "patrol_b": [
+        9.6,
+        0.0,
+        -50.5
+      ]
     },
     {
       "instance_id": "camp_wolf_0",
@@ -24428,6 +24618,82 @@
       ]
     },
     {
+      "instance_id": "wood_badger_0",
+      "creature_id": "core:enemy.angry_badger",
+      "pos": [
+        -38.0,
+        0.0,
+        12.0
+      ],
+      "patrol_a": [
+        -40.0,
+        0.0,
+        12.0
+      ],
+      "patrol_b": [
+        -35.0,
+        0.0,
+        12.0
+      ]
+    },
+    {
+      "instance_id": "wood_badger_1",
+      "creature_id": "core:enemy.angry_badger",
+      "pos": [
+        -32.0,
+        0.0,
+        -4.0
+      ],
+      "patrol_a": [
+        -32.0,
+        0.0,
+        -7.0
+      ],
+      "patrol_b": [
+        -32.0,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "instance_id": "wood_wisp_0",
+      "creature_id": "core:enemy.wisp",
+      "pos": [
+        -64.0,
+        0.4,
+        -12.0
+      ],
+      "patrol_a": [
+        -65.0,
+        0.4,
+        -15.0
+      ],
+      "patrol_b": [
+        -61.0,
+        0.4,
+        -9.0
+      ]
+    },
+    {
+      "instance_id": "wood_wisp_1",
+      "creature_id": "core:enemy.wisp",
+      "pos": [
+        -55.0,
+        0.4,
+        -14.5
+      ],
+      "patrol_a": [
+        -58.0,
+        0.4,
+        -14.5
+      ],
+      "patrol_b": [
+        -52.5,
+        0.4,
+        -14.5
+      ]
+    },
+    {
       "instance_id": "dreaming_limb",
       "creature_id": "core:enemy.dreaming_limb",
       "pos": [
@@ -24529,6 +24795,44 @@
         7.6,
         0.0,
         -138.0
+      ]
+    },
+    {
+      "instance_id": "reef_wight_0",
+      "creature_id": "core:enemy.salt_wight",
+      "pos": [
+        5.6,
+        0.0,
+        -142.0
+      ],
+      "patrol_a": [
+        2.6,
+        0.0,
+        -142.0
+      ],
+      "patrol_b": [
+        8.6,
+        0.0,
+        -142.0
+      ]
+    },
+    {
+      "instance_id": "reef_wight_1",
+      "creature_id": "core:enemy.salt_wight",
+      "pos": [
+        -5.4,
+        0.0,
+        -146.0
+      ],
+      "patrol_a": [
+        -5.4,
+        0.0,
+        -149.0
+      ],
+      "patrol_b": [
+        -5.4,
+        0.0,
+        -143.0
       ]
     },
     {

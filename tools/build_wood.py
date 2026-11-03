@@ -200,6 +200,12 @@ npcs.append({"instance_id": "npc_druid_squirrel", "npc_id": "core:npc.druid_squi
 npcs.append({"instance_id": "npc_druid_bramble", "npc_id": "core:npc.druid_bramble", "pos": [-11.4, 0.0, 3.8], "yaw": 40.0, "requires_flag": "druid_restored"})
 interactables.append({"instance_id": "druid_acorn", "type": "pickup", "item_id": "core:item.oak_acorn", "qty": 1, "pos": [-12.8, 0.15, 5.0]})
 
+# ============================================================================ more monsters (Whistling Wood, tools/authoring/more_monsters.py)
+creature("wood_badger_0", "core:enemy.angry_badger", (8.0, 0.0, 12.0), (6.0, 0.0, 12.0), (11.0, 0.0, 12.0))
+creature("wood_badger_1", "core:enemy.angry_badger", (14.0, 0.0, -4.0), (14.0, 0.0, -7.0), (14.0, 0.0, -1.0))
+creature("wood_wisp_0", "core:enemy.wisp", (-18.0, 0.4, -12.0), (-19.0, 0.4, -15.0), (-15.0, 0.4, -9.0))
+creature("wood_wisp_1", "core:enemy.wisp", (-9.0, 0.4, -14.5), (-12.0, 0.4, -14.5), (-6.5, 0.4, -14.5))
+
 region = {
     "schema_version": 1,
     "id": "core:map.whistling_wood",

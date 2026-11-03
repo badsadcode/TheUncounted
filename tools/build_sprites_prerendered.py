@@ -825,6 +825,25 @@ SHEETS = {
         "kind": "humanoid", "body": (100, 130, 80), "armor": (60, 70, 120), "legs": (50, 50, 60), "trim": (200, 200, 210), "eye": (230, 200, 60),
         "hat": "bald", "hair": (80, 110, 60), "horns": True, "horn": (190, 180, 140), "weapon": "ledger", "book": (120, 40, 40),
     },
+    # --- more monsters (tools/authoring/more_monsters.py)
+    "assets/sprites/enemies/kevin_bandit.png": {
+        "kind": "humanoid", "body": (226, 190, 160), "armor": (110, 90, 60), "legs": (80, 66, 50), "cloak": (70, 80, 50), "trim": (150, 120, 70),
+        "eye": (40, 30, 24), "hat": "hood", "hood": (84, 96, 58), "weapon": "sword"},
+    "assets/sprites/enemies/hedge_goblin.png": {
+        "kind": "humanoid", "body": (110, 150, 70), "armor": (120, 90, 50), "legs": (90, 70, 40), "trim": (160, 120, 60), "eye": (255, 220, 60),
+        "glow_eyes": True, "hat": "pot", "weapon": "spoon"},
+    "assets/sprites/enemies/angry_badger.png": {"kind": "quadruped", "scale": 0.8, "body": (60, 58, 58), "armor": (230, 230, 225), "eye": (255, 90, 60), "glow_eyes": True},
+    "assets/sprites/enemies/wisp.png": {"kind": "eldritch", "scale": 0.7, "body": (120, 220, 200), "armor": (60, 140, 130), "eye": (240, 255, 220), "glow": (150, 255, 220)},
+    "assets/sprites/enemies/ghoul_gravedigger.png": {
+        "kind": "humanoid", "ribs": True, "body": (150, 160, 130), "armor": (110, 116, 96), "legs": (90, 84, 70), "cloak": (60, 56, 50),
+        "eye": (200, 255, 120), "glow_eyes": True, "hat": "cap", "cap": (70, 64, 56), "weapon": "spoon"},
+    "assets/sprites/enemies/pinchwick_crab.png": {"kind": "crawler", "scale": 0.95, "body": (196, 80, 56), "armor": (140, 50, 36), "eye": (20, 20, 20), "glow": (255, 160, 120)},
+    "assets/sprites/enemies/paperwork_elemental.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "body": (236, 230, 210), "armor": (232, 224, 200), "cloak": (220, 212, 186),
+        "trim": (120, 110, 90), "eye": (60, 60, 80), "hat": "hood", "hood": (236, 228, 206), "weapon": "ledger", "book": (180, 50, 40)},
+    "assets/sprites/enemies/salt_wight.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 225, "body": (200, 220, 230), "armor": (176, 200, 214), "cloak": (150, 176, 196),
+        "trim": (240, 245, 250), "eye": (160, 220, 255), "glow_eyes": True, "hat": "hood", "hood": (170, 196, 214), "weapon": "staff", "orb": (190, 230, 255)},
     "assets/sprites/npcs/druid_squirrel.png": {"kind": "rat", "scale": 1.0, "body": (176, 92, 48), "armor": (140, 70, 36), "eye": (30, 20, 16)},
     "assets/sprites/npcs/druid_bramble.png": {
         "kind": "humanoid", "robe": True, "body": (222, 186, 150), "armor": (70, 110, 60), "cloak": (96, 74, 46), "trim": (170, 140, 70),

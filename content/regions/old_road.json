@@ -741,6 +741,101 @@
       "group_quest_id": "core:quest.figure_ep3",
       "group_set_stage": 40,
       "group_set_flag": "fig3_caught"
+    },
+    {
+      "instance_id": "road_kevin_0",
+      "creature_id": "core:enemy.kevin_bandit",
+      "pos": [
+        8.0,
+        0.0,
+        9.0
+      ],
+      "patrol_a": [
+        4.0,
+        0.0,
+        9.0
+      ],
+      "patrol_b": [
+        12.0,
+        0.0,
+        9.0
+      ]
+    },
+    {
+      "instance_id": "road_kevin_1",
+      "creature_id": "core:enemy.kevin_bandit",
+      "pos": [
+        -15.0,
+        0.0,
+        -9.0
+      ],
+      "patrol_a": [
+        -18.0,
+        0.0,
+        -9.0
+      ],
+      "patrol_b": [
+        -11.0,
+        0.0,
+        -9.0
+      ]
+    },
+    {
+      "instance_id": "road_goblin_0",
+      "creature_id": "core:enemy.hedge_goblin",
+      "pos": [
+        -12.0,
+        0.0,
+        10.0
+      ],
+      "patrol_a": [
+        -14.0,
+        0.0,
+        11.0
+      ],
+      "patrol_b": [
+        -8.0,
+        0.0,
+        11.0
+      ]
+    },
+    {
+      "instance_id": "road_goblin_1",
+      "creature_id": "core:enemy.hedge_goblin",
+      "pos": [
+        -4.0,
+        0.0,
+        12.0
+      ],
+      "patrol_a": [
+        -6.0,
+        0.0,
+        13.0
+      ],
+      "patrol_b": [
+        -1.0,
+        0.0,
+        13.0
+      ]
+    },
+    {
+      "instance_id": "road_goblin_2",
+      "creature_id": "core:enemy.hedge_goblin",
+      "pos": [
+        2.0,
+        0.0,
+        -12.0
+      ],
+      "patrol_a": [
+        -1.0,
+        0.0,
+        -12.5
+      ],
+      "patrol_b": [
+        5.0,
+        0.0,
+        -12.5
+      ]
     }
   ],
   "interactables": [

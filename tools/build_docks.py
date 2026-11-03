@@ -278,6 +278,10 @@ interactables.append({"instance_id": "fish_quay", "type": "fishing", "model": ""
 interactables.append({"instance_id": "docks_cooking_pot", "type": "station", "station": "cooking", "model": "assets/models/props/cooking_pot.glb", "pos": [-10.6, 0.0, 13.0], "rot_y": 0.0, "prompt": "Cook at Mother Brine's Pot"})
 props.append({"id": "docks_pot_fire", "model": "assets/models/props/wall_torch.glb", "pos": [-10.6, -0.55, 13.0], "rot_y": 0.0, "scale": [1, 1, 1], "solid": False, "emitter": {"sprite": "assets/sprites/vfx/torch_flame.png", "offset": [0.0, 0.86, 0.0], "size": 0.4, "light_color": [1.0, 0.6, 0.3], "light_radius": 5.0}})
 
+# ============================================================================ more monsters (Saltmere quay, tools/authoring/more_monsters.py)
+creature("quay_crab_0", "core:enemy.pinchwick_crab", (-6.0, 0.0, -8.0), (-9.0, 0.0, -8.0), (-3.0, 0.0, -8.0))
+creature("quay_crab_1", "core:enemy.pinchwick_crab", (5.0, 0.0, -8.5), (2.0, 0.0, -8.5), (8.0, 0.0, -8.5))
+
 region = {
     "schema_version": 1,
     "id": "core:map.saltmere",

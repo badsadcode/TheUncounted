@@ -379,6 +379,9 @@ interactables.append({'instance_id': 'fig2_trap', 'type': 'readable', 'model': '
 creature("fig2_howler", "core:enemy.howler", (11.5, 0.0, -14.3), (10.0, 0.0, -14.3), (13.0, 0.0, -14.3), requires_flag="fig2_trap", group="fig2", group_quest_id="core:quest.figure_ep2", group_set_stage=40, group_set_flag="fig2_caught")
 npcs.append({"instance_id": "npc_unmask_howler", "npc_id": "core:npc.unmask_howler", "pos": [11.8, 0.0, -13.6], "yaw": 180.0, "requires_flag": "fig2_caught", "hidden_flag": "fig2_done"})
 
+# ============================================================================ more monsters (Hollowmere graveyard, tools/authoring/more_monsters.py)
+creature("grave_ghoul_0", "core:enemy.ghoul_gravedigger", (-12.6, 0.0, -14.0), (-16.5, 0.0, -14.0), (-8.5, 0.0, -14.0))
+
 region = {
     "schema_version": 1,
     "id": "core:map.hollowmere",

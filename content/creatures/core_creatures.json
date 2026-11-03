@@ -1204,6 +1204,393 @@
         "alert": "line.quillsby_cornered.alert",
         "death": "line.quillsby_cornered.death"
       }
+    },
+    {
+      "id": "core:enemy.kevin_bandit",
+      "name_key": "enemy.kevin_bandit.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/kevin_bandit.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.7
+      },
+      "stats": {
+        "health": 50,
+        "armor": 1,
+        "move_speed": 2.7,
+        "xp_reward": 15
+      },
+      "behavior": "melee_patroller",
+      "family": "humanoid",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 7,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3
+      },
+      "loot_table": "core:loot.vermin_drop",
+      "audio": {
+        "alert": "assets/audio/sfx/sword_swing.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          220,
+          200,
+          170
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.kevin_bandit.alert",
+        "death": "line.kevin_bandit.death"
+      }
+    },
+    {
+      "id": "core:enemy.hedge_goblin",
+      "name_key": "enemy.hedge_goblin.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/hedge_goblin.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.3
+      },
+      "stats": {
+        "health": 40,
+        "armor": 2,
+        "move_speed": 3.1,
+        "xp_reward": 12
+      },
+      "behavior": "melee_patroller",
+      "family": "humanoid",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 6,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3
+      },
+      "loot_table": "core:loot.vermin_drop",
+      "audio": {
+        "alert": "assets/audio/sfx/rat_squeak.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          220,
+          200,
+          170
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.hedge_goblin.alert",
+        "death": "line.hedge_goblin.death"
+      }
+    },
+    {
+      "id": "core:enemy.angry_badger",
+      "name_key": "enemy.angry_badger.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/angry_badger.png",
+        "animation_data": "assets/animations/grave_rat.json",
+        "scale": 1.25
+      },
+      "stats": {
+        "health": 45,
+        "armor": 2,
+        "move_speed": 3.3,
+        "xp_reward": 14
+      },
+      "behavior": "melee_patroller",
+      "family": "beast",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 8,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3
+      },
+      "loot_table": "core:loot.wolf",
+      "audio": {
+        "alert": "assets/audio/sfx/rat_squeak.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          220,
+          200,
+          170
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.angry_badger.alert",
+        "death": "line.angry_badger.death"
+      }
+    },
+    {
+      "id": "core:enemy.wisp",
+      "name_key": "enemy.wisp.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/wisp.png",
+        "animation_data": "assets/animations/crypt_keeper.json",
+        "scale": 0.9
+      },
+      "stats": {
+        "health": 35,
+        "armor": 0,
+        "move_speed": 3.0,
+        "xp_reward": 16
+      },
+      "behavior": "melee_patroller",
+      "family": "spirit",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 7,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3,
+        "sanity_damage": 1
+      },
+      "loot_table": "core:loot.ink_wraith",
+      "audio": {
+        "alert": "assets/audio/sfx/sword_swing.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          150,
+          255,
+          220
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.wisp.alert",
+        "death": "line.wisp.death"
+      }
+    },
+    {
+      "id": "core:enemy.ghoul_gravedigger",
+      "name_key": "enemy.ghoul_gravedigger.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/ghoul_gravedigger.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.75
+      },
+      "stats": {
+        "health": 80,
+        "armor": 2,
+        "move_speed": 2.4,
+        "xp_reward": 25
+      },
+      "behavior": "melee_patroller",
+      "family": "undead",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 10,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3
+      },
+      "loot_table": "core:loot.crypt_basic",
+      "audio": {
+        "alert": "assets/audio/sfx/rat_squeak.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          220,
+          200,
+          170
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.ghoul_gravedigger.alert",
+        "death": "line.ghoul_gravedigger.death"
+      }
+    },
+    {
+      "id": "core:enemy.pinchwick_crab",
+      "name_key": "enemy.pinchwick_crab.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/pinchwick_crab.png",
+        "animation_data": "assets/animations/ash_crawler.json",
+        "scale": 1.05
+      },
+      "stats": {
+        "health": 50,
+        "armor": 4,
+        "move_speed": 2.6,
+        "xp_reward": 15
+      },
+      "behavior": "melee_patroller",
+      "family": "beast",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 8,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3
+      },
+      "loot_table": "core:loot.fish_harbour",
+      "audio": {
+        "alert": "assets/audio/sfx/rat_squeak.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          255,
+          170,
+          130
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.pinchwick_crab.alert",
+        "death": "line.pinchwick_crab.death"
+      }
+    },
+    {
+      "id": "core:enemy.paperwork_elemental",
+      "name_key": "enemy.paperwork_elemental.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/paperwork_elemental.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.8
+      },
+      "stats": {
+        "health": 70,
+        "armor": 1,
+        "move_speed": 2.5,
+        "xp_reward": 22
+      },
+      "behavior": "melee_patroller",
+      "family": "construct",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 9,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3,
+        "sanity_damage": 1
+      },
+      "loot_table": "core:loot.bone_clerk",
+      "audio": {
+        "alert": "assets/audio/sfx/sword_swing.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          240,
+          235,
+          215
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.paperwork_elemental.alert",
+        "death": "line.paperwork_elemental.death"
+      }
+    },
+    {
+      "id": "core:enemy.salt_wight",
+      "name_key": "enemy.salt_wight.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/salt_wight.png",
+        "animation_data": "assets/animations/skeleton.json",
+        "scale": 1.85
+      },
+      "stats": {
+        "health": 85,
+        "armor": 2,
+        "move_speed": 2.5,
+        "xp_reward": 28
+      },
+      "behavior": "melee_patroller",
+      "family": "spirit",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "strike",
+        "damage": 11,
+        "reach_meters": 1.6,
+        "windup_seconds": 0.55,
+        "cooldown_seconds": 1.3,
+        "sanity_damage": 2
+      },
+      "loot_table": "core:loot.drowned",
+      "audio": {
+        "alert": "assets/audio/sfx/sword_swing.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          190,
+          230,
+          255
+        ],
+        "glow": true
+      },
+      "lines": {
+        "alert": "line.salt_wight.alert",
+        "death": "line.salt_wight.death"
+      }
     }
   ]
 }

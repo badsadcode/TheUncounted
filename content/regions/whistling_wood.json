@@ -1884,6 +1884,82 @@
         0.0,
         -6.0
       ]
+    },
+    {
+      "instance_id": "wood_badger_0",
+      "creature_id": "core:enemy.angry_badger",
+      "pos": [
+        8.0,
+        0.0,
+        12.0
+      ],
+      "patrol_a": [
+        6.0,
+        0.0,
+        12.0
+      ],
+      "patrol_b": [
+        11.0,
+        0.0,
+        12.0
+      ]
+    },
+    {
+      "instance_id": "wood_badger_1",
+      "creature_id": "core:enemy.angry_badger",
+      "pos": [
+        14.0,
+        0.0,
+        -4.0
+      ],
+      "patrol_a": [
+        14.0,
+        0.0,
+        -7.0
+      ],
+      "patrol_b": [
+        14.0,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "instance_id": "wood_wisp_0",
+      "creature_id": "core:enemy.wisp",
+      "pos": [
+        -18.0,
+        0.4,
+        -12.0
+      ],
+      "patrol_a": [
+        -19.0,
+        0.4,
+        -15.0
+      ],
+      "patrol_b": [
+        -15.0,
+        0.4,
+        -9.0
+      ]
+    },
+    {
+      "instance_id": "wood_wisp_1",
+      "creature_id": "core:enemy.wisp",
+      "pos": [
+        -9.0,
+        0.4,
+        -14.5
+      ],
+      "patrol_a": [
+        -12.0,
+        0.4,
+        -14.5
+      ],
+      "patrol_b": [
+        -6.5,
+        0.4,
+        -14.5
+      ]
     }
   ],
   "interactables": [

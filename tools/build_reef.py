@@ -202,6 +202,10 @@ interactables.append({"instance_id": "reef_glowcap_35_125", "type": "harvest", "
 # ============================================================================ fishing & cooking (tools/authoring/fishing.py)
 interactables.append({"instance_id": "fish_jetty", "type": "fishing", "model": "", "pos": [0.0, 0.0, 20.6], "rot_y": 0.0, "loot_table": "core:loot.fish_reef", "prompt": "Fish off the jetty"})
 
+# ============================================================================ more monsters (Sleeper's Reef, tools/authoring/more_monsters.py)
+creature("reef_wight_0", "core:enemy.salt_wight", (4.0, 0.0, 8.0), (1.0, 0.0, 8.0), (7.0, 0.0, 8.0))
+creature("reef_wight_1", "core:enemy.salt_wight", (-7.0, 0.0, 4.0), (-7.0, 0.0, 1.0), (-7.0, 0.0, 7.0))
+
 region = {
     "schema_version": 1,
     "id": "core:map.sleepers_reef",

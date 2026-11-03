@@ -2421,6 +2421,44 @@
       "group_quest_id": "core:quest.saltmere",
       "group_set_stage": 40,
       "group_set_flag": "saltmere_resolved"
+    },
+    {
+      "instance_id": "quay_crab_0",
+      "creature_id": "core:enemy.pinchwick_crab",
+      "pos": [
+        -6.0,
+        0.0,
+        -8.0
+      ],
+      "patrol_a": [
+        -9.0,
+        0.0,
+        -8.0
+      ],
+      "patrol_b": [
+        -3.0,
+        0.0,
+        -8.0
+      ]
+    },
+    {
+      "instance_id": "quay_crab_1",
+      "creature_id": "core:enemy.pinchwick_crab",
+      "pos": [
+        5.0,
+        0.0,
+        -8.5
+      ],
+      "patrol_a": [
+        2.0,
+        0.0,
+        -8.5
+      ],
+      "patrol_b": [
+        8.0,
+        0.0,
+        -8.5
+      ]
     }
   ],
   "interactables": [

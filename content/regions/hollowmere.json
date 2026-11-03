@@ -2607,6 +2607,25 @@
       "group_quest_id": "core:quest.figure_ep2",
       "group_set_stage": 40,
       "group_set_flag": "fig2_caught"
+    },
+    {
+      "instance_id": "grave_ghoul_0",
+      "creature_id": "core:enemy.ghoul_gravedigger",
+      "pos": [
+        -12.6,
+        0.0,
+        -14.0
+      ],
+      "patrol_a": [
+        -16.5,
+        0.0,
+        -14.0
+      ],
+      "patrol_b": [
+        -8.5,
+        0.0,
+        -14.0
+      ]
     }
   ],
   "interactables": [

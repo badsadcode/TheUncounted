@@ -155,6 +155,14 @@ animals. The original goes in `art_source/spritesheets/`. The character's `appea
 | **The Phantom Clerk** | ✅ | A bedsheet "ghost" in Bureau robes with glowing green ink smears and a DECEASED stamp. Clearly someone underneath. |
 | **The Howler of Hollowmere** | ✅ | A shaggy fake-werewolf costume: wooden claws and very obvious sandals. |
 | **Kobold Bookkeeper** | 🟡 | Junior kobold clerk: green scales, blue waistcoat, spectacles, swings a red ledger. |
+| **Kevin, Bandit (Level Zero)** | 🟡 | Steve's cousin: patched leathers, a too-big green hood, a rusty sword held the wrong way round. Earnest. |
+| **Hedge Goblin** | 🟡 | Small green goblin wearing a cooking pot as a helmet, waving a big spoon. Glowing yellow eyes. Leaves in its hair. |
+| **Angry Badger** | 🟡 | A badger: black and white stripes, very small, absolutely furious. Four-legged. |
+| **Will-o'-the-Wisp** | 🟡 | A floating ball of pale green-blue light with wispy trails, giggling. No body. |
+| **Gravedigger Ghoul** | 🟡 | Gaunt grey-green undead gravedigger in a flat cap and rags, holding a shovel. Glowing green eyes. |
+| **Pinchwick Crab** | 🟡 | A big red harbour crab with oversized claws and an indignant face. Many-legged, sideways. |
+| **Paperwork Elemental** | 🟡 | A floating figure made of folded forms and loose paper in a hooded robe, holding a red ledger. Pages flutter off it. |
+| **Salt Wight** | 🟡 | A drowned sailor's ghost crusted in white salt, pale blue robes, a staff with a frosty orb. Translucent, floating. |
 | **The Repossession Golem** | 🧊 | Iron golem stamped REPOSSESSED (uses the sentinel 3D model). |
 | **Lost Sentinel** | 🧊 | Stone construct (3D model). |
 | **Animated Armour** | 🧊 | Walking suit of armour (3D model). |
