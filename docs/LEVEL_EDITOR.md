@@ -104,6 +104,20 @@ export. Put it in any collection; hidden meshes are skipped.
 - **Tile Texture Now** (under Texture size) shows the game's texture repeat on the selected meshes straight away;
   Export does it anyway.
 
+## Reshaping the game's own pieces (roofs, walls with doorways...)
+
+You can change any wall, roof or prop in **Edit Mode**: cut a doorway (Boolean modifier or knife), raise a roof
+ridge, bevel edges, give faces other materials, or **Ctrl+A → Apply** its rotation and scale. Export notices the piece
+differs from the original model and saves your shape as a new model in `assets/models/level/` (named after the original,
+like `wall_stone_edit1.glb`), keeping where it stands, how it's turned and how big it is.
+
+- **Shared meshes**: pieces of the same kind share one mesh in Blender, so Edit Mode on one roof changes every roof of
+  that kind (the sidebar says how many share it). That's handy for "all roofs like this". To change just one, press
+  **Make Only This One Editable** first. Copies made with **Shift+D** are already separate.
+- **Collision fits the shape** (sidebar, on by default): Export fills your mesh with invisible boxes that follow its
+  shape, so a doorway, arch or window stays open and the rest is solid. Turn it off for one box around the whole thing.
+  It needs a closed mesh (no holes in the surface); an open mesh gets one box.
+
 ## Making a new map
 
 1. Pick **New Map**, type a **Map name**, and press **New Map**. You get a 20 m cobblestone floor, a spawn point

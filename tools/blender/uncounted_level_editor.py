@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 0, 0),
+    "version": (4, 1, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -202,6 +202,26 @@ def game_view(context, sc=None):
                         sp.clip_end = 2000.0
 
 
+def mesh_hash(me):
+    """A fingerprint of a mesh's shape, UVs and materials: tells whether a game piece was reshaped or retextured."""
+    import hashlib
+    from array import array
+    h = hashlib.md5()
+    co = [0.0] * (len(me.vertices) * 3)
+    me.vertices.foreach_get("co", co)
+    h.update(array("f", [round(c, 4) for c in co]).tobytes())
+    mi = [0] * len(me.polygons)
+    me.polygons.foreach_get("material_index", mi)
+    h.update(array("i", mi).tobytes())
+    if me.uv_layers.active:
+        uv = [0.0] * (len(me.loops) * 2)
+        me.uv_layers.active.data.foreach_get("uv", uv)
+        h.update(array("f", [round(c, 4) for c in uv]).tobytes())
+    names = [re.sub(r"\.\d{3}$", "", m.name) if m else "" for m in me.materials]
+    h.update("|".join(names).encode())
+    return h.hexdigest()
+
+
 def model_mesh(gdir, model, cache):
     """Import a .glb once and join it into one mesh whose origin is the bottom-centre (the game's anchor)."""
     if model in cache:
@@ -229,6 +249,7 @@ def model_mesh(gdir, model, cache):
             for v in mesh.vertices:
                 v.co -= anchor
             mesh.name = "UNC:" + model
+            mesh["unc_hash"] = mesh_hash(mesh)
             for mat in mesh.materials:
                 game_tiling(mat)
         for o in new:
@@ -428,11 +449,16 @@ class UNC_OT_import_world(bpy.types.Operator):
         cache, skipped = {}, 0
         base_props = {p["id"]: p for p in base.get("props", [])}
         own = {o.get("unc_custom_id") for o in context.scene.objects if o.get("unc_custom_id")}
+        fitted = {p["id"].split("__fit")[0] for p in world.get("props", []) if "__fit" in p["id"]}
         for p in world.get("props", []):
-            if p["id"] in own:
-                continue                               # your own model: its source mesh is already in the scene
-            if add_prop_object(gdir, cache, p, cw, base_props) is None:
+            if p["id"] in own or "__fit" in p["id"]:
+                continue                               # your own model (its mesh is in the scene) or its collision (rebuilt on export)
+            o = add_prop_object(gdir, cache, p, cw, base_props)
+            if o is None:
                 skipped += 1
+            elif p["id"] in fitted:                    # blocked by shape-fitting boxes: it is solid
+                o.uncounted_solid = True
+                o["game_solid"] = True
         for kind in KINDS:
             for e in world.get(kind, []):
                 co.objects.link(make_object(gdir, cache, kind, e, PREFIX[kind] + e[IDKEY[kind]]))
@@ -501,9 +527,13 @@ class UNC_OT_import_map(bpy.types.Operator):
             clear_collection(name)
         cw, co, cache = collection(COL_WORLD), collection(COL_OBJECTS), {}
         own = {o.get("unc_custom_id") for o in sc.objects if o.get("unc_custom_id")}
+        fitted = {p["id"].split("__fit")[0] for p in m.get("props", []) if "__fit" in p["id"]}
         for p in m.get("props", []):
-            if p["id"] not in own:
-                add_prop_object(gdir, cache, p, cw)
+            if p["id"] not in own and "__fit" not in p["id"]:
+                o = add_prop_object(gdir, cache, p, cw)
+                if o is not None and p["id"] in fitted:
+                    o.uncounted_solid = True
+                    o["game_solid"] = True
         for kind in KINDS:
             for e in m.get(kind, []):
                 co.objects.link(make_object(gdir, cache, kind, e, PREFIX[kind] + e[IDKEY[kind]]))
@@ -568,6 +598,102 @@ def export_mesh_glb(o, gdir, rel):
     return anchor
 
 
+def export_local_glb(me, gdir, rel):
+    """Bake an edited game piece in its own (object) space, origin moved to its bottom-centre. Returns that local point."""
+    mesh = me.copy()
+    xs = [v.co.x for v in mesh.vertices]
+    ys = [v.co.y for v in mesh.vertices]
+    zs = [v.co.z for v in mesh.vertices]
+    anchor = Vector(((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2, min(zs)))
+    for v in mesh.vertices:
+        v.co -= anchor
+    tmp = bpy.data.objects.new("__unc_export__", mesh)
+    bpy.context.scene.collection.objects.link(tmp)
+    for s in bpy.context.selected_objects:
+        s.select_set(False)
+    tmp.select_set(True)
+    bpy.context.view_layer.objects.active = tmp
+    bpy.ops.export_scene.gltf(filepath=os.path.join(gdir, rel), export_format="GLB", use_selection=True, export_yup=True, export_apply=True)
+    bpy.data.objects.remove(tmp, do_unlink=True)
+    bpy.data.meshes.remove(mesh)
+    return anchor
+
+
+def fit_boxes(o, max_boxes=120):
+    """Collision that follows the shape: fill the mesh with a grid, merge the filled cells into as few boxes as possible.
+    Returns boxes as (min, max) in the object's scaled space (location and turn not applied), or None to use one box
+    (an open mesh, or too many boxes)."""
+    import bmesh
+    from mathutils.bvhtree import BVHTree
+    bm = bmesh.new()
+    bm.from_mesh(o.data)
+    bmesh.ops.scale(bm, vec=o.scale, verts=bm.verts)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-4)   # models split vertices at texture seams: weld them back
+    if any(len(e.link_faces) != 2 for e in bm.edges):
+        bm.free()
+        return None                                    # not closed: inside/outside is unknown
+    tree = BVHTree.FromBMesh(bm)
+    lo = Vector((min(v.co.x for v in bm.verts), min(v.co.y for v in bm.verts), min(v.co.z for v in bm.verts)))
+    hi = Vector((max(v.co.x for v in bm.verts), max(v.co.y for v in bm.verts), max(v.co.z for v in bm.verts)))
+    bm.free()
+    size = hi - lo
+    cell = max(0.2, max(size) / 60.0)
+    n = [max(1, math.ceil(size[i] / cell - 1e-6)) for i in range(3)]
+    step = [size[i] / n[i] for i in range(3)]
+    filled = set()
+    for i in range(n[0]):
+        for j in range(n[1]):
+            for k in range(n[2]):
+                p = Vector((lo.x + (i + 0.5) * step[0], lo.y + (j + 0.5) * step[1], lo.z + (k + 0.5) * step[2]))
+                hit = tree.find_nearest(p)
+                if hit[0] is not None and (hit[0] - p).dot(hit[1]) > 0.0:
+                    filled.add((i, j, k))
+    if len(filled) == n[0] * n[1] * n[2]:
+        return None                                    # solid all through: one box is exact
+    boxes = []
+    left = set(filled)
+    for c in sorted(filled):
+        if c not in left:
+            continue
+        i0, j0, k0 = c
+        i1 = i0
+        while (i1 + 1, j0, k0) in left:
+            i1 += 1
+        j1 = j0
+        while all((i, j1 + 1, k0) in left for i in range(i0, i1 + 1)):
+            j1 += 1
+        k1 = k0
+        while all((i, j, k1 + 1) in left for i in range(i0, i1 + 1) for j in range(j0, j1 + 1)):
+            k1 += 1
+        for i in range(i0, i1 + 1):
+            for j in range(j0, j1 + 1):
+                for k in range(k0, k1 + 1):
+                    left.discard((i, j, k))
+        boxes.append((Vector((lo.x + i0 * step[0], lo.y + j0 * step[1], lo.z + k0 * step[2])),
+                      Vector((lo.x + (i1 + 1) * step[0], lo.y + (j1 + 1) * step[1], lo.z + (k1 + 1) * step[2]))))
+        if len(boxes) > max_boxes:
+            return None
+    return boxes
+
+
+def fit_props(o, pid):
+    """Invisible solid boxes for a mesh's collision, placed and turned like the object. [] when one box will do."""
+    if not o.uncounted_fit:
+        return []
+    boxes = fit_boxes(o)
+    if not boxes:
+        return []
+    rz = o.rotation_euler.z
+    rot = round(math.degrees(rz), 2) + 0.0
+    out = []
+    for i, (mn, mx) in enumerate(boxes):
+        c = Vector(((mn.x + mx.x) / 2, (mn.y + mx.y) / 2, mn.z))
+        c.rotate(o.rotation_euler.to_matrix())
+        out.append({"id": f"{pid}__fit{i + 1}", "model": BOX_MODEL, "pos": to_game(o.matrix_world.translation + c), "rot_y": rot,
+                    "scale": [round(mx.x - mn.x, 3), round(mx.z - mn.z, 3), round(mx.y - mn.y, 3)], "solid": True, "invisible": True})
+    return out
+
+
 def world_box(o):
     """Axis-aligned bounds of an object in Blender space: (min, max)."""
     pts = [o.matrix_world @ Vector(c) for c in o.bound_box]
@@ -603,6 +729,23 @@ def collect(context, models_rel, base_ids, base_objs):
     out = {"modify": {}, "props": [], "seen_props": set(), "objs": {k: [] for k in KINDS}, "seen": {k: set() for k in KINDS},
            "spawns": {}, "lights": [], "tilted": 0, "custom": 0}
     used_custom = set()
+    baked = {}          # mesh name -> (model path, local anchor): edited pieces that share a mesh share one model file
+    ref_hash = {}       # model -> fingerprint of the untouched model
+    cache = {}
+
+    def edited(o):
+        if o.get("unc_model", "").startswith(OWN_MODEL_DIRS):
+            return True
+        model = o["unc_model"]
+        if "unc_hash" in o.data:
+            ref = o.data["unc_hash"]
+        else:                                   # a scene saved before fingerprints: load the original to compare
+            if model not in ref_hash:
+                m = model_mesh(gdir, model, cache)
+                ref_hash[model] = mesh_hash(m) if m else None
+            ref = ref_hash[model]
+        return ref is not None and mesh_hash(o.data) != ref
+
     for o in context.scene.objects:
         kind = o.get("unc_kind")
         if o in in_palette and o.name == o.get("unc_id"):
@@ -626,8 +769,42 @@ def collect(context, models_rel, base_ids, base_objs):
                                  "pos": to_game(Vector(((mn.x + mx.x) / 2, (mn.y + mx.y) / 2, mn.z))), "rot_y": 0.0,
                                  "scale": [round(mx.x - mn.x, 3), round(mx.z - mn.z, 3), round(mx.y - mn.y, 3)], "solid": True, "invisible": True})
             continue
+        # --- game pieces you reshaped or retextured (Edit Mode, materials, Ctrl+A): saved as your own model, still turned
+        if kind in ("prop", "palette") and o.type == "MESH" and o.data.vertices and edited(o):
+            if o.data.name not in baked:
+                stem = re.sub(r"(_edit\d+)+$", "", safe_name(os.path.basename(o["unc_model"])[:-4]))
+                n = 1
+                while f"{stem}_edit{n}" in {os.path.basename(v[0])[:-4] for v in baked.values()}:
+                    n += 1
+                rel = f"{models_rel}/{stem}_edit{n}.glb"
+                baked[o.data.name] = (rel, export_local_glb(o.data, gdir, rel))
+                out["custom"] += 1
+            rel, anchor = baked[o.data.name]
+            own = o["unc_model"].startswith(OWN_MODEL_DIRS)
+            src = json.loads(o.get("unc_prop", "{}"))
+            p = {"model": rel, "pos": to_game(o.matrix_world @ anchor), "rot_y": rot, "scale": scale_to_game(o.scale),
+                 "solid": bool(o.uncounted_solid) if own else bool(o.get("game_solid", True)),
+                 "uv_scale": [round(float(o.get("game_uv_x", 1.0)), 3), round(float(o.get("game_uv_y", 1.0)), 3)]}
+            ramp = {"PX": "+x", "NX": "-x", "PY": "-z", "NY": "+z"}.get(o.uncounted_ramp) if own else src.get("ramp")
+            if ramp:
+                p["ramp"] = ramp
+            if "emitter" in src:
+                p["emitter"] = src["emitter"]
+            pid = o.name if (kind == "prop" and o.name == o["unc_id"]) else new_id(os.path.basename(o["unc_model"])[:-4])
+            if p["solid"] and not ramp:
+                cols = fit_props(o, pid)
+                if cols:
+                    p["solid"] = False                 # the shape-fitting boxes do the blocking
+                    out["props"].extend(cols)
+            if kind == "prop" and o.name == o["unc_id"] and o["unc_id"] in base_ids:
+                out["seen_props"].add(o.name)
+                out["modify"][o.name] = p
+            else:
+                p["id"] = pid
+                out["props"].append(p)
+            continue
         # --- your own models
-        if is_own_model(o):
+        if is_own_model(o) and kind is None:
             if not o.data.vertices:
                 continue
             cid = o.get("unc_custom_id") or (safe_name(o.name) if safe_name(o.name).startswith("custom_") else "custom_" + safe_name(o.name))
@@ -639,6 +816,11 @@ def collect(context, models_rel, base_ids, base_objs):
             p = {"id": cid, "model": rel, "pos": to_game(anchor), "rot_y": 0.0, "scale": [1, 1, 1], "solid": bool(o.uncounted_solid)}
             if o.uncounted_ramp != "NONE":
                 p["ramp"] = {"PX": "+x", "NX": "-x", "PY": "-z", "NY": "+z"}[o.uncounted_ramp]
+            elif p["solid"]:
+                cols = fit_props(o, cid)
+                if cols:
+                    p["solid"] = False
+                    out["props"].extend(cols)
             out["props"].append(p)
             if kind is None:
                 o["unc_custom_id"] = cid
@@ -757,6 +939,18 @@ class UNC_OT_export(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class UNC_OT_unique(bpy.types.Operator):
+    bl_idname = "uncounted.unique"
+    bl_label = "Make Only This One Editable"
+    bl_description = "Give the selected pieces their own copy of the mesh, so Edit Mode changes only them"
+
+    def execute(self, context):
+        for o in context.selected_objects:
+            if o.type == "MESH" and o.data.users > 1:
+                o.data = o.data.copy()
+        return {"FINISHED"}
+
+
 class UNC_OT_tile(bpy.types.Operator):
     bl_idname = "uncounted.tile"
     bl_label = "Tile Texture Now"
@@ -834,10 +1028,17 @@ class UNC_PT_panel(bpy.types.Panel):
                 box.label(text="Your own model")
                 box.prop(o, "uncounted_solid")
                 box.prop(o, "uncounted_ramp")
+                box.prop(o, "uncounted_fit")
                 box.prop(o, "uncounted_tile")
                 box.operator("uncounted.tile", icon="TEXTURE")
             elif o.type == "MESH" and o.get("unc_kind") is None and o.name.lower().startswith("col"):
                 box.label(text="Invisible collision box")
+            if o.type == "MESH" and o.get("unc_kind") in ("prop", "palette") and not o.get("game_invisible"):
+                box.prop(o, "uncounted_fit")
+            if o.type == "MESH" and o.data.users > 1 and o.get("unc_kind") in ("prop", "palette"):
+                box.label(text=f"Shares its mesh with {o.data.users - 1} other(s):")
+                box.label(text="Edit Mode changes them all.")
+                box.operator("uncounted.unique", icon="DUPLICATE")
             for k in sorted(k for k in o.keys() if k.startswith("game_")):
                 box.prop(o, f'["{k}"]', text=k[5:])
         col = lay.column(align=True)
@@ -846,7 +1047,7 @@ class UNC_PT_panel(bpy.types.Panel):
         col.label(text="Name a mesh COL... for an invisible wall")
 
 
-CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
+CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_unique, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
 
 
 def register():
@@ -869,6 +1070,9 @@ def register():
     O.uncounted_solid = P.BoolProperty(name="Solid (blocks the player)", default=True)
     O.uncounted_ramp = P.EnumProperty(name="Ramp", items=[("NONE", "Not a ramp", ""), ("PX", "Rises towards +X", ""), ("NX", "Rises towards -X", ""),
                                                           ("PY", "Rises towards +Y", ""), ("NY", "Rises towards -Y", "")], default="NONE")
+    O.uncounted_fit = P.BoolProperty(name="Collision fits the shape", default=True,
+                                     description="Block the player with boxes that follow the mesh (doorways and arches stay open). "
+                                                 "Off: one box around the whole mesh")
     O.uncounted_tile = P.FloatProperty(name="Texture size (m)", min=0.0, max=20.0, default=2.0, precision=2,
                                        description="The texture repeats every this many metres, whatever the mesh's size. "
                                                    "0 keeps your own UV unwrap")
@@ -885,6 +1089,7 @@ def unregister():
     del bpy.types.Object.uncounted_solid
     del bpy.types.Object.uncounted_ramp
     del bpy.types.Object.uncounted_tile
+    del bpy.types.Object.uncounted_fit
 
 
 if __name__ == "__main__":

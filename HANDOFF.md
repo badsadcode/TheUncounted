@@ -396,6 +396,11 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   loads them (and the legacy `mods/user_maps`). Older `mods/` saves are imported and renamed `*.moved_into_game` on export.
   Blender preview: imported materials get a node chain multiplying UVs by the object's `game_uv_x/y` (Attribute nodes),
   so Material Preview tiles like the game. "Pack My Changes" zips the level files for sending.
+  v4.1: game pieces reshaped in Blender are detected by a mesh fingerprint (`unc_hash`: vertices, UVs, material
+  indices, material names) and baked per mesh datablock in object space (`<model>_editN.glb`), keeping pos/rot/scale.
+  Solid meshes get shape-fitting collision: the closed mesh is voxelised (BVH inside test, cell >= 0.2 m) and greedily
+  merged into invisible `<id>__fitN` boxes (<= 120, else one box); the visible piece becomes non-solid. `__fit` props are
+  skipped on import and rebuilt on export.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)
