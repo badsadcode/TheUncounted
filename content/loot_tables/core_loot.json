@@ -639,6 +639,41 @@
           "max_qty": 2
         }
       ]
+    },
+    {
+      "id": "core:loot.kobold_bookkeeper",
+      "gold_min": 8,
+      "gold_max": 20,
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.bread_loaf",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.quillsby",
+      "gold_min": 40,
+      "gold_max": 60,
+      "guaranteed": [
+        "core:item.quillsby_vault_key"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 100,
+          "min_qty": 1,
+          "max_qty": 2
+        }
+      ]
     }
   ]
 }

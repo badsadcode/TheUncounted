@@ -12395,6 +12395,46 @@
               ]
             },
             {
+              "text_key": "dlg.mt.silas.choice_mt_row1",
+              "next": "mt_row1",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.missing_third",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "at_seaside"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mt.silas.choice_mt_row",
+              "next": "mt_row",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.missing_third",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "at_seaside"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mt.silas.choice_mt_home",
+              "next": "mt_home",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "at_seaside"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.silas.root.c3",
               "next": "END"
             }
@@ -12656,6 +12696,74 @@
             {
               "text_key": "dlg.silas.rod.c0",
               "next": "root"
+            }
+          ]
+        },
+        "mt_row1": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.mt.silas.mt_row1",
+          "choices": [
+            {
+              "text_key": "dlg.mt.silas.mt_row1.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "at_seaside",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.missing_third",
+              "stage": 20
+            },
+            {
+              "type": "travel",
+              "spawn": "seaside_landing"
+            }
+          ]
+        },
+        "mt_row": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.mt.silas.mt_row",
+          "choices": [
+            {
+              "text_key": "dlg.mt.silas.mt_row.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "at_seaside",
+              "value": true
+            },
+            {
+              "type": "travel",
+              "spawn": "seaside_landing"
+            }
+          ]
+        },
+        "mt_home": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.mt.silas.mt_home",
+          "choices": [
+            {
+              "text_key": "dlg.mt.silas.mt_home.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "at_seaside",
+              "value": false
+            },
+            {
+              "type": "travel",
+              "spawn": "saltmere_pier"
             }
           ]
         }
@@ -15662,6 +15770,37 @@
               ]
             },
             {
+              "text_key": "dlg.mt.dr.choice_mt_start",
+              "next": "mt_start",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.missing_third",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mt.dr.choice_mt_done",
+              "next": "mt_done",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.missing_third",
+                  "stage": 40
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.hoard_third"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.dp.dr.root.c5",
               "next": "END"
             }
@@ -15773,6 +15912,69 @@
             {
               "text_key": "dlg.dp.dr.after.c0",
               "next": "root"
+            }
+          ]
+        },
+        "mt_start": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.mt.dr.mt_start",
+          "choices": [
+            {
+              "text_key": "dlg.mt.dr.mt_start.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.missing_third",
+              "stage": 0
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.missing_third",
+              "stage": 10
+            },
+            {
+              "type": "set_flag",
+              "flag": "missing_third_open",
+              "value": true
+            }
+          ]
+        },
+        "mt_done": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.mt.dr.mt_done",
+          "choices": [
+            {
+              "text_key": "dlg.mt.dr.mt_done.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.hoard_third",
+              "qty": 1
+            },
+            {
+              "type": "give_gold",
+              "amount": 400
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.quillsby_cufflinks",
+              "qty": 1
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.missing_third",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 60
             }
           ]
         }

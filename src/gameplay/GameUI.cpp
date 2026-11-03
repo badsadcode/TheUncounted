@@ -977,7 +977,10 @@ void GameEngine::DrawBestiary(Rectangle P) {
         Texture2D tex = res_.GetTexture(d->appearance.sprite_sheet);
         const SpriteAnimData& an = res_.GetAnimData(d->appearance.animation_data);
         float fw = static_cast<float>(an.frame_width > 0 ? an.frame_width : 64), fh = static_cast<float>(an.frame_height > 0 ? an.frame_height : 64);
-        DrawTexturePro(tex, {0, 0, fw, fh}, {pic.x * u, pic.y * u, pic.width * u, pic.height * u}, {0, 0}, 0.0f, WHITE);
+        // crop to the middle of the frame (sprites stand on a pivot near the bottom, with air above and around)
+        Rectangle src = {fw * 0.2f, fh * 0.16f, fw * 0.6f, fh * 0.78f};
+        float w = pic.height * src.width / src.height;
+        DrawTexturePro(tex, src, {(pic.x + (pic.width - w) * 0.5f) * u, pic.y * u, w * u, pic.height * u}, {0, 0}, 0.0f, WHITE);
     } else {
         Text("(a construct)", pic.x + 24, pic.y + 64, 15, kDim);
     }

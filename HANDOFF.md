@@ -409,6 +409,10 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   with Grubnik Quillsby, Esq. in the Records Office (present all three; optional Persuasion DC 13 for the confession) ->
   the Repossession Golem in the square (group -> 50) -> Cindermaw: Dragon's Sigh (fire nova) + Cindermaw's Scale + 250 g.
 - Sprites are placeholders (the quadruped generator now has `dragon`: horns, spines, wings).
+- **Part two, The Missing Third** (`tools/authoring/missing_third.py`, region `tools/build_seaside.py` -> `seaside_house.json`
+  at SEASIDE_OFF, boat-only like the reef): Cindermaw topic `mt_start` -> Silas rows you (`mt_row1`, flag `at_seaside`, spawn
+  `seaside_landing`; `mt_home` back) -> kobold bookkeepers + Quillsby (Cornered) (group -> 30, drops the vault key) -> locked
+  vault door -> quest pedestal (the hoard, narration) -> Cindermaw `mt_done`: 400 g + Quillsby's Gloating Cufflinks.
 
 ## 8. The user (what they care about)
 

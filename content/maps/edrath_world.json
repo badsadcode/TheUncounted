@@ -33,6 +33,51 @@
   "weather": "rain",
   "zones": [
     {
+      "id": "seaside_house",
+      "display_name_key": "map.seaside_house.name",
+      "box_min": [
+        143.0,
+        -2.0,
+        -81.0
+      ],
+      "box_max": [
+        177.0,
+        40.0,
+        -33.0
+      ],
+      "blend": 3.0,
+      "music": "assets/audio/music/old_road_theme.wav",
+      "ambience": "assets/audio/ambience/forest_wind.wav",
+      "sky_color": [
+        34,
+        30,
+        52
+      ],
+      "ambient_color": [
+        0.42,
+        0.4,
+        0.5
+      ],
+      "sun_direction": [
+        -0.3,
+        0.7,
+        0.4
+      ],
+      "sun_color": [
+        0.55,
+        0.45,
+        0.5
+      ],
+      "fog_color": [
+        0.16,
+        0.14,
+        0.22
+      ],
+      "fog_density": 0.03,
+      "weather": "",
+      "sky_panorama": "assets/textures/sky/sky_dusk.png"
+    },
+    {
       "id": "sleepers_reef",
       "display_name_key": "map.sleepers_reef.name",
       "box_min": [
@@ -9177,130 +9222,535 @@
       "size": 1.21
     },
     {
-      "sprite": "assets/sprites/scatter/reeds.png",
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
       "pos": [
-        -59.35,
+        150.85,
         0.0,
-        -0.74
+        -76.66
       ],
-      "size": 1.2
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        160.27,
+        0.0,
+        -57.08
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        163.56,
+        0.0,
+        -57.86
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        166.91,
+        0.0,
+        -78.21
+      ],
+      "size": 0.52
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -59.5,
+        173.38,
         0.0,
-        0.43
+        -67.64
       ],
-      "size": 1.22
+      "size": 1.27
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        155.03,
+        0.0,
+        -58.15
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        174.57,
+        0.0,
+        -76.57
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        146.9,
+        0.0,
+        -79.0
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        157.6,
+        0.0,
+        -56.95
+      ],
+      "size": 0.45
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -60.37,
+        152.47,
         0.0,
-        1.99
+        -60.34
       ],
-      "size": 1.38
+      "size": 1.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        148.77,
+        0.0,
+        -62.81
+      ],
+      "size": 0.54
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -60.94,
+        149.11,
         0.0,
-        2.37
+        -69.12
       ],
-      "size": 1.3
+      "size": 1.45
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -62.73,
+        170.98,
         0.0,
-        2.53
+        -70.01
       ],
-      "size": 1.48
+      "size": 1.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        163.26,
+        0.0,
+        -55.51
+      ],
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        155.23,
+        0.0,
+        -77.55
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        156.34,
+        0.0,
+        -49.82
+      ],
+      "size": 0.53
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -63.7,
+        160.97,
         0.0,
-        1.79
+        -58.49
+      ],
+      "size": 1.15
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        171.23,
+        0.0,
+        -78.33
+      ],
+      "size": 1.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        174.88,
+        0.0,
+        -78.6
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        160.74,
+        0.0,
+        -49.54
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        153.45,
+        0.0,
+        -57.15
+      ],
+      "size": 1.4
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        173.01,
+        0.0,
+        -55.11
+      ],
+      "size": 1.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        168.96,
+        0.0,
+        -57.96
+      ],
+      "size": 1.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        172.9,
+        0.0,
+        -75.24
+      ],
+      "size": 1.09
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        161.06,
+        0.0,
+        -77.27
+      ],
+      "size": 1.25
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        165.85,
+        0.0,
+        -50.56
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        171.86,
+        0.0,
+        -65.84
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        147.47,
+        0.0,
+        -73.04
+      ],
+      "size": 1.15
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        161.61,
+        0.0,
+        -49.39
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        172.6,
+        0.0,
+        -70.81
+      ],
+      "size": 1.36
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        161.86,
+        0.0,
+        -62.14
+      ],
+      "size": 1.12
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        157.92,
+        0.0,
+        -61.04
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        152.42,
+        0.0,
+        -62.3
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        173.86,
+        0.0,
+        -75.14
+      ],
+      "size": 1.1
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        173.62,
+        0.0,
+        -64.92
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        148.12,
+        0.0,
+        -57.07
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        151.13,
+        0.0,
+        -73.26
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        168.12,
+        0.0,
+        -58.4
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        163.53,
+        0.0,
+        -48.86
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        171.32,
+        0.0,
+        -52.37
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        164.26,
+        0.0,
+        -49.54
+      ],
+      "size": 1.19
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        169.15,
+        0.0,
+        -77.71
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        161.88,
+        0.0,
+        -56.22
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        150.89,
+        0.0,
+        -57.56
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        171.05,
+        0.0,
+        -69.51
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.12,
+        0.0,
+        -0.31
+      ],
+      "size": 1.42
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.29,
+        0.0,
+        0.4
       ],
       "size": 1.32
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -64.47,
+        -60.26,
         0.0,
-        0.84
+        1.73
       ],
-      "size": 1.28
+      "size": 1.41
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -64.64,
+        -61.52,
         0.0,
-        -0.89
+        2.5
       ],
-      "size": 1.17
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -64.4,
-        0.0,
-        -2.08
-      ],
-      "size": 1.25
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -64.01,
-        0.0,
-        -2.39
-      ],
-      "size": 1.17
+      "size": 1.31
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
         -62.66,
         0.0,
-        -3.06
+        2.56
+      ],
+      "size": 1.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -63.51,
+        0.0,
+        2.04
+      ],
+      "size": 1.15
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.39,
+        0.0,
+        1.05
+      ],
+      "size": 1.35
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.67,
+        0.0,
+        -0.63
+      ],
+      "size": 1.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.17,
+        0.0,
+        -1.98
+      ],
+      "size": 1.27
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -63.68,
+        0.0,
+        -2.79
+      ],
+      "size": 1.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -62.71,
+        0.0,
+        -3.24
+      ],
+      "size": 1.29
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -61.7,
+        0.0,
+        -3.27
+      ],
+      "size": 1.2
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -60.22,
+        0.0,
+        -3.14
       ],
       "size": 1.3
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -61.53,
+        -59.47,
         0.0,
-        -3.44
+        -1.54
       ],
-      "size": 1.11
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -60.1,
-        0.0,
-        -2.64
-      ],
-      "size": 1.23
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -59.57,
-        0.0,
-        -1.98
-      ],
-      "size": 1.16
+      "size": 1.29
     },
     {
       "sprite": "assets/sprites/scatter/cobweb.png",
@@ -9459,6 +9909,14 @@
         1.6,
         0.0,
         -135.0
+      ],
+      "yaw_degrees": 180.0
+    },
+    "seaside_landing": {
+      "pos": [
+        160.0,
+        0.0,
+        -49.0
       ],
       "yaw_degrees": 180.0
     }
@@ -15795,6 +16253,1077 @@
       "solid": false
     },
     {
+      "id": "sea_cove_sand",
+      "model": "assets/models/env/floor_sand_wet.glb",
+      "pos": [
+        160.0,
+        -0.5,
+        -63.0
+      ],
+      "scale": [
+        32.0,
+        0.5,
+        34.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        12,
+        13
+      ]
+    },
+    {
+      "id": "sea_cove_sea_floor",
+      "model": "assets/models/env/floor_sand_wet.glb",
+      "pos": [
+        160.0,
+        -0.9,
+        -40.0
+      ],
+      "scale": [
+        32.0,
+        0.45,
+        12.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        12,
+        5
+      ]
+    },
+    {
+      "id": "sea_cove_water",
+      "model": "assets/models/env/harbour_water.glb",
+      "pos": [
+        160.0,
+        -0.14,
+        -40.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        0.85,
+        1.0,
+        0.6
+      ],
+      "solid": false
+    },
+    {
+      "id": "sea_cliff_n",
+      "model": "assets/models/env/wall_cave_rock.glb",
+      "pos": [
+        160.0,
+        -0.9,
+        -80.0
+      ],
+      "scale": [
+        33.2,
+        6.9,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "sea_cliff_w",
+      "model": "assets/models/env/wall_cave_rock.glb",
+      "pos": [
+        144.0,
+        -0.9,
+        -57.0
+      ],
+      "scale": [
+        1.2,
+        6.9,
+        47.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "sea_cliff_e",
+      "model": "assets/models/env/wall_cave_rock.glb",
+      "pos": [
+        176.0,
+        -0.9,
+        -57.0
+      ],
+      "scale": [
+        1.2,
+        6.9,
+        47.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "sea_cliff_s",
+      "model": "assets/models/env/wall_cave_rock.glb",
+      "pos": [
+        160.0,
+        -0.9,
+        -34.0
+      ],
+      "scale": [
+        33.2,
+        2.3,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "sea_rock_0",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
+      "pos": [
+        147.5,
+        -0.2,
+        -52.0
+      ],
+      "scale": [
+        1.6,
+        1.2,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "sea_rock_1",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
+      "pos": [
+        171.0,
+        -0.2,
+        -53.5
+      ],
+      "scale": [
+        1.2,
+        1.6,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "sea_rock_2",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
+      "pos": [
+        149.0,
+        -0.2,
+        -61.0
+      ],
+      "scale": [
+        1.0,
+        0.9,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "sea_rock_3",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
+      "pos": [
+        172.5,
+        -0.2,
+        -72.0
+      ],
+      "scale": [
+        1.4,
+        1.1,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "sea_jetty",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        160.0,
+        -0.5,
+        -43.5
+      ],
+      "scale": [
+        2.4,
+        0.5,
+        9.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "sea_jetty_pile_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        158.65,
+        -0.9,
+        -44.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "sea_jetty_pile_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        161.35,
+        -0.9,
+        -44.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "sea_jetty_pile_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        158.65,
+        -0.9,
+        -39.2
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "sea_jetty_pile_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        161.35,
+        -0.9,
+        -39.2
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "sea_boat_hull",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        162.6,
+        -0.5,
+        -41.4
+      ],
+      "scale": [
+        1.4,
+        0.75,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.4
+      ]
+    },
+    {
+      "id": "sea_boat_seat",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        162.6,
+        0.25,
+        -41.4
+      ],
+      "scale": [
+        1.4,
+        0.1,
+        0.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "sea_house_floor",
+      "model": "assets/models/env/floor_checker_marble.glb",
+      "pos": [
+        160.0,
+        -0.4,
+        -70.0
+      ],
+      "scale": [
+        16.0,
+        0.42,
+        12.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        6,
+        5
+      ]
+    },
+    {
+      "id": "sea_house_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        160.0,
+        3.6,
+        -70.0
+      ],
+      "scale": [
+        17.0,
+        0.3,
+        13.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        6,
+        5
+      ]
+    },
+    {
+      "id": "sea_ext_s_0",
+      "model": "assets/models/env/wall_red_brick.glb",
+      "pos": [
+        155.5,
+        0.0,
+        -64.0
+      ],
+      "scale": [
+        7.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.69,
+        1.2
+      ]
+    },
+    {
+      "id": "sea_ext_s_lintel0",
+      "model": "assets/models/env/wall_red_brick.glb",
+      "pos": [
+        160.0,
+        2.6,
+        -64.0
+      ],
+      "scale": [
+        2.0,
+        1.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.33
+      ]
+    },
+    {
+      "id": "sea_ext_s_end",
+      "model": "assets/models/env/wall_red_brick.glb",
+      "pos": [
+        164.5,
+        0.0,
+        -64.0
+      ],
+      "scale": [
+        7.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.69,
+        1.2
+      ]
+    },
+    {
+      "id": "sea_ext_n_end",
+      "model": "assets/models/env/wall_red_brick.glb",
+      "pos": [
+        160.0,
+        0.0,
+        -76.0
+      ],
+      "scale": [
+        16.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        6.15,
+        1.2
+      ]
+    },
+    {
+      "id": "sea_ext_w_end",
+      "model": "assets/models/env/wall_red_brick.glb",
+      "pos": [
+        152.0,
+        0.0,
+        -70.0
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        12.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.62,
+        1.2
+      ]
+    },
+    {
+      "id": "sea_ext_e_end",
+      "model": "assets/models/env/wall_red_brick.glb",
+      "pos": [
+        168.0,
+        0.0,
+        -70.0
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        12.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.62,
+        1.2
+      ]
+    },
+    {
+      "id": "sea_int_front_0",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        160.0,
+        0.0,
+        -68.0
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_int_front_lintel0",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        160.0,
+        2.6,
+        -65.4
+      ],
+      "scale": [
+        0.4,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_int_front_end",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        160.0,
+        0.0,
+        -64.4
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        0.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.31,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_int_mid_0",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        153.5,
+        0.0,
+        -70.0
+      ],
+      "scale": [
+        3.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_int_mid_lintel0",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        155.6,
+        2.6,
+        -70.0
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_int_mid_1",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        159.1,
+        0.0,
+        -70.0
+      ],
+      "scale": [
+        5.8,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.23,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_int_mid_lintel1",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        162.6,
+        2.6,
+        -70.0
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_int_mid_end",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        165.6,
+        0.0,
+        -70.0
+      ],
+      "scale": [
+        4.8,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.85,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_vault_w_0",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        164.0,
+        0.0,
+        -75.3
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.54,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_vault_w_lintel0",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        164.0,
+        2.6,
+        -74.0
+      ],
+      "scale": [
+        0.4,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_vault_w_end",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        164.0,
+        0.0,
+        -72.95
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        0.9
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.35,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_vault_s_end",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
+      "pos": [
+        166.0,
+        0.0,
+        -72.5
+      ],
+      "scale": [
+        4.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        1.0
+      ]
+    },
+    {
+      "id": "sea_torch_cushion",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        152.25,
+        1.9,
+        -67.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "sea_torch_shoe",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        167.75,
+        1.9,
+        -67.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "sea_torch_office",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        152.25,
+        1.9,
+        -73.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "sea_torch_vault",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        167.75,
+        1.9,
+        -74.3
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "sea_cushions_0",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        153.5,
+        0.0,
+        -68.5
+      ],
+      "scale": [
+        1.2,
+        0.9,
+        1.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "sea_cushions_1",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        155.0,
+        0.0,
+        -66.0
+      ],
+      "scale": [
+        1.4,
+        1.3,
+        1.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "sea_cushions_2",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        158.0,
+        0.0,
+        -68.8
+      ],
+      "scale": [
+        1.6,
+        0.7,
+        1.6
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "sea_cushions_3",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        153.2,
+        0.0,
+        -65.0
+      ],
+      "scale": [
+        1.0,
+        0.5,
+        1.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "sea_cushions_4",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        157.0,
+        0.0,
+        -65.6
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        1.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "sea_cushions_5",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        158.6,
+        0.0,
+        -66.8
+      ],
+      "scale": [
+        0.8,
+        0.5,
+        0.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "sea_shoe_rack_0",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        161.45,
+        0.0,
+        -69.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "sea_shoe_rack_1",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        162.75,
+        0.0,
+        -69.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "sea_shoe_rack_2",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        164.05,
+        0.0,
+        -69.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "sea_shoe_rack_3",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        165.35,
+        0.0,
+        -69.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "sea_shoe_rack_4",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        166.65,
+        0.0,
+        -69.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "sea_office_desk",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        159.0,
+        0.0,
+        -74.0
+      ],
+      "scale": [
+        4.0,
+        0.85,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.4
+      ]
+    },
+    {
       "id": "bell_west_gate_n",
       "model": "assets/models/env/pillar_stone.glb",
       "pos": [
@@ -21860,6 +23389,16 @@
       "yaw": 160.0,
       "requires_flag": "reef_trip",
       "hidden_flag": "reef_done"
+    },
+    {
+      "instance_id": "npc_silas_seaside",
+      "npc_id": "core:npc.silas_gale",
+      "pos": [
+        159.6,
+        0.0,
+        -46.0
+      ],
+      "yaw": 180.0
     }
   ],
   "creatures": [
@@ -22991,6 +24530,106 @@
         0.0,
         -138.0
       ]
+    },
+    {
+      "instance_id": "kobold_cushion_0",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        154.5,
+        0.0,
+        -67.0
+      ],
+      "patrol_a": [
+        153.5,
+        0.0,
+        -67.0
+      ],
+      "patrol_b": [
+        158.0,
+        0.0,
+        -67.0
+      ]
+    },
+    {
+      "instance_id": "kobold_cushion_1",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        157.5,
+        0.0,
+        -65.0
+      ],
+      "patrol_a": [
+        154.0,
+        0.0,
+        -65.0
+      ],
+      "patrol_b": [
+        158.5,
+        0.0,
+        -65.0
+      ]
+    },
+    {
+      "instance_id": "kobold_shoe_0",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        163.0,
+        0.0,
+        -66.0
+      ],
+      "patrol_a": [
+        161.5,
+        0.0,
+        -66.0
+      ],
+      "patrol_b": [
+        166.5,
+        0.0,
+        -66.0
+      ]
+    },
+    {
+      "instance_id": "kobold_shoe_1",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        166.0,
+        0.0,
+        -68.0
+      ],
+      "patrol_a": [
+        161.5,
+        0.0,
+        -68.0
+      ],
+      "patrol_b": [
+        166.5,
+        0.0,
+        -68.0
+      ]
+    },
+    {
+      "instance_id": "quillsby_cornered",
+      "creature_id": "core:enemy.quillsby_cornered",
+      "pos": [
+        158.0,
+        0.0,
+        -72.0
+      ],
+      "patrol_a": [
+        155.0,
+        0.0,
+        -72.0
+      ],
+      "patrol_b": [
+        162.0,
+        0.0,
+        -72.0
+      ],
+      "requires_flag": "missing_third_open",
+      "group": "quillsby",
+      "group_quest_id": "core:quest.missing_third",
+      "group_set_stage": 30,
+      "group_set_flag": "quillsby_caught"
     }
   ],
   "interactables": [
@@ -25814,6 +27453,98 @@
       "rot_y": 0.0,
       "loot_table": "core:loot.fish_reef",
       "prompt": "Fish off the jetty"
+    },
+    {
+      "instance_id": "cove_sign",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        162.2,
+        0.0,
+        -51.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Sign",
+      "title": "A Very Expensive Sign",
+      "text": "A sign of polished mahogany with gold-leaf letters:\n\nTHE LATE CINDERMAW\nPrivate Residence of G. Quillsby, Esq.\nNO DRAGONS\nNO CLERKS\nNO VISITORS\n(This means you.)\n\nSomeone has painted over 'LATE' in red and written 'VERY MUCH ALIVE'. The brushstrokes look like they were made with a claw."
+    },
+    {
+      "instance_id": "quillsby_vault_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        164.0,
+        0.0,
+        -74.0
+      ],
+      "rot_y": 90.0,
+      "locked": true,
+      "key_id": "core:item.quillsby_vault_key",
+      "lock_difficulty": 25,
+      "prompt": "Vault Door"
+    },
+    {
+      "instance_id": "cushion_ledger",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        156.0,
+        0.0,
+        -69.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Inventory",
+      "title": "Cushion Inventory (Partial)",
+      "text": "CUSHIONS, SILK: 1,200\nCUSHIONS, VELVET: 340\nCUSHIONS, 'FOR SITTING ON CUSHIONS': 12\nCUSHION, ONE (1), EMBROIDERED 'GRUBNIK IS A GOOD BOY': 1, a gift from Mother\n\nTotal: 2,104 gold of the dragon's money, and not one chair in the house."
+    },
+    {
+      "instance_id": "shoe_room",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        164.0,
+        0.0,
+        -68.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Shoes",
+      "title": "The Shoe Room",
+      "text": "Racks and racks of tiny shoes, floor to ceiling: buckled, beribboned, patent leather, one pair entirely of gold with little ruby toes. Each pair has a label: 'TUESDAY', 'COURT', 'GLOATING', 'GLOATING (FORMAL)'.\n\nThree hundred pairs. Kobolds have four toes. These were all made to measure. The cobbler's bill alone was worth a small village.",
+      "sanity": 2
+    },
+    {
+      "instance_id": "quillsby_letter",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        159.0,
+        0.85,
+        -74.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Letter on the Desk",
+      "title": "A Letter, Half-Written",
+      "text": "To the Royal Bureau of Records, Name Change Department\n\nDear Sirs,\n\nI wish to formally change my name from Grubnik Quillsby to Cindermaw the Elder, as the previous holder of the name is legally deceased and will not be needing it. I enclose the fee (eleven gold, one sheep, one apology).\n\nP.S. Please also transfer the title 'Terror of the Eastern Mountains'.\n\n[The letter stops. There's a large ink blot, as if the writer heard something enormous land outside.]"
+    },
+    {
+      "instance_id": "missing_third_hoard",
+      "type": "quest_pedestal",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        166.0,
+        0.0,
+        -74.3
+      ],
+      "rot_y": -90.0,
+      "prompt": "Recover the Missing Third of the Hoard",
+      "quest_id": "core:quest.missing_third",
+      "set_stage": 40,
+      "grant_items": [
+        "core:item.hoard_third"
+      ],
+      "narration": [
+        "story.missing_third.vault"
+      ]
     },
     {
       "instance_id": "flour_handprints",

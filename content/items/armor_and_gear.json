@@ -921,6 +921,31 @@
           "value": 0.15
         }
       ]
+    },
+    {
+      "id": "core:item.quillsby_cufflinks",
+      "name_key": "item.quillsby_cufflinks.name",
+      "description_key": "item.quillsby_cufflinks.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/quillsby_cufflinks.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 200,
+      "weight": 0.2,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "gold_find_bonus",
+          "value": 0.25
+        },
+        {
+          "type": "bonus",
+          "stat": "shop_discount",
+          "value": 0.1
+        }
+      ]
     }
   ]
 }

@@ -1774,6 +1774,28 @@
       "value": 25,
       "weight": 0.3,
       "book_text_key": "book.quillsby_ledger.text"
+    },
+    {
+      "id": "core:item.quillsby_vault_key",
+      "name_key": "item.quillsby_vault_key.name",
+      "description_key": "item.quillsby_vault_key.description",
+      "category": "key",
+      "icon": "assets/ui/items/quillsby_vault_key.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.2
+    },
+    {
+      "id": "core:item.hoard_third",
+      "name_key": "item.hoard_third.name",
+      "description_key": "item.hoard_third.description",
+      "category": "misc",
+      "icon": "assets/ui/items/hoard_third.png",
+      "world_model": "assets/models/props/treasure_chest.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 8.0
     }
   ]
 }

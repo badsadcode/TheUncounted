@@ -154,6 +154,7 @@ animals. The original goes in `art_source/spritesheets/`. The character's `appea
 | **The Dreaming Limb** | ✅ | Giant eldritch tentacle from the reef. |
 | **The Phantom Clerk** | ✅ | A bedsheet "ghost" in Bureau robes with glowing green ink smears and a DECEASED stamp. Clearly someone underneath. |
 | **The Howler of Hollowmere** | ✅ | A shaggy fake-werewolf costume: wooden claws and very obvious sandals. |
+| **Kobold Bookkeeper** | 🟡 | Junior kobold clerk: green scales, blue waistcoat, spectacles, swings a red ledger. |
 | **The Repossession Golem** | 🧊 | Iron golem stamped REPOSSESSED (uses the sentinel 3D model). |
 | **Lost Sentinel** | 🧊 | Stone construct (3D model). |
 | **Animated Armour** | 🧊 | Walking suit of armour (3D model). |

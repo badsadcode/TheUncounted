@@ -821,6 +821,10 @@ SHEETS = {
         "kind": "humanoid", "body": (110, 140, 70), "armor": (120, 84, 50), "legs": (70, 60, 50), "trim": (210, 180, 90), "eye": (230, 200, 60),
         "hat": "bald", "hair": (90, 120, 60), "horns": True, "horn": (200, 190, 150), "weapon": "ledger", "book": (60, 40, 30),
     },
+    "assets/sprites/enemies/kobold_bookkeeper.png": {
+        "kind": "humanoid", "body": (100, 130, 80), "armor": (60, 70, 120), "legs": (50, 50, 60), "trim": (200, 200, 210), "eye": (230, 200, 60),
+        "hat": "bald", "hair": (80, 110, 60), "horns": True, "horn": (190, 180, 140), "weapon": "ledger", "book": (120, 40, 40),
+    },
     "assets/sprites/npcs/druid_squirrel.png": {"kind": "rat", "scale": 1.0, "body": (176, 92, 48), "armor": (140, 70, 36), "eye": (30, 20, 16)},
     "assets/sprites/npcs/druid_bramble.png": {
         "kind": "humanoid", "robe": True, "body": (222, 186, 150), "armor": (70, 110, 60), "cloak": (96, 74, 46), "trim": (170, 140, 70),

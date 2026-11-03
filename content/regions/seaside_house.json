@@ -1,0 +1,1327 @@
+{
+  "schema_version": 1,
+  "id": "core:map.seaside_house",
+  "display_name_key": "map.seaside_house.name",
+  "music": "assets/audio/music/old_road_theme.wav",
+  "ambience": "assets/audio/ambience/forest_wind.wav",
+  "sky_color": [
+    34,
+    30,
+    52
+  ],
+  "ambient_color": [
+    0.42,
+    0.4,
+    0.5
+  ],
+  "sun_direction": [
+    -0.3,
+    0.7,
+    0.4
+  ],
+  "sun_color": [
+    0.55,
+    0.45,
+    0.5
+  ],
+  "fog_color": [
+    0.16,
+    0.14,
+    0.22
+  ],
+  "fog_density": 0.03,
+  "weather": "",
+  "spawns": {
+    "seaside_landing": {
+      "pos": [
+        0.0,
+        0.0,
+        11.0
+      ],
+      "yaw_degrees": 180.0
+    }
+  },
+  "props": [
+    {
+      "id": "cove_sand",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        -3.0
+      ],
+      "scale": [
+        32.0,
+        0.5,
+        34.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        12,
+        13
+      ]
+    },
+    {
+      "id": "cove_sea_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.9,
+        20.0
+      ],
+      "scale": [
+        32.0,
+        0.45,
+        12.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        12,
+        5
+      ]
+    },
+    {
+      "id": "cove_water",
+      "model": "assets/models/env/harbour_water.glb",
+      "pos": [
+        0.0,
+        -0.14,
+        20.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        0.85,
+        1.0,
+        0.6
+      ],
+      "solid": false
+    },
+    {
+      "id": "cliff_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        -0.9,
+        -20.0
+      ],
+      "scale": [
+        33.2,
+        6.9,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "cliff_w",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -16.0,
+        -0.9,
+        3.0
+      ],
+      "scale": [
+        1.2,
+        6.9,
+        47.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "cliff_e",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        16.0,
+        -0.9,
+        3.0
+      ],
+      "scale": [
+        1.2,
+        6.9,
+        47.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "cliff_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        -0.9,
+        26.0
+      ],
+      "scale": [
+        33.2,
+        2.3,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        2
+      ]
+    },
+    {
+      "id": "rock_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -12.5,
+        -0.2,
+        8.0
+      ],
+      "scale": [
+        1.6,
+        1.2,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "rock_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        11.0,
+        -0.2,
+        6.5
+      ],
+      "scale": [
+        1.2,
+        1.6,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "rock_2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -11.0,
+        -0.2,
+        -1.0
+      ],
+      "scale": [
+        1.0,
+        0.9,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "rock_3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        12.5,
+        -0.2,
+        -12.0
+      ],
+      "scale": [
+        1.4,
+        1.1,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "jetty",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        16.5
+      ],
+      "scale": [
+        2.4,
+        0.5,
+        9.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "jetty_pile_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -1.35,
+        -0.9,
+        16.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "jetty_pile_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.35,
+        -0.9,
+        16.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "jetty_pile_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -1.35,
+        -0.9,
+        20.8
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "jetty_pile_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.35,
+        -0.9,
+        20.8
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "boat_hull",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.6,
+        -0.5,
+        18.6
+      ],
+      "scale": [
+        1.4,
+        0.75,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.4
+      ]
+    },
+    {
+      "id": "boat_seat",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.6,
+        0.25,
+        18.6
+      ],
+      "scale": [
+        1.4,
+        0.1,
+        0.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "house_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        -0.4,
+        -10.0
+      ],
+      "scale": [
+        16.0,
+        0.42,
+        12.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        6,
+        5
+      ]
+    },
+    {
+      "id": "house_roof",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        3.6,
+        -10.0
+      ],
+      "scale": [
+        17.0,
+        0.3,
+        13.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        6,
+        5
+      ]
+    },
+    {
+      "id": "ext_s_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.5,
+        0.0,
+        -4.0
+      ],
+      "scale": [
+        7.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.69,
+        1.2
+      ]
+    },
+    {
+      "id": "ext_s_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.0,
+        2.6,
+        -4.0
+      ],
+      "scale": [
+        2.0,
+        1.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.33
+      ]
+    },
+    {
+      "id": "ext_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.5,
+        0.0,
+        -4.0
+      ],
+      "scale": [
+        7.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.69,
+        1.2
+      ]
+    },
+    {
+      "id": "ext_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -16.0
+      ],
+      "scale": [
+        16.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        6.15,
+        1.2
+      ]
+    },
+    {
+      "id": "ext_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -8.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        12.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.62,
+        1.2
+      ]
+    },
+    {
+      "id": "ext_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        8.0,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        12.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4.62,
+        1.2
+      ]
+    },
+    {
+      "id": "int_front_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        1.2
+      ]
+    },
+    {
+      "id": "int_front_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.0,
+        2.6,
+        -5.4
+      ],
+      "scale": [
+        0.4,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        0.33
+      ]
+    },
+    {
+      "id": "int_front_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -4.4
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        0.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.31,
+        1.2
+      ]
+    },
+    {
+      "id": "int_mid_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -6.5,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        3.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.2
+      ]
+    },
+    {
+      "id": "int_mid_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -4.4,
+        2.6,
+        -10.0
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        0.33
+      ]
+    },
+    {
+      "id": "int_mid_1",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -0.9,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        5.8,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.23,
+        1.2
+      ]
+    },
+    {
+      "id": "int_mid_lintel1",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        2.6,
+        2.6,
+        -10.0
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        0.33
+      ]
+    },
+    {
+      "id": "int_mid_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        5.6,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        4.8,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.85,
+        1.2
+      ]
+    },
+    {
+      "id": "vault_w_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        0.0,
+        -15.3
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.54,
+        1.2
+      ]
+    },
+    {
+      "id": "vault_w_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        2.6,
+        -14.0
+      ],
+      "scale": [
+        0.4,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        0.33
+      ]
+    },
+    {
+      "id": "vault_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        4.0,
+        0.0,
+        -12.95
+      ],
+      "scale": [
+        0.4,
+        3.6,
+        0.9
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.35,
+        1.2
+      ]
+    },
+    {
+      "id": "vault_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -12.5
+      ],
+      "scale": [
+        4.0,
+        3.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        1.2
+      ]
+    },
+    {
+      "id": "torch_cushion",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -7.75,
+        1.9,
+        -7.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "torch_shoe",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        7.75,
+        1.9,
+        -7.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "torch_office",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -7.75,
+        1.9,
+        -13.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "torch_vault",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        7.75,
+        1.9,
+        -14.3
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.45,
+        "light_color": [
+          1.0,
+          0.66,
+          0.36
+        ],
+        "light_radius": 7.5
+      }
+    },
+    {
+      "id": "cushions_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.5,
+        0.0,
+        -8.5
+      ],
+      "scale": [
+        1.2,
+        0.9,
+        1.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "cushions_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -5.0,
+        0.0,
+        -6.0
+      ],
+      "scale": [
+        1.4,
+        1.3,
+        1.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "cushions_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -2.0,
+        0.0,
+        -8.8
+      ],
+      "scale": [
+        1.6,
+        0.7,
+        1.6
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "cushions_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.8,
+        0.0,
+        -5.0
+      ],
+      "scale": [
+        1.0,
+        0.5,
+        1.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "cushions_4",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -3.0,
+        0.0,
+        -5.6
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        1.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "cushions_5",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -1.4,
+        0.0,
+        -6.8
+      ],
+      "scale": [
+        0.8,
+        0.5,
+        0.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": "shoe_rack_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.45,
+        0.0,
+        -9.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "shoe_rack_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.75,
+        0.0,
+        -9.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "shoe_rack_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        4.05,
+        0.0,
+        -9.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "shoe_rack_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        5.35,
+        0.0,
+        -9.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "shoe_rack_4",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        6.65,
+        0.0,
+        -9.4
+      ],
+      "scale": [
+        0.9,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.3,
+        0.7
+      ]
+    },
+    {
+      "id": "office_desk",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -1.0,
+        0.0,
+        -14.0
+      ],
+      "scale": [
+        4.0,
+        0.85,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.4
+      ]
+    }
+  ],
+  "lights": [],
+  "npcs": [
+    {
+      "instance_id": "npc_silas_seaside",
+      "npc_id": "core:npc.silas_gale",
+      "pos": [
+        -0.4,
+        0.0,
+        14.0
+      ],
+      "yaw": 180.0
+    }
+  ],
+  "creatures": [
+    {
+      "instance_id": "kobold_cushion_0",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        -5.5,
+        0.0,
+        -7.0
+      ],
+      "patrol_a": [
+        -6.5,
+        0.0,
+        -7.0
+      ],
+      "patrol_b": [
+        -2.0,
+        0.0,
+        -7.0
+      ]
+    },
+    {
+      "instance_id": "kobold_cushion_1",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        -2.5,
+        0.0,
+        -5.0
+      ],
+      "patrol_a": [
+        -6.0,
+        0.0,
+        -5.0
+      ],
+      "patrol_b": [
+        -1.5,
+        0.0,
+        -5.0
+      ]
+    },
+    {
+      "instance_id": "kobold_shoe_0",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        3.0,
+        0.0,
+        -6.0
+      ],
+      "patrol_a": [
+        1.5,
+        0.0,
+        -6.0
+      ],
+      "patrol_b": [
+        6.5,
+        0.0,
+        -6.0
+      ]
+    },
+    {
+      "instance_id": "kobold_shoe_1",
+      "creature_id": "core:enemy.kobold_bookkeeper",
+      "pos": [
+        6.0,
+        0.0,
+        -8.0
+      ],
+      "patrol_a": [
+        1.5,
+        0.0,
+        -8.0
+      ],
+      "patrol_b": [
+        6.5,
+        0.0,
+        -8.0
+      ]
+    },
+    {
+      "instance_id": "quillsby_cornered",
+      "creature_id": "core:enemy.quillsby_cornered",
+      "pos": [
+        -2.0,
+        0.0,
+        -12.0
+      ],
+      "patrol_a": [
+        -5.0,
+        0.0,
+        -12.0
+      ],
+      "patrol_b": [
+        2.0,
+        0.0,
+        -12.0
+      ],
+      "requires_flag": "missing_third_open",
+      "group": "quillsby",
+      "group_quest_id": "core:quest.missing_third",
+      "group_set_stage": 30,
+      "group_set_flag": "quillsby_caught"
+    }
+  ],
+  "interactables": [
+    {
+      "instance_id": "cove_sign",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        2.2,
+        0.0,
+        9.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Sign",
+      "title": "A Very Expensive Sign",
+      "text": "A sign of polished mahogany with gold-leaf letters:\n\nTHE LATE CINDERMAW\nPrivate Residence of G. Quillsby, Esq.\nNO DRAGONS\nNO CLERKS\nNO VISITORS\n(This means you.)\n\nSomeone has painted over 'LATE' in red and written 'VERY MUCH ALIVE'. The brushstrokes look like they were made with a claw."
+    },
+    {
+      "instance_id": "quillsby_vault_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        4.0,
+        0.0,
+        -14.0
+      ],
+      "rot_y": 90.0,
+      "locked": true,
+      "key_id": "core:item.quillsby_vault_key",
+      "lock_difficulty": 25,
+      "prompt": "Vault Door"
+    },
+    {
+      "instance_id": "cushion_ledger",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -4.0,
+        0.0,
+        -9.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Inventory",
+      "title": "Cushion Inventory (Partial)",
+      "text": "CUSHIONS, SILK: 1,200\nCUSHIONS, VELVET: 340\nCUSHIONS, 'FOR SITTING ON CUSHIONS': 12\nCUSHION, ONE (1), EMBROIDERED 'GRUBNIK IS A GOOD BOY': 1, a gift from Mother\n\nTotal: 2,104 gold of the dragon's money, and not one chair in the house."
+    },
+    {
+      "instance_id": "shoe_room",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        4.0,
+        0.0,
+        -8.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Shoes",
+      "title": "The Shoe Room",
+      "text": "Racks and racks of tiny shoes, floor to ceiling: buckled, beribboned, patent leather, one pair entirely of gold with little ruby toes. Each pair has a label: 'TUESDAY', 'COURT', 'GLOATING', 'GLOATING (FORMAL)'.\n\nThree hundred pairs. Kobolds have four toes. These were all made to measure. The cobbler's bill alone was worth a small village.",
+      "sanity": 2
+    },
+    {
+      "instance_id": "quillsby_letter",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -1.0,
+        0.85,
+        -14.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Letter on the Desk",
+      "title": "A Letter, Half-Written",
+      "text": "To the Royal Bureau of Records, Name Change Department\n\nDear Sirs,\n\nI wish to formally change my name from Grubnik Quillsby to Cindermaw the Elder, as the previous holder of the name is legally deceased and will not be needing it. I enclose the fee (eleven gold, one sheep, one apology).\n\nP.S. Please also transfer the title 'Terror of the Eastern Mountains'.\n\n[The letter stops. There's a large ink blot, as if the writer heard something enormous land outside.]"
+    },
+    {
+      "instance_id": "missing_third_hoard",
+      "type": "quest_pedestal",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -14.3
+      ],
+      "rot_y": -90.0,
+      "prompt": "Recover the Missing Third of the Hoard",
+      "quest_id": "core:quest.missing_third",
+      "set_stage": 40,
+      "grant_items": [
+        "core:item.hoard_third"
+      ],
+      "narration": [
+        "story.missing_third.vault"
+      ]
+    }
+  ],
+  "portals": []
+}

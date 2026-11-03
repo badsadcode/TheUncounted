@@ -1513,6 +1513,60 @@ int GameEngine::RunSelfTest() {
               "officially alive: Dragon's Sigh and one of Cindermaw's scales");
     }
 
+    // --- The Missing Third: Silas rows you to Quillsby's cove; the vault; the hoard back to the dragon
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        const std::string q = "core:quest.missing_third";
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            overlay_ = Overlay::None;
+            return ok;
+        };
+        check(talk("core:npc.dragon_cindermaw", {"mt_start", "root"}) && QuestStage(q) == 10, "Cindermaw: SHOES. CUSHIONS. A HOUSE BY THE SEA, NAMED AFTER MY FUNERAL.");
+        bool rowed = talk("core:npc.silas_gale", {"mt_row1"});
+        UpdateAtmosphere(0.0f, true);
+        check(rowed && QuestStage(q) == 20 && player_.pos.x > 140.0f && zone_id_ == "seaside_house",
+              "Silas rows you round the headland to The Late Cindermaw");
+        UpdateWorldObjects(0.0f);
+        for (auto& c : scene_.creatures)
+            if (c.instance_id.rfind("kobold_", 0) == 0 || c.instance_id == "quillsby_cornered") DamageCreature(c, 9999, false, "swords", false);
+        check(QuestStage(q) == 30, "the bookkeepers are audited and Quillsby is cornered ('Not the shoes...')");
+        container_key_ = "corpse:quillsby_cornered";
+        TakeAllFromContainer();
+        SetOverlay(Overlay::None);
+        check(CountItem("core:item.quillsby_vault_key") == 1, "Quillsby carried the vault key (engraved MINE)");
+        InteractableInstance* door = interactable("quillsby_vault_door");
+        if (door) {
+            Vector3 dc = Vector3Scale(Vector3Add(door->world_box.min, door->world_box.max), 0.5f);
+            standAndUse({dc.x - 1.2f, 0.0f, dc.z}, 90.0f, -10.0f);
+        }
+        check(door && door->open && !door->locked, "the key opens the vault");
+        InteractableInstance* hoard = interactable("missing_third_hoard");
+        if (hoard) {
+            Vector3 hc = Vector3Scale(Vector3Add(hoard->world_box.min, hoard->world_box.max), 0.5f);
+            standAndUse({hc.x - 1.1f, 0.0f, hc.z}, 90.0f, -30.0f);
+            narration_page_ = static_cast<int>(narration_pages_.size());
+            if (overlay_ == Overlay::Narration) AdvanceNarration();
+            SetOverlay(Overlay::None);
+        }
+        check(QuestStage(q) == 40 && CountItem("core:item.hoard_third") == 1, "four thousand gold in sacks stamped INVESTMENTS (and a golden shoe)");
+        check(talk("core:npc.silas_gale", {"mt_home"}) && player_.pos.x < 40.0f && !player_.flags.count("at_seaside"), "Silas rows you home");
+        check(talk("core:npc.dragon_cindermaw", {"mt_done", "root"}) && QuestStage(q) == 100 && CountItem("core:item.quillsby_cufflinks") == 1,
+              "the hoard is whole again; the dragon purrs");
+    }
+
     // --- The Bestiary: kills are counted, Hunter's Insight at ten, kills survive save/load
     {
         int rats = player_.kills["core:enemy.grave_rat"];

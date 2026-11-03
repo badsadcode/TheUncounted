@@ -1113,6 +1113,14 @@ def dragon_icons():
     save_icon(img, "likeness_box")
 
 
+def missing_third_icons():
+    """The Missing Third: Quillsby's vault key, the sacks of gold, the gloating cufflinks."""
+    T = lambda src, dst, mul: tinted(f"assets/ui/items/{src}.png", f"assets/ui/items/{dst}.png", mul)
+    T("annex_key", "quillsby_vault_key", ((1.25, 0.35), (1.0, 0.3), (0.35, 0.15)))
+    T("gold_coins", "hoard_third", ((1.15, 0.4), (0.95, 0.35), (0.45, 0.2)))
+    T("signet_ring", "quillsby_cufflinks", ((1.3, 0.35), (1.05, 0.3), (0.4, 0.15)))
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -1143,6 +1151,7 @@ BUILDERS = {
     "boss_crafting_icons": boss_crafting_icons,
     "druid_icons": druid_icons,
     "dragon_icons": dragon_icons,
+    "missing_third_icons": missing_third_icons,
 }
 
 

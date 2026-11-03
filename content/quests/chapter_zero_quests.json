@@ -1166,6 +1166,60 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.missing_third",
+      "title_key": "quest.mt.title",
+      "summary_key": "quest.mt.summary",
+      "campaign": "dragon_pension",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.mt.stage0",
+          "journal_key": "quest.mt.journal0",
+          "markers": [
+            "npc_dragon_cindermaw"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.mt.stage10",
+          "journal_key": "quest.mt.journal10",
+          "markers": [
+            "npc_silas"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.mt.stage20",
+          "journal_key": "quest.mt.journal20",
+          "markers": [
+            "quillsby_cornered"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.mt.stage30",
+          "journal_key": "quest.mt.journal30",
+          "markers": [
+            "missing_third_hoard"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.mt.stage40",
+          "journal_key": "quest.mt.journal40",
+          "markers": [
+            "npc_dragon_cindermaw"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.mt.stage100",
+          "journal_key": "quest.mt.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [
