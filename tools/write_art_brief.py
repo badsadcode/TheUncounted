@@ -118,7 +118,8 @@ for cat in ("weapon", "armor", "accessory", "consumable", "ammo", "book", "key",
         d = tr(i.get("description_key", ""))
         w(f"| `{os.path.basename(i['icon'])}` | {tr(i['name_key'])} | {d[:220] + ('…' if len(d) > 220 else '')} |")
 
-w("\n## 6. Fire for fireplaces\n")
-w("Already described in `docs/FIRE_SPRITE_BRIEF.md`.\n")
+w("\n## Done, thank you!\n")
+w("Fire (main, small and magic: in the game since 3 Nov), all 62 characters, the world textures, skies and ground "
+  "scatter.\n")
 open(os.path.join(ROOT, "docs", "NOOR_ART_BRIEF.md"), "w").write("\n".join(out) + "\n")
 print("Wrote docs/NOOR_ART_BRIEF.md:", len(items), "items,", len(spells), "spells")

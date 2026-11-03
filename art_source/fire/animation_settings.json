@@ -1,0 +1,119 @@
+[
+  {
+    "file": "fire_flames.png",
+    "width": 640,
+    "height": 64,
+    "frame_width": 64,
+    "frame_height": 64,
+    "frames": 10,
+    "fps": 10,
+    "loop_seconds": 1,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bottom_opaque_pixels": [
+      54,
+      54,
+      54,
+      53,
+      56,
+      52,
+      57,
+      54,
+      54,
+      54
+    ],
+    "consecutive_frame_difference": [
+      17.96,
+      22.85,
+      23.48,
+      22.04,
+      19.93,
+      19.93,
+      15.99,
+      16.33,
+      5.02,
+      3.53
+    ],
+    "sha256": "930ded7d30d4d58ff749c2e6b468878fbb80b2a87aef1a637af5a1aec6ae5f0b"
+  },
+  {
+    "file": "fire_flames_small.png",
+    "width": 640,
+    "height": 64,
+    "frame_width": 64,
+    "frame_height": 64,
+    "frames": 10,
+    "fps": 10,
+    "loop_seconds": 1,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bottom_opaque_pixels": [
+      57,
+      55,
+      55,
+      56,
+      56,
+      55,
+      56,
+      55,
+      55,
+      55
+    ],
+    "consecutive_frame_difference": [
+      5.15,
+      10.41,
+      12.4,
+      9.82,
+      8.13,
+      10.73,
+      15.1,
+      6.07,
+      7.53,
+      6.8
+    ],
+    "sha256": "b24d512420fb13482e6688727e8f70195b5277f3920236c52ca28cfd6ba49e66"
+  },
+  {
+    "file": "fire_flames_magic.png",
+    "width": 640,
+    "height": 64,
+    "frame_width": 64,
+    "frame_height": 64,
+    "frames": 10,
+    "fps": 10,
+    "loop_seconds": 1,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bottom_opaque_pixels": [
+      55,
+      56,
+      55,
+      56,
+      56,
+      55,
+      55,
+      54,
+      56,
+      55
+    ],
+    "consecutive_frame_difference": [
+      11.29,
+      16.96,
+      14.53,
+      11.75,
+      12.85,
+      14.99,
+      13.38,
+      8.35,
+      4.26,
+      7.86
+    ],
+    "sha256": "3372c0648b2fd5b71fea3e2c2d06db08cd096cc7d70d8016576174b5cf821e06"
+  }
+]

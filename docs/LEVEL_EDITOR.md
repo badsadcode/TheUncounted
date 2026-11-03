@@ -109,8 +109,9 @@ export. Put it in any collection; hidden meshes are skipped.
 
 ## Fire, torches and trees
 
-- **Fire**: in the palette, `fire_embers` is just the fire (glowing coals with flames), for fireplaces, forges and
-  under a cauldron; `campfire` has stones and logs. They burn and light their surroundings wherever you put them.
+- **Fire** (Noor's flames): in the palette, `fire_embers` is just the fire (glowing coals with flames) for fireplaces
+  and forges, `fire_embers_small` a calmer cooking fire for under a cauldron, `fire_embers_magic` a blue-green magic
+  fire, and `campfire` has stones and logs. They burn and light their surroundings wherever you put them.
   **Scale** a fire (S) to make it bigger: the flames and the light grow with it (a forge bed can be stretched long).
 - **Torches**: `wall_torch` from the palette brings its flame and light too.
 - **Trees, lamp posts, signposts** (your own or the game's): press **Trunk Collision** in the sidebar. It adds an

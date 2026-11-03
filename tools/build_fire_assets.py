@@ -50,8 +50,11 @@ def build_images():
                 img.putpixel((x, y), (r, g, b, 255 if heat > 0.2 else 170))
         sheet.paste(img.resize((size, size), Image.NEAREST), (f * size, 0))
     out = os.path.join(ROOT, "assets", "sprites", "vfx", "fire_flames.png")
-    sheet.save(out)
-    print("Wrote", out)
+    if os.path.exists(out) and "--placeholder" not in sys.argv:
+        print("Kept", out, "(Noor's flames; pass --placeholder to overwrite with the generated one)")
+    else:
+        sheet.save(out)
+        print("Wrote", out)
 
     tex = Image.new("RGB", (64, 64))
     rnd = random.Random(3)
@@ -69,6 +72,14 @@ def build_images():
     tex = tex.resize((32, 32), Image.NEAREST).resize((64, 64), Image.NEAREST)
     out = os.path.join(ROOT, "assets", "textures", "embers.png")
     tex.save(out)
+    print("Wrote", out)
+    magic = Image.new("RGB", tex.size)                            # the same coals, burning teal (for magic fire)
+    for y in range(tex.height):
+        for x in range(tex.width):
+            r, g, b = tex.getpixel((x, y))
+            magic.putpixel((x, y), (int(b * 0.4), int(r * 0.9), int(r * 0.85)) if r > 90 else (r - 6, g, b + 6))
+    out = os.path.join(ROOT, "assets", "textures", "embers_magic.png")
+    magic.save(out)
     print("Wrote", out)
 
 
@@ -143,6 +154,18 @@ def build_models():
     o = mesh_obj("Embers", ember_bed(0.35, 0.08, 1), embers)
     box_uv(o, 2.5)
     export("assets/models/props/fire_embers.glb")
+
+    # 1b. fire_embers_small.glb: a smaller, calmer bed (0.5 m) for under a cooking pot.
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    o = mesh_obj("Embers", ember_bed(0.25, 0.06, 3), material("MatEmbers", "embers.png"))
+    box_uv(o, 2.5)
+    export("assets/models/props/fire_embers_small.glb")
+
+    # 1c. fire_embers_magic.glb: teal coals for magic fire (shrines, wizards, haunted places).
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    o = mesh_obj("Embers", ember_bed(0.35, 0.08, 4), material("MatEmbersMagic", "embers_magic.png"))
+    box_uv(o, 2.5)
+    export("assets/models/props/fire_embers_magic.glb")
 
     # 2. campfire.glb: a ring of stones, crossed logs and embers, 1.2 m across.
     bpy.ops.wm.read_factory_settings(use_empty=True)

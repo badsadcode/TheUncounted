@@ -425,6 +425,13 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   emitter unless it sets its own (`ContentRegistry::ApplyPropPresets`, after edits). Emitter offset scales with the
   prop's scale, size with max(scale.x, scale.z), light radius with its square root. Noor's brief for a proper flame
   sheet: `docs/FIRE_SPRITE_BRIEF.md`. Maps may leave music/ambience empty (silent).
+  Noor's flames arrived (10 frames of 64 px; main, small, magic; originals in art_source/fire/). Pieces: fire_embers,
+  fire_embers_small, fire_embers_magic (teal coals texture embers_magic.png), campfire. build_fire_assets.py keeps her
+  sheet unless --placeholder.
+- **Portraits**: any assets/ui/portraits/<race>_<calling>_<n>.png appears in the creation picker (race+calling first);
+  PlayerState.portrait is saved. Remaining art is listed in docs/NOOR_ART_BRIEF.md (tools/write_art_brief.py).
+- **The Figure It Out Gang** uses Toasty's spin-off names: Baggy, Bread (was Rodrick), Badnee (Primrose), Karma (Agnes),
+  Doobie (Snacks the owlbear). Internal ids are unchanged (npc.figure_rodrick etc.).
 - **Updating Toasty's copy**: never "just game.exe" (content/assets go stale: an old placeholder dragon showed up). The
   add-on's "Move My Work to New Version" copies edrath_blender.json, assets/models/level, content/maps/custom and
   assets/models/custom into a freshly unzipped build and rebuilds its edrath_world.json = new base + changes.

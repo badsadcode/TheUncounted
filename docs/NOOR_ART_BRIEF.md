@@ -306,7 +306,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `wayside_sage.png` | Wayside Sage | Grey-green, peppery, grows along every road in the Marches. Good for stamina, better for soup. (Crafting material.) |
 | `wolfsbane.png` | Wolfsbane | Purple hooded flowers from the Whistling Wood. Rolf asks that you not wave it near him. Makes wounds that won't close. (Crafting material.) |
 
-## 6. Fire for fireplaces
+## Done, thank you!
 
-Already described in `docs/FIRE_SPRITE_BRIEF.md`.
+Fire (main, small and magic: in the game since 3 Nov), all 62 characters, the world textures, skies and ground scatter.
 

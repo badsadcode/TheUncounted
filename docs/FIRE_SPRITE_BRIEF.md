@@ -1,5 +1,8 @@
 # Brief for Noor: fireplace fire animation
 
+**Done**: Noor delivered `fire_flames.png`, `fire_flames_small.png` and `fire_flames_magic.png` (originals in
+`art_source/fire/`). They are the palette pieces `fire_embers`, `fire_embers_small` and `fire_embers_magic`.
+
 One animated sprite sheet: the flames of a fire in a fireplace, a forge or under a cooking pot. The game shows it
 standing on a bed of glowing embers (a small 3D model), always facing the camera, at full brightness and with a warm
 light around it. (Torches keep their own small flame: this is only for the bigger fires.)
