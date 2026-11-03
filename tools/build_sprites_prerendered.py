@@ -680,6 +680,16 @@ SHEETS = {
         "cloak": (40, 56, 80), "trim": (220, 220, 230), "eye": (200, 240, 255), "glow_eyes": True, "hat": "cap",
         "cap": (40, 50, 70), "weapon": "ledger", "book": (210, 210, 220),
     },
+    "assets/sprites/npcs/impresario_odette.png": {
+        "kind": "humanoid", "robe": True, "body": (236, 200, 176), "armor": (176, 36, 110), "cloak": (210, 168, 60),
+        "trim": (250, 220, 120), "eye": (60, 30, 40), "hat": "witch", "cap": (120, 20, 80), "band": (250, 220, 120),
+        "hair": (200, 80, 50), "weapon": "staff", "orb": (250, 220, 120),
+    },
+    "assets/sprites/npcs/critic_mortimer.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 205, "body": (210, 226, 210), "armor": (90, 110, 96),
+        "cloak": (60, 76, 66), "trim": (230, 240, 230), "eye": (240, 255, 240), "glow_eyes": True, "hat": "fedora",
+        "cap": (50, 60, 56), "band": (160, 30, 40), "weapon": "ledger", "book": (170, 30, 40),
+    },
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),
         "cloak": (110, 190, 222), "trim": (200, 240, 255), "eye": (235, 255, 255), "glow_eyes": True, "hat": "hood",

@@ -356,6 +356,42 @@
       "value": 15,
       "weight": 0.6,
       "book_text_key": "book.field_guide.text"
+    },
+    {
+      "id": "core:item.script_tragedie",
+      "name_key": "item.script_tragedie.name",
+      "description_key": "item.script_tragedie.description",
+      "category": "book",
+      "icon": "assets/ui/items/script_tragedie.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.5,
+      "book_text_key": "book.script_tragedie.text"
+    },
+    {
+      "id": "core:item.thrown_tomato",
+      "name_key": "item.thrown_tomato.name",
+      "description_key": "item.thrown_tomato.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/thrown_tomato.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 1,
+      "weight": 0.2,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 6
+        },
+        {
+          "type": "buff",
+          "stat": "crit_damage_bonus",
+          "value": 0.2,
+          "duration": 120
+        }
+      ]
     }
   ]
 }

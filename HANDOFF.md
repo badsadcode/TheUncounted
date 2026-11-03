@@ -12,7 +12,7 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
 - **Target platform: Windows 10/11 only** (MinGW build). Linux is *not* a shipping target; it is only used as a headless
   test box in cloud sessions (which run Linux and cannot execute `game.exe`). Don't add Linux packaging or Linux-only code.
-- `--validate` → 0 errors; `--selftest` → 0 failures (158 checks); `--balance` → every calling beats every creature
+- `--validate` → 0 errors; `--selftest` → 0 failures (174 checks); `--balance` → every calling beats every creature
   (36/36 at 100%). Last cloud verification 2026-11-02; re-check on Windows after pulling.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
@@ -133,6 +133,27 @@ tracked side quest (`player.tracked_quest`: the latest side quest advanced, or w
 journal). Current campaigns: **Chapter Zero: Legally Deceased** (main + its own side threads), **Tales of Bellwether**
 (rats, Dinner at Eight), **The Hollowmere Mysteries** (Hollis's case files; Case #1 is the haunting — add Case #2...).
 A future main chapter would be a new campaign (`chapter_one`, kind main) with its own quests and regions.
+
+### The Bellwether Players (campaign `bellwether_players`) — written to be read aloud
+
+Toasty streams and likes to read dialogue aloud and roleplay. Write for that: named speakers, script-style lines
+(`ROLF (as Prince Valiant): "..."`), stage directions, distinct voices, roleplay-flavoured choices ([Dramatic],
+[As Sabrino], [Blunt]...), and choices that matter later. Group scenes use per-node `speaker_key` (the dialogue box shows
+that speaker's own name and title).
+
+1. **Act I: Casting Call** (`players_casting`): Madame Odette Velour (south gate) auditions you — your delivery style is
+   remembered (`style_*`) and called back on opening night; recruit ≥4 of `cast_*` (Baggy, Rolf, Ashgrave, Hollis,
+   Sabrino, Marta, Fenwick, Oakhaven — Oakhaven makes you fill in Form 99-T).
+2. **Act II: The Missing Script** (`players_script`): five page readables (Records Office, Old Road pine, Annex archive,
+   Vault III, Hollowmere library — page five starts stage 10 and reveals Mortimer Quill, the ghost critic) → a
+   three-round "duel of criticism" (`critic_r1..3`; the right answer to round three is in the margins) → script back.
+3. **Act III: Dress Rehearsal** (`players_rehearsal`): Odette moves to the Hollowmere ballroom (second NPC instance,
+   `players_at_hollowmere`); solve ≥3 backstage dramas (one per cast member, `reh_*`), then props: crown (Fenwick's paper
+   crown or the Rat King's crown), dragon (Vaelen), bang (Sabrino or Oakhaven's confiscated thunder sheet).
+4. **Act IV: Opening Night** (`players_opening`): the play as an interactive script; `show_good_1..6` tally the good
+   moments → three bows/endings (triumph ≥5, good ≥3, glorious disaster), each with Mortimer's review read in narration.
+`tools/authoring/players_campaign.py` is the (already-run, do-not-rerun) authoring script — copy its `Dlg` helper for new long dialogue.
+Engine additions: condition `flags_fewer_than`; dialogue box shows the node speaker's own title.
 
 ### Story canon (keep new writing consistent with this)
 

@@ -146,6 +146,36 @@
               "next": "invite_dinner"
             },
             {
+              "text_key": "dlg.clerk.players.topic_cast_oakhaven",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_oakhaven"
+                }
+              ],
+              "next": "cast_oakhaven"
+            },
+            {
+              "text_key": "dlg.clerk.players.topic_prop_thunder",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "prop_effects"
+                }
+              ],
+              "next": "prop_thunder"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -446,6 +476,99 @@
               "next": "greeting"
             }
           ]
+        },
+        "cast_oakhaven": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.players.cast_oakhaven",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.players.cast_oakhaven.c0",
+              "next": "form_2"
+            },
+            {
+              "text_key": "dlg.clerk.players.cast_oakhaven.c1",
+              "next": "form_2"
+            },
+            {
+              "text_key": "dlg.clerk.players.cast_oakhaven.c2",
+              "next": "form_2"
+            }
+          ]
+        },
+        "form_2": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.players.form_2",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.players.form_2.c0",
+              "next": "form_3"
+            },
+            {
+              "text_key": "dlg.clerk.players.form_2.c1",
+              "next": "form_3"
+            },
+            {
+              "text_key": "dlg.clerk.players.form_2.c2",
+              "next": "form_3"
+            }
+          ]
+        },
+        "form_3": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.players.form_3",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.players.form_3.c0",
+              "next": "form_done"
+            },
+            {
+              "text_key": "dlg.clerk.players.form_3.c1",
+              "next": "form_done"
+            },
+            {
+              "text_key": "dlg.clerk.players.form_3.c2",
+              "next": "form_done"
+            }
+          ]
+        },
+        "form_done": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.players.form_done",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "cast_oakhaven",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.players.form_done.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "prop_thunder": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.clerk.players.prop_thunder",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "prop_effects",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.thunder_sheet",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.players.prop_thunder.c0",
+              "next": "greeting"
+            }
+          ]
         }
       }
     },
@@ -540,6 +663,21 @@
                   "flag": "vaelen_bucket"
                 }
               ]
+            },
+            {
+              "text_key": "dlg.vaelen.players.topic_prop_dragon",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "prop_dragon"
+                }
+              ],
+              "next": "prop_dragon"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -750,6 +888,28 @@
               "next": "root"
             }
           ]
+        },
+        "prop_dragon": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.vaelen.players.prop_dragon",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "prop_dragon",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.dragon_costume",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.vaelen.players.prop_dragon.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -910,6 +1070,21 @@
                 }
               ],
               "next": "invite_dinner"
+            },
+            {
+              "text_key": "dlg.marta.players.topic_cast_marta",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_marta"
+                }
+              ],
+              "next": "cast_marta"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -1195,6 +1370,23 @@
               "next": "root"
             }
           ]
+        },
+        "cast_marta": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.marta.players.cast_marta",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "cast_marta",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.marta.players.cast_marta.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -1252,6 +1444,36 @@
                 }
               ],
               "next": "invite_dinner"
+            },
+            {
+              "text_key": "dlg.fenwick.players.topic_cast_fenwick",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_fenwick"
+                }
+              ],
+              "next": "cast_fenwick"
+            },
+            {
+              "text_key": "dlg.fenwick.players.topic_prop_crown",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "prop_crown"
+                }
+              ],
+              "next": "prop_crown"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -1355,6 +1577,45 @@
           "choices": [
             {
               "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "cast_fenwick": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.players.cast_fenwick",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "cast_fenwick",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.fenwick.players.cast_fenwick.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "prop_crown": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.fenwick.players.prop_crown",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "prop_crown",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.paper_crown",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.fenwick.players.prop_crown.c0",
               "next": "root"
             }
           ]
@@ -1975,6 +2236,21 @@
               ]
             },
             {
+              "text_key": "dlg.baggy.players.topic_cast_baggy",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_baggy"
+                }
+              ],
+              "next": "cast_baggy"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -2196,6 +2472,23 @@
               "next": "root"
             }
           ]
+        },
+        "cast_baggy": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.players.cast_baggy",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "cast_baggy",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.players.cast_baggy.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -2341,6 +2634,36 @@
                 }
               ],
               "next": "END"
+            },
+            {
+              "text_key": "dlg.sabrino.players.topic_cast_sabrino",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_sabrino"
+                }
+              ],
+              "next": "cast_sabrino"
+            },
+            {
+              "text_key": "dlg.sabrino.players.topic_prop_bang",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "prop_effects"
+                }
+              ],
+              "next": "prop_bang"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -2555,6 +2878,45 @@
               "next": "root"
             }
           ]
+        },
+        "cast_sabrino": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.players.cast_sabrino",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "cast_sabrino",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.sabrino.players.cast_sabrino.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "prop_bang": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.players.prop_bang",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "prop_effects",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.fireworks",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.sabrino.players.prop_bang.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -2698,6 +3060,21 @@
             {
               "text_key": "dlg.hollis.choice_knee",
               "next": "knee"
+            },
+            {
+              "text_key": "dlg.hollis.players.topic_cast_hollis",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_hollis"
+                }
+              ],
+              "next": "cast_hollis"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -3075,6 +3452,59 @@
               "next": "root"
             }
           ]
+        },
+        "cast_hollis": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.players.cast_hollis",
+          "choices": [
+            {
+              "text_key": "dlg.hollis.players.cast_hollis.c0",
+              "next": "cast_hollis_yes",
+              "roll": {
+                "skill": "persuasion",
+                "dc": 13,
+                "fail_next": "cast_hollis_cards"
+              }
+            },
+            {
+              "text_key": "dlg.hollis.players.cast_hollis.c1",
+              "next": "cast_hollis_yes"
+            }
+          ]
+        },
+        "cast_hollis_yes": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.players.cast_hollis_yes",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "cast_hollis",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.players.cast_hollis_yes.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "cast_hollis_cards": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.hollis.players.cast_hollis_cards",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "cast_hollis",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.hollis.players.cast_hollis_cards.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -3124,6 +3554,21 @@
                   "flag": "team_chosen"
                 }
               ]
+            },
+            {
+              "text_key": "dlg.ashgrave.players.topic_cast_ashgrave",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_ashgrave"
+                }
+              ],
+              "next": "cast_ashgrave"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -3271,6 +3716,34 @@
               "next": "root"
             }
           ]
+        },
+        "cast_ashgrave": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.ashgrave.players.cast_ashgrave",
+          "choices": [
+            {
+              "text_key": "dlg.ashgrave.players.cast_ashgrave.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "cast_ashgrave",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ashgrave.players.cast_ashgrave.c1",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "cast_ashgrave",
+                  "value": true
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -3348,6 +3821,21 @@
                   "flag": "rolf_thanked"
                 }
               ]
+            },
+            {
+              "text_key": "dlg.rolf.players.topic_cast_rolf",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_rolf"
+                }
+              ],
+              "next": "cast_rolf"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -3450,6 +3938,34 @@
             {
               "text_key": "dlg.clerk.choice_back",
               "next": "root"
+            }
+          ]
+        },
+        "cast_rolf": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.rolf.players.cast_rolf",
+          "choices": [
+            {
+              "text_key": "dlg.rolf.players.cast_rolf.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "cast_rolf",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.rolf.players.cast_rolf.c1",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "cast_rolf",
+                  "value": true
+                }
+              ]
             }
           ]
         }
@@ -3681,6 +4197,2398 @@
             {
               "text_key": "dlg.clerk.choice_back",
               "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.odette",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.root",
+          "choices": [
+            {
+              "text_key": "dlg.odette.root.c0",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.odette.root.c1",
+              "next": "aud_1",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c2",
+              "next": "cast_status",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c3",
+              "next": "cast_done",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_casting",
+                  "stage": 10
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "cast_baggy",
+                    "cast_rolf",
+                    "cast_ashgrave",
+                    "cast_hollis",
+                    "cast_sabrino",
+                    "cast_marta",
+                    "cast_fenwick",
+                    "cast_oakhaven"
+                  ],
+                  "value": 4
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c4",
+              "next": "script_status",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.players_script",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.players_script",
+                  "stage": 20
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c5",
+              "next": "script_back",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_script",
+                  "stage": 20
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c6",
+              "next": "reh_hub",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c7",
+              "next": "props_status",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c8",
+              "next": "props_done",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 10
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "prop_crown",
+                    "prop_dragon",
+                    "prop_effects"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c9",
+              "next": "show_open",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_opening",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c10",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.players_opening",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.root.c11",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.who",
+          "choices": [
+            {
+              "text_key": "dlg.odette.who.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "aud_1": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.aud_1",
+          "choices": [
+            {
+              "text_key": "dlg.odette.aud_1.c0",
+              "next": "aud_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "style_dramatic",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.aud_1.c1",
+              "next": "aud_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "style_whisper",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.aud_1.c2",
+              "next": "aud_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "style_sabrino",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.aud_1.c3",
+              "next": "aud_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "style_baggy",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.aud_1.c4",
+              "next": "aud_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "style_hollis",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "aud_2": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.aud_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.aud_2.c0",
+              "next": "aud_win",
+              "actions": [
+                {
+                  "type": "give_xp",
+                  "skill": "persuasion",
+                  "amount": 30
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 12,
+                "fail_next": "aud_flub"
+              }
+            },
+            {
+              "text_key": "dlg.odette.aud_2.c1",
+              "next": "aud_safe"
+            }
+          ]
+        },
+        "aud_win": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.aud_win",
+          "choices": [
+            {
+              "text_key": "dlg.odette.aud_win.c0",
+              "next": "aud_3"
+            }
+          ]
+        },
+        "aud_flub": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.aud_flub",
+          "choices": [
+            {
+              "text_key": "dlg.odette.aud_flub.c0",
+              "next": "aud_3"
+            }
+          ]
+        },
+        "aud_safe": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.aud_safe",
+          "choices": [
+            {
+              "text_key": "dlg.odette.aud_safe.c0",
+              "next": "aud_3"
+            }
+          ]
+        },
+        "aud_3": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.aud_3",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_casting",
+              "stage": 10
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.aud_3.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "cast_status": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.cast_status",
+          "choices": [
+            {
+              "text_key": "dlg.odette.cast_status.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "cast_done": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.cast_done",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_casting",
+              "stage": 100
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.cast_done.c0",
+              "next": "stolen"
+            }
+          ]
+        },
+        "stolen": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.stolen",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_script",
+              "stage": 0
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.stolen.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "script_status": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.script_status",
+          "choices": [
+            {
+              "text_key": "dlg.odette.script_status.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "script_back": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.script_back",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_script",
+              "stage": 100
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_rehearsal",
+              "stage": 0
+            },
+            {
+              "type": "set_flag",
+              "flag": "players_at_hollowmere",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.script_tragedie",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.script_back.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "reh_hub": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_hub",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_hub.c0",
+              "next": "reh_rolf",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_rolf"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_rolf"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c1",
+              "next": "reh_ashgrave",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_ashgrave"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_ashgrave"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c2",
+              "next": "reh_hollis",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_hollis"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_hollis"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c3",
+              "next": "reh_baggy",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_baggy"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_baggy"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c4",
+              "next": "reh_sabrino",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_sabrino"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_sabrino"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c5",
+              "next": "reh_marta",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_marta"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_marta"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c6",
+              "next": "reh_fenwick",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_fenwick"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_fenwick"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c7",
+              "next": "reh_oakhaven",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_oakhaven"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "reh_oakhaven"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c8",
+              "next": "reh_done",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "reh_baggy",
+                    "reh_rolf",
+                    "reh_ashgrave",
+                    "reh_hollis",
+                    "reh_sabrino",
+                    "reh_marta",
+                    "reh_fenwick",
+                    "reh_oakhaven"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hub.c9",
+              "next": "END"
+            }
+          ]
+        },
+        "reh_rolf": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.odette.reh_rolf",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_rolf.c0",
+              "next": "reh_rolf_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_rolf",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_rolf.c1",
+              "next": "reh_rolf_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_rolf",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_rolf.c2",
+              "next": "reh_rolf_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_rolf",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_rolf_2": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.odette.reh_rolf_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_rolf_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_rolf_3": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_rolf_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_rolf_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_rolf_4": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_rolf_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_rolf_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_ashgrave": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.odette.reh_ashgrave",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_ashgrave.c0",
+              "next": "reh_ash_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_ashgrave",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_ashgrave.c1",
+              "next": "reh_ash_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_ashgrave",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_ashgrave.c2",
+              "next": "reh_ash_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_ashgrave",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_ash_2": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.odette.reh_ash_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_ash_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_ash_3": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_ash_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_ash_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_ash_4": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.odette.reh_ash_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_ash_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_hollis": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.odette.reh_hollis",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_hollis.c0",
+              "next": "reh_hol_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_hollis",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hollis.c1",
+              "next": "reh_hol_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_hollis",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_hollis.c2",
+              "next": "reh_hol_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_hollis",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_hol_2": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_hol_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_hol_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_hol_3": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.odette.reh_hol_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_hol_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_hol_4": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.odette.reh_hol_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_hol_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_baggy": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.odette.reh_baggy",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_baggy.c0",
+              "next": "reh_bag_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_baggy",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_baggy.c1",
+              "next": "reh_bag_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_baggy",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_baggy.c2",
+              "next": "reh_bag_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_baggy",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_bag_2": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.odette.reh_bag_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_bag_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_bag_3": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.odette.reh_bag_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_bag_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_bag_4": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.odette.reh_bag_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_bag_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_sabrino": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.odette.reh_sabrino",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_sabrino.c0",
+              "next": "reh_sab_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_sabrino",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_sabrino.c1",
+              "next": "reh_sab_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_sabrino",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_sabrino.c2",
+              "next": "reh_sab_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_sabrino",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_sab_2": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.odette.reh_sab_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_sab_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_sab_3": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.odette.reh_sab_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_sab_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_sab_4": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.odette.reh_sab_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_sab_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_marta": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.odette.reh_marta",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_marta.c0",
+              "next": "reh_mar_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_marta",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_marta.c1",
+              "next": "reh_mar_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_marta",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_marta.c2",
+              "next": "reh_mar_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_marta",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_mar_2": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.odette.reh_mar_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_mar_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_mar_3": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_mar_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_mar_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_mar_4": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.odette.reh_mar_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_mar_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_fenwick": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.odette.reh_fenwick",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_fenwick.c0",
+              "next": "reh_fen_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_fenwick",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_fenwick.c1",
+              "next": "reh_fen_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_fenwick",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_fenwick.c2",
+              "next": "reh_fen_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_fenwick",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_fen_2": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_fen_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_fen_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_fen_3": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.odette.reh_fen_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_fen_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_fen_4": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.odette.reh_fen_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_fen_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_oakhaven": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.odette.reh_oakhaven",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_oakhaven.c0",
+              "next": "reh_oak_2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_oakhaven",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_oakhaven.c1",
+              "next": "reh_oak_3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_oakhaven",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.reh_oakhaven.c2",
+              "next": "reh_oak_4",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "reh_oakhaven",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "reh_oak_2": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.odette.reh_oak_2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_oak_2.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_oak_3": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.odette.reh_oak_3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_oak_3.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_oak_4": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.odette.reh_oak_4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_oak_4.c0",
+              "next": "reh_hub"
+            }
+          ]
+        },
+        "reh_done": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.reh_done",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_rehearsal",
+              "stage": 10
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.reh_done.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "props_status": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.props_status",
+          "choices": [
+            {
+              "text_key": "dlg.odette.props_status.c0",
+              "next": "props_ratcrown",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.rat_crown"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "prop_crown"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.props_status.c1",
+              "next": "root"
+            }
+          ]
+        },
+        "props_ratcrown": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.props_ratcrown",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "prop_crown",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "prop_real_crown",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.props_ratcrown.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "props_done": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.props_done",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_rehearsal",
+              "stage": 100
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_opening",
+              "stage": 0
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.props_done.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "show_open": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.show_open",
+          "choices": [
+            {
+              "text_key": "dlg.odette.show_open.c0",
+              "next": "act1",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_1",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.show_open.c1",
+              "next": "act1",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_1",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.show_open.c2",
+              "next": "act1_freeze"
+            }
+          ]
+        },
+        "act1_freeze": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act1_freeze",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act1_freeze.c0",
+              "next": "act1"
+            }
+          ]
+        },
+        "act1": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act1",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act1.c0",
+              "next": "act2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_2",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act1.c1",
+              "next": "act1_laugh"
+            },
+            {
+              "text_key": "dlg.odette.act1.c2",
+              "next": "act1_style"
+            }
+          ]
+        },
+        "act1_laugh": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act1_laugh",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "show_good_2",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.act1_laugh.c0",
+              "next": "act2"
+            }
+          ]
+        },
+        "act1_style": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act1_style",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act1_style.c0",
+              "next": "act2",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_dramatic"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_2",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act1_style.c1",
+              "next": "act2",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_whisper"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_2",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act1_style.c2",
+              "next": "act2",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_sabrino"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_2",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act1_style.c3",
+              "next": "act2",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_baggy"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_2",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act1_style.c4",
+              "next": "act2",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_hollis"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_2",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "act2": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act2",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act2.c0",
+              "next": "act2_pair",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_rolf"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "cast_ashgrave"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act2.c1",
+              "next": "act2_solo",
+              "conditions": [
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "cast_rolf",
+                    "cast_ashgrave"
+                  ],
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        "act2_pair": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act2_pair",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act2_pair.c0",
+              "next": "act3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_3",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act2_pair.c1",
+              "next": "act2_moment"
+            },
+            {
+              "text_key": "dlg.odette.act2_pair.c2",
+              "next": "act3"
+            }
+          ]
+        },
+        "act2_moment": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act2_moment",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "show_good_3",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.act2_moment.c0",
+              "next": "act3"
+            }
+          ]
+        },
+        "act2_solo": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act2_solo",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act2_solo.c0",
+              "next": "act3",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_3",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "athletics",
+                "dc": 10,
+                "fail_next": "act3"
+              }
+            }
+          ]
+        },
+        "act3": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act3",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act3.c0",
+              "next": "act3_hollis",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_hollis"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act3.c1",
+              "next": "act3_blanket",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_hollis"
+                }
+              ]
+            }
+          ]
+        },
+        "act3_hollis": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act3_hollis",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act3_hollis.c0",
+              "next": "act3_fx",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_4",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "athletics",
+                "dc": 12,
+                "fail_next": "act3_fall"
+              }
+            },
+            {
+              "text_key": "dlg.odette.act3_hollis.c1",
+              "next": "act3_fx",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_4",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "act3_blanket": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act3_blanket",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act3_blanket.c0",
+              "next": "act3_fx",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_4",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "athletics",
+                "dc": 12,
+                "fail_next": "act3_fall"
+              }
+            },
+            {
+              "text_key": "dlg.odette.act3_blanket.c1",
+              "next": "act3_fx",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_4",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "act3_fall": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act3_fall",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act3_fall.c0",
+              "next": "act3_fx"
+            }
+          ]
+        },
+        "act3_fx": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act3_fx",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act3_fx.c0",
+              "next": "act3_bang",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "cast_sabrino"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act3_fx.c1",
+              "next": "act3_thunder",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "cast_sabrino"
+                }
+              ]
+            }
+          ]
+        },
+        "act3_bang": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act3_bang",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "show_good_5",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.act3_bang.c0",
+              "next": "act4"
+            }
+          ]
+        },
+        "act3_thunder": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act3_thunder",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "show_good_5",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.act3_thunder.c0",
+              "next": "act4"
+            }
+          ]
+        },
+        "act4": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act4",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act4.c0",
+              "next": "act4_speech"
+            },
+            {
+              "text_key": "dlg.odette.act4.c1",
+              "next": "act4_heart"
+            },
+            {
+              "text_key": "dlg.odette.act4.c2",
+              "next": "act4_style"
+            }
+          ]
+        },
+        "act4_speech": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act4_speech",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act4_speech.c0",
+              "next": "act4_counted",
+              "roll": {
+                "skill": "persuasion",
+                "dc": 14,
+                "fail_next": "act4_cucumber"
+              }
+            }
+          ]
+        },
+        "act4_heart": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act4_heart",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act4_heart.c0",
+              "next": "act4_counted",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_6",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 10,
+                "fail_next": "act4_counted"
+              }
+            }
+          ]
+        },
+        "act4_style": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act4_style",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act4_style.c0",
+              "next": "act4_counted",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_dramatic"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_6",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act4_style.c1",
+              "next": "act4_counted",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_whisper"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_6",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act4_style.c2",
+              "next": "act4_counted",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_sabrino"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_6",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act4_style.c3",
+              "next": "act4_counted",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_baggy"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_6",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.act4_style.c4",
+              "next": "act4_counted",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "style_hollis"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "show_good_6",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "act4_cucumber": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act4_cucumber",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "show_good_6",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.act4_cucumber.c0",
+              "next": "bow_hub"
+            }
+          ]
+        },
+        "act4_counted": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.act4_counted",
+          "choices": [
+            {
+              "text_key": "dlg.odette.act4_counted.c0",
+              "next": "bow_hub"
+            }
+          ]
+        },
+        "bow_hub": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.bow_hub",
+          "choices": [
+            {
+              "text_key": "dlg.odette.bow_hub.c0",
+              "next": "bow_triumph",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "show_good_1",
+                    "show_good_2",
+                    "show_good_3",
+                    "show_good_4",
+                    "show_good_5",
+                    "show_good_6"
+                  ],
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.bow_hub.c1",
+              "next": "bow_good",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "show_good_1",
+                    "show_good_2",
+                    "show_good_3",
+                    "show_good_4",
+                    "show_good_5",
+                    "show_good_6"
+                  ],
+                  "value": 3
+                },
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "show_good_1",
+                    "show_good_2",
+                    "show_good_3",
+                    "show_good_4",
+                    "show_good_5",
+                    "show_good_6"
+                  ],
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.odette.bow_hub.c2",
+              "next": "bow_disaster",
+              "conditions": [
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "show_good_1",
+                    "show_good_2",
+                    "show_good_3",
+                    "show_good_4",
+                    "show_good_5",
+                    "show_good_6"
+                  ],
+                  "value": 3
+                }
+              ]
+            }
+          ]
+        },
+        "bow_triumph": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.bow_triumph",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_opening",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.mask_uncounted",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 150
+            },
+            {
+              "type": "give_gold",
+              "amount": 200
+            },
+            {
+              "type": "set_flag",
+              "flag": "show_triumph",
+              "value": true
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.show.curtain"
+                },
+                {
+                  "key": "story.show.review_triumph"
+                },
+                {
+                  "key": "story.show.after"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.bow_triumph.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "bow_good": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.bow_good",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_opening",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.mask_uncounted",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 150
+            },
+            {
+              "type": "give_gold",
+              "amount": 120
+            },
+            {
+              "type": "set_flag",
+              "flag": "show_good",
+              "value": true
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.show.curtain"
+                },
+                {
+                  "key": "story.show.review_good"
+                },
+                {
+                  "key": "story.show.after"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.bow_good.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "bow_disaster": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.bow_disaster",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_opening",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.mask_uncounted",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 150
+            },
+            {
+              "type": "give_gold",
+              "amount": 60
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.thrown_tomato",
+              "qty": 3
+            },
+            {
+              "type": "set_flag",
+              "flag": "show_disaster",
+              "value": true
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.show.curtain"
+                },
+                {
+                  "key": "story.show.review_disaster"
+                },
+                {
+                  "key": "story.show.after"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.odette.bow_disaster.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.odette.name",
+          "text_key": "dlg.odette.after",
+          "choices": [
+            {
+              "text_key": "dlg.odette.after.c0",
+              "next": "root"
+            },
+            {
+              "text_key": "dlg.odette.after.c1",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.mortimer",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.root",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.root.c0",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.mortimer.root.c1",
+              "next": "review"
+            },
+            {
+              "text_key": "dlg.mortimer.root.c2",
+              "next": "duel_1",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.players_script",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mortimer.root.c3",
+              "next": "coming",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.players_rehearsal",
+                  "stage": 0
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.players_opening",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mortimer.root.c4",
+              "next": "after_show",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.players_opening",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mortimer.root.c5",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.who",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.who.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "review": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.review",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.review.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "duel_1": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_1",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_1.c0",
+              "next": "duel_1w",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "critic_r1",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "lore",
+                "dc": 11,
+                "fail_next": "duel_1l"
+              }
+            },
+            {
+              "text_key": "dlg.mortimer.duel_1.c1",
+              "next": "duel_1w",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "critic_r1",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "duel_1w": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_1w",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_1w.c0",
+              "next": "duel_2"
+            }
+          ]
+        },
+        "duel_1l": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_1l",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_1l.c0",
+              "next": "duel_2"
+            }
+          ]
+        },
+        "duel_2": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_2",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_2.c0",
+              "next": "duel_2w",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "critic_r2",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 13,
+                "fail_next": "duel_2l"
+              }
+            },
+            {
+              "text_key": "dlg.mortimer.duel_2.c1",
+              "next": "duel_2l"
+            }
+          ]
+        },
+        "duel_2w": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_2w",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_2w.c0",
+              "next": "duel_3"
+            }
+          ]
+        },
+        "duel_2l": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_2l",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_2l.c0",
+              "next": "duel_3"
+            }
+          ]
+        },
+        "duel_3": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_3",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_3.c0",
+              "next": "duel_3l"
+            },
+            {
+              "text_key": "dlg.mortimer.duel_3.c1",
+              "next": "duel_3l"
+            },
+            {
+              "text_key": "dlg.mortimer.duel_3.c2",
+              "next": "duel_3w",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "critic_r3",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mortimer.duel_3.c3",
+              "next": "duel_3l"
+            }
+          ]
+        },
+        "duel_3w": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_3w",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_3w.c0",
+              "next": "verdict"
+            }
+          ]
+        },
+        "duel_3l": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.duel_3l",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.duel_3l.c0",
+              "next": "verdict"
+            }
+          ]
+        },
+        "verdict": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.verdict",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.verdict.c0",
+              "next": "verdict_win",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "critic_r1",
+                    "critic_r2",
+                    "critic_r3"
+                  ],
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mortimer.verdict.c1",
+              "next": "verdict_lose",
+              "conditions": [
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "critic_r1",
+                    "critic_r2",
+                    "critic_r3"
+                  ],
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        "verdict_win": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.verdict_win",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "script_recovered",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_script",
+              "stage": 20
+            },
+            {
+              "type": "set_flag",
+              "flag": "critic_respect",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 60
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.verdict_win.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "verdict_lose": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.verdict_lose",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "script_recovered",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.players_script",
+              "stage": 20
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.verdict_lose.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "coming": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.coming",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.coming.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "after_show": {
+          "speaker_key": "npc.mortimer.name",
+          "text_key": "dlg.mortimer.after_show",
+          "choices": [
+            {
+              "text_key": "dlg.mortimer.after_show.c0",
+              "next": "root"
+            },
+            {
+              "text_key": "dlg.mortimer.after_show.c1",
+              "next": "END"
             }
           ]
         }

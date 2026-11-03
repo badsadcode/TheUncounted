@@ -728,6 +728,21 @@
       "quest_id": "core:quest.dinner_at_eight",
       "set_stage": 0,
       "set_flag": "sabrino_in_town"
+    },
+    {
+      "instance_id": "script_page_2",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -6.0,
+        1.6,
+        -8.35
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Two",
+      "text": "ACT TWO, SCENE ONE. A haunted battlement. Moonlight.\n\nPRINCE VALIANT: Spectre! Release the King!\n\nGHOST OF THE OLD KING: Never! For I too was forgotten, and I will not be forgotten alone!\n\nPRINCE VALIANT: Then have at thee!\n\n(They duel. It goes on for some time.)\n\n(It goes on for a bit longer.)\n\n[Margin, red ink: 'These two are clearly in love. The playwright appears to be the only person in the audience who has not noticed. - M.Q.']\n\nThe page has been nailed to a pine tree, at exactly the height of a critic's top hat.",
+      "set_flag": "page_2"
     }
   ],
   "portals": [

@@ -598,6 +598,82 @@ int GameEngine::RunSelfTest() {
         check(player_.tracked_quest.empty(), "unknown quests don't steal the HUD");
     }
 
+    // --- The Bellwether Players: the whole four-act campaign
+    {
+        const std::string q1 = "core:quest.players_casting", q2 = "core:quest.players_script", q3 = "core:quest.players_rehearsal",
+                          q4 = "core:quest.players_opening";
+        auto visibleNpc = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visibleNpc(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            EndDialogue();
+            return ok;
+        };
+        check(talk("core:npc.odette", {"aud_1", "aud_2", "aud_safe", "aud_3"}) && QuestStage(q1) == 10 && player_.flags.count("style_dramatic"),
+              "Act I: auditioned for Odette and got the lead");
+        bool recruited = talk("core:npc.detective_baggy", {"cast_baggy"}) && talk("core:npc.innkeeper_marta", {"cast_marta"}) &&
+                         talk("core:npc.librarian_fenwick", {"cast_fenwick"}) &&
+                         talk("core:npc.clerk_oakhaven", {"cast_oakhaven", "form_2", "form_3", "form_done"}) &&
+                         talk("core:npc.hunter_hollis", {"cast_hollis"}) && talk("core:npc.werewolf_rolf", {"cast_rolf", "root"}) &&
+                         talk("core:npc.vampire_ashgrave", {"cast_ashgrave", "root"});
+        int dragonAnswer = visibleNpc("core:npc.hunter_hollis");
+        if (dragonAnswer >= 0 && !player_.flags.count("cast_hollis")) {  // the dragon question rolls; either answer recruits him
+            StartDialogue(dragonAnswer);
+            chooseNext("cast_hollis");
+            if (!chooseNext("cast_hollis_yes")) chooseNext("cast_hollis_cards");
+            EndDialogue();
+        }
+        check(recruited && player_.flags.count("cast_hollis"), "recruited the cast (Oakhaven via Form 99-T)");
+        check(talk("core:npc.odette", {"cast_done", "stolen"}) && QuestStage(q1) == 100 && QuestStage(q2) == 0, "the script is stolen");
+        int mi = visibleNpc("core:npc.mortimer");
+        check(mi < 0, "Mortimer stays hidden until his page is found");
+        player_.flags.insert("critic_revealed");
+        SetQuestStage(q2, 10);
+        mi = visibleNpc("core:npc.mortimer");
+        check(mi >= 0, "Mortimer Quill appears in the library");
+        StartDialogue(mi);
+        bool duel = chooseNext("duel_1") && (chooseNext("duel_1w"));
+        if (dialogue_node_ == "duel_1l") duel = chooseNext("duel_2");
+        else duel = duel && chooseNext("duel_2");
+        if (!chooseNext("duel_2w")) chooseNext("duel_2l");
+        if (dialogue_node_ == "duel_2w" || dialogue_node_ == "duel_2l") chooseNext("duel_3");
+        duel = duel && chooseNext("duel_3w") && chooseNext("verdict");
+        duel = duel && (chooseNext("verdict_win") || chooseNext("verdict_lose"));
+        EndDialogue();
+        check(duel && QuestStage(q2) == 20 && player_.flags.count("critic_r3"), "Act II: won the script back in a duel of criticism");
+        check(talk("core:npc.odette", {"script_back"}) && QuestStage(q3) == 0 && CountItem("core:item.script_tragedie") == 1,
+              "the script goes home; rehearsals move to Hollowmere");
+        check(visibleNpc("core:npc.odette") >= 0 && scene_.npcs[visibleNpc("core:npc.odette")].instance_id == "npc_odette_stage",
+              "Odette is now in the Hollowmere ballroom");
+        bool reh = talk("core:npc.odette", {"reh_hub", "reh_baggy", "reh_bag_2", "reh_hub", "reh_marta", "reh_mar_2", "reh_hub",
+                                            "reh_hollis", "reh_hol_4", "reh_hub", "reh_done"});
+        check(reh && QuestStage(q3) == 10, "Act III: survived the dress rehearsal");
+        bool props = talk("core:npc.librarian_fenwick", {"prop_crown"}) && talk("core:npc.merchant_vaelen", {"prop_dragon"}) &&
+                     talk("core:npc.clerk_oakhaven", {"prop_thunder"});
+        check(props && talk("core:npc.odette", {"props_done"}) && QuestStage(q4) == 0, "crown, dragon and something that goes bang");
+        int oi = visibleNpc("core:npc.odette");
+        StartDialogue(oi);
+        bool show = chooseNext("show_open") && chooseNext("act1") && chooseNext("act2") && chooseNext("act2_pair") && chooseNext("act2_moment") &&
+                    chooseNext("act3") && chooseNext("act3_hollis") && chooseNext("act3_fx") &&
+                    (dialogue_node_ != "act3_fall" || chooseNext("act3_fx")) && chooseNext("act3_thunder") &&
+                    chooseNext("act4") && chooseNext("act4_heart") && chooseNext("act4_counted") && chooseNext("bow_hub");
+        show = show && (chooseNext("bow_triumph") || chooseNext("bow_good") || chooseNext("bow_disaster"));
+        check(show && QuestStage(q4) == 100 && CountItem("core:item.mask_uncounted") == 1, "Act IV: opening night, and a mask to keep");
+        check(overlay_ == Overlay::Narration && narration_pages_.size() == 3, "the curtain call, Mortimer's review, and after");
+        narration_page_ = static_cast<int>(narration_pages_.size());
+        AdvanceNarration();
+        EndDialogue();
+        check(screen_ == Screen::Playing, "the show doesn't end the chapter");
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

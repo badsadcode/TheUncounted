@@ -196,6 +196,102 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.players_casting",
+      "title_key": "quest.casting.title",
+      "summary_key": "quest.casting.summary",
+      "campaign": "bellwether_players",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.casting.stage0",
+          "journal_key": "quest.casting.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.casting.stage10",
+          "journal_key": "quest.casting.journal10"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.casting.stage100",
+          "journal_key": "quest.casting.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.players_script",
+      "title_key": "quest.script.title",
+      "summary_key": "quest.script.summary",
+      "campaign": "bellwether_players",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.script.stage0",
+          "journal_key": "quest.script.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.script.stage10",
+          "journal_key": "quest.script.journal10"
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.script.stage20",
+          "journal_key": "quest.script.journal20"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.script.stage100",
+          "journal_key": "quest.script.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.players_rehearsal",
+      "title_key": "quest.rehearsal.title",
+      "summary_key": "quest.rehearsal.summary",
+      "campaign": "bellwether_players",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.rehearsal.stage0",
+          "journal_key": "quest.rehearsal.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.rehearsal.stage10",
+          "journal_key": "quest.rehearsal.journal10"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.rehearsal.stage100",
+          "journal_key": "quest.rehearsal.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.players_opening",
+      "title_key": "quest.opening.title",
+      "summary_key": "quest.opening.summary",
+      "campaign": "bellwether_players",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.opening.stage0",
+          "journal_key": "quest.opening.journal0"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.opening.stage100",
+          "journal_key": "quest.opening.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [
@@ -219,6 +315,13 @@
       "desc_key": "campaign.hollowmere.desc",
       "kind": "side",
       "order": 30
+    },
+    {
+      "id": "bellwether_players",
+      "name_key": "campaign.players.name",
+      "desc_key": "campaign.players.desc",
+      "kind": "side",
+      "order": 25
     }
   ]
 }

@@ -1794,6 +1794,63 @@
       }
     },
     {
+      "id": "stage",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        6.0,
+        0.0,
+        14.7
+      ],
+      "scale": [
+        11.0,
+        0.35,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4,
+        0.3
+      ]
+    },
+    {
+      "id": "curtain_w",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.65,
+        0.0,
+        14.7
+      ],
+      "scale": [
+        0.3,
+        3.6,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        1.2
+      ]
+    },
+    {
+      "id": "curtain_e",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        11.35,
+        0.0,
+        14.7
+      ],
+      "scale": [
+        0.3,
+        3.6,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        1.2
+      ]
+    },
+    {
       "id": "u_landing_w_0",
       "model": "assets/models/env/wall_timber.glb",
       "pos": [
@@ -2292,6 +2349,28 @@
       "yaw": 180.0,
       "requires_flag": "host_identified",
       "hidden_flag": "host_banish"
+    },
+    {
+      "instance_id": "npc_odette_stage",
+      "npc_id": "core:npc.odette",
+      "pos": [
+        3.0,
+        0.0,
+        10.0
+      ],
+      "yaw": 180.0,
+      "requires_flag": "players_at_hollowmere"
+    },
+    {
+      "instance_id": "npc_mortimer",
+      "npc_id": "core:npc.mortimer",
+      "pos": [
+        11.6,
+        0.0,
+        -3.0
+      ],
+      "yaw": -90.0,
+      "requires_flag": "critic_revealed"
     },
     {
       "instance_id": "npc_ashgrave",
@@ -2915,6 +2994,23 @@
       "prompt": "Wind the Gramophone",
       "title": "The Gramophone",
       "text": "A beautiful brass gramophone with a horn like a lily. The record on it is labelled 'For My Guests - The Last Waltz'.\n\nYou wind it. It plays four bars of a waltz, skips, and plays the same four bars again. And again. Somewhere above you, very faintly, something hums along."
+    },
+    {
+      "instance_id": "script_page_5",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        12.6,
+        1.2,
+        1.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Five",
+      "text": "ACT FOUR, SCENE TWO. The Bureau.\n\nKING: Though the ledger strike my name, though the ink run dry, though every clerk in every hall forget that I was I...\n\n(The rest of the speech has been torn away.)\n\n[Margin, red ink: 'I have kept the rest. If the Velour woman wants it, she may come and fetch it herself. Or send someone braver. I shall be in the library. I am always in the library. - M.Q.']\n\nAs you finish reading, the temperature in the library drops, and between two bookshelves, a thin figure in a top hat lowers a book and looks at you over it.",
+      "quest_id": "core:quest.players_script",
+      "set_stage": 10,
+      "set_flag": "critic_revealed"
     },
     {
       "instance_id": "study_door",

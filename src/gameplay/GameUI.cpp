@@ -1246,7 +1246,11 @@ void GameEngine::DrawDialogue() {
     if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size())) {
         const NpcDef* npc = scene_.npcs[dialogue_npc_].def;
         if (speaker.empty() || speaker == node.speaker_key) speaker = content_.Tr(npc->name_key);
-        title = content_.Tr(npc->title_key);
+        // Group scenes: a node may be spoken by someone else; show *their* title, not the host's.
+        if (node.speaker_key.empty() || node.speaker_key == npc->name_key) title = content_.Tr(npc->title_key);
+        else
+            for (const auto& other : content_.npcs)
+                if (other.second.name_key == node.speaker_key) title = content_.Tr(other.second.title_key);
     }
     Text(speaker, P.x + 24, P.y + 16, 24, kGold);
     if (!title.empty()) Text(title, P.x + 30 + TextWidth(speaker, 24), P.y + 22, 15, kDim);

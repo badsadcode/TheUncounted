@@ -625,6 +625,65 @@
           "flag": "host_at_peace"
         }
       ]
+    },
+    {
+      "id": "core:npc.odette",
+      "name_key": "npc.odette.name",
+      "title_key": "npc.odette.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.odette",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/impresario_odette.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.7
+      },
+      "barks": [
+        {
+          "text_key": "bark.odette.1",
+          "not_flag": "players_at_hollowmere"
+        },
+        {
+          "text_key": "bark.odette.2",
+          "quest_id": "core:quest.players_casting",
+          "max_stage": 99
+        },
+        {
+          "text_key": "bark.odette.3",
+          "flag": "players_at_hollowmere"
+        },
+        {
+          "text_key": "bark.odette.after",
+          "quest_id": "core:quest.players_opening",
+          "min_stage": 100
+        }
+      ]
+    },
+    {
+      "id": "core:npc.mortimer",
+      "name_key": "npc.mortimer.name",
+      "title_key": "npc.mortimer.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.mortimer",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/critic_mortimer.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.mortimer.1"
+        },
+        {
+          "text_key": "bark.mortimer.2"
+        },
+        {
+          "text_key": "bark.mortimer.after",
+          "quest_id": "core:quest.players_opening",
+          "min_stage": 100
+        }
+      ]
     }
   ]
 }

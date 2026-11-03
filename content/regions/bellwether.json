@@ -1150,6 +1150,17 @@
         -6.6
       ],
       "yaw": -120.0
+    },
+    {
+      "instance_id": "npc_odette",
+      "npc_id": "core:npc.odette",
+      "pos": [
+        4.6,
+        0.0,
+        17.0
+      ],
+      "yaw": 200.0,
+      "hidden_flag": "players_at_hollowmere"
     }
   ],
   "creatures": [
@@ -1378,6 +1389,35 @@
       "prompt": "Read the Chapel Notice",
       "title": "NOTICE from the Church of the Last Dawn",
       "text": "To the owner of the HORSE currently standing on the chapel roof:\n\nPlease collect your horse.\n\nNobody saw it get up there. There is no way up there. It is not stuck. It is not distressed. It is simply standing on the ridge of the roof, facing slightly to the left, chewing, and every so often it vanishes for a moment and reappears exactly where it was.\n\nBrother Aldous has blessed it twice. The blessing did not stack.\n\nIf it is yours, it answers to 'Trout'. Apparently."
+    },
+    {
+      "instance_id": "script_page_1",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -2.5,
+        1.2,
+        -13.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page One",
+      "text": "ACT ONE, SCENE ONE. The inside of a great ledger.\n\nNARRATOR: Once there was a King whom all the world forgot. Not by war, nor plague, nor the slow grey dust of years, but by a single stroke of ink.\n\nKING (waking): Who struck my name? Who dares to strike a king?\n\nSECOND GUARD: Who goes there?\n\nKING: I do! Your King!\n\nSECOND GUARD: ...Who?\n\n[In spidery red ink, in the margin: 'The guard's line is the best in the scene. This is not a compliment to the guard. One star. - M.Q.']\n\n[Below, in pencil, in a different hand: 'Filed under FICTION, UNLICENSED. - O.']",
+      "set_flag": "page_1"
+    },
+    {
+      "instance_id": "casting_poster",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        6.4,
+        0.0,
+        17.8
+      ],
+      "rot_y": 180.0,
+      "prompt": "Read the Casting Call",
+      "title": "CASTING CALL!",
+      "text": "THE VELOUR TRAVELLING PLAYERS\nproudly present\nTHE TRAGEDIE OF THE UNCOUNTED KING\n\nA play in five acts. Two intervals. One dragon.\n\nNOW CASTING: a LEAD (must have suffered), a PRINCE (must own sword), a GHOST (must be pale), a DRAGON (must be large), a HERALD, a NARRATOR, a SECOND GUARD (there is no First Guard; budget), a PROMPTER, and someone who is not afraid of fire, or the law.\n\nNo experience required. No pay guaranteed. Glory almost certain.\n\nApply to Madame Odette Velour, in person, in the large hat.\n\nUnderneath, in red ink: 'Two stars. The font is overwrought. - M.Q.'"
     }
   ],
   "portals": [

@@ -278,6 +278,19 @@ npcs.append({"instance_id": "npc_percival", "npc_id": "core:npc.ghost_percival",
 creature("wrathful_host", "core:enemy.wrathful_host", (6.0, 0.0, 12.5), (2.0, 0.0, 12.5), (10.0, 0.0, 12.5),
          requires_flag="host_banish", group="host", group_quest_id=QUEST_HAUNT, group_set_stage=100, group_set_flag="host_banished")
 
+# --- The Bellwether Players: a stage in the ballroom, Odette's rehearsals, and the critic in the library
+QUEST_SCRIPT = "core:quest.players_script"
+box("stage", WOOD, 0.5, 11.5, 0.0, 0.35, 13.7, 15.7, uv=[4, 0.3])
+box("curtain_w", TIMBER, 0.5, 0.8, 0.0, 3.6, 13.7, 15.7)
+box("curtain_e", TIMBER, 11.2, 11.5, 0.0, 3.6, 13.7, 15.7)
+npcs.append({"instance_id": "npc_odette_stage", "npc_id": "core:npc.odette", "pos": [3.0, 0.0, 10.0], "yaw": 180.0,
+             "requires_flag": "players_at_hollowmere"})
+npcs.append({"instance_id": "npc_mortimer", "npc_id": "core:npc.mortimer", "pos": [11.6, 0.0, -3.0], "yaw": -90.0,
+             "requires_flag": "critic_revealed"})
+readable("script_page_5", 12.6, 1.2, 1.4, "Pick Up the Torn Script Page", "THE TRAGEDIE OF THE UNCOUNTED KING - Page Five",
+         "ACT FOUR, SCENE TWO. The Bureau.\n\nKING: Though the ledger strike my name, though the ink run dry, though every clerk in every hall forget that I was I...\n\n(The rest of the speech has been torn away.)\n\n[Margin, red ink: 'I have kept the rest. If the Velour woman wants it, she may come and fetch it herself. Or send someone braver. I shall be in the library. I am always in the library. - M.Q.']\n\nAs you finish reading, the temperature in the library drops, and between two bookshelves, a thin figure in a top hat lowers a book and looks at you over it.",
+         quest_id=QUEST_SCRIPT, set_stage=10, set_flag="critic_revealed")
+
 # ============================================================================ upper floor
 U = H1
 wall_z("u_landing_w", -4.0, -7.7, 6.0, U, TOP, gaps=[(-3.0, -1.0)])

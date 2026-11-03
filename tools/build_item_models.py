@@ -501,6 +501,62 @@ def manor_items():
     tinted("assets/ui/items/crypt_key.png", "assets/ui/items/study_key.png", ((1.2, 0.0), (1.0, 0.0), (0.6, 0.0)))
 
 
+def players_items():
+    """Icons for The Bellwether Players."""
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def script(d):
+        d.rectangle([8, 5, 25, 27], fill=(120, 30, 70, 255), outline=(70, 16, 40, 255))
+        d.rectangle([10, 7, 23, 25], outline=(230, 190, 90, 255))
+        d.line([(12, 12), (21, 12)], fill=(230, 190, 90, 255))
+        d.line([(12, 16), (19, 16)], fill=(230, 190, 90, 255))
+        d.line([(20, 20), (24, 26)], fill=(200, 40, 50, 255), width=2)  # the critic's red quill
+    icon("script_tragedie", script)
+
+    def tomato(d):
+        d.ellipse([7, 10, 25, 27], fill=(210, 50, 40, 255), outline=(150, 30, 26, 255))
+        d.polygon([(13, 10), (16, 6), (19, 10), (16, 12)], fill=(70, 140, 60, 255))
+        d.ellipse([11, 13, 15, 17], fill=(240, 120, 110, 255))
+    icon("thrown_tomato", tomato)
+
+    def mask(d):
+        d.pieslice([4, 6, 28, 30], 180, 360, fill=(220, 180, 70, 255))
+        d.rectangle([4, 17, 28, 20], fill=(220, 180, 70, 255))
+        d.ellipse([8, 12, 14, 17], fill=(26, 22, 30, 255))
+        d.ellipse([18, 12, 24, 17], fill=(26, 22, 30, 255))
+        d.line([(16, 8), (16, 12)], fill=(255, 230, 140, 255))
+        d.line([(5, 18), (1, 26)], fill=(160, 30, 80, 255), width=2)  # ribbon
+    icon("mask_uncounted", mask)
+
+    def paper_crown(d):
+        d.polygon([(6, 24), (6, 12), (11, 18), (16, 9), (21, 18), (26, 12), (26, 24)], fill=(236, 210, 120, 255), outline=(170, 140, 70, 255))
+        d.line([(8, 21), (24, 21)], fill=(200, 120, 160, 255))  # chapter nine, showing through
+    icon("paper_crown", paper_crown)
+
+    def dragon(d):
+        d.polygon([(5, 22), (12, 12), (22, 10), (27, 15), (22, 18), (14, 20), (10, 26)], fill=(70, 130, 70, 255), outline=(40, 80, 40, 255))
+        d.polygon([(14, 12), (18, 4), (20, 11)], fill=(90, 160, 90, 255))
+        d.ellipse([22, 12, 25, 15], fill=(255, 220, 80, 255))
+    icon("dragon_costume", dragon)
+
+    def fireworks(d):
+        for i, col in enumerate([(240, 200, 60, 255), (120, 220, 120, 255), (180, 90, 230, 255)]):
+            x = 9 + i * 6
+            d.rectangle([x, 12, x + 3, 27], fill=col)
+            d.polygon([(x, 12), (x + 1.5, 7), (x + 3, 12)], fill=(220, 60, 50, 255))
+        d.line([(25, 6), (28, 3)], fill=(255, 240, 160, 255))
+        d.line([(27, 8), (30, 8)], fill=(255, 240, 160, 255))
+    icon("fireworks", fireworks)
+
+    def thunder(d):
+        d.rectangle([6, 6, 26, 26], fill=(160, 166, 176, 255), outline=(100, 106, 116, 255))
+        d.line([(18, 8), (12, 16), (19, 16), (13, 25)], fill=(255, 230, 90, 255), width=2)
+    icon("thunder_sheet", thunder)
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -516,6 +572,7 @@ BUILDERS = {
     "extra_icons": build_extra_icons,
     "dinner_items": dinner_items,
     "manor_items": manor_items,
+    "players_items": players_items,
 }
 
 

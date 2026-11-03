@@ -1390,6 +1390,21 @@
         0.2,
         -0.8
       ]
+    },
+    {
+      "instance_id": "script_page_4",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -13.5,
+        1.0,
+        5.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Four",
+      "text": "ACT FOUR, SCENE ONE. A nursery, in the dark.\n\nHERALD: Hear ye! Hear ye! The King is not dead!\n\nNARRATOR: But the King was tired, so very tired, and the night was long, and somewhere a lullaby was playing.\n\nKING: Then let me sleep a little. But wake me. Promise you will wake me. Promise you will say my name.\n\n[Margin, red ink, much smaller than the others: 'This scene should not be set here. Not in this room. Not with these children asleep. - M.Q.' And beneath it, fainter: 'But it is good.']",
+      "set_flag": "page_4"
     }
   ],
   "portals": []

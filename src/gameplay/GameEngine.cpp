@@ -2544,10 +2544,10 @@ bool GameEngine::EvalCondition(const DialogueCondition& c) const {
     if (c.type == "flag_not_set") return player_.flags.count(c.flag) == 0;
     if (c.type == "item_equipped") return IsEquipped(c.item_id);
     if (c.type == "item_not_equipped") return !IsEquipped(c.item_id);
-    if (c.type == "flags_at_least") {
+    if (c.type == "flags_at_least" || c.type == "flags_fewer_than") {
         int n = 0;
         for (const auto& f : c.flags) n += player_.flags.count(f) ? 1 : 0;
-        return n >= c.value;
+        return c.type == "flags_at_least" ? n >= c.value : n < c.value;
     }
     if (c.type == "gold_at_least") return player_.gold >= c.value;
     Logger::Warn("Unknown dialogue condition type '" + c.type + "'");

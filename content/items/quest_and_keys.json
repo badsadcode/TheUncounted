@@ -135,6 +135,54 @@
       "value": 0,
       "weight": 0.1,
       "quest_item": true
+    },
+    {
+      "id": "core:item.paper_crown",
+      "name_key": "item.paper_crown.name",
+      "description_key": "item.paper_crown.description",
+      "category": "misc",
+      "icon": "assets/ui/items/paper_crown.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.5,
+      "quest_item": true
+    },
+    {
+      "id": "core:item.dragon_costume",
+      "name_key": "item.dragon_costume.name",
+      "description_key": "item.dragon_costume.description",
+      "category": "misc",
+      "icon": "assets/ui/items/dragon_costume.png",
+      "world_model": "assets/models/items/leather_jerkin.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.5,
+      "quest_item": true
+    },
+    {
+      "id": "core:item.fireworks",
+      "name_key": "item.fireworks.name",
+      "description_key": "item.fireworks.description",
+      "category": "misc",
+      "icon": "assets/ui/items/fireworks.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.5,
+      "quest_item": true
+    },
+    {
+      "id": "core:item.thunder_sheet",
+      "name_key": "item.thunder_sheet.name",
+      "description_key": "item.thunder_sheet.description",
+      "category": "misc",
+      "icon": "assets/ui/items/thunder_sheet.png",
+      "world_model": "assets/models/items/iron_shield.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.5,
+      "quest_item": true
     }
   ]
 }

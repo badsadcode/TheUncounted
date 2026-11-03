@@ -1309,6 +1309,21 @@
         0.2,
         -8.0
       ]
+    },
+    {
+      "instance_id": "script_page_3",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        1.5,
+        1.2,
+        -16.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Three",
+      "text": "ACT THREE, SCENE ONE. A mountain. Red light.\n\nNARRATOR: And from the mountain came the Dragon, and the Dragon spoke.\n\nTHE DRAGON: ROAR!!!\n\nKING: Foul worm! I am not afraid!\n\nTHE DRAGON: ROAR!!!\n\nKING: Still not afraid!\n\nTHE DRAGON: ...roar.\n\n[Margin, red ink, underlined three times: 'NEEDS A DRAGON. A BETTER ONE. - M.Q.']\n\nSomeone, probably a Bone Clerk, has stamped the page RECEIVED and filed it between two tax returns.",
+      "set_flag": "page_3"
     }
   ],
   "portals": [

@@ -3173,6 +3173,63 @@
       }
     },
     {
+      "id": "hollow_stage",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        6.0,
+        0.0,
+        56.7
+      ],
+      "scale": [
+        11.0,
+        0.35,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4,
+        0.3
+      ]
+    },
+    {
+      "id": "hollow_curtain_w",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        0.65,
+        0.0,
+        56.7
+      ],
+      "scale": [
+        0.3,
+        3.6,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        1.2
+      ]
+    },
+    {
+      "id": "hollow_curtain_e",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        11.35,
+        0.0,
+        56.7
+      ],
+      "scale": [
+        0.3,
+        3.6,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        1.2
+      ]
+    },
+    {
       "id": "hollow_u_landing_w_0",
       "model": "assets/models/env/wall_timber.glb",
       "pos": [
@@ -6880,6 +6937,17 @@
       "yaw": -120.0
     },
     {
+      "instance_id": "npc_odette",
+      "npc_id": "core:npc.odette",
+      "pos": [
+        4.6,
+        0.0,
+        17.0
+      ],
+      "yaw": 200.0,
+      "hidden_flag": "players_at_hollowmere"
+    },
+    {
       "instance_id": "npc_kaelen",
       "npc_id": "core:npc.ashbound_scout",
       "pos": [
@@ -6930,6 +6998,28 @@
       "yaw": 180.0,
       "requires_flag": "host_identified",
       "hidden_flag": "host_banish"
+    },
+    {
+      "instance_id": "npc_odette_stage",
+      "npc_id": "core:npc.odette",
+      "pos": [
+        3.0,
+        0.0,
+        52.0
+      ],
+      "yaw": 180.0,
+      "requires_flag": "players_at_hollowmere"
+    },
+    {
+      "instance_id": "npc_mortimer",
+      "npc_id": "core:npc.mortimer",
+      "pos": [
+        11.6,
+        0.0,
+        39.0
+      ],
+      "yaw": -90.0,
+      "requires_flag": "critic_revealed"
     },
     {
       "instance_id": "npc_ashgrave",
@@ -7700,6 +7790,35 @@
       "text": "To the owner of the HORSE currently standing on the chapel roof:\n\nPlease collect your horse.\n\nNobody saw it get up there. There is no way up there. It is not stuck. It is not distressed. It is simply standing on the ridge of the roof, facing slightly to the left, chewing, and every so often it vanishes for a moment and reappears exactly where it was.\n\nBrother Aldous has blessed it twice. The blessing did not stack.\n\nIf it is yours, it answers to 'Trout'. Apparently."
     },
     {
+      "instance_id": "script_page_1",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -2.5,
+        1.2,
+        -13.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page One",
+      "text": "ACT ONE, SCENE ONE. The inside of a great ledger.\n\nNARRATOR: Once there was a King whom all the world forgot. Not by war, nor plague, nor the slow grey dust of years, but by a single stroke of ink.\n\nKING (waking): Who struck my name? Who dares to strike a king?\n\nSECOND GUARD: Who goes there?\n\nKING: I do! Your King!\n\nSECOND GUARD: ...Who?\n\n[In spidery red ink, in the margin: 'The guard's line is the best in the scene. This is not a compliment to the guard. One star. - M.Q.']\n\n[Below, in pencil, in a different hand: 'Filed under FICTION, UNLICENSED. - O.']",
+      "set_flag": "page_1"
+    },
+    {
+      "instance_id": "casting_poster",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        6.4,
+        0.0,
+        17.8
+      ],
+      "rot_y": 180.0,
+      "prompt": "Read the Casting Call",
+      "title": "CASTING CALL!",
+      "text": "THE VELOUR TRAVELLING PLAYERS\nproudly present\nTHE TRAGEDIE OF THE UNCOUNTED KING\n\nA play in five acts. Two intervals. One dragon.\n\nNOW CASTING: a LEAD (must have suffered), a PRINCE (must own sword), a GHOST (must be pale), a DRAGON (must be large), a HERALD, a NARRATOR, a SECOND GUARD (there is no First Guard; budget), a PROMPTER, and someone who is not afraid of fire, or the law.\n\nNo experience required. No pay guaranteed. Glory almost certain.\n\nApply to Madame Odette Velour, in person, in the large hat.\n\nUnderneath, in red ink: 'Two stars. The font is overwrought. - M.Q.'"
+    },
+    {
       "instance_id": "monolith_inscription",
       "type": "readable",
       "model": "assets/models/props/lectern_ledger.glb",
@@ -7806,6 +7925,21 @@
       "quest_id": "core:quest.dinner_at_eight",
       "set_stage": 0,
       "set_flag": "sabrino_in_town"
+    },
+    {
+      "instance_id": "script_page_2",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        42.0,
+        1.6,
+        -8.35
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Two",
+      "text": "ACT TWO, SCENE ONE. A haunted battlement. Moonlight.\n\nPRINCE VALIANT: Spectre! Release the King!\n\nGHOST OF THE OLD KING: Never! For I too was forgotten, and I will not be forgotten alone!\n\nPRINCE VALIANT: Then have at thee!\n\n(They duel. It goes on for some time.)\n\n(It goes on for a bit longer.)\n\n[Margin, red ink: 'These two are clearly in love. The playwright appears to be the only person in the audience who has not noticed. - M.Q.']\n\nThe page has been nailed to a pine tree, at exactly the height of a critic's top hat.",
+      "set_flag": "page_2"
     },
     {
       "instance_id": "annex_inner_door",
@@ -7999,6 +8133,21 @@
       ]
     },
     {
+      "instance_id": "script_page_3",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        88.5,
+        -3.6,
+        -25.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Three",
+      "text": "ACT THREE, SCENE ONE. A mountain. Red light.\n\nNARRATOR: And from the mountain came the Dragon, and the Dragon spoke.\n\nTHE DRAGON: ROAR!!!\n\nKING: Foul worm! I am not afraid!\n\nTHE DRAGON: ROAR!!!\n\nKING: Still not afraid!\n\nTHE DRAGON: ...roar.\n\n[Margin, red ink, underlined three times: 'NEEDS A DRAGON. A BETTER ONE. - M.Q.']\n\nSomeone, probably a Bone Clerk, has stamped the page RECEIVED and filed it between two tax returns.",
+      "set_flag": "page_3"
+    },
+    {
       "instance_id": "ilse_cradle",
       "type": "readable",
       "model": "assets/models/props/sarcophagus.glb",
@@ -8106,6 +8255,21 @@
         -10.2,
         -22.8
       ]
+    },
+    {
+      "instance_id": "script_page_4",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        41.1,
+        -9.4,
+        -17.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Four",
+      "text": "ACT FOUR, SCENE ONE. A nursery, in the dark.\n\nHERALD: Hear ye! Hear ye! The King is not dead!\n\nNARRATOR: But the King was tired, so very tired, and the night was long, and somewhere a lullaby was playing.\n\nKING: Then let me sleep a little. But wake me. Promise you will wake me. Promise you will say my name.\n\n[Margin, red ink, much smaller than the others: 'This scene should not be set here. Not in this room. Not with these children asleep. - M.Q.' And beneath it, fainter: 'But it is good.']",
+      "set_flag": "page_4"
     },
     {
       "instance_id": "grave_0",
@@ -8527,6 +8691,23 @@
       "prompt": "Wind the Gramophone",
       "title": "The Gramophone",
       "text": "A beautiful brass gramophone with a horn like a lily. The record on it is labelled 'For My Guests - The Last Waltz'.\n\nYou wind it. It plays four bars of a waltz, skips, and plays the same four bars again. And again. Somewhere above you, very faintly, something hums along."
+    },
+    {
+      "instance_id": "script_page_5",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        12.6,
+        1.2,
+        43.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Torn Script Page",
+      "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Five",
+      "text": "ACT FOUR, SCENE TWO. The Bureau.\n\nKING: Though the ledger strike my name, though the ink run dry, though every clerk in every hall forget that I was I...\n\n(The rest of the speech has been torn away.)\n\n[Margin, red ink: 'I have kept the rest. If the Velour woman wants it, she may come and fetch it herself. Or send someone braver. I shall be in the library. I am always in the library. - M.Q.']\n\nAs you finish reading, the temperature in the library drops, and between two bookshelves, a thin figure in a top hat lowers a book and looks at you over it.",
+      "quest_id": "core:quest.players_script",
+      "set_stage": 10,
+      "set_flag": "critic_revealed"
     },
     {
       "instance_id": "study_door",
