@@ -412,6 +412,10 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   v4.4: fit collision is built in world directions (object rotation and scale applied, boxes rot_y 0, matching the
   engine's world AABBs) with cells at most 0.2 m tall, so any slope becomes walkable steps (diagonal 35° ramp: 264 boxes,
   walked to the top in a simulation of MoveWithCollision/GroundHeight; spiral stairs need >= 0.65 m step depth).
+  v4.5: NPC/creature markers are IMAGE empties showing the sheet's first frame (cropped with numpy into a packed
+  `UNC_SPRITE:<sheet>` image; height = appearance.scale, offset from the animation pivot), stood up with rotation X 90°
+  (`unc_upright`, ignored by the tilt warning; yaw stays rotation Z) plus a crossed non-selectable `sprite_child`. Model
+  creatures (`model_glb`) are their mesh at the appearance scale. "Update Sprite" re-reads the id.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

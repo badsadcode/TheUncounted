@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 4, 0),
+    "version": (4, 5, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -309,9 +309,117 @@ def get_fields(o):
     return d
 
 
+_DEFS = {}
+
+
+def game_defs(gdir):
+    """id -> appearance for every NPC and monster (content/npcs, content/creatures)."""
+    if gdir not in _DEFS:
+        found = {}
+        for sub, key in (("npcs", "npcs"), ("creatures", "creatures")):
+            folder = os.path.join(gdir, "content", sub)
+            for f in sorted(os.listdir(folder)) if os.path.isdir(folder) else []:
+                if f.endswith(".json"):
+                    try:
+                        data = read_json(os.path.join(folder, f))
+                    except ValueError:
+                        continue
+                    for e in (data.get(key, []) if isinstance(data, dict) else data):
+                        if isinstance(e, dict) and "id" in e and "appearance" in e:
+                            found[e["id"]] = e["appearance"]
+        _DEFS[gdir] = found
+    return _DEFS[gdir]
+
+
+def sprite_image(gdir, sheet, anim_rel):
+    """The first frame of a sprite sheet (facing you, standing) as its own Blender image, and the sheet's pivot."""
+    import numpy as np
+    anim = read_json(os.path.join(gdir, anim_rel)) if anim_rel and os.path.exists(os.path.join(gdir, anim_rel)) else {}
+    fw, fh = anim.get("frame_width", 128), anim.get("frame_height", 128)
+    pivot = anim.get("pivot", [0.5, 0.92])
+    name = "UNC_SPRITE:" + sheet
+    img = bpy.data.images.get(name)
+    if img is None:
+        path = os.path.join(gdir, sheet)
+        if not os.path.exists(path):
+            return None, pivot, fw / fh
+        src = bpy.data.images.load(path, check_existing=True)
+        src.reload()                                      # images load lazily: make sure the pixels are there
+        w, h = src.size
+        if w < fw or h < fh or len(src.pixels) != w * h * 4:
+            bpy.data.images.remove(src)
+            return None, pivot, fw / fh
+        px = np.empty(w * h * 4, dtype=np.float32)
+        src.pixels.foreach_get(px)
+        px = px.reshape(h, w, 4)[h - fh:h, 0:fw, :]          # Blender rows run bottom-up: the top-left frame
+        img = bpy.data.images.new(name, fw, fh, alpha=True)
+        img.pixels.foreach_set(np.ascontiguousarray(px).ravel())
+        img.pack()
+        bpy.data.images.remove(src)
+    return img, pivot, fw / fh
+
+
+def apply_sprite(gdir, o):
+    """Show an NPC or monster as its game sprite: upright, its game height, feet on its spot, plus a crossed copy so
+    it's visible from every side. Falls back to the marker when the sprite can't be found."""
+    for c in list(o.children):
+        if c.get("unc_kind") == "sprite_child":
+            bpy.data.objects.remove(c, do_unlink=True)
+    kind = o.get("unc_kind")
+    did = o.get("game_npc_id") if kind == "npcs" else o.get("game_creature_id")
+    app = game_defs(gdir).get(did or "", {})
+    img, pivot, aspect = sprite_image(gdir, app.get("sprite_sheet", ""), app.get("animation_data", "")) if app else (None, None, 1)
+    yaw = o.rotation_euler.z
+    if img is None:
+        o.empty_display_type = SHAPE[kind]
+        o.empty_display_size = 0.4
+        o.location.z += MARKER_LIFT - o.get("unc_lift", 0.0)
+        o["unc_lift"] = MARKER_LIFT
+        o["unc_upright"] = False
+        o.rotation_euler = (0.0, 0.0, yaw)
+        return
+    height = float(app.get("scale", 1.7))
+    o.location.z -= o.get("unc_lift", 0.0)
+    o["unc_lift"] = 0.0
+    o["unc_upright"] = True
+    o.empty_display_type = "IMAGE"
+    o.data = img
+    o.empty_display_size = height * max(1.0, aspect)
+    o.empty_image_offset = (-pivot[0], -(1.0 - pivot[1]))
+    o.use_empty_image_alpha = True
+    o.empty_image_side = "DOUBLE_SIDED"
+    o.rotation_euler = (math.radians(90), 0.0, yaw)    # stood up; turning around Z still sets the facing
+    c = bpy.data.objects.new(o.name + " (side)", None)
+    for k in ("empty_display_type", "empty_display_size", "empty_image_offset", "use_empty_image_alpha", "empty_image_side"):
+        if k == "empty_display_type":
+            c.empty_display_type = "IMAGE"
+            c.data = img
+        else:
+            setattr(c, k, getattr(o, k))
+    c.parent = o
+    c.rotation_euler = (0.0, math.radians(90), 0.0)
+    c.hide_select = True
+    c["unc_kind"] = "sprite_child"
+    for col in o.users_collection:
+        col.objects.link(c)
+
+
+def link_tree(col, o):
+    col.objects.link(o)
+    for c in o.children:
+        if c.get("unc_kind") == "sprite_child" and col not in c.users_collection:
+            col.objects.link(c)
+    return o
+
+
 def make_object(gdir, cache, kind, d, name):
     """A game object as a Blender object: its real model when it has one, else a labelled marker."""
     mesh = model_mesh(gdir, d.get("model", ""), cache) if kind == "interactables" else None
+    app = None
+    if kind in ("npcs", "creatures"):                  # monsters drawn as 3D models in the game: show that model
+        app = game_defs(gdir).get(d.get("npc_id" if kind == "npcs" else "creature_id", ""), {})
+        if app.get("type") == "model_glb":
+            mesh = model_mesh(gdir, app.get("model", ""), cache)
     o = bpy.data.objects.new(name, mesh)
     if mesh is None:
         o.empty_display_type = SHAPE[kind]
@@ -321,6 +429,9 @@ def make_object(gdir, cache, kind, d, name):
     else:
         o.location = to_blender(d.get("pos", [0, 0, 0]))
         o.scale = scale_to_blender(d.get("scale", [1, 1, 1]))
+        if app:
+            sc = float(app.get("scale", 1.0))
+            o.scale = (sc, sc, sc)
         o["unc_lift"] = 0.0
     o.show_name = True
     rk = ROTKEY[kind]
@@ -331,6 +442,8 @@ def make_object(gdir, cache, kind, d, name):
     if kind == "creatures":
         o["unc_patrol"] = json.dumps([[a - b for a, b in zip(d.get(k, pos), pos)] for k in ("patrol_a", "patrol_b")])
     set_fields(o, d)
+    if kind in ("npcs", "creatures") and o.type == "EMPTY":
+        apply_sprite(gdir, o)
     return o
 
 
@@ -436,7 +549,7 @@ def build_palette(gdir, cache, world_props):
         d[IDKEY[kind]] = "TEMPLATE:" + tname
         o = make_object(gdir, cache, kind, d, "TEMPLATE:" + tname)
         o["unc_template"] = True
-        cp.objects.link(o)
+        link_tree(cp, o)
 
 
 def add_lights(lights, col):
@@ -497,9 +610,9 @@ class UNC_OT_import_world(bpy.types.Operator):
                 o["game_solid"] = True
         for kind in KINDS:
             for e in world.get(kind, []):
-                co.objects.link(make_object(gdir, cache, kind, e, PREFIX[kind] + e[IDKEY[kind]]))
+                link_tree(co, make_object(gdir, cache, kind, e, PREFIX[kind] + e[IDKEY[kind]]))
         for sid, sp in world.get("spawns", {}).items():   # where players arrive (from portals, boats, new games)
-            co.objects.link(make_object(gdir, cache, "spawns", {"id": sid, "pos": sp["pos"], "yaw_degrees": sp.get("yaw_degrees", 0.0)},
+            link_tree(co, make_object(gdir, cache, "spawns", {"id": sid, "pos": sp["pos"], "yaw_degrees": sp.get("yaw_degrees", 0.0)},
                                         "spawn:" + sid))
         add_lights(world.get("lights", []), cw)
         context.scene.uncounted_keep_scatter = bool(world.get("scatter")) or not base.get("scatter")
@@ -533,7 +646,7 @@ class UNC_OT_new_map(bpy.types.Operator):
         cw, co, cache = collection(COL_WORLD), collection(COL_OBJECTS), {}
         add_prop_object(gdir, cache, {"id": "starter_floor", "model": "assets/models/env/floor_cobble.glb", "pos": [0, -0.5, 0],
                                       "scale": [20, 0.5, 20], "solid": False, "uv_scale": [8, 8]}, cw)
-        co.objects.link(make_object(gdir, cache, "spawns", {"id": "start", "pos": [0, 0, 0]}, "spawn:start"))
+        link_tree(co, make_object(gdir, cache, "spawns", {"id": "start", "pos": [0, 0, 0]}, "spawn:start"))
         build_palette(gdir, cache, read_json(os.path.join(gdir, MAP_REL)).get("props", []))
         game_view(context)
         self.report({"INFO"}, f"New map '{context.scene.uncounted_map_name}': build away, then Export.")
@@ -579,9 +692,9 @@ class UNC_OT_import_map(bpy.types.Operator):
                     o["game_solid"] = True
         for kind in KINDS:
             for e in m.get(kind, []):
-                co.objects.link(make_object(gdir, cache, kind, e, PREFIX[kind] + e[IDKEY[kind]]))
+                link_tree(co, make_object(gdir, cache, kind, e, PREFIX[kind] + e[IDKEY[kind]]))
         for sid, s in m.get("spawns", {}).items():
-            co.objects.link(make_object(gdir, cache, "spawns", {"id": sid, "pos": s["pos"], "yaw_degrees": s.get("yaw_degrees", 0.0)},
+            link_tree(co, make_object(gdir, cache, "spawns", {"id": sid, "pos": s["pos"], "yaw_degrees": s.get("yaw_degrees", 0.0)},
                                         "spawn:" + sid))
         add_lights(m.get("lights", []), cw)
         build_palette(gdir, cache, read_json(os.path.join(gdir, MAP_REL)).get("props", []))
@@ -844,7 +957,10 @@ def collect(context, models_rel, base_ids, base_objs):
             continue
         if o.type not in ("MESH", "EMPTY") or (kind is None and o.hide_get()):
             continue
-        if kind is not None and (abs(o.rotation_euler.x) > EPS or abs(o.rotation_euler.y) > EPS):
+        if kind == "sprite_child":
+            continue
+        tilt_x = o.rotation_euler.x - (math.radians(90) if o.get("unc_upright") else 0.0)
+        if kind is not None and (abs(tilt_x) > EPS or abs(o.rotation_euler.y) > EPS):
             out["tilted"] += 1
         rot = round(math.degrees(o.rotation_euler.z), 2) + 0.0
         # --- collision boxes: meshes named COL... become invisible solid boxes
@@ -1033,6 +1149,20 @@ class UNC_OT_export(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class UNC_OT_sprite(bpy.types.Operator):
+    bl_idname = "uncounted.sprite"
+    bl_label = "Update Sprite"
+    bl_description = "Show the selected NPCs and monsters with the sprite of their current npc_id / creature_id"
+
+    def execute(self, context):
+        gdir = game_dir(context)
+        _DEFS.pop(gdir, None)
+        for o in list(context.selected_objects):
+            if o.get("unc_kind") in ("npcs", "creatures") and o.type == "EMPTY":
+                apply_sprite(gdir, o)
+        return {"FINISHED"}
+
+
 class UNC_OT_unique(bpy.types.Operator):
     bl_idname = "uncounted.unique"
     bl_label = "Make Only This One Editable"
@@ -1136,13 +1266,15 @@ class UNC_PT_panel(bpy.types.Panel):
                 box.operator("uncounted.unique", icon="DUPLICATE")
             for k in sorted(k for k in o.keys() if k.startswith("game_")):
                 box.prop(o, f'["{k}"]', text=k[5:])
+            if o.get("unc_kind") in ("npcs", "creatures"):
+                box.operator("uncounted.sprite", icon="IMAGE_DATA")
         col = lay.column(align=True)
         col.label(text="Add: Shift+D a palette piece or template")
         col.label(text="Turn around Z only (R, Z)")
         col.label(text="Name a mesh COL... for an invisible wall")
 
 
-CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_unique, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
+CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_sprite, UNC_OT_unique, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
 
 
 def register():

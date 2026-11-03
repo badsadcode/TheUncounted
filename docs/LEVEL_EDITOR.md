@@ -38,8 +38,10 @@ brighter than the game's night, so judge colours in the game.
 1. **Import World**. The whole world appears with its real models and textures, plus your earlier edits. It's in three
    collections:
    - **Uncounted World**: every wall, floor, roof, prop and tree, named with the game's ids.
-   - **Uncounted Objects**: doors, chests, levers and signs as their real models; pickups as cubes; NPCs as arrows;
-     monsters as spheres. All are labelled.
+   - **Uncounted Objects**: doors, chests, levers and signs as their real models; NPCs and monsters as their game
+     sprites (standing, at their real height, feet on their spot; click one to select it, turn it with **R Z** to set
+     where it faces) or 3D models; pickups as cubes. All are labelled. After changing an NPC's `npc_id` or a
+     monster's `creature_id`, press **Update Sprite** in the sidebar.
    - **Uncounted Palette**, beside the world (+Y): one of every building piece, plus a row of **templates**: door, locked
      door, gate, chest, lever, sign, pickup, NPC, monster, portal and spawn point.
 2. **Edit** with normal Blender tools (table below).
@@ -145,8 +147,11 @@ You can delete the game's ground, walls, buildings and stairs (in **Uncounted Wo
   your new floors. **Doors** (1.84 m wide, 2.8 m tall) stay standing on their own: build your walls around them or move
   them. Don't delete clue spots, signs, quest doors, levers or chests the story uses; moving them is fine.
 - **Spawn points** (the arrows) are where players arrive from portals, boats and new games. Move them with the ground.
-- **Lights**: the world's lights are Blender point lights in **Uncounted World**. Delete the ones that lit removed
-  buildings, add your own.
+- **Lights** are invisible in the game: a Blender **Point** light (**Shift+A → Light → Point**) becomes a light with
+  no object, just light. Its colour is the light's colour and its Power is how far it reaches (60 W per metre: 600 W
+  lights about 10 m). The world's lights are already in **Uncounted World**: delete the ones that lit removed
+  buildings, add your own. For a light you can see (a torch or lantern with a flame), Shift+D one from the palette:
+  it brings its own glow. The game lights each spot with the 16 lights nearest the player, so use as many as you like.
 - **Keep grass & flowers** (under Import World): untick it to remove the game's grass tufts and wild flowers, which sit
   on the old ground.
 
