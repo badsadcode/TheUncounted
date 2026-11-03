@@ -2761,6 +2761,19 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
                 Toast(content_.Tr(n.def->name_key) + " heads back to wait for you");
             }
         }
+    } else if (a.type == "travel") {
+        // Boats and the like: jump to a spawn in the current map. Companions catch up on their own (they're "lost").
+        if (scene_.map) {
+            auto it = scene_.map->spawns.find(a.spawn);
+            if (it != scene_.map->spawns.end()) {
+                player_.pos = it->second.pos;
+                player_.pos.y = GroundHeight({it->second.pos.x, it->second.pos.y + 0.5f, it->second.pos.z}, kStepHeight);
+                player_.yaw = it->second.yaw_degrees * DEG2RAD;
+                player_.vel = {0, 0, 0};
+            } else {
+                Logger::Warn("travel: unknown spawn '" + a.spawn + "'");
+            }
+        }
     } else if (a.type == "open_shop") {
         if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size())) shop_npc_ = scene_.npcs[dialogue_npc_].def->id;
     } else {

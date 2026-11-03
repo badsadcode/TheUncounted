@@ -899,6 +899,68 @@ int GameEngine::RunSelfTest() {
         if (granny) DamageCreature(*granny, 999, false, "swords", false);
     }
 
+    // --- The Light Past the Fog: Silas rows you out to the Sleeper's Reef
+    {
+        const std::string rq = "core:quest.reef";
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (screen_ == Screen::Playing && overlay_ == Overlay::Dialogue) EndDialogue();
+            return ok;
+        };
+        auto skipNarration = [&]() {
+            if (overlay_ == Overlay::Narration) {
+                narration_page_ = static_cast<int>(narration_pages_.size());
+                AdvanceNarration();
+            }
+        };
+        check(visible("core:npc.gale_elder") < 0 && visible("core:npc.keeper_ondine") < 0, "nobody on the reef before Silas rows out");
+        bool rowed = talk("core:npc.silas_gale", {"r_offer", "r_row", "END"});
+        bool onNarration = overlay_ == Overlay::Narration && narration_pages_.size() == 3;
+        skipNarration();
+        check(rowed && onNarration && QuestStage(rq) == 10 && player_.pos.z < -125.0f && player_.flags.count("at_reef"),
+              "Silas rows you out between the sleeping limbs (z=" + std::to_string(static_cast<int>(player_.pos.z)) + ")");
+        check(zone_id_ == "sleepers_reef" || (UpdateAtmosphere(0.0f, true), zone_id_ == "sleepers_reef"), "you're on the Sleeper's Reef");
+        check(!talk("core:npc.gale_elder", {"names"}), "the brothers can't remember their names yet");
+        standAndUse({10.1f, 0.0f, -142.0f}, 180.0f, -35.0f);
+        if (overlay_ != Overlay::None) SetOverlay(Overlay::None);
+        player_.flags.insert("reef_abel");
+        check(player_.flags.count("reef_tom") > 0, "Thomas Gale's name, stitched on sailcloth, in a bottle on the shore");
+        check(talk("core:npc.keeper_ondine", {"first", "root", "who", "for", "root", "out", "struck"}),
+              "the keeper won't light the lamp until the brothers have their names");
+        check(talk("core:npc.gale_elder", {"who", "root", "names", "names2", "root"}) && QuestStage(rq) == 20,
+              "Tom and Abel Gale remember who they are");
+        check(talk("core:npc.keeper_ondine", {"light"}) && QuestStage(rq) == 30 && player_.flags.count("lamp_lit"),
+              "you light the Saltmere Light");
+        UpdateWorldObjects(0.0f);
+        CreatureInstance* limb = nullptr;
+        for (auto& c : scene_.creatures) if (c.instance_id == "dreaming_limb" && c.state != CreatureState::Dead) limb = &c;
+        check(limb != nullptr && limb->def->family == "eldritch", "the Dreaming Limb rises from the sea");
+        for (auto& c : scene_.creatures)
+            if (c.spawn_def && c.spawn_def->group == "limb") DamageCreature(c, 9999, false, "swords", false);
+        check(QuestStage(rq) == 40 && player_.flags.count("limb_down"), "the limb sinks back to sleep");
+        check(talk("core:npc.keeper_ondine", {"farewell", "farewell_end"}) && player_.flags.count("keeper_rests") &&
+                  CountItem("core:item.keeper_lantern") == 1 && visible("core:npc.keeper_ondine") < 0,
+              "Ondine Marsh is relieved at last, and leaves you her lantern");
+        bool home = talk("core:npc.silas_gale", {"r_final", "r_final2", "r_final3", "END"});
+        skipNarration();
+        check(home && QuestStage(rq) == 100 && CountItem("core:item.silas_shanty") == 1 && player_.pos.z > -70.0f &&
+                  !player_.flags.count("at_reef"),
+              "Silas rows his sons home; the whole of the Drowned Man's Rhyme");
+        check(visible("core:npc.tom_gale") >= 0 && visible("core:npc.abel_gale") >= 0 && visible("core:npc.gale_elder") < 0,
+              "Tom and Abel are mending nets on the pier");
+        check(talk("core:npc.silas_gale", {"r_after", "root"}), "Silas has hooks on his lines now");
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

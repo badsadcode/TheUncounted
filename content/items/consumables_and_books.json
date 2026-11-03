@@ -476,6 +476,18 @@
           "duration": 120
         }
       ]
+    },
+    {
+      "id": "core:item.silas_shanty",
+      "name_key": "item.silas_shanty.name",
+      "description_key": "item.silas_shanty.description",
+      "category": "book",
+      "icon": "assets/ui/items/silas_shanty.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.01,
+      "book_text_key": "book.silas_shanty.text"
     }
   ]
 }

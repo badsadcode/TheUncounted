@@ -711,6 +711,47 @@ def wood_models():
     tent.write_glb(os.path.join(env, "tent.glb"))
 
 
+def reef_items():
+    """The Keeper's Lantern (model + icon) and Silas's shanty (icon)."""
+    m = Mesh(101)
+    brass, glass, iron, wood = (190, 150, 70), (255, 226, 140), (60, 60, 66), (110, 80, 50)
+    m.cylinder((0, 0.0, 0), 0.016, 0.42, wood, seg=6)                       # the pole
+    m.box((0, 0.44, 0), (0.05, 0.012, 0.05), brass)                         # base plate
+    m.cylinder((0, 0.45, 0), 0.04, 0.1, glass, seg=8)                       # the lit glass
+    for a in range(4):                                                      # cage bars
+        x, z = 0.045 * math.cos(a * math.pi / 2 + 0.78), 0.045 * math.sin(a * math.pi / 2 + 0.78)
+        m.cylinder((x, 0.45, z), 0.005, 0.1, iron, seg=4)
+    m.cylinder((0, 0.55, 0), 0.05, 0.03, brass, seg=8, r_top=0.02)          # cap
+    m.torus((0, 0.6, 0), 0.02, 0.005, iron, seg=10, sides=4)                # ring
+    m.write_glb("keeper_lantern.glb")
+
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def lantern(d):
+        d.line([(16, 28), (16, 19)], fill=(110, 80, 50, 255), width=2)
+        d.rectangle([11, 9, 21, 19], fill=(255, 220, 130, 255), outline=(190, 150, 70, 255))
+        d.line([(14, 9), (14, 19)], fill=(70, 70, 76, 255))
+        d.line([(18, 9), (18, 19)], fill=(70, 70, 76, 255))
+        d.polygon([(10, 9), (22, 9), (16, 5)], fill=(190, 150, 70, 255))
+        d.ellipse([14, 2, 18, 5], outline=(70, 70, 76, 255))
+        d.point((16, 14), fill=(255, 255, 230, 255))
+    icon("keeper_lantern", lantern)
+
+    def shanty(d):
+        d.polygon([(6, 6), (25, 5), (26, 27), (7, 26)], fill=(214, 204, 176, 255), outline=(140, 126, 98, 255))
+        for y in (10, 14, 18, 22):
+            d.line([(9, y), (23, y)], fill=(120, 110, 96, 255))
+        d.ellipse([12, 15, 15, 18], fill=(40, 40, 50, 255))
+        d.line([(15, 16), (15, 10)], fill=(40, 40, 50, 255))
+        d.ellipse([18, 11, 21, 14], fill=(40, 40, 50, 255))
+        d.line([(21, 12), (21, 6)], fill=(40, 40, 50, 255))
+        d.ellipse([20, 21, 25, 25], fill=(90, 130, 140, 160))  # a salt-water stain
+    icon("silas_shanty", shanty)
+
+
 def _tube(m, path, radii, color_fn, sides=8):
     """Tapered tube along a polyline (for tentacles). color_fn(segment, side) -> rgb."""
     def sub(a, b): return (a[0] - b[0], a[1] - b[1], a[2] - b[2])
@@ -834,6 +875,7 @@ BUILDERS = {
     "lich_items": lich_items,
     "case3_items": case3_items,
     "wood_models": wood_models,
+    "reef_items": reef_items,
 }
 
 

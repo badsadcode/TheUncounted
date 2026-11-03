@@ -27,6 +27,7 @@ VAULT_OFF = (54.6, -10.4, -22.0)   # Vault III: the Nursery lies 5.6 m below the
 VAULT_Z = VAULT_OFF[2]
 HOLLOW_OFF = (0.0, 0.0, 42.0)
 WOOD_OFF = (-46.0, 0.0, 0.0)   # the Whistling Wood: west of Bellwether, through a gap in the west wall
+REEF_OFF = (1.6, 0.0, -150.0)   # the Sleeper's Reef: far out past the fog, only reachable by boat
 DOCKS_OFF = (1.6, 0.0, -42.0)   # Saltmere Docks: north of Bellwether, through a gap in the village's north wall  # Hollowmere Manor: south of Bellwether, through a gap in the village's south wall
 WALL = "assets/models/env/wall_crypt.glb"
 COBBLE = "assets/models/env/floor_cobble.glb"
@@ -130,6 +131,7 @@ def build():
     hollow = shift_region(load("hollowmere.json"), HOLLOW_OFF, "hollow_")
     docks = shift_region(load("saltmere.json"), DOCKS_OFF, "docks_")
     wood = shift_region(load("whistling_wood.json"), WOOD_OFF, "wood_")
+    reef = shift_region(load("sleepers_reef.json"), REEF_OFF, "reef_")
 
     props = []
     for p in bell["props"]:
@@ -160,6 +162,7 @@ def build():
     ]
     props += hollow["props"]
     props += wood["props"]
+    props += reef["props"]
     props += [
         {"id": "bell_west_gate_n", "model": "assets/models/env/pillar_stone.glb", "pos": [-20.0, 0.0, -2.1], "scale": [1.4, 1.25, 1.1], "solid": True},
         {"id": "bell_west_gate_s", "model": "assets/models/env/pillar_stone.glb", "pos": [-20.0, 0.0, 2.1], "scale": [1.4, 1.25, 1.1], "solid": True},
@@ -261,7 +264,7 @@ def build():
     ]
     props += vault["props"]
 
-    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"] + hollow["interactables"] + docks["interactables"] + wood["interactables"]
+    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"] + hollow["interactables"] + docks["interactables"] + wood["interactables"] + reef["interactables"]
     interactables.append({
         "instance_id": "flour_handprints", "type": "readable", "model": "", "pos": [65.75, -3.8, VAULT_Z + 2.3], "rot_y": 0.0,
         "prompt": "Look at the Marks on the Wall", "title": "Handprints in Old Flour",
@@ -277,11 +280,11 @@ def build():
                  "centuries:\n\nTURN BACK. THE NAMES ARE LISTENING.\n\n"
                  "Beneath them, newer and neater, in Bureau ink: \"Graffiti is a Class III municipal offence.\""),
     })
-    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"] + hollow["npcs"] + docks["npcs"] + wood["npcs"]
-    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"] + hollow["creatures"] + docks["creatures"] + wood["creatures"]
-    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"] + hollow["lights"] + docks["lights"] + wood["lights"]
+    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"] + hollow["npcs"] + docks["npcs"] + wood["npcs"] + reef["npcs"]
+    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"] + hollow["creatures"] + docks["creatures"] + wood["creatures"] + reef["creatures"]
+    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"] + hollow["lights"] + docks["lights"] + wood["lights"] + reef["lights"]
     spawns = {}
-    for m in (bell, road, annex, vault, hollow, docks, wood):
+    for m in (bell, road, annex, vault, hollow, docks, wood, reef):
         spawns.update(m["spawns"])
 
     for kind, items in (("interactable", interactables), ("npc", npcs), ("creature", creatures)):
@@ -312,7 +315,11 @@ def build():
     docks_zone = zone_from(docks, "saltmere", [ox - 20.6, -1.6, oz - 35.0], [ox + 20.6, 40.0, -20.6], 3.0)
     wx = WOOD_OFF[0]
     wood_zone = zone_from(wood, "whistling_wood", [wx - 24.6, -1.0, -22.6], [-21.0, 40.0, 22.6], 3.0)
+    rx, rz = REEF_OFF[0], REEF_OFF[2]
+    reef_zone = zone_from(reef, "sleepers_reef", [rx - 27.0, -2.0, rz - 27.0], [rx + 27.0, 40.0, rz + 27.0], 3.0)
+    reef_zone["sanity_drain"] = 0.5
     zones = [
+        reef_zone,
         wood_zone,
         chapel_zone,
         docks_zone,

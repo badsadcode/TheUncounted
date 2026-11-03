@@ -1,0 +1,1665 @@
+{
+  "schema_version": 1,
+  "id": "core:map.sleepers_reef",
+  "display_name_key": "map.sleepers_reef.name",
+  "music": "assets/audio/music/vault_lullaby.wav",
+  "ambience": "assets/audio/ambience/forest_wind.wav",
+  "sky_color": [
+    43,
+    54,
+    56
+  ],
+  "ambient_color": [
+    0.36,
+    0.44,
+    0.46
+  ],
+  "sun_direction": [
+    -0.3,
+    0.7,
+    -0.4
+  ],
+  "sun_color": [
+    0.42,
+    0.5,
+    0.52
+  ],
+  "fog_color": [
+    0.17,
+    0.21,
+    0.22
+  ],
+  "fog_density": 0.06,
+  "weather": "",
+  "spawns": {
+    "reef_landing": {
+      "pos": [
+        0.0,
+        0.0,
+        15.0
+      ],
+      "yaw_degrees": 180.0
+    }
+  },
+  "props": [
+    {
+      "id": "reef_sea_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.9,
+        0.0
+      ],
+      "scale": [
+        52.0,
+        0.45,
+        52.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        18,
+        18
+      ]
+    },
+    {
+      "id": "reef_water",
+      "model": "assets/models/env/harbour_water.glb",
+      "pos": [
+        0.0,
+        -0.14,
+        0.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.0,
+        2.2
+      ],
+      "solid": false
+    },
+    {
+      "id": "cliff_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        -0.9,
+        -26.0
+      ],
+      "scale": [
+        53.2,
+        2.6,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "cliff_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        -0.9,
+        26.0
+      ],
+      "scale": [
+        53.2,
+        2.6,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "cliff_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -26.0,
+        -0.9,
+        0.0
+      ],
+      "scale": [
+        1.2,
+        2.6,
+        53.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "cliff_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        26.0,
+        -0.9,
+        0.0
+      ],
+      "scale": [
+        1.2,
+        2.6,
+        53.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "isle_main",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        0.5,
+        28.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        10.0,
+        11.7
+      ]
+    },
+    {
+      "id": "isle_w",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        -13.5,
+        -0.5,
+        1.0
+      ],
+      "scale": [
+        3.0,
+        0.5,
+        14.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.2,
+        5.8
+      ]
+    },
+    {
+      "id": "isle_e",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        13.25,
+        -0.5,
+        -3.0
+      ],
+      "scale": [
+        2.5,
+        0.5,
+        14.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.0,
+        5.8
+      ]
+    },
+    {
+      "id": "isle_n",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        -0.5,
+        -0.5,
+        -15.5
+      ],
+      "scale": [
+        11.0,
+        0.5,
+        3.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        4.6,
+        1.2
+      ]
+    },
+    {
+      "id": "boulder_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -10.5,
+        -0.2,
+        11.5
+      ],
+      "scale": [
+        1.6,
+        1.3,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "boulder_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        9.5,
+        -0.2,
+        11.0
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "boulder_2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        12.5,
+        -0.2,
+        -2.0
+      ],
+      "scale": [
+        1.0,
+        1.6,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "boulder_3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -13.5,
+        -0.2,
+        2.0
+      ],
+      "scale": [
+        1.2,
+        1.1,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "boulder_4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        7.5,
+        -0.2,
+        -13.0
+      ],
+      "scale": [
+        1.8,
+        1.2,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "boulder_5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -8.5,
+        -0.2,
+        -13.5
+      ],
+      "scale": [
+        1.4,
+        1.5,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "boulder_6",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        3.0,
+        -0.2,
+        12.5
+      ],
+      "scale": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "boulder_7",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -4.0,
+        -0.2,
+        -15.5
+      ],
+      "scale": [
+        1.0,
+        0.9,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "old_pillar_0",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        -11.0,
+        0.0,
+        -9.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        0.55,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "old_pillar_1",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        11.0,
+        0.0,
+        8.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        0.8,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "old_pillar_2",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        -12.5,
+        0.0,
+        6.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.05,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "jetty",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        17.25
+      ],
+      "scale": [
+        2.4,
+        0.5,
+        7.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "jetty_pile_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -1.35,
+        -0.9,
+        16.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "jetty_pile_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.35,
+        -0.9,
+        16.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "jetty_pile_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -1.35,
+        -0.9,
+        20.8
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "jetty_pile_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.35,
+        -0.9,
+        20.8
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "boat_hull",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.6,
+        -0.5,
+        18.6
+      ],
+      "scale": [
+        1.4,
+        0.75,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.4
+      ]
+    },
+    {
+      "id": "boat_seat",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.6,
+        0.25,
+        18.6
+      ],
+      "scale": [
+        1.4,
+        0.1,
+        0.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "boat_oar",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        3.95,
+        0.3,
+        18.6
+      ],
+      "scale": [
+        1.3,
+        0.08,
+        0.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.1
+      ]
+    },
+    {
+      "id": "jetty_lantern",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -1.0,
+        0.8499999999999999,
+        20.4
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.3,
+        "light_color": [
+          1.0,
+          0.7,
+          0.4
+        ],
+        "light_radius": 6.0
+      }
+    },
+    {
+      "id": "jetty_lantern_post",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -1.0,
+        0.0,
+        20.4
+      ],
+      "scale": [
+        0.24,
+        1.0,
+        0.24
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.09,
+        0.33
+      ]
+    },
+    {
+      "id": "light_tower",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "scale": [
+        4.0,
+        5.3,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.6,
+        1.8
+      ]
+    },
+    {
+      "id": "light_band_low",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        1.6,
+        -8.0
+      ],
+      "scale": [
+        4.16,
+        0.3,
+        4.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.6,
+        0.1
+      ]
+    },
+    {
+      "id": "light_band_high",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        3.6,
+        -8.0
+      ],
+      "scale": [
+        4.16,
+        0.3,
+        4.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.6,
+        0.1
+      ]
+    },
+    {
+      "id": "light_door",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        0.0,
+        -5.96
+      ],
+      "scale": [
+        1.4,
+        2.2,
+        0.08
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.5,
+        0.7
+      ]
+    },
+    {
+      "id": "gallery_deck",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        5.3,
+        -8.0
+      ],
+      "scale": [
+        7.0,
+        0.3,
+        7.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "gallery_strip",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        5.5,
+        5.3,
+        -10.5
+      ],
+      "scale": [
+        4.0,
+        0.3,
+        3.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        2,
+        1.5
+      ]
+    },
+    {
+      "id": "gallery_strip_base",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        5.5,
+        0.0,
+        -10.5
+      ],
+      "scale": [
+        3.8,
+        5.3,
+        2.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        1.8
+      ]
+    },
+    {
+      "id": "rail_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -3.5,
+        5.6,
+        -8.0
+      ],
+      "scale": [
+        0.2,
+        1.0,
+        7.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "rail_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        5.6,
+        -11.5
+      ],
+      "scale": [
+        7.2,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "rail_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        5.6,
+        -4.5
+      ],
+      "scale": [
+        7.2,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "rail_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        3.5,
+        5.6,
+        -6.7
+      ],
+      "scale": [
+        0.2,
+        1.0,
+        4.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "rail_strip_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        5.55,
+        5.6,
+        -12.0
+      ],
+      "scale": [
+        4.1,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "rail_strip_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        7.5,
+        5.6,
+        -10.55
+      ],
+      "scale": [
+        0.2,
+        1.0,
+        3.1
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "rail_strip_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        4.0,
+        5.6,
+        -9.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "stairs_a",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        6.0,
+        0.0,
+        0.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "-z"
+    },
+    {
+      "id": "landing",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        6.0,
+        2.3,
+        -3.5
+      ],
+      "scale": [
+        3.0,
+        0.5,
+        3.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.2,
+        1.2
+      ]
+    },
+    {
+      "id": "landing_base",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -3.5
+      ],
+      "scale": [
+        2.8,
+        2.3,
+        2.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.8
+      ]
+    },
+    {
+      "id": "stairs_b",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        6.0,
+        2.8,
+        -7.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "-z"
+    },
+    {
+      "id": "stairs_b_base",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -7.0
+      ],
+      "scale": [
+        2.8,
+        2.8,
+        3.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.9
+      ]
+    },
+    {
+      "id": "lamp_plinth",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        5.6,
+        -8.0
+      ],
+      "scale": [
+        1.6,
+        0.9,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.6,
+        0.3
+      ]
+    },
+    {
+      "id": "lamp_cage",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        0.0,
+        6.5,
+        -8.0
+      ],
+      "scale": [
+        1.2,
+        1.1,
+        1.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "lamp_cap",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        7.6,
+        -8.0
+      ],
+      "scale": [
+        1.6,
+        0.2,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.6,
+        0.1
+      ]
+    },
+    {
+      "id": "bro_fire_stone0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -5.5,
+        0.0,
+        3.0
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "bro_fire_stone1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -6.5,
+        0.0,
+        3.0
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "bro_fire_stone2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        3.5
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "bro_fire_stone3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        2.5
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "bro_fire_stone4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -5.65,
+        0.0,
+        3.35
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "bro_fire_stone5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -6.35,
+        0.0,
+        2.65
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "bro_fire",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -6.0,
+        -0.55,
+        3.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.55,
+        "light_color": [
+          1.0,
+          0.55,
+          0.3
+        ],
+        "light_radius": 8.0
+      }
+    },
+    {
+      "id": "bro_driftwood",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        5.05
+      ],
+      "scale": [
+        3.2,
+        0.35,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.2
+      ]
+    },
+    {
+      "id": "limb_0",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        -20.0,
+        -0.6,
+        -18.0
+      ],
+      "rot_y": 30.0,
+      "scale": [
+        2.4,
+        2.4,
+        2.4
+      ],
+      "solid": false
+    },
+    {
+      "id": "limb_1",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        19.0,
+        -0.6,
+        -16.0
+      ],
+      "rot_y": 200.0,
+      "scale": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "limb_2",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        -21.0,
+        -0.6,
+        12.0
+      ],
+      "rot_y": 120.0,
+      "scale": [
+        1.8,
+        1.8,
+        1.8
+      ],
+      "solid": false
+    },
+    {
+      "id": "limb_3",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        20.5,
+        -0.6,
+        15.0
+      ],
+      "rot_y": 300.0,
+      "scale": [
+        2.6,
+        2.6,
+        2.6
+      ],
+      "solid": false
+    },
+    {
+      "id": "limb_4",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        2.0,
+        -0.6,
+        -23.0
+      ],
+      "rot_y": 80.0,
+      "scale": [
+        2.2,
+        2.2,
+        2.2
+      ],
+      "solid": false
+    },
+    {
+      "id": "limb_5",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        -16.0,
+        -0.6,
+        -4.0
+      ],
+      "rot_y": 250.0,
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "solid": false
+    },
+    {
+      "id": "limb_6",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        16.5,
+        -0.6,
+        2.0
+      ],
+      "rot_y": 160.0,
+      "scale": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "solid": false
+    },
+    {
+      "id": "limb_7",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        8.0,
+        -0.6,
+        21.0
+      ],
+      "rot_y": 20.0,
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "solid": false
+    }
+  ],
+  "lights": [
+    {
+      "pos": [
+        0.0,
+        7.199999999999999,
+        -8.0
+      ],
+      "color": [
+        0.55,
+        0.62,
+        0.7
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        6.0,
+        3.6,
+        -3.5
+      ],
+      "color": [
+        0.5,
+        0.6,
+        0.65
+      ],
+      "radius": 7.0
+    }
+  ],
+  "npcs": [
+    {
+      "instance_id": "npc_silas_reef",
+      "npc_id": "core:npc.silas_gale",
+      "pos": [
+        -0.4,
+        0.0,
+        18.8
+      ],
+      "yaw": 180.0,
+      "requires_flag": "reef_trip"
+    },
+    {
+      "instance_id": "npc_keeper",
+      "npc_id": "core:npc.keeper_ondine",
+      "pos": [
+        -2.2,
+        5.6,
+        -7.0
+      ],
+      "yaw": 90.0,
+      "requires_flag": "reef_trip",
+      "hidden_flag": "keeper_rests"
+    },
+    {
+      "instance_id": "npc_trout_light",
+      "npc_id": "core:npc.trout",
+      "pos": [
+        2.6,
+        5.6,
+        -5.4
+      ],
+      "yaw": 220.0,
+      "requires_flag": "oak_plugged"
+    },
+    {
+      "instance_id": "npc_gale_elder",
+      "npc_id": "core:npc.gale_elder",
+      "pos": [
+        -5.1,
+        0.0,
+        4.3
+      ],
+      "yaw": 200.0,
+      "requires_flag": "reef_trip",
+      "hidden_flag": "reef_done"
+    },
+    {
+      "instance_id": "npc_gale_younger",
+      "npc_id": "core:npc.gale_younger",
+      "pos": [
+        -7.1,
+        0.0,
+        4.2
+      ],
+      "yaw": 160.0,
+      "requires_flag": "reef_trip",
+      "hidden_flag": "reef_done"
+    }
+  ],
+  "creatures": [
+    {
+      "instance_id": "dreaming_limb",
+      "creature_id": "core:enemy.dreaming_limb",
+      "pos": [
+        -8.5,
+        0.0,
+        -11.5
+      ],
+      "patrol_a": [
+        -8.5,
+        0.0,
+        -11.5
+      ],
+      "patrol_b": [
+        -8.5,
+        0.0,
+        -11.5
+      ],
+      "requires_flag": "lamp_lit",
+      "group": "limb",
+      "group_quest_id": "core:quest.reef",
+      "group_set_stage": 40,
+      "group_set_flag": "limb_down"
+    },
+    {
+      "instance_id": "limb_drowned_0",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        -5.0,
+        0.0,
+        -13.0
+      ],
+      "patrol_a": [
+        -5.0,
+        0.0,
+        -13.0
+      ],
+      "patrol_b": [
+        -9.0,
+        0.0,
+        -8.0
+      ],
+      "requires_flag": "lamp_lit",
+      "group": "limb"
+    },
+    {
+      "instance_id": "limb_drowned_1",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        -11.0,
+        0.0,
+        -6.5
+      ],
+      "patrol_a": [
+        -11.0,
+        0.0,
+        -6.5
+      ],
+      "patrol_b": [
+        -7.0,
+        0.0,
+        -10.0
+      ],
+      "requires_flag": "lamp_lit",
+      "group": "limb"
+    },
+    {
+      "instance_id": "reef_drowned_0",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        9.0,
+        0.0,
+        -11.0
+      ],
+      "patrol_a": [
+        9.0,
+        0.0,
+        -11.0
+      ],
+      "patrol_b": [
+        11.0,
+        0.0,
+        -3.0
+      ]
+    },
+    {
+      "instance_id": "reef_drowned_1",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        10.0,
+        0.0,
+        9.0
+      ],
+      "patrol_a": [
+        10.0,
+        0.0,
+        9.0
+      ],
+      "patrol_b": [
+        6.0,
+        0.0,
+        12.0
+      ]
+    }
+  ],
+  "interactables": [
+    {
+      "instance_id": "light_plaque",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        0.0,
+        0.0,
+        -5.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Plaque by the Door",
+      "title": "The Saltmere Light",
+      "text": "SALTMERE LIGHT\nRaised in the Year of the Long Tide by the Fishermen's Guild\n\"So that every boat comes home, and every name with it.\"\n\nKEEPERS: J. Marsh. P. Marsh. E. Marsh. O. Marsh.\n\nThe last name has no end date. Below it, scratched with something sharp, a tally of days: so many that they cover the bottom of the plaque, the doorframe, and the first yard of the tower wall.",
+      "set_flag": "reef_plaque"
+    },
+    {
+      "instance_id": "keeper_log",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -2.6,
+        5.6,
+        -10.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Keeper's Log",
+      "title": "Log of the Saltmere Light, O. Marsh",
+      "text": "\"Day 1. Father's gone. I keep the light now. It's not hard. Trim the wick, fill the oil, wind the clock. And never let it go out.\"\n\n\"Day 900. Father said the light isn't for ships. It's for the thing under the reef. While it can see the light, it dreams. While it dreams, it isn't hungry. I thought he was joking. He wasn't.\"\n\n\"Day 20,000 (I think). I died some time ago. I've kept the light anyway. Nobody has come to relieve me. I don't mind. Somebody has to.\"\n\n\"Day ?. The men in robes came and sang, and the light went out. It has never gone out. I can't relight it. My hands go through the matches now. I need someone who's still solid. I need someone it can't see.\"",
+      "set_flag": "reef_log",
+      "sanity": -4
+    },
+    {
+      "instance_id": "reef_bottle_tom",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        8.5,
+        0.0,
+        6.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: THOMAS GALE",
+      "text": "A green bottle, stoppered with wax, wedged between two rocks. Inside, a strip of sailcloth with a name stitched on it in red thread, the stitches small and careful, the kind a mother makes:\n\nTHOMAS GALE\n\nUnderneath, in smaller stitches: \"Eldest. Bad at knots. Good at laughing.\"\n\nIt feels warm in your hand. It feels like it's been waiting.",
+      "set_flag": "reef_tom",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_abel",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -10.0,
+        0.0,
+        -3.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: ABEL GALE",
+      "text": "A brown bottle, half buried in sand. Inside, a page torn from a school primer, the alphabet down one side and, in a child's enormous letters, practised over and over until the page ran out:\n\nABEL GALE  ABEL GALE  ABEL GALE  ABEL GALE\n\nAt the bottom, in an adult hand: \"He was so proud when he could write it. -S.\"",
+      "set_flag": "reef_abel",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_fenn",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        10.5,
+        0.0,
+        -6.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: BARTHOLOMEW FENN",
+      "text": "A bottle with a ship in it. A very small ship. On the deck of the very small ship, a very small man is holding up a very small fish, triumphantly. The label reads:\n\nBARTHOLOMEW 'BART' FENN\nWanted to be remembered as the man who caught the Big One. Caught it. It ate him. Remember him anyway.",
+      "set_flag": "reef_fenn",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_nan",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -4.5,
+        0.0,
+        10.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: GRANNY WEATHERBY",
+      "text": "A jam jar. The label still says 'DAMSON, LAST SUMMER'. Inside, a recipe card:\n\nGRANNY WEATHERBY'S CHOWDER\n(Do not tell Brine. Brine thinks hers is better. Brine is wrong.)\n\nThe recipe is long, specific, and ends with: \"...and a pinch of salt for every name you love. Use a lot of salt.\"",
+      "set_flag": "reef_nan",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_nobody",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        3.5,
+        0.0,
+        9.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: (blank)",
+      "text": "A clear glass bottle, very old, the glass gone milky with salt. There's a slip of paper inside. You shake it out.\n\nIt's blank.\n\nNot faded. Blank. Somebody put a name in here once, and the sea took the name and left the paper, and sent the paper home anyway, because the sea, for all its hunger, has a sense of form.\n\nYou keep the paper. It seems wrong not to. Nobody should be nobody.",
+      "set_flag": "reef_nobody",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_marsh",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -13.5,
+        0.0,
+        6.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: ONDINE MARSH",
+      "text": "A lamp-glass, of all things, the chimney off an old oil lamp, stoppered at both ends with cork. Inside, a lock of grey hair tied with string, and a label in a neat, tired hand:\n\nONDINE MARSH. Keeper.\n\n\"If anyone finds this, I was here. I kept the light. Please tell somebody.\"",
+      "set_flag": "reef_ondine",
+      "sanity": 2
+    }
+  ],
+  "portals": []
+}

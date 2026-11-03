@@ -661,11 +661,50 @@ def quadruped(style, row):
     return p
 
 
+def tentacle(style, row):
+    """A single enormous tentacle rising out of the water, eyes along its length (the Dreaming Limb)."""
+    skin = Mat(style["body"], shine=0.35)
+    under = Mat(style["armor"])
+    eye = Mat(style["eye"], emissive=True)
+    sucker = Mat(style.get("sucker", (200, 176, 168)))
+    water = Mat(style.get("water", (40, 70, 70)), shine=0.6)
+    sway = {0: 0.0, 1: 0.35, 2: -0.35, 3: 0.0, 4: 0.0, 5: 0.2}.get(row, 0.0)
+    p = [ellipsoid(v3(0, 0.0, 0), (0.32, 0.03, 0.32), water)]
+    n = 12
+    prev = v3(0, 0.0, 0)
+    for i in range(n):
+        t = (i + 1) / n
+        if row == 3:      # windup: rears back and coils
+            off = v3(0.04 * math.sin(t * 3), 0.0, -0.32 * t * t)
+            h = 0.92 * t
+        elif row == 4:    # attack: slams forward and down
+            off = v3(0.0, 0.0, 0.48 * t * t)
+            h = 0.85 * t - 0.42 * t * t * t
+        else:
+            off = v3(0.18 * sway * t * t + 0.06 * math.sin(t * 5 + sway * 3) * t, 0.0, 0.08 * math.sin(t * 4 + sway) * t)
+            h = 0.95 * t
+        nxt = v3(off[0], h, off[2])
+        r = 0.11 * (1 - t) ** 0.85 + 0.014
+        p.append(capsule(prev, nxt, r + 0.008, skin if i % 2 == 0 else under, r))
+        if i % 3 == 1:
+            p.append(sphere(nxt + v3(0, 0, r * 0.9), r * 0.45, eye))
+        elif i % 3 == 2:
+            p.append(ellipsoid(nxt + v3(0, 0, -r * 0.85), (r * 0.5, r * 0.5, r * 0.2), sucker))
+        prev = nxt
+    for k in range(3):  # little ones round the base
+        a = k * 2.1 + sway
+        b = v3(math.sin(a) * 0.2, 0.0, math.cos(a) * 0.2)
+        p.append(capsule(b, b + v3(math.sin(a) * 0.06, 0.16 + 0.04 * k, math.cos(a) * 0.06), 0.03, under, 0.008))
+    return p
+
+
 def corpse_transform(kind):
     if kind == "humanoid":
         return rot_x(math.radians(-88)), v3(0, 0.07, 0.42)
     if kind == "rat":
         return rot_z(math.radians(85)), v3(0.1, 0.07, 0)
+    if kind == "tentacle":
+        return rot_x(math.radians(-80)), v3(0, 0.05, 0.1)
     if kind == "quadruped":
         return rot_z(math.radians(88)), v3(0.25, 0.1, 0)
     return rot_z(math.radians(170)), v3(0, 0.36, 0)
@@ -681,6 +720,8 @@ def build_prims(style, row):
         return crawler(style, row)
     if kind == "quadruped":
         return quadruped(style, row)
+    if kind == "tentacle":
+        return tentacle(style, row)
     return humanoid(style, row)
 
 
@@ -716,6 +757,21 @@ SHEETS = {
     "assets/sprites/npcs/steve.png": {
         "kind": "humanoid", "body": (222, 186, 156), "armor": (110, 96, 72), "legs": (76, 66, 52), "cloak": (90, 80, 62),
         "trim": (150, 130, 96), "hat": "pot", "weapon": "spoon", "beard": True, "hair": (120, 84, 50),
+    },
+    "assets/sprites/enemies/dreaming_limb.png": {"kind": "tentacle", "scale": 1.0, "body": (58, 88, 80), "armor": (34, 54, 52),
+                                                 "eye": (150, 255, 190)},
+    "assets/sprites/npcs/keeper_ondine.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 205, "body": (214, 226, 230), "armor": (60, 74, 96),
+        "cloak": (40, 52, 70), "trim": (230, 200, 120), "eye": (255, 236, 170), "glow_eyes": True, "hat": "hood",
+        "hood": (52, 66, 88), "weapon": "staff", "orb": (255, 214, 120),
+    },
+    "assets/sprites/npcs/gale_elder.png": {
+        "kind": "humanoid", "body": (200, 180, 160), "armor": (70, 96, 92), "legs": (52, 60, 58), "cloak": (40, 70, 66),
+        "trim": (150, 200, 170), "hat": "bald", "beard": True, "hair": (110, 90, 70),
+    },
+    "assets/sprites/npcs/gale_younger.png": {
+        "kind": "humanoid", "body": (206, 184, 164), "armor": (60, 90, 86), "legs": (48, 56, 54), "cloak": (34, 62, 60),
+        "trim": (150, 200, 170), "hair": (130, 100, 70),
     },
     "assets/sprites/enemies/grey_wolf.png": {"kind": "quadruped", "scale": 1.0, "body": (120, 118, 116), "armor": (72, 70, 70),
                                              "eye": (255, 210, 80), "glow_eyes": True},

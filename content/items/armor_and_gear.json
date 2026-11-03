@@ -585,6 +585,37 @@
           "value": 0.3
         }
       ]
+    },
+    {
+      "id": "core:item.keeper_lantern",
+      "name_key": "item.keeper_lantern.name",
+      "description_key": "item.keeper_lantern.description",
+      "category": "armor",
+      "icon": "assets/ui/items/keeper_lantern.png",
+      "world_model": "assets/models/items/keeper_lantern.glb",
+      "slots": [
+        "off_hand"
+      ],
+      "value": 280,
+      "weight": 1.2,
+      "armor": 1,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "sanity_regen",
+          "value": 1.2
+        },
+        {
+          "type": "bonus",
+          "stat": "spell_power_bonus",
+          "value": 0.08
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": 1
+        }
+      ]
     }
   ]
 }

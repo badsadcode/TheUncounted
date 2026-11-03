@@ -33,6 +33,51 @@
   "weather": "rain",
   "zones": [
     {
+      "id": "sleepers_reef",
+      "display_name_key": "map.sleepers_reef.name",
+      "box_min": [
+        -25.4,
+        -2.0,
+        -177.0
+      ],
+      "box_max": [
+        28.6,
+        40.0,
+        -123.0
+      ],
+      "blend": 3.0,
+      "music": "assets/audio/music/vault_lullaby.wav",
+      "ambience": "assets/audio/ambience/forest_wind.wav",
+      "sky_color": [
+        43,
+        54,
+        56
+      ],
+      "ambient_color": [
+        0.36,
+        0.44,
+        0.46
+      ],
+      "sun_direction": [
+        -0.3,
+        0.7,
+        -0.4
+      ],
+      "sun_color": [
+        0.42,
+        0.5,
+        0.52
+      ],
+      "fog_color": [
+        0.17,
+        0.21,
+        0.22
+      ],
+      "fog_density": 0.06,
+      "weather": "",
+      "sanity_drain": 0.5
+    },
+    {
       "id": "whistling_wood",
       "display_name_key": "map.whistling_wood.name",
       "box_min": [
@@ -549,6 +594,14 @@
       ],
       "yaw_degrees": 180.0
     },
+    "saltmere_pier": {
+      "pos": [
+        11.1,
+        0.0,
+        -60.0
+      ],
+      "yaw_degrees": 0.0
+    },
     "wood_lane": {
       "pos": [
         -26.0,
@@ -556,6 +609,14 @@
         0.0
       ],
       "yaw_degrees": -90.0
+    },
+    "reef_landing": {
+      "pos": [
+        1.6,
+        0.0,
+        -135.0
+      ],
+      "yaw_degrees": 180.0
     }
   },
   "props": [
@@ -5280,6 +5341,1301 @@
         0.7,
         0.3
       ]
+    },
+    {
+      "id": "reef_reef_sea_floor",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        1.6,
+        -0.9,
+        -150.0
+      ],
+      "scale": [
+        52.0,
+        0.45,
+        52.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        18,
+        18
+      ]
+    },
+    {
+      "id": "reef_reef_water",
+      "model": "assets/models/env/harbour_water.glb",
+      "pos": [
+        1.6,
+        -0.14,
+        -150.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.1,
+        1.0,
+        2.2
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_cliff_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        1.6,
+        -0.9,
+        -176.0
+      ],
+      "scale": [
+        53.2,
+        2.6,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "reef_cliff_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        1.6,
+        -0.9,
+        -124.0
+      ],
+      "scale": [
+        53.2,
+        2.6,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "reef_cliff_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -24.4,
+        -0.9,
+        -150.0
+      ],
+      "scale": [
+        1.2,
+        2.6,
+        53.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "reef_cliff_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        27.6,
+        -0.9,
+        -150.0
+      ],
+      "scale": [
+        1.2,
+        2.6,
+        53.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        14,
+        0.6
+      ]
+    },
+    {
+      "id": "reef_isle_main",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        1.6,
+        -0.5,
+        -150.0
+      ],
+      "scale": [
+        24.0,
+        0.5,
+        28.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        10.0,
+        11.7
+      ]
+    },
+    {
+      "id": "reef_isle_w",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        -11.9,
+        -0.5,
+        -149.0
+      ],
+      "scale": [
+        3.0,
+        0.5,
+        14.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.2,
+        5.8
+      ]
+    },
+    {
+      "id": "reef_isle_e",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        14.85,
+        -0.5,
+        -153.0
+      ],
+      "scale": [
+        2.5,
+        0.5,
+        14.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.0,
+        5.8
+      ]
+    },
+    {
+      "id": "reef_isle_n",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        1.1,
+        -0.5,
+        -165.5
+      ],
+      "scale": [
+        11.0,
+        0.5,
+        3.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        4.6,
+        1.2
+      ]
+    },
+    {
+      "id": "reef_boulder_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -8.9,
+        -0.2,
+        -138.5
+      ],
+      "scale": [
+        1.6,
+        1.3,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boulder_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        11.1,
+        -0.2,
+        -139.0
+      ],
+      "scale": [
+        1.2,
+        1.0,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boulder_2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        14.1,
+        -0.2,
+        -152.0
+      ],
+      "scale": [
+        1.0,
+        1.6,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boulder_3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -11.9,
+        -0.2,
+        -148.0
+      ],
+      "scale": [
+        1.2,
+        1.1,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boulder_4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        9.1,
+        -0.2,
+        -163.0
+      ],
+      "scale": [
+        1.8,
+        1.2,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boulder_5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -6.9,
+        -0.2,
+        -163.5
+      ],
+      "scale": [
+        1.4,
+        1.5,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boulder_6",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        4.6,
+        -0.2,
+        -137.5
+      ],
+      "scale": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boulder_7",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -2.4,
+        -0.2,
+        -165.5
+      ],
+      "scale": [
+        1.0,
+        0.9,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_old_pillar_0",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        -9.4,
+        0.0,
+        -159.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        0.55,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "reef_old_pillar_1",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        12.6,
+        0.0,
+        -142.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        0.8,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "reef_old_pillar_2",
+      "model": "assets/models/env/pillar_stone.glb",
+      "pos": [
+        -10.9,
+        0.0,
+        -144.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.05,
+        1.0
+      ],
+      "solid": true
+    },
+    {
+      "id": "reef_jetty",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.6,
+        -0.5,
+        -132.75
+      ],
+      "scale": [
+        2.4,
+        0.5,
+        7.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "reef_jetty_pile_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.25,
+        -0.9,
+        -134.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "reef_jetty_pile_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.95,
+        -0.9,
+        -134.0
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "reef_jetty_pile_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.25,
+        -0.9,
+        -129.2
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "reef_jetty_pile_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        2.95,
+        -0.9,
+        -129.2
+      ],
+      "scale": [
+        0.3,
+        1.4,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.12,
+        0.47
+      ]
+    },
+    {
+      "id": "reef_boat_hull",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        4.2,
+        -0.5,
+        -131.4
+      ],
+      "scale": [
+        1.4,
+        0.75,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_boat_seat",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        4.2,
+        0.25,
+        -131.4
+      ],
+      "scale": [
+        1.4,
+        0.1,
+        0.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "id": "reef_boat_oar",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        5.55,
+        0.3,
+        -131.4
+      ],
+      "scale": [
+        1.3,
+        0.08,
+        0.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_jetty_lantern",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        0.6,
+        0.85,
+        -129.6
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.3,
+        "light_color": [
+          1.0,
+          0.7,
+          0.4
+        ],
+        "light_radius": 6.0
+      }
+    },
+    {
+      "id": "reef_jetty_lantern_post",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.6,
+        0.0,
+        -129.6
+      ],
+      "scale": [
+        0.24,
+        1.0,
+        0.24
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.09,
+        0.33
+      ]
+    },
+    {
+      "id": "reef_light_tower",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        1.6,
+        0.0,
+        -158.0
+      ],
+      "scale": [
+        4.0,
+        5.3,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.6,
+        1.8
+      ]
+    },
+    {
+      "id": "reef_light_band_low",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        1.6,
+        1.6,
+        -158.0
+      ],
+      "scale": [
+        4.16,
+        0.3,
+        4.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.6,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_light_band_high",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        1.6,
+        3.6,
+        -158.0
+      ],
+      "scale": [
+        4.16,
+        0.3,
+        4.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.6,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_light_door",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.6,
+        0.0,
+        -155.96
+      ],
+      "scale": [
+        1.4,
+        2.2,
+        0.08
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.5,
+        0.7
+      ]
+    },
+    {
+      "id": "reef_gallery_deck",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.6,
+        5.3,
+        -158.0
+      ],
+      "scale": [
+        7.0,
+        0.3,
+        7.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "reef_gallery_strip",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        7.1,
+        5.3,
+        -160.5
+      ],
+      "scale": [
+        4.0,
+        0.3,
+        3.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        2,
+        1.5
+      ]
+    },
+    {
+      "id": "reef_gallery_strip_base",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        7.1,
+        0.0,
+        -160.5
+      ],
+      "scale": [
+        3.8,
+        5.3,
+        2.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        1.8
+      ]
+    },
+    {
+      "id": "reef_rail_w",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        -1.9,
+        5.6,
+        -158.0
+      ],
+      "scale": [
+        0.2,
+        1.0,
+        7.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_rail_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        1.6,
+        5.6,
+        -161.5
+      ],
+      "scale": [
+        7.2,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_rail_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        1.6,
+        5.6,
+        -154.5
+      ],
+      "scale": [
+        7.2,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_rail_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        5.1,
+        5.6,
+        -156.7
+      ],
+      "scale": [
+        0.2,
+        1.0,
+        4.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_rail_strip_n",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        7.15,
+        5.6,
+        -162.0
+      ],
+      "scale": [
+        4.1,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_rail_strip_e",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        9.1,
+        5.6,
+        -160.55
+      ],
+      "scale": [
+        0.2,
+        1.0,
+        3.1
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_rail_strip_s",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        5.6,
+        5.6,
+        -159.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.5,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_stairs_a",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        7.6,
+        0.0,
+        -150.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "-z"
+    },
+    {
+      "id": "reef_landing",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        7.6,
+        2.3,
+        -153.5
+      ],
+      "scale": [
+        3.0,
+        0.5,
+        3.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.2,
+        1.2
+      ]
+    },
+    {
+      "id": "reef_landing_base",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        7.6,
+        0.0,
+        -153.5
+      ],
+      "scale": [
+        2.8,
+        2.3,
+        2.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.8
+      ]
+    },
+    {
+      "id": "reef_stairs_b",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        7.6,
+        2.8,
+        -157.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.0,
+        1.4,
+        1.0
+      ],
+      "solid": false,
+      "ramp": "-z"
+    },
+    {
+      "id": "reef_stairs_b_base",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        7.6,
+        0.0,
+        -157.0
+      ],
+      "scale": [
+        2.8,
+        2.8,
+        3.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.9
+      ]
+    },
+    {
+      "id": "reef_lamp_plinth",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        1.6,
+        5.6,
+        -158.0
+      ],
+      "scale": [
+        1.6,
+        0.9,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.6,
+        0.3
+      ]
+    },
+    {
+      "id": "reef_lamp_cage",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        1.6,
+        6.5,
+        -158.0
+      ],
+      "scale": [
+        1.2,
+        1.1,
+        1.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.5,
+        0.4
+      ]
+    },
+    {
+      "id": "reef_lamp_cap",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        1.6,
+        7.6,
+        -158.0
+      ],
+      "scale": [
+        1.6,
+        0.2,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.6,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_bro_fire_stone0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -3.9,
+        0.0,
+        -147.0
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_bro_fire_stone1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -4.9,
+        0.0,
+        -147.0
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_bro_fire_stone2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -4.4,
+        0.0,
+        -146.5
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_bro_fire_stone3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -4.4,
+        0.0,
+        -147.5
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_bro_fire_stone4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -4.05,
+        0.0,
+        -146.65
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_bro_fire_stone5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -4.75,
+        0.0,
+        -147.35
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "reef_bro_fire",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -4.4,
+        -0.55,
+        -147.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.55,
+        "light_color": [
+          1.0,
+          0.55,
+          0.3
+        ],
+        "light_radius": 8.0
+      }
+    },
+    {
+      "id": "reef_bro_driftwood",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -4.4,
+        0.0,
+        -144.95
+      ],
+      "scale": [
+        3.2,
+        0.35,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.2
+      ]
+    },
+    {
+      "id": "reef_limb_0",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        -18.4,
+        -0.6,
+        -168.0
+      ],
+      "rot_y": 30.0,
+      "scale": [
+        2.4,
+        2.4,
+        2.4
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_limb_1",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        20.6,
+        -0.6,
+        -166.0
+      ],
+      "rot_y": 200.0,
+      "scale": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_limb_2",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        -19.4,
+        -0.6,
+        -138.0
+      ],
+      "rot_y": 120.0,
+      "scale": [
+        1.8,
+        1.8,
+        1.8
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_limb_3",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        22.1,
+        -0.6,
+        -135.0
+      ],
+      "rot_y": 300.0,
+      "scale": [
+        2.6,
+        2.6,
+        2.6
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_limb_4",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        3.6,
+        -0.6,
+        -173.0
+      ],
+      "rot_y": 80.0,
+      "scale": [
+        2.2,
+        2.2,
+        2.2
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_limb_5",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        -14.4,
+        -0.6,
+        -154.0
+      ],
+      "rot_y": 250.0,
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_limb_6",
+      "model": "assets/models/env/tentacle_b.glb",
+      "pos": [
+        18.1,
+        -0.6,
+        -148.0
+      ],
+      "rot_y": 160.0,
+      "scale": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "solid": false
+    },
+    {
+      "id": "reef_limb_7",
+      "model": "assets/models/env/tentacle_a.glb",
+      "pos": [
+        9.6,
+        -0.6,
+        -129.0
+      ],
+      "rot_y": 20.0,
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "solid": false
     },
     {
       "id": "bell_west_gate_n",
@@ -10767,6 +12123,32 @@
         0.55
       ],
       "radius": 9.0
+    },
+    {
+      "pos": [
+        1.6,
+        7.2,
+        -158.0
+      ],
+      "color": [
+        0.55,
+        0.62,
+        0.7
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        7.6,
+        3.6,
+        -153.5
+      ],
+      "color": [
+        0.5,
+        0.6,
+        0.65
+      ],
+      "radius": 7.0
     }
   ],
   "npcs": [
@@ -10999,6 +12381,28 @@
       "yaw": 180.0
     },
     {
+      "instance_id": "npc_tom_home",
+      "npc_id": "core:npc.tom_gale",
+      "pos": [
+        10.2,
+        0.0,
+        -61.2
+      ],
+      "yaw": 160.0,
+      "requires_flag": "reef_done"
+    },
+    {
+      "instance_id": "npc_abel_home",
+      "npc_id": "core:npc.abel_gale",
+      "pos": [
+        12.1,
+        0.0,
+        -61.0
+      ],
+      "yaw": 200.0,
+      "requires_flag": "reef_done"
+    },
+    {
       "instance_id": "npc_tide_priest",
       "npc_id": "core:npc.tide_priest",
       "pos": [
@@ -11032,6 +12436,64 @@
       "yaw": 10.0,
       "requires_flag": "trout_case",
       "hidden_flag": "steve_in_town"
+    },
+    {
+      "instance_id": "npc_silas_reef",
+      "npc_id": "core:npc.silas_gale",
+      "pos": [
+        1.2,
+        0.0,
+        -131.2
+      ],
+      "yaw": 180.0,
+      "requires_flag": "reef_trip"
+    },
+    {
+      "instance_id": "npc_keeper",
+      "npc_id": "core:npc.keeper_ondine",
+      "pos": [
+        -0.6,
+        5.6,
+        -157.0
+      ],
+      "yaw": 90.0,
+      "requires_flag": "reef_trip",
+      "hidden_flag": "keeper_rests"
+    },
+    {
+      "instance_id": "npc_trout_light",
+      "npc_id": "core:npc.trout",
+      "pos": [
+        4.2,
+        5.6,
+        -155.4
+      ],
+      "yaw": 220.0,
+      "requires_flag": "oak_plugged"
+    },
+    {
+      "instance_id": "npc_gale_elder",
+      "npc_id": "core:npc.gale_elder",
+      "pos": [
+        -3.5,
+        0.0,
+        -145.7
+      ],
+      "yaw": 200.0,
+      "requires_flag": "reef_trip",
+      "hidden_flag": "reef_done"
+    },
+    {
+      "instance_id": "npc_gale_younger",
+      "npc_id": "core:npc.gale_younger",
+      "pos": [
+        -5.5,
+        0.0,
+        -145.8
+      ],
+      "yaw": 160.0,
+      "requires_flag": "reef_trip",
+      "hidden_flag": "reef_done"
     }
   ],
   "creatures": [
@@ -11962,6 +13424,110 @@
         -55.0,
         0.0,
         -6.0
+      ]
+    },
+    {
+      "instance_id": "dreaming_limb",
+      "creature_id": "core:enemy.dreaming_limb",
+      "pos": [
+        -6.9,
+        0.0,
+        -161.5
+      ],
+      "patrol_a": [
+        -6.9,
+        0.0,
+        -161.5
+      ],
+      "patrol_b": [
+        -6.9,
+        0.0,
+        -161.5
+      ],
+      "requires_flag": "lamp_lit",
+      "group": "limb",
+      "group_quest_id": "core:quest.reef",
+      "group_set_stage": 40,
+      "group_set_flag": "limb_down"
+    },
+    {
+      "instance_id": "limb_drowned_0",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        -3.4,
+        0.0,
+        -163.0
+      ],
+      "patrol_a": [
+        -3.4,
+        0.0,
+        -163.0
+      ],
+      "patrol_b": [
+        -7.4,
+        0.0,
+        -158.0
+      ],
+      "requires_flag": "lamp_lit",
+      "group": "limb"
+    },
+    {
+      "instance_id": "limb_drowned_1",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        -9.4,
+        0.0,
+        -156.5
+      ],
+      "patrol_a": [
+        -9.4,
+        0.0,
+        -156.5
+      ],
+      "patrol_b": [
+        -5.4,
+        0.0,
+        -160.0
+      ],
+      "requires_flag": "lamp_lit",
+      "group": "limb"
+    },
+    {
+      "instance_id": "reef_drowned_0",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        10.6,
+        0.0,
+        -161.0
+      ],
+      "patrol_a": [
+        10.6,
+        0.0,
+        -161.0
+      ],
+      "patrol_b": [
+        12.6,
+        0.0,
+        -153.0
+      ]
+    },
+    {
+      "instance_id": "reef_drowned_1",
+      "creature_id": "core:enemy.the_drowned",
+      "pos": [
+        11.6,
+        0.0,
+        -141.0
+      ],
+      "patrol_a": [
+        11.6,
+        0.0,
+        -141.0
+      ],
+      "patrol_b": [
+        7.6,
+        0.0,
+        -138.0
       ]
     }
   ],
@@ -13499,6 +15065,133 @@
         0.2,
         -9.2
       ]
+    },
+    {
+      "instance_id": "light_plaque",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        1.6,
+        0.0,
+        -155.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Plaque by the Door",
+      "title": "The Saltmere Light",
+      "text": "SALTMERE LIGHT\nRaised in the Year of the Long Tide by the Fishermen's Guild\n\"So that every boat comes home, and every name with it.\"\n\nKEEPERS: J. Marsh. P. Marsh. E. Marsh. O. Marsh.\n\nThe last name has no end date. Below it, scratched with something sharp, a tally of days: so many that they cover the bottom of the plaque, the doorframe, and the first yard of the tower wall.",
+      "set_flag": "reef_plaque"
+    },
+    {
+      "instance_id": "keeper_log",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -1.0,
+        5.6,
+        -160.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Keeper's Log",
+      "title": "Log of the Saltmere Light, O. Marsh",
+      "text": "\"Day 1. Father's gone. I keep the light now. It's not hard. Trim the wick, fill the oil, wind the clock. And never let it go out.\"\n\n\"Day 900. Father said the light isn't for ships. It's for the thing under the reef. While it can see the light, it dreams. While it dreams, it isn't hungry. I thought he was joking. He wasn't.\"\n\n\"Day 20,000 (I think). I died some time ago. I've kept the light anyway. Nobody has come to relieve me. I don't mind. Somebody has to.\"\n\n\"Day ?. The men in robes came and sang, and the light went out. It has never gone out. I can't relight it. My hands go through the matches now. I need someone who's still solid. I need someone it can't see.\"",
+      "set_flag": "reef_log",
+      "sanity": -4
+    },
+    {
+      "instance_id": "reef_bottle_tom",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        10.1,
+        0.0,
+        -143.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: THOMAS GALE",
+      "text": "A green bottle, stoppered with wax, wedged between two rocks. Inside, a strip of sailcloth with a name stitched on it in red thread, the stitches small and careful, the kind a mother makes:\n\nTHOMAS GALE\n\nUnderneath, in smaller stitches: \"Eldest. Bad at knots. Good at laughing.\"\n\nIt feels warm in your hand. It feels like it's been waiting.",
+      "set_flag": "reef_tom",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_abel",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -8.4,
+        0.0,
+        -153.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: ABEL GALE",
+      "text": "A brown bottle, half buried in sand. Inside, a page torn from a school primer, the alphabet down one side and, in a child's enormous letters, practised over and over until the page ran out:\n\nABEL GALE  ABEL GALE  ABEL GALE  ABEL GALE\n\nAt the bottom, in an adult hand: \"He was so proud when he could write it. -S.\"",
+      "set_flag": "reef_abel",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_fenn",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        12.1,
+        0.0,
+        -156.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: BARTHOLOMEW FENN",
+      "text": "A bottle with a ship in it. A very small ship. On the deck of the very small ship, a very small man is holding up a very small fish, triumphantly. The label reads:\n\nBARTHOLOMEW 'BART' FENN\nWanted to be remembered as the man who caught the Big One. Caught it. It ate him. Remember him anyway.",
+      "set_flag": "reef_fenn",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_nan",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -2.9,
+        0.0,
+        -139.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: GRANNY WEATHERBY",
+      "text": "A jam jar. The label still says 'DAMSON, LAST SUMMER'. Inside, a recipe card:\n\nGRANNY WEATHERBY'S CHOWDER\n(Do not tell Brine. Brine thinks hers is better. Brine is wrong.)\n\nThe recipe is long, specific, and ends with: \"...and a pinch of salt for every name you love. Use a lot of salt.\"",
+      "set_flag": "reef_nan",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_nobody",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        5.1,
+        0.0,
+        -141.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: (blank)",
+      "text": "A clear glass bottle, very old, the glass gone milky with salt. There's a slip of paper inside. You shake it out.\n\nIt's blank.\n\nNot faded. Blank. Somebody put a name in here once, and the sea took the name and left the paper, and sent the paper home anyway, because the sea, for all its hunger, has a sense of form.\n\nYou keep the paper. It seems wrong not to. Nobody should be nobody.",
+      "set_flag": "reef_nobody",
+      "sanity": 2
+    },
+    {
+      "instance_id": "reef_bottle_marsh",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -11.9,
+        0.0,
+        -143.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Bottle",
+      "title": "A Name in a Bottle: ONDINE MARSH",
+      "text": "A lamp-glass, of all things, the chimney off an old oil lamp, stoppered at both ends with cork. Inside, a lock of grey hair tied with string, and a label in a neat, tired hand:\n\nONDINE MARSH. Keeper.\n\n\"If anyone finds this, I was here. I kept the light. Please tell somebody.\"",
+      "set_flag": "reef_ondine",
+      "sanity": 2
     },
     {
       "instance_id": "flour_handprints",

@@ -372,3 +372,23 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   `ash_crawler_painted.png` / `ash_crawler_128.json`. The old generated sheets are kept; revert by pointing the
   creatures back at them. Blobs bigger than a cell (two figures touching) are split at their thinnest slice near the
   grid line.
+
+### The Sleeper's Reef and "The Light Past the Fog" (added 2026-11-03)
+
+- **Engine:** dialogue action `travel` (`spawn`): moves the player to a spawn in the current map (companions catch up
+  as "lost" party members). Validation fails if no map has that spawn. Used for Silas's boat.
+- **The Sleeper's Reef** (`tools/build_reef.py` → `content/regions/sleepers_reef.json`, generated; REEF_OFF =
+  (1.6, 0, -150)): an island far out past Saltmere's fog, *not* connected on foot (low reef rim, sky = fog colour so the
+  sea seems endless). Spawn `reef_landing`; return spawn `saltmere_pier` (in `build_docks.py`). Zone `sleepers_reef`
+  (sanity drain 0.5). The drowned Saltmere Light: tower + two stone flights to a gallery at y 5.6, lamp, keeper's log.
+  Six name-bottles (readables, `reef_*` flags), sleeping tentacles, the Gale brothers' fire.
+- **Sprites:** new `tentacle` kind (`dreaming_limb`), plus `keeper_ondine`, `gale_elder`, `gale_younger`.
+  Creature `core:enemy.dreaming_limb` (eldritch, rooted: move_speed 0.01, reach 3.6, sanity damage).
+- **Quest `core:quest.reef`** (campaign `hollowmere_mysteries`, after Saltmere = 100): Silas (pier) → `r_row` (travel +
+  3 narration cards; flags `at_reef`, `reef_trip`; stage 10) → bottles `reef_tom` + `reef_abel` → the brothers remember
+  (20) → keeper Ondine Marsh: light the lamp (`lamp_lit`, 30) → the Dreaming Limb + 2 Drowned (group `limb` → 40,
+  `limb_down`) → Ondine is relieved (`keeper_rests`, Keeper's Lantern, off-hand) → Silas at the jetty: the sons come home
+  (travel back, `reef_done`, 100, the Drowned Man's Rhyme book). Tom and Abel then stand on the pier (`core:npc.tom_gale`,
+  `core:npc.abel_gale`). Silas can row you out again any time (`at_reef` toggles the boat topics).
+  Authoring script: `tools/authoring/reef.py` (already run — do not rerun). Trout is on the lighthouse gallery too.
+

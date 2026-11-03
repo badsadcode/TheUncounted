@@ -351,7 +351,7 @@ struct DialogueCondition {
 };
 
 struct DialogueAction {
-    std::string type; // set_quest_stage, give_item, take_item, give_gold, give_xp, set_flag, open_shop, heal_player
+    std::string type; // set_quest_stage, give_item, take_item, give_gold, give_xp, set_flag, open_shop, heal_player, travel
     std::string quest_id;
     int stage = 0;
     std::string item_id;
@@ -360,6 +360,7 @@ struct DialogueAction {
     std::string skill;
     std::string flag;
     bool bool_value = true;
+    std::string spawn;  // travel: move the player to this map spawn (boats, carts, shortcuts); the party catches up
     // narrate: full-screen cards; each shown only if its flag is set (empty = always)
     std::vector<std::pair<std::string, std::string>> pages;
 };

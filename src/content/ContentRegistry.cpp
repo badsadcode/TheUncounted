@@ -786,6 +786,7 @@ static DialogueAction ParseAction(const json& a) {
     da.skill = a.value("skill", "");
     da.flag = a.value("flag", "");
     da.bool_value = a.value("value", true);
+    da.spawn = a.value("spawn", "");
     if (a.contains("pages")) {
         for (const auto& pj : a["pages"]) {
             if (pj.is_string()) da.pages.push_back({pj.get<std::string>(), ""});
@@ -1182,6 +1183,21 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
     }
 
     // 6. Validate NPCs & Dialogues
+    // Dialogue actions that move the player must name a spawn some map actually has.
+    for (const auto& [did, dlg] : dialogues) {
+        auto checkTravel = [&](const DialogueAction& a) {
+            if (a.type != "travel") return;
+            bool found = false;
+            for (const auto& [mid, map] : maps) found = found || map.spawns.count(a.spawn) > 0;
+            if (!found) RecordIssue("Dialogue:" + did, "travel", "Unknown spawn '" + a.spawn + "'");
+        };
+        for (const auto& [nid, node] : dlg.nodes) {
+            for (const auto& a : node.actions) checkTravel(a);
+            for (const auto& c : node.choices)
+                for (const auto& a : c.actions) checkTravel(a);
+        }
+    }
+
     for (const auto& [id, npc] : npcs) {
         if (npc.appearance.type == "sprite_8dir") {
             CheckFileExists(rootDir, npc.appearance.sprite_sheet, "NPC:" + id, "appearance.sprite_sheet");

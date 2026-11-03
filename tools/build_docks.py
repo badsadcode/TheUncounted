@@ -176,6 +176,9 @@ interactables.append({"instance_id": "saltmere_idol", "type": "pickup", "item_id
 # ============================================================================ Silas, at the end of pier B
 npcs.append({"instance_id": "npc_silas", "npc_id": "core:npc.silas_gale", "pos": [9.5, 0.0, -20.6], "yaw": 180.0})
 
+npcs.append({"instance_id": "npc_tom_home", "npc_id": "core:npc.tom_gale", "pos": [8.6, 0.0, -19.2], "yaw": 160.0, "requires_flag": "reef_done"})
+npcs.append({"instance_id": "npc_abel_home", "npc_id": "core:npc.abel_gale", "pos": [10.5, 0.0, -19.0], "yaw": 200.0, "requires_flag": "reef_done"})
+
 # ============================================================================ Gale & Sons Fish Co. (warehouse) and the stairwell
 WX0, WX1, WZ0, WZ1 = 8.0, 19.4, -6.0, 12.0
 wall_z("wh_w", WX0, WZ0, WZ1, 0.0, 4.2, gaps=[(2.0, 4.0)], model=STONE)
@@ -272,7 +275,8 @@ region = {
     "fog_color": [0.16, 0.2, 0.2],
     "fog_density": 0.05,
     "weather": "",
-    "spawns": {"saltmere_quay": {"pos": [0.0, 0.0, 16.0], "yaw_degrees": 180.0}},
+    "spawns": {"saltmere_quay": {"pos": [0.0, 0.0, 16.0], "yaw_degrees": 180.0},
+               "saltmere_pier": {"pos": [9.5, 0.0, -18.0], "yaw_degrees": 0.0}},
     "props": props, "lights": lights, "npcs": npcs, "creatures": creatures, "interactables": interactables, "portals": [],
 }
 with open(OUT, "w", encoding="utf-8") as f:

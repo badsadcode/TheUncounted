@@ -316,7 +316,8 @@
           "hollowmere_manor": "comp.kaelen.zone.hollowmere_manor",
           "saltmere": "comp.kaelen.zone.saltmere",
           "sunken_chapel": "comp.kaelen.zone.sunken_chapel",
-          "whistling_wood": "comp.kaelen.zone.whistling_wood"
+          "whistling_wood": "comp.kaelen.zone.whistling_wood",
+          "sleepers_reef": "comp.kaelen.zone.sleepers_reef"
         },
         "idle_lines": [
           {
@@ -743,7 +744,8 @@
           "hollowmere_manor": "comp.baggy.zone.hollowmere_manor",
           "saltmere": "comp.baggy.zone.saltmere",
           "sunken_chapel": "comp.baggy.zone.sunken_chapel",
-          "whistling_wood": "comp.baggy.zone.whistling_wood"
+          "whistling_wood": "comp.baggy.zone.whistling_wood",
+          "sleepers_reef": "comp.baggy.zone.sleepers_reef"
         },
         "idle_lines": [
           {
@@ -1178,6 +1180,10 @@
         {
           "text_key": "bark.silas.after",
           "flag": "saltmere_resolved"
+        },
+        {
+          "text_key": "bark.silas.after",
+          "flag": "reef_done"
         }
       ]
     },
@@ -1249,6 +1255,101 @@
           "text_key": "bark.trout.2"
         }
       ]
+    },
+    {
+      "id": "core:npc.keeper_ondine",
+      "name_key": "npc.keeper_ondine.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.keeper_ondine",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/keeper_ondine.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.72
+      },
+      "barks": [
+        {
+          "text_key": "bark.keeper.1",
+          "not_flag": "lamp_lit"
+        },
+        {
+          "text_key": "bark.keeper.2",
+          "flag": "lamp_lit"
+        }
+      ],
+      "title_key": "npc.keeper_ondine.title"
+    },
+    {
+      "id": "core:npc.gale_elder",
+      "name_key": "npc.gale_elder.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.gale_brothers",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/gale_elder.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.78
+      },
+      "barks": [
+        {
+          "text_key": "bark.gale.reef.1"
+        }
+      ],
+      "title_key": "npc.gale_elder.title"
+    },
+    {
+      "id": "core:npc.gale_younger",
+      "name_key": "npc.gale_younger.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.gale_brothers",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/gale_younger.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.72
+      },
+      "barks": [
+        {
+          "text_key": "bark.gale.reef.2"
+        }
+      ],
+      "title_key": "npc.gale_younger.title"
+    },
+    {
+      "id": "core:npc.tom_gale",
+      "name_key": "npc.tom_gale.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.gale_home",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/gale_elder.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.78
+      },
+      "barks": [
+        {
+          "text_key": "bark.gale.home.1"
+        }
+      ],
+      "title_key": "npc.tom_gale.title"
+    },
+    {
+      "id": "core:npc.abel_gale",
+      "name_key": "npc.abel_gale.name",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.gale_home",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/gale_younger.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.72
+      },
+      "barks": [
+        {
+          "text_key": "bark.gale.home.2"
+        }
+      ],
+      "title_key": "npc.abel_gale.title"
     }
   ]
 }

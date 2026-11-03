@@ -711,6 +711,66 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.reef",
+      "title_key": "quest.reef.title",
+      "summary_key": "quest.reef.summary",
+      "campaign": "hollowmere_mysteries",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.reef.stage0",
+          "journal_key": "quest.reef.journal0",
+          "markers": [
+            "npc_silas"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.reef.stage10",
+          "journal_key": "quest.reef.journal10",
+          "markers": [
+            "npc_gale_elder",
+            "reef_bottle_tom",
+            "reef_bottle_abel",
+            "npc_keeper"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.reef.stage20",
+          "journal_key": "quest.reef.journal20",
+          "markers": [
+            "npc_keeper"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.reef.stage30",
+          "journal_key": "quest.reef.journal30",
+          "markers": [
+            "dreaming_limb",
+            "limb_drowned_0",
+            "limb_drowned_1"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.reef.stage40",
+          "journal_key": "quest.reef.journal40",
+          "markers": [
+            "npc_silas_reef",
+            "npc_keeper"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.reef.stage100",
+          "journal_key": "quest.reef.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

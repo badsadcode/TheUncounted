@@ -10355,6 +10355,97 @@
               ]
             },
             {
+              "text_key": "dlg.reef.t.offer",
+              "next": "r_offer",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.reef",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.t.row",
+              "next": "r_row",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.reef",
+                  "stage": 0
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "at_reef"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.t.home",
+              "next": "r_home",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "at_reef"
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.reef",
+                  "stage": 40
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.t.final",
+              "next": "r_final",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "at_reef"
+                },
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.reef",
+                  "stage": 40
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.t.after",
+              "next": "r_after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.reef",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "at_reef"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.t.home2",
+              "next": "r_home",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "at_reef"
+                },
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.reef",
+                  "stage": 100
+                }
+              ]
+            },
+            {
               "text_key": "dlg.silas.root.c3",
               "next": "END"
             }
@@ -10421,6 +10512,178 @@
           "choices": [
             {
               "text_key": "dlg.silas.key.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "r_offer": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.reef.silas.r_offer",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.reef",
+              "stage": 0
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.reef.silas.r_offer.c0",
+              "next": "r_row"
+            },
+            {
+              "text_key": "dlg.reef.silas.r_offer.c1",
+              "next": "root"
+            }
+          ]
+        },
+        "r_row": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.reef.silas.r_row",
+          "choices": [
+            {
+              "text_key": "dlg.reef.silas.r_row.c0",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "travel",
+                  "spawn": "reef_landing"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "at_reef",
+                  "value": true
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "reef_trip",
+                  "value": true
+                },
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.reef",
+                  "stage": 10
+                },
+                {
+                  "type": "narrate",
+                  "pages": [
+                    "story.reef.row1",
+                    "story.reef.row2",
+                    "story.reef.row3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "r_home": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.reef.silas.r_home",
+          "choices": [
+            {
+              "text_key": "dlg.reef.silas.r_home.c0",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "travel",
+                  "spawn": "saltmere_pier"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "at_reef",
+                  "value": false
+                },
+                {
+                  "type": "narrate",
+                  "pages": [
+                    "story.reef.home"
+                  ]
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.silas.r_home.c1",
+              "next": "root"
+            }
+          ]
+        },
+        "r_final": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.reef.silas.r_final",
+          "choices": [
+            {
+              "text_key": "dlg.reef.silas.r_final.c0",
+              "next": "r_final2"
+            }
+          ]
+        },
+        "r_final2": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.reef.silas.r_final2",
+          "choices": [
+            {
+              "text_key": "dlg.reef.silas.r_final2.c0",
+              "next": "r_final3"
+            }
+          ]
+        },
+        "r_final3": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.reef.silas.r_final3",
+          "choices": [
+            {
+              "text_key": "dlg.reef.silas.r_final3.c0",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "travel",
+                  "spawn": "saltmere_pier"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "at_reef",
+                  "value": false
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "reef_done",
+                  "value": true
+                },
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.reef",
+                  "stage": 100
+                },
+                {
+                  "type": "give_item",
+                  "item_id": "core:item.silas_shanty",
+                  "qty": 1
+                },
+                {
+                  "type": "give_gold",
+                  "amount": 220
+                },
+                {
+                  "type": "give_xp",
+                  "skill": "lore",
+                  "amount": 90
+                },
+                {
+                  "type": "narrate",
+                  "pages": [
+                    "story.reef.homecoming"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "r_after": {
+          "speaker_key": "npc.silas_gale.name",
+          "text_key": "dlg.reef.silas.r_after",
+          "choices": [
+            {
+              "text_key": "dlg.reef.silas.r_after.c0",
               "next": "root"
             }
           ]
@@ -11220,6 +11483,426 @@
             {
               "text_key": "dlg.trout.where.c0",
               "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.gale_brothers",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.gale_elder.name",
+          "text_key": "dlg.reef.bro.root",
+          "choices": [
+            {
+              "text_key": "dlg.reef.bro.root.c0",
+              "next": "who",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.reef",
+                  "stage": 20
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.bro.root.c1",
+              "next": "how",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.reef",
+                  "stage": 20
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.bro.root.c2",
+              "next": "names",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.reef",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "reef_tom"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "reef_abel"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.bro.root.c3",
+              "next": "wait",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.reef",
+                  "stage": 20
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.reef",
+                  "stage": 40
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.bro.root.c4",
+              "next": "ready",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.reef",
+                  "stage": 40
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.reef",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.bro.root.c5",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.gale_elder.name",
+          "text_key": "dlg.reef.bro.who",
+          "choices": [
+            {
+              "text_key": "dlg.reef.bro.who.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "how": {
+          "speaker_key": "npc.gale_elder.name",
+          "text_key": "dlg.reef.bro.how",
+          "choices": [
+            {
+              "text_key": "dlg.reef.bro.how.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "names": {
+          "speaker_key": "npc.gale_elder.name",
+          "text_key": "dlg.reef.bro.names",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.reef",
+              "stage": 20
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            },
+            {
+              "type": "sanity",
+              "amount": 10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.reef.bro.names.c0",
+              "next": "names2"
+            }
+          ]
+        },
+        "names2": {
+          "speaker_key": "npc.tom_gale.name",
+          "text_key": "dlg.reef.bro.names2",
+          "choices": [
+            {
+              "text_key": "dlg.reef.bro.names2.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "wait": {
+          "speaker_key": "npc.tom_gale.name",
+          "text_key": "dlg.reef.bro.wait",
+          "choices": [
+            {
+              "text_key": "dlg.reef.bro.wait.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "ready": {
+          "speaker_key": "npc.tom_gale.name",
+          "text_key": "dlg.reef.bro.ready",
+          "choices": [
+            {
+              "text_key": "dlg.reef.bro.ready.c0",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.gale_home",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.tom_gale.name",
+          "text_key": "dlg.reef.home.root",
+          "choices": [
+            {
+              "text_key": "dlg.reef.home.root.c0",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.keeper_ondine",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.root",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.root.c0",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.reef.keeper.root.c1",
+              "next": "out"
+            },
+            {
+              "text_key": "dlg.reef.keeper.root.c2",
+              "next": "first",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.reef",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.keeper.root.c3",
+              "next": "light",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.reef",
+                  "stage": 20
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.keeper.root.c4",
+              "next": "farewell",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.reef",
+                  "stage": 40
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "keeper_rests"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.keeper.root.c5",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "oak_plugged"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.keeper.root.c6",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.who",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.who.c0",
+              "next": "for"
+            }
+          ]
+        },
+        "for": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.for",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.for.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "out": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.out",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.out.c0",
+              "next": "struck"
+            }
+          ]
+        },
+        "struck": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.struck",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.struck.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "first": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.first",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.first.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "light": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.light",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "lamp_lit",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.reef",
+              "stage": 30
+            },
+            {
+              "type": "sanity",
+              "amount": -8
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.light.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "farewell": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.farewell",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.farewell.c0",
+              "next": "farewell_named",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "reef_ondine"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.reef.keeper.farewell.c1",
+              "next": "farewell_end"
+            }
+          ]
+        },
+        "farewell_named": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.farewell_named",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "keeper_rests",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.keeper_lantern",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 60
+            },
+            {
+              "type": "sanity",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.farewell_named.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "farewell_end": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.farewell_end",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "keeper_rests",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.keeper_lantern",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 40
+            },
+            {
+              "type": "sanity",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.farewell_end.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "trout": {
+          "speaker_key": "npc.keeper_ondine.name",
+          "text_key": "dlg.reef.keeper.trout",
+          "choices": [
+            {
+              "text_key": "dlg.reef.keeper.trout.c0",
+              "next": "root"
             }
           ]
         }
