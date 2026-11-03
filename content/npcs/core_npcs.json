@@ -1312,6 +1312,10 @@
         {
           "text_key": "bark.steve.chester",
           "flag": "mimic_steve_opened"
+        },
+        {
+          "text_key": "bark.steve.villain",
+          "flag": "fig3_done"
         }
       ]
     },
@@ -1499,6 +1503,10 @@
       "barks": [
         {
           "text_key": "bark.fig.sna"
+        },
+        {
+          "text_key": "bark.fig.sna.hero",
+          "flag": "fig3_done"
         }
       ],
       "title_key": "npc.figure_snacks.title"
@@ -1530,6 +1538,20 @@
       },
       "barks": [],
       "title_key": "npc.unmask_howler.title"
+    },
+    {
+      "id": "core:npc.unmask_knight",
+      "name_key": "npc.unmask_knight.name",
+      "title_key": "npc.unmask_knight.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.unmask_knight",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/steve_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 1.62
+      },
+      "barks": []
     }
   ]
 }

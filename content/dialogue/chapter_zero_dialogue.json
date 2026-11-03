@@ -13638,12 +13638,79 @@
               ]
             },
             {
+              "text_key": "dlg.fig.rod.root.e3_e3_open",
+              "next": "e3_open",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.figure_ep2",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.fig.rod.root.e3_e3_trap",
+              "next": "e3_trap",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 10
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "fig3_c1",
+                    "fig3_c2",
+                    "fig3_c3"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.fig.rod.root.e3_e3_hint",
+              "next": "e3_hint",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 10
+                },
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "fig3_c1",
+                    "fig3_c2",
+                    "fig3_c3"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.fig.rod.root.e3_e3_done",
+              "next": "e3_done",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 50
+                }
+              ]
+            },
+            {
               "text_key": "dlg.fig.rod.root.c9",
               "next": "later",
               "conditions": [
                 {
                   "type": "quest_stage_at_least",
-                  "quest_id": "core:quest.figure_ep2",
+                  "quest_id": "core:quest.figure_ep3",
                   "stage": 100
                 }
               ]
@@ -13858,6 +13925,101 @@
               "next": "root"
             }
           ]
+        },
+        "e3_open": {
+          "speaker_key": "npc.figure_rodrick.name",
+          "text_key": "dlg.fig.rod.e3_open",
+          "choices": [
+            {
+              "text_key": "dlg.fig.rod.e3_open.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 0
+                },
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 10
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "fig3_open",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "e3_hint": {
+          "speaker_key": "npc.figure_rodrick.name",
+          "text_key": "dlg.fig.rod.e3_hint",
+          "choices": [
+            {
+              "text_key": "dlg.fig.rod.e3_hint.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "e3_trap": {
+          "speaker_key": "npc.figure_rodrick.name",
+          "text_key": "dlg.fig.rod.e3_trap",
+          "choices": [
+            {
+              "text_key": "dlg.fig.rod.e3_trap.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 20
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "fig3_trap_ready",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "e3_done": {
+          "speaker_key": "npc.figure_rodrick.name",
+          "text_key": "dlg.fig.rod.e3_done",
+          "choices": [
+            {
+              "text_key": "dlg.fig.rod.e3_done.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.figure_ep3",
+                  "stage": 100
+                },
+                {
+                  "type": "give_item",
+                  "item_id": "core:item.snacks_feather",
+                  "qty": 1
+                },
+                {
+                  "type": "give_item",
+                  "item_id": "core:item.crumb_cake",
+                  "qty": 3
+                },
+                {
+                  "type": "give_gold",
+                  "amount": 100
+                },
+                {
+                  "type": "give_xp",
+                  "skill": "perception",
+                  "amount": 50
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -13983,6 +14145,16 @@
               "next": "scratch"
             },
             {
+              "text_key": "dlg.fig.sna.root.c_hero",
+              "next": "hero",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "fig3_done"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.fig.sna.root.c3",
               "next": "END"
             }
@@ -14027,6 +14199,22 @@
             {
               "text_key": "dlg.fig.sna.scratch.c0",
               "next": "root"
+            }
+          ]
+        },
+        "hero": {
+          "speaker_key": "npc.figure_snacks.name",
+          "text_key": "dlg.fig.sna.hero",
+          "choices": [
+            {
+              "text_key": "dlg.fig.sna.hero.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": 5
             }
           ]
         }
@@ -14219,6 +14407,97 @@
             {
               "text_key": "dlg.fig.unmask2.rolf.c0",
               "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.unmask_knight",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.unmask_knight.name",
+          "text_key": "dlg.fig.unmask3.root",
+          "choices": [
+            {
+              "text_key": "dlg.fig.unmask3.root.c0",
+              "next": "reveal",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "fig3_c1",
+                    "fig3_c2",
+                    "fig3_c3"
+                  ],
+                  "value": 3
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "fig3_guessed",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.fig.unmask3.root.c1",
+              "next": "wrong_trout"
+            },
+            {
+              "text_key": "dlg.fig.unmask3.root.c2",
+              "next": "reveal"
+            }
+          ]
+        },
+        "wrong_trout": {
+          "speaker_key": "npc.unmask_knight.name",
+          "text_key": "dlg.fig.unmask3.wrong_trout",
+          "choices": [
+            {
+              "text_key": "dlg.fig.unmask3.wrong_trout.c0",
+              "next": "reveal"
+            }
+          ]
+        },
+        "reveal": {
+          "speaker_key": "npc.unmask_knight.name",
+          "text_key": "dlg.fig.unmask3.reveal",
+          "choices": [
+            {
+              "text_key": "dlg.fig.unmask3.reveal.c0",
+              "next": "smile"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "fig3_unmasked",
+              "value": true
+            }
+          ]
+        },
+        "smile": {
+          "speaker_key": "npc.unmask_knight.name",
+          "text_key": "dlg.fig.unmask3.smile",
+          "choices": [
+            {
+              "text_key": "dlg.fig.unmask3.smile.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.figure_ep3",
+              "stage": 50
+            },
+            {
+              "type": "set_flag",
+              "flag": "fig3_done",
+              "value": true
             }
           ]
         }

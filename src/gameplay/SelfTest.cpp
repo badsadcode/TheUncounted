@@ -1364,6 +1364,16 @@ int GameEngine::RunSelfTest() {
         check(talk("core:npc.unmask_howler", {"guess", "reveal", "rolf"}) && player_.flags.count("fig2_guessed") && QuestStage(e2) == 50,
               "Rolf's face is his actual face; the Howler is Brother Aldous");
         check(talk("core:npc.figure_rodrick", {"e2_done", "root"}) && QuestStage(e2) == 100 && CountItem("core:item.gang_scarf") == 1, "full member of the gang: the scarf");
+        const std::string e3 = "core:quest.figure_ep3";
+        check(talk("core:npc.figure_rodrick", {"e3_open", "root"}) && QuestStage(e3) == 10, "episode three: the Headless Knight of the Old Road");
+        check(use("fig3_clue_hat") && use("fig3_clue_sign") && use("fig3_clue_receipt") && talk("core:npc.figure_rodrick", {"e3_trap", "root"}) &&
+                  QuestStage(e3) == 20, "a hat on a stick (Agnes was right), a misspelt toll sign, a receipt for 'S.'");
+        check(use("fig3_trap") && lastScene.find("goose") != std::string::npos && QuestStage(e3) == 30, "the trap catches a goose, a cake and Rodrick");
+        check(catchMonster("fig3_knight") && QuestStage(e3) == 40, "Snacks charges the knight");
+        check(talk("core:npc.unmask_knight", {"reveal", "smile"}) && player_.flags.count("fig3_guessed") && QuestStage(e3) == 50,
+              "it was Steve, and he's thrilled to be a real villain");
+        check(talk("core:npc.figure_rodrick", {"e3_done", "root"}) && QuestStage(e3) == 100 && CountItem("core:item.snacks_feather") == 1 &&
+                  talk("core:npc.figure_snacks", {"hero", "root"}), "Snacks's brave feather");
     }
 
     std::filesystem::remove(SavePath("autosave"), ec);

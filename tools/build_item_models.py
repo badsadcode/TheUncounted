@@ -1022,6 +1022,14 @@ def gang_icons():
         for x in range(15, 22, 2): d.point((x, y), fill=(255, 210, 120, 255))     # fringe
     d.text((17, 14), "?", fill=(40, 160, 170, 255))                               # embroidered question mark
     save_icon(img, "gang_scarf")
+    img, d = icon_canvas()
+    d.line([(9, 26), (23, 6)], fill=(90, 60, 30, 255), width=1)                    # quill shaft
+    d.polygon([(22, 5), (26, 8), (17, 22), (11, 24), (14, 17)], fill=(150, 104, 58, 255))  # vane
+    d.polygon([(22, 5), (24, 7), (15, 20), (13, 20)], fill=(186, 138, 84, 255))    # highlight
+    for y in (11, 15, 19):
+        d.line([(16, y + 1), (21, y - 2)], fill=(110, 74, 40, 255))               # barbs
+    d.point((10, 25), fill=(240, 220, 180, 255))
+    save_icon(img, "snacks_feather")
 
 
 BUILDERS = {

@@ -343,6 +343,9 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   - **Ep 2 "The Howler of Hollowmere"** (Rolf's garden, placed via `tools/build_mansion.py`): Rodrick unmasks Rolf first
     ("OW. That's my face."); it was Brother Aldous, four years second at the Marrow Show; Rolf offers to teach him.
     Reward: the Gang Scarf (accessory: crit, speed, sanity regen, +1 dice).
+  - **Ep 3 "The Headless Knight of the Old Road"** (`tools/authoring/figure_ep3.py`; clues on the Old Road itself):
+    Agnes was right, it's a hat on a stick; it's Steve in Vaelen's haunted armour, thrilled to finally be a villain
+    with a reveal. Snacks is brave once (charges the knight). Reward: Snacks's Brave Feather (accessory).
 - **Engine:** interactables may set `requires_flag` / `hidden_flag` (hidden ones are skipped by the prompt and renderer).
 - Sprites are prerendered placeholders (`build_sprites_prerendered.py`: figure_*, phantom_clerk, howler); the user may
   paint proper sheets later.

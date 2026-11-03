@@ -1013,6 +1013,54 @@
         "alert": "line.howler.alert",
         "death": "line.howler.death"
       }
+    },
+    {
+      "id": "core:enemy.headless_knight",
+      "name_key": "enemy.headless_knight.name",
+      "appearance": {
+        "type": "model_glb",
+        "model": "assets/models/characters/lost_sentinel.glb",
+        "scale": 0.85
+      },
+      "stats": {
+        "health": 85,
+        "armor": 4,
+        "move_speed": 1.8,
+        "xp_reward": 40
+      },
+      "behavior": "melee_patroller",
+      "family": "construct",
+      "perception": {
+        "sight_meters": 12.0,
+        "hearing_meters": 8.0
+      },
+      "attack": {
+        "name": "toll_demand",
+        "damage": 8,
+        "reach_meters": 2.0,
+        "windup_seconds": 0.7,
+        "cooldown_seconds": 1.6,
+        "sanity_damage": 2
+      },
+      "loot_table": "core:loot.vermin_drop",
+      "audio": {
+        "alert": "assets/audio/sfx/sentinel_clang.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          200,
+          200,
+          210
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.headless_knight.alert",
+        "death": "line.headless_knight.death"
+      }
     }
   ]
 }

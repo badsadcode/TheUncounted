@@ -646,6 +646,18 @@
         -8.4
       ],
       "yaw": -50.0
+    },
+    {
+      "instance_id": "npc_unmask_knight",
+      "npc_id": "core:npc.unmask_knight",
+      "pos": [
+        -1.5,
+        0.0,
+        1.2
+      ],
+      "yaw": 90.0,
+      "requires_flag": "fig3_caught",
+      "hidden_flag": "fig3_done"
     }
   ],
   "creatures": [
@@ -705,6 +717,30 @@
         0.0,
         -2.0
       ]
+    },
+    {
+      "instance_id": "fig3_knight",
+      "creature_id": "core:enemy.headless_knight",
+      "pos": [
+        -5.0,
+        0.0,
+        0.0
+      ],
+      "patrol_a": [
+        -7.0,
+        0.0,
+        0.0
+      ],
+      "patrol_b": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "requires_flag": "fig3_trap",
+      "group": "fig3",
+      "group_quest_id": "core:quest.figure_ep3",
+      "group_set_stage": 40,
+      "group_set_flag": "fig3_caught"
     }
   ],
   "interactables": [
@@ -1002,6 +1038,76 @@
       "prompt": "Read the Wagon's Side",
       "title": "The Figure It Out Wagon",
       "text": "Painted along the side in enormous wobbly letters, between the flowers:\n\nTHE FIGURE IT OUT GANG\nMysteries Solved! Monsters Unmasked! Reasonable Rates!\n\nUnderneath, in smaller letters, added later: \"Not responsible for traps.\"\n\nUnderneath THAT, smaller still, in Agnes's handwriting: \"Rodrick is responsible for traps.\""
+    },
+    {
+      "instance_id": "fig3_clue_hat",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -9.0,
+        0.0,
+        3.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look in the Ditch",
+      "title": "A Hat on a Stick",
+      "text": "In the ditch beside the road: a broom handle with a battered felt hat nailed to the top. Seen from a distance, at night, through a visor, it would look exactly like a knight's plume.\n\nOr a hat on a stick. Which is what it is.\n\nAgnes is going to be unbearable about this.",
+      "set_flag": "fig3_c1",
+      "requires_flag": "fig3_open"
+    },
+    {
+      "instance_id": "fig3_clue_sign",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        2.5,
+        0.0,
+        -3.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Sign",
+      "title": "A Hand-Painted Sign",
+      "text": "A wooden board, propped against a rock, painted in big careful letters:\n\nTOLL ROAD\nPAY THE HEDLESS KNIGHT\n5 GOLD\n(OR 4)\n(THIS IS NOT A BANDIT THING)\n\nThe 'A' in HEADLESS has been added later, above, with a little arrow.",
+      "set_flag": "fig3_c2",
+      "requires_flag": "fig3_open"
+    },
+    {
+      "instance_id": "fig3_clue_receipt",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        11.5,
+        0.0,
+        3.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Pick Up the Paper",
+      "title": "A Receipt in the Verge",
+      "text": "VAELEN'S PROVISIONS & ODDITIES\n1 x suit of plate armour, used, slightly haunted (the haunting is free) ... 30 gold\nCustomer is paying in instalments of 1 gold.\nCustomer has paid 1 gold.\nSold to: S.\n\nOn the back, in different handwriting: 'cut hole in top for my head. hat on stick. DONT FORGET THE STICK'",
+      "set_flag": "fig3_c3",
+      "requires_flag": "fig3_open"
+    },
+    {
+      "instance_id": "fig3_trap",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        0.0,
+        0.0,
+        0.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Set Rodrick's Trap",
+      "title": "The Trap",
+      "text": "(The trap is set.)",
+      "set_flag": "fig3_trap",
+      "requires_flag": "fig3_trap_ready",
+      "hidden_flag": "fig3_trap",
+      "quest_id": "core:quest.figure_ep3",
+      "set_stage": 30,
+      "narration": [
+        "story.fig3.trap"
+      ]
     }
   ],
   "portals": [

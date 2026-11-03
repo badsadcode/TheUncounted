@@ -996,6 +996,71 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.figure_ep3",
+      "title_key": "quest.fig3.title",
+      "summary_key": "quest.fig3.summary",
+      "campaign": "figure_it_out",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.fig3.stage0",
+          "journal_key": "quest.fig3.journal0",
+          "markers": [
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.fig3.stage10",
+          "journal_key": "quest.fig3.journal10",
+          "markers": [
+            "fig3_clue_hat",
+            "fig3_clue_sign",
+            "fig3_clue_receipt",
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.fig3.stage20",
+          "journal_key": "quest.fig3.journal20",
+          "markers": [
+            "fig3_trap"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.fig3.stage30",
+          "journal_key": "quest.fig3.journal30",
+          "markers": [
+            "fig3_knight"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.fig3.stage40",
+          "journal_key": "quest.fig3.journal40",
+          "markers": [
+            "npc_unmask_knight"
+          ]
+        },
+        {
+          "stage": 50,
+          "objective_key": "quest.fig3.stage50",
+          "journal_key": "quest.fig3.journal50",
+          "markers": [
+            "npc_figure_rodrick"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.fig3.stage100",
+          "journal_key": "quest.fig3.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [
