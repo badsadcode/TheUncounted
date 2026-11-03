@@ -361,6 +361,9 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   The subtitle stays up at least as long as the clip. No file = text only, as before.
 - **Snacks** (`tools/authoring/snacks_companion.py`) can join after the Headless Knight (`fig3_done`; flag
   `snacks_following`): weak in fights, generous healer (snacks), banter with Grout, Baggy and Kaelen.
+- **Bestiary** (character screen, 4th tab): `PlayerState.kills` (saved) counted in `KillCreature`; entries show stats
+  + a field note (`bestiary.<creature suffix>`, `tools/authoring/bestiary.py`) after 1 kill, drops after 3, and at 10 kills
+  Hunter's Insight (+5% damage vs that kind, in `DamageCreature`). Preview: `--shot X --overlay bestiary`.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

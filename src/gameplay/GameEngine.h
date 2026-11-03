@@ -57,6 +57,7 @@ struct PlayerState {
     std::map<std::string, std::string> equipment; // slot -> item id
     std::vector<std::string> known_spells;
     std::set<std::string> perks;   // chosen perk ids (one per skill milestone)
+    std::map<std::string, int> kills;  // creature id -> times defeated (the Bestiary)
     int selected_spell = 0;
     std::array<std::string, 4> quick_slots;
     std::vector<ActiveBuff> buffs;
@@ -423,6 +424,9 @@ private:
     void DrawCharacter();
     void DrawCombatSheet(Rectangle P);
     void DrawPerks(Rectangle P);
+    void DrawBestiary(Rectangle P);
+    std::string bestiary_sel_;
+    float bestiary_scroll_ = 0.0f;
     void DrawCrafting();
     bool RecipeKnown(const RecipeDef& r) const;
     bool CanCraft(const RecipeDef& r) const;

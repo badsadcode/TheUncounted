@@ -926,6 +926,99 @@ void GameEngine::DrawInventory() {
 // ============================================================================
 // Character sheet
 // ============================================================================
+void GameEngine::DrawBestiary(Rectangle P) {
+    // Every creature you've defeated. One kill: stats and a field note. Three: what it drops. Ten: Hunter's Insight.
+    float u = U();
+    std::vector<const CreatureDef*> seen;
+    int total = 0, kinds = 0;
+    for (const auto& [id, def] : content_.creatures) {
+        kinds++;
+        auto k = player_.kills.find(id);
+        if (k != player_.kills.end() && k->second > 0) { seen.push_back(&def); total += k->second; }
+    }
+    std::sort(seen.begin(), seen.end(), [&](const CreatureDef* a, const CreatureDef* b) { return content_.Tr(a->name_key) < content_.Tr(b->name_key); });
+    float top = P.y + 124;
+    Text("Monsters defeated: " + std::to_string(total) + "     Kinds recorded: " + std::to_string(seen.size()) + " / " + std::to_string(kinds),
+         P.x + 20, top, 16, kDim);
+    if (seen.empty()) {
+        TextWrapped("Nothing recorded yet. Defeat a monster and its entry appears here: its stats, a field note, and after a few more, "
+                    "what it drops. Defeat ten of a kind for Hunter's Insight: +5% damage against them.", {P.x + 20, top + 36, 600, 120}, 16, kText);
+        return;
+    }
+    if (bestiary_sel_.empty() || !player_.kills.count(bestiary_sel_)) bestiary_sel_ = seen[0]->id;
+    const float listTop = top + 30, listH = P.y + P.height - 20 - listTop, rowH = 34.0f;
+    Rectangle area = {(P.x + 20) * u, listTop * u, 330 * u, listH * u};
+    if (CheckCollisionPointRec(GetMousePosition(), area)) bestiary_scroll_ -= GetMouseWheelMove() * rowH * 2.0f;
+    bestiary_scroll_ = Clamp(bestiary_scroll_, 0.0f, std::max(0.0f, seen.size() * rowH - listH));
+    BeginScissorMode(static_cast<int>(area.x), static_cast<int>(area.y), static_cast<int>(area.width), static_cast<int>(area.height));
+    float y = listTop - bestiary_scroll_;
+    for (const CreatureDef* d : seen) {
+        Rectangle r = {P.x + 20, y, 330, rowH - 3};
+        Rectangle s = {r.x * u, r.y * u, r.width * u, r.height * u};
+        bool hover = CheckCollisionPointRec(GetMousePosition(), s) && CheckCollisionPointRec(GetMousePosition(), area);
+        bool sel = d->id == bestiary_sel_;
+        DrawRectangleRec(s, sel ? Color{60, 48, 32, 230} : hover ? Color{40, 36, 30, 220} : Color{20, 20, 24, 160});
+        int k = player_.kills[d->id];
+        Text(content_.Tr(d->name_key), r.x + 10, r.y + 7, 16, kText);
+        Text("x" + std::to_string(k), r.x + r.width - 50, r.y + 8, 15, k >= 10 ? kGold : kDim);
+        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) bestiary_sel_ = d->id;
+        y += rowH;
+    }
+    EndScissorMode();
+
+    const CreatureDef* d = content_.GetCreature(bestiary_sel_);
+    if (!d) return;
+    int kills = player_.kills[d->id];
+    float x = P.x + 380, dy = top + 30;
+    // portrait: the front-facing idle frame of its sprite sheet
+    Rectangle pic = {x, dy, 150, 150};
+    DrawRectangleRec({pic.x * u, pic.y * u, pic.width * u, pic.height * u}, Color{14, 14, 18, 200});
+    if (d->appearance.type == "sprite_8dir" && !d->appearance.sprite_sheet.empty()) {
+        Texture2D tex = res_.GetTexture(d->appearance.sprite_sheet);
+        const SpriteAnimData& an = res_.GetAnimData(d->appearance.animation_data);
+        float fw = static_cast<float>(an.frame_width > 0 ? an.frame_width : 64), fh = static_cast<float>(an.frame_height > 0 ? an.frame_height : 64);
+        DrawTexturePro(tex, {0, 0, fw, fh}, {pic.x * u, pic.y * u, pic.width * u, pic.height * u}, {0, 0}, 0.0f, WHITE);
+    } else {
+        Text("(a construct)", pic.x + 24, pic.y + 64, 15, kDim);
+    }
+    float tx = x + 170;
+    Text(content_.Tr(d->name_key), tx, dy, 24, kGold);
+    std::string fam = d->family.empty() ? "creature" : d->family;
+    Text(fam + "   -   defeated " + std::to_string(kills) + (kills == 1 ? " time" : " times"), tx, dy + 34, 15, kDim);
+    float sy = dy + 64;
+    auto stat = [&](const std::string& label, const std::string& val) { Text(label, tx, sy, 15, kDim); Text(val, tx + 120, sy, 15, kText); sy += 22; };
+    stat("Health", std::to_string(d->health));
+    stat("Armour", std::to_string(d->armor));
+    stat("Hits for", std::to_string(d->attack.damage) + (d->attack.sanity_damage > 0 ? " (+" + std::to_string(d->attack.sanity_damage) + " sanity)" : ""));
+    stat("Reach", d->attack.ranged_range_meters > 0.0f ? TextFormat("%.0f m (ranged)", d->attack.ranged_range_meters) : TextFormat("%.1f m", d->attack.reach_meters));
+    stat("Speed", TextFormat("%.1f m/s", d->move_speed));
+    stat("XP", std::to_string(d->xp_reward));
+    std::string note = content_.Tr("bestiary." + d->id.substr(d->id.rfind('.') + 1));
+    if (note.rfind("bestiary.", 0) == 0) note = "";
+    float ny = std::max(sy, pic.y + pic.height) + 14;
+    if (!note.empty()) { TextWrapped(note, {x, ny, P.x + P.width - 20 - x, 90}, 15, kText); ny += 92; }
+    Text("Drops", x, ny, 17, kGold);
+    ny += 26;
+    if (kills < 3) {
+        Text("Defeat " + std::to_string(3 - kills) + " more to learn what it drops.", x, ny, 15, kDim);
+        ny += 24;
+    } else if (auto ltIt = content_.loot_tables.find(d->loot_table); ltIt != content_.loot_tables.end()) {
+        const LootTableDef* lt = &ltIt->second;
+        std::string line;
+        auto add = [&](const std::string& id, bool sure) {
+            if (const ItemDef* it = content_.GetItem(id)) line += (line.empty() ? "" : ",  ") + content_.Tr(it->name_key) + (sure ? " (always)" : "");
+        };
+        std::set<std::string> done;
+        for (const auto& g : lt->guaranteed) if (done.insert(g).second) add(g, true);
+        for (const auto& e : lt->entries) if (done.insert(e.item_id).second) add(e.item_id, false);
+        line += (line.empty() ? "" : ",  ") + std::to_string(lt->gold_min) + "-" + std::to_string(lt->gold_max) + " gold";
+        TextWrapped(line, {x, ny, P.x + P.width - 20 - x, 60}, 15, kText);
+        ny += 60;
+    }
+    Text(kills >= 10 ? "Hunter's Insight: +5% damage against this kind." : "Hunter's Insight at 10 defeated (" + std::to_string(kills) + "/10).",
+         x, ny + 4, 15, kills >= 10 ? kGold : kDim);
+}
+
 void GameEngine::DrawPerks(Rectangle P) {
     float u = U();
     // Left: skills that have perks (with a marker where a choice is waiting). Right: that skill's milestones.
@@ -1003,14 +1096,15 @@ void GameEngine::DrawCharacter() {
     if (race) TextWrapped(content_.Tr(race->trait_key), {P.x + 560, P.y + 24, 540, 50}, 14, kAccent);
     int pending = PendingPerks();
     std::string perkTab = pending > 0 ? "Perks (" + std::to_string(pending) + ")" : "Perks";
-    const char* tabs[] = {"Overview", "Combat Sheet", perkTab.c_str()};
-    for (int i = 0; i < 3; i++) {
-        Rectangle t = {P.x + P.width - 532 + i * 172, P.y + 78, 166, 30};
+    const char* tabs[] = {"Overview", "Combat Sheet", perkTab.c_str(), "Bestiary"};
+    for (int i = 0; i < 4; i++) {
+        Rectangle t = {P.x + P.width - 704 + i * 172, P.y + 78, 166, 30};
         if (Button(t, tabs[i], true, 15)) char_tab_ = i;
         if (char_tab_ == i) DrawRectangle(static_cast<int>(t.x * u), static_cast<int>((t.y + 28) * u), static_cast<int>(t.width * u), static_cast<int>(3 * u), kGold);
     }
     if (char_tab_ == 1) { DrawCombatSheet(P); return; }
     if (char_tab_ == 2) { DrawPerks(P); return; }
+    if (char_tab_ == 3) { DrawBestiary(P); return; }
 
     float y = P.y + 120;
     Text("Attributes", P.x + 20, y, 22, kGold);

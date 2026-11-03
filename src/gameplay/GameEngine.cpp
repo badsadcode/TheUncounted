@@ -279,6 +279,15 @@ bool GameEngine::Init(int argc, char** argv) {
             overlay_ = Overlay::Crafting;
             toasts_.clear();
         }
+        else if (boot_shot_overlay_ == "bestiary") {
+            // A seasoned hunter's Bestiary: a few kinds, one with Hunter's Insight.
+            player_.kills = {{"core:enemy.grave_rat", 23}, {"core:enemy.grey_wolf", 7}, {"core:enemy.rat_king", 1}, {"core:enemy.granny_wolf", 3},
+                             {"core:enemy.the_drowned", 12}, {"core:enemy.headless_knight", 1}, {"core:enemy.ink_wraith", 4}};
+            bestiary_sel_ = "core:enemy.granny_wolf";
+            char_tab_ = 3;
+            overlay_ = Overlay::Character;
+            toasts_.clear();
+        }
         else if (boot_shot_overlay_ == "perks") {
             // A mid-game mage: Elemental 27 with one perk chosen and one waiting.
             player_.skills["elemental"].level = 27;
@@ -2556,6 +2565,8 @@ int GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, cons
     if (c.shock_time > 0.0f) amount = static_cast<int>(std::round(amount * (1.25f + Bonus("shock_damage_bonus"))));
     if (c.health >= c.max_health) amount = static_cast<int>(std::round(amount * (1.0f + Bonus("opener_damage_bonus"))));
     if (player_.health < MaxHealth() * 0.35f) amount = static_cast<int>(std::round(amount * (1.0f + Bonus("desperation_damage_bonus"))));
+    // Hunter's Insight: ten of a kind defeated and you know where to hit them (the Bestiary).
+    if (auto k = player_.kills.find(c.def->id); k != player_.kills.end() && k->second >= 10) amount = static_cast<int>(std::round(amount * 1.05f));
     // Armour blunts each blow; 60% weighting keeps fast light weapons viable against armoured foes.
     int final = std::max(1, amount - static_cast<int>(std::round(c.def->armor * 0.6f)));
     c.health -= final;
@@ -2608,6 +2619,7 @@ void GameEngine::KillCreature(CreatureInstance& c) {
     MapPersist& ps = Persist();
     ps.dead.insert(c.instance_id);
     ps.corpse_pos[c.instance_id] = c.pos;
+    if (++player_.kills[c.def->id] == 10) Toast("Hunter's Insight: +5% damage against " + content_.Tr(c.def->name_key) + " (see the Bestiary)", Color{240, 210, 140, 255});
     Container("corpse:" + c.instance_id, c.def->loot_table, {});
     PlaySfxAt(c.def->sfx_death.empty() ? "assets/audio/sfx/enemy_death.wav" : c.def->sfx_death, c.pos, 0.9f);
     if (!c.def->death_line_key.empty()) Say(content_.Tr(c.def->name_key), content_.Tr(c.def->death_line_key), 0.0f, c.def->death_line_key);
@@ -3728,6 +3740,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     pj["equipment"] = p.equipment;
     pj["known_spells"] = p.known_spells;
     pj["perks"] = std::vector<std::string>(p.perks.begin(), p.perks.end());
+    pj["kills"] = p.kills;
     pj["selected_spell"] = p.selected_spell;
     pj["quick_slots"] = std::vector<std::string>(p.quick_slots.begin(), p.quick_slots.end());
     json buffs = json::array();
@@ -3839,6 +3852,7 @@ bool GameEngine::LoadGame(const std::string& slot) {
             auto v = pj.value("perks", std::vector<std::string>{});
             p.perks = std::set<std::string>(v.begin(), v.end());
         }
+        p.kills = pj.value("kills", std::map<std::string, int>{});
         p.selected_spell = pj.value("selected_spell", 0);
         auto qs = pj.value("quick_slots", std::vector<std::string>{});
         for (size_t i = 0; i < qs.size() && i < 4; i++) p.quick_slots[i] = qs[i];

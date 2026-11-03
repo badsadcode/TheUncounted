@@ -1513,6 +1513,32 @@ int GameEngine::RunSelfTest() {
               "officially alive: Dragon's Sigh and one of Cindermaw's scales");
     }
 
+    // --- The Bestiary: kills are counted, Hunter's Insight at ten, kills survive save/load
+    {
+        int rats = player_.kills["core:enemy.grave_rat"];
+        check(rats > 0 && player_.kills.size() >= 3, "the Bestiary has recorded the monsters defeated so far");
+        CreatureInstance dummy;
+        dummy.instance_id = "bestiary_dummy";
+        dummy.def = content_.GetCreature("core:enemy.grey_wolf");
+        dummy.health = dummy.max_health = 9999;
+        dummy.state = CreatureState::Idle;
+        int saved = player_.kills["core:enemy.grey_wolf"];
+        player_.kills["core:enemy.grey_wolf"] = 0;
+        int before = dummy.health;
+        DamageCreature(dummy, 40, false, "swords", false);
+        int plain = before - dummy.health;
+        player_.kills["core:enemy.grey_wolf"] = 10;
+        before = dummy.health;
+        DamageCreature(dummy, 40, false, "swords", false);
+        check(before - dummy.health > plain, "Hunter's Insight: ten wolves later, wolves take more damage");
+        player_.kills["core:enemy.grey_wolf"] = saved;
+        auto kills = player_.kills;
+        check(SaveGame("selftest_bestiary") && LoadGame("selftest_bestiary") && player_.kills == kills, "kill counts survive save and load");
+        std::filesystem::remove(SavePath("selftest_bestiary"), ec);
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+    }
+
     // --- Deeper crafting: boss reagents, recipe books, locked recipes
     {
         overlay_ = Overlay::None;
