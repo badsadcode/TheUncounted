@@ -74,7 +74,7 @@ w("| `headless_knight.png` | The Headless Knight of the Old Road | Comedy: it's 
 w("| `repossession_golem.png` | The Repossession Golem | A big, blocky iron golem stamped REPOSSESSED all over in red, "
   "riveted plates, glowing furnace eyes, bought with a dragon's money. Bigger than a person (about 2.3 m). |")
 
-w("\n## 2b. Chapter One: the people of Here — 9 sprite sheets\n")
+w("\n## 2b. Chapter One: the people of Here — 10 sprite sheets\n")
 w("A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. Same 8 × 6 "
   "layout as the other characters. The residents are slightly faded, like a memory (soft, pale edges are fine: the game "
   "keeps them a little see-through itself). Simple placeholders are in the game until yours arrive.\n")
@@ -87,6 +87,7 @@ for f, who, look in [
     ("here_cartographer.png", "The Cartographer (Retired)", "An elderly mapmaker with white hair and beard, a much-mended brown coat, a battered hat, maps rolled under one arm."),
     ("here_person_in_hat.png", "Person in a Hat", "Someone in a VERY tall, slightly bent hat (the most important part), a purple coat, dignified and vague."),
     ("here_night_merchant.png", "The Night Merchant", "A tall, thin, hooded figure in deep night-blue, glowing pale eyes, a staff hung with little lanterns of different colours."),
+    ("here_inspector.png", "Inspector Aldric Thrupp (ghost)", "A grey, upright ghost tax inspector in a tall collar and a battered hat, a tin badge, holding a ledger full of holes; faint and see-through, counting chimneys on his fingers."),
     ("here_echo.png", "The Last Archivist", "A ghostly archivist made of almost nothing: robes, spectacles, ink-stained fingers, an open ledger; floats slightly, faintly glowing."),
     ("here_mouth.png", "Mouth of the Hunger (monster)", "A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names."),
     ("here_unsaying.png", "The Unsaying (boss)", "Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be."),

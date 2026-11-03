@@ -17339,6 +17339,186 @@
           ]
         }
       }
+    },
+    {
+      "id": "core:dialogue.here_inspector",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_inspector.name",
+          "text_key": "dlg.ch1.ins.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ins.root.c0",
+              "next": "start",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.here_taxes",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ins.root.c1",
+              "next": "persuaded",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.here_taxes",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_tax_denied"
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 14,
+                "fail_next": "denied"
+              }
+            },
+            {
+              "text_key": "dlg.ch1.ins.root.c2",
+              "next": "himself",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.here_taxes",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "here_hearths_read"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ins.root.c3",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.here_taxes",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ins.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "start": {
+          "speaker_key": "npc.here_inspector.name",
+          "text_key": "dlg.ch1.ins.start",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ins.start.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.here_taxes",
+              "stage": 0
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.here_taxes",
+              "stage": 10
+            }
+          ]
+        },
+        "persuaded": {
+          "speaker_key": "npc.here_inspector.name",
+          "text_key": "dlg.ch1.ins.persuaded",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ins.persuaded.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.here_taxes",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.inspector_abacus",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 60
+            }
+          ]
+        },
+        "denied": {
+          "speaker_key": "npc.here_inspector.name",
+          "text_key": "dlg.ch1.ins.denied",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ins.denied.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "here_tax_denied",
+              "value": true
+            }
+          ]
+        },
+        "himself": {
+          "speaker_key": "npc.here_inspector.name",
+          "text_key": "dlg.ch1.ins.himself",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ins.himself.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.here_taxes",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.inspector_abacus",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 60
+            },
+            {
+              "type": "give_gold",
+              "amount": 40
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.here_inspector.name",
+          "text_key": "dlg.ch1.ins.after",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ins.after.c0",
+              "next": "END"
+            }
+          ]
+        }
+      }
     }
   ]
 }

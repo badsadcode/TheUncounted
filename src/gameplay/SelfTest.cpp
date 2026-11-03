@@ -1416,7 +1416,7 @@ int GameEngine::RunSelfTest() {
             check(chooseNext("join") && IsCompanion("core:npc.grout") && player_.flags.count("grout_following"), "Grout joins: 'No.' (stands up anyway)");
             if (overlay_ == Overlay::Dialogue) EndDialogue();
             const NpcDef* g = content_.GetNpc("core:npc.grout");
-            check(g && g->companion.banter.size() == 5 && g->companion.zone_lines.size() == 11, "Grout has banter with Baggy and Kaelen and a line for every area");
+            check(g && g->companion.banter.size() == 6 && g->companion.zone_lines.size() == 13, "Grout has banter with Baggy, Kaelen and Doobie and a line for every area");
         }
         player_.companions = savedParty;
         player_.flags = savedFlags;
@@ -1823,6 +1823,20 @@ int GameEngine::RunSelfTest() {
         // Ending C: hand it to the Ashbound (Chapter Zero's ending decides who keeps the Ledger)
         check(LoadGame("selftest_ch1") && talk("core:npc.here_echo", {"pieces", "choice", "give_ashbound"}) && QuestStage(q) == 102,
               "ending three: the name goes into the Ledger, for Kaelen to read aloud");
+        // Death and Taxes: the ghost Inspector of Hearths
+        {
+            const std::string tq = "core:quest.here_taxes";
+            player_.hour = 23.0f;
+            check(talk("core:npc.here_inspector", {"start"}) && QuestStage(tq) == 10, "Death and Taxes: 47 hearths, 400 years, nobody PAYS");
+            check(!talk("core:npc.here_inspector", {"himself"}) && use("here_hearth_register") && player_.flags.count("here_hearths_read"),
+                  "the Register of Hearths at the customs post: the Inspector never taxed his own house");
+            check(talk("core:npc.here_inspector", {"himself"}) && QuestStage(tq) == 100 && CountItem("core:item.inspector_abacus") == 1,
+                  "he pays himself four hundred coppers; the ledger balances; he rests (the Inspector's Abacus)");
+            const NpcDef* kaelen = content_.GetNpc("core:npc.ashbound_scout");
+            const NpcDef* doobie = content_.GetNpc("core:npc.figure_snacks");
+            check(kaelen && doobie && kaelen->companion.zone_lines.count("here") && doobie->companion.zone_lines.count("here_archive"),
+                  "companions have something to say about Here (and Doobie hides from the Mouths)");
+        }
         std::filesystem::remove(SavePath("selftest_ch1"), ec);
         content_.game_cfg.day_length_minutes = savedLen;
         LoadMap("core:map.edrath", "village_gate");

@@ -1311,6 +1311,37 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.here_taxes",
+      "title_key": "quest.taxes.title",
+      "summary_key": "quest.taxes.summary",
+      "campaign": "chapter_one",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.taxes.stage0",
+          "journal_key": "quest.taxes.journal0",
+          "markers": [
+            "npc_here_inspector"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.taxes.stage10",
+          "journal_key": "quest.taxes.journal10",
+          "markers": [
+            "here_hearth_register",
+            "npc_here_inspector"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.taxes.stage100",
+          "journal_key": "quest.taxes.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

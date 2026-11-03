@@ -715,4 +715,8 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   `day_fog_density`, `UseInteractTarget()` (Interact() without re-targeting, for tests).
 - Content written by `tools/authoring/chapter_one.py` (archive). Placeholder sprites/icons until Noor's (brief section
   2b). Balance: the Unsaying (behaviour `boss_unsaying`) is beaten by every build; Mouths are ordinary fights.
-- Not done yet: companion banter in Here, the ghost tax inspector side tale.
+- Extras (`tools/authoring/chapter_one_extras.py`): zone lines for Kaelen, Baggy, Doobie and Grout in `here` and
+  `here_archive`; banters `here_names` (Kaelen & Baggy, flag `here_visited`, set by the milestone) and `here_bread`
+  (Grout & Doobie, after the bread). Side tale *Death and Taxes* (`core:quest.here_taxes`): Inspector Aldric Thrupp
+  (night-only ghost, Gatehouse Lane); persuade (DC 14) or read the Register of Hearths at the customs post (flag
+  `here_hearths_read`) → he pays himself → The Inspector's Abacus.

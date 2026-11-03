@@ -1,7 +1,7 @@
 # Chapter One: The City Formerly Known As
 
 **Status: built and playable** (3 Nov). Butt-Butt is Toasty's character; the city stays "Here", and it turns out
-that was its name all along. Still to do: companion banter in Here, the ghost tax inspector side tale, Noor's art.
+that was its name all along. Companion banter and the ghost tax inspector (*Death and Taxes*) are in too. Still to come: Noor's art.
 
 ## The hook
 

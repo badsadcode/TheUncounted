@@ -1233,7 +1233,8 @@
       "set_stage": 20,
       "narration": [
         "story.here.road"
-      ]
+      ],
+      "set_flag": "here_visited"
     }
   ],
   "portals": [

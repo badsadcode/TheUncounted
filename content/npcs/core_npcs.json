@@ -390,7 +390,9 @@
           "saltmere": "comp.kaelen.zone.saltmere",
           "sunken_chapel": "comp.kaelen.zone.sunken_chapel",
           "whistling_wood": "comp.kaelen.zone.whistling_wood",
-          "sleepers_reef": "comp.kaelen.zone.sleepers_reef"
+          "sleepers_reef": "comp.kaelen.zone.sleepers_reef",
+          "here": "comp.kaelen.zone.here",
+          "here_archive": "comp.kaelen.zone.here_archive"
         },
         "idle_lines": [
           {
@@ -736,6 +738,29 @@
                 "text_key": "comp.kaelen.banter.trout.3"
               }
             ]
+          },
+          {
+            "id": "here_names",
+            "partner": "core:npc.detective_baggy",
+            "flag": "here_visited",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.here_names.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.here_names.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.here_names.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.here_names.3"
+              }
+            ]
           }
         ]
       }
@@ -822,7 +847,9 @@
           "saltmere": "comp.baggy.zone.saltmere",
           "sunken_chapel": "comp.baggy.zone.sunken_chapel",
           "whistling_wood": "comp.baggy.zone.whistling_wood",
-          "sleepers_reef": "comp.baggy.zone.sleepers_reef"
+          "sleepers_reef": "comp.baggy.zone.sleepers_reef",
+          "here": "comp.baggy.zone.here",
+          "here_archive": "comp.baggy.zone.here_archive"
         },
         "idle_lines": [
           {
@@ -1542,7 +1569,9 @@
           "saltmere": "comp.snacks.zone.saltmere",
           "sunken_chapel": "comp.snacks.zone.sunken_chapel",
           "whistling_wood": "comp.snacks.zone.whistling_wood",
-          "sleepers_reef": "comp.snacks.zone.sleepers_reef"
+          "sleepers_reef": "comp.snacks.zone.sleepers_reef",
+          "here": "comp.snacks.zone.here",
+          "here_archive": "comp.snacks.zone.here_archive"
         },
         "idle_lines": [
           {
@@ -1803,7 +1832,9 @@
           "saltmere": "comp.grout.zone.saltmere",
           "sunken_chapel": "comp.grout.zone.sunken_chapel",
           "whistling_wood": "comp.grout.zone.whistling_wood",
-          "sleepers_reef": "comp.grout.zone.sleepers_reef"
+          "sleepers_reef": "comp.grout.zone.sleepers_reef",
+          "here": "comp.grout.zone.here",
+          "here_archive": "comp.grout.zone.here_archive"
         },
         "idle_lines": [
           {
@@ -1993,6 +2024,29 @@
               {
                 "by": "partner",
                 "text_key": "comp.grout.banter.kaelen_chronicle.2"
+              }
+            ]
+          },
+          {
+            "id": "here_bread",
+            "partner": "core:npc.figure_snacks",
+            "flag": "here_frag_smell",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.here_bread.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.here_bread.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.here_bread.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.here_bread.3"
               }
             ]
           }
@@ -2242,6 +2296,27 @@
       "barks": [
         {
           "text_key": "bark.here_echo.0"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.here_inspector",
+      "name_key": "npc.here_inspector.name",
+      "title_key": "npc.here_inspector.title",
+      "faction": "core:faction.bureau",
+      "dialogue_id": "core:dialogue.here_inspector",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_inspector.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.85
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_inspector.0"
+        },
+        {
+          "text_key": "bark.here_inspector.1"
         }
       ]
     }

@@ -189,6 +189,13 @@ readable("here_verse_3", -26.4, 1.2, 0.0, "Read the Chalk on the Wall", "Chalked
          "Underneath, the same child has written: 'I DIDN'T DO THAT. - BUTT-BUTT'.", hours=NIGHT, set_flag="here_verse3")
 for i, (x, z) in enumerate([(-20.0, 12.0), (20.0, 12.0), (-20.0, -12.0), (0.0, 20.0)]):
     lamp(f"lamp_street_{i}", x, z, (0.75, 0.78, 1.0), 8.0)
+# Death and Taxes: a ghost tax inspector still counting the city's chimneys, and the register at the customs post
+npc("npc_here_inspector", "core:npc.here_inspector", -20.0, 23.2, 180.0, hours=NIGHT)
+readable("here_hearth_register", -7.8, 1.05, 30.9, "Read the Register of Hearths", "Register of Hearths (Here)",
+         "REGISTER OF HEARTHS, kept at the Municipal Boundary\n\nOne copper per hearth per year, payable to the Inspector of Hearths.\n\n"
+         "Houses: 41. Hearths: 47. (The bakery has three.)\n\nAt the bottom, in a different, very neat hand: 'Inspector's residence, "
+         "Gatehouse Lane: one hearth. EXEMPT (the Inspector does not tax himself).' Someone has crossed out EXEMPT and written, in "
+         "Ottoline's handwriting: 'NOT A REAL EXEMPTION. I CHECKED.'", set_flag="here_hearths_read")
 
 # ============================================================================ north-east: the bell tower
 box("tower_body", STONE, 20.0, 26.0, 0.0, 7.0, -26.0, -20.0, uv=[2.4, 2.4])

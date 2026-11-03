@@ -2852,6 +2852,20 @@
       ]
     },
     {
+      "instance_id": "npc_here_inspector",
+      "npc_id": "core:npc.here_inspector",
+      "pos": [
+        -20.0,
+        0.0,
+        23.2
+      ],
+      "yaw": 180.0,
+      "hours": [
+        18.0,
+        7.0
+      ]
+    },
+    {
       "instance_id": "npc_here_echo",
       "npc_id": "core:npc.here_echo",
       "pos": [
@@ -3090,6 +3104,21 @@
         7.0
       ],
       "set_flag": "here_verse3"
+    },
+    {
+      "instance_id": "here_hearth_register",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -7.8,
+        1.05,
+        30.9
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Register of Hearths",
+      "title": "Register of Hearths (Here)",
+      "text": "REGISTER OF HEARTHS, kept at the Municipal Boundary\n\nOne copper per hearth per year, payable to the Inspector of Hearths.\n\nHouses: 41. Hearths: 47. (The bakery has three.)\n\nAt the bottom, in a different, very neat hand: 'Inspector's residence, Gatehouse Lane: one hearth. EXEMPT (the Inspector does not tax himself).' Someone has crossed out EXEMPT and written, in Ottoline's handwriting: 'NOT A REAL EXEMPTION. I CHECKED.'",
+      "set_flag": "here_hearths_read"
     },
     {
       "instance_id": "here_tower_view",

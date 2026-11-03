@@ -41,7 +41,7 @@ Right now all four share one plain 3D model. Same 8 × 6 sheet layout and rules 
 | `headless_knight.png` | The Headless Knight of the Old Road | Comedy: it's obviously Steve (the level-one bandit from your Steve sheet) in ill-fitting, mismatched armour, the helmet pulled down over his head, holding a hat on a stick above it to look 'headless'; his patched leathers and too-big hood poke out. Proudly dramatic poses. |
 | `repossession_golem.png` | The Repossession Golem | A big, blocky iron golem stamped REPOSSESSED all over in red, riveted plates, glowing furnace eyes, bought with a dragon's money. Bigger than a person (about 2.3 m). |
 
-## 2b. Chapter One: the people of Here — 9 sprite sheets
+## 2b. Chapter One: the people of Here — 10 sprite sheets
 
 A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. Same 8 × 6 layout as the other characters. The residents are slightly faded, like a memory (soft, pale edges are fine: the game keeps them a little see-through itself). Simple placeholders are in the game until yours arrive.
 
@@ -53,6 +53,7 @@ A city struck off every map 400 years ago; its people have forgotten their own n
 | `here_cartographer.png` | The Cartographer (Retired) | An elderly mapmaker with white hair and beard, a much-mended brown coat, a battered hat, maps rolled under one arm. |
 | `here_person_in_hat.png` | Person in a Hat | Someone in a VERY tall, slightly bent hat (the most important part), a purple coat, dignified and vague. |
 | `here_night_merchant.png` | The Night Merchant | A tall, thin, hooded figure in deep night-blue, glowing pale eyes, a staff hung with little lanterns of different colours. |
+| `here_inspector.png` | Inspector Aldric Thrupp (ghost) | A grey, upright ghost tax inspector in a tall collar and a battered hat, a tin badge, holding a ledger full of holes; faint and see-through, counting chimneys on his fingers. |
 | `here_echo.png` | The Last Archivist | A ghostly archivist made of almost nothing: robes, spectacles, ink-stained fingers, an open ledger; floats slightly, faintly glowing. |
 | `here_mouth.png` | Mouth of the Hunger (monster) | A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names. |
 | `here_unsaying.png` | The Unsaying (boss) | Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be. |
@@ -102,7 +103,7 @@ Shown in the spell bar and spellbook, all the time. **64 × 64 px**, opaque squa
 | `veil.png` | Veil | Dulls sound and bends shadow, reducing enemy sight detection. |
 | `ward.png` | Ward | Sheathes the caster in a resonant arcane barrier (+8 Armor). |
 
-## 5. Item icons — 186 icons (a big set: any part helps)
+## 5. Item icons — 187 icons (a big set: any part helps)
 
 Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px. Grouped by kind below; the description is what the game says about it.
 
@@ -152,7 +153,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `scholar_robe.png` | Collegium Archivist Robe | Woven with silver thread that steadies the mind during casting. |
 | `traveler_boots.png` | Wayfarer's Dry-Stitched Boots | Waxed against Bellwether's unending drizzle. |
 
-### Accessory (25)
+### Accessory (26)
 
 | File | Item | Description |
 |---|---|---|
@@ -166,6 +167,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `here_silver_bell.png` | Silver Bell of Here | A small silver bell from the tower of Here, given by the whole town. When it rings, things that eat names flinch. Your spells hit harder; you see further into the dark. |
 | `hollowmere_signet.png` | Hollowmere Signet | Sir Percival's own ring, given freely at the end of a very good party. It feels warm, like a hand on your shoulder. +2 Presence, +1 Will, slowly mends you. |
 | `ink_heart_quill.png` | Ink-Heart Quill | A quill whose nib dips itself in the Archivist's ink heart. Spells written with it cost less and stick harder. |
+| `inspector_abacus.png` | The Inspector's Abacus | Aldric Thrupp's ghostly abacus, cold as a coin. Its beads slide on their own when there's money nearby, and click disapprovingly at locks. More gold finds you, and locks give a little. |
 | `library_card.png` | Fenwick's Library Card (Lifetime, Laminated) | Card number 0000001. There has never been a card 0000001 before. +1 Intellect, status effects last 30% longer, spells cost 6% less. All fines waived. All of them. Forever. |
 | `lich_quill.png` | The Archchancellor's Quill | A slim black quill with a silver nib, carved by Oakhaven for the Lich who finally put his down. +2 Intellect, +8% spell power, +1 to dice rolls in conversation. |
 | `lucky_d20.png` | Oakhaven's Lucky d20 | A twenty-sided die worn smooth by years of Thursdays. It always rolled well for people who deserved it. +2 to every dice roll in conversation, +2% critical chance. |
