@@ -62,6 +62,19 @@ python tools/import_package.py path/to/package.zip --apply    # import all, upda
 | `spritesheets/phantom_clerk.png` | `assets/sprites/enemies/phantom_clerk_painted.png` | Phantom Clerk |
 | `spritesheets/figure_rodrick.png` | `assets/sprites/npcs/figure_rodrick_painted.png` | Figure Rodrick |
 | `spritesheets/figure_snacks.png` | `assets/sprites/npcs/figure_snacks_painted.png` | Figure Snacks |
+| `spritesheets/angry_badger.png` | `assets/sprites/enemies/angry_badger_painted.png` | Angry Badger |
+| `spritesheets/druid_bramble.png` | `assets/sprites/npcs/druid_bramble_painted.png` | Druid Bramble |
+| `spritesheets/druid_squirrel.png` | `assets/sprites/npcs/druid_squirrel_painted.png` | Druid Squirrel |
+| `spritesheets/dragon_cindermaw.png` | `assets/sprites/npcs/dragon_cindermaw_painted.png` | Dragon Cindermaw |
+| `spritesheets/ghoul_gravedigger.png` | `assets/sprites/enemies/ghoul_gravedigger_painted.png` | Ghoul Gravedigger |
+| `spritesheets/kobold_quillsby.png` | `assets/sprites/npcs/kobold_quillsby_painted.png` | Kobold Quillsby |
+| `spritesheets/hedge_goblin.png` | `assets/sprites/enemies/hedge_goblin_painted.png` | Hedge Goblin |
+| `spritesheets/kevin_bandit.png` | `assets/sprites/enemies/kevin_bandit_painted.png` | Kevin Bandit |
+| `spritesheets/kobold_bookkeeper.png` | `assets/sprites/enemies/kobold_bookkeeper_painted.png` | Kobold Bookkeeper |
+| `spritesheets/paperwork_elemental.png` | `assets/sprites/enemies/paperwork_elemental_painted.png` | Paperwork Elemental |
+| `spritesheets/pinchwick_crab.png` | `assets/sprites/enemies/pinchwick_crab_painted.png` | Pinchwick Crab |
+| `spritesheets/salt_wight.png` | `assets/sprites/enemies/salt_wight_painted.png` | Salt Wight |
+| `spritesheets/wisp.png` | `assets/sprites/enemies/wisp_painted.png` | Wisp |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

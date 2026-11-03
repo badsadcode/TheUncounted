@@ -2007,9 +2007,9 @@
       "dialogue_id": "core:dialogue.druid_squirrel",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/druid_squirrel.png",
-        "animation_data": "assets/animations/npc_standard.json",
-        "scale": 0.75
+        "sprite_sheet": "assets/sprites/npcs/druid_squirrel_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 1.6
       },
       "barks": [
         {
@@ -2028,8 +2028,8 @@
       "dialogue_id": "core:dialogue.druid_bramble",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/druid_bramble.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/druid_bramble_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.82
       },
       "barks": [
@@ -2046,8 +2046,8 @@
       "dialogue_id": "core:dialogue.dragon_cindermaw",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/dragon_cindermaw.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/dragon_cindermaw_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 7.5
       },
       "barks": [
@@ -2071,8 +2071,8 @@
       "dialogue_id": "core:dialogue.kobold_quillsby",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/kobold_quillsby.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/kobold_quillsby_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.25
       },
       "barks": []

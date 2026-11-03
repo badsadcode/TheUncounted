@@ -40,7 +40,8 @@ EXTRA_ALIASES = {"kaelen": "ashbound_scout", "witness": "erased_spirit", "uncoun
                  "limb": "dreaming_limb", "hog": "truffle_hog", "sentinel": None, "host": "wrathful_host", "percival": "ghost_percival", "sir_percival": "ghost_percival", "wrathful": "wrathful_host",
                  "silas": "silas_gale", "tom": "gale_elder", "thomas": "gale_elder", "abel": "gale_younger", "odette": "impresario_odette",
                  "mortimer": "critic_mortimer", "harbor_master": "harbourmaster", "rodrick": "figure_rodrick", "primrose": "figure_primrose",
-                 "agnes": "figure_agnes", "snacks": "figure_snacks", "owlbear": "figure_snacks"}
+                 "agnes": "figure_agnes", "snacks": "figure_snacks", "owlbear": "figure_snacks",
+                 "bramble_thistlewick_squirrel": "druid_squirrel", "bramble_thistlewick_druid": "druid_bramble"}
 
 
 def slug(s):
@@ -160,7 +161,8 @@ def main():
                         o.write(f.read())
         src = tmp
     files = sorted(os.path.join(dp, f) for dp, _, fs in os.walk(src) for f in fs
-                   if f.lower().endswith((".png", ".webp", ".jpg", ".jpeg")) and not f.startswith("."))
+                   if f.lower().endswith((".png", ".webp", ".jpg", ".jpeg")) and not f.startswith(".")
+                   and ".tmp." not in f.lower())          # leftovers from image generators
     sheets = load_sheets()
     forced = dict(m.split("=", 1) for m in a.map)
 
@@ -168,7 +170,11 @@ def main():
     plan, skipped, taken = [], [], {}
     for f in files:
         base, how = match(f, sheets, forced)
-        w, h = Image.open(f).size
+        try:
+            w, h = Image.open(f).size
+        except Exception as ex:
+            skipped.append((f, f"unreadable image ({ex.__class__.__name__})"))
+            continue
         ratio = (w / 8) / (h / 6)
         if base is None:
             skipped.append((f, how))
