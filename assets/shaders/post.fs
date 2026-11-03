@@ -1,7 +1,8 @@
 #version 330
 // Final pass over the internal-resolution frame: soft glow around bright things, ordered dithering with gentle
 // colour banding (on the internal pixel grid, so it stays chunky), a light vignette, and optional screen effects:
-// 1 Old TV (CRT), 2 VHS tape, 3 Fisheye, 4 Silent film, 5 Handheld (4-shade green LCD).
+// 1 Old TV (CRT), 2 VHS tape, 3 Fisheye, 4 Silent film, 5 Handheld (4-shade green LCD), 6 Noir,
+// 7 Night vision, 8 Old computer (16-colour palette), 9 Tavern ale (drunk wobble).
 
 in vec2 fragTexCoord;
 in vec4 fragColor;
@@ -78,6 +79,14 @@ void main()
         float d = abs(suv.y - band);
         if (d < 0.035) suv.x += (hash(vec2(line, uTime)) - 0.5) * 0.03 * (1.0 - d / 0.035);
     }
+    if (uEffect == 9)  // tavern ale: the room sways and breathes
+    {
+        vec2 c = suv - 0.5;
+        float a = sin(uTime * 0.7) * 0.035;
+        c = mat2(cos(a), -sin(a), sin(a), cos(a)) * c;
+        c *= 1.0 + 0.03 * sin(uTime * 1.1);
+        suv = c + 0.5 + vec2(sin(suv.y * 9.0 + uTime * 1.7), cos(suv.x * 7.0 + uTime * 1.3)) * 0.006;
+    }
     if (uEffect == 4)  // film gate weave
         suv += vec2(sin(uTime * 7.0) * 0.0008, (hash(vec2(floor(uTime * 18.0), 3.0)) - 0.5) * 0.002);
     bool outside = suv.x < 0.0 || suv.x > 1.0 || suv.y < 0.0 || suv.y > 1.0;
@@ -99,6 +108,11 @@ void main()
         float y = dot(col, vec3(0.299, 0.587, 0.114));
         col = mix(vec3(y), mix(col, smear, 0.35), 0.82);
     }
+    else if (uEffect == 9)  // double vision that drifts in and out
+    {
+        float o = 0.012 * (0.5 + 0.5 * sin(uTime * 0.9));
+        col = mix(scene(tuv), scene(tuv + vec2(o, o * 0.4)), 0.4);
+    }
     else
     {
         col = scene(tuv);
@@ -107,7 +121,7 @@ void main()
     vec2 q = suv - 0.5;
     col *= 1.0 - uVignette * smoothstep(0.32, 0.85, dot(q, q) * 2.2);
 
-    if (uDither > 0.0 && uEffect != 5)
+    if (uDither > 0.0 && uEffect != 5 && uEffect != 8)
     {
         float cell = max(1.0, floor((1.0 / uTexel.y) / 360.0));
         vec2 px = floor(tuv / uTexel / cell);
@@ -165,6 +179,45 @@ void main()
         col = pal[s];
         vec2 lcd = fract(tuv * vec2(144.0 * uScreen.x / uScreen.y, 144.0));
         if (lcd.x < 0.08 || lcd.y < 0.08) col *= 0.88;
+    }
+
+    else if (uEffect == 6)  // Noir: hard black and white, crushed shadows, a little grain
+    {
+        float y = dot(col, vec3(0.299, 0.587, 0.114));
+        y = smoothstep(0.06, 0.78, y);
+        y = pow(y, 1.15) + (hash(floor(spx / 2.0) + floor(uTime * 20.0)) - 0.5) * 0.05;
+        col = vec3(y) * vec3(1.0, 0.99, 0.96);
+        col *= 1.0 - 0.7 * smoothstep(0.2, 0.85, dot(q, q) * 2.4);
+    }
+    else if (uEffect == 7)  // Night vision: amplified green, noise, scan bars, REC dot added on top by the renderer
+    {
+        float y = dot(col, vec3(0.299, 0.587, 0.114));
+        y = clamp(y * 2.6 + 0.04, 0.0, 1.2);
+        y += (hash(spx * 0.7 + fract(uTime) * 91.0) - 0.5) * 0.22;
+        y *= 0.9 + 0.1 * sin(spx.y * 1.4 + uTime * 30.0);
+        col = vec3(0.18, 1.0, 0.3) * y;
+        float r = length((suv - 0.5) * vec2(uScreen.x / uScreen.y, 1.0));
+        col *= smoothstep(0.95, 0.6, r);
+    }
+    else if (uEffect == 8)  // Old computer: snap to a 16-colour palette with dithering, chunky 200-line pixels
+    {
+        vec3 pal[16] = vec3[16](vec3(0.0), vec3(0.0, 0.0, 0.67), vec3(0.0, 0.67, 0.0), vec3(0.0, 0.67, 0.67),
+                                vec3(0.67, 0.0, 0.0), vec3(0.67, 0.0, 0.67), vec3(0.67, 0.33, 0.0), vec3(0.67),
+                                vec3(0.33), vec3(0.33, 0.33, 1.0), vec3(0.33, 1.0, 0.33), vec3(0.33, 1.0, 1.0),
+                                vec3(1.0, 0.33, 0.33), vec3(1.0, 0.33, 1.0), vec3(1.0, 1.0, 0.33), vec3(1.0));
+        vec2 grid = vec2(200.0 * uScreen.x / uScreen.y, 200.0);
+        vec2 cellpx = floor(tuv * grid);
+        vec3 c = scene((cellpx + 0.5) / grid);
+        float l = dot(c, vec3(0.299, 0.587, 0.114));
+        c = clamp(mix(vec3(l), c, 2.4) * 1.35, 0.0, 1.0) + (bayer4(cellpx) - 0.5) * 0.3;   // punchier, so greys pick hues
+        float best = 1e9; vec3 pick = vec3(0.0);
+        for (int i = 0; i < 16; i++) { vec3 d = c - pal[i]; float e = dot(d, d); if (e < best) { best = e; pick = pal[i]; } }
+        col = pick;
+    }
+    else if (uEffect == 9)  // Tavern ale: warm, rosy, vignette breathing
+    {
+        col *= vec3(1.08, 0.98, 0.9);
+        col *= 1.0 - (0.35 + 0.15 * sin(uTime * 1.2)) * smoothstep(0.2, 0.9, dot(q, q) * 2.4);
     }
 
     if (outside) col = vec3(0.0);

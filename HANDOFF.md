@@ -418,4 +418,7 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   RGB mask, tube edge), `vhs` (chroma bleed, wobble, rolling tracking band, noise, PLAY/counter/date overlay top-right),
   `fisheye` (strong barrel lens), `film` (sepia, grain, scratches, gate weave, dust), `handheld` (4-shade green LCD at
   144 lines). All in `post.fs`; the HUD is drawn afterwards, so it stays crisp.
+  More: `noir` (hard B&W, grain, heavy vignette), `nightvision` (green gain, noise, REC/EMF/BATT overlay — the EMF
+  reading is random, purely for show), `ega` (16-colour PC palette at 200 lines, saturation boosted before matching),
+  `ale` (tavern-ale sway, breathing zoom, drifting double vision, warm vignette).
 

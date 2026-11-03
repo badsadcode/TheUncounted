@@ -702,13 +702,15 @@ void GameEngine::DrawOptions() {
     row("Retro dithering", gfx.retro_dither ? "On" : "Off", [&] { gfx.retro_dither = !gfx.retro_dither; }, [&] { gfx.retro_dither = !gfx.retro_dither; });
     row("Glow", gfx.glow ? "On" : "Off", [&] { gfx.glow = !gfx.glow; }, [&] { gfx.glow = !gfx.glow; });
     auto cycleFx = [&](int d) {
-        static const std::vector<std::string> ids = {"off", "crt", "vhs", "fisheye", "film", "handheld"};
+        static const std::vector<std::string> ids = {"off", "crt", "vhs", "fisheye", "film", "handheld", "noir", "nightvision", "ega", "ale"};
         auto it = std::find(ids.begin(), ids.end(), gfx.screen_effect);
         int i = it == ids.end() ? 0 : static_cast<int>(it - ids.begin());
         gfx.screen_effect = ids[(i + d + ids.size()) % ids.size()];
     };
     static const std::map<std::string, std::string> fxName = {{"off", "Off"}, {"crt", "Old TV"}, {"vhs", "VHS tape"},
-                                                              {"fisheye", "Fisheye"}, {"film", "Silent film"}, {"handheld", "Handheld"}};
+                                                              {"fisheye", "Fisheye"}, {"film", "Silent film"}, {"handheld", "Handheld"},
+                                                              {"noir", "Noir"}, {"nightvision", "Night vision"}, {"ega", "Old computer"},
+                                                              {"ale", "Tavern ale"}};
     row("Screen effect", fxName.count(gfx.screen_effect) ? fxName.at(gfx.screen_effect) : "Off", [&] { cycleFx(-1); }, [&] { cycleFx(1); });
     row("Swaying trees & water", gfx.world_motion ? "On" : "Off", [&] { gfx.world_motion = !gfx.world_motion; },
         [&] { gfx.world_motion = !gfx.world_motion; });

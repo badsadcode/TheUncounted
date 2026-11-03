@@ -695,9 +695,9 @@ void WorldRenderer::BlitToScreen() {
         SetShaderValue(post_shader_, post_dither_, &dither, SHADER_UNIFORM_FLOAT);
         SetShaderValue(post_shader_, post_glow_, &glow, SHADER_UNIFORM_FLOAT);
         SetShaderValue(post_shader_, post_vignette_, &vig, SHADER_UNIFORM_FLOAT);
-        static const char* kEffects[] = {"off", "crt", "vhs", "fisheye", "film", "handheld"};
+        static const char* kEffects[] = {"off", "crt", "vhs", "fisheye", "film", "handheld", "noir", "nightvision", "ega", "ale"};
         int effect = 0;
-        for (int i = 0; i < 6; i++) if (gfx_->screen_effect == kEffects[i]) effect = i;
+        for (int i = 0; i < 10; i++) if (gfx_->screen_effect == kEffects[i]) effect = i;
         Vector2 screen = {dw, dh};
         SetShaderValue(post_shader_, post_effect_, &effect, SHADER_UNIFORM_INT);
         SetShaderValue(post_shader_, post_time_, &time_, SHADER_UNIFORM_FLOAT);
@@ -705,6 +705,19 @@ void WorldRenderer::BlitToScreen() {
     }
     DrawTexturePro(target_.texture, src, dst, {0, 0}, 0.0f, WHITE);
     if (post) EndShaderMode();
+    if (gfx_->screen_effect == "nightvision") {
+        // Ghost-hunting camera: blinking REC, battery, and an EMF reading that is always slightly worrying.
+        int fs = std::max(16, static_cast<int>(dh / 28.0f));
+        int right = static_cast<int>(dst.x + dw - dh * 0.04f), y0 = static_cast<int>(dst.y + dh * 0.04f);
+        Color nc = {170, 255, 180, 230};
+        if (fmodf(time_, 1.0f) < 0.6f) DrawCircle(right - MeasureText("REC", fs) - fs, y0 + fs / 2, fs * 0.32f, Color{255, 60, 60, 230});
+        DrawText("REC", right - MeasureText("REC", fs), y0, fs, nc);
+        int emf = 1 + static_cast<int>(fabsf(sinf(time_ * 0.37f) * sinf(time_ * 1.3f)) * 4.99f);
+        char buf[32];
+        snprintf(buf, sizeof(buf), "EMF %d", emf);
+        DrawText(buf, right - MeasureText(buf, fs), y0 + fs + 4, fs, emf >= 5 ? Color{255, 90, 90, 240} : nc);
+        DrawText("BATT |||", right - MeasureText("BATT |||", fs), y0 + (fs + 4) * 2, fs, nc);
+    }
     if (gfx_->screen_effect == "vhs") {
         // The camcorder overlay: PLAY, and a tape counter that never quite matches reality.
         // Top-right, clear of the quest tracker (top-left) and the HUD (bottom).
