@@ -37,7 +37,7 @@ NOISE = {"sheet", "sprite", "sprites", "spritesheet", "final", "new", "v", "v1",
          "the", "of", "a", "png", "webp", "img", "image"}
 EXTRA_ALIASES = {"kaelen": "ashbound_scout", "witness": "erased_spirit", "uncounted_witness": "erased_spirit", "morvath": "crypt_keeper",
                  "archivist": "crypt_keeper", "skeleton": "skeleton", "drowned": "the_drowned", "avatar": "name_eater_avatar",
-                 "limb": "dreaming_limb", "hog": "truffle_hog", "sentinel": None, "host": "wrathful_host", "percival": "ghost_percival",
+                 "limb": "dreaming_limb", "hog": "truffle_hog", "sentinel": None, "host": "wrathful_host", "percival": "ghost_percival", "sir_percival": "ghost_percival", "wrathful": "wrathful_host",
                  "silas": "silas_gale", "tom": "gale_elder", "thomas": "gale_elder", "abel": "gale_younger", "odette": "impresario_odette",
                  "mortimer": "critic_mortimer", "harbor_master": "harbourmaster", "rodrick": "figure_rodrick", "primrose": "figure_primrose",
                  "agnes": "figure_agnes", "snacks": "figure_snacks", "owlbear": "figure_snacks"}
