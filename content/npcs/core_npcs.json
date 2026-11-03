@@ -1524,7 +1524,205 @@
           "flag": "fig3_done"
         }
       ],
-      "title_key": "npc.figure_snacks.title"
+      "title_key": "npc.figure_snacks.title",
+      "companion": {
+        "damage": 6,
+        "attack_time": 1.1,
+        "reach": 1.5,
+        "heal_amount": 28,
+        "heal_cooldown": 38,
+        "zone_lines": {
+          "bellwether": "comp.snacks.zone.bellwether",
+          "old_road": "comp.snacks.zone.old_road",
+          "annex": "comp.snacks.zone.annex",
+          "vault_three": "comp.snacks.zone.vault_three",
+          "seal_chamber": "comp.snacks.zone.seal_chamber",
+          "hollowmere": "comp.snacks.zone.hollowmere",
+          "hollowmere_manor": "comp.snacks.zone.hollowmere_manor",
+          "saltmere": "comp.snacks.zone.saltmere",
+          "sunken_chapel": "comp.snacks.zone.sunken_chapel",
+          "whistling_wood": "comp.snacks.zone.whistling_wood",
+          "sleepers_reef": "comp.snacks.zone.sleepers_reef"
+        },
+        "idle_lines": [
+          {
+            "text_key": "comp.snacks.idle.1"
+          },
+          {
+            "text_key": "comp.snacks.idle.2"
+          },
+          {
+            "text_key": "comp.snacks.idle.3"
+          },
+          {
+            "text_key": "comp.snacks.idle.4"
+          },
+          {
+            "text_key": "comp.snacks.idle.5"
+          },
+          {
+            "text_key": "comp.snacks.idle.6"
+          },
+          {
+            "text_key": "comp.snacks.idle.7"
+          },
+          {
+            "text_key": "comp.snacks.idle.8"
+          },
+          {
+            "text_key": "comp.snacks.idle.9",
+            "flag": "grout_following"
+          },
+          {
+            "text_key": "comp.snacks.idle.10",
+            "flag": "baggy_following"
+          }
+        ],
+        "combat_lines": [
+          "comp.snacks.combat.1",
+          "comp.snacks.combat.2",
+          "comp.snacks.combat.3",
+          "comp.snacks.combat.4"
+        ],
+        "kill_lines": [
+          "comp.snacks.kill.1",
+          "comp.snacks.kill.2",
+          "comp.snacks.kill.3"
+        ],
+        "heal_lines": [
+          "comp.snacks.heal.1",
+          "comp.snacks.heal.2",
+          "comp.snacks.heal.3"
+        ],
+        "level_lines": [
+          "comp.snacks.level.1",
+          "comp.snacks.level.2"
+        ],
+        "catchup_lines": [
+          "comp.snacks.catchup.1",
+          "comp.snacks.catchup.2"
+        ],
+        "banter": [
+          {
+            "id": "grout_stare",
+            "partner": "core:npc.grout",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.grout_stare.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.grout_stare.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.grout_stare.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.grout_stare.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.grout_stare.4"
+              }
+            ]
+          },
+          {
+            "id": "grout_perch",
+            "partner": "core:npc.grout",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.grout_perch.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.grout_perch.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.grout_perch.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.grout_perch.3"
+              }
+            ]
+          },
+          {
+            "id": "baggy_bravery",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.baggy_bravery.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.baggy_bravery.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.baggy_bravery.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.baggy_bravery.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.baggy_bravery.4"
+              }
+            ]
+          },
+          {
+            "id": "baggy_barely",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.baggy_barely.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.baggy_barely.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.baggy_barely.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.baggy_barely.3"
+              }
+            ]
+          },
+          {
+            "id": "kaelen_chronicle",
+            "partner": "core:npc.ashbound_scout",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.kaelen_chronicle.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.kaelen_chronicle.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.snacks.banter.kaelen_chronicle.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.snacks.banter.kaelen_chronicle.3"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "core:npc.unmask_clerk",

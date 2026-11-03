@@ -14155,6 +14155,50 @@
               ]
             },
             {
+              "text_key": "dlg.fig.sna.root.c_join",
+              "next": "join",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "fig3_done"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "snacks_following"
+                },
+                {
+                  "type": "party_has_room"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.fig.sna.root.c_full",
+              "next": "full",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "fig3_done"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "snacks_following"
+                },
+                {
+                  "type": "party_full"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.fig.sna.root.c_home",
+              "next": "home",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "snacks_following"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.fig.sna.root.c3",
               "next": "END"
             }
@@ -14215,6 +14259,56 @@
             {
               "type": "sanity",
               "amount": 5
+            }
+          ]
+        },
+        "join": {
+          "speaker_key": "npc.figure_snacks.name",
+          "text_key": "dlg.fig.sna.join",
+          "choices": [
+            {
+              "text_key": "dlg.fig.sna.join.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "snacks_following",
+              "value": true
+            },
+            {
+              "type": "recruit_companion"
+            }
+          ]
+        },
+        "full": {
+          "speaker_key": "npc.figure_snacks.name",
+          "text_key": "dlg.fig.sna.full",
+          "choices": [
+            {
+              "text_key": "dlg.fig.sna.full.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "home": {
+          "speaker_key": "npc.figure_snacks.name",
+          "text_key": "dlg.fig.sna.home",
+          "choices": [
+            {
+              "text_key": "dlg.fig.sna.home.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "snacks_following",
+              "value": false
+            },
+            {
+              "type": "dismiss_companion"
             }
           ]
         }

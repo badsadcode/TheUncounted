@@ -1400,6 +1400,26 @@ int GameEngine::RunSelfTest() {
         player_.flags = savedFlags;
     }
 
+    // --- Snacks the owlbear cub as a companion (after the Headless Knight)
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        auto savedParty = player_.companions;
+        auto savedFlags = player_.flags;
+        player_.companions.clear();
+        player_.flags.insert("fig3_done");
+        UpdateWorldObjects(0.0f);
+        int si = -1;
+        for (size_t i = 0; i < scene_.npcs.size(); i++) if (scene_.npcs[i].def->id == "core:npc.figure_snacks" && !scene_.npcs[i].hidden) si = static_cast<int>(i);
+        bool joined = false;
+        if (si >= 0) { StartDialogue(si); joined = chooseNext("join"); if (overlay_ == Overlay::Dialogue) EndDialogue(); }
+        check(joined && IsCompanion("core:npc.figure_snacks"), "Snacks joins you ('Have it back by bedtime!')");
+        const NpcDef* sd = content_.GetNpc("core:npc.figure_snacks");
+        check(sd && sd->companion.heal_amount > 0 && sd->companion.banter.size() == 5, "Snacks shares snacks and banters with Grout, Baggy and Kaelen");
+        player_.companions = savedParty;
+        player_.flags = savedFlags;
+    }
+
     // --- Deeper crafting: boss reagents, recipe books, locked recipes
     {
         overlay_ = Overlay::None;

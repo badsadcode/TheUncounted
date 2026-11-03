@@ -359,6 +359,8 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
 - **Voice playback:** `ResourceManager::PlayVoice(key)` plays `assets/audio/voice/<localization key>.ogg|wav|mp3` if it
   exists, for companion lines, banter, barks, creature alert/death lines and dialogue nodes (on entering the node).
   The subtitle stays up at least as long as the clip. No file = text only, as before.
+- **Snacks** (`tools/authoring/snacks_companion.py`) can join after the Headless Knight (`fig3_done`; flag
+  `snacks_following`): weak in fights, generous healer (snacks), banter with Grout, Baggy and Kaelen.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)
