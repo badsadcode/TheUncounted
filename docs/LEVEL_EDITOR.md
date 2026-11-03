@@ -107,6 +107,19 @@ export. Put it in any collection; hidden meshes are skipped.
   **Assign** (for example shingles on the roof faces, planks on the gable). Each keeps its own texture in the game.
 - **Tile Texture Now** (under Auto-tile) applies that repeat to the selected meshes straight away, so you can see it.
 
+## Fire, torches and trees
+
+- **Fire**: in the palette, `fire_embers` is just the fire (glowing coals with flames), for fireplaces, forges and
+  under a cauldron; `campfire` has stones and logs. They burn and light their surroundings wherever you put them.
+  **Scale** a fire (S) to make it bigger: the flames and the light grow with it (a forge bed can be stretched long).
+- **Torches**: `wall_torch` from the palette brings its flame and light too.
+- **Trees, lamp posts, signposts** (your own or the game's): press **Trunk Collision** in the sidebar. It adds an
+  invisible COL post the size of the bottom of the mesh, attached to it, and turns the mesh's own collision off, so you
+  walk under the branches but not through the trunk. When copying a tree, select it and its post (the wireframe box)
+  and Shift+D both, or press Trunk Collision on the copy.
+- **Many copies of one model** (a forest of the same tree) share a single model file in the game, each with its own
+  position, turn and size, so a lot of trees stay light.
+
 ## Reshaping the game's own pieces (roofs, walls with doorways...)
 
 You can change any wall, roof or prop in **Edit Mode**: cut a doorway (Boolean modifier or knife), raise a roof

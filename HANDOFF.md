@@ -416,6 +416,15 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   `UNC_SPRITE:<sheet>` image; height = appearance.scale, offset from the animation pivot), stood up with rotation X 90°
   (`unc_upright`, ignored by the tilt warning; yaw stays rotation Z) plus a crossed non-selectable `sprite_child`. Model
   creatures (`model_glb`) are their mesh at the appearance scale. "Update Sprite" re-reads the id.
+  v4.6: own meshes without auto-tile or tilt are baked once per mesh fingerprint in object space (copies share one
+  file, keep rot/scale; own-dir models keep their file name on re-export). "Trunk Collision" adds a parented `COL_*_trunk`
+  box from the bottom 0.4 m footprint, 2.4 m tall, and turns the mesh's solid off. COL exports tag `unc_custom_id` so
+  re-import skips them.
+- **Fire** (`tools/build_fire_assets.py`: `python3` for the flame sheet and ember texture, `blender -b -P` for
+  `fire_embers.glb` and `campfire.glb`). `content/props/prop_presets.json` gives every prop using a model a default
+  emitter unless it sets its own (`ContentRegistry::ApplyPropPresets`, after edits). Emitter offset scales with the
+  prop's scale, size with max(scale.x, scale.z), light radius with its square root. Noor's brief for a proper flame
+  sheet: `docs/FIRE_SPRITE_BRIEF.md`. Maps may leave music/ambience empty (silent).
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

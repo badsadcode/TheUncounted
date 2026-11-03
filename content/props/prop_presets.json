@@ -1,0 +1,17 @@
+{
+  "_about": "Settings every piece using a model gets automatically, unless the piece sets its own (an 'emitter' in the map). Emitter offset and size are for scale 1: they grow with the piece's scale.",
+  "presets": {
+    "assets/models/props/fire_embers.glb": {
+      "emitter": {"sprite": "assets/sprites/vfx/fire_flames.png", "offset": [0.0, 0.3, 0.0], "size": 0.7,
+                  "light_color": [1.0, 0.56, 0.22], "light_radius": 7.0}
+    },
+    "assets/models/props/campfire.glb": {
+      "emitter": {"sprite": "assets/sprites/vfx/fire_flames.png", "offset": [0.0, 0.42, 0.0], "size": 0.85,
+                  "light_color": [1.0, 0.56, 0.22], "light_radius": 8.5}
+    },
+    "assets/models/props/wall_torch.glb": {
+      "emitter": {"sprite": "assets/sprites/vfx/torch_flame.png", "offset": [0.0, 0.86, 0.0], "size": 0.38,
+                  "light_color": [1.0, 0.62, 0.28], "light_radius": 6.5}
+    }
+  }
+}

@@ -11,7 +11,8 @@ class ContentRegistry {
 public:
     // Level edits made in Blender (mods/<name>/map_edits.json), applied after the maps load.
     void ApplyMapEdits(const std::string& rootDir);
-    void LoadUserMaps(const std::string& rootDir);   // mods/user_maps/<name>/map.json (maps built in Blender)
+    void LoadUserMaps(const std::string& rootDir);
+    void ApplyPropPresets(const std::string& rootDir);  // content/props/prop_presets.json: default emitters per model   // mods/user_maps/<name>/map.json (maps built in Blender)
     GraphicsConfig graphics;
     ControlsConfig controls;
     GameConfig game_cfg;

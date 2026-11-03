@@ -223,6 +223,7 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     }
     LoadUserMaps(rootDir);    // maps you built in Blender (New Map): mods/user_maps/<name>/map.json, always on
     ApplyMapEdits(rootDir);   // your own Blender edits: always on (delete mods/level_edits/map_edits.json to undo them)
+    ApplyPropPresets(rootDir); // fires burn and torches glow wherever they're placed (content/props/prop_presets.json)
 
     Logger::Info("Loaded " + std::to_string(items.size()) + " items, " +
                  std::to_string(creatures.size()) + " creatures, " +
@@ -1091,6 +1092,41 @@ static MapPropDef PropFromJson(const json& pj) {
 // Level edits made in Blender (tools/blender/uncounted_level_editor.py): every mods/<name>/map_edits.json, in
 // alphabetical order, modifies/adds/removes props and moves NPCs, creatures and objects of one map. Kept out of the
 // generated level files so rebuilding the world never overwrites them.
+void ContentRegistry::ApplyPropPresets(const std::string& rootDir) {
+    const fs::path path = fs::path(rootDir) / "content" / "props" / "prop_presets.json";
+    if (!fs::exists(path)) return;
+    json root;
+    try {
+        std::ifstream f(path);
+        root = json::parse(f);
+    } catch (const std::exception& e) {
+        RecordIssue("content/props/prop_presets.json", "json", std::string("Invalid JSON: ") + e.what());
+        return;
+    }
+    if (!root.contains("presets") || !root["presets"].is_object()) return;
+    std::unordered_map<std::string, MapPropDef> presets;
+    for (auto it = root["presets"].begin(); it != root["presets"].end(); ++it) {
+        json pj = it.value();
+        pj["id"] = "preset";
+        pj["model"] = it.key();
+        pj["pos"] = json::array({0, 0, 0});
+        presets[it.key()] = PropFromJson(pj);
+        const auto& pr = presets[it.key()];
+        if (!pr.emitter_sprite.empty()) CheckFileExists(rootDir, pr.emitter_sprite, "PropPreset:" + it.key(), "emitter.sprite");
+    }
+    for (auto& [id, m] : maps) {
+        for (auto& p : m.props) {
+            auto it = presets.find(p.model);
+            if (it == presets.end() || !p.emitter_sprite.empty() || p.emitter_light_radius > 0.0f) continue;
+            p.emitter_sprite = it->second.emitter_sprite;
+            p.emitter_offset = it->second.emitter_offset;
+            p.emitter_size = it->second.emitter_size;
+            p.emitter_light_color = it->second.emitter_light_color;
+            p.emitter_light_radius = it->second.emitter_light_radius;
+        }
+    }
+}
+
 void ContentRegistry::LoadUserMaps(const std::string& rootDir) {
     std::error_code uec;
     std::vector<std::string> userMaps;
@@ -1509,8 +1545,8 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
 
     // 7. Validate Maps, Portals, Spawns, Props, and Interactables
     for (const auto& [id, mp] : maps) {
-        CheckFileExists(rootDir, mp.music, "Map:" + id, "music");
-        CheckFileExists(rootDir, mp.ambience, "Map:" + id, "ambience");
+        if (!mp.music.empty()) CheckFileExists(rootDir, mp.music, "Map:" + id, "music");          // empty = a silent map
+        if (!mp.ambience.empty()) CheckFileExists(rootDir, mp.ambience, "Map:" + id, "ambience");
         {
             std::set<std::string> seen;
             for (const auto& sc : mp.scatter)

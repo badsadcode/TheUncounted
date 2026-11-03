@@ -778,10 +778,14 @@ void GameEngine::BuildScene() {
     for (const auto& l : map->lights) scene_.static_lights.push_back({l.pos, l.color, l.radius});
     for (const auto& p : map->props) {
         if (p.emitter_sprite.empty() && p.emitter_light_radius <= 0.0f) continue;
-        Vector3 world = Vector3Add(p.pos, Vector3RotateByAxisAngle(p.emitter_offset, {0, 1, 0}, p.rot_y * DEG2RAD));
+        // Flames grow with the piece: a fire scaled up for a forge burns bigger and lights further.
+        const Vector3 off = {p.emitter_offset.x * p.scale.x, p.emitter_offset.y * p.scale.y, p.emitter_offset.z * p.scale.z};
+        const float grow = std::max(0.2f, std::max(p.scale.x, p.scale.z));
+        Vector3 world = Vector3Add(p.pos, Vector3RotateByAxisAngle(off, {0, 1, 0}, p.rot_y * DEG2RAD));
         if (!p.emitter_sprite.empty())
-            scene_.emitters.push_back({world, p.emitter_sprite, p.emitter_size, static_cast<float>(scene_.emitters.size()) * 0.37f});
-        if (p.emitter_light_radius > 0.0f) scene_.static_lights.push_back({world, p.emitter_light_color, p.emitter_light_radius});
+            scene_.emitters.push_back({world, p.emitter_sprite, p.emitter_size * grow, static_cast<float>(scene_.emitters.size()) * 0.37f});
+        if (p.emitter_light_radius > 0.0f)
+            scene_.static_lights.push_back({world, p.emitter_light_color, p.emitter_light_radius * std::sqrt(grow)});
     }
 
     RebuildColliders();

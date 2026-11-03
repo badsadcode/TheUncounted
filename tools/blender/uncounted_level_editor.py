@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 5, 0),
+    "version": (4, 7, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -966,6 +966,7 @@ def collect(context, models_rel, base_ids, base_objs):
         # --- collision boxes: meshes named COL... become invisible solid boxes
         if o.type == "MESH" and kind is None and o.name.lower().startswith("col"):
             mn, mx = world_box(o)
+            o["unc_custom_id"] = safe_name(o.name)        # Import skips it next time: this object is the source
             out["props"].append({"id": safe_name(o.name), "model": BOX_MODEL,
                                  "pos": to_game(Vector(((mn.x + mx.x) / 2, (mn.y + mx.y) / 2, mn.z))), "rot_y": 0.0,
                                  "scale": [round(mx.x - mn.x, 3), round(mx.z - mn.z, 3), round(mx.y - mn.y, 3)], "solid": True, "invisible": True})
@@ -973,11 +974,16 @@ def collect(context, models_rel, base_ids, base_objs):
         # --- game pieces you reshaped or retextured (Edit Mode, materials, Ctrl+A): saved as your own model, still turned
         if kind in ("prop", "palette") and o.type == "MESH" and o.data.vertices and edited(o):
             if o.data.name not in baked:
+                taken = {os.path.basename(v[0])[:-4] for v in baked.values()}
                 stem = re.sub(r"(_edit\d+)+$", "", safe_name(os.path.basename(o["unc_model"])[:-4]))
-                n = 1
-                while f"{stem}_edit{n}" in {os.path.basename(v[0])[:-4] for v in baked.values()}:
-                    n += 1
-                rel = f"{models_rel}/{stem}_edit{n}.glb"
+                if o["unc_model"].startswith(OWN_MODEL_DIRS) and os.path.basename(o["unc_model"])[:-4] not in taken:
+                    name = os.path.basename(o["unc_model"])[:-4]       # already one of yours: keep its file name
+                else:
+                    n = 1
+                    while f"{stem}_edit{n}" in taken:
+                        n += 1
+                    name = f"{stem}_edit{n}"
+                rel = f"{models_rel}/{name}.glb"
                 baked[o.data.name] = (rel, export_local_glb(o.data, gdir, rel))
                 out["custom"] += 1
             rel, anchor = baked[o.data.name]
@@ -1014,9 +1020,19 @@ def collect(context, models_rel, base_ids, base_objs):
             if cid in used_custom:
                 cid = new_id(cid)
             used_custom.add(cid)
-            rel = f"{models_rel}/{cid[len('custom_'):] if cid.startswith('custom_') else cid}.glb"
-            anchor = export_mesh_glb(o, gdir, rel)
-            p = {"id": cid, "model": rel, "pos": to_game(anchor), "rot_y": 0.0, "scale": [1, 1, 1], "solid": bool(o.uncounted_solid)}
+            if o.uncounted_tile <= 0.0 and abs(o.rotation_euler.x) < EPS and abs(o.rotation_euler.y) < EPS:
+                # Kept in its own space, turned and scaled in the game: identical copies (50 trees) share one model file.
+                key = "own:" + mesh_hash(o.data)
+                if key not in baked:
+                    rel = f"{models_rel}/{cid[len('custom_'):] if cid.startswith('custom_') else cid}.glb"
+                    baked[key] = (rel, export_local_glb(o.data, gdir, rel))
+                rel, anchor = baked[key]
+                p = {"id": cid, "model": rel, "pos": to_game(o.matrix_world @ anchor), "rot_y": rot, "scale": scale_to_game(o.scale),
+                     "solid": bool(o.uncounted_solid)}
+            else:
+                rel = f"{models_rel}/{cid[len('custom_'):] if cid.startswith('custom_') else cid}.glb"
+                anchor = export_mesh_glb(o, gdir, rel)
+                p = {"id": cid, "model": rel, "pos": to_game(anchor), "rot_y": 0.0, "scale": [1, 1, 1], "solid": bool(o.uncounted_solid)}
             if o.uncounted_ramp != "NONE":
                 p["ramp"] = {"PX": "+x", "NX": "-x", "PY": "-z", "NY": "+z"}[o.uncounted_ramp]
             elif p["solid"]:
@@ -1163,6 +1179,50 @@ class UNC_OT_sprite(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class UNC_OT_trunk(bpy.types.Operator):
+    bl_idname = "uncounted.trunk"
+    bl_label = "Trunk Collision"
+    bl_description = ("Trees and lamp posts: block the player only at the trunk. Adds an invisible COL post the size of the "
+                      "bottom of the mesh (attached, so it moves with it) and turns the mesh's own collision off")
+
+    def execute(self, context):
+        n = 0
+        for o in list(context.selected_objects):
+            if o.type != "MESH" or o.name.lower().startswith("col") or not o.data.vertices:
+                continue
+            for c in list(o.children):                 # replace an earlier trunk post
+                if c.name.lower().startswith("col") and c.get("unc_trunk"):
+                    bpy.data.objects.remove(c, do_unlink=True)
+            pts = [o.matrix_world @ v.co for v in o.data.vertices]
+            z0, z1 = min(p.z for p in pts), max(p.z for p in pts)
+            low = [p for p in pts if p.z <= z0 + 0.4] or pts
+            x0, x1 = min(p.x for p in low), max(p.x for p in low)
+            y0, y1 = min(p.y for p in low), max(p.y for p in low)
+            w, d, h = max(0.25, x1 - x0), max(0.25, y1 - y0), min(2.4, max(0.5, z1 - z0))
+            import bmesh
+            bm = bmesh.new()
+            bmesh.ops.create_cube(bm, size=1.0)
+            me = bpy.data.meshes.new("COL_trunk")
+            bm.to_mesh(me)
+            bm.free()
+            col = bpy.data.objects.new(f"COL_{o.name}_trunk", me)
+            for uc in o.users_collection:
+                uc.objects.link(col)
+            col.location = ((x0 + x1) / 2, (y0 + y1) / 2, z0 + h / 2)
+            col.scale = (w, d, h)
+            col.display_type = "WIRE"
+            col.hide_render = True
+            col["unc_trunk"] = True
+            col.parent = o
+            col.matrix_parent_inverse = o.matrix_world.inverted()
+            o.uncounted_solid = False
+            if "game_solid" in o:
+                o["game_solid"] = False
+            n += 1
+        self.report({"INFO"}, f"Trunk collision on {n} object(s). Copy a tree together with its COL post (select both, Shift+D)")
+        return {"FINISHED"}
+
+
 class UNC_OT_unique(bpy.types.Operator):
     bl_idname = "uncounted.unique"
     bl_label = "Make Only This One Editable"
@@ -1260,6 +1320,8 @@ class UNC_PT_panel(bpy.types.Panel):
                 box.label(text="Invisible collision box")
             if o.type == "MESH" and o.get("unc_kind") in ("prop", "palette") and not o.get("game_invisible"):
                 box.prop(o, "uncounted_fit")
+            if o.type == "MESH" and not o.name.lower().startswith("col"):
+                box.operator("uncounted.trunk", icon="OUTLINER_OB_FORCE_FIELD")
             if o.type == "MESH" and o.data.users > 1 and o.get("unc_kind") in ("prop", "palette"):
                 box.label(text=f"Shares its mesh with {o.data.users - 1} other(s):")
                 box.label(text="Edit Mode changes them all.")
@@ -1274,7 +1336,7 @@ class UNC_PT_panel(bpy.types.Panel):
         col.label(text="Name a mesh COL... for an invisible wall")
 
 
-CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_sprite, UNC_OT_unique, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
+CLASSES = (UNC_OT_import_world, UNC_OT_new_map, UNC_OT_import_map, UNC_OT_export, UNC_OT_sprite, UNC_OT_trunk, UNC_OT_unique, UNC_OT_tile, UNC_OT_pack, UNC_PT_panel)
 
 
 def register():
