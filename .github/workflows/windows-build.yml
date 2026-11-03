@@ -17,6 +17,8 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive   # raylib lives in third_party/raylib as a submodule
 
       - name: Install toolchains
         run: |
