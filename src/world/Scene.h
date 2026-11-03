@@ -55,6 +55,13 @@ struct NpcInstance {
     float yaw = 0.0f;       // radians
     float base_yaw = 0.0f;
     float anim_time = 0.0f;
+    Vector3 home{};          // where the map placed it (companions return here when dismissed)
+    std::string requires_flag, hidden_flag;
+    bool hidden = false;     // not present right now (story flags)
+    bool companion = false;  // currently travelling with the player
+    std::string anim = "idle";
+    float attack_cd = 0.0f;
+    float anim_hold = 0.0f;  // keeps a one-shot animation (attack) on screen briefly
 };
 
 struct InteractableInstance {

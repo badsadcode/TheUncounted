@@ -1241,6 +1241,44 @@
         -5.6,
         3.0
       ]
+    },
+    {
+      "instance_id": "nursery_ink_wraith",
+      "creature_id": "core:enemy.ink_wraith",
+      "pos": [
+        -18.5,
+        0.0,
+        1.0
+      ],
+      "patrol_a": [
+        -14.0,
+        0.0,
+        1.0
+      ],
+      "patrol_b": [
+        -23.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "instance_id": "nursery_truffle_hog",
+      "creature_id": "core:enemy.truffle_hog",
+      "pos": [
+        -24.0,
+        0.0,
+        -2.0
+      ],
+      "patrol_a": [
+        -25.0,
+        0.0,
+        -2.0
+      ],
+      "patrol_b": [
+        -22.0,
+        0.0,
+        -2.0
+      ]
     }
   ],
   "interactables": [
@@ -1340,6 +1378,17 @@
       "fixed_items": [
         "core:item.stamina_tonic",
         "core:item.tome_ward"
+      ]
+    },
+    {
+      "instance_id": "nursery_truffle",
+      "type": "pickup",
+      "item_id": "core:item.grave_truffle",
+      "qty": 1,
+      "pos": [
+        -25.4,
+        0.2,
+        -0.8
       ]
     }
   ],

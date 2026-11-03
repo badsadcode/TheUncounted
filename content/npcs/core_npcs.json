@@ -123,6 +123,11 @@
           "item_id": "core:item.tome_frost",
           "stock": 1,
           "price": 60
+        },
+        {
+          "item_id": "core:item.vallo_red",
+          "stock": 3,
+          "price": 25
         }
       ],
       "barks": [
@@ -328,6 +333,152 @@
         {
           "text_key": "bark.baggy.dry",
           "flag": "seal_renewed"
+        }
+      ],
+      "companion": {
+        "damage": 7,
+        "attack_time": 1.1,
+        "reach": 1.8,
+        "heal_amount": 20,
+        "heal_cooldown": 45,
+        "zone_lines": {
+          "bellwether": "comp.baggy.zone.bellwether",
+          "old_road": "comp.baggy.zone.old_road",
+          "annex": "comp.baggy.zone.annex",
+          "vault_three": "comp.baggy.zone.vault_three",
+          "seal_chamber": "comp.baggy.zone.seal_chamber"
+        },
+        "idle_lines": [
+          {
+            "text_key": "comp.baggy.idle.1"
+          },
+          {
+            "text_key": "comp.baggy.idle.2"
+          },
+          {
+            "text_key": "comp.baggy.idle.3"
+          },
+          {
+            "text_key": "comp.baggy.idle.4"
+          },
+          {
+            "text_key": "comp.baggy.idle.5"
+          },
+          {
+            "text_key": "comp.baggy.idle.6"
+          },
+          {
+            "text_key": "comp.baggy.idle.7"
+          },
+          {
+            "text_key": "comp.baggy.idle.8"
+          },
+          {
+            "text_key": "comp.baggy.idle.ilse",
+            "flag": "baggy_ilse"
+          },
+          {
+            "text_key": "comp.baggy.idle.seal",
+            "flag": "seal_renewed"
+          },
+          {
+            "text_key": "comp.baggy.idle.rain",
+            "not_flag": "seal_renewed"
+          },
+          {
+            "text_key": "comp.baggy.idle.ledger",
+            "flag": "spirit_clue_learned"
+          },
+          {
+            "text_key": "comp.baggy.idle.dinner",
+            "flag": "dinner_done"
+          },
+          {
+            "text_key": "comp.baggy.idle.sabrino",
+            "flag": "sabrino_in_town",
+            "not_flag": "dinner_done"
+          },
+          {
+            "text_key": "comp.baggy.idle.friend"
+          }
+        ],
+        "combat_lines": [
+          "comp.baggy.combat.1",
+          "comp.baggy.combat.2",
+          "comp.baggy.combat.3",
+          "comp.baggy.combat.4",
+          "comp.baggy.combat.5"
+        ],
+        "kill_lines": [
+          "comp.baggy.kill.1",
+          "comp.baggy.kill.2",
+          "comp.baggy.kill.3",
+          "comp.baggy.kill.4"
+        ],
+        "heal_lines": [
+          "comp.baggy.heal.1",
+          "comp.baggy.heal.2",
+          "comp.baggy.heal.3"
+        ],
+        "level_lines": [
+          "comp.baggy.level.1",
+          "comp.baggy.level.2"
+        ]
+      }
+    },
+    {
+      "id": "core:npc.witch_sabrino",
+      "name_key": "npc.witch_sabrino.name",
+      "title_key": "npc.witch_sabrino.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.witch_sabrino",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/witch_sabrino.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "vendor_inventory": [
+        {
+          "item_id": "core:item.sabrino_gnocchi",
+          "stock": 6,
+          "price": 30
+        },
+        {
+          "item_id": "core:item.ash_pepper_stew",
+          "stock": 6,
+          "price": 30
+        },
+        {
+          "item_id": "core:item.oakhallow_braid",
+          "stock": 4,
+          "price": 25
+        },
+        {
+          "item_id": "core:item.sweet_roll",
+          "stock": 8,
+          "price": 15
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "stock": 4,
+          "price": 22
+        }
+      ],
+      "barks": [
+        {
+          "text_key": "bark.sabrino.1"
+        },
+        {
+          "text_key": "bark.sabrino.2"
+        },
+        {
+          "text_key": "bark.sabrino.3",
+          "flag": "dinner_done"
+        },
+        {
+          "text_key": "bark.sabrino.4",
+          "not_flag": "dinner_done"
         }
       ]
     }

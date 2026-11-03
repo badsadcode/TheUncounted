@@ -724,7 +724,10 @@
       ],
       "prompt": "Read the Garlic-Scented Note",
       "title": "A Note, Weighed Down with a Clove of Garlic",
-      "text": "To Whoever Finds My Hat,\n\nThe Bureau is onto me again. They have charged me with 1,412 counts of Unlicensed Fireballing, which is a lie. It was 1,413. They always forget the one at the wedding.\n\nI am leaving the hat and my good grimoire here under the pine, because a witch on the run cannot also carry a hat that tall. It keeps catching on tavern doors. Very bad for a dramatic exit.\n\nTake them. Wear the hat crooked, it works better. Cast the fireball from FAR away. Further than that. No, further.\n\nAnd if a nice man in a long coat asks where I went, tell him dinner is at eight, as always, and he is still invited.\n\nCiao,\nSabrino\n\nP.S. Do not let anyone tell you that pineapple goes on anything. That is the real war crime."
+      "text": "To Whoever Finds My Hat,\n\nThe Bureau is onto me again. They have charged me with 1,412 counts of Unlicensed Fireballing, which is a lie. It was 1,413. They always forget the one at the wedding.\n\nI am leaving the hat and my good grimoire here under the pine, because a witch on the run cannot also carry a hat that tall. It keeps catching on tavern doors. Very bad for a dramatic exit.\n\nTake them. Wear the hat crooked, it works better. Cast the fireball from FAR away. Further than that. No, further.\n\nAnd if a nice man in a long coat asks where I went, tell him dinner is at eight, as always, and he is still invited.\n\nCiao,\nSabrino\n\nP.S. Do not let anyone tell you that pineapple goes on anything. That is the real war crime.",
+      "quest_id": "core:quest.dinner_at_eight",
+      "set_stage": 0,
+      "set_flag": "sabrino_in_town"
     }
   ],
   "portals": [

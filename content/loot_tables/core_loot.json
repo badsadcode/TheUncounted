@@ -143,6 +143,100 @@
           "max_qty": 1
         }
       ]
+    },
+    {
+      "id": "core:loot.ash_crawler",
+      "gold_min": 8,
+      "gold_max": 22,
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 40,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wooden_arrow",
+          "weight": 45,
+          "min_qty": 5,
+          "max_qty": 10
+        },
+        {
+          "item_id": "core:item.lockpick",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.rusted_sword",
+          "weight": 15,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ],
+      "guaranteed": [
+        "core:item.ash_pepper"
+      ]
+    },
+    {
+      "id": "core:loot.bone_clerk",
+      "gold_min": 6,
+      "gold_max": 18,
+      "entries": [
+        {
+          "item_id": "core:item.bone_spectacles",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.lockpick",
+          "weight": 40,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.ink_wraith",
+      "gold_min": 10,
+      "gold_max": 25,
+      "entries": [
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 60,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.truffle_hog",
+      "gold_min": 0,
+      "gold_max": 3,
+      "guaranteed": [
+        "core:item.grave_truffle"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.bread_loaf",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
     }
   ]
 }

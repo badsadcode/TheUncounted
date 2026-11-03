@@ -35,6 +35,9 @@ struct ActiveBuff {
     Vector3 light_color{};
     float light_radius = 0.0f;
     float visibility = 1.0f;
+    std::string bonus_key;   // food buffs: named build bonus while active
+    float bonus_value = 0.0f;
+    std::string item_id;     // food buffs: what was eaten (HUD icon/name)
 };
 
 struct PlayerState {
@@ -57,6 +60,7 @@ struct PlayerState {
     std::map<std::string, std::vector<int>> quest_log;
     std::set<std::string> flags;
     std::set<std::string> claimed; // one-time dialogue rewards
+    std::string companion;         // NPC def id of whoever travels with the player (empty = alone)
     double play_time = 0.0;
 
     Vector3 pos{};
@@ -154,6 +158,8 @@ private:
     std::string boot_shot_;      // --shot path: render a frame and exit (headless verification)
     int boot_shot_frames_ = 0;
     std::string boot_shot_overlay_;
+    std::vector<std::string> boot_shot_flags_;
+    std::string boot_shot_companion_;
 
     // ---- combat/animation
     float attack_timer_ = -1.0f;    // >=0 while a swing is in progress
@@ -277,6 +283,7 @@ public:
     int ArmorRating() const;
     float SynergyBonus(const std::string& key) const;
     float GearBonus(const std::string& key) const;   // "bonus" effects on equipped items
+    float BuffBonus(const std::string& key) const;   // active food buffs
     float Bonus(const std::string& key) const;       // synergies + gear
     // Build maths shared by combat and the character sheet, so what you read is what you hit for.
     float MeleeHitDamage(const ItemDef* w, bool heavy) const;   // before crit, sneak, bane and enemy armour
@@ -312,6 +319,16 @@ private:
     // ---- combat
     void StartAttack(bool heavy);
     void ResolveMeleeHit();
+    // Companion
+    void UpdateCompanion(float dt);
+    int CompanionIndex() const;
+    void CompanionSay(const std::vector<std::string>& keys, float chance = 1.0f);
+    float companion_heal_cd_ = 0.0f;
+    float companion_idle_cd_ = 60.0f;
+    float companion_calm_ = 10.0f;        // seconds since the companion last fought
+    std::string companion_target_;
+    std::string companion_last_zone_;
+    size_t companion_idle_next_ = 0;
     int SplashDamage(const Projectile& p, Vector3 at, const std::string& skipId);
     void FireArrow(float power);
     void CastSelectedSpell();

@@ -75,6 +75,42 @@
       "value": 0,
       "weight": 1.2,
       "book_text_key": "book.uncounted_ledger.text"
+    },
+    {
+      "id": "core:item.grave_truffle",
+      "name_key": "item.grave_truffle.name",
+      "description_key": "item.grave_truffle.description",
+      "category": "misc",
+      "icon": "assets/ui/items/grave_truffle.png",
+      "world_model": "assets/models/items/grave_truffle.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 20,
+      "weight": 0.3
+    },
+    {
+      "id": "core:item.ash_pepper",
+      "name_key": "item.ash_pepper.name",
+      "description_key": "item.ash_pepper.description",
+      "category": "misc",
+      "icon": "assets/ui/items/ash_pepper.png",
+      "world_model": "assets/models/items/grave_truffle.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 12,
+      "weight": 0.1
+    },
+    {
+      "id": "core:item.vallo_red",
+      "name_key": "item.vallo_red.name",
+      "description_key": "item.vallo_red.description",
+      "category": "misc",
+      "icon": "assets/ui/items/vallo_red.png",
+      "world_model": "assets/models/items/vallo_red.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 25,
+      "weight": 1.0
     }
   ]
 }

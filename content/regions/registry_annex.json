@@ -1040,6 +1040,82 @@
         0.0,
         -24.5
       ]
+    },
+    {
+      "instance_id": "foyer_bone_clerk",
+      "creature_id": "core:enemy.bone_clerk",
+      "pos": [
+        -2.0,
+        0.0,
+        -1.8
+      ],
+      "patrol_a": [
+        -4.5,
+        0.0,
+        -1.8
+      ],
+      "patrol_b": [
+        4.5,
+        0.0,
+        -1.8
+      ]
+    },
+    {
+      "instance_id": "archive_bone_clerk",
+      "creature_id": "core:enemy.bone_clerk",
+      "pos": [
+        3.0,
+        0.0,
+        -6.6
+      ],
+      "patrol_a": [
+        -7.0,
+        0.0,
+        -6.6
+      ],
+      "patrol_b": [
+        7.0,
+        0.0,
+        -6.6
+      ]
+    },
+    {
+      "instance_id": "archive_ink_wraith",
+      "creature_id": "core:enemy.ink_wraith",
+      "pos": [
+        -6.5,
+        0.0,
+        -14.2
+      ],
+      "patrol_a": [
+        -8.0,
+        0.0,
+        -14.2
+      ],
+      "patrol_b": [
+        -1.5,
+        0.0,
+        -14.2
+      ]
+    },
+    {
+      "instance_id": "crypt_truffle_hog",
+      "creature_id": "core:enemy.truffle_hog",
+      "pos": [
+        -20.0,
+        0.0,
+        -14.2
+      ],
+      "patrol_a": [
+        -21.0,
+        0.0,
+        -14.2
+      ],
+      "patrol_b": [
+        -17.0,
+        0.0,
+        -14.2
+      ]
     }
   ],
   "interactables": [
@@ -1222,6 +1298,17 @@
       "prompt": "Read the Archivists' Duty Roster",
       "title": "Annex III Duty Roster",
       "text": "NIGHT WATCH - VAULT III (THE NURSERY)\n\nSister Hessa Vane, Night-Warden - every night. Do not relieve her. She will not be relieved.\nChief Archivist Morvath - the Ledger. Do not disturb him. He has stopped sleeping.\nW. Ashcombe, Junior Archivist - lamps, filing, and NOT misfiling.\n\nREMINDER TO ALL STAFF: the children's names are NOT to be spoken aloud inside the Annex, not even as a kindness. Especially not as a kindness.\n\nTea rota cancelled until further notice."
+    },
+    {
+      "instance_id": "crypt_truffle",
+      "type": "pickup",
+      "item_id": "core:item.grave_truffle",
+      "qty": 1,
+      "pos": [
+        -21.0,
+        0.2,
+        -8.0
+      ]
     }
   ],
   "portals": [

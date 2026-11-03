@@ -339,7 +339,7 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
         if (c.def && c.def->appearance.type == "sprite_8dir") sprites.push_back({Vector3DistanceSqr(cam, c.pos), 0, i});
     }
     for (size_t i = 0; i < scene.npcs.size(); i++) {
-        if (scene.npcs[i].def) sprites.push_back({Vector3DistanceSqr(cam, scene.npcs[i].pos), 1, i});
+        if (scene.npcs[i].def && !scene.npcs[i].hidden) sprites.push_back({Vector3DistanceSqr(cam, scene.npcs[i].pos), 1, i});
     }
     for (size_t i = 0; i < scene.projectiles.size(); i++) {
         const auto& p = scene.projectiles[i];
@@ -353,7 +353,8 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
         if (!c.def || c.state == CreatureState::Dead) continue;
         DrawCylinder({c.pos.x, c.pos.y + 0.015f, c.pos.z}, c.radius * 1.25f, c.radius * 1.25f, 0.005f, 14, Color{0, 0, 0, 90});
     }
-    for (const auto& n : scene.npcs) DrawCylinder({n.pos.x, n.pos.y + 0.015f, n.pos.z}, 0.32f, 0.32f, 0.005f, 14, Color{0, 0, 0, 90});
+    for (const auto& n : scene.npcs)
+        if (!n.hidden) DrawCylinder({n.pos.x, n.pos.y + 0.015f, n.pos.z}, 0.32f, 0.32f, 0.005f, 14, Color{0, 0, 0, 90});
     rlDrawRenderBatchActive();
     rlEnableDepthMask();
 
@@ -373,7 +374,7 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
             if (emissive != 0.0f) { rlDrawRenderBatchActive(); emissive = 0.0f; SetEmissive(sprite_shader_, sl_, 0.0f); }
             Color tint = WHITE;
             if (n.def->id.find("spirit") != std::string::npos) tint = Color{200, 230, 255, 255};
-            DrawSprite8(n.def->appearance.sprite_sheet, n.def->appearance.animation_data, "idle", n.anim_time, n.pos, n.yaw,
+            DrawSprite8(n.def->appearance.sprite_sheet, n.def->appearance.animation_data, n.anim, n.anim_time, n.pos, n.yaw,
                         n.def->appearance.scale, view.camera, tint);
         } else {
             const auto& p = scene.projectiles[sd.index];

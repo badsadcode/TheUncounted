@@ -1129,6 +1129,17 @@
         10.5
       ],
       "yaw": 180.0
+    },
+    {
+      "instance_id": "npc_sabrino",
+      "npc_id": "core:npc.witch_sabrino",
+      "pos": [
+        -9.3,
+        0.0,
+        12.6
+      ],
+      "yaw": 140.0,
+      "requires_flag": "sabrino_in_town"
     }
   ],
   "creatures": [],

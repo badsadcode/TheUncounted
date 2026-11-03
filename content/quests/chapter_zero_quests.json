@@ -95,6 +95,34 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.dinner_at_eight",
+      "title_key": "quest.dinner.title",
+      "summary_key": "quest.dinner.summary",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.dinner.stage0",
+          "journal_key": "quest.dinner.journal0"
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.dinner.stage10",
+          "journal_key": "quest.dinner.journal10"
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.dinner.stage20",
+          "journal_key": "quest.dinner.journal20"
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.dinner.stage100",
+          "journal_key": "quest.dinner.journal100",
+          "completed": true
+        }
+      ]
     }
   ]
 }

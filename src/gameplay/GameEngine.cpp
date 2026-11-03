@@ -142,6 +142,8 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (a == "--yaw") shotYaw = static_cast<float>(atof(next().c_str()));
         else if (a == "--pitch") shotPitch = static_cast<float>(atof(next().c_str()));
         else if (a == "--overlay") boot_shot_overlay_ = next();
+        else if (a == "--flag") boot_shot_flags_.push_back(next());          // --shot: set a story flag first
+        else if (a == "--companion") boot_shot_companion_ = next();          // --shot: travel with this NPC
         else if (a == "--pos" && i + 3 < argc) {
             shotPos = {static_cast<float>(atof(argv[i + 1])), static_cast<float>(atof(argv[i + 2])), static_cast<float>(atof(argv[i + 3]))};
             shotHasPos = true;
@@ -197,6 +199,17 @@ bool GameEngine::Init(int argc, char** argv) {
         if (shotYaw > -9000.0f) player_.yaw = shotYaw * DEG2RAD;
         player_.pitch = shotPitch * DEG2RAD;
         overlay_ = Overlay::None;
+        for (const auto& f : boot_shot_flags_) player_.flags.insert(f);
+        if (!boot_shot_companion_.empty()) {
+            player_.companion = boot_shot_companion_;
+            if (int ci = CompanionIndex(); ci >= 0) {
+                // Stand the companion where the follow logic would settle: just behind and to the right.
+                Vector3 f = Forward(player_.yaw);
+                scene_.npcs[ci].pos = Vector3Add(player_.pos, {-f.x * 1.5f + f.z * 0.9f + f.x * 3.2f, 0.0f, -f.z * 1.5f - f.x * 0.9f + f.z * 3.2f});
+                scene_.npcs[ci].pos.y = GroundHeight({scene_.npcs[ci].pos.x, player_.pos.y + 0.5f, scene_.npcs[ci].pos.z}, kStepHeight);
+                companion_last_zone_ = "none";
+            }
+        }
         if (boot_shot_overlay_ == "showcase") {
             // Line up every wearable/consumable as a world pickup in front of the camera (asset review aid).
             std::vector<const ItemDef*> show;
@@ -245,6 +258,10 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (boot_shot_overlay_ == "map") overlay_ = Overlay::Map;
         else if (boot_shot_overlay_ == "title") screen_ = Screen::Title;
         else if (boot_shot_overlay_ == "creation") screen_ = Screen::Creation;
+        else if (boot_shot_overlay_.rfind("narration:", 0) == 0) {
+            StartNarration({boot_shot_overlay_.substr(10)});
+            narration_time_ = 30.0f;  // fully faded in
+        }
         else if (boot_shot_overlay_.rfind("reader:", 0) == 0) {
             // reader:<item id> — preview a book/document's reader page
             if (const ItemDef* it = content_.GetItem(boot_shot_overlay_.substr(7))) { ReadItem(*it); SetOverlay(Overlay::Reader); }
@@ -646,6 +663,9 @@ void GameEngine::BuildScene() {
         ni.pos = n.pos;
         ni.yaw = ni.base_yaw = n.yaw * DEG2RAD;
         ni.anim_time = RandF() * 3.0f;
+        ni.home = n.pos;
+        ni.requires_flag = n.requires_flag;
+        ni.hidden_flag = n.hidden_flag;
         scene_.npcs.push_back(ni);
     }
 
@@ -1001,6 +1021,8 @@ void GameEngine::UpdatePlayerMovement(float dt) {
     if (stamina_delay_ <= 0.0f && !blocking_)
         player_.stamina += content_.balancing.stamina_regen_per_sec * dt;
     player_.mana += content_.balancing.mana_regen_per_sec * (1.0f + (Attr("will") - 10) * 0.04f) * dt;
+    player_.health += Bonus("health_regen") * dt;
+    player_.stamina += Bonus("stamina_regen") * dt;
     ClampVitals();
 }
 
@@ -1085,7 +1107,8 @@ Vector3 GameEngine::MoveWithCollision(Vector3 pos, Vector3 delta, float radius, 
             if (c.state == CreatureState::Dead || static_cast<int>(i) == selfCreature) continue;
             pushFrom(c.pos, c.radius);
         }
-        for (const auto& n : scene_.npcs) pushFrom(n.pos, 0.35f);
+        for (const auto& n : scene_.npcs)
+            if (!n.companion && !n.hidden) pushFrom(n.pos, 0.35f);  // a companion never body-blocks a corridor
         if (!isPlayer) pushFrom(player_.pos, kPlayerRadius);
     }
     return pos;
@@ -1210,7 +1233,13 @@ float GameEngine::GearBonus(const std::string& key) const {
                 if (e.type == "bonus" && e.stat == key) v += e.value;
     return v;
 }
-float GameEngine::Bonus(const std::string& key) const { return SynergyBonus(key) + GearBonus(key); }
+float GameEngine::BuffBonus(const std::string& key) const {
+    float v = 0.0f;
+    for (const auto& b : player_.buffs)
+        if (b.bonus_key == key) v += b.bonus_value;
+    return v;
+}
+float GameEngine::Bonus(const std::string& key) const { return SynergyBonus(key) + GearBonus(key) + BuffBonus(key); }
 
 float GameEngine::MeleeHitDamage(const ItemDef* w, bool heavy) const {
     std::string skill = w ? w->weapon.skill : "athletics";
@@ -1303,6 +1332,7 @@ void GameEngine::GainXp(int amount) {
         res_.PlaySfx("assets/audio/sfx/level_up.wav", 0.8f);
         Toast("Level " + std::to_string(player_.level) + "! Attribute point available [" + BindingLabel("character") + "]",
               Color{255, 220, 120, 255});
+        if (int ci = CompanionIndex(); ci >= 0) CompanionSay(scene_.npcs[ci].def->companion.level_lines);
     }
 }
 
@@ -1415,6 +1445,18 @@ void GameEngine::UseItem(const std::string& id) {
             if (e.type == "consumable_heal") player_.health += e.amount;
             else if (e.type == "consumable_mana") player_.mana += e.amount;
             else if (e.type == "consumable_stamina") player_.stamina += e.amount;
+            else if (e.type == "buff") {
+                // Food: a named build bonus for a while. Eating the same dish again refreshes it.
+                ActiveBuff* slot = nullptr;
+                for (auto& b : player_.buffs)
+                    if (b.item_id == d->id && b.bonus_key == e.stat) slot = &b;
+                if (!slot) { player_.buffs.push_back({}); slot = &player_.buffs.back(); }
+                slot->primitive = "food";
+                slot->item_id = d->id;
+                slot->bonus_key = e.stat;
+                slot->bonus_value = e.value;
+                slot->remaining = slot->duration = e.duration;
+            }
         }
         ClampVitals();
         RemoveItem(id, 1);
@@ -1630,6 +1672,141 @@ void GameEngine::UpdateBuffs(float dt) {
     player_.buffs.erase(std::remove_if(player_.buffs.begin(), player_.buffs.end(), [](const ActiveBuff& b) { return b.remaining <= 0; }),
                         player_.buffs.end());
     if (before != player_.buffs.size()) ClampVitals();
+}
+
+// ============================================================================
+// Companion: follows, fights alongside, looks after the player, and talks
+// ============================================================================
+int GameEngine::CompanionIndex() const {
+    if (player_.companion.empty()) return -1;
+    for (size_t i = 0; i < scene_.npcs.size(); i++)
+        if (scene_.npcs[i].def && scene_.npcs[i].def->id == player_.companion) return static_cast<int>(i);
+    return -1;
+}
+
+void GameEngine::CompanionSay(const std::vector<std::string>& keys, float chance) {
+    int ci = CompanionIndex();
+    if (ci < 0 || keys.empty() || RandF() > chance) return;
+    Say(content_.Tr(scene_.npcs[ci].def->name_key), content_.Tr(keys[static_cast<size_t>(RandF() * keys.size()) % keys.size()]));
+}
+
+void GameEngine::UpdateCompanion(float dt) {
+    for (auto& n : scene_.npcs) n.companion = false;
+    int ci = CompanionIndex();
+    if (ci < 0) return;
+    NpcInstance& n = scene_.npcs[ci];
+    const CompanionDef& cd = n.def->companion;
+    n.companion = true;
+    n.attack_cd = std::max(0.0f, n.attack_cd - dt);
+    n.anim_hold = std::max(0.0f, n.anim_hold - dt);
+    companion_heal_cd_ = std::max(0.0f, companion_heal_cd_ - dt);
+    companion_idle_cd_ -= dt;
+    companion_calm_ += dt;
+    if (overlay_ == Overlay::Dialogue || overlay_ == Overlay::Shop) {
+        n.yaw = YawTo(n.pos, player_.pos);
+        if (n.anim_hold <= 0.0f) n.anim = "idle";
+        return;
+    }
+
+    Vector3 fwd = Forward(player_.yaw);
+    Vector3 right = {fwd.z, 0.0f, -fwd.x};
+    // Lost (other storey, far behind, behind a closed door): catch up out of sight, behind the player.
+    float hd = HDist(n.pos, player_.pos);
+    if (hd > 15.0f || fabsf(n.pos.y - player_.pos.y) > 2.2f) {
+        Vector3 behind = Vector3Add(player_.pos, Vector3Scale(fwd, -1.3f));
+        float t;
+        Vector3 nrm;
+        Vector3 eye = {player_.pos.x, player_.pos.y + 1.0f, player_.pos.z};
+        if (SegmentHitsWorld(eye, {behind.x, behind.y + 1.0f, behind.z}, t, nrm)) behind = Vector3Add(player_.pos, Vector3Scale(right, 0.7f));
+        n.pos = behind;
+        n.pos.y = GroundHeight({n.pos.x, player_.pos.y + 0.5f, n.pos.z}, kStepHeight);
+        hd = HDist(n.pos, player_.pos);
+    }
+
+    auto stepToward = [&](Vector3 target, float speed) {
+        float ty = YawTo(n.pos, target);
+        n.yaw = ty;
+        Vector3 before = n.pos;
+        n.pos = MoveWithCollision(n.pos, Vector3Scale(Forward(ty), speed * dt), 0.3f, 1.7f, false);
+        n.pos.y = GroundHeight({n.pos.x, n.pos.y + 0.3f, n.pos.z}, kStepHeight);
+        return HDist(before, n.pos) > speed * dt * 0.2f;
+    };
+
+    // Pick a fight: the nearest creature that has noticed us, near the player, in view.
+    CreatureInstance* target = nullptr;
+    float best = 1e9f;
+    Vector3 eye = {n.pos.x, n.pos.y + 1.4f, n.pos.z};
+    for (auto& c : scene_.creatures) {
+        if (c.state == CreatureState::Dead || !c.alerted) continue;
+        float dp = HDist(c.pos, player_.pos);
+        float dc = HDist(c.pos, n.pos);
+        if (dp > 12.0f || fabsf(c.pos.y - n.pos.y) > 2.0f) continue;
+        if (!LineOfSight(eye, {c.pos.x, c.pos.y + c.height * 0.6f, c.pos.z})) continue;
+        if (dc < best) { best = dc; target = &c; }
+    }
+    bool moved = false;
+    if (target) {
+        if (companion_calm_ > 8.0f) CompanionSay(cd.combat_lines, 0.6f);
+        companion_calm_ = 0.0f;
+        companion_target_ = target->instance_id;
+        float reach = cd.reach + target->radius;
+        if (best > reach) {
+            moved = stepToward(target->pos, 4.4f);
+        } else {
+            n.yaw = YawTo(n.pos, target->pos);
+            if (n.attack_cd <= 0.0f) {
+                int dmg = static_cast<int>(std::round(cd.damage * (1.0f + 0.12f * (player_.level - 1)) * (0.85f + RandF() * 0.3f)));
+                bool killed = target->health <= std::max(1, dmg - static_cast<int>(std::round(target->def->armor * 0.6f)));
+                DamageCreature(*target, dmg, false, "companion", false);
+                PlaySfxAt("assets/audio/sfx/sword_hit.wav", n.pos, 0.6f);
+                n.attack_cd = cd.attack_time;
+                n.anim = "attack";
+                n.anim_hold = 0.3f;
+                if (killed) CompanionSay(cd.kill_lines, 0.5f);
+            }
+        }
+    } else {
+        companion_target_.clear();
+        // Follow a little behind and to the side, so the companion stays in the corner of your eye.
+        Vector3 slot = Vector3Add(player_.pos, Vector3Add(Vector3Scale(fwd, -1.5f), Vector3Scale(right, 0.9f)));
+        float ds = HDist(n.pos, slot);
+        if (hd > 2.4f || ds > 1.6f) moved = stepToward(slot, Clamp(ds * 1.7f, 2.2f, 7.5f));
+        else n.yaw += WrapAngle(player_.yaw - n.yaw) * std::min(1.0f, dt * 2.0f);
+    }
+    if (n.anim_hold <= 0.0f) n.anim = moved ? "walk" : "idle";
+
+    // Looking after you: food when you're badly hurt.
+    if (player_.health < MaxHealth() * 0.35f && player_.health > 0.0f && companion_heal_cd_ <= 0.0f) {
+        player_.health += cd.heal_amount;
+        ClampVitals();
+        companion_heal_cd_ = cd.heal_cooldown;
+        res_.PlaySfx("assets/audio/sfx/spell_heal.wav", 0.5f, 1.2f);
+        Toast("+" + std::to_string(cd.heal_amount) + " health", Color{150, 255, 170, 255});
+        CompanionSay(cd.heal_lines);
+    }
+
+    // First time in each area: a remark. Quiet moments: chatter that follows the story.
+    if (!zone_id_.empty() && zone_id_ != companion_last_zone_) {
+        companion_last_zone_ = zone_id_;
+        auto it = cd.zone_lines.find(zone_id_);
+        std::string key = "companion_zone:" + n.def->id + ":" + zone_id_;
+        if (it != cd.zone_lines.end() && !player_.claimed.count(key)) {
+            player_.claimed.insert(key);
+            Say(content_.Tr(n.def->name_key), content_.Tr(it->second));
+            companion_idle_cd_ = std::max(companion_idle_cd_, 30.0f);
+        }
+    }
+    if (companion_idle_cd_ <= 0.0f && companion_calm_ > 15.0f && subtitle_time_ <= 0.0f && overlay_ == Overlay::None && !cd.idle_lines.empty()) {
+        companion_idle_cd_ = 75.0f + RandF() * 45.0f;
+        for (size_t k = 0; k < cd.idle_lines.size(); k++) {
+            const CompanionLineDef& l = cd.idle_lines[(companion_idle_next_ + k) % cd.idle_lines.size()];
+            if (!l.flag.empty() && !player_.flags.count(l.flag)) continue;
+            if (!l.not_flag.empty() && player_.flags.count(l.not_flag)) continue;
+            companion_idle_next_ = (companion_idle_next_ + k + 1) % cd.idle_lines.size();
+            Say(content_.Tr(n.def->name_key), content_.Tr(l.text_key));
+            break;
+        }
+    }
 }
 
 int GameEngine::SplashDamage(const Projectile& p, Vector3 at, const std::string& skipId) {
@@ -2027,9 +2204,15 @@ void GameEngine::UpdateWorldObjects(float dt) {
 
     UpdateBarks(dt);
 
+    for (auto& n : scene_.npcs)
+        n.hidden = (!n.requires_flag.empty() && !player_.flags.count(n.requires_flag)) ||
+                   (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag) && n.def->id != player_.companion);
+    UpdateCompanion(dt);
+
     // NPCs idly turn to face a nearby player and back again.
     for (auto& n : scene_.npcs) {
         n.anim_time += dt;
+        if (n.companion) continue;
         float d = HDist(n.pos, player_.pos);
         float target = d < 4.5f ? YawTo(n.pos, player_.pos) : n.base_yaw;
         float diff = WrapAngle(target - n.yaw);
@@ -2113,6 +2296,7 @@ void GameEngine::UpdateInteractTarget() {
     }
     for (size_t i = 0; i < scene_.npcs.size(); i++) {
         const auto& n = scene_.npcs[i];
+        if (n.hidden) continue;
         consider(InteractTarget::Npc, static_cast<int>(i), {n.pos.x, n.pos.y + 1.0f, n.pos.z}, 0.6f, "Talk to " + content_.Tr(n.def->name_key));
     }
     for (size_t i = 0; i < scene_.creatures.size(); i++) {
@@ -2306,6 +2490,11 @@ bool GameEngine::EvalCondition(const DialogueCondition& c) const {
     if (c.type == "skill_at_least") return SkillLevel(c.skill) >= c.value;
     if (c.type == "flag_set") return player_.flags.count(c.flag) > 0;
     if (c.type == "flag_not_set") return player_.flags.count(c.flag) == 0;
+    if (c.type == "flags_at_least") {
+        int n = 0;
+        for (const auto& f : c.flags) n += player_.flags.count(f) ? 1 : 0;
+        return n >= c.value;
+    }
     if (c.type == "gold_at_least") return player_.gold >= c.value;
     Logger::Warn("Unknown dialogue condition type '" + c.type + "'");
     return false;
@@ -2334,6 +2523,29 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
         player_.mana = static_cast<float>(MaxMana());
         res_.PlaySfx("assets/audio/sfx/spell_heal.wav", 0.7f);
         Toast("You feel restored", Color{150, 255, 170, 255});
+    } else if (a.type == "narrate") {
+        std::vector<std::string> keys;
+        for (const auto& [key, flag] : a.pages)
+            if (flag.empty() || player_.flags.count(flag)) keys.push_back(key);
+        if (!keys.empty()) StartNarration(keys);
+    } else if (a.type == "recruit_companion") {
+        if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size()) && scene_.npcs[dialogue_npc_].def->companion.enabled) {
+            player_.companion = scene_.npcs[dialogue_npc_].def->id;
+            companion_last_zone_ = zone_id_;
+            companion_idle_cd_ = 40.0f;
+            Toast(content_.Tr(scene_.npcs[dialogue_npc_].def->name_key) + " is travelling with you", Color{255, 220, 150, 255});
+        }
+    } else if (a.type == "dismiss_companion") {
+        int ci = CompanionIndex();
+        if (ci >= 0) {
+            NpcInstance& n = scene_.npcs[ci];
+            n.companion = false;
+            n.pos = n.home;
+            n.yaw = n.base_yaw;
+            n.anim = "idle";
+            Toast(content_.Tr(n.def->name_key) + " heads back to wait for you");
+        }
+        player_.companion.clear();
     } else if (a.type == "open_shop") {
         if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size())) shop_npc_ = scene_.npcs[dialogue_npc_].def->id;
     } else {
@@ -2573,11 +2785,17 @@ bool GameEngine::SaveGame(const std::string& slot) {
     pj["selected_spell"] = p.selected_spell;
     pj["quick_slots"] = std::vector<std::string>(p.quick_slots.begin(), p.quick_slots.end());
     json buffs = json::array();
-    for (const auto& b : p.buffs) buffs.push_back({{"spell", b.spell_id}, {"remaining", b.remaining}, {"power", b.power}});
+    for (const auto& b : p.buffs) {
+        if (b.primitive == "food")
+            buffs.push_back({{"item", b.item_id}, {"remaining", b.remaining}, {"bonus", b.bonus_key}, {"value", b.bonus_value}, {"duration", b.duration}});
+        else
+            buffs.push_back({{"spell", b.spell_id}, {"remaining", b.remaining}, {"power", b.power}});
+    }
     pj["buffs"] = buffs;
     pj["quest_stages"] = p.quest_stages;
     pj["quest_log"] = p.quest_log;
     pj["flags"] = p.flags;
+    pj["companion"] = p.companion;
     pj["claimed"] = p.claimed;
     pj["play_time"] = p.play_time;
     pj["pos"] = V3(p.pos);
@@ -2672,6 +2890,7 @@ bool GameEngine::LoadGame(const std::string& slot) {
         p.quest_stages = pj.value("quest_stages", std::map<std::string, int>{});
         p.quest_log = pj.value("quest_log", std::map<std::string, std::vector<int>>{});
         p.flags = pj.value("flags", std::set<std::string>{});
+        p.companion = pj.value("companion", std::string{});
         p.claimed = pj.value("claimed", std::set<std::string>{});
         p.play_time = pj.value("play_time", 0.0);
         p.pos = V3(pj["pos"]);
@@ -2679,6 +2898,17 @@ bool GameEngine::LoadGame(const std::string& slot) {
         p.pitch = pj.value("pitch", 0.0f);
         if (pj.contains("buffs")) {
             for (const auto& b : pj["buffs"]) {
+                if (b.contains("item")) {
+                    ActiveBuff fb;
+                    fb.primitive = "food";
+                    fb.item_id = b.value("item", "");
+                    fb.bonus_key = b.value("bonus", "");
+                    fb.bonus_value = b.value("value", 0.0f);
+                    fb.remaining = b.value("remaining", 1.0f);
+                    fb.duration = b.value("duration", fb.remaining);
+                    p.buffs.push_back(fb);
+                    continue;
+                }
                 const SpellDef* s = content_.GetSpell(b.value("spell", ""));
                 if (!s) continue;
                 ActiveBuff ab;
@@ -2764,7 +2994,7 @@ void GameEngine::UpdateBarks(float dt) {
 
     Vector3 eye = {player_.pos.x, player_.pos.y + player_.eye_height, player_.pos.z};
     for (const auto& n : scene_.npcs) {
-        if (n.def->barks.empty() || bark_cd_[n.instance_id] > 0.0f) continue;
+        if (n.companion || n.hidden || n.def->barks.empty() || bark_cd_[n.instance_id] > 0.0f) continue;  // companions use their own chatter
         if (Vector3Distance(n.pos, player_.pos) > 6.5f || !LineOfSight({n.pos.x, n.pos.y + 1.5f, n.pos.z}, eye)) continue;
         int count = static_cast<int>(n.def->barks.size());
         for (int k = 0; k < count; k++) {

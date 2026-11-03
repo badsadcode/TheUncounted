@@ -4484,6 +4484,17 @@
       "yaw": 180.0
     },
     {
+      "instance_id": "npc_sabrino",
+      "npc_id": "core:npc.witch_sabrino",
+      "pos": [
+        -9.3,
+        0.0,
+        12.6
+      ],
+      "yaw": 140.0,
+      "requires_flag": "sabrino_in_town"
+    },
+    {
       "instance_id": "npc_kaelen",
       "npc_id": "core:npc.ashbound_scout",
       "pos": [
@@ -4668,6 +4679,82 @@
       ]
     },
     {
+      "instance_id": "foyer_bone_clerk",
+      "creature_id": "core:enemy.bone_clerk",
+      "pos": [
+        85.0,
+        -4.8,
+        -10.2
+      ],
+      "patrol_a": [
+        82.5,
+        -4.8,
+        -10.2
+      ],
+      "patrol_b": [
+        91.5,
+        -4.8,
+        -10.2
+      ]
+    },
+    {
+      "instance_id": "archive_bone_clerk",
+      "creature_id": "core:enemy.bone_clerk",
+      "pos": [
+        90.0,
+        -4.8,
+        -15.0
+      ],
+      "patrol_a": [
+        80.0,
+        -4.8,
+        -15.0
+      ],
+      "patrol_b": [
+        94.0,
+        -4.8,
+        -15.0
+      ]
+    },
+    {
+      "instance_id": "archive_ink_wraith",
+      "creature_id": "core:enemy.ink_wraith",
+      "pos": [
+        80.5,
+        -4.8,
+        -22.6
+      ],
+      "patrol_a": [
+        79.0,
+        -4.8,
+        -22.6
+      ],
+      "patrol_b": [
+        85.5,
+        -4.8,
+        -22.6
+      ]
+    },
+    {
+      "instance_id": "crypt_truffle_hog",
+      "creature_id": "core:enemy.truffle_hog",
+      "pos": [
+        67.0,
+        -4.8,
+        -22.6
+      ],
+      "patrol_a": [
+        66.0,
+        -4.8,
+        -22.6
+      ],
+      "patrol_b": [
+        70.0,
+        -4.8,
+        -22.6
+      ]
+    },
+    {
       "instance_id": "nursery_skel_1",
       "creature_id": "core:enemy.restless_skeleton",
       "pos": [
@@ -4741,6 +4828,44 @@
         10.6,
         -16.0,
         -19.0
+      ]
+    },
+    {
+      "instance_id": "nursery_ink_wraith",
+      "creature_id": "core:enemy.ink_wraith",
+      "pos": [
+        36.1,
+        -10.4,
+        -21.0
+      ],
+      "patrol_a": [
+        40.6,
+        -10.4,
+        -21.0
+      ],
+      "patrol_b": [
+        31.6,
+        -10.4,
+        -21.0
+      ]
+    },
+    {
+      "instance_id": "nursery_truffle_hog",
+      "creature_id": "core:enemy.truffle_hog",
+      "pos": [
+        30.6,
+        -10.4,
+        -24.0
+      ],
+      "patrol_a": [
+        29.6,
+        -10.4,
+        -24.0
+      ],
+      "patrol_b": [
+        32.6,
+        -10.4,
+        -24.0
       ]
     }
   ],
@@ -4929,7 +5054,10 @@
       ],
       "prompt": "Read the Garlic-Scented Note",
       "title": "A Note, Weighed Down with a Clove of Garlic",
-      "text": "To Whoever Finds My Hat,\n\nThe Bureau is onto me again. They have charged me with 1,412 counts of Unlicensed Fireballing, which is a lie. It was 1,413. They always forget the one at the wedding.\n\nI am leaving the hat and my good grimoire here under the pine, because a witch on the run cannot also carry a hat that tall. It keeps catching on tavern doors. Very bad for a dramatic exit.\n\nTake them. Wear the hat crooked, it works better. Cast the fireball from FAR away. Further than that. No, further.\n\nAnd if a nice man in a long coat asks where I went, tell him dinner is at eight, as always, and he is still invited.\n\nCiao,\nSabrino\n\nP.S. Do not let anyone tell you that pineapple goes on anything. That is the real war crime."
+      "text": "To Whoever Finds My Hat,\n\nThe Bureau is onto me again. They have charged me with 1,412 counts of Unlicensed Fireballing, which is a lie. It was 1,413. They always forget the one at the wedding.\n\nI am leaving the hat and my good grimoire here under the pine, because a witch on the run cannot also carry a hat that tall. It keeps catching on tavern doors. Very bad for a dramatic exit.\n\nTake them. Wear the hat crooked, it works better. Cast the fireball from FAR away. Further than that. No, further.\n\nAnd if a nice man in a long coat asks where I went, tell him dinner is at eight, as always, and he is still invited.\n\nCiao,\nSabrino\n\nP.S. Do not let anyone tell you that pineapple goes on anything. That is the real war crime.",
+      "quest_id": "core:quest.dinner_at_eight",
+      "set_stage": 0,
+      "set_flag": "sabrino_in_town"
     },
     {
       "instance_id": "annex_inner_door",
@@ -5112,6 +5240,17 @@
       "text": "NIGHT WATCH - VAULT III (THE NURSERY)\n\nSister Hessa Vane, Night-Warden - every night. Do not relieve her. She will not be relieved.\nChief Archivist Morvath - the Ledger. Do not disturb him. He has stopped sleeping.\nW. Ashcombe, Junior Archivist - lamps, filing, and NOT misfiling.\n\nREMINDER TO ALL STAFF: the children's names are NOT to be spoken aloud inside the Annex, not even as a kindness. Especially not as a kindness.\n\nTea rota cancelled until further notice."
     },
     {
+      "instance_id": "crypt_truffle",
+      "type": "pickup",
+      "item_id": "core:item.grave_truffle",
+      "qty": 1,
+      "pos": [
+        66.0,
+        -4.6,
+        -16.4
+      ]
+    },
+    {
       "instance_id": "ilse_cradle",
       "type": "readable",
       "model": "assets/models/props/sarcophagus.glb",
@@ -5207,6 +5346,17 @@
       "fixed_items": [
         "core:item.stamina_tonic",
         "core:item.tome_ward"
+      ]
+    },
+    {
+      "instance_id": "nursery_truffle",
+      "type": "pickup",
+      "item_id": "core:item.grave_truffle",
+      "qty": 1,
+      "pos": [
+        29.2,
+        -10.2,
+        -22.8
       ]
     },
     {

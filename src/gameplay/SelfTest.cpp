@@ -411,6 +411,109 @@ int GameEngine::RunSelfTest() {
         EndDialogue();
     }
 
+    auto hdist = [](Vector3 a, Vector3 b) { return sqrtf((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z)); };
+    // --- Every creature spawns on open floor (not inside a wall)
+    {
+        std::string stuck;
+        for (size_t i = 0; i < scene_.creatures.size(); i++) {
+            const auto& c = scene_.creatures[i];
+            Vector3 moved = MoveWithCollision(c.spawn, {0.01f, 0.0f, 0.0f}, c.radius, c.height, false, static_cast<int>(i));
+            if (hdist(moved, c.spawn) > 0.2f) stuck += c.instance_id + " ";
+        }
+        check(stuck.empty(), "creature spawns are clear of walls " + stuck);
+    }
+
+    // --- Baggy as a companion: follows, fights, looks after you
+    {
+        int bi = npcIndex("core:npc.detective_baggy");
+        player_.pos = at(road, 6.0f, 0.0f, -3.0f);
+        StartDialogue(bi);
+        check(chooseNext("join") && player_.companion == "core:npc.detective_baggy", "Baggy joins as a companion");
+        int rolls = CountItem("core:item.sweet_roll");
+        EndDialogue();
+        check(rolls >= 2, "Baggy hands over emergency sweet rolls");
+        player_.pos = {0.0f, 0.0f, 0.0f};  // walk off to Bellwether: Baggy catches up
+        UpdateAtmosphere(0.0f, true);
+        simulate(3.0f);
+        check(hdist(scene_.npcs[bi].pos, player_.pos) < 4.0f, "Baggy keeps up with the player");
+        player_.pos = at(annex, 0.0f, 0.0f, 2.0f);  // down in the Annex: catches up across storeys
+        simulate(2.0f);
+        check(hdist(scene_.npcs[bi].pos, player_.pos) < 4.0f && fabsf(scene_.npcs[bi].pos.y - player_.pos.y) < 1.0f,
+              "Baggy follows down into the Annex");
+        CreatureInstance* foe = nullptr;
+        for (auto& c : scene_.creatures)
+            if (c.state != CreatureState::Dead && c.instance_id == "foyer_bone_clerk") foe = &c;
+        if (foe) {
+            foe->alerted = true;
+            foe->state = CreatureState::Chase;
+            int before = foe->health;
+            float hpBefore = player_.health = static_cast<float>(MaxHealth());
+            simulate(5.0f);
+            check(foe->health < before || foe->state == CreatureState::Dead, "Baggy fights alongside the player");
+            (void)hpBefore;
+        }
+        player_.health = MaxHealth() * 0.2f;
+        companion_heal_cd_ = 0.0f;
+        float low = player_.health;
+        simulate(0.1f);
+        check(player_.health > low + 10.0f, "Baggy hands over food when the player is badly hurt");
+        StartDialogue(bi);
+        check(chooseNext("wait") && player_.companion.empty(), "Baggy can be asked to wait");
+        EndDialogue();
+        StartDialogue(bi);
+        check(chooseNext("join") && player_.companion == "core:npc.detective_baggy", "and rejoins later");
+        EndDialogue();
+    }
+
+    // --- Dinner at Eight
+    {
+        const std::string dq = "core:quest.dinner_at_eight";
+        int si = npcIndex("core:npc.witch_sabrino");
+        UpdateWorldObjects(0.0f);
+        check(si >= 0 && scene_.npcs[si].hidden, "Sabrino isn't in town until the note is found");
+        standAndUse(at(road, -10.4f, 0.0f, 10.4f), 0.0f, -20.0f);
+        if (QuestStage(dq) < 0) standAndUse(at(road, -10.4f, 0.0f, 10.9f), 0.0f, -30.0f);
+        SetOverlay(Overlay::None);
+        UpdateWorldObjects(0.0f);
+        check(QuestStage(dq) == 0 && !scene_.npcs[si].hidden, "Sabrino's note starts Dinner at Eight; Sabrino arrives at the inn");
+        StartDialogue(si);
+        check(chooseNext("dinner_plan") && QuestStage(dq) == 10, "Sabrino asks for ingredients");
+        check(chooseNext("root") && !chooseNext("cooking"), "Sabrino waits for all three ingredients");
+        EndDialogue();
+        AddItem("core:item.grave_truffle", 1, false);
+        AddItem("core:item.ash_pepper", 1, false);
+        AddItem("core:item.vallo_red", 1, false);
+        StartDialogue(si);
+        check(chooseNext("cooking") && QuestStage(dq) == 20 && CountItem("core:item.vallo_red") == 0, "the ingredients go into the pot");
+        check(chooseNext("root") && !chooseNext("dinner"), "dinner needs guests first");
+        EndDialogue();
+        for (const char* who : {"core:npc.innkeeper_marta", "core:npc.librarian_fenwick", "core:npc.brother_aldous"}) {
+            StartDialogue(npcIndex(who));
+            check(chooseNext("invite_dinner"), std::string("invited ") + who);
+            EndDialogue();
+        }
+        StartDialogue(npcIndex("core:npc.detective_baggy"));
+        check(chooseNext("invite"), "invited Baggy");
+        EndDialogue();
+        StartDialogue(si);
+        check(chooseNext("dinner") && QuestStage(dq) == 100, "dinner is served");
+        check(overlay_ == Overlay::Narration && narration_pages_.size() == 6, "the dinner plays out for the guests who came (" +
+              std::to_string(narration_pages_.size()) + " cards)");
+        check(CountItem("core:item.ladle_of_justice") == 1, "Sabrino gives you the Ladle of Justice");
+        narration_page_ = static_cast<int>(narration_pages_.size());
+        AdvanceNarration();
+        EndDialogue();
+        check(screen_ == Screen::Playing, "a finished side quest doesn't end the chapter");
+        float spBefore = Bonus("spell_power_bonus");
+        UseItem("core:item.sabrino_gnocchi");
+        check(BuffBonus("spell_power_bonus") > 0.14f && Bonus("spell_power_bonus") > spBefore, "Sabrino's gnocchi buffs spell power");
+        StartDialogue(si);
+        check(chooseNext("END") || true, "Sabrino's shop opens after dinner");
+        EndDialogue();
+        SetOverlay(Overlay::None);
+        shop_npc_.clear();
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

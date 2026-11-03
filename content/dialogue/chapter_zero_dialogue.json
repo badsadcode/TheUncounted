@@ -131,6 +131,21 @@
               "next": "elf_remark"
             },
             {
+              "text_key": "dlg.invite.choice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_oakhaven"
+                }
+              ],
+              "next": "invite_dinner"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -414,6 +429,23 @@
               "next": "greeting"
             }
           ]
+        },
+        "invite_dinner": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.invite.oakhaven",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_oakhaven",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "greeting"
+            }
+          ]
         }
       }
     },
@@ -441,6 +473,21 @@
             {
               "text_key": "dlg.merchant.choice_rumors_bureau",
               "next": "rumors_bureau"
+            },
+            {
+              "text_key": "dlg.invite.choice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_vaelen"
+                }
+              ],
+              "next": "invite_dinner"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -475,6 +522,23 @@
               "type": "give_xp",
               "skill": "lore",
               "amount": 10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "invite_dinner": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.invite.vaelen",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_vaelen",
+              "value": true
             }
           ],
           "choices": [
@@ -628,6 +692,21 @@
                 }
               ],
               "next": "rested"
+            },
+            {
+              "text_key": "dlg.invite.choice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_marta"
+                }
+              ],
+              "next": "invite_dinner"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -896,6 +975,23 @@
               "next": "root"
             }
           ]
+        },
+        "invite_dinner": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.invite.marta",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_marta",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -938,6 +1034,21 @@
             {
               "text_key": "dlg.fenwick.choice_train_magic",
               "next": "train_magic"
+            },
+            {
+              "text_key": "dlg.invite.choice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_fenwick"
+                }
+              ],
+              "next": "invite_dinner"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -1027,6 +1138,23 @@
               "next": "root"
             }
           ]
+        },
+        "invite_dinner": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.invite.fenwick",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_fenwick",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -1064,6 +1192,21 @@
                 }
               ],
               "next": "blessed"
+            },
+            {
+              "text_key": "dlg.invite.choice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_aldous"
+                }
+              ],
+              "next": "invite_dinner"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -1111,6 +1254,23 @@
         "bells": {
           "speaker_key": "npc.brother_aldous.name",
           "text_key": "dlg.aldous.bells",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "invite_dinner": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.invite.aldous",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_aldous",
+              "value": true
+            }
+          ],
           "choices": [
             {
               "text_key": "dlg.clerk.choice_back",
@@ -1172,6 +1332,21 @@
                 }
               ],
               "next": "orc_gift"
+            },
+            {
+              "text_key": "dlg.invite.choice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_kaelen"
+                }
+              ],
+              "next": "invite_dinner"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -1261,6 +1436,23 @@
               "next": "root"
             }
           ]
+        },
+        "invite_dinner": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.invite.kaelen",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_kaelen",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -1322,6 +1514,25 @@
                 }
               ],
               "next": "remembered"
+            },
+            {
+              "text_key": "dlg.invite.choice",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_wendel"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "witness_named"
+                }
+              ],
+              "next": "invite_dinner"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -1426,6 +1637,23 @@
               "next": "root"
             }
           ]
+        },
+        "invite_dinner": {
+          "speaker_key": "npc.erased_spirit.name",
+          "text_key": "dlg.invite.wendel",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_wendel",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -1491,6 +1719,41 @@
                 }
               ],
               "next": "rain"
+            },
+            {
+              "text_key": "dlg.baggy.choice_join",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "baggy_following"
+                }
+              ],
+              "next": "join"
+            },
+            {
+              "text_key": "dlg.baggy.choice_wait",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "baggy_following"
+                }
+              ],
+              "next": "wait"
+            },
+            {
+              "text_key": "dlg.baggy.choice_invite",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "invited_baggy"
+                }
+              ],
+              "next": "invite"
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -1639,6 +1902,427 @@
           "choices": [
             {
               "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "join": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.join",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "baggy_following",
+              "value": true
+            },
+            {
+              "type": "recruit_companion"
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.sweet_roll",
+              "qty": 2
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_lets_go",
+              "next": "END"
+            }
+          ]
+        },
+        "wait": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.wait",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "baggy_following",
+              "value": false
+            },
+            {
+              "type": "dismiss_companion"
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "invite": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.invite",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "invited_baggy",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.baggy.choice_back",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.witch_sabrino",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.greeting",
+          "choices": [
+            {
+              "text_key": "dlg.sabrino.choice_poster",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "sabrino_poster_talk"
+                }
+              ],
+              "next": "poster"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_dinner",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 0
+                }
+              ],
+              "next": "dinner_plan"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_need",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 10
+                }
+              ],
+              "next": "need"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_ingredients",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 10
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.grave_truffle"
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.ash_pepper"
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.vallo_red"
+                }
+              ],
+              "next": "cooking"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_guests_not_yet",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "invited_marta",
+                    "invited_baggy",
+                    "invited_kaelen",
+                    "invited_fenwick",
+                    "invited_aldous",
+                    "invited_oakhaven",
+                    "invited_vaelen",
+                    "invited_wendel"
+                  ],
+                  "value": 0
+                }
+              ],
+              "next": "guests_status"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_serve",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 20
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "invited_marta",
+                    "invited_baggy",
+                    "invited_kaelen",
+                    "invited_fenwick",
+                    "invited_aldous",
+                    "invited_oakhaven",
+                    "invited_vaelen",
+                    "invited_wendel"
+                  ],
+                  "value": 3
+                }
+              ],
+              "next": "dinner"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_baggy",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "baggy_following"
+                }
+              ],
+              "next": "about_baggy"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_magic",
+              "next": "magic"
+            },
+            {
+              "text_key": "dlg.sabrino.choice_shop",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.dinner_at_eight",
+                  "stage": 100
+                }
+              ],
+              "actions": [
+                {
+                  "type": "open_shop"
+                }
+              ],
+              "next": "END"
+            },
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "poster": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.poster",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "sabrino_poster_talk",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "dinner_plan": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.dinner_plan",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dinner_at_eight",
+              "stage": 10
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.sabrino.choice_in",
+              "next": "root"
+            }
+          ]
+        },
+        "need": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.need",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "cooking": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.cooking",
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.grave_truffle",
+              "qty": 1
+            },
+            {
+              "type": "take_item",
+              "item_id": "core:item.ash_pepper",
+              "qty": 1
+            },
+            {
+              "type": "take_item",
+              "item_id": "core:item.vallo_red",
+              "qty": 1
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dinner_at_eight",
+              "stage": 20
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.sabrino.choice_who",
+              "next": "root"
+            }
+          ]
+        },
+        "guests_status": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.guests_status",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "dinner": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.dinner",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dinner_at_eight",
+              "stage": 100
+            },
+            {
+              "type": "set_flag",
+              "flag": "dinner_done",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.ladle_of_justice",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.sabrino_gnocchi",
+              "qty": 3
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.oakhallow_braid",
+              "qty": 2
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 120
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.dinner.1"
+                },
+                {
+                  "key": "story.dinner.marta",
+                  "flag": "invited_marta"
+                },
+                {
+                  "key": "story.dinner.baggy",
+                  "flag": "invited_baggy"
+                },
+                {
+                  "key": "story.dinner.kaelen",
+                  "flag": "invited_kaelen"
+                },
+                {
+                  "key": "story.dinner.fenwick",
+                  "flag": "invited_fenwick"
+                },
+                {
+                  "key": "story.dinner.aldous",
+                  "flag": "invited_aldous"
+                },
+                {
+                  "key": "story.dinner.oakhaven",
+                  "flag": "invited_oakhaven"
+                },
+                {
+                  "key": "story.dinner.vaelen",
+                  "flag": "invited_vaelen"
+                },
+                {
+                  "key": "story.dinner.wendel",
+                  "flag": "invited_wendel"
+                },
+                {
+                  "key": "story.dinner.end"
+                }
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.sabrino.choice_after",
+              "next": "END"
+            }
+          ]
+        },
+        "about_baggy": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.about_baggy",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "magic": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.sabrino.magic",
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "elemental",
+              "amount": 20
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
               "next": "root"
             }
           ]

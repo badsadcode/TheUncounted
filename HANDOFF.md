@@ -12,7 +12,7 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
 - **Target platform: Windows 10/11 only** (MinGW build). Linux is *not* a shipping target; it is only used as a headless
   test box in cloud sessions (which run Linux and cannot execute `game.exe`). Don't add Linux packaging or Linux-only code.
-- `--validate` → 0 errors; `--selftest` → 0 failures (100 checks); `--balance` → every calling beats every creature
+- `--validate` → 0 errors; `--selftest` → 0 failures (137 checks); `--balance` → every calling beats every creature
   (36/36 at 100%). Last cloud verification 2026-11-02; re-check on Windows after pulling.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
@@ -176,6 +176,29 @@ His characters: **Sabrino**, the Italian witch "war criminal" (ESO), and **Baggy
 - Assets: `python tools/build_item_models.py baggy_umbrella sabrino_hat extra_icons` (now takes builder names; running
   it with no names rebuilds every item model, which is not byte-identical — prefer names).
 - Previews: `--overlay combat` (Combat Sheet with a crit build), `--overlay compare` (inventory comparison).
+
+### Companion, Dinner at Eight, food & new monsters (added 2026-11-03)
+
+Toasty has been feeling lonely; the user asked for company in the game above all. Keep that spirit: warm, funny,
+nobody left out.
+
+- **Companions** (`"companion"` block on an NpcDef: damage, attack_time, reach, heal_amount/heal_cooldown, zone_lines,
+  idle_lines [flag/not_flag gated], combat/kill/heal/level lines). Dialogue actions `recruit_companion` /
+  `dismiss_companion`; the player's companion is saved (`player.companion`). `UpdateCompanion()` follows a slot behind
+  and to the right, catches up out of sight across storeys/doors, fights alerted creatures near the player, hands over
+  food below 35% health, comments on first arrival in each zone (once per save) and chats every ~2 minutes. Companions
+  don't body-block and don't bark. **Baggy** is the companion (`join` / `wait` topics, flag `baggy_following`).
+- **Map NPCs** may set `requires_flag` / `hidden_flag` (present only with/without a story flag; live, no reload).
+- **Dialogue:** condition `flags_at_least` (`flags` + `value`); action `narrate` (`pages`: keys or {key, flag}).
+- **Food buffs:** item effect `{"type": "buff", "stat": <bonus key>, "value": v, "duration": s}`; new keys
+  `health_regen`, `stamina_regen`. Bonus() = synergies + gear + food. Saved with the game.
+- **Quest `core:quest.dinner_at_eight`:** read Sabrino's note (Old Road stash) → Sabrino appears in the Lantern Inn
+  (`sabrino_in_town`) → bring Grave-cap Truffle (Truffle Hogs / crypt & Nursery pickups), Ash-Pepper (every Ash
+  Crawler drops one) and Vallo Red (Vaelen) → invite ≥3 of Marta, Baggy, Kaelen, Fenwick, Aldous, Oakhaven, Vaelen,
+  Wendel (`invited_*`) → the dinner (narration cards for whoever came) → Ladle of Justice, food, Sabrino's food shop.
+- **Monsters:** Bone Clerk (undead, Annex foyer & archive; drops Bone Clerk's Spectacles), Ink Wraith (spirit, ranged;
+  archive & Nursery), Truffle Hog (beast — it's a rat; nobody has told it). Self-test checks every spawn is clear of walls.
+- Previews: `--flag <name>` (repeatable) and `--companion <npc id>` for `--shot`; `--overlay narration:<key>`.
 
 ## 8. The user (what they care about)
 

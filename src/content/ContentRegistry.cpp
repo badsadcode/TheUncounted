@@ -560,6 +560,7 @@ void ContentRegistry::LoadItemsFile(const std::string& rootDir, const std::strin
                 ie.spell_id = ef.value("spell_id", "");
                 ie.amount = ef.value("amount", 0);
                 ie.value = ef.value("value", 0.0f);
+                ie.duration = ef.value("duration", 0.0f);
                 d.effects.push_back(ie);
             }
         }
@@ -720,6 +721,31 @@ void ContentRegistry::LoadNpcsFile(const std::string& rootDir, const std::string
                 d.barks.push_back(b);
             }
         }
+        if (el.contains("companion") && el["companion"].is_object()) {
+            const auto& cj = el["companion"];
+            CompanionDef& cd = d.companion;
+            cd.enabled = true;
+            cd.damage = cj.value("damage", 6);
+            cd.attack_time = cj.value("attack_time", 1.15f);
+            cd.reach = cj.value("reach", 1.7f);
+            cd.heal_amount = cj.value("heal_amount", 18);
+            cd.heal_cooldown = cj.value("heal_cooldown", 45.0f);
+            if (cj.contains("zone_lines")) cd.zone_lines = cj["zone_lines"].get<std::map<std::string, std::string>>();
+            auto strs = [&](const char* k) { return cj.contains(k) ? cj[k].get<std::vector<std::string>>() : std::vector<std::string>{}; };
+            cd.combat_lines = strs("combat_lines");
+            cd.kill_lines = strs("kill_lines");
+            cd.heal_lines = strs("heal_lines");
+            cd.level_lines = strs("level_lines");
+            if (cj.contains("idle_lines")) {
+                for (const auto& lj : cj["idle_lines"]) {
+                    CompanionLineDef l;
+                    l.text_key = lj.value("text_key", "");
+                    l.flag = lj.value("flag", "");
+                    l.not_flag = lj.value("not_flag", "");
+                    cd.idle_lines.push_back(l);
+                }
+            }
+        }
         if (el.contains("vendor_inventory")) {
             for (const auto& v : el["vendor_inventory"]) {
                 VendorStockEntry vs;
@@ -744,6 +770,12 @@ static DialogueAction ParseAction(const json& a) {
     da.skill = a.value("skill", "");
     da.flag = a.value("flag", "");
     da.bool_value = a.value("value", true);
+    if (a.contains("pages")) {
+        for (const auto& pj : a["pages"]) {
+            if (pj.is_string()) da.pages.push_back({pj.get<std::string>(), ""});
+            else da.pages.push_back({pj.value("key", ""), pj.value("flag", "")});
+        }
+    }
     return da;
 }
 
@@ -784,6 +816,7 @@ void ContentRegistry::LoadDialoguesFile(const std::string& rootDir, const std::s
                                 cond.skill = condj.value("skill", "");
                                 cond.value = condj.value("value", 0);
                                 cond.flag = condj.value("flag", "");
+                                if (condj.contains("flags")) cond.flags = condj["flags"].get<std::vector<std::string>>();
                                 dc.conditions.push_back(cond);
                             }
                         }
@@ -940,6 +973,8 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             ns.npc_id = nj.value("npc_id", "");
             ns.pos = JsonToVec3(nj["pos"]);
             ns.yaw = nj.value("yaw", 0.0f);
+            ns.requires_flag = nj.value("requires_flag", "");
+            ns.hidden_flag = nj.value("hidden_flag", "");
             m.npcs.push_back(ns);
         }
     }
@@ -1085,6 +1120,15 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
         }
         if (!npc.dialogue_id.empty() && dialogues.find(npc.dialogue_id) == dialogues.end()) {
             RecordIssue("NPC:" + id, "dialogue_id", "Unknown dialogue ID '" + npc.dialogue_id + "'");
+        }
+        {
+            std::vector<std::string> keys;
+            for (const auto& [z, k] : npc.companion.zone_lines) keys.push_back(k);
+            for (const auto& l : npc.companion.idle_lines) keys.push_back(l.text_key);
+            for (const auto* v : {&npc.companion.combat_lines, &npc.companion.kill_lines, &npc.companion.heal_lines, &npc.companion.level_lines})
+                keys.insert(keys.end(), v->begin(), v->end());
+            for (const auto& k : keys)
+                if (!loc_strings.count(k)) RecordIssue("NPC:" + id, "companion", "Missing localization string '" + k + "'");
         }
         for (const auto& b : npc.barks) {
             if (loc_strings.find(b.text_key) == loc_strings.end())

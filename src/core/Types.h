@@ -199,6 +199,7 @@ struct ItemEffectDef {
     std::string spell_id;
     int amount = 0;
     float value = 0.0f;
+    float duration = 0.0f;   // buff: seconds the named bonus lasts (food)
 };
 
 struct ItemDef {
@@ -292,6 +293,28 @@ struct NpcBarkDef {
     std::string not_flag;      // optional: only while this story flag is unset
 };
 
+struct CompanionLineDef {
+    std::string text_key;
+    std::string flag;       // only once this story flag is set
+    std::string not_flag;   // only while this story flag is unset
+};
+
+// Optional: lets an NPC travel with the player (recruited/dismissed by dialogue actions).
+struct CompanionDef {
+    bool enabled = false;
+    int damage = 6;                    // per swing, grows a little with the player's level
+    float attack_time = 1.15f;
+    float reach = 1.7f;
+    int heal_amount = 18;              // handed over when the player is badly hurt
+    float heal_cooldown = 45.0f;
+    std::map<std::string, std::string> zone_lines;   // zone id -> line said on first arrival
+    std::vector<CompanionLineDef> idle_lines;        // quiet-moment chatter
+    std::vector<std::string> combat_lines;           // a fight starts
+    std::vector<std::string> kill_lines;             // a fight ends
+    std::vector<std::string> heal_lines;             // hands the player food
+    std::vector<std::string> level_lines;            // the player levels up
+};
+
 struct NpcDef {
     std::string id;
     std::string name_key;
@@ -301,6 +324,7 @@ struct NpcDef {
     AppearanceDef appearance;
     std::vector<VendorStockEntry> vendor_inventory;
     std::vector<NpcBarkDef> barks; // ambient lines spoken when the player passes by
+    CompanionDef companion;
 };
 
 struct DialogueCondition {
@@ -312,6 +336,7 @@ struct DialogueCondition {
     std::string skill;
     int value = 0;
     std::string flag;
+    std::vector<std::string> flags;   // flags_at_least: at least `value` of these are set
 };
 
 struct DialogueAction {
@@ -324,6 +349,8 @@ struct DialogueAction {
     std::string skill;
     std::string flag;
     bool bool_value = true;
+    // narrate: full-screen cards; each shown only if its flag is set (empty = always)
+    std::vector<std::pair<std::string, std::string>> pages;
 };
 
 struct DialogueChoice {
@@ -395,6 +422,8 @@ struct MapNpcSpawnDef {
     std::string npc_id;
     Vector3 pos = {0.0f, 0.0f, 0.0f};
     float yaw = 0.0f;
+    std::string requires_flag;   // only present once this story flag is set
+    std::string hidden_flag;     // gone once this story flag is set
 };
 
 struct MapCreatureSpawnDef {

@@ -366,6 +366,14 @@ def humanoid(style, row, col_dir=0):
         elif hat == "bun":
             prims.append(sphere(head_c + v3(0, 0.022, -0.014), 0.092, hair_m))
             prims.append(sphere(head_c + v3(0, 0.07, -0.07), 0.04, hair_m))
+        elif hat == "witch":
+            felt = M(style.get("cap", (70, 36, 80)))
+            sash = M(style.get("band", (150, 36, 40)))
+            prims.append(sphere(head_c + v3(0, 0.02, -0.016), 0.09, hair_m))
+            prims.append(ellipsoid(head_c + v3(0, 0.06, -0.004), (0.18, 0.012, 0.18), felt))                      # brim
+            prims.append(ellipsoid(head_c + v3(0, 0.08, -0.004), (0.088, 0.018, 0.088), sash))                    # sash
+            prims.append(capsule(head_c + v3(0, 0.08, -0.004), head_c + v3(0, 0.22, -0.02), 0.08, felt, 0.04))  # crown
+            prims.append(capsule(head_c + v3(0, 0.22, -0.02), head_c + v3(0.0, 0.3, -0.09), 0.04, felt, 0.008))  # bent tip
         elif hat == "fedora":
             felt = M(style.get("cap", (90, 70, 50)))
             band = M(style.get("band", (40, 30, 24)))
@@ -620,6 +628,22 @@ SHEETS = {
         "trim": (120, 96, 64), "eye": (36, 30, 26), "hat": "fedora", "cap": (96, 78, 56), "band": (44, 34, 28),
         "hair": (90, 64, 44), "weapon": "umbrella", "boots": (60, 40, 30),
     },
+    "assets/sprites/npcs/witch_sabrino.png": {
+        "kind": "humanoid", "robe": True, "body": (226, 188, 152), "armor": (96, 44, 108), "cloak": (64, 30, 76),
+        "trim": (214, 180, 80), "eye": (40, 26, 20), "hat": "witch", "cap": (78, 40, 90), "band": (150, 36, 40),
+        "hair": (40, 30, 26), "weapon": "staff", "orb": (255, 140, 50),
+    },
+    "assets/sprites/enemies/bone_clerk.png": {
+        "kind": "humanoid", "ribs": True, "body": (214, 204, 180), "armor": (200, 190, 166), "legs": (200, 190, 166),
+        "cloak": (44, 54, 80), "eye": (255, 220, 120), "glow_eyes": True, "hat": "cap", "cap": (34, 40, 58),
+        "weapon": "ledger", "book": (120, 34, 32), "trim": (190, 160, 80),
+    },
+    "assets/sprites/enemies/ink_wraith.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 225, "body": (40, 44, 56), "armor": (22, 24, 34),
+        "cloak": (14, 16, 24), "trim": (90, 220, 130), "eye": (120, 255, 150), "glow_eyes": True, "hat": "hood",
+        "hood": (18, 20, 30), "weapon": "staff", "orb": (90, 255, 140), "bare_arms": True,
+    },
+    "assets/sprites/enemies/truffle_hog.png": {"kind": "rat", "scale": 2.5, "body": (176, 120, 108), "armor": (112, 74, 62), "eye": (30, 20, 20)},
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),
         "cloak": (110, 190, 222), "trim": (200, 240, 255), "eye": (235, 255, 255), "glow_eyes": True, "hat": "hood",

@@ -220,6 +220,106 @@
           "spell_id": "core:spell.sabrino_fireball"
         }
       ]
+    },
+    {
+      "id": "core:item.sabrino_gnocchi",
+      "name_key": "item.sabrino_gnocchi.name",
+      "description_key": "item.sabrino_gnocchi.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/sabrino_gnocchi.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 30,
+      "weight": 0.4,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 20
+        },
+        {
+          "type": "buff",
+          "stat": "spell_power_bonus",
+          "value": 0.15,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.ash_pepper_stew",
+      "name_key": "item.ash_pepper_stew.name",
+      "description_key": "item.ash_pepper_stew.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/ash_pepper_stew.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 30,
+      "weight": 0.4,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 25
+        },
+        {
+          "type": "buff",
+          "stat": "crit_chance_bonus",
+          "value": 0.08,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.oakhallow_braid",
+      "name_key": "item.oakhallow_braid.name",
+      "description_key": "item.oakhallow_braid.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/oakhallow_braid.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 25,
+      "weight": 0.4,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 15
+        },
+        {
+          "type": "buff",
+          "stat": "health_regen",
+          "value": 1.5,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.sweet_roll",
+      "name_key": "item.sweet_roll.name",
+      "description_key": "item.sweet_roll.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/sweet_roll.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 15,
+      "weight": 0.4,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 10
+        },
+        {
+          "type": "buff",
+          "stat": "crit_damage_bonus",
+          "value": 0.3,
+          "duration": 180
+        },
+        {
+          "type": "consumable_stamina",
+          "amount": 25
+        }
+      ]
     }
   ]
 }

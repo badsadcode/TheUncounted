@@ -354,6 +354,98 @@ def build_extra_icons():
     tinted("assets/sprites/vfx/spell_ember.png", "assets/sprites/vfx/spell_sabrino.png", sabrino)
 
 
+def dinner_items():
+    """Models and icons for 'Dinner at Eight': ingredients, dishes, the Ladle of Justice and the Bone Clerk's spectacles."""
+    # Grave-cap truffle (world pickup)
+    m = Mesh(41)
+    m.ellipsoid((0, 0.0, 0), (0.07, 0.055, 0.06), (70, 50, 40), seg=8, rings=5, y_min=0.0,
+                color_fn=lambda i, j: (96, 72, 56) if (i * 3 + j) % 4 == 0 else (64, 46, 36))
+    m.ellipsoid((0.05, 0.0, 0.03), (0.04, 0.035, 0.035), (80, 58, 44), seg=6, rings=4, y_min=0.0)
+    m.write_glb("grave_truffle.glb")
+    # Ladle of Justice: handle at the bottom (grip), bowl at the top, like the other melee weapons
+    m = Mesh(43)
+    copper, wood = (190, 110, 60), (120, 80, 46)
+    m.cylinder((0, 0.0, 0), 0.016, 0.22, wood, seg=8)
+    m.cylinder((0, 0.22, 0), 0.012, 0.3, copper, seg=8, r_top=0.01)
+    m.ellipsoid((0, 0.56, 0.03), (0.075, 0.06, 0.075), copper, seg=10, rings=6,
+                color_fn=lambda i, j: (230, 150, 90) if j > 3 else copper)
+    m.write_glb("ladle_of_justice.glb")
+    # Wine bottle (world model for Vallo Red)
+    m = Mesh(47)
+    m.cylinder((0, 0.0, 0), 0.04, 0.16, (60, 20, 30), seg=10)
+    m.cylinder((0, 0.16, 0), 0.04, 0.05, (60, 20, 30), seg=10, r_top=0.015)
+    m.cylinder((0, 0.21, 0), 0.015, 0.06, (60, 20, 30), seg=8)
+    m.box((0, 0.08, 0.041), (0.05, 0.05, 0.004), (220, 200, 160))
+    m.write_glb("vallo_red.glb")
+
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def bowl(d, food, garnish):
+        d.ellipse([5, 13, 27, 23], fill=food)
+        for x, y in ((10, 15), (15, 14), (20, 16), (13, 18), (18, 18)):
+            d.ellipse([x, y, x + 3, y + 2], fill=garnish)
+        d.chord([4, 10, 28, 28], 0, 180, fill=(190, 180, 160, 255))
+        d.line([(6, 19), (26, 19)], fill=(150, 140, 120, 255))
+
+    icon("sabrino_gnocchi", lambda d: bowl(d, (236, 214, 150, 255), (110, 160, 70, 255)))
+    icon("ash_pepper_stew", lambda d: bowl(d, (170, 60, 30, 255), (255, 170, 60, 255)))
+
+    def braid(d):
+        for k in range(4):
+            d.ellipse([5 + k * 5, 11 + (k % 2) * 3, 13 + k * 5, 20 + (k % 2) * 3], fill=(196, 132, 64, 255), outline=(140, 86, 40, 255))
+        d.line([(7, 14), (24, 18)], fill=(240, 230, 210, 255))
+    icon("oakhallow_braid", braid)
+
+    def roll(d):
+        d.ellipse([7, 10, 25, 25], fill=(214, 156, 84, 255), outline=(150, 98, 50, 255))
+        d.arc([10, 13, 22, 22], 200, 340, fill=(240, 220, 180, 255), width=2)
+        for x, y in ((12, 12), (17, 11), (20, 14)):
+            d.point((x, y), fill=(255, 255, 255, 255))
+    icon("sweet_roll", roll)
+
+    def bottle(d):
+        d.rectangle([12, 12, 20, 28], fill=(80, 24, 36, 255))
+        d.rectangle([14, 5, 18, 12], fill=(80, 24, 36, 255))
+        d.rectangle([14, 3, 18, 5], fill=(170, 130, 80, 255))
+        d.rectangle([12, 17, 20, 22], fill=(226, 206, 160, 255))
+        d.line([(13, 13), (13, 27)], fill=(140, 60, 80, 255))
+    icon("vallo_red", bottle)
+
+    def truffle(d):
+        d.ellipse([7, 10, 25, 25], fill=(70, 50, 40, 255))
+        for x, y in ((10, 14), (15, 12), (19, 17), (13, 20), (21, 21)):
+            d.point((x, y), fill=(120, 96, 76, 255))
+        d.ellipse([18, 8, 27, 16], fill=(84, 60, 46, 255))
+    icon("grave_truffle", truffle)
+
+    def pepper(d):
+        d.polygon([(9, 25), (12, 12), (17, 9), (22, 12), (14, 26)], fill=(200, 60, 30, 255))
+        d.line([(17, 9), (20, 4)], fill=(70, 120, 50, 255), width=2)
+        d.line([(12, 16), (15, 23)], fill=(255, 140, 80, 255))
+        for x, y in ((8, 8), (25, 20), (6, 15)):
+            d.point((x, y), fill=(255, 170, 60, 255))
+    icon("ash_pepper", pepper)
+
+    def ladle(d):
+        d.line([(6, 27), (20, 11)], fill=(120, 80, 46, 255), width=2)
+        d.ellipse([17, 4, 28, 14], fill=(200, 116, 62, 255), outline=(140, 76, 40, 255))
+        d.arc([19, 6, 26, 12], 20, 160, fill=(240, 170, 110, 255))
+    icon("ladle_of_justice", ladle)
+
+    def specs(d):
+        d.ellipse([4, 12, 14, 21], outline=(200, 190, 160, 255), width=2)
+        d.ellipse([18, 12, 28, 21], outline=(200, 190, 160, 255), width=2)
+        d.line([(14, 15), (18, 15)], fill=(200, 190, 160, 255))
+        d.line([(4, 15), (2, 12)], fill=(200, 190, 160, 255))
+        d.line([(28, 15), (30, 12)], fill=(200, 190, 160, 255))
+        d.ellipse([6, 14, 12, 19], fill=(120, 150, 170, 120))
+        d.ellipse([20, 14, 26, 19], fill=(120, 150, 170, 120))
+    icon("bone_spectacles", specs)
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -367,6 +459,7 @@ BUILDERS = {
     "baggy_umbrella": baggy_umbrella,
     "sabrino_hat": sabrino_hat,
     "extra_icons": build_extra_icons,
+    "dinner_items": dinner_items,
 }
 
 

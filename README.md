@@ -80,6 +80,9 @@ cmake --build build -j 8
   `family`). Items may grant named build bonuses with `{"type": "bonus", "stat": "crit_chance_bonus", "value": 0.05}`;
   synergies use the same keys. Spells may set `splash_radius` and `drain_fraction`. The character screen's Combat Sheet
   shows every derived number.
+- NPCs may carry a `companion` block (follows, fights, heals, talks); dialogue actions `recruit_companion` /
+  `dismiss_companion`. Map NPC spawns may set `requires_flag` / `hidden_flag`. Consumables may apply timed `buff`
+  effects (food). Dialogue: condition `flags_at_least`, action `narrate`.
 - Creatures may set `hit_fx` (`color`, `glow`) for the particles they shed when struck.
 - Enemies are staggered by heavy attacks or blows dealing 35%+ of their health, then get 2 s of stagger immunity;
   elites (`*guardian*`) only stagger from heavy attacks and bosses never do. Armour subtracts 60% of its value per hit.

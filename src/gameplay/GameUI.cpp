@@ -40,6 +40,8 @@ static std::string BonusLabel(const std::string& key, float v) {
     else if (key == "spell_cost_reduction") snprintf(b, sizeof(b), "-%.0f%% spell cost", v * 100);
     else if (key == "shop_discount") snprintf(b, sizeof(b), "+%.0f%% shop discount", v * 100);
     else if (key == "lockpick_bonus") snprintf(b, sizeof(b), "+%.0f%% lockpick chance", v * 100);
+    else if (key == "health_regen") snprintf(b, sizeof(b), "+%.1f health per second", v);
+    else if (key == "stamina_regen") snprintf(b, sizeof(b), "+%.1f stamina per second", v);
     else snprintf(b, sizeof(b), "%s %+.2f", key.c_str(), v);
     return b;
 }
@@ -379,10 +381,12 @@ void GameEngine::DrawHud() {
 
     float bfy = std::max(92.0f, questY + 4);
     for (const auto& b : player_.buffs) {
-        const SpellDef* s = content_.GetSpell(b.spell_id);
-        if (!s) continue;
-        Icon(s->icon, {20, bfy, 24, 24});
-        Text(content_.Tr(s->name_key) + "  " + std::to_string(static_cast<int>(std::ceil(b.remaining))) + "s", 50, bfy + 4, 14, kText);
+        std::string icon, name;
+        if (const SpellDef* s = content_.GetSpell(b.spell_id)) { icon = s->icon; name = content_.Tr(s->name_key); }
+        else if (const ItemDef* it = content_.GetItem(b.item_id)) { icon = it->icon; name = BonusLabel(b.bonus_key, b.bonus_value); }
+        else continue;
+        Icon(icon, {20, bfy, 24, 24});
+        Text(name + "  " + std::to_string(static_cast<int>(std::ceil(b.remaining))) + "s", 50, bfy + 4, 14, kText);
         bfy += 28;
     }
 
@@ -793,6 +797,7 @@ void GameEngine::DrawInventory() {
     for (const auto& e : d->effects) {
         if (e.type == "stat_bonus") statC(e.stat + " " + Signed(e.amount), e.amount >= 0 ? kAccent : Color{255, 140, 120, 255});
         else if (e.type == "bonus") statC(BonusLabel(e.stat, e.value), kGold);
+        else if (e.type == "buff") statC(BonusLabel(e.stat, e.value) + " for " + std::to_string(static_cast<int>(e.duration)) + "s", kGold);
         else if (e.type == "consumable_heal") stat("Restores " + std::to_string(e.amount) + " health");
         else if (e.type == "consumable_mana") stat("Restores " + std::to_string(e.amount) + " mana");
         else if (e.type == "consumable_stamina") stat("Restores " + std::to_string(e.amount) + " stamina");
@@ -1003,14 +1008,17 @@ void GameEngine::DrawCombatSheet(Rectangle P) {
     head(x, y, "Active bonuses");
     static const char* keys[] = {"crit_chance_bonus", "crit_damage_bonus", "life_steal", "spell_power_bonus", "spell_cost_reduction",
                                  "melee_bonus_magic_damage", "mana_on_melee_hit", "heal_on_block", "armor_bonus",
-                                 "ranged_crit_multiplier", "move_speed_bonus", "shop_discount", "lockpick_bonus"};
+                                 "ranged_crit_multiplier", "move_speed_bonus", "shop_discount", "lockpick_bonus", "health_regen", "stamina_regen"};
     bool any = false;
     for (const char* k : keys) {
-        float syn = SynergyBonus(k), gear = GearBonus(k);
-        if (syn == 0.0f && gear == 0.0f) continue;
+        float syn = SynergyBonus(k), gear = GearBonus(k), food = BuffBonus(k);
+        if (syn == 0.0f && gear == 0.0f && food == 0.0f) continue;
         any = true;
-        std::string src = syn != 0.0f && gear != 0.0f ? "synergy + gear" : syn != 0.0f ? "synergy" : "gear";
-        Text(BonusLabel(k, syn + gear), x, y, 14, kGold);
+        std::string src;
+        if (syn != 0.0f) src += "synergy";
+        if (gear != 0.0f) src += std::string(src.empty() ? "" : " + ") + "gear";
+        if (food != 0.0f) src += std::string(src.empty() ? "" : " + ") + "food";
+        Text(BonusLabel(k, syn + gear + food), x, y, 14, kGold);
         Text(src, x + 330 - TextWidth(src, 13), y + 1, 13, kDim);
         y += 20;
     }
