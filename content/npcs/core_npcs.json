@@ -1166,8 +1166,8 @@
       "dialogue_id": "core:dialogue.silas_gale",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/silas_gale.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/silas_gale_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [

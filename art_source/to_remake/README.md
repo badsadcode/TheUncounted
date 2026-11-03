@@ -25,7 +25,6 @@ Suggested order: the characters Toasty spends the most time with first.
 ## Saltmere Docks
 | File | Who | Notes |
 |---|---|---|
-| `silas_gale.png` | **Old Silas** | Very old fisherman in bright yellow oilskins, pale eyes, fishing line. |
 | `tide_priest.png` | **The Tide Priest** | Cult leader, dark teal robes with gold trim, unsettling. |
 
 ## Monsters
