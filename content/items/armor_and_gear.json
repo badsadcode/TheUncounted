@@ -1056,6 +1056,41 @@
           "value": 2.0
         }
       ]
+    },
+    {
+      "id": "core:item.certificate_of_existence",
+      "name_key": "item.certificate_of_existence.name",
+      "description_key": "item.certificate_of_existence.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/certificate_of_existence.png",
+      "world_model": "assets/models/items/form_27b_scroll.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 600,
+      "weight": 0.1,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "endurance",
+          "amount": 1
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "presence",
+          "amount": 1
+        },
+        {
+          "type": "bonus",
+          "stat": "armor_bonus",
+          "value": 2.0
+        },
+        {
+          "type": "bonus",
+          "stat": "crit_chance_bonus",
+          "value": 0.03
+        }
+      ]
     }
   ]
 }

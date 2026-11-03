@@ -471,6 +471,22 @@ void GameEngine::DrawHud() {
         std::string s = std::string(buf) + "  " + part;
         Text(s, VW - 24 - TextWidth(s, 16), 14, 16, Daylight() > 0.5f ? kGold : Color{170, 180, 220, 255});
     }
+    if (audit_.active) {   // The Audit: wave, Form, foes left
+        float u = U();
+        float VW = GetScreenWidth() / u;
+        int left = 0;
+        for (const auto& c : scene_.creatures) if (IsAuditCreature(c) && c.state != CreatureState::Dead) left++;
+        std::string top = audit_.break_timer > 0.0f
+                              ? "THE AUDIT: wave " + std::to_string(audit_.wave + 1) + " of " + std::to_string(kAuditWaves) + " in " +
+                                    std::to_string(static_cast<int>(std::ceil(audit_.break_timer))) + "..."
+                              : "THE AUDIT: wave " + std::to_string(audit_.wave) + " of " + std::to_string(kAuditWaves) + "  -  " +
+                                    std::to_string(left) + " left  -  kills " + std::to_string(audit_.kills);
+        Text(top, VW * 0.5f - TextWidth(top, 20) * 0.5f, 44, 20, kGold);
+        if (audit_.wave > 0) {
+            std::string f = AuditFormName(audit_.form);
+            Text(f, VW * 0.5f - TextWidth(f, 14) * 0.5f, 70, 14, kDim);
+        }
+    }
 }
 
 void GameEngine::DrawCompass() {

@@ -850,6 +850,9 @@ SHEETS = {
     "assets/sprites/npcs/here_inspector.png": {
         "kind": "humanoid", "alpha": 170, "hover": True, "body": (200, 206, 214), "armor": (70, 72, 80), "legs": (50, 52, 60), "cloak": (60, 62, 70),
         "trim": (200, 200, 210), "eye": (230, 235, 255), "glow_eyes": True, "hat": "fedora", "hair": (180, 180, 190), "weapon": "ledger", "book": (150, 150, 160)},
+    "assets/sprites/npcs/auditor.png": {
+        "kind": "humanoid", "body": (226, 200, 180), "armor": (30, 30, 36), "legs": (26, 26, 30), "cloak": (24, 24, 30), "trim": (200, 200, 210),
+        "eye": (50, 40, 30), "hat": "bun", "hair": (40, 30, 30), "weapon": "ledger", "book": (60, 20, 20)},
     "assets/sprites/enemies/here_mouth.png": {"kind": "eldritch", "scale": 0.9, "body": (54, 50, 70), "armor": (28, 26, 40), "eye": (230, 220, 255), "glow": (190, 180, 255)},
     "assets/sprites/enemies/here_unsaying.png": {"kind": "eldritch", "scale": 1.7, "body": (40, 38, 56), "armor": (18, 16, 28), "eye": (250, 250, 255), "glow": (210, 205, 255)},
     # --- more monsters (tools/authoring/more_monsters.py)

@@ -9,6 +9,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <deque>
 
 namespace uncounted {
 
@@ -227,6 +228,27 @@ private:
     std::string WaitBlockedReason() const;
     void WaitUntil(float hour);
     void DrawWait();
+    // --- The Audit: a challenge arena (waves, Forms, score, records)
+    struct AuditRun {
+        bool active = false;
+        int wave = 0;            // current wave (1..kAuditWaves); 0 before the first
+        float break_timer = 0;   // seconds until the next wave arrives
+        int kills = 0;
+        int score = 0;
+        float damage_taken = 0;
+        int form = 0;            // this wave's Form (modifier)
+        int run = 0;
+        unsigned seed = 1;
+    } audit_;
+    static constexpr int kAuditWaves = 10;
+    std::deque<MapCreatureSpawnDef> audit_spawns_;
+    void StartAudit();
+    void EndAudit(bool victory);
+    void UpdateAudit(float dt);
+    void SpawnAuditWave();
+    bool IsAuditCreature(const CreatureInstance& c) const { return c.instance_id.rfind("audit_", 0) == 0; }
+    std::string AuditFormName(int form) const;
+    std::string AuditRecordsText() const;
     bool night_outdoors_ = false;
     float boot_shot_hour_ = -1.0f;
     std::string creation_name_ = "Wren";

@@ -2319,6 +2319,27 @@
           "text_key": "bark.here_inspector.1"
         }
       ]
+    },
+    {
+      "id": "core:npc.auditor",
+      "name_key": "npc.auditor.name",
+      "title_key": "npc.auditor.title",
+      "faction": "core:faction.bureau",
+      "dialogue_id": "core:dialogue.auditor",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/auditor.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "barks": [
+        {
+          "text_key": "bark.auditor.0"
+        },
+        {
+          "text_key": "bark.auditor.1"
+        }
+      ]
     }
   ]
 }

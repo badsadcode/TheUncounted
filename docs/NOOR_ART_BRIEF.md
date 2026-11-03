@@ -41,7 +41,7 @@ Right now all four share one plain 3D model. Same 8 × 6 sheet layout and rules 
 | `headless_knight.png` | The Headless Knight of the Old Road | Comedy: it's obviously Steve (the level-one bandit from your Steve sheet) in ill-fitting, mismatched armour, the helmet pulled down over his head, holding a hat on a stick above it to look 'headless'; his patched leathers and too-big hood poke out. Proudly dramatic poses. |
 | `repossession_golem.png` | The Repossession Golem | A big, blocky iron golem stamped REPOSSESSED all over in red, riveted plates, glowing furnace eyes, bought with a dragon's money. Bigger than a person (about 2.3 m). |
 
-## 2b. Chapter One: the people of Here — 10 sprite sheets
+## 2b. Chapter One: the people of Here (and the Auditor) — 11 sprite sheets
 
 A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. Same 8 × 6 layout as the other characters. The residents are slightly faded, like a memory (soft, pale edges are fine: the game keeps them a little see-through itself). Simple placeholders are in the game until yours arrive.
 
@@ -55,6 +55,7 @@ A city struck off every map 400 years ago; its people have forgotten their own n
 | `here_night_merchant.png` | The Night Merchant | A tall, thin, hooded figure in deep night-blue, glowing pale eyes, a staff hung with little lanterns of different colours. |
 | `here_inspector.png` | Inspector Aldric Thrupp (ghost) | A grey, upright ghost tax inspector in a tall collar and a battered hat, a tin badge, holding a ledger full of holes; faint and see-through, counting chimneys on his fingers. |
 | `here_echo.png` | The Last Archivist | A ghostly archivist made of almost nothing: robes, spectacles, ink-stained fingers, an open ledger; floats slightly, faintly glowing. |
+| `auditor.png` | Prudence Vell, Senior Auditor of Existence (the Audit) | A severe Bureau official in a black coat with silver buttons, hair in a tight bun, a pen behind each ear and one in her hand, a red ledger. Not unkind; extremely thorough. |
 | `here_mouth.png` | Mouth of the Hunger (monster) | A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names. |
 | `here_unsaying.png` | The Unsaying (boss) | Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be. |
 
@@ -103,7 +104,7 @@ Shown in the spell bar and spellbook, all the time. **64 × 64 px**, opaque squa
 | `veil.png` | Veil | Dulls sound and bends shadow, reducing enemy sight detection. |
 | `ward.png` | Ward | Sheathes the caster in a resonant arcane barrier (+8 Armor). |
 
-## 5. Item icons — 187 icons (a big set: any part helps)
+## 5. Item icons — 188 icons (a big set: any part helps)
 
 Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px. Grouped by kind below; the description is what the game says about it.
 
@@ -153,13 +154,14 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `scholar_robe.png` | Collegium Archivist Robe | Woven with silver thread that steadies the mind during casting. |
 | `traveler_boots.png` | Wayfarer's Dry-Stitched Boots | Waxed against Bellwether's unending drizzle. |
 
-### Accessory (26)
+### Accessory (27)
 
 | File | Item | Description |
 |---|---|---|
 | `bone_spectacles.png` | Bone Clerk's Spectacles | Wire-rimmed reading glasses, still perched on the nose of a clerk who had no nose. Everything looks slightly more like a typo. +1 Intellect, +5% critical chance, +5% lockpick chance. |
 | `butt_butt_chalk.png` | Butt-Butt's Lucky Chalk | A stub of chalk worn to a nub from writing BUTT-BUTT WOZ ERE on every wall in town. 'It's best at night. Everything is.' At night, you strike truer and luckier. |
 | `cape_brooding.png` | Cape of Eternal Brooding | Black velvet, blood-red lining, and a high collar to stare moodily out of. Sparkles faintly in sunlight, which ruins the effect. +2 Presence, 3% life steal. |
+| `certificate_of_existence.png` | Certificate of Existence (Audited) | Signed by Senior Auditor Vell, stamped nine times, and laminated in something that isn't quite wax. It certifies that the bearer exists, thoroughly. Being officially real is good for you: tougher, more convincing, and sl… |
 | `cindermaw_scale.png` | Cindermaw's Scale | Pulled from the dragon's own chest, with a wince. Warm to the touch, always. Fire burns hotter for you, fire hurts you less, and your spells hit harder. |
 | `fang_unwritten.png` | Fang of the Unwritten | The Name-Eater's tooth on a cord. It takes a little of every enemy you hit and gives it to you. It would like your name too. It can't have it. |
 | `gang_scarf.png` | Figure It Out Gang Scarf | Long, orange, with a little embroidered question mark. Full membership of the Figure It Out Gang. +5% critical chance, +5% speed, steadier nerves, +1 to dice rolls. You will be chased by something at least once a week. |

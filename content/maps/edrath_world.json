@@ -33,6 +33,50 @@
   "weather": "rain",
   "zones": [
     {
+      "id": "audit_chamber",
+      "display_name_key": "map.audit_chamber.name",
+      "box_min": [
+        -135.5,
+        -1.0,
+        184.5
+      ],
+      "box_max": [
+        -104.5,
+        9.0,
+        215.5
+      ],
+      "blend": 1.0,
+      "music": "assets/audio/music/old_road_theme.wav",
+      "ambience": "assets/audio/ambience/crypt_drips.wav",
+      "sky_color": [
+        14,
+        12,
+        10
+      ],
+      "ambient_color": [
+        0.5,
+        0.46,
+        0.4
+      ],
+      "sun_direction": [
+        -0.3,
+        0.8,
+        -0.3
+      ],
+      "sun_color": [
+        0.4,
+        0.36,
+        0.3
+      ],
+      "fog_color": [
+        0.08,
+        0.07,
+        0.06
+      ],
+      "fog_density": 0.02,
+      "weather": ""
+    },
+    {
       "id": "here_archive",
       "display_name_key": "map.here_archive.name",
       "box_min": [
@@ -9932,6 +9976,14 @@
       ],
       "yaw_degrees": -90.0
     },
+    "from_audit": {
+      "pos": [
+        -3.0,
+        0.0,
+        -5.0
+      ],
+      "yaw_degrees": 0.0
+    },
     "from_bellwether": {
       "pos": [
         24.0,
@@ -10025,6 +10077,22 @@
         0.0,
         0.0,
         226.0
+      ],
+      "yaw_degrees": 180.0
+    },
+    "audit_entry": {
+      "pos": [
+        -120.0,
+        0.0,
+        212.5
+      ],
+      "yaw_degrees": 180.0
+    },
+    "audit_center": {
+      "pos": [
+        -120.0,
+        0.0,
+        200.0
       ],
       "yaw_degrees": 180.0
     }
@@ -19975,6 +20043,457 @@
       "solid": false
     },
     {
+      "id": "audit_floor",
+      "model": "assets/models/env/floor_flagstones.glb",
+      "pos": [
+        -120.0,
+        -0.4,
+        200.0
+      ],
+      "scale": [
+        30.0,
+        0.42,
+        30.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        10,
+        10
+      ]
+    },
+    {
+      "id": "audit_ceiling",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -120.0,
+        8.0,
+        200.0
+      ],
+      "scale": [
+        31.0,
+        0.5,
+        31.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        10,
+        10
+      ]
+    },
+    {
+      "id": "audit_wall_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -120.0,
+        0.0,
+        184.75
+      ],
+      "scale": [
+        31.0,
+        8.0,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        11.92,
+        2.67
+      ]
+    },
+    {
+      "id": "audit_wall_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -120.0,
+        0.0,
+        215.25
+      ],
+      "scale": [
+        31.0,
+        8.0,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        11.92,
+        2.67
+      ]
+    },
+    {
+      "id": "audit_wall_w",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -135.25,
+        0.0,
+        200.0
+      ],
+      "scale": [
+        0.5,
+        8.0,
+        30.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        11.54,
+        2.67
+      ]
+    },
+    {
+      "id": "audit_wall_e",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -104.75,
+        0.0,
+        200.0
+      ],
+      "scale": [
+        0.5,
+        8.0,
+        30.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        11.54,
+        2.67
+      ]
+    },
+    {
+      "id": "audit_pillar_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -127.0,
+        0.0,
+        193.0
+      ],
+      "scale": [
+        1.4,
+        8.0,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        2.6
+      ]
+    },
+    {
+      "id": "audit_torch_pillar_0_a",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -127.0,
+        2.2,
+        193.72
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_torch_pillar_0_b",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -127.0,
+        2.2,
+        192.28
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_pillar_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -113.0,
+        0.0,
+        193.0
+      ],
+      "scale": [
+        1.4,
+        8.0,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        2.6
+      ]
+    },
+    {
+      "id": "audit_torch_pillar_1_a",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -113.0,
+        2.2,
+        193.72
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_torch_pillar_1_b",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -113.0,
+        2.2,
+        192.28
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_pillar_2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -127.0,
+        0.0,
+        207.0
+      ],
+      "scale": [
+        1.4,
+        8.0,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        2.6
+      ]
+    },
+    {
+      "id": "audit_torch_pillar_2_a",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -127.0,
+        2.2,
+        207.72
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_torch_pillar_2_b",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -127.0,
+        2.2,
+        206.28
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_pillar_3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -113.0,
+        0.0,
+        207.0
+      ],
+      "scale": [
+        1.4,
+        8.0,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        2.6
+      ]
+    },
+    {
+      "id": "audit_torch_pillar_3_a",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -113.0,
+        2.2,
+        207.72
+      ],
+      "rot_y": 180.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_torch_pillar_3_b",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -113.0,
+        2.2,
+        206.28
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "audit_dais",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -120.0,
+        -0.4,
+        187.0
+      ],
+      "scale": [
+        10.0,
+        0.9,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        4,
+        2
+      ]
+    },
+    {
+      "id": "audit_dais_step",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -120.0,
+        -0.4,
+        189.4
+      ],
+      "scale": [
+        6.0,
+        0.65,
+        0.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        2,
+        0.4
+      ]
+    },
+    {
+      "id": "audit_auditor_desk",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -120.0,
+        0.5,
+        187.4
+      ],
+      "scale": [
+        4.0,
+        1.0,
+        0.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.6,
+        0.4
+      ]
+    },
+    {
+      "id": "audit_banner_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -131.0,
+        3.0,
+        185.06
+      ],
+      "scale": [
+        2.0,
+        3.5,
+        0.08
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "audit_banner_1",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -124.0,
+        3.0,
+        185.06
+      ],
+      "scale": [
+        2.0,
+        3.5,
+        0.08
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "audit_banner_2",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -116.0,
+        3.0,
+        185.06
+      ],
+      "scale": [
+        2.0,
+        3.5,
+        0.08
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        1
+      ]
+    },
+    {
+      "id": "audit_banner_3",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -109.0,
+        3.0,
+        185.06
+      ],
+      "scale": [
+        2.0,
+        3.5,
+        0.08
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        1
+      ]
+    },
+    {
       "id": "bell_west_gate_n",
       "model": "assets/models/env/pillar_stone.glb",
       "pos": [
@@ -26069,6 +26588,71 @@
         1.0
       ],
       "radius": 9.0
+    },
+    {
+      "pos": [
+        -120.0,
+        5.5,
+        200.0
+      ],
+      "color": [
+        1.0,
+        0.86,
+        0.62
+      ],
+      "radius": 13.0
+    },
+    {
+      "pos": [
+        -130.0,
+        5.5,
+        190.0
+      ],
+      "color": [
+        1.0,
+        0.86,
+        0.62
+      ],
+      "radius": 13.0
+    },
+    {
+      "pos": [
+        -110.0,
+        5.5,
+        190.0
+      ],
+      "color": [
+        1.0,
+        0.86,
+        0.62
+      ],
+      "radius": 13.0
+    },
+    {
+      "pos": [
+        -130.0,
+        5.5,
+        210.0
+      ],
+      "color": [
+        1.0,
+        0.86,
+        0.62
+      ],
+      "radius": 13.0
+    },
+    {
+      "pos": [
+        -110.0,
+        5.5,
+        210.0
+      ],
+      "color": [
+        1.0,
+        0.86,
+        0.62
+      ],
+      "radius": 13.0
     }
   ],
   "npcs": [
@@ -26659,6 +27243,16 @@
         155.0
       ],
       "yaw": 180.0
+    },
+    {
+      "instance_id": "npc_auditor",
+      "npc_id": "core:npc.auditor",
+      "pos": [
+        -120.0,
+        0.5,
+        186.2
+      ],
+      "yaw": 0.0
     }
   ],
   "creatures": [
@@ -31422,6 +32016,33 @@
       "prompt": "Read the Plaque",
       "title": "The Archive",
       "text": "THE ARCHIVE OF [CITY NAME HERE]\nWherein Is Kept the Name\n\nThe brass where the name should be is chewed, like a pencil end."
+    },
+    {
+      "instance_id": "audit_rules",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -114.0,
+        0.5,
+        188.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Notice",
+      "title": "Notice to Persons Under Audit",
+      "text": "THE ROYAL BUREAU OF RECORDS\nAUDIT OF EXISTENCE\n\n1. You will be audited in ten stages.\n2. At each stage, a Form applies. Forms are not optional. Forms are never optional.\n3. Persons who fall during an audit are not dead. They are FAILED, which is worse, administratively.\n4. Successful persons receive a Certificate of Existence (Audited) and the right to tell everyone about it.\n5. Records are kept. Of everything. Forever.\n\nThe Bureau thanks you for your continued existence."
+    },
+    {
+      "instance_id": "audit_exit",
+      "type": "travel",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        -120.0,
+        0.0,
+        214.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Leave the Audit Chamber",
+      "travel_spawn": "from_audit"
     },
     {
       "instance_id": "flour_handprints",

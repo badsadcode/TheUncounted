@@ -720,3 +720,17 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   (Grout & Doobie, after the bread). Side tale *Death and Taxes* (`core:quest.here_taxes`): Inspector Aldric Thrupp
   (night-only ghost, Gatehouse Lane); persuade (DC 14) or read the Register of Hearths at the customs post (flag
   `here_hearths_read`) → he pays himself → The Inspector's Abacus.
+
+### The Audit (challenge arena, added 2026-11-03)
+
+- Oakhaven's "Can I be audited?" travels to `audit_entry` in the Audit Chamber (`tools/build_audit.py`, AUDIT_OFF
+  (-120, 0, 200), zone `audit_chamber`); Senior Auditor Prudence Vell's dialogue uses the actions `start_audit`,
+  `stop_audit` and `show_audit_records`. A door (travel) leads back to `from_audit` in Bellwether.
+- Engine (`GameEngine` "The Audit"): 10 waves around spawn `audit_center` from three monster pools (wave 5 the
+  Repossession Golem, wave 10 the Rat King and the Dreaming Limb), +5% health per wave, an 8 s break, a Form per wave
+  (Standard, Reinforced +40% hp, Aggravated +25% damage, Expedited +25% speed, Bulk Processing +3 weaker foes, Refund
+  double gold, Rest Break +30% health). Audit creatures are `audit_<run>_<wave>_<k>` (spawn defs in a deque); falling
+  ends the run (FAILED, half health, back to the entry) instead of dying. Score = 100 x wave per cleared wave + 10 per kill
+  - half the damage taken + 1000 for passing; top 10 runs with build (race, calling, level, weapon, spells) in
+  `saves/audit_records.json`. Passing once gives the Certificate of Existence (Audited). HUD banner while running;
+  `--shot X --overlay audit` shows wave 3.

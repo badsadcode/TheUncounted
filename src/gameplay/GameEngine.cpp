@@ -203,6 +203,14 @@ bool GameEngine::Init(int argc, char** argv) {
         overlay_ = Overlay::None;
         for (const auto& f : boot_shot_flags_) player_.flags.insert(f);
         if (boot_shot_sanity_ >= 0.0f) player_.sanity = boot_shot_sanity_;
+        if (boot_shot_overlay_ == "audit") {   // --shot: in the middle of the Audit's third wave
+            DialogueAction go; go.type = "travel"; go.spawn = "audit_entry";
+            ExecAction(go, "");
+            StartAudit();
+            audit_.wave = 2;
+            audit_.break_timer = 0.01f;
+            UpdateAudit(0.02f);
+        }
         if (boot_shot_hour_ >= 0.0f) { player_.hour = boot_shot_hour_; content_.game_cfg.day_length_minutes = 0.0f; UpdateAtmosphere(0.0f, true); }
         for (size_t k = 0; k < boot_shot_companions_.size(); k++) {
             player_.companions.push_back(boot_shot_companions_[k]);
@@ -1066,6 +1074,8 @@ void GameEngine::FixedUpdate(float dt) {
     UpdateBuffs(dt);
     UpdateParticles(dt);
     CheckPressurePlates();
+    UpdateAudit(dt);
+    if (audit_.active && player_.health <= 0.0f) EndAudit(false);   // nobody dies in an audit: you just fail it
 
     if (player_.health <= 0.0f) {
         player_.health = 0.0f;
@@ -2706,6 +2716,7 @@ void GameEngine::KillCreature(CreatureInstance& c) {
     MapPersist& ps = Persist();
     ps.dead.insert(c.instance_id);
     ps.corpse_pos[c.instance_id] = c.pos;
+    if (audit_.active && IsAuditCreature(c)) audit_.kills++;
     if (++player_.kills[c.def->id] == 10) Toast("Hunter's Insight: +5% damage against " + content_.Tr(c.def->name_key) + " (see the Bestiary)", Color{240, 210, 140, 255});
     Container("corpse:" + c.instance_id, c.def->loot_table, {});
     PlaySfxAt(c.def->sfx_death.empty() ? "assets/audio/sfx/enemy_death.wav" : c.def->sfx_death, c.pos, 0.9f);
@@ -2730,6 +2741,7 @@ void GameEngine::KillCreature(CreatureInstance& c) {
 
 void GameEngine::DamagePlayer(int raw, Vector3 from, CreatureInstance* attacker) {
     float dmg = raw * DifficultyEnemyMult();
+    if (audit_.active && audit_.form == 2 && attacker && IsAuditCreature(*attacker)) dmg *= 1.25f;   // Form 3: Aggravated
     Vector3 to = Vector3Subtract(from, player_.pos);
     to.y = 0;
     bool front = Vector3Length(to) < 0.01f ||
@@ -2766,6 +2778,7 @@ void GameEngine::DamagePlayer(int raw, Vector3 from, CreatureInstance* attacker)
     dmg *= 40.0f / (40.0f + armor);
     int final = std::max(1, static_cast<int>(std::round(dmg)));
     player_.health -= final;
+    if (audit_.active) audit_.damage_taken += final;
     damage_flash_ = std::min(1.0f, 0.35f + final / 30.0f);
     res_.PlaySfx("assets/audio/sfx/player_hurt.wav", 0.8f, 0.9f + RandF() * 0.2f);
     ClampVitals();
@@ -2831,7 +2844,7 @@ void GameEngine::UpdateCreatures(float dt) {
                 else c.foe = -1;
             }
             if (other || charmed || confused) {
-                float spd = d.move_speed * slow;
+                float spd = d.move_speed * slow * (audit_.active && audit_.form == 3 && IsAuditCreature(c) ? 1.25f : 1.0f);
                 auto step = [&](Vector3 target, float stop) {
                     float hd = HDist(c.pos, target);
                     if (hd <= stop) return;
@@ -2882,7 +2895,8 @@ void GameEngine::UpdateCreatures(float dt) {
         if (!canSee && dist < 1.6f) canSee = true; // bumping into someone is hard to miss
         bool boss = d.behavior.find("boss") != std::string::npos;
         bool guardian = d.behavior.find("guardian") != std::string::npos;
-        float speed = d.move_speed * (boss && c.health < c.max_health / 2 ? 1.3f : 1.0f) * slow;
+        float speed = d.move_speed * (boss && c.health < c.max_health / 2 ? 1.3f : 1.0f) * slow *
+                      (audit_.active && audit_.form == 3 && IsAuditCreature(c) ? 1.25f : 1.0f);   // Form 4-A: Haste
 
         auto turnTo = [&](float targetYaw, float rate) {
             float diff = WrapAngle(targetYaw - c.yaw);
@@ -3564,6 +3578,14 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
             player_.known_spells.push_back(a.spell_id);
             if (const SpellDef* s = content_.GetSpell(a.spell_id)) Toast("Learned spell: " + content_.Tr(s->name_key), Color{180, 160, 255, 255});
         }
+    } else if (a.type == "start_audit") {
+        StartAudit();
+    } else if (a.type == "stop_audit") {
+        if (audit_.active) EndAudit(false);
+    } else if (a.type == "show_audit_records") {
+        reader_title_ = "Records of the Audit";
+        reader_text_ = AuditRecordsText();
+        SetOverlay(Overlay::Reader);
     } else if (a.type == "travel") {
         // Boats and the like: jump to a spawn in the current map. Companions catch up on their own (they're "lost").
         if (scene_.map) {
@@ -4263,6 +4285,163 @@ void GameEngine::WaitUntil(float hour) {
     char buf[64];
     snprintf(buf, sizeof(buf), "You wait. It is now %02d:%02d.", static_cast<int>(player_.hour), static_cast<int>(fmodf(player_.hour, 1.0f) * 60.0f));
     Toast(buf);
+}
+
+// ============================================================================
+// The Audit: the Bureau audits your existence. Ten waves, a Form (rule) per wave, a score, and records of every run.
+// ============================================================================
+namespace {
+const char* kAuditPools[3][9] = {
+    {"grave_rat", "hedge_goblin", "kevin_bandit", "grey_wolf", "angry_badger", "wisp", "grave_rat", "hedge_goblin", "grey_wolf"},
+    {"restless_skeleton", "ash_crawler", "bone_clerk", "ink_wraith", "ghoul_gravedigger", "kobold_bookkeeper", "paperwork_elemental",
+     "here_mouth", "pinchwick_crab"},
+    {"the_drowned", "salt_wight", "animated_armor", "wailing_footman", "howler", "tide_acolyte", "the_drowned", "salt_wight", "howler"}};
+const char* kFormNames[] = {
+    "Form 1: Standard Audit. No surprises. Probably.",
+    "Form 12-B: Reinforced. Enemies have 40% more health.",
+    "Form 3: Aggravated. Enemies hit 25% harder.",
+    "Form 4-A: Expedited. Enemies move 25% faster.",
+    "Form 19: Bulk Processing. Three extra enemies, each a little weaker.",
+    "Form 7: Refund. Double gold for this wave.",
+    "Form 22: Rest Break. You recover 30% of your health now.",
+};
+}
+
+std::string GameEngine::AuditFormName(int form) const { return kFormNames[std::clamp(form, 0, 6)]; }
+
+void GameEngine::StartAudit() {
+    if (audit_.active || !scene_.map) return;
+    audit_ = AuditRun{};
+    audit_.active = true;
+    audit_.run = static_cast<int>(player_.play_time * 10.0f) % 100000;
+    audit_.seed = static_cast<unsigned>(audit_.run * 2654435761u + 17u);
+    audit_.break_timer = 4.0f;
+    Toast("THE AUDIT BEGINS. Ten waves. Your existence is under review.", Color{240, 210, 140, 255});
+}
+
+void GameEngine::SpawnAuditWave() {
+    auto it = scene_.map->spawns.find("audit_center");
+    Vector3 c = it != scene_.map->spawns.end() ? it->second.pos : player_.pos;
+    auto rnd = [&]() { audit_.seed = audit_.seed * 1664525u + 1013904223u; return (audit_.seed >> 8) / 16777216.0f; };
+    int w = audit_.wave;
+    audit_.form = w == 1 ? 0 : static_cast<int>(rnd() * 7.0f) % 7;
+    std::vector<std::pair<std::string, float>> foes;   // creature, health multiplier
+    int tier = w <= 3 ? 0 : (w <= 7 ? 1 : 2);
+    int count = std::min(2 + w, 8);
+    if (w == 5) { foes.push_back({"repossession_golem", 1.0f}); count = 2; tier = 0; }
+    if (w == 10) { foes.push_back({"rat_king", 1.0f}); foes.push_back({"dreaming_limb", 1.0f}); count = 2; tier = 2; }
+    for (int k = 0; k < count; k++) foes.push_back({kAuditPools[tier][static_cast<int>(rnd() * 9.0f) % 9], 1.0f});
+    if (audit_.form == 4)
+        for (int k = 0; k < 3; k++) foes.push_back({kAuditPools[tier][static_cast<int>(rnd() * 9.0f) % 9], 0.6f});
+    if (audit_.form == 6) { player_.health += MaxHealth() * 0.3f; ClampVitals(); }
+    for (size_t k = 0; k < foes.size(); k++) {
+        float ang = (static_cast<float>(k) / foes.size() + rnd() * 0.1f) * 2.0f * PI;
+        MapCreatureSpawnDef d;
+        d.instance_id = "audit_" + std::to_string(audit_.run) + "_" + std::to_string(w) + "_" + std::to_string(k);
+        d.creature_id = "core:enemy." + foes[k].first;
+        d.pos = {c.x + cosf(ang) * 9.0f, c.y, c.z + sinf(ang) * 9.0f};
+        d.patrol_a = d.patrol_b = d.pos;
+        audit_spawns_.push_back(d);
+        size_t before = scene_.creatures.size();
+        SpawnCreature(audit_spawns_.back());
+        if (scene_.creatures.size() == before) continue;
+        CreatureInstance& ci = scene_.creatures.back();
+        float hm = foes[k].second * (audit_.form == 1 ? 1.4f : 1.0f) * (1.0f + 0.05f * (w - 1));
+        ci.health = ci.max_health = std::max(1, static_cast<int>(ci.max_health * hm));
+        ci.alerted = true;
+        ci.state = CreatureState::Chase;
+        ci.last_known = player_.pos;
+        SpawnBurst({ci.pos.x, ci.pos.y + 1.0f, ci.pos.z}, Color{240, 210, 140, 255}, 14, 2.0f, true, -1.0f, 0.06f);
+    }
+    Toast("Wave " + std::to_string(w) + " of " + std::to_string(kAuditWaves) + ". " + AuditFormName(audit_.form), Color{240, 210, 140, 255});
+}
+
+void GameEngine::UpdateAudit(float dt) {
+    if (!audit_.active || !scene_.map) return;
+    if (audit_.break_timer > 0.0f) {
+        if ((audit_.break_timer -= dt) <= 0.0f) {
+            audit_.wave++;
+            SpawnAuditWave();
+        }
+        return;
+    }
+    for (const auto& c : scene_.creatures)
+        if (IsAuditCreature(c) && c.state != CreatureState::Dead) return;
+    // Wave cleared.
+    int w = audit_.wave;
+    audit_.score += w * 100;
+    int gold = 15 * w * (audit_.form == 5 ? 2 : 1);
+    player_.gold += gold;
+    Toast("Wave " + std::to_string(w) + " cleared. " + std::to_string(gold) + " gold.", Color{255, 220, 120, 255});
+    if (w >= kAuditWaves) { EndAudit(true); return; }
+    audit_.break_timer = 8.0f;
+}
+
+void GameEngine::EndAudit(bool victory) {
+    if (!audit_.active) return;
+    audit_.active = false;
+    int score = audit_.score + audit_.kills * 10 - static_cast<int>(audit_.damage_taken * 0.5f) + (victory ? 1000 : 0);
+    score = std::max(0, score);
+    int reached = victory ? kAuditWaves : std::max(0, audit_.wave - 1);
+    // Clear the arena: the audit's monsters, their corpses and their records.
+    MapPersist& ps = Persist();
+    for (const auto& c : scene_.creatures)
+        if (IsAuditCreature(c)) { ps.dead.erase(c.instance_id); ps.corpse_pos.erase(c.instance_id); }
+    scene_.creatures.erase(std::remove_if(scene_.creatures.begin(), scene_.creatures.end(), [&](const CreatureInstance& c) { return IsAuditCreature(c); }),
+                           scene_.creatures.end());
+    if (!victory) {
+        player_.health = std::max(player_.health, MaxHealth() * 0.5f);
+        ClampVitals();
+        auto it = scene_.map->spawns.find("audit_entry");
+        if (it != scene_.map->spawns.end()) { player_.pos = it->second.pos; player_.vel = {0, 0, 0}; }
+    }
+    // The record: who, with what build, how far.
+    json rec;
+    rec["name"] = player_.name;
+    const RaceDef* race = content_.GetRace(player_.race_id);
+    const ArchetypeDef* arch = content_.GetArchetype(player_.archetype_id);
+    rec["race"] = race ? content_.Tr(race->name_key) : "";
+    rec["calling"] = arch ? content_.Tr(arch->name_key) : "";
+    rec["level"] = player_.level;
+    const ItemDef* w = Equipped("main_hand");
+    rec["weapon"] = w ? content_.Tr(w->name_key) : "bare hands";
+    std::string spells;
+    for (const auto& s : player_.known_spells)
+        if (const SpellDef* d = content_.GetSpell(s)) spells += (spells.empty() ? "" : ", ") + content_.Tr(d->name_key);
+    rec["spells"] = spells;
+    rec["wave"] = reached;
+    rec["score"] = score;
+    rec["victory"] = victory;
+    json all = json::array();
+    std::string path = SavePath("audit_records");
+    { std::ifstream f(path); if (f.is_open()) { try { all = json::parse(f); } catch (...) { all = json::array(); } } }
+    if (!all.is_array()) all = json::array();
+    all.push_back(rec);
+    std::sort(all.begin(), all.end(), [](const json& a, const json& b) { return a.value("score", 0) > b.value("score", 0); });
+    if (all.size() > 10) all.erase(all.begin() + 10, all.end());
+    { std::ofstream f(path); f << all.dump(2); }
+    if (victory) {
+        if (!player_.flags.count("audit_passed")) { AddItem("core:item.certificate_of_existence", 1); player_.flags.insert("audit_passed"); }
+        Toast("AUDIT PASSED. You officially exist. Score " + std::to_string(score) + ".", Color{255, 230, 140, 255});
+    } else {
+        Toast("AUDIT FAILED at wave " + std::to_string(audit_.wave) + ". Score " + std::to_string(score) + ". Please try again.", Color{255, 170, 140, 255});
+    }
+}
+
+std::string GameEngine::AuditRecordsText() const {
+    json all = json::array();
+    std::ifstream f(SavePath("audit_records"));
+    if (f.is_open()) { try { all = json::parse(f); } catch (...) {} }
+    if (!all.is_array() || all.empty()) return "No audits on record yet. Be the first.";
+    std::string out = "The ten best audits on record (this computer):\n\n";
+    int i = 1;
+    for (const auto& r : all) {
+        out += std::to_string(i++) + ". " + r.value("name", std::string("?")) + ": " + std::to_string(r.value("score", 0)) + " points, wave " +
+               std::to_string(r.value("wave", 0)) + (r.value("victory", false) ? " (PASSED)" : "") + "\n   " + r.value("race", std::string()) + " " +
+               r.value("calling", std::string()) + ", level " + std::to_string(r.value("level", 1)) + ", " + r.value("weapon", std::string()) +
+               (r.value("spells", std::string()).empty() ? "" : "; " + r.value("spells", std::string())) + "\n\n";
+    }
+    return out;
 }
 
 } // namespace uncounted

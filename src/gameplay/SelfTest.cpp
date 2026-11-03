@@ -1842,6 +1842,53 @@ int GameEngine::RunSelfTest() {
         LoadMap("core:map.edrath", "village_gate");
     }
 
+    // --- The Audit: ten waves, a Form each, a score and records
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        LoadMap("core:map.edrath", "village_gate");
+        std::string recPath = SavePath("audit_records"), backup;
+        { std::ifstream f(recPath); if (f.is_open()) backup.assign(std::istreambuf_iterator<char>(f), {}); }
+        std::filesystem::remove(recPath, ec);
+        DialogueAction go; go.type = "travel"; go.spawn = "audit_entry";
+        ExecAction(go, "");
+        check(player_.pos.x < -100.0f && player_.pos.z > 200.0f, "Oakhaven sends you down to the Audit Chamber");
+        int auditor = -1;
+        for (size_t i = 0; i < scene_.npcs.size(); i++) if (scene_.npcs[i].def->id == "core:npc.auditor") auditor = static_cast<int>(i);
+        check(auditor >= 0, "Senior Auditor Prudence Vell is at her desk");
+        player_.health = static_cast<float>(MaxHealth());
+        StartAudit();
+        auto killWave = [&]() {
+            for (int t = 0; t < 2000 && audit_.active && audit_.break_timer > 0.0f; t++) UpdateAudit(0.05f);
+            int n = 0;
+            for (auto& c : scene_.creatures)
+                if (IsAuditCreature(c) && c.state != CreatureState::Dead) { DamageCreature(c, 999999, false, "swords", false); n++; }
+            UpdateAudit(0.05f);
+            return n;
+        };
+        int first = killWave();
+        check(audit_.active && audit_.wave == 1 && first == 3 && audit_.form == 0, "wave 1: three examiners, Form 1 (Standard)");
+        int goldBefore = player_.gold;
+        for (int w = 2; w <= 10 && audit_.active; w++) killWave();
+        check(!audit_.active && player_.flags.count("audit_passed") && CountItem("core:item.certificate_of_existence") == 1 && player_.gold > goldBefore,
+              "all ten waves: AUDIT PASSED, the Certificate of Existence (and pay for every stage)");
+        bool cleared = true;
+        for (const auto& c : scene_.creatures) if (IsAuditCreature(c)) cleared = false;
+        std::string rec = AuditRecordsText();
+        check(cleared && rec.find("PASSED") != std::string::npos && rec.find("wave 10") != std::string::npos,
+              "the arena is cleared and the run is on record (name, build, wave, score)");
+        StartAudit();
+        killWave();
+        for (int t = 0; t < 2000 && audit_.break_timer > 0.0f; t++) UpdateAudit(0.05f);
+        player_.health = 0.0f;
+        FixedUpdate(1.0f / 60.0f);
+        check(!audit_.active && screen_ == Screen::Playing && player_.health > 0.0f && AuditRecordsText().find("wave 1\n") != std::string::npos,
+              "falling in an audit isn't death: you're FAILED, sent back, and the run is recorded");
+        std::filesystem::remove(recPath, ec);
+        if (!backup.empty()) { std::ofstream f(recPath); f << backup; }
+        LoadMap("core:map.edrath", "village_gate");
+    }
+
     // --- Day and night
     {
         const float savedHour = player_.hour, savedLen = content_.game_cfg.day_length_minutes;

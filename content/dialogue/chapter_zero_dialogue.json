@@ -512,6 +512,10 @@
               ]
             },
             {
+              "text_key": "dlg.audit.oak.choice",
+              "next": "audit_offer"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -4046,6 +4050,26 @@
           "choices": [
             {
               "text_key": "dlg.ch1.oak.ch1_after.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "audit_offer": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.audit.oak.offer",
+          "choices": [
+            {
+              "text_key": "dlg.audit.oak.go",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "travel",
+                  "spawn": "audit_entry"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.audit.oak.later",
               "next": "greeting"
             }
           ]
@@ -17515,6 +17539,77 @@
             {
               "text_key": "dlg.ch1.ins.after.c0",
               "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.auditor",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.auditor.name",
+          "text_key": "dlg.audit.root",
+          "choices": [
+            {
+              "text_key": "dlg.audit.begin",
+              "next": "begin"
+            },
+            {
+              "text_key": "dlg.audit.records",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "show_audit_records"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.audit.forms",
+              "next": "forms"
+            },
+            {
+              "text_key": "dlg.audit.abandon",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "stop_audit"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.audit.leave",
+              "next": "END"
+            }
+          ]
+        },
+        "begin": {
+          "speaker_key": "npc.auditor.name",
+          "text_key": "dlg.audit.begin_text",
+          "choices": [
+            {
+              "text_key": "dlg.audit.begin_go",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "start_audit"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.audit.begin_not",
+              "next": "root"
+            }
+          ]
+        },
+        "forms": {
+          "speaker_key": "npc.auditor.name",
+          "text_key": "dlg.audit.forms_text",
+          "choices": [
+            {
+              "text_key": "dlg.audit.forms_back",
+              "next": "root"
             }
           ]
         }
