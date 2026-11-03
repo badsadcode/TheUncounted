@@ -13,6 +13,7 @@ uniform vec2 uUvScale;
 // World motion (set per model by the renderer; 0 = static)
 uniform float uTime;
 uniform float uSway;   // foliage: metres of sideways drift per metre of height
+uniform float uWater;  // 1 = water: UVs from world position, slowly drifting
 uniform float uWave;   // water: ripple height in metres; tentacles reuse it as a slow heave
 
 out vec3 fragPosition;
@@ -45,6 +46,11 @@ void main()
     vec2 scale = (uUvScale.x > 0.001 && uUvScale.y > 0.001) ? uUvScale : vec2(1.0, 1.0);
     fragTexCoord = vertexTexCoord * scale;
     fragColor = vertexColor;
+    if (uWater > 0.5)
+    {
+        fragTexCoord = worldPos.xz / 3.2 + vec2(uTime * 0.025, uTime * 0.012);
+        fragColor = mix(vertexColor, vec4(1.0), 0.75);
+    }
     fragNormal = normalize(vec3(matNormal * vec4(vertexNormal, 0.0)));
     gl_Position = mvp * vec4(p, 1.0);
 }

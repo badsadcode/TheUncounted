@@ -89,11 +89,12 @@ private:
     struct ShaderLocs {
         int light_count = -1, light_pos = -1, light_color = -1, light_radius = -1;
         int view_pos = -1, ambient = -1, sun_dir = -1, sun_color = -1, fog_color = -1, fog_density = -1;
-        int emissive = -1, uv_scale = -1, time = -1, sway = -1, wave = -1;
+        int emissive = -1, uv_scale = -1, time = -1, sway = -1, wave = -1, water = -1;
     };
     Shader post_shader_{};
     int post_texel_ = -1, post_dither_ = -1, post_glow_ = -1, post_vignette_ = -1, post_effect_ = -1, post_time_ = -1, post_res_ = -1;
     float time_ = 0.0f;
+    std::unordered_map<std::string, bool> water_textured_;  // water models given the water_surface texture
     std::unordered_map<std::string, int> motion_kind_;  // model path -> 0 none, 1 sway, 2 water, 3 tentacle
     ShaderLocs wl_{};
     ShaderLocs sl_{};

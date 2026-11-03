@@ -77,6 +77,7 @@ void WorldRenderer::ResolveLocs(Shader s, ShaderLocs& l) {
     l.time = loc("uTime", nullptr);
     l.sway = loc("uSway", nullptr);
     l.wave = loc("uWave", nullptr);
+    l.water = loc("uWater", nullptr);
 }
 
 void WorldRenderer::ReloadShaders() {
@@ -184,6 +185,22 @@ void WorldRenderer::DrawModelAt(const std::string& path, const Matrix& m, Vector
         else if (path.find("tentacle") != std::string::npos) k = 3;
         it = motion_kind_.emplace(path, k).first;
     }
+    // Water: Noor's water_surface texture, mapped by world position (any size of pool tiles evenly) and drifting.
+    float water = 0.0f;
+    if (it->second == 2) {
+        auto wt = water_textured_.find(path);
+        if (wt == water_textured_.end()) {
+            Texture2D tex = res_->GetTexture("assets/textures/water_surface.png");
+            bool ok = tex.id > 0 && tex.width > 8;
+            if (ok) {
+                SetTextureWrap(tex, TEXTURE_WRAP_REPEAT);
+                for (int i = 0; i < model.materialCount; i++) model.materials[i].maps[MATERIAL_MAP_DIFFUSE].texture = tex;
+            }
+            wt = water_textured_.emplace(path, ok).first;
+        }
+        water = wt->second ? 1.0f : 0.0f;
+    }
+    if (wl_.water >= 0) SetShaderValue(world_shader_, wl_.water, &water, SHADER_UNIFORM_FLOAT);
     int kind = gfx_->world_motion ? it->second : 0;
     float sway = kind == 1 ? 0.012f : (kind == 3 ? 0.018f : 0.0f);
     float wave = kind == 2 ? 0.045f : 0.0f;
@@ -196,6 +213,11 @@ void WorldRenderer::DrawModelAt(const std::string& path, const Matrix& m, Vector
     model.transform = m;
     DrawModel(model, {0, 0, 0}, 1.0f, tint);
     model.transform = MatrixIdentity();
+    if (water > 0.0f) {
+        rlDrawRenderBatchActive();
+        float zero = 0.0f;
+        if (wl_.water >= 0) SetShaderValue(world_shader_, wl_.water, &zero, SHADER_UNIFORM_FLOAT);
+    }
     if (kind != 0) {
         rlDrawRenderBatchActive();
         float zero = 0.0f;
