@@ -361,6 +361,16 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   The subtitle stays up at least as long as the clip. No file = text only, as before.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
+### World textures (Noor's set, added 2026-11-03)
+
+- 33 surface textures (128 px) in `assets/textures/`, skies in `assets/textures/sky/`, scatter cut-outs in
+  `assets/sprites/scatter/`; previews in `art_source/textures/`; the brief is `docs/TEXTURES.md`.
+- Textures are embedded in the .glb models. `tools/glb_textures.py swap <names>` re-embeds `assets/textures/<name>.png`
+  into every model; `clone SRC DST old=new` makes a variant piece (`floor_<tex>.glb`, `wall_<tex>.glb`, `stairs_carpet.glb`).
+- Per-area materials live in `tools/build_world.py` (`MATERIALS`: region-local prop id regex -> model; `OVERLAYS`: thin
+  rugs/tiles), applied when regions are loaded, so the region builders stay untouched. `build_assets_art.py` no longer
+  regenerates textures unless `--force-textures`.
+
 ## 8. The user (what they care about)
 
 - **Story and immersion are the priority.** Bigger, multi-level spaces without loading screens. Better graphics/sprites welcome.

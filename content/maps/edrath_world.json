@@ -847,7 +847,7 @@
     },
     {
       "id": "bell_rec_floor",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_flagstones.glb",
       "pos": [
         -6.0,
         -0.43,
@@ -866,7 +866,7 @@
     },
     {
       "id": "bell_rec_roof",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
       "pos": [
         -6.0,
         3.8,
@@ -1047,7 +1047,7 @@
     },
     {
       "id": "bell_shop_back",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_red_brick.glb",
       "pos": [
         8.0,
         0.0,
@@ -1096,7 +1096,7 @@
     },
     {
       "id": "bell_inn_floor",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_tavern_floor.glb",
       "pos": [
         -6.5,
         -0.43,
@@ -1115,7 +1115,7 @@
     },
     {
       "id": "bell_inn_roof",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_roof_thatch.glb",
       "pos": [
         -6.5,
         3.8,
@@ -1191,7 +1191,7 @@
     },
     {
       "id": "bell_lib_floor",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_flagstones.glb",
       "pos": [
         8.5,
         -0.43,
@@ -1816,7 +1816,7 @@
     },
     {
       "id": "hollow_drive",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_gravel_path.glb",
       "pos": [
         0.0,
         -0.46,
@@ -2176,7 +2176,7 @@
     },
     {
       "id": "hollow_grave_mound_0",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -17.0,
         0.0,
@@ -2195,7 +2195,7 @@
     },
     {
       "id": "hollow_grave_mound_1",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -14.8,
         0.0,
@@ -2214,7 +2214,7 @@
     },
     {
       "id": "hollow_grave_mound_2",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -12.6,
         0.0,
@@ -2233,7 +2233,7 @@
     },
     {
       "id": "hollow_grave_mound_3",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -10.4,
         0.0,
@@ -2252,7 +2252,7 @@
     },
     {
       "id": "hollow_grave_mound_4",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -8.2,
         0.0,
@@ -2271,7 +2271,7 @@
     },
     {
       "id": "hollow_grave_mound_5",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -17.0,
         0.0,
@@ -2290,7 +2290,7 @@
     },
     {
       "id": "hollow_grave_mound_6",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -14.8,
         0.0,
@@ -2309,7 +2309,7 @@
     },
     {
       "id": "hollow_grave_mound_7",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -12.6,
         0.0,
@@ -2328,7 +2328,7 @@
     },
     {
       "id": "hollow_grave_mound_8",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -10.4,
         0.0,
@@ -2347,7 +2347,7 @@
     },
     {
       "id": "hollow_grave_mound_9",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         -8.2,
         0.0,
@@ -2366,7 +2366,7 @@
     },
     {
       "id": "hollow_garden_bed_1",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         12.0,
         0.0,
@@ -2385,7 +2385,7 @@
     },
     {
       "id": "hollow_garden_bed_2",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_graveyard_soil.glb",
       "pos": [
         12.0,
         0.0,
@@ -2556,7 +2556,7 @@
     },
     {
       "id": "hollow_roof",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
       "pos": [
         0.0,
         8.0,
@@ -2575,7 +2575,7 @@
     },
     {
       "id": "hollow_chimney_0",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_red_brick.glb",
       "pos": [
         -10.0,
         8.0,
@@ -2594,7 +2594,7 @@
     },
     {
       "id": "hollow_chimney_1",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_red_brick.glb",
       "pos": [
         10.0,
         8.0,
@@ -2708,7 +2708,7 @@
     },
     {
       "id": "hollow_rail_w",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         0.925,
         4.0,
@@ -2722,12 +2722,12 @@
       "solid": true,
       "uv_scale": [
         3.08,
-        0.33
+        1.0
       ]
     },
     {
       "id": "hollow_rail_n",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         2.5,
         4.0,
@@ -2741,12 +2741,12 @@
       "solid": true,
       "uv_scale": [
         1.15,
-        0.33
+        1.0
       ]
     },
     {
       "id": "hollow_stairs_lower",
-      "model": "assets/models/env/stairs_stone.glb",
+      "model": "assets/models/env/stairs_carpet.glb",
       "pos": [
         2.5,
         0.0,
@@ -2763,7 +2763,7 @@
     },
     {
       "id": "hollow_stairs_upper",
-      "model": "assets/models/env/stairs_stone.glb",
+      "model": "assets/models/env/stairs_carpet.glb",
       "pos": [
         2.5,
         2.0,
@@ -2780,7 +2780,7 @@
     },
     {
       "id": "hollow_stair_block",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         2.5,
         0.0,
@@ -2794,12 +2794,12 @@
       "solid": true,
       "uv_scale": [
         1.54,
-        0.67
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_w_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -4.0,
         0.0,
@@ -2813,12 +2813,12 @@
       "solid": true,
       "uv_scale": [
         1.81,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_w_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -4.0,
         2.8,
@@ -2832,12 +2832,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.3
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_w_1",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -4.0,
         0.0,
@@ -2851,12 +2851,12 @@
       "solid": true,
       "uv_scale": [
         3.85,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_w_lintel1",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -4.0,
         2.8,
@@ -2870,12 +2870,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.3
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_w_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -4.0,
         0.0,
@@ -2889,12 +2889,12 @@
       "solid": true,
       "uv_scale": [
         1.92,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_e_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         4.0,
         0.0,
@@ -2908,12 +2908,12 @@
       "solid": true,
       "uv_scale": [
         4.42,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_e_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         4.0,
         2.8,
@@ -2927,12 +2927,12 @@
       "solid": true,
       "uv_scale": [
         0.69,
-        0.3
+        1.0
       ]
     },
     {
       "id": "hollow_g_foyer_e_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         4.0,
         0.0,
@@ -2946,12 +2946,12 @@
       "solid": true,
       "uv_scale": [
         0.23,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_w_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -11.85,
         0.0,
@@ -2965,12 +2965,12 @@
       "solid": true,
       "uv_scale": [
         1.42,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_w_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -9.0,
         2.8,
@@ -2984,12 +2984,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.3
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_w_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -6.0,
         0.0,
@@ -3003,12 +3003,12 @@
       "solid": true,
       "uv_scale": [
         1.54,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_e_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         -2.5,
         0.0,
@@ -3022,12 +3022,12 @@
       "solid": true,
       "uv_scale": [
         1.15,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_e_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         0.0,
         2.8,
@@ -3041,12 +3041,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.3
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_e_1",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         4.5,
         0.0,
@@ -3060,12 +3060,12 @@
       "solid": true,
       "uv_scale": [
         2.69,
-        1.23
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_e_lintel1",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         9.0,
         2.8,
@@ -3079,12 +3079,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.3
+        1.0
       ]
     },
     {
       "id": "hollow_g_mid_e_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_manor_wallpaper.glb",
       "pos": [
         11.85,
         0.0,
@@ -3098,7 +3098,7 @@
       "solid": true,
       "uv_scale": [
         1.42,
-        1.23
+        1.0
       ]
     },
     {
@@ -3605,7 +3605,7 @@
     },
     {
       "id": "hollow_u_landing_w_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         -4.0,
         4.0,
@@ -3619,12 +3619,12 @@
       "solid": true,
       "uv_scale": [
         1.81,
-        1.33
+        1.0
       ]
     },
     {
       "id": "hollow_u_landing_w_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         -4.0,
         6.8,
@@ -3638,12 +3638,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.4
+        1.0
       ]
     },
     {
       "id": "hollow_u_landing_w_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         -4.0,
         4.0,
@@ -3657,12 +3657,12 @@
       "solid": true,
       "uv_scale": [
         2.69,
-        1.33
+        1.0
       ]
     },
     {
       "id": "hollow_u_landing_e_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         4.0,
         4.0,
@@ -3676,12 +3676,12 @@
       "solid": true,
       "uv_scale": [
         4.42,
-        1.33
+        1.0
       ]
     },
     {
       "id": "hollow_u_landing_e_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         4.0,
         6.8,
@@ -3695,12 +3695,12 @@
       "solid": true,
       "uv_scale": [
         0.69,
-        0.4
+        1.0
       ]
     },
     {
       "id": "hollow_u_landing_e_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         4.0,
         4.0,
@@ -3714,12 +3714,12 @@
       "solid": true,
       "uv_scale": [
         0.23,
-        1.33
+        1.0
       ]
     },
     {
       "id": "hollow_u_mid_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         -7.35,
         4.0,
@@ -3733,12 +3733,12 @@
       "solid": true,
       "uv_scale": [
         4.88,
-        1.33
+        1.0
       ]
     },
     {
       "id": "hollow_u_mid_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         0.0,
         6.8,
@@ -3752,12 +3752,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.4
+        1.0
       ]
     },
     {
       "id": "hollow_u_mid_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         7.35,
         4.0,
@@ -3771,12 +3771,12 @@
       "solid": true,
       "uv_scale": [
         4.88,
-        1.33
+        1.0
       ]
     },
     {
       "id": "hollow_u_sealed_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         8.0,
         4.0,
@@ -3790,12 +3790,12 @@
       "solid": true,
       "uv_scale": [
         1.54,
-        1.33
+        1.0
       ]
     },
     {
       "id": "hollow_u_sealed_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         8.0,
         6.8,
@@ -3809,12 +3809,12 @@
       "solid": true,
       "uv_scale": [
         0.77,
-        0.4
+        1.0
       ]
     },
     {
       "id": "hollow_u_sealed_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_wood_panelling.glb",
       "pos": [
         8.0,
         4.0,
@@ -3828,7 +3828,7 @@
       "solid": true,
       "uv_scale": [
         1.42,
-        1.33
+        1.0
       ]
     },
     {
@@ -3948,8 +3948,84 @@
       }
     },
     {
+      "id": "hollow_ballroom_marble",
+      "model": "assets/models/env/floor_checker_marble.glb",
+      "pos": [
+        5.0,
+        0.02,
+        53.0
+      ],
+      "scale": [
+        17.7,
+        0.015,
+        9.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        7.0,
+        4.0
+      ]
+    },
+    {
+      "id": "hollow_kitchen_flags",
+      "model": "assets/models/env/floor_flagstones.glb",
+      "pos": [
+        -9.0,
+        0.02,
+        53.0
+      ],
+      "scale": [
+        9.7,
+        0.015,
+        9.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        4.0,
+        4.0
+      ]
+    },
+    {
+      "id": "hollow_foyer_runner",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        0.0,
+        0.02,
+        41.0
+      ],
+      "scale": [
+        2.0,
+        0.015,
+        13.7
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.0,
+        6.0
+      ]
+    },
+    {
+      "id": "hollow_dining_rug",
+      "model": "assets/models/env/floor_carpet_red.glb",
+      "pos": [
+        -9.0,
+        0.02,
+        41.8
+      ],
+      "scale": [
+        7.2,
+        0.015,
+        4.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.0,
+        1.0
+      ]
+    },
+    {
       "id": "wood_wood_floor",
-      "model": "assets/models/env/floor_grass.glb",
+      "model": "assets/models/env/floor_forest_floor.glb",
       "pos": [
         -47.0,
         -0.5,
@@ -3968,7 +4044,7 @@
     },
     {
       "id": "wood_wood_rock_w",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -70.0,
         -0.5,
@@ -3987,7 +4063,7 @@
     },
     {
       "id": "wood_wood_rock_n",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -45.5,
         -0.5,
@@ -4006,7 +4082,7 @@
     },
     {
       "id": "wood_wood_rock_s",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -45.5,
         -0.5,
@@ -4025,7 +4101,7 @@
     },
     {
       "id": "wood_wood_rock_e_n",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -24.0,
         -0.5,
@@ -4044,7 +4120,7 @@
     },
     {
       "id": "wood_wood_rock_e_s",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -24.0,
         -0.5,
@@ -4063,7 +4139,7 @@
     },
     {
       "id": "wood_lane_wall_n",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -21.9,
         -0.5,
@@ -4082,7 +4158,7 @@
     },
     {
       "id": "wood_lane_wall_s",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -21.9,
         -0.5,
@@ -4101,7 +4177,7 @@
     },
     {
       "id": "wood_corner_n",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -20.8,
         -0.5,
@@ -4120,7 +4196,7 @@
     },
     {
       "id": "wood_corner_s",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -20.8,
         -0.5,
@@ -4139,7 +4215,7 @@
     },
     {
       "id": "wood_lane_path",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -22.8,
         -0.48,
@@ -4158,7 +4234,7 @@
     },
     {
       "id": "wood_path_0",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -28.3,
         -0.49,
@@ -4177,7 +4253,7 @@
     },
     {
       "id": "wood_path_1",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -35.0,
         -0.49,
@@ -4196,7 +4272,7 @@
     },
     {
       "id": "wood_path_2",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -40.5,
         -0.49,
@@ -4215,7 +4291,7 @@
     },
     {
       "id": "wood_path_3",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -45.5,
         -0.49,
@@ -4234,7 +4310,7 @@
     },
     {
       "id": "wood_path_4",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -48.0,
         -0.49,
@@ -4253,7 +4329,7 @@
     },
     {
       "id": "wood_fork_0",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -47.5,
         -0.495,
@@ -4272,7 +4348,7 @@
     },
     {
       "id": "wood_fork_1",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -54.75,
         -0.495,
@@ -4291,7 +4367,7 @@
     },
     {
       "id": "wood_fork_2",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         -37.25,
         -0.495,
@@ -5046,7 +5122,7 @@
     },
     {
       "id": "wood_tent_bedroll",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_straw_hay.glb",
       "pos": [
         -48.0,
         0.0,
@@ -5065,7 +5141,7 @@
     },
     {
       "id": "wood_camp_fire_stone0",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -47.5,
         0.0,
@@ -5084,7 +5160,7 @@
     },
     {
       "id": "wood_camp_fire_stone1",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -47.75,
         0.0,
@@ -5103,7 +5179,7 @@
     },
     {
       "id": "wood_camp_fire_stone2",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -48.25,
         0.0,
@@ -5122,7 +5198,7 @@
     },
     {
       "id": "wood_camp_fire_stone3",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -48.5,
         0.0,
@@ -5141,7 +5217,7 @@
     },
     {
       "id": "wood_camp_fire_stone4",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -48.25,
         0.0,
@@ -5160,7 +5236,7 @@
     },
     {
       "id": "wood_camp_fire_stone5",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -47.75,
         0.0,
@@ -5391,7 +5467,7 @@
     },
     {
       "id": "wood_pond_rim_0",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -59.9,
         0.0,
@@ -5410,7 +5486,7 @@
     },
     {
       "id": "wood_pond_rim_1",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -60.301,
         0.0,
@@ -5429,7 +5505,7 @@
     },
     {
       "id": "wood_pond_rim_2",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -61.35,
         0.0,
@@ -5448,7 +5524,7 @@
     },
     {
       "id": "wood_pond_rim_3",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -62.647,
         0.0,
@@ -5467,7 +5543,7 @@
     },
     {
       "id": "wood_pond_rim_4",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -63.697,
         0.0,
@@ -5486,7 +5562,7 @@
     },
     {
       "id": "wood_pond_rim_5",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -64.1,
         0.0,
@@ -5505,7 +5581,7 @@
     },
     {
       "id": "wood_pond_rim_6",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -63.701,
         0.0,
@@ -5524,7 +5600,7 @@
     },
     {
       "id": "wood_pond_rim_7",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -62.653,
         0.0,
@@ -5543,7 +5619,7 @@
     },
     {
       "id": "wood_pond_rim_8",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -61.356,
         0.0,
@@ -5562,7 +5638,7 @@
     },
     {
       "id": "wood_pond_rim_9",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         -60.305,
         0.0,
@@ -5581,7 +5657,7 @@
     },
     {
       "id": "reef_reef_sea_floor",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_sand_wet.glb",
       "pos": [
         1.6,
         -0.9,
@@ -5616,7 +5692,7 @@
     },
     {
       "id": "reef_cliff_n",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         1.6,
         -0.9,
@@ -5635,7 +5711,7 @@
     },
     {
       "id": "reef_cliff_s",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         1.6,
         -0.9,
@@ -5654,7 +5730,7 @@
     },
     {
       "id": "reef_cliff_w",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         -24.4,
         -0.9,
@@ -5673,7 +5749,7 @@
     },
     {
       "id": "reef_cliff_e",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         27.6,
         -0.9,
@@ -5692,7 +5768,7 @@
     },
     {
       "id": "reef_isle_main",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_sand_wet.glb",
       "pos": [
         1.6,
         -0.5,
@@ -5711,7 +5787,7 @@
     },
     {
       "id": "reef_isle_w",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_cave_rock.glb",
       "pos": [
         -11.9,
         -0.5,
@@ -5730,7 +5806,7 @@
     },
     {
       "id": "reef_isle_e",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_cave_rock.glb",
       "pos": [
         14.85,
         -0.5,
@@ -5749,7 +5825,7 @@
     },
     {
       "id": "reef_isle_n",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_cave_rock.glb",
       "pos": [
         1.1,
         -0.5,
@@ -5768,7 +5844,7 @@
     },
     {
       "id": "reef_boulder_0",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         -8.9,
         -0.2,
@@ -5787,7 +5863,7 @@
     },
     {
       "id": "reef_boulder_1",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         11.1,
         -0.2,
@@ -5806,7 +5882,7 @@
     },
     {
       "id": "reef_boulder_2",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         14.1,
         -0.2,
@@ -5825,7 +5901,7 @@
     },
     {
       "id": "reef_boulder_3",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         -11.9,
         -0.2,
@@ -5844,7 +5920,7 @@
     },
     {
       "id": "reef_boulder_4",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         9.1,
         -0.2,
@@ -5863,7 +5939,7 @@
     },
     {
       "id": "reef_boulder_5",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         -6.9,
         -0.2,
@@ -5882,7 +5958,7 @@
     },
     {
       "id": "reef_boulder_6",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         4.6,
         -0.2,
@@ -5901,7 +5977,7 @@
     },
     {
       "id": "reef_boulder_7",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         -2.4,
         -0.2,
@@ -6982,7 +7058,7 @@
     },
     {
       "id": "docks_sea_floor",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_sand_wet.glb",
       "pos": [
         1.6,
         -0.9,
@@ -7055,7 +7131,7 @@
     },
     {
       "id": "docks_sea_wall",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         1.6,
         -0.9,
@@ -7886,7 +7962,7 @@
     },
     {
       "id": "docks_tav_e_0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         -7.4,
         0.0,
@@ -7905,7 +7981,7 @@
     },
     {
       "id": "docks_tav_e_lintel0",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         -7.4,
         2.8,
@@ -7924,7 +8000,7 @@
     },
     {
       "id": "docks_tav_e_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         -7.4,
         0.0,
@@ -7943,7 +8019,7 @@
     },
     {
       "id": "docks_tav_s_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         -12.6,
         0.0,
@@ -7962,7 +8038,7 @@
     },
     {
       "id": "docks_tav_n_end",
-      "model": "assets/models/env/wall_timber.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         -12.6,
         0.0,
@@ -7981,7 +8057,7 @@
     },
     {
       "id": "docks_tav_roof",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
       "pos": [
         -12.45,
         3.8,
@@ -8000,7 +8076,7 @@
     },
     {
       "id": "docks_tav_floor",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_tavern_floor.glb",
       "pos": [
         -12.6,
         0.0,
@@ -8145,7 +8221,7 @@
     },
     {
       "id": "docks_wh_w_0",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         9.6,
         0.0,
@@ -8164,7 +8240,7 @@
     },
     {
       "id": "docks_wh_w_lintel0",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         9.6,
         2.8,
@@ -8183,7 +8259,7 @@
     },
     {
       "id": "docks_wh_w_end",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         9.6,
         0.0,
@@ -8202,7 +8278,7 @@
     },
     {
       "id": "docks_wh_n_end",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         15.3,
         0.0,
@@ -8221,7 +8297,7 @@
     },
     {
       "id": "docks_wh_s_end",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_weathered_planks.glb",
       "pos": [
         15.3,
         0.0,
@@ -8240,7 +8316,7 @@
     },
     {
       "id": "docks_wh_roof",
-      "model": "assets/models/env/floor_wood.glb",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
       "pos": [
         15.15,
         4.2,
@@ -8515,7 +8591,7 @@
     },
     {
       "id": "docks_well_floor",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_mud_puddles.glb",
       "pos": [
         17.1,
         -6.1,
@@ -8534,7 +8610,7 @@
     },
     {
       "id": "docks_well_wall_w",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         15.45,
         -5.6,
@@ -8553,7 +8629,7 @@
     },
     {
       "id": "docks_well_wall_e",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         18.75,
         -5.6,
@@ -8572,7 +8648,7 @@
     },
     {
       "id": "docks_well_wall_s",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         17.1,
         -5.6,
@@ -8622,7 +8698,7 @@
     },
     {
       "id": "docks_chapel_floor",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_flagstones.glb",
       "pos": [
         12.1,
         -6.1,
@@ -8641,7 +8717,7 @@
     },
     {
       "id": "docks_chapel_ceiling",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         12.1,
         -1.0,
@@ -8660,7 +8736,7 @@
     },
     {
       "id": "docks_ch_w_end",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         3.6,
         -5.6,
@@ -8679,7 +8755,7 @@
     },
     {
       "id": "docks_ch_e_end",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         20.6,
         -5.6,
@@ -8698,7 +8774,7 @@
     },
     {
       "id": "docks_ch_n_end",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         12.1,
         -5.6,
@@ -8717,7 +8793,7 @@
     },
     {
       "id": "docks_ch_s_0",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         9.6,
         -5.6,
@@ -8736,7 +8812,7 @@
     },
     {
       "id": "docks_ch_s_end",
-      "model": "assets/models/env/wall_crypt.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         19.6,
         -5.6,
@@ -8771,7 +8847,7 @@
     },
     {
       "id": "docks_ch_pillar_0",
-      "model": "assets/models/env/pillar_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         6.6,
         -5.6,
@@ -8787,7 +8863,7 @@
     },
     {
       "id": "docks_ch_torch_0",
-      "model": "assets/models/props/wall_torch.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         7.15,
         -3.2,
@@ -8818,7 +8894,7 @@
     },
     {
       "id": "docks_ch_pillar_1",
-      "model": "assets/models/env/pillar_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         17.6,
         -5.6,
@@ -8834,7 +8910,7 @@
     },
     {
       "id": "docks_ch_torch_1",
-      "model": "assets/models/props/wall_torch.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         17.05,
         -3.2,
@@ -8865,7 +8941,7 @@
     },
     {
       "id": "docks_ch_pillar_2",
-      "model": "assets/models/env/pillar_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         6.6,
         -5.6,
@@ -8881,7 +8957,7 @@
     },
     {
       "id": "docks_ch_torch_2",
-      "model": "assets/models/props/wall_torch.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         7.15,
         -3.2,
@@ -8912,7 +8988,7 @@
     },
     {
       "id": "docks_ch_pillar_3",
-      "model": "assets/models/env/pillar_stone.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         17.6,
         -5.6,
@@ -8928,7 +9004,7 @@
     },
     {
       "id": "docks_ch_torch_3",
-      "model": "assets/models/props/wall_torch.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         17.05,
         -3.2,
@@ -8959,7 +9035,7 @@
     },
     {
       "id": "docks_ch_altar",
-      "model": "assets/models/props/altar_dawn.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         12.1,
         -5.6,
@@ -8975,7 +9051,7 @@
     },
     {
       "id": "docks_ch_tentacle",
-      "model": "assets/models/env/tentacle_b.glb",
+      "model": "assets/models/env/wall_barnacle_stone.glb",
       "pos": [
         16.1,
         -5.6,
@@ -9071,7 +9147,7 @@
     },
     {
       "id": "road_road_path",
-      "model": "assets/models/env/floor_cobble.glb",
+      "model": "assets/models/env/floor_dirt_road.glb",
       "pos": [
         48.3,
         -0.46,
@@ -9090,7 +9166,7 @@
     },
     {
       "id": "road_cliff_north",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         49.3,
         0.0,
@@ -9109,7 +9185,7 @@
     },
     {
       "id": "road_cliff_south",
-      "model": "assets/models/env/wall_stone.glb",
+      "model": "assets/models/env/wall_cave_rock.glb",
       "pos": [
         49.3,
         0.0,

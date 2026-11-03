@@ -37,7 +37,69 @@ TORCH = "assets/models/props/wall_torch.glb"
 
 def load(name):
     with open(os.path.join(REGIONS, name), encoding="utf-8") as f:
-        return json.load(f)
+        return apply_materials(name, json.load(f))
+
+
+# ============================================================================ per-area materials (Noor's texture set)
+# Region files keep the base pieces (cobble, stone, timber...); here each area gets its own surfaces by swapping the
+# model of matching prop ids (region-local ids, regex, full match) and laying thin floor overlays (rugs, marble).
+ENV = "assets/models/env/"
+MAT_FLOOR = lambda t: ENV + "floor_" + t + ".glb"
+MAT_WALL = lambda t: ENV + "wall_" + t + ".glb"
+MATERIALS = {
+    "bellwether.json": [
+        (r"rec_floor|lib_floor", MAT_FLOOR("flagstones")), (r"inn_floor", MAT_FLOOR("tavern_floor")),
+        (r"rec_roof", MAT_FLOOR("roof_slate_mossy")), (r"inn_roof", MAT_FLOOR("roof_thatch")), (r"shop_back", MAT_WALL("red_brick")),
+    ],
+    "old_road.json": [
+        (r"road_path", MAT_FLOOR("dirt_road")), (r"cliff_(north|south|west)", MAT_WALL("cave_rock")),
+    ],
+    "whistling_wood.json": [
+        (r"wood_floor", MAT_FLOOR("forest_floor")), (r"lane_path|path_\d+|fork_\d+", MAT_FLOOR("dirt_road")),
+        (r"wood_rock_.*|lane_wall_.*|corner_.*|camp_fire_stone\d+|pond_rim_\d+", MAT_WALL("cave_rock")),
+        (r"tent_bedroll", MAT_FLOOR("straw_hay")),
+    ],
+    "hollowmere.json": [
+        (r"grave_mound_\d+|garden_bed_\d+", MAT_FLOOR("graveyard_soil")), (r"drive", MAT_FLOOR("gravel_path")),
+        (r"chimney_\d+", MAT_WALL("red_brick")), (r"roof", MAT_FLOOR("roof_slate_mossy")),
+        (r"g_(foyer|mid)_.*", MAT_WALL("manor_wallpaper"), 1.0), (r"u_.*|stair_block|rail_[wn]", MAT_WALL("wood_panelling"), 1.0),
+        (r"stairs_(lower|upper)", ENV + "stairs_carpet.glb"),
+    ],
+    "saltmere.json": [
+        (r"sea_floor", MAT_FLOOR("sand_wet")), (r"well_floor", MAT_FLOOR("mud_puddles")), (r"chapel_floor", MAT_FLOOR("flagstones")),
+        (r"sea_wall|well_wall_.*|chapel_ceiling|ch_.*", MAT_WALL("barnacle_stone")),
+        (r"wh_w_.*|wh_[ns]_end|tav_e_.*|tav_[sn]_end", MAT_WALL("weathered_planks")),
+        (r"tav_floor", MAT_FLOOR("tavern_floor")), (r"tav_roof|wh_roof", MAT_FLOOR("roof_slate_mossy")),
+    ],
+    "sleepers_reef.json": [
+        (r"reef_sea_floor|isle_main", MAT_FLOOR("sand_wet")), (r"isle_[wen]", MAT_FLOOR("cave_rock")),
+        (r"cliff_[nswe]|boulder_\d+", MAT_WALL("barnacle_stone")),
+    ],
+}
+# Thin rugs/tiles laid over a floor (region-local box: x0, x1, y0, y1, z0, z1, uv)
+OVERLAYS = {
+    "hollowmere.json": [
+        ("ballroom_marble", MAT_FLOOR("checker_marble"), (-3.85, 13.85, 0.02, 0.035, 6.15, 15.85), [7.0, 4.0]),
+        ("kitchen_flags", MAT_FLOOR("flagstones"), (-13.85, -4.15, 0.02, 0.035, 6.15, 15.85), [4.0, 4.0]),
+        ("foyer_runner", MAT_FLOOR("carpet_red"), (-1.0, 1.0, 0.02, 0.035, -7.85, 5.85), [1.0, 6.0]),
+        ("dining_rug", MAT_FLOOR("carpet_red"), (-12.6, -5.4, 0.02, 0.035, -2.2, 1.8), [1.0, 1.0]),
+    ],
+}
+
+
+def apply_materials(name, region):
+    import re
+    rules = MATERIALS.get(name, [])
+    for p in region.get("props", []):
+        for rule in rules:
+            if re.fullmatch(rule[0], p["id"]):
+                p["model"] = rule[1]
+                if len(rule) > 2 and "uv_scale" in p:
+                    p["uv_scale"] = [p["uv_scale"][0], rule[2]]   # wallpaper/panelling: one pattern per wall height
+                break
+    for pid, model, (x0, x1, y0, y1, z0, z1), uv in OVERLAYS.get(name, []):
+        region.setdefault("props", []).append(box_prop(pid, model, x0, x1, y0, y1, z0, z1, uv=uv, solid=False))
+    return region
 
 
 def offset(v, off):

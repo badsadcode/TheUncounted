@@ -9,6 +9,7 @@ The C++ runtime never calls this script; it loads the resulting external files.
 import json
 import math
 import os
+import sys
 import random
 import shutil
 from PIL import Image, ImageDraw
@@ -35,6 +36,10 @@ def make_noise_grid(w, h, seed):
 def build_textures():
     tex_dir = os.path.join(ROOT, "assets", "textures")
     os.makedirs(tex_dir, exist_ok=True)
+    # The world textures are now Noor's hand-made set (128 px). Never overwrite them with these generated 64 px ones.
+    if os.path.exists(os.path.join(tex_dir, "mossy_cobble.png")) and "--force-textures" not in sys.argv:
+        print("Skipping generated textures (hand-made set present; pass --force-textures to regenerate)")
+        return
 
     # 1. stone_wall.png - Medieval grey-blue cut stone blocks
     img = Image.new("RGBA", (64, 64))
