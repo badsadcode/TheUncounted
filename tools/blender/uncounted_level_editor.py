@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 1, 0),
+    "version": (4, 2, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -136,6 +136,9 @@ def apply_edits(world, edits):
         for e in lst:
             e.update(ke.get("modify", {}).get(e[idk], {}))
         world[key] = lst
+    for key in ("lights", "spawns", "scatter"):        # replaced whole when changed in Blender
+        if key in edits:
+            world[key] = edits[key]
     return world
 
 
@@ -424,6 +427,27 @@ def build_palette(gdir, cache, world_props):
         cp.objects.link(o)
 
 
+def add_lights(lights, col):
+    """The map's lights as Blender point lights: colour kept, reach (radius) as Power (W = radius x 60)."""
+    for i, l in enumerate(lights):
+        ld = bpy.data.lights.new(f"light_{i}", "POINT")
+        ld.color = l.get("color", [1, 0.75, 0.4])
+        ld.energy = l.get("radius", 10.0) * 60.0
+        ld.shadow_soft_size = 0.1
+        lo = bpy.data.objects.new(f"light_{i}", ld)
+        lo.location = to_blender(l["pos"])
+        col.objects.link(lo)
+
+
+def lights_key(lights):
+    return sorted(json.dumps([[round(float(c), 2) + 0.0 for c in l["pos"]], [round(float(c), 2) + 0.0 for c in l.get("color", [1, 1, 1])],
+                              round(float(l.get("radius", 10.0)), 1)]) for l in lights)
+
+
+def spawns_key(spawns):
+    return {k: [[round(float(c), 2) + 0.0 for c in v["pos"]], round(float(v.get("yaw_degrees", 0.0)), 1) + 0.0] for k, v in spawns.items()}
+
+
 # ----------------------------------------------------------------------------------------------- import / new map
 class UNC_OT_import_world(bpy.types.Operator):
     bl_idname = "uncounted.import_world"
@@ -462,6 +486,13 @@ class UNC_OT_import_world(bpy.types.Operator):
         for kind in KINDS:
             for e in world.get(kind, []):
                 co.objects.link(make_object(gdir, cache, kind, e, PREFIX[kind] + e[IDKEY[kind]]))
+        for sid, sp in world.get("spawns", {}).items():   # where players arrive (from portals, boats, new games)
+            co.objects.link(make_object(gdir, cache, "spawns", {"id": sid, "pos": sp["pos"], "yaw_degrees": sp.get("yaw_degrees", 0.0)},
+                                        "spawn:" + sid))
+        add_lights(world.get("lights", []), cw)
+        context.scene.uncounted_keep_scatter = bool(world.get("scatter")) or not base.get("scatter")
+        context.scene["unc_base_extra"] = json.dumps({"lights": lights_key(base.get("lights", [])),
+                                                      "spawns": spawns_key(base.get("spawns", {}))})
         build_palette(gdir, cache, base.get("props", []))
         context.scene["unc_base"] = json.dumps({k: {e[IDKEY[k]]: e for e in base.get(k, [])} for k in KINDS})
         context.scene["unc_base_ids"] = json.dumps(sorted(base_props))
@@ -540,13 +571,7 @@ class UNC_OT_import_map(bpy.types.Operator):
         for sid, s in m.get("spawns", {}).items():
             co.objects.link(make_object(gdir, cache, "spawns", {"id": sid, "pos": s["pos"], "yaw_degrees": s.get("yaw_degrees", 0.0)},
                                         "spawn:" + sid))
-        for i, l in enumerate(m.get("lights", [])):
-            ld = bpy.data.lights.new(f"light_{i}", "POINT")
-            ld.color = l.get("color", [1, 0.75, 0.4])
-            ld.energy = l.get("radius", 10.0) * 60.0
-            lo = bpy.data.objects.new(f"light_{i}", ld)
-            lo.location = to_blender(l["pos"])
-            cw.objects.link(lo)
+        add_lights(m.get("lights", []), cw)
         build_palette(gdir, cache, read_json(os.path.join(gdir, MAP_REL)).get("props", []))
         game_view(context)
         self.report({"INFO"}, f"Loaded your map '{sc.uncounted_map_name}'.")
@@ -619,60 +644,95 @@ def export_local_glb(me, gdir, rel):
     return anchor
 
 
-def fit_boxes(o, max_boxes=120):
-    """Collision that follows the shape: fill the mesh with a grid, merge the filled cells into as few boxes as possible.
-    Returns boxes as (min, max) in the object's scaled space (location and turn not applied), or None to use one box
-    (an open mesh, or too many boxes)."""
+def fit_boxes(o, max_boxes=400):
+    """Collision that follows the shape. Each loose part of the mesh is filled with a fine grid (a cell counts when its
+    centre is inside or a surface passes through it, so thin walls are caught) and the filled cells are merged into as
+    few boxes as possible. Boxes are (min, max) in the object's scaled
+    space (location and turn not applied). None means one box around everything will do."""
     import bmesh
     from mathutils.bvhtree import BVHTree
     bm = bmesh.new()
     bm.from_mesh(o.data)
     bmesh.ops.scale(bm, vec=o.scale, verts=bm.verts)
     bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-4)   # models split vertices at texture seams: weld them back
-    if any(len(e.link_faces) != 2 for e in bm.edges):
-        bm.free()
-        return None                                    # not closed: inside/outside is unknown
-    tree = BVHTree.FromBMesh(bm)
-    lo = Vector((min(v.co.x for v in bm.verts), min(v.co.y for v in bm.verts), min(v.co.z for v in bm.verts)))
-    hi = Vector((max(v.co.x for v in bm.verts), max(v.co.y for v in bm.verts), max(v.co.z for v in bm.verts)))
-    bm.free()
-    size = hi - lo
-    cell = max(0.2, max(size) / 60.0)
-    n = [max(1, math.ceil(size[i] / cell - 1e-6)) for i in range(3)]
-    step = [size[i] / n[i] for i in range(3)]
-    filled = set()
-    for i in range(n[0]):
-        for j in range(n[1]):
-            for k in range(n[2]):
-                p = Vector((lo.x + (i + 0.5) * step[0], lo.y + (j + 0.5) * step[1], lo.z + (k + 0.5) * step[2]))
-                hit = tree.find_nearest(p)
-                if hit[0] is not None and (hit[0] - p).dot(hit[1]) > 0.0:
-                    filled.add((i, j, k))
-    if len(filled) == n[0] * n[1] * n[2]:
-        return None                                    # solid all through: one box is exact
+    left_faces, islands = set(bm.faces), []
+    while left_faces:
+        f = left_faces.pop()
+        isl, stack = {f}, [f]
+        while stack:
+            g = stack.pop()
+            for e in g.edges:
+                for h in e.link_faces:
+                    if h not in isl:
+                        isl.add(h)
+                        stack.append(h)
+        left_faces -= isl
+        islands.append(isl)
     boxes = []
-    left = set(filled)
-    for c in sorted(filled):
-        if c not in left:
+    for isl in islands:
+        verts = list({v for f in isl for v in f.verts})
+        lo = Vector((min(v.co.x for v in verts), min(v.co.y for v in verts), min(v.co.z for v in verts)))
+        hi = Vector((max(v.co.x for v in verts), max(v.co.y for v in verts), max(v.co.z for v in verts)))
+        index = {v: i for i, v in enumerate(verts)}
+        tree = BVHTree.FromPolygons([v.co.copy() for v in verts], [[index[v] for v in f.verts] for f in isl])
+        size = hi - lo
+        reach = size.length + 1.0
+        cell = max(0.12, max(size) / 120.0)
+        while math.prod(max(1, math.ceil(size[i] / cell)) for i in range(3)) > 150000:
+            cell *= 1.25
+        n = [max(1, math.ceil(size[i] / cell - 1e-6)) for i in range(3)]
+        step = [size[i] / n[i] for i in range(3)]
+        near = 0.5 * max(step)
+        dirs = [Vector(d) for d in ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))]
+
+        def inside(p):
+            # Look out in six directions: from inside a solid you see the back of its surfaces. Works with overlapping
+            # pieces and meshes that aren't perfectly closed.
+            votes = 0
+            for k, d in enumerate(dirs):
+                hit = tree.ray_cast(p, d, reach)
+                if hit[0] is not None and hit[1].dot(d) > 0.0:
+                    votes += 1
+                if votes >= 4 or votes + (5 - k) < 4:
+                    break
+            return votes >= 4
+
+        filled = set()
+        for i in range(n[0]):
+            for j in range(n[1]):
+                for k in range(n[2]):
+                    p = Vector((lo.x + (i + 0.5) * step[0], lo.y + (j + 0.5) * step[1], lo.z + (k + 0.5) * step[2]))
+                    hit = tree.find_nearest(p)
+                    if hit[0] is not None and (hit[3] < near * 0.999 or inside(p)):
+                        filled.add((i, j, k))
+        if len(filled) == n[0] * n[1] * n[2]:
+            boxes.append((lo, hi))
             continue
-        i0, j0, k0 = c
-        i1 = i0
-        while (i1 + 1, j0, k0) in left:
-            i1 += 1
-        j1 = j0
-        while all((i, j1 + 1, k0) in left for i in range(i0, i1 + 1)):
-            j1 += 1
-        k1 = k0
-        while all((i, j, k1 + 1) in left for i in range(i0, i1 + 1) for j in range(j0, j1 + 1)):
-            k1 += 1
-        for i in range(i0, i1 + 1):
-            for j in range(j0, j1 + 1):
-                for k in range(k0, k1 + 1):
-                    left.discard((i, j, k))
-        boxes.append((Vector((lo.x + i0 * step[0], lo.y + j0 * step[1], lo.z + k0 * step[2])),
-                      Vector((lo.x + (i1 + 1) * step[0], lo.y + (j1 + 1) * step[1], lo.z + (k1 + 1) * step[2]))))
+        cells = set(filled)
+        for c in sorted(filled):
+            if c not in cells:
+                continue
+            i0, j0, k0 = c
+            i1 = i0
+            while (i1 + 1, j0, k0) in cells:
+                i1 += 1
+            j1 = j0
+            while all((i, j1 + 1, k0) in cells for i in range(i0, i1 + 1)):
+                j1 += 1
+            k1 = k0
+            while all((i, j, k1 + 1) in cells for i in range(i0, i1 + 1) for j in range(j0, j1 + 1)):
+                k1 += 1
+            for i in range(i0, i1 + 1):
+                for j in range(j0, j1 + 1):
+                    for k in range(k0, k1 + 1):
+                        cells.discard((i, j, k))
+            boxes.append((Vector((lo.x + i0 * step[0], lo.y + j0 * step[1], lo.z + k0 * step[2])),
+                          Vector((lo.x + (i1 + 1) * step[0], lo.y + (j1 + 1) * step[1], lo.z + (k1 + 1) * step[2]))))
         if len(boxes) > max_boxes:
-            return None
+            break
+    bm.free()
+    if len(boxes) <= 1 or len(boxes) > max_boxes:
+        return None
     return boxes
 
 
@@ -755,7 +815,7 @@ def collect(context, models_rel, base_ids, base_objs):
         if o.type == "LIGHT" and o.data.type == "POINT":
             c = o.data.color
             out["lights"].append({"pos": to_game(o.location), "color": [round(c[0], 3), round(c[1], 3), round(c[2], 3)],
-                                  "radius": round(max(3.0, min(25.0, o.data.energy / 60.0)), 2)})
+                                  "radius": round(max(0.5, o.data.energy / 60.0), 2)})
             continue
         if o.type not in ("MESH", "EMPTY") or (kind is None and o.hide_get()):
             continue
@@ -893,6 +953,13 @@ class UNC_OT_export(bpy.types.Operator):
                      "props": {"modify": r["modify"], "add": r["props"], "remove": sorted(base_ids - r["seen_props"])}}
             for k in KINDS:
                 edits[k] = {"set": r["objs"][k], "remove": sorted(set(base_objs.get(k, {})) - r["seen"][k])}
+            extra = json.loads(sc.get("unc_base_extra", "{}"))
+            if "lights" in extra and lights_key(r["lights"]) != extra["lights"]:
+                edits["lights"] = r["lights"]              # lights changed: the whole list is yours now
+            if "spawns" in extra and spawns_key(r["spawns"]) != extra["spawns"]:
+                edits["spawns"] = r["spawns"]
+            if not sc.uncounted_keep_scatter:
+                edits["scatter"] = []                      # no grass tufts and flowers: you're making your own ground
             base_path, map_path = os.path.join(gdir, BASE_REL), os.path.join(gdir, MAP_REL)
             if not os.path.exists(base_path):
                 shutil.copyfile(map_path, base_path)        # first save: keep the untouched level as the base
@@ -1008,6 +1075,7 @@ class UNC_PT_panel(bpy.types.Panel):
         row.prop(sc, "uncounted_mode", expand=True)
         if sc.uncounted_mode == "WORLD":
             lay.operator("uncounted.import_world", icon="IMPORT")
+            lay.prop(sc, "uncounted_keep_scatter")
         else:
             lay.prop(sc, "uncounted_map_name")
             row = lay.row(align=True)
@@ -1056,6 +1124,8 @@ def register():
     S.uncounted_mode = P.EnumProperty(name="Mode", items=[("WORLD", "Edit World", "Change the game's world"),
                                                           ("MAP", "New Map", "Build your own map")], default="WORLD")
     S.uncounted_map_name = P.StringProperty(name="Map name", default="My Map")
+    S.uncounted_keep_scatter = P.BoolProperty(name="Keep grass & flowers", default=True,
+                                              description="The game's grass tufts and wild flowers on the ground. Untick when you rebuild the ground yourself")
     S.uncounted_sky = P.FloatVectorProperty(name="Sky", subtype="COLOR", min=0, max=1, default=(0.09, 0.11, 0.17))
     S.uncounted_fog = P.FloatVectorProperty(name="Fog", subtype="COLOR", min=0, max=1, default=(0.08, 0.10, 0.16))
     S.uncounted_fog_density = P.FloatProperty(name="Fog density", min=0.0, max=0.2, default=0.025, precision=3)
@@ -1083,7 +1153,7 @@ def register():
 def unregister():
     for c in reversed(CLASSES):
         bpy.utils.unregister_class(c)
-    for name in ("uncounted_game_dir", "uncounted_mode", "uncounted_map_name", "uncounted_sky", "uncounted_fog", "uncounted_fog_density",
+    for name in ("uncounted_game_dir", "uncounted_mode", "uncounted_map_name", "uncounted_keep_scatter", "uncounted_sky", "uncounted_fog", "uncounted_fog_density",
                  "uncounted_ambient", "uncounted_sun", "uncounted_weather", "uncounted_panorama", "uncounted_music", "uncounted_ambience"):
         delattr(bpy.types.Scene, name)
     del bpy.types.Object.uncounted_solid

@@ -118,6 +118,33 @@ like `wall_stone_edit1.glb`), keeping where it stands, how it's turned and how b
   shape, so a doorway, arch or window stays open and the rest is solid. Turn it off for one box around the whole thing.
   It needs a closed mesh (no holes in the surface); an open mesh gets one box.
 
+## Rebuilding the world in your own style
+
+You can delete the game's ground, walls, buildings and stairs (in **Uncounted World**) and build your own. Things to know:
+
+- **Names don't matter.** Call your meshes anything. Only two rules: a name starting with **COL** makes an invisible
+  collision box (so don't start visible pieces with COL), and keeping a name the same keeps the same model file.
+- **What you can stand on**: the top of anything solid, a non-solid piece up to 0.7 m thick (floors, rugs, decks), or a
+  ramp. You step up at most **0.45 m** without jumping. Where there's no floor at all, the game still lets you walk at
+  height 0, on nothing visible.
+- **Keep the ground at the old heights** (Bellwether, the road, the docks and the woods at 0; the Registry Annex at −4.8;
+  Vault Three at −10.4), or move the things standing on it. Characters, monsters, chests and spawn points keep their
+  heights.
+- **Stairs**: either one sloped mesh with **Ramp** set (and Solid off), or real steps no taller than 0.45 m each (the
+  shape-fitting collision makes each step something to stand on).
+- **Buildings** can be one mesh each, overlapping boxes included: collision follows the shape, so doorways and rooms stay
+  open. Make doorways at least 1.2 m wide (the player is 0.64 m wide). Very big meshes (over about 15 m) get a coarser
+  collision grid, so split huge things into a few objects, and keep floors separate objects for exact floor heights.
+- **Objects stay**: chests, doors, levers, signs, clues, NPCs, monsters, gathering spots and fishing spots are in
+  **Uncounted Objects**, not part of the buildings, so deleting buildings leaves them where they were. Move them onto
+  your new floors. **Doors** (1.84 m wide, 2.8 m tall) stay standing on their own: build your walls around them or move
+  them. Don't delete clue spots, signs, quest doors, levers or chests the story uses; moving them is fine.
+- **Spawn points** (the arrows) are where players arrive from portals, boats and new games. Move them with the ground.
+- **Lights**: the world's lights are Blender point lights in **Uncounted World**. Delete the ones that lit removed
+  buildings, add your own.
+- **Keep grass & flowers** (under Import World): untick it to remove the game's grass tufts and wild flowers, which sit
+  on the old ground.
+
 ## Making a new map
 
 1. Pick **New Map**, type a **Map name**, and press **New Map**. You get a 20 m cobblestone floor, a spawn point

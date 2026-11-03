@@ -35,4 +35,7 @@ def apply_edits(world, edits, warn=None):
         for e in lst:
             e.update(ke.get("modify", {}).get(e[idk], {}))
         world[key] = lst
+    for key in ("lights", "spawns", "scatter"):        # replaced whole when changed in Blender
+        if key in edits:
+            world[key] = edits[key]
     return world

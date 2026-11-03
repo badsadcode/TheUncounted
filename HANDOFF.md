@@ -401,6 +401,10 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   Solid meshes get shape-fitting collision: the closed mesh is voxelised (BVH inside test, cell >= 0.2 m) and greedily
   merged into invisible `<id>__fitN` boxes (<= 120, else one box); the visible piece becomes non-solid. `__fit` props are
   skipped on import and rebuilt on export.
+  v4.2: World mode also brings in the map's lights (POINT lights, W = radius x 60) and spawns (arrows); when they differ
+  from the base, the edits carry the whole `lights` / `spawns` list; `scatter: []` when "Keep grass & flowers" is off
+  (`tools/map_edits.py` handles all three). Fit collision now works per loose part with a six-ray back-face vote, so
+  overlapping boxes and imperfect meshes work (no closed-mesh requirement), grid >= 0.12 m, <= 150k cells per part.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)
