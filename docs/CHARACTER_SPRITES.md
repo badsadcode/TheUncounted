@@ -64,6 +64,8 @@ rearing or crouching, and attack is a lunge or bite.
 
 ### How it gets into the game (for reference)
 
+A whole package (folder or .zip) goes in with `python tools/import_package.py PACKAGE --apply`. Name each file after its character ("Vampire Ashgrave.png", "Kaelen.webp"...). The tool matches names, imports everything and writes a review picture that flags clipped or empty frames. Single sheets:
+
 ```bash
 python tools/import_spritesheet.py art_source/spritesheets/NAME.webp assets/sprites/npcs/NAME_painted.png \
     --frame 128 --match assets/sprites/npcs/NAME.png --match-col 0

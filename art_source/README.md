@@ -11,7 +11,7 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/crypt_keeper.webp` | `assets/sprites/enemies/crypt_keeper_painted.png` | Crypt Keeper |
 | `spritesheets/lullaby_warden.webp` | `assets/sprites/enemies/lullaby_warden_painted.png` | The Lullaby Warden |
 | `spritesheets/ash_crawler.webp` | `assets/sprites/enemies/ash_crawler_painted.png` | Ash Crawler |
-| `spritesheets/kaelen_ashbound_scout.webp` | `assets/sprites/npcs/ashbound_scout_painted.png` | Kaelen |
+| `spritesheets/ashbound_scout.webp` | `assets/sprites/npcs/ashbound_scout_painted.png` | Kaelen |
 | `spritesheets/brother_aldous.webp` | `assets/sprites/npcs/brother_aldous_painted.png` | Brother Aldous |
 | `spritesheets/clerk_oakhaven.webp` | `assets/sprites/npcs/clerk_oakhaven_painted.png` | Clerk Oakhaven |
 | `spritesheets/erased_spirit.webp` | `assets/sprites/npcs/erased_spirit_painted.png` | The Erased Spirit |
@@ -48,6 +48,13 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/wailing_footman.webp` | `assets/sprites/enemies/wailing_footman_painted.png` | Wailing Footman |
 | `spritesheets/werewolf_rolf.webp` | `assets/sprites/npcs/werewolf_rolf_painted.png` | Rolf |
 | `spritesheets/wrathful_host.webp` | `assets/sprites/enemies/wrathful_host_painted.png` | The Wrathful Host |
+
+**A whole package at once** (folder or .zip; file names just need to contain the character's name):
+
+```bash
+python tools/import_package.py path/to/package.zip            # dry run: which file goes to which character
+python tools/import_package.py path/to/package.zip --apply    # import all, update content, write import_report.png
+```
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):
