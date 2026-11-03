@@ -367,5 +367,8 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   blob-to-cell assignment (limbs/tails crossing cell borders stay with their owner), one shared scale matched to the old
   sheet's in-frame height, feet on the pivot, and an animation JSON with the new frame size (world size is unchanged).
 - In use (trial, from the user's own art): `grave_rat_painted.png` / `grave_rat_128.json` and `skeleton_painted.png` /
-  `skeleton_128.json` for `core:enemy.grave_rat` and `core:enemy.restless_skeleton`. The old generated sheets are kept;
-  revert by pointing the creatures back at them.
+  `skeleton_128.json` for `core:enemy.grave_rat` and `core:enemy.restless_skeleton`; `crypt_keeper_painted.png`
+  (Crypt Keeper, and the Lullaby Warden's `lullaby_warden_painted.png`, both on `crypt_keeper_128.json`) and
+  `ash_crawler_painted.png` / `ash_crawler_128.json`. The old generated sheets are kept; revert by pointing the
+  creatures back at them. Blobs bigger than a cell (two figures touching) are split at their thinnest slice near the
+  grid line.

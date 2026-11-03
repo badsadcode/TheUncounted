@@ -94,8 +94,8 @@
       "name_key": "enemy.ash_crawler.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/ash_crawler.png",
-        "animation_data": "assets/animations/ash_crawler.json",
+        "sprite_sheet": "assets/sprites/enemies/ash_crawler_painted.png",
+        "animation_data": "assets/animations/ash_crawler_128.json",
         "scale": 1.35
       },
       "stats": {
@@ -185,8 +185,8 @@
       "name_key": "enemy.crypt_keeper.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/crypt_keeper.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/crypt_keeper_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 2.05
       },
       "stats": {
@@ -236,8 +236,8 @@
       "name_key": "enemy.lullaby_warden.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/lullaby_warden.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/lullaby_warden_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 2.15
       },
       "stats": {

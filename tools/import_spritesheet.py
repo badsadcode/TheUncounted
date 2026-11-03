@@ -46,16 +46,18 @@ def label_components(alpha, thresh=8):
         labels[y0, x0] = lab
         q = deque([(y0, x0)])
         n = sx = sy = 0
+        bx0, by0, bx1, by1 = x0, y0, x0, y0
         while q:
             y, x = q.popleft()
             n += 1; sx += x; sy += y
+            bx0, by0, bx1, by1 = min(bx0, x), min(by0, y), max(bx1, x), max(by1, y)
             for dy in (-1, 0, 1):
                 for dx in (-1, 0, 1):
                     yy, xx = y + dy, x + dx
                     if 0 <= yy < h and 0 <= xx < w and mask[yy, xx] and not labels[yy, xx]:
                         labels[yy, xx] = lab
                         q.append((yy, xx))
-        stats.append((n, sx / n, sy / n))
+        stats.append((n, sx / n, sy / n, bx1 - bx0 + 1, by1 - by0 + 1))
     return labels, stats
 
 
@@ -88,11 +90,33 @@ def main():
     arr = np.asarray(src)
     labels, stats = label_components(arr[:, :, 3])
     owner = np.zeros(len(stats), dtype=np.int32) - 1
+    merged = np.zeros(len(stats), dtype=bool)
     for lab in range(1, len(stats)):
-        n, mx, my = stats[lab]
+        n, mx, my, bw, bh = stats[lab]
         if n >= 12:
             owner[lab] = min(ROWS - 1, int(my // ch)) * COLS + min(COLS - 1, int(mx // cw))
+            # Bigger than one cell: two neighbouring figures touch (a raised staff meets the feet above). Split those
+            # pixels along the grid lines instead of giving the whole lump to one cell.
+            merged[lab] = bw > cw * 1.2 or bh > ch * 1.2
     own = owner[labels]
+    for lab in np.nonzero(merged)[0]:
+        ys, xs = np.nonzero(labels == lab)
+
+        def cuts(coords, step, count):
+            # For each grid line inside the blob, cut at the thinnest slice within 30% of a cell of it.
+            out = []
+            for k in range(1, count):
+                b = k * step
+                if coords.min() < b < coords.max():
+                    lo, hi = int(b - step * 0.3), int(b + step * 0.3)
+                    hist = np.bincount(np.clip(coords, lo, hi) - lo, minlength=hi - lo + 1)[1:-1]
+                    out.append(lo + 1 + int(np.argmin(hist)))
+                else:
+                    out.append(b)
+            return np.array(out)
+
+        ry, rx = cuts(ys, ch, ROWS), cuts(xs, cw, COLS)
+        own[ys, xs] = np.searchsorted(ry, ys, side="right") * COLS + np.searchsorted(rx, xs, side="right")
     cells, boxes = {}, {}
     pad = int(max(cw, ch) * 0.25)
     for r in range(ROWS):
