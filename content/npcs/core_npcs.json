@@ -1442,8 +1442,8 @@
       "dialogue_id": "core:dialogue.figure_rodrick",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/figure_rodrick.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/figure_rodrick_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.8
       },
       "barks": [
@@ -1460,8 +1460,8 @@
       "dialogue_id": "core:dialogue.figure_primrose",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/figure_primrose.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/figure_primrose_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.78
       },
       "barks": [
@@ -1478,8 +1478,8 @@
       "dialogue_id": "core:dialogue.figure_agnes",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/figure_agnes.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/figure_agnes_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.6
       },
       "barks": [
@@ -1496,8 +1496,8 @@
       "dialogue_id": "core:dialogue.figure_snacks",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/figure_snacks.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/figure_snacks_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.5
       },
       "barks": [

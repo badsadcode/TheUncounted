@@ -1,20 +1,4 @@
 # Sprite sheets still to remake
 
-These are the game's current *generated* sheets, scaled up 3x on black so they match the layout of the hand-painted
-ones: **8 columns** (front, front-left, left, back-left, back, back-right, right, front-right) x **6 rows**
-(idle, walk A, walk B, windup, attack, then stagger in columns 1-4 and corpse/lying-down in columns 5-8).
-Keep the same order and a plain black background; the importer handles the rest. `_overview.png` shows them all.
-Write the 8 directions turning the same way as the earlier sheets (front, then turning to the character's right).
-
-Suggested order: the characters Toasty spends the most time with first.
-
-## The Figure It Out Gang (Toasty's mystery-gang spinoff)
-Placeholder sheets rendered by `tools/build_sprites_prerendered.py`. Same 8x6 layout.
-| File | Who | Notes |
-|---|---|---|
-| `figure_rodrick.png` | **Sir Rodrick Ascot-Smythe** | Square-jawed blond leader, white tunic, orange cravat, coil of rope. Heroic poses, bad plans. |
-| `figure_primrose.png` | **Lady Primrose Vane** | Tall, glamorous, red hair pinned up, purple gown, green silk scarf. Secretly a brawler. |
-| `figure_agnes.png` | **Agnes Thimble** | Short, huge orange jumper, red skirt, thick spectacles (sliding off), a book. |
-| `figure_snacks.png` | **Snacks** | Owlbear *cub*: dog-sized, brown feathers and fur, owl face, enormous worried eyes. (Four-legged.) |
-| `phantom_clerk.png` | **The Phantom Clerk** (enemy) | A bedsheet ghost in Bureau robes, glowing green ink smears, a DECEASED stamp. Clearly someone underneath. |
-| `howler.png` | **The Howler of Hollowmere** (enemy) | A shaggy "werewolf" costume, wooden claws, and very obvious sandals. |
+None. Every character now has a hand-painted sheet (see `art_source/README.md`).
+For new characters, follow the spec in `docs/CHARACTER_SPRITES.md` and import with `tools/import_package.py`.

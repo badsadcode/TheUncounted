@@ -56,6 +56,12 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 python tools/import_package.py path/to/package.zip            # dry run: which file goes to which character
 python tools/import_package.py path/to/package.zip --apply    # import all, update content, write import_report.png
 ```
+| `spritesheets/figure_agnes.png` | `assets/sprites/npcs/figure_agnes_painted.png` | Figure Agnes |
+| `spritesheets/howler.png` | `assets/sprites/enemies/howler_painted.png` | Howler |
+| `spritesheets/figure_primrose.png` | `assets/sprites/npcs/figure_primrose_painted.png` | Figure Primrose |
+| `spritesheets/phantom_clerk.png` | `assets/sprites/enemies/phantom_clerk_painted.png` | Phantom Clerk |
+| `spritesheets/figure_rodrick.png` | `assets/sprites/npcs/figure_rodrick_painted.png` | Figure Rodrick |
+| `spritesheets/figure_snacks.png` | `assets/sprites/npcs/figure_snacks_painted.png` | Figure Snacks |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

@@ -921,8 +921,8 @@
       "name_key": "enemy.phantom_clerk.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/phantom_clerk.png",
-        "animation_data": "assets/animations/skeleton.json",
+        "sprite_sheet": "assets/sprites/enemies/phantom_clerk_painted.png",
+        "animation_data": "assets/animations/skeleton_128.json",
         "scale": 1.9
       },
       "stats": {
@@ -970,8 +970,8 @@
       "name_key": "enemy.howler.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/howler.png",
-        "animation_data": "assets/animations/skeleton.json",
+        "sprite_sheet": "assets/sprites/enemies/howler_painted.png",
+        "animation_data": "assets/animations/skeleton_128.json",
         "scale": 2.0
       },
       "stats": {

@@ -121,10 +121,10 @@ animals. The original goes in `art_source/spritesheets/`. The character's `appea
 ### The Figure It Out Gang (a mystery-gang spinoff Toasty invented)
 | Character | Status | Description |
 |---|---|---|
-| **Sir Rodrick Ascot-Smythe** | 🟡 | Square-jawed blond leader. White tunic, orange cravat, a coil of rope. Heroic poses, terrible trap plans. |
-| **Lady Primrose Vane** | 🟡 | Tall and glamorous, red hair pinned up, purple gown, green silk scarf. Always being kidnapped; secretly punches very hard. |
-| **Agnes Thimble** | 🟡 | Short, huge orange jumper, red skirt, very thick spectacles (always sliding off), a book. Actually solves every case. |
-| **Snacks** | 🟡 | Owlbear *cub*: dog-sized, four-legged, brown feathers and fluffy fur, owl face, enormous worried eyes. Cowardly. Loves Crumb Cakes. |
+| **Sir Rodrick Ascot-Smythe** | ✅ | Square-jawed blond leader. White tunic, orange cravat, a coil of rope. Heroic poses, terrible trap plans. |
+| **Lady Primrose Vane** | ✅ | Tall and glamorous, red hair pinned up, purple gown, green silk scarf. Always being kidnapped; secretly punches very hard. |
+| **Agnes Thimble** | ✅ | Short, huge orange jumper, red skirt, very thick spectacles (always sliding off), a book. Actually solves every case. |
+| **Snacks** | ✅ | Owlbear *cub*: dog-sized, four-legged, brown feathers and fluffy fur, owl face, enormous worried eyes. Cowardly. Loves Crumb Cakes. |
 | *(Baggy)* | ✅ | Gang member, see above. |
 | **The Figure It Out Wagon** | 🧊 | A painted caravan (3D prop): teal, orange stripes, flowers, a big question mark. |
 
@@ -148,7 +148,7 @@ animals. The original goes in `art_source/spritesheets/`. The character's `appea
 | **Grey Wolf** | ✅ | A grey wolf (four-legged). |
 | **A Wolf in Grandmother's Nightgown** | ✅ | Exactly what it says: a wolf in a nightgown and bonnet. |
 | **The Dreaming Limb** | ✅ | Giant eldritch tentacle from the reef. |
-| **The Phantom Clerk** | 🟡 | A bedsheet "ghost" in Bureau robes with glowing green ink smears and a DECEASED stamp. Clearly someone underneath. |
-| **The Howler of Hollowmere** | 🟡 | A shaggy fake-werewolf costume: wooden claws and very obvious sandals. |
+| **The Phantom Clerk** | ✅ | A bedsheet "ghost" in Bureau robes with glowing green ink smears and a DECEASED stamp. Clearly someone underneath. |
+| **The Howler of Hollowmere** | ✅ | A shaggy fake-werewolf costume: wooden claws and very obvious sandals. |
 | **Lost Sentinel** | 🧊 | Stone construct (3D model). |
 | **Animated Armour** | 🧊 | Walking suit of armour (3D model). |
