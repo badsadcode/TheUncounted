@@ -333,3 +333,29 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
 3. More world: the mod's unused *Crimson Revenant* could guard a new area; Bellwether interiors (Fenwick's library upstairs).
 4. Visual polish: textures are still simple 64×64 procedurals; the bread pickup and some props reuse generic models.
 5. Combat feel needs a human play-test (sensitivity, swing timing, enemy windups).
+
+### The Whistling Wood and Case File #3: The Horse Who Wasn't There (added 2026-11-03)
+
+- **The Whistling Wood** (`tools/build_wood.py` → `content/regions/whistling_wood.json`, generated; WOOD_OFF = (-46, 0, 0))
+  west of Bellwether through a new 3.2 m gap in the west wall (`bell_wall_west` is split in `build_world.py`; a short
+  walled lane crosses the village's outer grass). Pines, a winding path, **the Old Oak** (models `oak_trunk.glb`, solid,
+  and `oak_canopy.glb`, walk-under — the canopy carries a zero-area triangle at the origin because props anchor at their
+  bounding-box bottom), Steve's camp (`tent.glb`, campfire), and Grandmother's ruined cottage (chest with the Red Hood).
+  Models: `python tools/build_item_models.py wood_models`. Zone `whistling_wood`.
+- **Sprites:** new `quadruped` kind in `build_sprites_prerendered.py` (horse with mane/blaze/saddle, or wolf with ruff;
+  optional `bonnet`/`gown`), plus humanoid `hat: "pot"` and `weapon: "spoon"`. Sheets: `trout`, `grey_wolf`,
+  `granny_wolf`, `steve`. Creatures `core:enemy.grey_wolf` and `core:enemy.granny_wolf` (beasts, loot `core:loot.wolf`).
+- **Case File #3** (`core:quest.trout`, campaign `hollowmere_mysteries`, after Saltmere = 100): Hollis's horse Trout
+  stopped coming when he whistles; a misspelled ransom note (item, readable; back of Steve's character sheet).
+  Stage 10: gather ≥4 of the `trout_c_*` clues (readables: library-wall hoofprints in Bellwether, the boundary stone on
+  the Old Road, a horseshoe on the Saltmere bollard, the wood's signpost, Steve's pinned drafts, Granny's note, the oak's
+  hollow; interviews: Vaelen, Fenwick, Baggy, Oakhaven, Rolf, Ashgrave, Steve; Sabrino is a red herring). Deduce with
+  Hollis: who wrote it (Steve — needs a Steve lead) and why she won't come (the oak whistles Hollis's whistle — needs
+  `trout_c_whistle`) → stage 20, `trout_wood` (spawns 4 camp wolves, group flag `steve_safe`, and the granny wolf).
+  Steve confesses, his ransom notes plug the hollow (`oak_plugged`, stage 30), you whistle and Trout comes, then goes
+  home (Trout NPC beside Hollis). Steve's future: `steve_in_town` (moves to the Lantern Inn's Thursday table),
+  `steve_honest` or `steve_scared`; all give Steve's Spoon (dagger: 30% crit, ×3, bane beast). Hollis → 100:
+  Trout's First Horseshoe (accessory) and Hollis's Deck (book: the rules of 'Hmm'). Trout can be patted (+sanity).
+  Authoring script: `tools/authoring/case3.py` (already run — do not rerun).
+- Steve is canon now: a real bandit Oakhaven met nineteen years ago and wrote into his game. Keep that consistent.
+

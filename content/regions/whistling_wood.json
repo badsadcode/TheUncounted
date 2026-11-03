@@ -1,0 +1,1751 @@
+{
+  "schema_version": 1,
+  "id": "core:map.whistling_wood",
+  "display_name_key": "map.whistling_wood.name",
+  "music": "assets/audio/music/old_road_theme.wav",
+  "ambience": "assets/audio/ambience/forest_wind.wav",
+  "sky_color": [
+    40,
+    52,
+    50
+  ],
+  "ambient_color": [
+    0.42,
+    0.5,
+    0.42
+  ],
+  "sun_direction": [
+    0.3,
+    0.8,
+    0.2
+  ],
+  "sun_color": [
+    0.62,
+    0.66,
+    0.52
+  ],
+  "fog_color": [
+    0.2,
+    0.26,
+    0.22
+  ],
+  "fog_density": 0.04,
+  "weather": "",
+  "spawns": {
+    "wood_lane": {
+      "pos": [
+        20.0,
+        0.0,
+        0.0
+      ],
+      "yaw_degrees": -90.0
+    }
+  },
+  "props": [
+    {
+      "id": "wood_floor",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -1.0,
+        -0.5,
+        0.0
+      ],
+      "scale": [
+        46.0,
+        0.5,
+        44.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        16,
+        16
+      ]
+    },
+    {
+      "id": "wood_rock_w",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -24.0,
+        -0.5,
+        0.0
+      ],
+      "scale": [
+        1.2,
+        6.0,
+        45.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        17.38,
+        2.0
+      ]
+    },
+    {
+      "id": "wood_rock_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.5,
+        -0.5,
+        -22.0
+      ],
+      "scale": [
+        50.2,
+        6.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        19.31,
+        2.0
+      ]
+    },
+    {
+      "id": "wood_rock_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.5,
+        -0.5,
+        22.0
+      ],
+      "scale": [
+        50.2,
+        6.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        19.31,
+        2.0
+      ]
+    },
+    {
+      "id": "wood_rock_e_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        22.0,
+        -0.5,
+        -11.5
+      ],
+      "scale": [
+        1.2,
+        6.0,
+        19.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        7.62,
+        2.0
+      ]
+    },
+    {
+      "id": "wood_rock_e_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        22.0,
+        -0.5,
+        11.5
+      ],
+      "scale": [
+        1.2,
+        6.0,
+        19.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        7.62,
+        2.0
+      ]
+    },
+    {
+      "id": "lane_wall_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        24.1,
+        -0.5,
+        -1.9
+      ],
+      "scale": [
+        3.0,
+        5.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.67
+      ]
+    },
+    {
+      "id": "lane_wall_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        24.1,
+        -0.5,
+        1.9
+      ],
+      "scale": [
+        3.0,
+        5.0,
+        0.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.67
+      ]
+    },
+    {
+      "id": "corner_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        25.2,
+        -0.5,
+        -21.0
+      ],
+      "scale": [
+        0.8,
+        5.0,
+        3.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.23,
+        1.67
+      ]
+    },
+    {
+      "id": "corner_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        25.2,
+        -0.5,
+        21.0
+      ],
+      "scale": [
+        0.8,
+        5.0,
+        3.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.23,
+        1.67
+      ]
+    },
+    {
+      "id": "lane_path",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        23.2,
+        -0.48,
+        0.0
+      ],
+      "scale": [
+        3.6,
+        0.5,
+        3.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.4,
+        1.2
+      ]
+    },
+    {
+      "id": "path_0",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        17.7,
+        -0.49,
+        0.0
+      ],
+      "scale": [
+        9.2,
+        0.505,
+        1.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        4.0,
+        0.6
+      ]
+    },
+    {
+      "id": "path_1",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        11.0,
+        -0.49,
+        -1.0
+      ],
+      "scale": [
+        7.8,
+        0.505,
+        3.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.3,
+        1.5
+      ]
+    },
+    {
+      "id": "path_2",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        5.5,
+        -0.49,
+        -3.0
+      ],
+      "scale": [
+        6.8,
+        0.505,
+        3.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        2.9,
+        1.5
+      ]
+    },
+    {
+      "id": "path_3",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.5,
+        -0.49,
+        -5.5
+      ],
+      "scale": [
+        6.8,
+        0.505,
+        4.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        2.9,
+        2.0
+      ]
+    },
+    {
+      "id": "path_4",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        -2.0,
+        -0.49,
+        -8.5
+      ],
+      "scale": [
+        1.8,
+        0.505,
+        4.8
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        2.0
+      ]
+    },
+    {
+      "id": "fork_0",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        -1.5,
+        -0.495,
+        -1.5
+      ],
+      "scale": [
+        10.6,
+        0.507,
+        6.6
+      ],
+      "solid": false,
+      "uv_scale": [
+        4.7,
+        2.9
+      ]
+    },
+    {
+      "id": "fork_1",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        -8.75,
+        -0.495,
+        3.0
+      ],
+      "scale": [
+        7.1,
+        0.507,
+        5.6
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.1,
+        2.4
+      ]
+    },
+    {
+      "id": "fork_2",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        8.75,
+        -0.495,
+        3.75
+      ],
+      "scale": [
+        3.1,
+        0.507,
+        13.1
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.3,
+        5.8
+      ]
+    },
+    {
+      "id": "pine_0",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -21.0,
+        0.0,
+        -19.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_1",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -17.0,
+        0.0,
+        -20.0
+      ],
+      "rot_y": 37.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_2",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -12.0,
+        0.0,
+        -19.5
+      ],
+      "rot_y": 74.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_3",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -7.0,
+        0.0,
+        -20.0
+      ],
+      "rot_y": 111.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_4",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        2.0,
+        0.0,
+        -19.5
+      ],
+      "rot_y": 148.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_5",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        7.0,
+        0.0,
+        -20.0
+      ],
+      "rot_y": 185.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_6",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        12.0,
+        0.0,
+        -19.0
+      ],
+      "rot_y": 222.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_7",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        17.0,
+        0.0,
+        -20.0
+      ],
+      "rot_y": 259.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_8",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        20.0,
+        0.0,
+        -16.0
+      ],
+      "rot_y": 296.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_9",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        19.5,
+        0.0,
+        -9.0
+      ],
+      "rot_y": 333.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_10",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        20.0,
+        0.0,
+        7.0
+      ],
+      "rot_y": 370.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_11",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        19.5,
+        0.0,
+        12.0
+      ],
+      "rot_y": 407.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_12",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        20.0,
+        0.0,
+        18.0
+      ],
+      "rot_y": 444.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_13",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        15.0,
+        0.0,
+        20.0
+      ],
+      "rot_y": 481.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_14",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        6.0,
+        0.0,
+        20.0
+      ],
+      "rot_y": 518.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_15",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        1.0,
+        0.0,
+        19.5
+      ],
+      "rot_y": 555.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_16",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -5.0,
+        0.0,
+        20.0
+      ],
+      "rot_y": 592.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_17",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        20.0
+      ],
+      "rot_y": 629.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_18",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        19.5
+      ],
+      "rot_y": 666.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_19",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -21.0,
+        0.0,
+        19.0
+      ],
+      "rot_y": 703.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_20",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -21.0,
+        0.0,
+        13.0
+      ],
+      "rot_y": 740.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_21",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -21.5,
+        0.0,
+        7.0
+      ],
+      "rot_y": 777.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_22",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -21.0,
+        0.0,
+        0.0
+      ],
+      "rot_y": 814.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_23",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -21.5,
+        0.0,
+        -6.0
+      ],
+      "rot_y": 851.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_24",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -21.0,
+        0.0,
+        -12.0
+      ],
+      "rot_y": 888.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_25",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        14.0,
+        0.0,
+        -12.0
+      ],
+      "rot_y": 925.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_26",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        11.0,
+        0.0,
+        -15.0
+      ],
+      "rot_y": 962.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_27",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        6.0,
+        0.0,
+        -14.0
+      ],
+      "rot_y": 999.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_28",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -9.0,
+        0.0,
+        -15.0
+      ],
+      "rot_y": 1036.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_29",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -13.0,
+        0.0,
+        -10.0
+      ],
+      "rot_y": 1073.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_30",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -18.0,
+        0.0,
+        -14.0
+      ],
+      "rot_y": 1110.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_31",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        16.0,
+        0.0,
+        6.0
+      ],
+      "rot_y": 1147.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_32",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        13.0,
+        0.0,
+        5.0
+      ],
+      "rot_y": 1184.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_33",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        4.0,
+        0.0,
+        6.0
+      ],
+      "rot_y": 1221.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_34",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        1.0,
+        0.0,
+        12.0
+      ],
+      "rot_y": 1258.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_35",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -5.0,
+        0.0,
+        13.0
+      ],
+      "rot_y": 1295.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_36",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -8.0,
+        0.0,
+        9.0
+      ],
+      "rot_y": 1332.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_37",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -19.0,
+        0.0,
+        3.0
+      ],
+      "rot_y": 1369.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_38",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -4.0,
+        0.0,
+        -2.0
+      ],
+      "rot_y": 1406.0,
+      "scale": [
+        1.2874999999999999,
+        1.4806249999999996,
+        1.2874999999999999
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_39",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        12.0,
+        0.0,
+        -6.0
+      ],
+      "rot_y": 1443.0,
+      "scale": [
+        1.4625,
+        1.6818749999999998,
+        1.4625
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_40",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        17.0,
+        0.0,
+        -4.0
+      ],
+      "rot_y": 1480.0,
+      "scale": [
+        1.2,
+        1.38,
+        1.2
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_41",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        -4.0
+      ],
+      "rot_y": 1517.0,
+      "scale": [
+        1.375,
+        1.5812499999999998,
+        1.375
+      ],
+      "solid": true
+    },
+    {
+      "id": "pine_42",
+      "model": "assets/models/env/tree_pine.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        -4.0
+      ],
+      "rot_y": 1554.0,
+      "scale": [
+        1.5499999999999998,
+        1.7824999999999998,
+        1.5499999999999998
+      ],
+      "solid": true
+    },
+    {
+      "id": "oak_trunk",
+      "model": "assets/models/env/oak_trunk.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        6.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "oak_canopy",
+      "model": "assets/models/env/oak_canopy.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        6.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "tent",
+      "model": "assets/models/env/tent.glb",
+      "pos": [
+        -2.0,
+        0.0,
+        -13.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "tent_bedroll",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -2.0,
+        0.0,
+        -13.15
+      ],
+      "scale": [
+        2.0,
+        0.12,
+        0.9
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.8,
+        0.3
+      ]
+    },
+    {
+      "id": "camp_fire_stone0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -1.5,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "camp_fire_stone1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -1.75,
+        0.0,
+        -9.567
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "camp_fire_stone2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -2.25,
+        0.0,
+        -9.567
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "camp_fire_stone3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -2.5,
+        0.0,
+        -10.0
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "camp_fire_stone4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -2.25,
+        0.0,
+        -10.433
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "camp_fire_stone5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -1.75,
+        0.0,
+        -10.433
+      ],
+      "scale": [
+        0.24,
+        0.2,
+        0.24
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "camp_fire",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -2.0,
+        -0.55,
+        -10.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false,
+      "emitter": {
+        "sprite": "assets/sprites/vfx/torch_flame.png",
+        "offset": [
+          0.0,
+          0.86,
+          0.0
+        ],
+        "size": 0.6,
+        "light_color": [
+          1.0,
+          0.6,
+          0.28
+        ],
+        "light_radius": 8.0
+      }
+    },
+    {
+      "id": "camp_crate_0",
+      "model": "assets/models/props/wooden_crate.glb",
+      "pos": [
+        0.6000000000000001,
+        0.0,
+        -12.6
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "camp_crate_1",
+      "model": "assets/models/props/wooden_crate.glb",
+      "pos": [
+        1.2000000000000002,
+        0.0,
+        -11.8
+      ],
+      "rot_y": 30.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": true
+    },
+    {
+      "id": "cottage_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        10.0,
+        0.0,
+        14.0
+      ],
+      "scale": [
+        6.0,
+        0.04,
+        5.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "cottage_w",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        7.2,
+        0.0,
+        14.0
+      ],
+      "scale": [
+        0.4,
+        2.4,
+        5.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.92,
+        0.8
+      ]
+    },
+    {
+      "id": "cottage_n_a",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        8.1,
+        0.0,
+        11.7
+      ],
+      "scale": [
+        2.2,
+        1.6,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.85,
+        0.53
+      ]
+    },
+    {
+      "id": "cottage_n_b",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        11.9,
+        0.0,
+        11.7
+      ],
+      "scale": [
+        2.2,
+        2.8,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.85,
+        0.93
+      ]
+    },
+    {
+      "id": "cottage_e",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        12.8,
+        0.0,
+        14.0
+      ],
+      "scale": [
+        0.4,
+        1.2,
+        5.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.92,
+        0.4
+      ]
+    },
+    {
+      "id": "cottage_s",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        10.0,
+        0.0,
+        16.3
+      ],
+      "scale": [
+        6.0,
+        2.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.31,
+        0.67
+      ]
+    },
+    {
+      "id": "cottage_bed",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        11.5,
+        0.0,
+        15.1
+      ],
+      "scale": [
+        1.8,
+        0.55,
+        1.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.7,
+        0.3
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "pos": [
+        -11.5,
+        3.0,
+        7.0
+      ],
+      "color": [
+        0.6,
+        0.8,
+        0.55
+      ],
+      "radius": 9.0
+    }
+  ],
+  "npcs": [
+    {
+      "instance_id": "npc_trout_oak",
+      "npc_id": "core:npc.trout",
+      "pos": [
+        -14.0,
+        11.45,
+        6.0
+      ],
+      "yaw": 90.0,
+      "requires_flag": "trout_case",
+      "hidden_flag": "oak_plugged"
+    },
+    {
+      "instance_id": "npc_steve",
+      "npc_id": "core:npc.steve",
+      "pos": [
+        -0.8,
+        0.0,
+        -11.4
+      ],
+      "yaw": 10.0,
+      "requires_flag": "trout_case",
+      "hidden_flag": "steve_in_town"
+    }
+  ],
+  "creatures": [
+    {
+      "instance_id": "camp_wolf_0",
+      "creature_id": "core:enemy.grey_wolf",
+      "pos": [
+        3.0,
+        0.0,
+        -9.0
+      ],
+      "patrol_a": [
+        3.0,
+        0.0,
+        -12.0
+      ],
+      "patrol_b": [
+        4.0,
+        0.0,
+        -7.0
+      ],
+      "requires_flag": "trout_wood",
+      "group": "camp_wolves",
+      "group_set_flag": "steve_safe"
+    },
+    {
+      "instance_id": "camp_wolf_1",
+      "creature_id": "core:enemy.grey_wolf",
+      "pos": [
+        -6.5,
+        0.0,
+        -8.5
+      ],
+      "patrol_a": [
+        -8.0,
+        0.0,
+        -10.0
+      ],
+      "patrol_b": [
+        -5.0,
+        0.0,
+        -7.0
+      ],
+      "requires_flag": "trout_wood",
+      "group": "camp_wolves",
+      "group_set_flag": "steve_safe"
+    },
+    {
+      "instance_id": "camp_wolf_2",
+      "creature_id": "core:enemy.grey_wolf",
+      "pos": [
+        0.5,
+        0.0,
+        -6.0
+      ],
+      "patrol_a": [
+        -2.0,
+        0.0,
+        -5.5
+      ],
+      "patrol_b": [
+        2.0,
+        0.0,
+        -6.0
+      ],
+      "requires_flag": "trout_wood",
+      "group": "camp_wolves",
+      "group_set_flag": "steve_safe"
+    },
+    {
+      "instance_id": "camp_wolf_3",
+      "creature_id": "core:enemy.grey_wolf",
+      "pos": [
+        -4.5,
+        0.0,
+        -6.0
+      ],
+      "patrol_a": [
+        -6.0,
+        0.0,
+        -6.5
+      ],
+      "patrol_b": [
+        -3.0,
+        0.0,
+        -5.0
+      ],
+      "requires_flag": "trout_wood",
+      "group": "camp_wolves",
+      "group_set_flag": "steve_safe"
+    },
+    {
+      "instance_id": "granny_wolf",
+      "creature_id": "core:enemy.granny_wolf",
+      "pos": [
+        10.0,
+        0.0,
+        9.5
+      ],
+      "patrol_a": [
+        7.0,
+        0.0,
+        9.0
+      ],
+      "patrol_b": [
+        13.0,
+        0.0,
+        9.0
+      ],
+      "requires_flag": "trout_wood"
+    },
+    {
+      "instance_id": "wood_wolf_0",
+      "creature_id": "core:enemy.grey_wolf",
+      "pos": [
+        12.0,
+        0.0,
+        -9.0
+      ],
+      "patrol_a": [
+        9.0,
+        0.0,
+        -10.0
+      ],
+      "patrol_b": [
+        16.0,
+        0.0,
+        -8.0
+      ]
+    },
+    {
+      "instance_id": "wood_wolf_1",
+      "creature_id": "core:enemy.grey_wolf",
+      "pos": [
+        -12.0,
+        0.0,
+        -7.0
+      ],
+      "patrol_a": [
+        -15.0,
+        0.0,
+        -8.0
+      ],
+      "patrol_b": [
+        -9.0,
+        0.0,
+        -6.0
+      ]
+    }
+  ],
+  "interactables": [
+    {
+      "instance_id": "wood_sign",
+      "type": "readable",
+      "model": "assets/models/props/signpost.glb",
+      "pos": [
+        19.0,
+        0.0,
+        2.6
+      ],
+      "rot_y": -90.0,
+      "prompt": "Read the Signpost",
+      "title": "THE WHISTLING WOOD",
+      "text": "THE WHISTLING WOOD\n\nNamed for the wind in the Old Oak, which whistles. Visitors are asked not to whistle back. It only encourages it.\n\nBeneath, in a different hand: \"WOLVES. Some of them dressed as relatives. Do not let them in.\"\n\nBeneath that, in a third hand, very small and very shaky: \"also there's a horse in my tent. help. - S\"",
+      "set_flag": "trout_c_sign"
+    },
+    {
+      "instance_id": "oak_hollow",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -12.25,
+        0.0,
+        6.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Listen at the Hollow",
+      "title": "The Old Oak's Hollow",
+      "text": "A knot-hole the size of a fist, low on the trunk, worn smooth. As you lean close, the wind moves through the wood, and the hollow whistles.\n\nTwo notes. Low, then high. Sharp and short, the way a man whistles who has done it ten thousand times without thinking.\n\nSomewhere above you, in the branches, something large shifts its weight and snorts, as if answering.\n\nYou've heard that whistle before. Outside the Lantern Inn. Across a card table. It's Hollis's.",
+      "set_flag": "trout_c_whistle"
+    },
+    {
+      "instance_id": "ransom_drafts",
+      "type": "readable",
+      "model": "assets/models/props/lectern_ledger.glb",
+      "pos": [
+        -5.2,
+        0.0,
+        -12.5
+      ],
+      "rot_y": 90.0,
+      "prompt": "Read the Notes Pinned to the Tree",
+      "title": "Crumpled Drafts",
+      "text": "Seven sheets of paper, nailed to a pine one above the other, each one crossed out.\n\n1. \"Dear Sir. I have your horse. Sorry.\"\n2. \"WE have your horse.\" (There is only one person here.)\n3. \"WE HAVE YOUR HORSE.\"\n4. \"WE HAV YOUR HORS.\" (Margin note: more frightening if spelled wrong? check with night school)\n5. \"300 gold or you will never see her again.\" (Margin note: he will though. she keeps turning up. on the TENT.)\n6. \"Please come and get your horse.\"\n7. \"PLEASE come and get your horse she has eaten all my carrots and she was in the soup.\"\n\nOn the back of every sheet, faintly, the printed grid of a Lantern Inn character sheet.",
+      "set_flag": "trout_c_drafts"
+    },
+    {
+      "instance_id": "cottage_notice",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        8.4,
+        0.9,
+        15.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Note on the Bed",
+      "title": "A Note, in Grandmotherly Handwriting",
+      "text": "\"To whoever finds this:\n\nI have gone to live with my sister in Saltmere, where there are no wolves, only the unspeakable horrors of the deep, which at least have the decency not to wear your clothes.\n\nThe wolf is wearing my second-best nightgown. If you see him, tell him the bonnet does not suit him and it never did.\n\nThe red hood is in the wardrobe. My granddaughter has given up on it. She does archery now. She is very good. The wolf knows.\n\nLove, Granny\n\nP.S. A horse has been standing on my roof for two days. It is a very polite horse. I left it a carrot.\"",
+      "set_flag": "trout_c_granny"
+    },
+    {
+      "instance_id": "cottage_chest",
+      "type": "chest",
+      "model": "assets/models/props/treasure_chest.glb",
+      "pos": [
+        8.2,
+        0.0,
+        13.0
+      ],
+      "rot_y": 90.0,
+      "locked": false,
+      "fixed_items": [
+        "core:item.red_hood"
+      ],
+      "loot_table": "core:loot.wolf"
+    },
+    {
+      "instance_id": "wood_carrots",
+      "type": "pickup",
+      "item_id": "core:item.carrot",
+      "qty": 3,
+      "pos": [
+        -6.4,
+        0.2,
+        -9.2
+      ]
+    }
+  ],
+  "portals": []
+}

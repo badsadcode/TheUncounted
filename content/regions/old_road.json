@@ -743,6 +743,21 @@
       "title": "THE TRAGEDIE OF THE UNCOUNTED KING - Page Two",
       "text": "ACT TWO, SCENE ONE. A haunted battlement. Moonlight.\n\nPRINCE VALIANT: Spectre! Release the King!\n\nGHOST OF THE OLD KING: Never! For I too was forgotten, and I will not be forgotten alone!\n\nPRINCE VALIANT: Then have at thee!\n\n(They duel. It goes on for some time.)\n\n(It goes on for a bit longer.)\n\n[Margin, red ink: 'These two are clearly in love. The playwright appears to be the only person in the audience who has not noticed. - M.Q.']\n\nThe page has been nailed to a pine tree, at exactly the height of a critic's top hat.",
       "set_flag": "page_2"
+    },
+    {
+      "instance_id": "trout_stone",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        5.2,
+        0.0,
+        -4.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look Up at the Top of the Stone",
+      "title": "On Top of the Boundary Stone",
+      "text": "Eleven feet up, on the very top of the boundary stone, where nothing larger than a crow could possibly perch, there is a neat, fresh pile of horse manure.\n\nIt is still steaming.\n\nThere are no hoofprints anywhere round the base of the stone. There are no hoofprints on the stone. There is just the evidence, on top, steaming, defying every law of nature and several of the Bureau's.",
+      "set_flag": "trout_c_stone"
     }
   ],
   "portals": [

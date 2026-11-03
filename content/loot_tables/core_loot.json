@@ -294,6 +294,31 @@
           "max_qty": 2
         }
       ]
+    },
+    {
+      "id": "core:loot.wolf",
+      "gold_min": 3,
+      "gold_max": 9,
+      "entries": [
+        {
+          "item_id": "core:item.bread_loaf",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.carrot",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 2
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 18,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
     }
   ]
 }

@@ -166,6 +166,11 @@ readable("harbour_notice", -3.5, 0.0, 14.6, "Read the Harbour Notice", "BY ORDER
           "having a name? Let the Deep carry it for you! Benefits include: eternal life (partial), gills (most members), a lovely "
           "robe, and the peace of never being counted again. Meetings: under the fish warehouse, every tide. Bring nothing. "
           "Especially not your name.\""), model=LECTERN, rot=180.0)
+readable("trout_sea", -10.5, 0.0, -9.0, "Look at the Horseshoe on the Bollard", "A Horseshoe, Dripping",
+         ("Somebody has hung a horseshoe on the mooring bollard at the foot of the pier. It is dripping seawater and has a small "
+          "crab living in it.\n\nChalked on the bollard, in a fisherman's capitals: \"HORSE CAME OUT OF THE SEA TUESDAY. NODDED AT "
+          "SILAS. WENT BACK IN. NOBODY SAY ANYTHING. IT HAD BETTER MANNERS THAN THE OTHER THING.\"\n\nUnderneath, smaller: "
+          "\"It was heading west. Following a whistle.\""), set_flag="trout_c_sea")
 interactables.append({"instance_id": "saltmere_idol", "type": "pickup", "item_id": "core:item.fish_idol", "qty": 1, "pos": [-6.4, 0.2, -12.8]})
 
 # ============================================================================ Silas, at the end of pier B

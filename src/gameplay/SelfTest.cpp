@@ -93,8 +93,10 @@ int GameEngine::RunSelfTest() {
     check(player_.health == MaxHealth(), "starts at full health");
     check(player_.pos.y > -0.05f && player_.pos.y < 0.2f, "player stands on the ground at spawn (y=" + std::to_string(player_.pos.y) + ")");
 
-    Vector3 p = MoveWithCollision({-18.0f, 0, 0}, {-5.0f, 0, 0}, 0.32f, 1.75f, true);
+    Vector3 p = MoveWithCollision({-18.0f, 0, 6.0f}, {-5.0f, 0, 0}, 0.32f, 1.75f, true);
     check(p.x > -19.5f, "town wall blocks movement (x=" + std::to_string(p.x) + ")");
+    Vector3 westGate = MoveWithCollision({-18.0f, 0, 0}, {-5.0f, 0, 0}, 0.32f, 1.75f, true);
+    check(westGate.x < -22.0f, "the west gate opens onto the Whistling Wood lane (x=" + std::to_string(westGate.x) + ")");
 
     // --- Clerk: receive the Annex key
     int clerk = npcIndex("core:npc.clerk_oakhaven");
@@ -831,6 +833,70 @@ int GameEngine::RunSelfTest() {
         check(harpoon && harpoon->weapon.bane_family == "eldritch", "the harpoon is the bane of eldritch things");
         if (av) DamageCreature(*av, 99999, false, "swords", false);
         player_.flags.erase("avatar_rises");
+    }
+
+    // --- Case File #3: The Horse Who Wasn't There
+    {
+        const std::string tq = "core:quest.trout";
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            EndDialogue();
+            return ok;
+        };
+        check(visible("core:npc.steve") < 0 && visible("core:npc.trout") < 0, "no Steve, no horse before the case opens");
+        check(talk("core:npc.hunter_hollis", {"c3_open", "c3_note", "c3_trout", "c3_take", "root"}) && QuestStage(tq) == 10 &&
+                  CountItem("core:item.ransom_note") == 1,
+              "Hollis whistles and Trout doesn't come; a misspelled ransom note");
+        check(!talk("core:npc.hunter_hollis", {"c3_deduce"}), "Hollis won't hear a guess before there are clues");
+        int si = visible("core:npc.steve"), ti = visible("core:npc.trout");
+        check(si >= 0 && ti >= 0 && scene_.npcs[ti].instance_id == "npc_trout_oak", "Steve's camp and a horse up a tree, out in the Whistling Wood");
+        check(talk("core:npc.merchant_vaelen", {"trout"}) && talk("core:npc.librarian_fenwick", {"trout"}) &&
+                  talk("core:npc.detective_baggy", {"trout"}) && talk("core:npc.clerk_oakhaven", {"trout"}) && talk("core:npc.werewolf_rolf", {"trout"}),
+              "carrots, a whistling oak, a character sheet, a real Steve, and a marrow-eating sighting");
+        standAndUse({14.2f, 0.0f, 8.9f}, 180.0f, -25.0f);
+        check(player_.flags.count("trout_c_roof") > 0, "hoofprints straight up the library wall");
+        if (overlay_ != Overlay::None) SetOverlay(Overlay::None);
+        check(talk("core:npc.hunter_hollis", {"c3_deduce", "c3_w_rolf", "c3_deduce", "c3_q2", "c3_w_angry", "c3_q2", "c3_solved", "root"}) &&
+                  QuestStage(tq) == 20 && player_.flags.count("trout_wood"),
+              "the deduction: Steve wrote the note, and the oak whistles Hollis's whistle");
+        UpdateWorldObjects(0.0f);
+        int wolves = 0;
+        for (auto& c : scene_.creatures)
+            if (c.instance_id.rfind("camp_wolf_", 0) == 0 && c.state != CreatureState::Dead) wolves++;
+        check(wolves == 4 && talk("core:npc.steve", {"wolves"}), "wolves circle Steve's camp");
+        for (auto& c : scene_.creatures)
+            if (c.instance_id.rfind("camp_wolf_", 0) == 0) DamageCreature(c, 999, false, "swords", false);
+        check(player_.flags.count("steve_safe") > 0, "the wolves are dealt with");
+        check(talk("core:npc.steve", {"confess", "sheet", "where", "plug", "plug_sheet", "plug2", "whistle", "future", "future_town"}) &&
+                  QuestStage(tq) == 30 && player_.flags.count("oak_plugged") && CountItem("core:item.steve_spoon") == 1,
+              "Steve confesses, the ransom notes plug the hollow, Trout answers your whistle; a spoon for luck");
+        ti = visible("core:npc.trout");
+        check(ti >= 0 && scene_.npcs[ti].instance_id == "npc_trout_home", "Trout is home, beside Hollis");
+        si = visible("core:npc.steve");
+        check(si >= 0 && scene_.npcs[si].instance_id == "npc_steve_inn", "Steve moves into the Lantern Inn for Thursdays");
+        player_.sanity = 70.0f;
+        check(talk("core:npc.trout", {"pat"}) && player_.sanity > 80.0f, "patting a horse is good for your sanity");
+        player_.sanity = 100.0f;
+        check(talk("core:npc.hunter_hollis", {"c3_home", "c3_home2", "c3_steve_town", "c3_reward", "root"}) && QuestStage(tq) == 100 &&
+                  CountItem("core:item.trout_horseshoe") == 1 && CountItem("core:item.hollis_deck") == 1,
+              "Hollis and Trout, forehead to forehead; her first horseshoe and his deck");
+        player_.flags.insert("trout_wood");
+        CreatureInstance* granny = nullptr;
+        for (auto& c : scene_.creatures) if (c.instance_id == "granny_wolf") granny = &c;
+        check(granny && granny->def->family == "beast", "a wolf in Grandmother's nightgown waits by the cottage");
+        const ItemDef* spoon = content_.GetItem("core:item.steve_spoon");
+        check(spoon && spoon->weapon.crit_mult >= 3.0f && spoon->weapon.bane_family == "beast", "Steve's Spoon: triple crits, bane of beasts");
+        if (granny) DamageCreature(*granny, 999, false, "swords", false);
     }
 
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)

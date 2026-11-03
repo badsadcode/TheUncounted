@@ -51,6 +51,10 @@
           "text_key": "bark.clerk.holiday",
           "quest_id": "core:quest.lich_s4",
           "min_stage": 100
+        },
+        {
+          "text_key": "bark.clerk.steve",
+          "flag": "steve_in_town"
         }
       ]
     },
@@ -311,7 +315,8 @@
           "hollowmere": "comp.kaelen.zone.hollowmere",
           "hollowmere_manor": "comp.kaelen.zone.hollowmere_manor",
           "saltmere": "comp.kaelen.zone.saltmere",
-          "sunken_chapel": "comp.kaelen.zone.sunken_chapel"
+          "sunken_chapel": "comp.kaelen.zone.sunken_chapel",
+          "whistling_wood": "comp.kaelen.zone.whistling_wood"
         },
         "idle_lines": [
           {
@@ -634,6 +639,29 @@
             ],
             "flag": "saltmere_visited",
             "not_flag": "saltmere_resolved"
+          },
+          {
+            "id": "trout",
+            "partner": "core:npc.detective_baggy",
+            "flag": "trout_case",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.trout.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.trout.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.trout.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.trout.3"
+              }
+            ]
           }
         ]
       }
@@ -714,7 +742,8 @@
           "hollowmere": "comp.baggy.zone.hollowmere",
           "hollowmere_manor": "comp.baggy.zone.hollowmere_manor",
           "saltmere": "comp.baggy.zone.saltmere",
-          "sunken_chapel": "comp.baggy.zone.sunken_chapel"
+          "sunken_chapel": "comp.baggy.zone.sunken_chapel",
+          "whistling_wood": "comp.baggy.zone.whistling_wood"
         },
         "idle_lines": [
           {
@@ -898,6 +927,11 @@
         {
           "text_key": "bark.hollis.dry",
           "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.hollis.trout",
+          "quest_id": "core:quest.trout",
+          "min_stage": 100
         }
       ]
     },
@@ -1165,6 +1199,54 @@
         },
         {
           "text_key": "bark.priest.2"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.steve",
+      "name_key": "npc.steve.name",
+      "title_key": "npc.steve.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.steve",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/steve.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.62
+      },
+      "barks": [
+        {
+          "text_key": "bark.steve.1",
+          "not_flag": "steve_in_town"
+        },
+        {
+          "text_key": "bark.steve.2",
+          "not_flag": "steve_in_town"
+        },
+        {
+          "text_key": "bark.steve.town",
+          "flag": "steve_in_town"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.trout",
+      "name_key": "npc.trout.name",
+      "title_key": "npc.trout.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.trout",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/trout.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 2.3
+      },
+      "barks": [
+        {
+          "text_key": "bark.trout.1"
+        },
+        {
+          "text_key": "bark.trout.2"
         }
       ]
     }

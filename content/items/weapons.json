@@ -352,6 +352,32 @@
         "bane_family": "eldritch",
         "bane_mult": 1.6
       }
+    },
+    {
+      "id": "core:item.steve_spoon",
+      "name_key": "item.steve_spoon.name",
+      "description_key": "item.steve_spoon.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/steve_spoon.png",
+      "world_model": "assets/models/items/steel_dagger.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 1,
+      "weight": 0.1,
+      "weapon": {
+        "kind": "melee",
+        "skill": "daggers",
+        "damage_type": "piercing",
+        "base_damage": 6,
+        "attack_time_seconds": 0.3,
+        "stamina_cost": 3,
+        "reach_meters": 1.5,
+        "crit_chance": 0.3,
+        "crit_mult": 3.0,
+        "bane_family": "beast",
+        "bane_mult": 1.5
+      }
     }
   ]
 }

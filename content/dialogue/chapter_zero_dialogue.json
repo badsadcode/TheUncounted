@@ -321,6 +321,21 @@
               "next": "l_after"
             },
             {
+              "text_key": "dlg.trout.oakhaven.t",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "trout_c_sheet"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -2991,6 +3006,23 @@
               "next": "greeting"
             }
           ]
+        },
+        "trout": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.trout.oakhaven.trout",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_c_oakhaven",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.oakhaven.trout.c0",
+              "next": "greeting"
+            }
+          ]
         }
       }
     },
@@ -3100,6 +3132,17 @@
                 }
               ],
               "next": "prop_dragon"
+            },
+            {
+              "text_key": "dlg.trout.vaelen.t",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                }
+              ]
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -3329,6 +3372,23 @@
           "choices": [
             {
               "text_key": "dlg.vaelen.players.prop_dragon.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "trout": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.trout.vaelen.trout",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_c_carrots",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.vaelen.trout.c0",
               "next": "root"
             }
           ]
@@ -3898,6 +3958,17 @@
               "next": "prop_crown"
             },
             {
+              "text_key": "dlg.trout.fenwick.t",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -4038,6 +4109,28 @@
           "choices": [
             {
               "text_key": "dlg.fenwick.players.prop_crown.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "trout": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.trout.fenwick.trout",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_c_whistle",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "trout_c_fenwick",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.fenwick.trout.c0",
               "next": "root"
             }
           ]
@@ -4775,6 +4868,21 @@
               "next": "cast_baggy"
             },
             {
+              "text_key": "dlg.trout.baggy.t",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.ransom_note"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -5023,6 +5131,23 @@
               "next": "root"
             }
           ]
+        },
+        "trout": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.trout.baggy.trout",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_c_sheet",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.baggy.trout.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -5198,6 +5323,17 @@
                 }
               ],
               "next": "prop_bang"
+            },
+            {
+              "text_key": "dlg.trout.sabrino.t",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                }
+              ]
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -5451,6 +5587,23 @@
               "next": "root"
             }
           ]
+        },
+        "trout": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.trout.sabrino.trout",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_h_sabrino",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.sabrino.trout.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -5636,6 +5789,85 @@
                 }
               ],
               "next": "case2_done"
+            },
+            {
+              "text_key": "dlg.trout.t.open",
+              "next": "c3_open",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.saltmere",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.trout",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.t.hint",
+              "next": "c3_hint",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.t.deduce",
+              "next": "c3_deduce",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "trout_c_roof",
+                    "trout_c_sea",
+                    "trout_c_stone",
+                    "trout_c_sign",
+                    "trout_c_drafts",
+                    "trout_c_granny",
+                    "trout_c_whistle",
+                    "trout_c_carrots",
+                    "trout_c_sheet",
+                    "trout_c_oakhaven",
+                    "trout_c_steve",
+                    "trout_c_rolf",
+                    "trout_c_ash"
+                  ],
+                  "value": 4
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.t.wood",
+              "next": "c3_wood",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 20
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.t.home",
+              "next": "c3_home",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 30
+                }
+              ]
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -6114,6 +6346,410 @@
               "next": "root"
             }
           ]
+        },
+        "c3_open": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_open",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_open.c0",
+              "next": "c3_note"
+            }
+          ]
+        },
+        "c3_note": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_note",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_note.c0",
+              "next": "c3_take",
+              "actions": [
+                {
+                  "type": "give_item",
+                  "item_id": "core:item.ransom_note",
+                  "qty": 1
+                },
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "trout_case",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_note.c1",
+              "next": "c3_trout"
+            }
+          ]
+        },
+        "c3_trout": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_trout",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_trout.c0",
+              "next": "c3_take",
+              "actions": [
+                {
+                  "type": "give_item",
+                  "item_id": "core:item.ransom_note",
+                  "qty": 1
+                },
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "trout_case",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "c3_take": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_take",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_take.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "c3_hint": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_hint",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_hint.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "c3_deduce": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_deduce",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_deduce.c0",
+              "next": "c3_w_rolf"
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_deduce.c1",
+              "next": "c3_w_ash"
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_deduce.c2",
+              "next": "c3_w_sab"
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_deduce.c3",
+              "next": "c3_w_baggy"
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_deduce.c4",
+              "next": "c3_q2",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "trout_c_drafts",
+                    "trout_c_sign",
+                    "trout_c_sheet",
+                    "trout_c_carrots",
+                    "trout_c_steve",
+                    "trout_c_oakhaven"
+                  ],
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_deduce.c5",
+              "next": "root"
+            }
+          ]
+        },
+        "c3_w_rolf": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_w_rolf",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_w_rolf.c0",
+              "next": "c3_deduce"
+            }
+          ]
+        },
+        "c3_w_ash": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_w_ash",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_w_ash.c0",
+              "next": "c3_deduce"
+            }
+          ]
+        },
+        "c3_w_sab": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_w_sab",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_w_sab.c0",
+              "next": "c3_deduce"
+            }
+          ]
+        },
+        "c3_w_baggy": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_w_baggy",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_w_baggy.c0",
+              "next": "c3_deduce"
+            }
+          ]
+        },
+        "c3_q2": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_q2",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_q2.c0",
+              "next": "c3_w_angry"
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_q2.c1",
+              "next": "c3_w_rope"
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_q2.c2",
+              "next": "c3_solved",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "trout_c_whistle"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_q2.c3",
+              "next": "c3_notyet"
+            }
+          ]
+        },
+        "c3_w_angry": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_w_angry",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_w_angry.c0",
+              "next": "c3_q2"
+            }
+          ]
+        },
+        "c3_w_rope": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_w_rope",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_w_rope.c0",
+              "next": "c3_q2"
+            }
+          ]
+        },
+        "c3_notyet": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_notyet",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_notyet.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "c3_solved": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_solved",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_solved.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.trout",
+                  "stage": 20
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "trout_wood",
+                  "value": true
+                },
+                {
+                  "type": "give_xp",
+                  "skill": "lore",
+                  "amount": 40
+                }
+              ]
+            }
+          ]
+        },
+        "c3_wood": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_wood",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_wood.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "c3_home": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_home",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_home.c0",
+              "next": "c3_home2"
+            }
+          ]
+        },
+        "c3_home2": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_home2",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_home2.c0",
+              "next": "c3_steve_town",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "steve_in_town"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_home2.c1",
+              "next": "c3_steve_wood",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "steve_honest"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_home2.c2",
+              "next": "c3_steve_scared",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "steve_scared"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.hollis.c3_home2.c3",
+              "next": "c3_steve_unsure",
+              "conditions": [
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "steve_in_town",
+                    "steve_honest",
+                    "steve_scared"
+                  ],
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        "c3_steve_unsure": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_steve_unsure",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_steve_unsure.c0",
+              "next": "c3_reward"
+            }
+          ]
+        },
+        "c3_steve_town": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_steve_town",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_steve_town.c0",
+              "next": "c3_reward"
+            }
+          ]
+        },
+        "c3_steve_wood": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_steve_wood",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_steve_wood.c0",
+              "next": "c3_reward"
+            }
+          ]
+        },
+        "c3_steve_scared": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_steve_scared",
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_steve_scared.c0",
+              "next": "c3_reward"
+            }
+          ]
+        },
+        "c3_reward": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.trout.hollis.c3_reward",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.trout",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.trout_horseshoe",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.hollis_deck",
+              "qty": 1
+            },
+            {
+              "type": "give_gold",
+              "amount": 180
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 80
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.hollis.c3_reward.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -6178,6 +6814,17 @@
                 }
               ],
               "next": "cast_ashgrave"
+            },
+            {
+              "text_key": "dlg.trout.ash.t",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                }
+              ]
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -6353,6 +7000,23 @@
               ]
             }
           ]
+        },
+        "trout": {
+          "speaker_key": "npc.vampire_ashgrave.name",
+          "text_key": "dlg.trout.ash.trout",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_c_ash",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.ash.trout.c0",
+              "next": "root"
+            }
+          ]
         }
       }
     },
@@ -6445,6 +7109,17 @@
                 }
               ],
               "next": "cast_rolf"
+            },
+            {
+              "text_key": "dlg.trout.rolf.t",
+              "next": "trout",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.trout",
+                  "stage": 10
+                }
+              ]
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -6575,6 +7250,23 @@
                   "value": true
                 }
               ]
+            }
+          ]
+        },
+        "trout": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.trout.rolf.trout",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_c_rolf",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.rolf.trout.c0",
+              "next": "root"
             }
           ]
         }
@@ -10068,6 +10760,465 @@
           "choices": [
             {
               "text_key": "dlg.priest.form.c0",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.steve",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.root",
+          "choices": [
+            {
+              "text_key": "dlg.steve.root.c0",
+              "next": "deny",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "trout_wood"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "trout_c_steve",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.root.c1",
+              "next": "wolves",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "trout_wood"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "steve_safe"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.root.c2",
+              "next": "confess",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "steve_safe"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "oak_plugged"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.root.c3",
+              "next": "future",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "oak_plugged"
+                },
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "steve_in_town",
+                    "steve_honest",
+                    "steve_scared"
+                  ],
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.root.c4",
+              "next": "camp",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "oak_plugged"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "steve_in_town"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.root.c5",
+              "next": "town",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "steve_in_town"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.root.c6",
+              "next": "END"
+            }
+          ]
+        },
+        "deny": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.deny",
+          "choices": [
+            {
+              "text_key": "dlg.steve.deny.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "wolves": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.wolves",
+          "choices": [
+            {
+              "text_key": "dlg.steve.wolves.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "confess": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.confess",
+          "choices": [
+            {
+              "text_key": "dlg.steve.confess.c0",
+              "next": "sheet"
+            }
+          ]
+        },
+        "sheet": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.sheet",
+          "choices": [
+            {
+              "text_key": "dlg.steve.sheet.c0",
+              "next": "where"
+            }
+          ]
+        },
+        "where": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.where",
+          "choices": [
+            {
+              "text_key": "dlg.steve.where.c0",
+              "next": "plug"
+            }
+          ]
+        },
+        "plug": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.plug",
+          "choices": [
+            {
+              "text_key": "dlg.steve.plug.c0",
+              "next": "plug2"
+            },
+            {
+              "text_key": "dlg.steve.plug.c1",
+              "next": "plug_sheet"
+            }
+          ]
+        },
+        "plug_sheet": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.plug_sheet",
+          "choices": [
+            {
+              "text_key": "dlg.steve.plug_sheet.c0",
+              "next": "plug2"
+            }
+          ]
+        },
+        "plug2": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.plug2",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "oak_plugged",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.trout",
+              "stage": 30
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.steve.plug2.c0",
+              "next": "whistle"
+            }
+          ]
+        },
+        "whistle": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.whistle",
+          "choices": [
+            {
+              "text_key": "dlg.steve.whistle.c0",
+              "next": "future"
+            }
+          ]
+        },
+        "future": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.future",
+          "choices": [
+            {
+              "text_key": "dlg.steve.future.c0",
+              "next": "future_town",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "steve_in_town",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.future.c1",
+              "next": "future_wood",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "steve_honest",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.steve.future.c2",
+              "next": "future_scared",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "steve_scared",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "future_town": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.future_town",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.steve_spoon",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.steve.future_town.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "future_wood": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.future_wood",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.steve_spoon",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.steve.future_wood.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "future_scared": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.future_scared",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.steve_spoon",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.steve.future_scared.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "camp": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.camp",
+          "choices": [
+            {
+              "text_key": "dlg.steve.camp.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "town": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.steve.town",
+          "choices": [
+            {
+              "text_key": "dlg.steve.town.c0",
+              "next": "END"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.trout",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.trout.name",
+          "text_key": "dlg.trout.root",
+          "choices": [
+            {
+              "text_key": "dlg.trout.root.c0",
+              "next": "oak",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "oak_plugged"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.root.c1",
+              "next": "pat",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "oak_plugged"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.root.c2",
+              "next": "carrot",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "oak_plugged"
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.carrot"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "take_item",
+                  "item_id": "core:item.carrot",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.root.c3",
+              "next": "where",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "oak_plugged"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.trout.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "oak": {
+          "speaker_key": "npc.trout.name",
+          "text_key": "dlg.trout.oak",
+          "choices": [
+            {
+              "text_key": "dlg.trout.oak.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "pat": {
+          "speaker_key": "npc.trout.name",
+          "text_key": "dlg.trout.pat",
+          "actions": [
+            {
+              "type": "sanity",
+              "amount": 15
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.pat.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "carrot": {
+          "speaker_key": "npc.trout.name",
+          "text_key": "dlg.trout.carrot",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "trout_carrot",
+              "value": true
+            },
+            {
+              "type": "sanity",
+              "amount": 10
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.trout.carrot.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "where": {
+          "speaker_key": "npc.trout.name",
+          "text_key": "dlg.trout.where",
+          "choices": [
+            {
+              "text_key": "dlg.trout.where.c0",
               "next": "END"
             }
           ]

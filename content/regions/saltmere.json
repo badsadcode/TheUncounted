@@ -2423,6 +2423,21 @@
       "text": "NOTICE TO ALL VESSELS AND PERSONS:\n\n1. Fishing is permitted between dawn and the fog.\n2. Do not fish in the fog.\n3. Do not answer if the fog calls you by name.\n4. Do not say your name in the fog, in case it is listening.\n5. If you hear bells under the water, you did not hear bells under the water.\n6. Chowder at the Drowned Lantern, two coppers.\n\nPinned beneath it, a cheerful pamphlet:\n\n\"THE ESOTERIC ORDER OF THE DROWNED LEDGER welcomes NEW MEMBERS! Tired of having a name? Let the Deep carry it for you! Benefits include: eternal life (partial), gills (most members), a lovely robe, and the peace of never being counted again. Meetings: under the fish warehouse, every tide. Bring nothing. Especially not your name.\""
     },
     {
+      "instance_id": "trout_sea",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -10.5,
+        0.0,
+        -9.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Horseshoe on the Bollard",
+      "title": "A Horseshoe, Dripping",
+      "text": "Somebody has hung a horseshoe on the mooring bollard at the foot of the pier. It is dripping seawater and has a small crab living in it.\n\nChalked on the bollard, in a fisherman's capitals: \"HORSE CAME OUT OF THE SEA TUESDAY. NODDED AT SILAS. WENT BACK IN. NOBODY SAY ANYTHING. IT HAD BETTER MANNERS THAN THE OTHER THING.\"\n\nUnderneath, smaller: \"It was heading west. Following a whistle.\"",
+      "set_flag": "trout_c_sea"
+    },
+    {
       "instance_id": "saltmere_idol",
       "type": "pickup",
       "item_id": "core:item.fish_idol",

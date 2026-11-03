@@ -774,6 +774,98 @@
         "alert": "line.avatar.alert",
         "death": "line.avatar.death"
       }
+    },
+    {
+      "id": "core:enemy.grey_wolf",
+      "name_key": "enemy.grey_wolf.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/grey_wolf.png",
+        "animation_data": "assets/animations/grave_rat.json",
+        "scale": 1.6
+      },
+      "stats": {
+        "health": 48,
+        "armor": 1,
+        "move_speed": 4.4,
+        "xp_reward": 24
+      },
+      "behavior": "melee_patroller",
+      "family": "beast",
+      "perception": {
+        "sight_meters": 13.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "wolf_bite",
+        "damage": 8,
+        "reach_meters": 1.7,
+        "windup_seconds": 0.38,
+        "cooldown_seconds": 1.05
+      },
+      "loot_table": "core:loot.wolf",
+      "audio": {
+        "alert": "assets/audio/sfx/crawler_hiss.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          130,
+          30,
+          30
+        ],
+        "glow": false
+      }
+    },
+    {
+      "id": "core:enemy.granny_wolf",
+      "name_key": "enemy.granny_wolf.name",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/granny_wolf.png",
+        "animation_data": "assets/animations/grave_rat.json",
+        "scale": 2.0
+      },
+      "stats": {
+        "health": 150,
+        "armor": 2,
+        "move_speed": 3.6,
+        "xp_reward": 85
+      },
+      "behavior": "melee_patroller",
+      "family": "beast",
+      "perception": {
+        "sight_meters": 13.0,
+        "hearing_meters": 9.0
+      },
+      "attack": {
+        "name": "big_teeth",
+        "damage": 13,
+        "reach_meters": 1.9,
+        "windup_seconds": 0.5,
+        "cooldown_seconds": 1.25
+      },
+      "loot_table": "core:loot.wolf",
+      "audio": {
+        "alert": "assets/audio/sfx/boss_roar.wav",
+        "attack": "assets/audio/sfx/sword_swing.wav",
+        "hit": "assets/audio/sfx/sword_hit.wav",
+        "death": "assets/audio/sfx/enemy_death.wav"
+      },
+      "hit_fx": {
+        "color": [
+          130,
+          30,
+          30
+        ],
+        "glow": false
+      },
+      "lines": {
+        "alert": "line.granny_wolf.alert",
+        "death": "line.granny_wolf.death"
+      }
     }
   ]
 }

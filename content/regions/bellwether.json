@@ -1256,6 +1256,28 @@
       ],
       "yaw": 200.0,
       "hidden_flag": "players_at_hollowmere"
+    },
+    {
+      "instance_id": "npc_trout_home",
+      "npc_id": "core:npc.trout",
+      "pos": [
+        10.6,
+        0.0,
+        -4.6
+      ],
+      "yaw": 230.0,
+      "requires_flag": "oak_plugged"
+    },
+    {
+      "instance_id": "npc_steve_inn",
+      "npc_id": "core:npc.steve",
+      "pos": [
+        -4.5,
+        0.0,
+        10.1
+      ],
+      "yaw": 180.0,
+      "requires_flag": "steve_in_town"
     }
   ],
   "creatures": [
@@ -1527,6 +1549,21 @@
       "prompt": "Read the Character Sheets",
       "title": "Form 1-CS: Character Sheets (Thursday Group)",
       "text": "A neat stack of character sheets, every one filled out on official Bureau Form 1-CS.\n\nSIR DETECTIVE INSPECTOR BAGGINGTON. Paladin of Justice. Equipment: magnifying glass (+1), eleven spare magnifying glasses, a hat. Notes: 'Suspects the hedge.'\n\nGERALD. Human. Accountant. Equipment: abacus, cardigan (+3 AC, knitted). Notes: 'Wants to audit the dragon.'\n\nGRIZZLEBEARD. Monster hunter. White hair. Two swords. Says 'hmm'. All attributes listed as 18. In pencil, in Oakhaven's hand: 'NO.'\n\nLORD DEFINITELY-NOT-A-VAMPIRE. Paladin. Avoids sunlight 'for unrelated reasons'. Backstory: see attached, 41 pages.\n\nSISTER CRUMB. Cleric. Heals with bread. Spell list: 'bread'. Notes: 'Brings real snacks. Protect at all costs.'\n\nUnder the stack, a blank sheet with your name already written at the top in neat Bureau handwriting, as if somebody hoped you'd say yes."
+    },
+    {
+      "instance_id": "trout_roof",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        14.2,
+        0.0,
+        7.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Hoofprints on the Wall",
+      "title": "Hoofprints, Going Up",
+      "text": "Muddy hoofprints cross the grass, stop at the library wall, and then simply keep going: straight up the wall, across the roof tiles, along the ridge, and down the far side, where they continue across the square as if nothing unusual has happened.\n\nSomebody, probably Brother Aldous, has chalked a little halo round each one, \"in case it was a miracle\".\n\nUnderneath, in Fenwick's handwriting: \"It wasn't a miracle. It was a horse. Please stop chalking my wall.\"",
+      "set_flag": "trout_c_roof"
     }
   ],
   "portals": [

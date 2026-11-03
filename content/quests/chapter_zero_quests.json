@@ -651,6 +651,66 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.trout",
+      "title_key": "quest.trout.title",
+      "summary_key": "quest.trout.summary",
+      "campaign": "hollowmere_mysteries",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.trout.stage0",
+          "journal_key": "quest.trout.journal0",
+          "markers": [
+            "npc_hollis"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.trout.stage10",
+          "journal_key": "quest.trout.journal10",
+          "markers": [
+            "npc_vaelen",
+            "npc_fenwick",
+            "npc_baggy",
+            "trout_roof",
+            "trout_stone",
+            "trout_sea",
+            "wood_sign",
+            "oak_hollow",
+            "npc_rolf",
+            "npc_ashgrave",
+            "npc_hollis"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.trout.stage20",
+          "journal_key": "quest.trout.journal20",
+          "markers": [
+            "camp_wolf_0",
+            "camp_wolf_1",
+            "camp_wolf_2",
+            "camp_wolf_3",
+            "npc_steve"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.trout.stage30",
+          "journal_key": "quest.trout.journal30",
+          "markers": [
+            "npc_hollis"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.trout.stage100",
+          "journal_key": "quest.trout.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

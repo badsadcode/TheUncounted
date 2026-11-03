@@ -356,6 +356,11 @@ def humanoid(style, row, col_dir=0):
             cap_m = M(style.get("cap", shade(style["armor"], 0.7)))
             prims.append(ellipsoid(head_c + v3(0, 0.055, -0.005), (0.093, 0.048, 0.095), cap_m))
             prims.append(box(head_c + v3(0, 0.04, 0.08), (0.075, 0.008, 0.032), cap_m, rnd=0.004))
+        elif hat == "pot":  # a dented cooking pot worn as a helmet, handle sticking out
+            tin = Mat(style.get("cap", (150, 150, 156)), shine=0.8)
+            prims.append(ellipsoid(head_c + v3(0, 0.05, -0.005), (0.1, 0.06, 0.1), tin))
+            prims.append(capsule(head_c + v3(0, 0.03, -0.005), head_c + v3(0, 0.04, -0.005), 0.103, tin))
+            prims.append(capsule(head_c + v3(0.1, 0.04, 0), head_c + v3(0.17, 0.05, 0), 0.012, tin))
         elif hat == "crown":
             gold = Mat((222, 182, 70), shine=1.0)
             prims.append(capsule(head_c + v3(0, 0.07, 0), head_c + v3(0, 0.095, 0), 0.07, gold))
@@ -445,6 +450,11 @@ def humanoid(style, row, col_dir=0):
         prims.append(capsule(bottom, top, 0.014, wood))
         orb = Mat(style.get("orb", (110, 220, 255)), emissive=True)
         prims.append(sphere(top + norm(sdir) * 0.03, 0.04, orb))
+    elif weapon == "spoon":
+        sdir = norm(v3(0, 1, 0.25)) if row != 4 else norm(v3(0, 0.3, 1))
+        tin = Mat((200, 200, 210), shine=1.0)
+        prims.append(capsule(r_hand - sdir * 0.03, r_hand + sdir * 0.12, 0.008, tin, 0.006))
+        prims.append(ellipsoid(r_hand + sdir * 0.15, (0.026, 0.034, 0.012), tin))
     elif weapon == "umbrella":
         udir = v3(0, 1, 0.1) if row != 4 else norm(v3(0, 0.4, 1))
         if row == 3:
@@ -573,11 +583,91 @@ def eldritch(style, row):
     return p
 
 
+def quadruped(style, row):
+    """A horse (style["horse"]) or a wolf: body, four jointed legs, neck and head, mane or ruff, tail."""
+    horse = style.get("horse", False)
+    coat = Mat(style["body"])
+    dark = Mat(style["armor"])
+    light_ = Mat(shade(style["body"], 1.2))
+    eye = Mat(style["eye"], emissive=style.get("glow_eyes", False))
+    hoof = Mat((40, 34, 30))
+    walk = {1: 1.0, 2: -1.0}.get(row, 0.0)
+    lunge = 0.06 if row == 4 else (-0.03 if row == 3 else 0.0)
+    rear = (0.07 if horse else 0.03) if row == 3 else 0.0
+    if horse:
+        by, br, leg_r, hip_x, hip_z = 0.52, (0.12, 0.13, 0.28), 0.032, 0.075, 0.2
+    else:
+        by, br, leg_r, hip_x, hip_z = 0.3, (0.085, 0.095, 0.21), 0.024, 0.055, 0.15
+    p = []
+    p.append(ellipsoid(v3(0, by + rear * 0.5, 0), br, coat))
+    p.append(ellipsoid(v3(0, by - br[1] * 0.35, 0.02), (br[0] * 0.8, br[1] * 0.6, br[2] * 0.75), light_))
+    for k, (sx, sz) in enumerate(((-1, 1), (1, 1), (-1, -1), (1, -1))):
+        ph = walk * (1 if (k in (0, 3)) else -1)
+        top = v3(hip_x * sx, by - 0.02 + (rear if sz > 0 else 0.0), hip_z * sz)
+        knee = v3(hip_x * sx, by * 0.48 + (rear * 1.5 if sz > 0 else 0.0), hip_z * sz + 0.05 * ph + (0.04 if sz > 0 and rear else 0.0))
+        foot = v3(hip_x * sx, 0.02 + (rear * 2.2 if sz > 0 else 0.0), hip_z * sz + 0.08 * ph)
+        p.append(capsule(top, knee, leg_r * 1.25, coat, leg_r))
+        p.append(capsule(knee, foot, leg_r, coat if not horse else dark, leg_r * 0.8))
+        p.append(ellipsoid(foot + v3(0, -0.005, 0.01), (leg_r * 1.1, leg_r * 0.7, leg_r * 1.3), hoof if horse else dark))
+    if horse:
+        neck_b = v3(0, by + 0.08 + rear, 0.22)
+        hc = v3(0, by + 0.34 + rear * 1.4 + (-0.08 if row == 4 else 0.0), 0.36 + lunge)
+        p.append(capsule(neck_b, hc + v3(0, -0.03, -0.03), 0.075, coat, 0.05))
+        p.append(ellipsoid(hc, (0.05, 0.06, 0.07), coat))
+        p.append(capsule(hc + v3(0, -0.01, 0.03), hc + v3(0, -0.07, 0.15), 0.042, coat, 0.032))
+        p.append(sphere(hc + v3(0, -0.075, 0.155), 0.03, dark))
+        if style.get("blaze"):
+            p.append(capsule(hc + v3(0, 0.03, 0.055), hc + v3(0, -0.05, 0.16), 0.012, Mat(style["blaze"])))
+        for sx in (-1, 1):
+            p.append(sphere(hc + v3(0.042 * sx, 0.012, 0.03), 0.011, eye))
+            p.append(capsule(hc + v3(0.025 * sx, 0.05, -0.02), hc + v3(0.03 * sx, 0.1, -0.03), 0.014, coat, 0.004))
+        for k in range(6):  # mane along the neck
+            f = k / 5
+            c = neck_b + (hc - neck_b) * f
+            p.append(ellipsoid(c + v3(0, 0.05, -0.04), (0.02, 0.05, 0.035), dark))
+        prev = v3(0, by + 0.06, -0.27)
+        for i in range(5):
+            nxt = prev + v3(0.02 * math.sin(i + walk), -0.07, -0.025 + 0.01 * i)
+            p.append(capsule(prev, nxt, 0.035 - i * 0.003, dark, 0.03 - i * 0.003))
+            prev = nxt
+        if style.get("saddle"):
+            sad = Mat(style["saddle"])
+            p.append(ellipsoid(v3(0, by + br[1] - 0.01, 0.02), (br[0] * 1.05, 0.03, 0.1), sad))
+            p.append(box(v3(br[0] + 0.005, by - 0.02, 0.02), (0.006, 0.09, 0.02), sad))
+            p.append(box(v3(-br[0] - 0.005, by - 0.02, 0.02), (0.006, 0.09, 0.02), sad))
+    else:
+        hc = v3(0, by + 0.1 + rear + (-0.04 if row == 4 else 0.0), 0.24 + lunge)
+        p.append(capsule(v3(0, by + 0.03, 0.16), hc, 0.06, coat, 0.05))
+        p.append(ellipsoid(v3(0, by + 0.04, 0.13), (0.08, 0.085, 0.07), light_))  # ruff
+        p.append(ellipsoid(hc, (0.055, 0.05, 0.06), coat))
+        p.append(capsule(hc + v3(0, -0.01, 0.03), hc + v3(0, -0.025, 0.11), 0.028, coat, 0.018))
+        p.append(sphere(hc + v3(0, -0.02, 0.115), 0.013, Mat((20, 18, 18))))
+        for sx in (-1, 1):
+            p.append(sphere(hc + v3(0.03 * sx, 0.015, 0.04), 0.011, eye))
+            p.append(capsule(hc + v3(0.03 * sx, 0.04, -0.01), hc + v3(0.036 * sx, 0.09, -0.02), 0.016, coat, 0.003))
+        if row in (3, 4):
+            p.append(box(hc + v3(0, -0.04, 0.08), (0.02, 0.008, 0.02), Mat((240, 236, 220))))
+        if style.get("bonnet"):  # grandmother's nightcap and frilly collar
+            lace = Mat(style["bonnet"])
+            p.append(ellipsoid(hc + v3(0, 0.035, -0.02), (0.068, 0.05, 0.06), lace))
+            p.append(capsule(hc + v3(-0.065, 0.02, 0.02), hc + v3(0.065, 0.02, 0.02), 0.014, lace))
+            p.append(ellipsoid(v3(0, by + 0.05, 0.15), (0.095, 0.03, 0.06), lace))
+            p.append(ellipsoid(v3(0, by + 0.01, -0.02), (br[0] * 1.08, br[1] * 1.05, br[2] * 0.7), Mat(style.get("gown", (150, 170, 210)))))
+        prev = v3(0, by + 0.03, -0.2)
+        for i in range(4):
+            nxt = prev + v3(0.02 * math.sin(i + walk), -0.035, -0.04)
+            p.append(capsule(prev, nxt, 0.03 + (0.008 if i in (1, 2) else 0.0), coat if i < 3 else light_, 0.025))
+            prev = nxt
+    return p
+
+
 def corpse_transform(kind):
     if kind == "humanoid":
         return rot_x(math.radians(-88)), v3(0, 0.07, 0.42)
     if kind == "rat":
         return rot_z(math.radians(85)), v3(0.1, 0.07, 0)
+    if kind == "quadruped":
+        return rot_z(math.radians(88)), v3(0.25, 0.1, 0)
     return rot_z(math.radians(170)), v3(0, 0.36, 0)
 
 
@@ -589,6 +679,8 @@ def build_prims(style, row):
         return rat(style, row)
     if kind == "crawler":
         return crawler(style, row)
+    if kind == "quadruped":
+        return quadruped(style, row)
     return humanoid(style, row)
 
 
@@ -617,6 +709,16 @@ def build_sheet(sprite_rel, style):
 
 
 SHEETS = {
+    "assets/sprites/npcs/trout.png": {"kind": "quadruped", "horse": True, "body": (150, 98, 60), "armor": (52, 36, 28),
+                                      "eye": (30, 22, 18), "blaze": (236, 230, 220), "saddle": (110, 40, 36)},
+    "assets/sprites/enemies/granny_wolf.png": {"kind": "quadruped", "scale": 1.0, "body": (104, 96, 92), "armor": (64, 60, 58),
+                                               "eye": (255, 170, 60), "glow_eyes": True, "bonnet": (240, 236, 228), "gown": (170, 140, 196)},
+    "assets/sprites/npcs/steve.png": {
+        "kind": "humanoid", "body": (222, 186, 156), "armor": (110, 96, 72), "legs": (76, 66, 52), "cloak": (90, 80, 62),
+        "trim": (150, 130, 96), "hat": "pot", "weapon": "spoon", "beard": True, "hair": (120, 84, 50),
+    },
+    "assets/sprites/enemies/grey_wolf.png": {"kind": "quadruped", "scale": 1.0, "body": (120, 118, 116), "armor": (72, 70, 70),
+                                             "eye": (255, 210, 80), "glow_eyes": True},
     "assets/sprites/enemies/grave_rat.png": {"kind": "rat", "scale": 1.7, "body": (104, 84, 74), "armor": (70, 56, 48), "eye": (255, 60, 50)},
     "assets/sprites/enemies/ash_crawler.png": {"kind": "crawler", "scale": 1.15, "body": (66, 72, 84), "armor": (40, 40, 48), "eye": (255, 170, 50), "glow": (255, 110, 30)},
     "assets/sprites/enemies/skeleton.png": {

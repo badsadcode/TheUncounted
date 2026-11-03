@@ -613,6 +613,104 @@ def lich_items():
     icon("oakhaven_postcard", postcard)
 
 
+def case3_items():
+    """Icons for Case File #3: The Horse Who Wasn't There."""
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def note(d):
+        d.polygon([(6, 5), (25, 4), (26, 27), (7, 28)], fill=(226, 216, 190, 255), outline=(150, 136, 110, 255))
+        for y, w in ((9, 15), (13, 12), (17, 16), (21, 9)):
+            d.line([(9, y), (9 + w, y + (1 if w > 12 else 0))], fill=(40, 36, 34, 255), width=2)
+        d.line([(7, 16), (26, 15)], fill=(190, 178, 150, 255))  # fold
+    icon("ransom_note", note)
+
+    def deck(d):
+        d.rectangle([9, 6, 23, 26], fill=(100, 64, 40, 255), outline=(60, 38, 24, 255))
+        d.rectangle([6, 9, 19, 28], fill=(236, 230, 214, 255), outline=(120, 110, 96, 255))
+        d.polygon([(12, 14), (15, 18), (12, 22), (9, 18)], fill=(170, 40, 40, 255))
+        d.text((7, 9), "H", fill=(30, 30, 30, 255))
+    icon("hollis_deck", deck)
+
+    def carrot(d):
+        d.polygon([(8, 25), (20, 9), (24, 13)], fill=(236, 128, 40, 255), outline=(170, 80, 20, 255))
+        for k in range(3):
+            d.line([(13 + k * 2, 18 - k * 3), (16 + k * 2, 20 - k * 3)], fill=(190, 96, 26, 255))
+        for dx, dy in ((0, -6), (4, -4), (5, 0)):
+            d.line([(22, 11), (22 + dx, 11 + dy)], fill=(70, 160, 60, 255), width=2)
+    icon("carrot", carrot)
+
+    def shoe(d):
+        d.arc([7, 6, 25, 28], 200, 340, fill=(170, 172, 180, 255), width=4)
+        d.line([(9, 20), (8, 27)], fill=(170, 172, 180, 255), width=4)
+        d.line([(23, 20), (24, 27)], fill=(170, 172, 180, 255), width=4)
+        for x, y in ((10, 12), (15, 8), (21, 12), (9, 20), (23, 20)):
+            d.point((x, y), fill=(60, 60, 70, 255))
+        d.line([(14, 10), (17, 10)], fill=(230, 230, 240, 255))
+    icon("trout_horseshoe", shoe)
+
+    def hood(d):
+        d.polygon([(16, 4), (26, 14), (27, 28), (5, 28), (6, 14)], fill=(176, 30, 36, 255), outline=(110, 16, 20, 255))
+        d.ellipse([10, 11, 22, 23], fill=(40, 18, 20, 255))
+        d.line([(16, 23), (16, 28)], fill=(110, 16, 20, 255))
+    icon("red_hood", hood)
+
+    def spoon(d):
+        d.line([(9, 25), (19, 13)], fill=(196, 198, 206, 255), width=3)
+        d.ellipse([17, 5, 26, 15], fill=(210, 212, 220, 255), outline=(130, 132, 140, 255))
+        d.point((21, 8), fill=(255, 255, 255, 255))
+        d.line([(11, 23), (13, 21)], fill=(150, 150, 160, 255))  # the bend
+    icon("steve_spoon", spoon)
+
+
+def wood_models():
+    """The Whistling Wood: the Old Oak (solid trunk + walk-under canopy, separate models) and Steve's tent."""
+    env = os.path.join("..", "env")
+    rnd = random.Random(91)
+    bark = [(82, 62, 44), (70, 52, 38), (96, 74, 52), (60, 46, 34)]
+
+    t = Mesh(91)
+    for k in range(7):  # the trunk, in stacked tapering rings with varied bark colours
+        r0, r1 = 1.35 - k * 0.07, 1.35 - (k + 1) * 0.07
+        t.cylinder((0, k * 0.95, 0), r0, 0.95, bark[k % 4], seg=12, r_top=r1)
+    for k in range(6):  # roots spreading out at the base
+        a = k * math.pi / 3 + 0.3
+        t.ellipsoid((math.cos(a) * 1.3, 0.15, math.sin(a) * 1.3), (0.55, 0.35, 0.55), bark[(k + 1) % 4], seg=7, rings=4, y_min=0.0)
+    t.ellipsoid((1.18, 1.1, 0.0), (0.12, 0.22, 0.22), (20, 14, 10), seg=6, rings=4)  # the whistling hollow (east side)
+    t.write_glb(os.path.join(env, "oak_trunk.glb"))
+
+    c = Mesh(92)
+    for sx, sy, ex, ey, ez in ((0, 5.6, 4.6, 6.6, 0.4), (0, 5.2, -4.8, 6.0, -0.6), (0, 6.0, 0.8, 7.2, 4.2), (0, 5.8, -0.6, 7.0, -4.0)):
+        _tube(c, [(sx, sy, 0.0), ((sx + ex) / 2, (sy + ey) / 2 + 0.4, ez / 2), (ex, ey, ez)], [0.45, 0.32, 0.18],
+              lambda seg, side: bark[(seg + side) % 4], sides=6)
+    greens = [(52, 96, 44), (64, 112, 50), (44, 84, 40), (76, 124, 58), (58, 104, 48)]
+    for k in range(26):
+        a = rnd.random() * math.tau
+        rr = rnd.random() ** 0.6 * 4.6
+        x, z = math.cos(a) * rr, math.sin(a) * rr
+        y = 7.9 + rnd.random() * 1.6 - rr * 0.15
+        size = 1.6 + rnd.random() * 1.3
+        c.ellipsoid((x, y, z), (size, size * 0.6, size), greens[k % 5], seg=8, rings=5,
+                    color_fn=lambda i, j, g=greens[k % 5]: tuple(min(255, v + (12 if (i + j) % 4 == 0 else 0)) for v in g))
+    c.ellipsoid((0, 10.6, 0), (2.4, 0.9, 2.4), greens[3], seg=8, rings=4)  # a flat-ish crown for a horse to stand on
+    c.tri((0, 0, 0), (0.001, 0, 0), (0, 0, 0.001), greens[0])  # pins the bounds to the ground: props anchor at their bottom
+    c.write_glb(os.path.join(env, "oak_canopy.glb"))
+
+    tent = Mesh(93)
+    canvas, shade_ = (150, 132, 96), (118, 102, 72)
+    w, h, d = 1.8, 1.9, 1.5
+    for a, b, cc, dd, col in (((-w, 0, -d), (w, 0, -d), (w, h, 0), (-w, h, 0), canvas), ((w, 0, d), (-w, 0, d), (-w, h, 0), (w, h, 0), shade_)):
+        tent.quad(a, b, cc, dd, col)
+        tent.quad(dd, cc, b, a, col)  # both sides: the canvas is thin
+    for a, b, cc, col in (((-w, 0, d), (-w, 0, -d), (-w, h, 0), shade_), ((w, 0, -d), (w, 0, d), (w, h, 0), canvas)):
+        tent.tri(a, b, cc, col)
+        tent.tri(cc, b, a, col)
+    tent.box((0.4, 0.15, 0.6), (0.3, 0.3, 0.3), (120, 50, 40))  # the hoofprint-stamped patch, sort of
+    tent.write_glb(os.path.join(env, "tent.glb"))
+
+
 def _tube(m, path, radii, color_fn, sides=8):
     """Tapered tube along a polyline (for tentacles). color_fn(segment, side) -> rgb."""
     def sub(a, b): return (a[0] - b[0], a[1] - b[1], a[2] - b[2])
@@ -734,6 +832,8 @@ BUILDERS = {
     "docks_models": docks_models,
     "saltmere_items": saltmere_items,
     "lich_items": lich_items,
+    "case3_items": case3_items,
+    "wood_models": wood_models,
 }
 
 
