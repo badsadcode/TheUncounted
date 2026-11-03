@@ -986,6 +986,72 @@ static Vector3 JsonToVec3(const json& j, Vector3 fallback = {0.0f, 0.0f, 0.0f}) 
     return fallback;
 }
 
+static MapNpcSpawnDef NpcSpawnFromJson(const json& nj) {
+    MapNpcSpawnDef ns;
+    ns.instance_id = nj.value("instance_id", "");
+    ns.npc_id = nj.value("npc_id", "");
+    ns.pos = JsonToVec3(nj["pos"]);
+    ns.yaw = nj.value("yaw", 0.0f);
+    ns.requires_flag = nj.value("requires_flag", "");
+    ns.hidden_flag = nj.value("hidden_flag", "");
+    return ns;
+}
+
+static MapCreatureSpawnDef CreatureSpawnFromJson(const json& cj) {
+    MapCreatureSpawnDef cs;
+    cs.instance_id = cj.value("instance_id", "");
+    cs.creature_id = cj.value("creature_id", "");
+    cs.pos = JsonToVec3(cj["pos"]);
+    cs.patrol_a = cj.contains("patrol_a") ? JsonToVec3(cj["patrol_a"]) : cs.pos;
+    cs.patrol_b = cj.contains("patrol_b") ? JsonToVec3(cj["patrol_b"]) : cs.pos;
+    cs.requires_flag = cj.value("requires_flag", "");
+    cs.group = cj.value("group", "");
+    cs.group_quest_id = cj.value("group_quest_id", "");
+    cs.group_set_stage = cj.value("group_set_stage", 0);
+    cs.group_set_flag = cj.value("group_set_flag", "");
+    return cs;
+}
+
+static MapInteractableDef InteractableFromJson(const json& ij) {
+    MapInteractableDef in;
+    in.instance_id = ij.value("instance_id", "");
+    in.type = ij.value("type", "prop");
+    in.model = ij.value("model", "");
+    in.pos = JsonToVec3(ij["pos"]);
+    in.rot_y = ij.value("rot_y", 0.0f);
+    in.locked = ij.value("locked", false);
+    in.mechanism_only = ij.value("mechanism_only", false);
+    in.key_id = ij.value("key_id", "");
+    in.lock_difficulty = ij.value("lock_difficulty", 5);
+    in.target_id = ij.value("target_id", "");
+    in.prompt = ij.value("prompt", "Interact");
+    in.title = ij.value("title", "");
+    in.text = ij.value("text", "");
+    in.loot_table = ij.value("loot_table", "");
+    if (ij.contains("fixed_items")) {
+        for (const auto& fi : ij["fixed_items"]) in.fixed_items.push_back(fi.get<std::string>());
+    }
+    in.item_id = ij.value("item_id", "");
+    in.qty = ij.value("qty", 1);
+    in.quest_id = ij.value("quest_id", "");
+    in.set_stage = ij.value("set_stage", 0);
+    if (ij.contains("grant_items")) {
+        for (const auto& gi : ij["grant_items"]) in.grant_items.push_back(gi.get<std::string>());
+    }
+    if (ij.contains("scale")) in.scale = JsonToVec3(ij["scale"], {1.0f, 1.0f, 1.0f});
+    in.set_flag = ij.value("set_flag", "");
+    in.sanity = ij.value("sanity", 0);
+    in.requires_dead = ij.value("requires_dead", "");
+    in.qty_max = ij.value("qty_max", 0);
+    in.respawn_seconds = ij.value("respawn_seconds", 600.0f);
+    in.station = ij.value("station", "");
+    in.requires_flag = ij.value("requires_flag", "");
+    in.hidden_flag = ij.value("hidden_flag", "");
+    if (ij.contains("narration") && ij["narration"].is_array())
+        for (const auto& nk : ij["narration"]) in.narration_keys.push_back(nk.get<std::string>());
+    return in;
+}
+
 static MapPropDef PropFromJson(const json& pj) {
     MapPropDef p;
     p.id = pj.value("id", "");
@@ -1047,11 +1113,35 @@ void ContentRegistry::ApplyMapEdits(const std::string& rootDir) {
                         if (mod.contains("scale")) p.scale = vec3(mod["scale"], p.scale);
                         if (mod.contains("model")) p.model = mod["model"].get<std::string>();
                         if (mod.contains("solid")) p.solid = mod["solid"].get<bool>();
+                        if (mod.contains("uv_scale") && mod["uv_scale"].size() >= 2) p.uv_scale = {mod["uv_scale"][0].get<float>(), mod["uv_scale"][1].get<float>()};
                         changed++;
                     }
             if (pj.contains("add"))
                 for (const auto& a : pj["add"]) { m.props.push_back(PropFromJson(a)); changed++; }
         }
+        // npcs / creatures / interactables: "remove" by instance id, "set" = full definitions (replace or add)
+        auto removeSet = [&](const char* key, auto& list, auto parse) {
+            if (!j.contains(key)) return;
+            const json& kj = j[key];
+            if (kj.contains("remove"))
+                for (const auto& id : kj["remove"]) {
+                    std::string sid = id.get<std::string>();
+                    auto before = list.size();
+                    list.erase(std::remove_if(list.begin(), list.end(), [&](const auto& e) { return e.instance_id == sid; }), list.end());
+                    changed += static_cast<int>(before - list.size());
+                }
+            if (kj.contains("set"))
+                for (const auto& def : kj["set"]) {
+                    auto e = parse(def);
+                    bool replaced = false;
+                    for (auto& old : list) if (old.instance_id == e.instance_id) { old = e; replaced = true; }
+                    if (!replaced) list.push_back(e);
+                    changed++;
+                }
+        };
+        removeSet("npcs", m.npcs, NpcSpawnFromJson);
+        removeSet("creatures", m.creatures, CreatureSpawnFromJson);
+        removeSet("interactables", m.interactables, InteractableFromJson);
         auto moveAll = [&](const char* key, auto& list, auto apply) {
             if (!j.contains(key) || !j[key].contains("modify")) return;
             for (const auto& [id, mod] : j[key]["modify"].items())
@@ -1164,72 +1254,21 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
 
     if (j.contains("npcs")) {
         for (const auto& nj : j["npcs"]) {
-            MapNpcSpawnDef ns;
-            ns.instance_id = nj.value("instance_id", "");
-            ns.npc_id = nj.value("npc_id", "");
-            ns.pos = JsonToVec3(nj["pos"]);
-            ns.yaw = nj.value("yaw", 0.0f);
-            ns.requires_flag = nj.value("requires_flag", "");
-            ns.hidden_flag = nj.value("hidden_flag", "");
+            MapNpcSpawnDef ns = NpcSpawnFromJson(nj);
             m.npcs.push_back(ns);
         }
     }
 
     if (j.contains("creatures")) {
         for (const auto& cj : j["creatures"]) {
-            MapCreatureSpawnDef cs;
-            cs.instance_id = cj.value("instance_id", "");
-            cs.creature_id = cj.value("creature_id", "");
-            cs.pos = JsonToVec3(cj["pos"]);
-            cs.patrol_a = cj.contains("patrol_a") ? JsonToVec3(cj["patrol_a"]) : cs.pos;
-            cs.patrol_b = cj.contains("patrol_b") ? JsonToVec3(cj["patrol_b"]) : cs.pos;
-            cs.requires_flag = cj.value("requires_flag", "");
-            cs.group = cj.value("group", "");
-            cs.group_quest_id = cj.value("group_quest_id", "");
-            cs.group_set_stage = cj.value("group_set_stage", 0);
-            cs.group_set_flag = cj.value("group_set_flag", "");
+            MapCreatureSpawnDef cs = CreatureSpawnFromJson(cj);
             m.creatures.push_back(cs);
         }
     }
 
     if (j.contains("interactables")) {
         for (const auto& ij : j["interactables"]) {
-            MapInteractableDef in;
-            in.instance_id = ij.value("instance_id", "");
-            in.type = ij.value("type", "prop");
-            in.model = ij.value("model", "");
-            in.pos = JsonToVec3(ij["pos"]);
-            in.rot_y = ij.value("rot_y", 0.0f);
-            in.locked = ij.value("locked", false);
-            in.mechanism_only = ij.value("mechanism_only", false);
-            in.key_id = ij.value("key_id", "");
-            in.lock_difficulty = ij.value("lock_difficulty", 5);
-            in.target_id = ij.value("target_id", "");
-            in.prompt = ij.value("prompt", "Interact");
-            in.title = ij.value("title", "");
-            in.text = ij.value("text", "");
-            in.loot_table = ij.value("loot_table", "");
-            if (ij.contains("fixed_items")) {
-                for (const auto& fi : ij["fixed_items"]) in.fixed_items.push_back(fi.get<std::string>());
-            }
-            in.item_id = ij.value("item_id", "");
-            in.qty = ij.value("qty", 1);
-            in.quest_id = ij.value("quest_id", "");
-            in.set_stage = ij.value("set_stage", 0);
-            if (ij.contains("grant_items")) {
-                for (const auto& gi : ij["grant_items"]) in.grant_items.push_back(gi.get<std::string>());
-            }
-            if (ij.contains("scale")) in.scale = JsonToVec3(ij["scale"], {1.0f, 1.0f, 1.0f});
-            in.set_flag = ij.value("set_flag", "");
-            in.sanity = ij.value("sanity", 0);
-            in.requires_dead = ij.value("requires_dead", "");
-            in.qty_max = ij.value("qty_max", 0);
-            in.respawn_seconds = ij.value("respawn_seconds", 600.0f);
-            in.station = ij.value("station", "");
-            in.requires_flag = ij.value("requires_flag", "");
-            in.hidden_flag = ij.value("hidden_flag", "");
-            if (ij.contains("narration") && ij["narration"].is_array())
-                for (const auto& nk : ij["narration"]) in.narration_keys.push_back(nk.get<std::string>());
+            MapInteractableDef in = InteractableFromJson(ij);
             m.interactables.push_back(in);
         }
     }

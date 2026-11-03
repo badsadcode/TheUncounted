@@ -1,49 +1,78 @@
-# Editing levels in Blender
+# Building and editing levels in Blender
 
-You can rearrange and add to the game world in Blender, then play your changes straight away. Your edits are saved in
-their own small file (`mods/level_edits/map_edits.json`), so game updates never overwrite them, and you can send that
-file to the developer to make them permanent.
+Rearrange the world, add doors, chests, NPCs and monsters, and model your own pieces (proper roofs, door frames,
+arches, whole buildings) in Blender, then play your changes straight away.
+
+Your work is saved in its own folder, `mods/level_edits/` (the `map_edits.json` file plus a `models/` folder for your own
+models). Game updates never overwrite it. Send that folder to the developer to make it a permanent part of the game.
 
 ## One-time setup
 
 1. Install **Blender 4.0 or newer** (free, blender.org).
-2. In Blender: **Edit → Preferences → Add-ons → Install...** and pick
-   `tools/blender/uncounted_level_editor.py` from the game folder. Tick **The Uncounted: Level Editor** in the list.
-3. Start a new General scene and delete the default cube, camera and light (select all with **A**, then **X**).
-4. In the 3D view press **N** to open the sidebar and click the **Uncounted** tab.
-5. Set **Game folder** to the folder that contains `game.exe`.
+2. In Blender: **Edit → Preferences → Add-ons → Install...** and pick `tools/blender/uncounted_level_editor.py` from the
+   game folder. Tick **The Uncounted: Level Editor**.
+3. Start a new **General** scene and delete the default cube, camera and light (**A** to select all, then **X**).
+4. In the 3D view press **N** and click the **Uncounted** tab. Set **Game folder** to the folder with `game.exe`.
 
-## Editing
+## The workflow
 
-1. Click **Import World**. After a few seconds the whole world appears with real models and textures, along with your
-   earlier edits.
-   - **Uncounted World**: every wall, floor, roof, prop and tree. Object names are the game's ids.
-   - **Uncounted Markers**: NPCs (arrows), monsters (spheres) and objects such as doors, chests and levers (cubes),
-     each labelled.
-   - **Uncounted Palette**: one of every building piece, in a row to the side (+Y) of the world.
-2. Edit with normal Blender tools:
-   | To... | Do this |
-   |---|---|
-   | Move something | select it, **G** (then **X**/**Y**/**Z** to lock an axis; hold **Ctrl** to snap) |
-   | Turn it | **R**, then **Z**: the game only turns things around the vertical axis |
-   | Resize it | **S** (or **S**, **X** to stretch along one axis: walls and floors are stretched boxes) |
-   | Copy it | **Shift+D** |
-   | Delete it | **X** |
-   | Add a new piece | find it in the Palette, **Shift+D**, move it into the world |
-   | Move an NPC or monster | move its marker (a monster's patrol route moves with it) |
-   | Undo | **Ctrl+Z** |
-3. Click **Export Edits**. The bar at the bottom says what was saved, for example "3 changed, 2 added, 1 removed".
-4. Start the game. Your changes are there.
+1. **Import World**. The whole world appears with its real models and textures, plus your earlier edits. It's in three
+   collections:
+   - **Uncounted World**: every wall, floor, roof, prop and tree, named with the game's ids.
+   - **Uncounted Objects**: doors, chests, levers and signs as their real models; pickups as cubes; NPCs as arrows;
+     monsters as spheres. All are labelled.
+   - **Uncounted Palette**, beside the world (+Y): one of every building piece, plus a row of **templates**: door, locked
+     door, gate, chest, lever, sign, pickup, NPC and monster.
+2. **Edit** with normal Blender tools (table below).
+3. **Export Edits**. The status bar shows what was saved.
+4. Start the game.
 
-Run **Import World** again at any time: it starts from the game's level plus your saved edits, so nothing is lost.
+Run **Import World** again whenever you like. It rebuilds the scene from the game's level plus your saved edits, and
+your own models stay as you left them.
+
+| To... | Do this |
+|---|---|
+| Move | **G** (then **X**/**Y**/**Z** to lock an axis; hold **Ctrl** to snap: great for closing gaps between walls) |
+| Turn | **R**, then **Z**: the game only turns things around the vertical axis |
+| Stretch / resize | **S** (or **S**, **X** to stretch along one axis: walls and floors are stretched boxes) |
+| Copy | **Shift+D** |
+| Delete | **X** |
+| Add a wall/floor/prop | find it in the Palette, **Shift+D**, move it into the world |
+| Add a door, chest, lever, sign, pickup, NPC or monster | **Shift+D** its template from the Palette, move it, then fill in its settings |
+| Change settings | select it: the **game_** fields appear in the sidebar (also in Object Properties → Custom Properties) |
+| Undo | **Ctrl+Z** |
+
+## Settings you can change (the game_ fields)
+
+- **Doors**: `locked` (on/off), `key_id` (the item that opens it, for example `core:item.annex_key`), `lock_difficulty`
+  (lockpicking, 1 to 30), `prompt` (what the game shows: "Open *prompt*").
+- **Chests**: `loot_table` (for example `core:loot.crypt_basic`), `locked`, `lock_difficulty`.
+- **Levers**: `target_id` (the id of the gate or door it opens, for example `edit_gate_4`).
+- **Signs (readables)**: `prompt`, `title`, `text`.
+- **Pickups**: `item_id`, `qty`.
+- **NPCs**: `npc_id` (who it is, for example `core:npc.figure_snacks`). **Monsters**: `creature_id` (for example
+  `core:enemy.grey_wolf`). A monster patrols the same route relative to wherever you put it.
+- **Walls, floors, props**: `solid` (can you walk through it?), `uv_x` / `uv_y` (how many times the texture repeats).
+- Fields ending in `_flag` control when things appear or vanish in the story. Leave them alone unless you know the flag.
+- Ids of the game's items, monsters and NPCs are in `content/items`, `content/creatures` and `content/npcs`.
+
+## Your own models (roofs, door frames, buildings...)
+
+Any mesh you make yourself (**Add → Mesh**, then edit it in Edit Mode, extrude, bevel...) becomes a game piece when you
+export. Put it in any collection; hidden meshes are skipped.
+
+- **Textures**: give it one of the materials that came in with the imported pieces (Material tab → browse: look for
+  names such as roof shingles, wood planks, stone wall). Those are the game's own textures. UV-unwrap it (**U → Smart UV
+  Project**) so the texture lies nicely.
+- **Solid or not**: the game blocks the player with the model's bounding box. That's fine for walls, frames and roofs
+  overhead. For arches you walk through, build the posts and the top as separate meshes.
+- Each model is saved as `mods/level_edits/models/<name>.glb`. Keep the object's name stable and it keeps the same file.
 
 ## Good to know
 
-- **Walls and floors** are stretched boxes. To make a wall longer, scale it along one axis rather than copying it.
-- **Textures look stretched in Blender** on big walls and floors. The game tiles them properly, so ignore it.
-- **Pieces you add are scenery**: walls, floors, rocks, furniture. Doors, chests, levers, NPCs and monsters can be
-  moved but not added from Blender (ask the developer for those).
-- Turning something on its side (rotating around X or Y) isn't kept: the game ignores it, and Export warns you.
-- To **undo all your edits**, delete `mods/level_edits/map_edits.json` (or rename it to switch it off).
-- Keep the `mods/level_edits` folder when you update to a new build: copy it into the new game folder.
+- **Textures look stretched in Blender** on big walls and floors. The game tiles them, so ignore it.
+- **Doors and gaps**: doors are 1.84 m wide and 2.8 m tall. Move the walls in (with snapping) or model a frame around them.
+- **Tilting** something (rotating around X or Y) isn't kept, and Export warns you.
+- **Undo everything**: delete or rename `mods/level_edits`.
+- **Updating the game**: copy your `mods/level_edits` folder into the new game folder.
 - Coordinates: the game is Y-up and Blender is Z-up. The add-on converts between them; you never need to.

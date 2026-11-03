@@ -1640,12 +1640,16 @@ int GameEngine::RunSelfTest() {
         if (m) {
             std::string victim = m->props.front().id, mover = m->props.back().id;
             std::string npc = m->npcs.empty() ? "" : m->npcs.front().instance_id;
+            std::string gone = m->interactables.empty() ? "" : m->interactables.front().instance_id;
             std::filesystem::create_directories("mods/zz_selftest_edits", ec);
             {
                 std::ofstream f("mods/zz_selftest_edits/map_edits.json");
                 f << "{\"map\": \"" << m->id << "\", \"props\": {\"remove\": [\"" << victim << "\"], \"modify\": {\"" << mover
                   << "\": {\"pos\": [1, 2, 3], \"rot_y\": 45}}, \"add\": [{\"id\": \"selftest_added\", \"model\": \"assets/models/props/wooden_crate.glb\", \"pos\": [4, 0, 4]}]},"
-                  << " \"npcs\": {\"modify\": {\"" << npc << "\": {\"pos\": [7, 0, 7]}}}}";
+                  << " \"npcs\": {\"modify\": {\"" << npc << "\": {\"pos\": [7, 0, 7]}}},"
+                  << " \"interactables\": {\"remove\": [\"" << (m->interactables.empty() ? std::string() : m->interactables.front().instance_id)
+                  << "\"], \"set\": [{\"instance_id\": \"selftest_door\", \"type\": \"door\", \"model\": \"assets/models/props/oak_door.glb\","
+                  << " \"pos\": [3, 0, 2], \"locked\": true, \"key_id\": \"core:item.annex_key\", \"prompt\": \"Blender Door\"}]}}";
             }
             content_.ApplyMapEdits(".");
             std::filesystem::remove_all("mods/zz_selftest_edits", ec);
@@ -1657,6 +1661,12 @@ int GameEngine::RunSelfTest() {
             }
             for (const auto& n : m->npcs) if (n.instance_id == npc && n.pos.x == 7.0f) npcMoved = true;
             check(removed && moved && added && npcMoved, "level edits from Blender: remove, move, add props and move NPCs");
+            bool doorAdded = false, objGone = true;
+            for (const auto& in : m->interactables) {
+                if (in.instance_id == "selftest_door") doorAdded = in.type == "door" && in.locked && in.key_id == "core:item.annex_key";
+                if (in.instance_id == gone) objGone = false;
+            }
+            check(doorAdded && objGone, "level edits from Blender: add a locked door, remove an object");
         }
     }
 
