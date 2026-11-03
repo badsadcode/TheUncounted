@@ -32,7 +32,7 @@ cmake --build build -j 8
 | `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|reader:<item id>\|ending\|combat\|compare\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
 | `--balance` | Headless duels of every starting calling vs every creature; prints win rate, time-to-kill, HP left and potions used to the log |
 | `--showcase` | With `--shot`: lines up every wearable/consumable pickup and sample hit particles in front of the camera |
-| `--mods` | Enable `mods/example_mod` for this run |
+| `--mods` | Enable every mod in `mods/` for this run (alphabetical; later mods override earlier ids). See [docs/MODDING_3D.md](docs/MODDING_3D.md) |
 | `--mute` | Run without audio (automated modes — `--selftest`, `--balance`, `--shot` — are always silent) |
 
 ## Controls (rebind in `config/controls.json`)

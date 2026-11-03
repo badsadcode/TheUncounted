@@ -397,3 +397,8 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   `core:npc.abel_gale`). Silas can row you out again any time (`at_reef` toggles the boat topics).
   Authoring script: `tools/authoring/reef.py` (already run — do not rerun). Trout is on the lighthouse gallery too.
 
+### Mods (added 2026-11-03)
+
+- With `--mods` / `enable_mods`, every `mods/<name>/manifest.json` loads in alphabetical order (previously only
+  `example_mod`). Redefining an existing id replaces it (last wins), so mods can swap models and sprites. Guide for
+  3D replacements: `docs/MODDING_3D.md`.

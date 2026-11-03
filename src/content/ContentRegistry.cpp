@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "content/ContentRegistry.h"
 #include "core/Logger.h"
 #include "nlohmann/json.hpp"
@@ -190,9 +191,16 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     }
 
     if (game_cfg.enable_mods) {
-        std::string exMod = "mods/example_mod/manifest.json";
-        if (fs::exists(fs::path(rootDir) / exMod)) {
-            LoadManifestFile(rootDir, exMod);
+        // Every mods/<name>/manifest.json, in alphabetical order (later mods win when they redefine the same id).
+        std::vector<std::string> mods;
+        std::error_code ec;
+        for (const auto& e : fs::directory_iterator(fs::path(rootDir) / "mods", ec))
+            if (e.is_directory() && fs::exists(e.path() / "manifest.json"))
+                mods.push_back("mods/" + e.path().filename().string() + "/manifest.json");
+        std::sort(mods.begin(), mods.end());
+        for (const auto& m : mods) {
+            Logger::Info("Loading mod: " + m);
+            LoadManifestFile(rootDir, m);
         }
     }
 
