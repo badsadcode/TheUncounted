@@ -369,6 +369,10 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   wights (reef). Placeholder sprites; Bestiary notes included.
 - **Windows build:** `.github/workflows/windows-build.yml` tests on Linux, cross-compiles `game.exe` (`tools/mingw-w64.cmake`),
   uploads `TheUncounted-windows.zip` as an artifact (and to a Release on `v*` tags). `GAME_BUILD` labels the title screen.
+- **Playtest fixes (2026-11-03):** the sky panorama and stars used the wrong azimuth direction (they turned against the
+  world; raylib's screen-right is decreasing azimuth). Bloom is `glow_level` 0-3 (default Medium) with a higher
+  brightness threshold. Rain/wind ambience low-passed (no hiss). Levers: mesh 0 (base) fixed, the rest pivot.
+  `door_frames()` in build_world.py fills the gaps between doors and their walls/lintels with wooden frames.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

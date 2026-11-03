@@ -65,6 +65,8 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         graphics.dynamic_lights_enabled = j.value("dynamic_lights_enabled", true);
         graphics.retro_dither = j.value("retro_dither", true);
         graphics.glow = j.value("glow", true);
+        graphics.glow_level = std::clamp(j.value("glow_level", graphics.glow ? 2 : 0), 0, 3);
+        graphics.glow = graphics.glow_level > 0;
         graphics.world_motion = j.value("world_motion", true);
         graphics.screen_effect = j.value("screen_effect", "off");
         if (j.contains("available_internal_resolutions") && j["available_internal_resolutions"].is_array()) {
@@ -134,6 +136,7 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["dynamic_lights_enabled"] = graphics.dynamic_lights_enabled;
         j["retro_dither"] = graphics.retro_dither;
         j["glow"] = graphics.glow;
+        j["glow_level"] = graphics.glow_level;
         j["world_motion"] = graphics.world_motion;
         j["screen_effect"] = graphics.screen_effect;
         std::ofstream ofs((fs::path(rootDir) / "config/graphics.json").string());

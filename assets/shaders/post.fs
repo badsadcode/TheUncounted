@@ -31,7 +31,7 @@ vec3 bright(vec2 uv)
 {
     vec3 c = texture(texture0, uv).rgb;
     float l = max(c.r, max(c.g, c.b));
-    return c * smoothstep(0.62, 0.95, l);
+    return c * smoothstep(0.74, 1.0, l);   // only properly bright things (flames, spells, eyes), not torchlit walls
 }
 
 // The scene at uv, with glow.

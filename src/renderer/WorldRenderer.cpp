@@ -2,6 +2,7 @@
 #include "core/Logger.h"
 #include "raymath.h"
 #include "rlgl.h"
+#include <array>
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
@@ -326,7 +327,7 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
             for (int i = 0; i < 260; i++) {
                 float az = fabsf(fmodf(sinf(i * 91.7f) * 43758.5453f, 1.0f)) * 2.0f * PI;
                 float el = 0.12f + fabsf(fmodf(sinf(i * 17.3f) * 24634.63f, 1.0f)) * 1.3f;
-                float da = az - yaw;
+                float da = yaw - az;   // azimuth decreases towards screen-right
                 while (da > PI) da -= 2 * PI;
                 while (da < -PI) da += 2 * PI;
                 if (fabsf(da) > fovX * 0.6f) continue;
@@ -368,10 +369,25 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
                                    MatrixMultiply(MatrixRotateY(in.def.rot_y * DEG2RAD), MatrixTranslate(in.def.pos.x, in.def.pos.y, in.def.pos.z)));
             }
         } else if (t == "lever") {
+            // Only the handle swings: the first mesh is the base (drawn fixed), the rest (rod, knob) pivot where the rod
+            // meets the base. A single-mesh lever model falls back to tilting as a whole.
             Matrix anchor = AnchoredTransform(lb, {0, 0, 0}, 0, {1, 1, 1});
+            Matrix place = MatrixMultiply(MatrixRotateY(in.def.rot_y * DEG2RAD), MatrixTranslate(in.def.pos.x, in.def.pos.y, in.def.pos.z));
             float ang = (in.open_anim * 2.0f - 1.0f) * 35.0f;
-            m = MatrixMultiply(MatrixMultiply(anchor, MatrixRotateX(ang * DEG2RAD)),
-                               MatrixMultiply(MatrixRotateY(in.def.rot_y * DEG2RAD), MatrixTranslate(in.def.pos.x, in.def.pos.y, in.def.pos.z)));
+            Model& lm = res_->GetModel(in.def.model);
+            if (lm.meshCount >= 2) {
+                Vector2 uv1 = {1, 1};
+                if (wl_.uv_scale >= 0) SetShaderValue(world_shader_, wl_.uv_scale, &uv1, SHADER_UNIFORM_VEC2);
+                Vector3 pivot = {0.0f, 0.02f, 0.0f};   // where the rod enters the base (model space)
+                Matrix swing = MatrixMultiply(MatrixMultiply(MatrixTranslate(-pivot.x, -pivot.y, -pivot.z), MatrixRotateX(ang * DEG2RAD)),
+                                              MatrixTranslate(pivot.x, pivot.y, pivot.z));
+                for (int mi = 0; mi < lm.meshCount; mi++) {
+                    Matrix local = mi == 0 ? anchor : MatrixMultiply(swing, anchor);
+                    DrawMesh(lm.meshes[mi], lm.materials[lm.meshMaterial[mi]], MatrixMultiply(local, place));
+                }
+                continue;
+            }
+            m = MatrixMultiply(MatrixMultiply(anchor, MatrixRotateX(ang * DEG2RAD)), place);
         } else if (t == "pressure_plate") {
             m = MatrixMultiply(m, MatrixTranslate(0, -0.06f * in.open_anim, 0));
         }
@@ -748,7 +764,7 @@ void WorldRenderer::BlitToScreen() {
     bool post = post_shader_.id > 0 && post_shader_.id != rlGetShaderIdDefault();
     if (post) {
         Vector2 texel = {1.0f / tw, 1.0f / th};
-        float dither = gfx_->retro_dither ? 1.0f : 0.0f, glow = gfx_->glow ? 1.0f : 0.0f, vig = 0.55f;
+        float dither = gfx_->retro_dither ? 1.0f : 0.0f, glow = gfx_->glow ? std::array<float, 4>{0.0f, 0.3f, 0.55f, 0.9f}[std::clamp(gfx_->glow_level, 0, 3)] : 0.0f, vig = 0.55f;
         BeginShaderMode(post_shader_);
         SetShaderValue(post_shader_, post_texel_, &texel, SHADER_UNIFORM_VEC2);
         SetShaderValue(post_shader_, post_dither_, &dither, SHADER_UNIFORM_FLOAT);
@@ -812,7 +828,7 @@ void WorldRenderer::DrawPanorama(const std::string& path, float alpha, const Ren
         float d0 = -half + 2.0f * half * i / cols, d1 = -half + 2.0f * half * (i + 1) / cols;
         float x0 = sx(d0), x1 = sx(d1);
         if (x1 < 0 || x0 > tw) continue;
-        float u0 = (yaw + d0) * ppr, u1 = (yaw + d1) * ppr;
+        float u0 = (d0 - yaw) * ppr, u1 = (d1 - yaw) * ppr;   // screen offset d looks along azimuth yaw - d
         for (int r = 0; r < rows; r++) {
             float e0 = elTop * r / rows, e1 = elTop * (r + 1) / rows;
             float y1 = sy(e0), y0 = sy(e1);

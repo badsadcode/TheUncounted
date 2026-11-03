@@ -723,7 +723,9 @@ void GameEngine::DrawOptions() {
     row("Dynamic lights", gfx.dynamic_lights_enabled ? "On" : "Off", [&] { gfx.dynamic_lights_enabled = !gfx.dynamic_lights_enabled; },
         [&] { gfx.dynamic_lights_enabled = !gfx.dynamic_lights_enabled; });
     row("Retro dithering", gfx.retro_dither ? "On" : "Off", [&] { gfx.retro_dither = !gfx.retro_dither; }, [&] { gfx.retro_dither = !gfx.retro_dither; });
-    row("Glow", gfx.glow ? "On" : "Off", [&] { gfx.glow = !gfx.glow; }, [&] { gfx.glow = !gfx.glow; });
+    static const char* glowNames[] = {"Off", "Low", "Medium", "High"};
+    auto cycleGlow = [&](int d) { gfx.glow_level = (std::clamp(gfx.glow_level, 0, 3) + d + 4) % 4; gfx.glow = gfx.glow_level > 0; };
+    row("Glow (bloom)", glowNames[std::clamp(gfx.glow_level, 0, 3)], [&] { cycleGlow(-1); }, [&] { cycleGlow(1); });
     auto cycleFx = [&](int d) {
         static const std::vector<std::string> ids = {"off", "crt", "vhs", "fisheye", "film", "handheld", "noir", "nightvision", "ega", "ale"};
         auto it = std::find(ids.begin(), ids.end(), gfx.screen_effect);

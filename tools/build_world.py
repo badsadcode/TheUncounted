@@ -167,6 +167,82 @@ def build_scatter(props, interactables, npcs):
     return out
 
 
+
+# ============================================================================ door frames
+def _glb_bounds(path):
+    import struct
+    b = open(os.path.join(ROOT, path), "rb").read()
+    n = struct.unpack("<I", b[12:16])[0]
+    j = json.loads(b[20:20 + n])
+    mn, mx = [1e9] * 3, [-1e9] * 3
+    for m in j["meshes"]:
+        for prim in m["primitives"]:
+            a = j["accessors"][prim["attributes"]["POSITION"]]
+            mn = [min(x, y) for x, y in zip(mn, a["min"])]
+            mx = [max(x, y) for x, y in zip(mx, a["max"])]
+    return mn, mx
+
+
+_frame_along_x = []
+
+
+def door_frames(props, interactables):
+    """Doors are narrower and shorter than the gaps left for them in the walls, so you could see past them. For every
+    door: find the wall on each side and the lintel above, and fill what's left with dark wooden frame pieces."""
+    frames = []
+    _frame_along_x.clear()
+    boxes = [(p, extents(p)) for p in props if p.get("solid", True)]
+    for d in interactables:
+        if d.get("type") != "door" or not d.get("model"):
+            continue
+        mn, mx = _glb_bounds(d["model"])
+        hw, h = (mx[0] - mn[0]) / 2, mx[1] - mn[1]
+        x, y, z = d["pos"]
+        along_x = round(d.get("rot_y", 0.0)) % 180 == 0       # the door spans x (else z)
+        a0 = x if along_x else z                               # along the doorway
+        c0 = z if along_x else x                               # across it (the wall's plane)
+        def span(e):
+            (ex0, ex1), (ey0, ey1), (ez0, ez1) = e
+            return ((ex0, ex1), (ez0, ez1)) if along_x else ((ez0, ez1), (ex0, ex1))
+        side_edges, depth = {}, None
+        for sgn in (-1, 1):
+            edge = a0 + sgn * hw
+            best = None
+            for p, e in boxes:
+                (pa0, pa1), (pc0, pc1) = span(e)
+                (ey0, ey1) = e[1]
+                if not (pc0 - 0.05 <= c0 <= pc1 + 0.05) or ey1 < y + 0.5 or ey0 > y + 1.0 or not (0.15 <= pc1 - pc0 <= 1.5):
+                    continue
+                gap = (pa0 - edge) if sgn > 0 else (edge - pa1)
+                if -0.05 <= gap <= 1.5 and (best is None or gap < best[0]):
+                    best = (gap, pa0 if sgn > 0 else pa1, pc0, pc1)
+            if best:
+                side_edges[sgn] = best[1]
+                depth = (best[2], best[3]) if depth is None else (min(depth[0], best[2]), max(depth[1], best[3]))
+                if best[0] > 0.02:
+                    lo, hi = sorted((edge, best[1]))
+                    frames.append((lo, hi, y, y + h + 0.02, best[2], best[3])); _frame_along_x.append(along_x)
+        if depth is None:
+            continue
+        left, right = side_edges.get(-1, a0 - hw), side_edges.get(1, a0 + hw)
+        # the lintel: the lowest wall piece above the doorway
+        top = None
+        for p, e in boxes:
+            (pa0, pa1), (pc0, pc1) = span(e)
+            (ey0, ey1) = e[1]
+            if pc0 - 0.05 <= c0 <= pc1 + 0.05 and pa0 < a0 < pa1 and ey0 > y + h - 0.05 and ey0 - (y + h) < 1.5:
+                top = ey0 if top is None else min(top, ey0)
+        if top is not None and top - (y + h) > 0.02:
+            frames.append((left, right, y + h, top, depth[0], depth[1])); _frame_along_x.append(along_x)
+    out = []
+    for i, (a_lo, a_hi, y0, y1, c_lo, c_hi) in enumerate(frames):
+        c_lo, c_hi = c_lo - 0.03, c_hi + 0.03              # a hair proud of the wall, like a real frame
+        x0, x1, z0, z1 = a_lo, a_hi, c_lo, c_hi
+        if not _frame_along_x[i]:
+            x0, x1, z0, z1 = c_lo, c_hi, a_lo, a_hi
+        out.append(box_prop(f"door_frame_{i}", MAT_WALL("wood_panelling"), x0, x1, y0, y1, z0, z1, uv=[0.2, 0.5]))
+    return out
+
 SKIES = {"bellwether": "night", "old_road": "night", "hollowmere": "night", "saltmere": "night", "sleepers_reef": "night",
          "whistling_wood": "dusk", "seaside_house": "dusk"}
 
@@ -490,6 +566,7 @@ def build():
         bell_zone,
     ]
 
+    props += door_frames(props, interactables)
     world = {
         "schema_version": 1,
         "id": "core:map.edrath",
