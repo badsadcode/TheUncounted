@@ -95,6 +95,8 @@ animals. The original goes in `art_source/spritesheets/`. The character's `appea
 | **Sabrino** (they/them) | ✅ | The Italian Witch (Wanted): a theatrical, slightly war-criminal witch. Tall dented pointed hat with a red sash, purple robes, a confident grin, fire at the fingertips. Toasty's recurring character. |
 | **Steve** | ✅ | A level-one bandit living in the Whistling Wood. He's a human, and very proud of being a bandit. Patched leathers, a too-big hood, a rusty knife. |
 | **Grout** | ✅ | Companion. A squat, mossy stone gargoyle: grey stone, stubby horns (one chipped), folded stone wings, glowing amber eyes, big fists, a scowl. Two hundred years on the Records Office roof. Grumpy, few words, punches hard. |
+| **Bramble Thistlewick** (squirrel) | 🟡 | A red squirrel with tremendous dignity and a tiny acorn necklace. Four-legged, small. Really a druid. |
+| **Bramble Thistlewick** (druid) | 🟡 | Tall, bearded, mossy green robe, wooden staff with a green glow, small antlers, leaves in his beard. Goofy, kind, hay fever. |
 | **Professor Pickering** | ✅ | Collegium academic, Dept. of Unusual Studies. Tweed, a notebook, wild hair, an excited pointing finger. |
 
 ### Hollowmere Manor
