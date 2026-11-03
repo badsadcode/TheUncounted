@@ -405,6 +405,8 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   from the base, the edits carry the whole `lights` / `spawns` list; `scatter: []` when "Keep grass & flowers" is off
   (`tools/map_edits.py` handles all three). Fit collision now works per loose part with a six-ray back-face vote, so
   overlapping boxes and imperfect meshes work (no closed-mesh requirement), grid >= 0.12 m, <= 150k cells per part.
+  v4.3: `uncounted_tile` defaults to 0 (keep the user's unwrap; it used to overwrite UVs at 2 m). Reshaped game pieces
+  whose UVs differ from the original (`unc_uvhash`) export with `uv_scale` [1, 1].
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

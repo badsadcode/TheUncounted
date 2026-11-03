@@ -86,8 +86,10 @@ export. Put it in any collection; hidden meshes are skipped.
 - **Textures**: give it one of the materials that came in with the imported pieces (Material tab → browse: look for
   names such as roof shingles, wood planks, stone wall). Those are the game's own textures. UV-unwrap it (**U → Smart UV
   Project**) so the texture lies nicely.
-- **Texture size (m)** in the sidebar: the texture repeats every this many metres, however big the mesh is, like the
-  game's own walls (2 m by default). Set it to 0 to keep your own UV unwrap instead.
+- **Your UV unwrap is used exactly as you made it.** Game pieces you unwrap yourself keep your UVs too (their old
+  texture repeat is switched off).
+- **Auto-tile texture (m)** in the sidebar (off = 0 by default): if you'd rather not unwrap, set it to, say, 2 and
+  Export replaces the UVs so the texture repeats every 2 m, like the game's walls.
 - **Solid**: the game blocks the player with the model's bounding box (a box around the whole mesh). That's fine for
   walls, pillars and roofs overhead. For an arch you walk through, build the posts and the top as separate meshes, or
   untick Solid and add **COL** boxes (below).
@@ -101,8 +103,7 @@ export. Put it in any collection; hidden meshes are skipped.
 - A mesh with no material shows plain white in the game.
 - **Several materials on one mesh** work: add them in the Material tab, then in Edit Mode select faces and press
   **Assign** (for example shingles on the roof faces, planks on the gable). Each keeps its own texture in the game.
-- **Tile Texture Now** (under Texture size) shows the game's texture repeat on the selected meshes straight away;
-  Export does it anyway.
+- **Tile Texture Now** (under Auto-tile) applies that repeat to the selected meshes straight away, so you can see it.
 
 ## Reshaping the game's own pieces (roofs, walls with doorways...)
 

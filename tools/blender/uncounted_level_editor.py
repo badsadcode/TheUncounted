@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 2, 0),
+    "version": (4, 3, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -225,6 +225,17 @@ def mesh_hash(me):
     return h.hexdigest()
 
 
+def uv_hash(me):
+    """A fingerprint of a mesh's UVs only: tells whether you unwrapped a game piece yourself."""
+    import hashlib
+    from array import array
+    if not me.uv_layers.active:
+        return ""
+    uv = [0.0] * (len(me.loops) * 2)
+    me.uv_layers.active.data.foreach_get("uv", uv)
+    return hashlib.md5(array("f", [round(c, 4) for c in uv]).tobytes()).hexdigest()
+
+
 def model_mesh(gdir, model, cache):
     """Import a .glb once and join it into one mesh whose origin is the bottom-centre (the game's anchor)."""
     if model in cache:
@@ -253,6 +264,7 @@ def model_mesh(gdir, model, cache):
                 v.co -= anchor
             mesh.name = "UNC:" + model
             mesh["unc_hash"] = mesh_hash(mesh)
+            mesh["unc_uvhash"] = uv_hash(mesh)
             for mat in mesh.materials:
                 game_tiling(mat)
         for o in new:
@@ -793,6 +805,18 @@ def collect(context, models_rel, base_ids, base_objs):
     ref_hash = {}       # model -> fingerprint of the untouched model
     cache = {}
 
+    def own_uvs(o):
+        """True when the UVs differ from the original model's: you unwrapped it, so the game mustn't scale them."""
+        model = o["unc_model"]
+        if model.startswith(OWN_MODEL_DIRS):
+            return False
+        if "unc_uvhash" in o.data:
+            ref = o.data["unc_uvhash"]
+        else:
+            m = model_mesh(gdir, model, cache)
+            ref = uv_hash(m) if m else None
+        return ref is not None and uv_hash(o.data) != ref
+
     def edited(o):
         if o.get("unc_model", "").startswith(OWN_MODEL_DIRS):
             return True
@@ -842,6 +866,8 @@ def collect(context, models_rel, base_ids, base_objs):
             rel, anchor = baked[o.data.name]
             own = o["unc_model"].startswith(OWN_MODEL_DIRS)
             src = json.loads(o.get("unc_prop", "{}"))
+            if own_uvs(o):
+                o["game_uv_x"], o["game_uv_y"] = 1.0, 1.0    # your unwrap is used as it is (also in Blender's preview)
             p = {"model": rel, "pos": to_game(o.matrix_world @ anchor), "rot_y": rot, "scale": scale_to_game(o.scale),
                  "solid": bool(o.uncounted_solid) if own else bool(o.get("game_solid", True)),
                  "uv_scale": [round(float(o.get("game_uv_x", 1.0)), 3), round(float(o.get("game_uv_y", 1.0)), 3)]}
@@ -1021,7 +1047,7 @@ class UNC_OT_unique(bpy.types.Operator):
 class UNC_OT_tile(bpy.types.Operator):
     bl_idname = "uncounted.tile"
     bl_label = "Tile Texture Now"
-    bl_description = "Repeat the texture of the selected meshes every 'Texture size' metres, as the game will (Export does it too)"
+    bl_description = "Replace the UVs of the selected meshes so the texture repeats every 'Auto-tile texture' metres"
 
     def execute(self, context):
         n = 0
@@ -1143,9 +1169,9 @@ def register():
     O.uncounted_fit = P.BoolProperty(name="Collision fits the shape", default=True,
                                      description="Block the player with boxes that follow the mesh (doorways and arches stay open). "
                                                  "Off: one box around the whole mesh")
-    O.uncounted_tile = P.FloatProperty(name="Texture size (m)", min=0.0, max=20.0, default=2.0, precision=2,
-                                       description="The texture repeats every this many metres, whatever the mesh's size. "
-                                                   "0 keeps your own UV unwrap")
+    O.uncounted_tile = P.FloatProperty(name="Auto-tile texture (m)", min=0.0, max=20.0, default=0.0, precision=2,
+                                       description="0 (default): your own UV unwrap is used exactly as it is. Above 0: Export "
+                                                   "replaces the UVs so the texture repeats every this many metres")
     for c in CLASSES:
         bpy.utils.register_class(c)
 
