@@ -12634,16 +12634,6 @@
       "yaw": -10.0
     },
     {
-      "instance_id": "npc_figure_crumbs",
-      "npc_id": "core:npc.figure_crumbs",
-      "pos": [
-        72.2,
-        0.0,
-        -7.4
-      ],
-      "yaw": -35.0
-    },
-    {
       "instance_id": "npc_figure_snacks",
       "npc_id": "core:npc.figure_snacks",
       "pos": [

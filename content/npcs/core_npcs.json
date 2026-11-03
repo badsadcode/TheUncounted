@@ -794,6 +794,10 @@
         {
           "text_key": "bark.baggy.dry",
           "flag": "seal_renewed"
+        },
+        {
+          "text_key": "bark.baggy.barely",
+          "flag": "fig1_unmasked"
         }
       ],
       "companion": {
@@ -1480,24 +1484,6 @@
         }
       ],
       "title_key": "npc.figure_agnes.title"
-    },
-    {
-      "id": "core:npc.figure_crumbs",
-      "name_key": "npc.figure_crumbs.name",
-      "faction": "core:faction.ashbound",
-      "dialogue_id": "core:dialogue.figure_crumbs",
-      "appearance": {
-        "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/figure_crumbs.png",
-        "animation_data": "assets/animations/npc_standard.json",
-        "scale": 1.82
-      },
-      "barks": [
-        {
-          "text_key": "bark.fig.cru"
-        }
-      ],
-      "title_key": "npc.figure_crumbs.title"
     },
     {
       "id": "core:npc.figure_snacks",

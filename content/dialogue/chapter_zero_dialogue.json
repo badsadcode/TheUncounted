@@ -6146,6 +6146,10 @@
               ]
             },
             {
+              "text_key": "dlg.baggy.choice_gang",
+              "next": "gang"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -6409,6 +6413,54 @@
             {
               "text_key": "dlg.trout.baggy.trout.c0",
               "next": "root"
+            }
+          ]
+        },
+        "gang": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.gang",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.gang.c0",
+              "next": "gang_scared"
+            },
+            {
+              "text_key": "dlg.baggy.gang.c1",
+              "next": "gang_barely"
+            },
+            {
+              "text_key": "dlg.baggy.gang.c2",
+              "next": "root"
+            }
+          ]
+        },
+        "gang_scared": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.gang_scared",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.gang_scared.c0",
+              "next": "gang"
+            }
+          ]
+        },
+        "gang_barely": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.gang_barely",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.gang_barely.c0",
+              "next": "gang_horse"
+            }
+          ]
+        },
+        "gang_horse": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.gang_horse",
+          "choices": [
+            {
+              "text_key": "dlg.baggy.gang_horse.c0",
+              "next": "gang"
             }
           ]
         }
@@ -13891,60 +13943,6 @@
           "choices": [
             {
               "text_key": "dlg.fig.agn.e2.c0",
-              "next": "root"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "id": "core:dialogue.figure_crumbs",
-      "root_node": "root",
-      "nodes": {
-        "root": {
-          "speaker_key": "npc.figure_crumbs.name",
-          "text_key": "dlg.fig.cru.root",
-          "choices": [
-            {
-              "text_key": "dlg.fig.cru.root.c0",
-              "next": "scared"
-            },
-            {
-              "text_key": "dlg.fig.cru.root.c1",
-              "next": "barely"
-            },
-            {
-              "text_key": "dlg.fig.cru.root.c2",
-              "next": "END"
-            }
-          ]
-        },
-        "scared": {
-          "speaker_key": "npc.figure_crumbs.name",
-          "text_key": "dlg.fig.cru.scared",
-          "choices": [
-            {
-              "text_key": "dlg.fig.cru.scared.c0",
-              "next": "root"
-            }
-          ]
-        },
-        "barely": {
-          "speaker_key": "npc.figure_crumbs.name",
-          "text_key": "dlg.fig.cru.barely",
-          "choices": [
-            {
-              "text_key": "dlg.fig.cru.barely.c0",
-              "next": "horse"
-            }
-          ]
-        },
-        "horse": {
-          "speaker_key": "npc.figure_crumbs.name",
-          "text_key": "dlg.fig.cru.horse",
-          "choices": [
-            {
-              "text_key": "dlg.fig.cru.horse.c0",
               "next": "root"
             }
           ]

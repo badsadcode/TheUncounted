@@ -40,7 +40,6 @@ Placeholder sheets rendered by `tools/build_sprites_prerendered.py`. Same 8x6 la
 | `figure_rodrick.png` | **Sir Rodrick Ascot-Smythe** | Square-jawed blond leader, white tunic, orange cravat, coil of rope. Heroic poses, bad plans. |
 | `figure_primrose.png` | **Lady Primrose Vane** | Tall, glamorous, red hair pinned up, purple gown, green silk scarf. Secretly a brawler. |
 | `figure_agnes.png` | **Agnes Thimble** | Short, huge orange jumper, red skirt, thick spectacles (sliding off), a book. |
-| `figure_crumbs.png` | **Barnaby "Crumbs" Moss** | Lanky, scruffy beard, baggy green shirt, brown trousers, sandwich. Permanently about to flee. |
 | `figure_snacks.png` | **Snacks** | Owlbear *cub*: dog-sized, brown feathers and fur, owl face, enormous worried eyes. (Four-legged.) |
 | `phantom_clerk.png` | **The Phantom Clerk** (enemy) | A bedsheet ghost in Bureau robes, glowing green ink smears, a DECEASED stamp. Clearly someone underneath. |
 | `howler.png` | **The Howler of Hollowmere** (enemy) | A shaggy "werewolf" costume, wooden claws, and very obvious sandals. |

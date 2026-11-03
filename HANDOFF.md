@@ -323,14 +323,16 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
 ### The Figure It Out Gang (added 2026-11-03)
 
 A spinoff Toasty made up: a meddling mystery gang in the spirit of the classic Saturday-morning sleuths (originals, never
-named after them), with the **Figure It Out Wagon** instead of a famous van. Running gag: Crumbs yells **"I barely knew
+named after them), with the **Figure It Out Wagon** instead of a famous van. Running gag: **Baggy** (Toasty's recurring character, in the cowardly-hungry role) yells **"I barely knew
 her!"** at every unmasking, whoever (or whatever) is under the mask. Tone: silly, not competent, spooky, successful.
 Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do not rerun). Campaign `figure_it_out` (tales).
 
 - **Camp** on the Old Road (local ~(18..25, -4..-10)): the wagon prop (`figure_wagon.glb`, `build_item_models.py
   wagon_models`), a campfire, Sir Rodrick (leader, every trap catches the wrong person), Lady Primrose (always kidnapped,
-  punches), Agnes (actually solves it, loses spectacles), Barnaby "Crumbs" Moss, and Snacks the cowardly owlbear cub
-  (feed it Crumb Cakes; scratch it for sanity).
+  punches), Agnes (actually solves it, loses spectacles), Snacks the cowardly owlbear cub
+  (feed it Crumb Cakes; scratch it for sanity). Baggy is a founding member: gang topics in
+  Baggy's own dialogue (`gang`, `gang_barely`, `gang_horse`, a Trout callback); the trap in ep 1 catches Oakhaven instead.
+  (A first draft had an extra character, Crumbs, in that role; `tools/authoring/figure_baggy.py` wrote him out.)
 - **Formula per episode** (stages 0 → 10 clues → 20 trap → 30 catch → 40 unmask → 50 → 100): clue readables use
   `requires_flag` (`fig1_open` / `fig2_open`) and set `fig*_c1..3`; Rodrick needs all three (`flags_at_least`); the trap is
   a readable with `requires_flag` + `hidden_flag` + `narration` (readables now play narration as a story scene); it

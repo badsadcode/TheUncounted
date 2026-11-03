@@ -786,10 +786,6 @@ SHEETS = {
         "kind": "humanoid", "body": (226, 190, 160), "armor": (230, 130, 40), "legs": (180, 60, 50), "trim": (250, 170, 70),
         "eye": (30, 30, 30), "hat": "bun", "hair": (110, 70, 40), "weapon": "ledger", "book": (180, 60, 50),
     },
-    "assets/sprites/npcs/figure_crumbs.png": {
-        "kind": "humanoid", "body": (226, 196, 166), "armor": (120, 160, 70), "legs": (130, 100, 60), "trim": (100, 140, 60),
-        "eye": (40, 30, 24), "hair": (130, 100, 60), "beard": True,
-    },
     "assets/sprites/npcs/figure_snacks.png": {"kind": "quadruped", "scale": 1.0, "body": (150, 110, 70), "armor": (100, 70, 40),
                                               "eye": (240, 190, 70)},
     "assets/sprites/enemies/phantom_clerk.png": {

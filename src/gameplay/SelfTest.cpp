@@ -1352,9 +1352,10 @@ int GameEngine::RunSelfTest() {
               "the trap catches Baggy, a pigeon and Rodrick");
         check(catchMonster("fig1_phantom") && QuestStage(e1) == 40, "the Phantom Clerk is caught (it fell over Snacks)");
         check(talk("core:npc.unmask_clerk", {"reveal", "refund"}) && player_.flags.count("fig1_guessed") && QuestStage(e1) == 50,
-              "it was Vaelen all along (Crumbs barely knew her)");
+              "it was Vaelen all along (Baggy barely knew her)");
         check(visible("core:npc.unmask_clerk") < 0, "the netted suspect is gone once it's done");
         check(talk("core:npc.figure_rodrick", {"e1_done", "root"}) && QuestStage(e1) == 100 && CountItem("core:item.crumb_cake") == 5, "FIGURED OUT! Paid in Crumb Cakes");
+        check(talk("core:npc.detective_baggy", {"gang", "gang_barely", "gang_horse", "gang", "root"}), "Baggy, founding member: 'I barely knew her' (even the horse)");
         check(talk("core:npc.figure_snacks", {"cake", "root"}) && CountItem("core:item.crumb_cake") == 4, "Snacks would not do something brave for a Crumb Cake");
         check(talk("core:npc.figure_rodrick", {"e2_open", "root"}) && QuestStage(e2) == 10, "episode two: the Howler of Hollowmere");
         check(use("fig2_clue_prints") && use("fig2_clue_wool") && use("fig2_clue_list") && talk("core:npc.figure_rodrick", {"e2_trap", "root"}) && QuestStage(e2) == 20,
