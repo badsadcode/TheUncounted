@@ -3200,6 +3200,111 @@
       "prompt": "Read the Note on the Chest",
       "title": "A Note Taped to the Treasure",
       "text": "\"Congratulations on finding the Secret Treasure of Hollowmere!\n\nIt's a party hat. I'm sorry. I had it made for my last party. Nobody came, so nobody wore it.\n\nThey always say the real treasure is the friends you made along the way. I never made any. Perhaps you could wear it for me, the next time you're somewhere with friends.\n\n- P.\""
+    },
+    {
+      "instance_id": "mans_grave_moss_159_140",
+      "type": "harvest",
+      "model": "assets/models/props/moss_grave.glb",
+      "pos": [
+        -15.9,
+        0.0,
+        -14.0
+      ],
+      "rot_y": 337.69999999999993,
+      "item_id": "core:item.grave_moss",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Grave Moss",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_grave_moss_115_140",
+      "type": "harvest",
+      "model": "assets/models/props/moss_grave.glb",
+      "pos": [
+        -11.5,
+        0.0,
+        -14.0
+      ],
+      "rot_y": 140.5,
+      "item_id": "core:item.grave_moss",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Grave Moss",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_grave_moss_137_108",
+      "type": "harvest",
+      "model": "assets/models/props/moss_grave.glb",
+      "pos": [
+        -13.7,
+        0.0,
+        -10.8
+      ],
+      "rot_y": 94.29999999999995,
+      "item_id": "core:item.grave_moss",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Grave Moss",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_marigold_165_140",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        16.5,
+        0.0,
+        -14.0
+      ],
+      "rot_y": 96.5,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_wolfsbane_170_100",
+      "type": "harvest",
+      "model": "assets/models/props/herb_wolfsbane.glb",
+      "pos": [
+        17.0,
+        0.0,
+        -10.0
+      ],
+      "rot_y": 159.0,
+      "item_id": "core:item.wolfsbane",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wolfsbane",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
     }
   ],
   "portals": []

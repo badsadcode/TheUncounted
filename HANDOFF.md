@@ -458,7 +458,7 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
 - Dialogue actions `take_gold`, `reset_perks`; Brother Aldous's "Rite of Second Thoughts" (50 gold) resets perks.
   Authoring: `tools/authoring/perks.py` (already run — do not rerun). `--shot … --overlay perks`.
 
-### Planned next (user request): gathering, alchemy, basic crafting
+### Gathering, alchemy, workbench (added 2026-11-03; was the user's planned request)
 
 The user asked for "stuff to do besides quests — gathering, alchemy, basic crafting, to bring some life to the
 world", to come after spells/character building. Ideas that fit the existing systems: harvestable herb/mushroom/ore
@@ -483,4 +483,17 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   Bewilderment, Sudden Friendship, Unauthorised Entry. Weapons: Serrated Cleaver and Thornbow (bleed), the Sword of
   Mild Inconvenience (confuse). Authoring: `tools/authoring/roguelike.py` (already run — do not rerun).
   `--shot … --overlay status_demo2` shows charm/confuse/bleed.
+
+- **Done:** interactable types `harvest` (`item_id`, `qty`..`qty_max`, `respawn_seconds` of play time; picked nodes vanish,
+  `MapPersist.harvested` saves when) and `station` (`station`: alchemy / workbench → `Overlay::Crafting`).
+  `content/recipes/recipes.json` (manifest `recipes`; `RecipeDef`: station, result, qty, ingredients, skill,
+  skill_level); `CanCraft` / `Craft`. Item effects `weapon_oil` (`stat` = status, `value` = chance, `amount` = power,
+  `duration`; one oil at a time; melee and arrows) and `consumable_sanity`. Validation checks recipe and harvest items.
+- 10 materials (marigold, wayside sage, wolfsbane, glowcap, grave moss, bladderwrack, sea salt, iron ore, ashwood
+  branch, pine resin) placed per region (40 nodes; models `python tools/build_item_models.py harvest_models`). Alchemy
+  benches: Lantern Inn and Mother Brine's tavern; Workbench by Vaelen. 11 alchemy recipes (potions, five weapon oils,
+  Quiet Mind Tea, Hunter's Draught, Bureaucrat's Brew), 6 workbench recipes (arrows, lockpicks, whetstones, three wands).
+  Authoring: `tools/authoring/crafting.py` (already run — do not rerun; it also injected node blocks into the region
+  builder scripts). `--shot … --overlay crafting`.
+- Not yet: fishing, cooking station, recipes found as books, rare reagents from bosses.
 

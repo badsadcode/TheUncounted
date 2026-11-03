@@ -758,6 +758,149 @@
       "title": "On Top of the Boundary Stone",
       "text": "Eleven feet up, on the very top of the boundary stone, where nothing larger than a crow could possibly perch, there is a neat, fresh pile of horse manure.\n\nIt is still steaming.\n\nThere are no hoofprints anywhere round the base of the stone. There are no hoofprints on the stone. There is just the evidence, on top, steaming, defying every law of nature and several of the Bureau's.",
       "set_flag": "trout_c_stone"
+    },
+    {
+      "instance_id": "old__wayside_sage_20_80",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        -2.0,
+        0.0,
+        8.0
+      ],
+      "rot_y": 14.0,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "old__wayside_sage_140_90",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        14.0,
+        0.0,
+        9.0
+      ],
+      "rot_y": 257.0,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "old__iron_scrap_180_110",
+      "type": "harvest",
+      "model": "assets/models/props/ore_iron.glb",
+      "pos": [
+        18.0,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 185.0,
+      "item_id": "core:item.iron_scrap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Mine Iron Ore"
+    },
+    {
+      "instance_id": "old__iron_scrap_140_110",
+      "type": "harvest",
+      "model": "assets/models/props/ore_iron.glb",
+      "pos": [
+        -14.0,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 81.0,
+      "item_id": "core:item.iron_scrap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Mine Iron Ore"
+    },
+    {
+      "instance_id": "old__ashwood_branch_60_100",
+      "type": "harvest",
+      "model": "assets/models/props/branches_ash.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        10.0
+      ],
+      "rot_y": 248.0,
+      "item_id": "core:item.ashwood_branch",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Ashwood Branch"
+    },
+    {
+      "instance_id": "old__ashwood_branch_90_110",
+      "type": "harvest",
+      "model": "assets/models/props/branches_ash.glb",
+      "pos": [
+        9.0,
+        0.0,
+        11.0
+      ],
+      "rot_y": 94.0,
+      "item_id": "core:item.ashwood_branch",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Ashwood Branch"
+    },
+    {
+      "instance_id": "old__pine_resin_0_115",
+      "type": "harvest",
+      "model": "assets/models/props/resin_stump.glb",
+      "pos": [
+        0.0,
+        0.0,
+        11.5
+      ],
+      "rot_y": 126.5,
+      "item_id": "core:item.pine_resin",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Collect Pine Resin"
+    },
+    {
+      "instance_id": "old__marigold_200_60",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        20.0,
+        0.0,
+        6.0
+      ],
+      "rot_y": 86.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
     }
   ],
   "portals": [

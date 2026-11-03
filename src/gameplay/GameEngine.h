@@ -13,7 +13,7 @@
 namespace uncounted {
 
 enum class Screen { Title, Creation, Playing, Dead, Ending };
-enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration };
+enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting };
 
 struct InvItem {
     std::string id;
@@ -38,6 +38,8 @@ struct ActiveBuff {
     std::string bonus_key;   // food buffs: named build bonus while active
     float bonus_value = 0.0f;
     std::string item_id;     // food buffs: what was eaten (HUD icon/name)
+    std::string status;      // weapon oils: status applied by your hits while it lasts
+    float status_chance = 0.0f, status_power = 0.0f, status_duration = 0.0f;
 };
 
 struct PlayerState {
@@ -88,6 +90,7 @@ struct MapPersist {
     std::set<std::string> dead;      // defeated creatures
     std::map<std::string, Vector3> corpse_pos;
     std::map<std::string, ContainerState> containers;
+    std::map<std::string, double> harvested;   // harvest node -> play time it was picked
 };
 
 struct ToastMsg {
@@ -419,6 +422,11 @@ private:
     void DrawCharacter();
     void DrawCombatSheet(Rectangle P);
     void DrawPerks(Rectangle P);
+    void DrawCrafting();
+    bool CanCraft(const RecipeDef& r) const;
+    bool Craft(const std::string& recipeId);
+    void ApplyOilOnHit(CreatureInstance& c);
+    std::string craft_station_, craft_selected_;
     std::string perk_skill_;
     void DrawJournal();
     void DrawMapOverlay();

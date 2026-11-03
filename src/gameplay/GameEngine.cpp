@@ -262,6 +262,14 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
         else if (boot_shot_overlay_ == "options") overlay_ = Overlay::Options;
+        else if (boot_shot_overlay_ == "crafting") {
+            for (const char* m : {"core:item.marigold", "core:item.pine_resin", "core:item.bladderwrack", "core:item.sea_salt", "core:item.glowcap"})
+                AddItem(m, 3, false);
+            craft_station_ = "alchemy";
+            craft_selected_ = "core:recipe.oil_fire";
+            overlay_ = Overlay::Crafting;
+            toasts_.clear();
+        }
         else if (boot_shot_overlay_ == "perks") {
             // A mid-game mage: Elemental 27 with one perk chosen and one waiting.
             player_.skills["elemental"].level = 27;
@@ -703,6 +711,10 @@ void GameEngine::BuildScene() {
         }
         InteractableInstance in;
         in.def = d;
+        if (d.type == "harvest") {
+            auto h = ps.harvested.find(d.instance_id);
+            in.used = h != ps.harvested.end() && player_.play_time - h->second < d.respawn_seconds;
+        }
         if (!d.model.empty()) {
             BoundingBox lb = res_.GetModelBounds(d.model);
             in.base_transform = AnchoredTransform(lb, d.pos, d.rot_y, d.scale);
@@ -1534,6 +1546,21 @@ void GameEngine::UseItem(const std::string& id) {
             if (e.type == "consumable_heal") player_.health += e.amount * pot;
             else if (e.type == "consumable_mana") player_.mana += e.amount * pot;
             else if (e.type == "consumable_stamina") player_.stamina += e.amount * pot;
+            else if (e.type == "consumable_sanity") ChangeSanity(static_cast<float>(e.amount) * pot);
+            else if (e.type == "weapon_oil") {
+                // Coat your weapon: hits apply a status for a while. A new oil replaces the old one.
+                player_.buffs.erase(std::remove_if(player_.buffs.begin(), player_.buffs.end(), [](const ActiveBuff& b) { return b.primitive == "oil"; }),
+                                    player_.buffs.end());
+                ActiveBuff b;
+                b.primitive = "oil";
+                b.item_id = d->id;
+                b.status = e.stat;
+                b.status_chance = e.value;
+                b.status_power = static_cast<float>(e.amount);
+                b.status_duration = 4.0f;
+                b.remaining = b.duration = e.duration;
+                player_.buffs.push_back(b);
+            }
             else if (e.type == "cast_spell") {
                 // Wands: each charge casts its spell for free. The stack size is the charge count.
                 if (const SpellDef* ws = content_.GetSpell(e.spell_id)) {
@@ -1652,6 +1679,7 @@ void GameEngine::ResolveMeleeHit() {
     player_.mana += Bonus("mana_on_melee_hit") + (w ? w->weapon.mana_on_hit : 0.0f);
     int dealt = DamageCreature(*best, static_cast<int>(std::round(dmg)), sneak, skill, attack_heavy_, crit);
     if (crit && Bonus("crit_burn") > 0.0f && RandF() < Bonus("crit_burn")) ApplyStatus(*best, "burn", 6.0f, 3.0f);
+    ApplyOilOnHit(*best);
     if (w && !w->weapon.on_hit_status.empty())
         TryStatus(*best, w->weapon.on_hit_status, w->weapon.status_chance * (attack_heavy_ ? 1.5f : 1.0f), w->weapon.status_power,
                   w->weapon.status_duration);
@@ -2324,6 +2352,33 @@ void GameEngine::ApplyStatus(CreatureInstance& c, const std::string& status, flo
     }
 }
 
+bool GameEngine::CanCraft(const RecipeDef& r) const {
+    if (r.skill_level > 0 && SkillLevel(r.skill) < r.skill_level) return false;
+    for (const auto& [it, q] : r.ingredients)
+        if (CountItem(it) < q) return false;
+    return true;
+}
+
+bool GameEngine::Craft(const std::string& recipeId) {
+    for (const auto& r : content_.recipes) {
+        if (r.id != recipeId) continue;
+        if (!CanCraft(r)) return false;
+        for (const auto& [it, q] : r.ingredients) RemoveItem(it, q);
+        AddItem(r.result, r.qty, false);
+        if (!r.skill.empty()) GainSkillXp(r.skill, 1.5f, true);
+        res_.PlaySfx(r.station == "alchemy" ? "assets/audio/sfx/spell_heal.wav" : "assets/audio/sfx/sword_hit.wav", 0.5f, 1.2f);
+        const ItemDef* d = content_.GetItem(r.result);
+        Toast("Made " + (r.qty > 1 ? std::to_string(r.qty) + "x " : std::string()) + (d ? content_.Tr(d->name_key) : r.result), Color{180, 230, 150, 255});
+        return true;
+    }
+    return false;
+}
+
+void GameEngine::ApplyOilOnHit(CreatureInstance& c) {
+    for (const auto& b : player_.buffs)
+        if (b.primitive == "oil" && !b.status.empty()) TryStatus(c, b.status, b.status_chance, b.status_power, b.status_duration);
+}
+
 void GameEngine::UpdateCreatureStatus(CreatureInstance& c, float dt) {
     if (c.burn_time > 0.0f) {
         c.burn_time -= dt;
@@ -2801,6 +2856,7 @@ void GameEngine::UpdateProjectiles(float dt) {
                 CreatureInstance* hitPtr = hit;
                 int dealt = DamageCreature(*hit, static_cast<int>(std::round(dmg)), sneak, p.skill, false, crit);
                 if (!p.status.empty()) TryStatus(*hitPtr, p.status, p.status_chance, p.status_power, p.status_duration);
+                if (p.is_arrow) ApplyOilOnHit(*hitPtr);
                 if (p.splash_radius > 0.0f) dealt += SplashDamage(p, impact, hitId);
                 float heal = dealt * (p.drain + p.life_steal);
                 if (heal > 0.0f) { player_.health += heal; ClampVitals(); }
@@ -2856,6 +2912,11 @@ void GameEngine::UpdateProjectiles(float dt) {
 }
 
 void GameEngine::UpdateWorldObjects(float dt) {
+    for (auto& in : scene_.interactables) {
+        if (in.def.type != "harvest" || !in.used) continue;
+        auto h = Persist().harvested.find(in.def.instance_id);
+        if (h == Persist().harvested.end() || player_.play_time - h->second >= in.def.respawn_seconds) in.used = false;  // it's grown back
+    }
     bool collidersDirty = false;
     for (auto& in : scene_.interactables) {
         float target = in.open ? 1.0f : 0.0f;
@@ -2965,6 +3026,11 @@ void GameEngine::UpdateInteractTarget() {
             if (!d.requires_dead.empty() && !Persist().dead.count(d.requires_dead)) prompt += " (guarded)";
         } else if (d.type == "pressure_plate") {
             if (in.open) continue;
+            prompt = d.prompt;
+        } else if (d.type == "harvest") {
+            if (in.used) continue;
+            prompt = d.prompt;
+        } else if (d.type == "station") {
             prompt = d.prompt;
         } else continue;
         if (!prompt.empty()) consider(InteractTarget::Interactable, static_cast<int>(i), c, r, prompt);
@@ -3113,6 +3179,21 @@ void GameEngine::Interact() {
                 Toast(in.open ? "With a grinding clank, a portcullis rises somewhere nearby." : "A portcullis slams shut.");
             }
         }
+    } else if (d.type == "harvest") {
+        if (in.used) return;
+        int n = d.qty_max > d.qty ? d.qty + static_cast<int>(RandF() * (d.qty_max - d.qty + 1)) : d.qty;
+        n = std::max(1, n);
+        AddItem(d.item_id, n);
+        in.used = true;
+        ps.harvested[d.instance_id] = player_.play_time;
+        Vector3 c = Vector3Scale(Vector3Add(in.world_box.min, in.world_box.max), 0.5f);
+        SpawnBurst(c, Color{150, 210, 110, 255}, 12, 1.6f, false, 3.0f);
+        res_.PlaySfx("assets/audio/sfx/item_pickup.wav", 0.6f, 1.1f + RandF() * 0.2f);
+        GainSkillXp("lore", 0.6f, true);
+    } else if (d.type == "station") {
+        craft_station_ = d.station;
+        craft_selected_.clear();
+        SetOverlay(Overlay::Crafting);
     } else if (d.type == "pressure_plate") {
         player_.pos = {d.pos.x, player_.pos.y, d.pos.z};
         CheckPressurePlates();
@@ -3570,6 +3651,9 @@ bool GameEngine::SaveGame(const std::string& slot) {
         json cp = json::object();
         for (const auto& [k, v] : ps.corpse_pos) cp[k] = V3(v);
         m["corpse_pos"] = cp;
+        json hv = json::object();
+        for (const auto& [k, t] : ps.harvested) hv[k] = t;
+        m["harvested"] = hv;
         json cs = json::object();
         for (const auto& [k, c] : ps.containers) {
             json items = json::array();
@@ -3698,6 +3782,8 @@ bool GameEngine::LoadGame(const std::string& slot) {
             ps.dead = m.value("dead", std::set<std::string>{});
             if (m.contains("corpse_pos"))
                 for (auto c = m["corpse_pos"].begin(); c != m["corpse_pos"].end(); ++c) ps.corpse_pos[c.key()] = V3(c.value());
+            if (m.contains("harvested"))
+                for (auto h = m["harvested"].begin(); h != m["harvested"].end(); ++h) ps.harvested[h.key()] = h.value().get<double>();
             if (m.contains("containers")) {
                 for (auto c = m["containers"].begin(); c != m["containers"].end(); ++c) {
                     ContainerState cs;

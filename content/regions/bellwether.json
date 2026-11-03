@@ -1564,6 +1564,137 @@
       "title": "Hoofprints, Going Up",
       "text": "Muddy hoofprints cross the grass, stop at the library wall, and then simply keep going: straight up the wall, across the roof tiles, along the ridge, and down the far side, where they continue across the square as if nothing unusual has happened.\n\nSomebody, probably Brother Aldous, has chalked a little halo round each one, \"in case it was a miracle\".\n\nUnderneath, in Fenwick's handwriting: \"It wasn't a miracle. It was a horse. Please stop chalking my wall.\"",
       "set_flag": "trout_c_roof"
+    },
+    {
+      "instance_id": "bell_marigold_160_110",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 7.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_marigold_125_175",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        -12.5,
+        0.0,
+        17.5
+      ],
+      "rot_y": 90.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_marigold_165_25",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        16.5,
+        0.0,
+        2.5
+      ],
+      "rot_y": 278.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_wayside_sage_170_25",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        -17.0,
+        0.0,
+        -2.5
+      ],
+      "rot_y": 63.5,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_wayside_sage_35_172",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        3.5,
+        0.0,
+        17.2
+      ],
+      "rot_y": 318.7,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_alchemy_bench",
+      "type": "station",
+      "station": "alchemy",
+      "model": "assets/models/props/alchemy_bench.glb",
+      "pos": [
+        -10.2,
+        0.0,
+        7.4
+      ],
+      "rot_y": 90.0,
+      "prompt": "Use the Alchemy Bench"
+    },
+    {
+      "instance_id": "bell_workbench",
+      "type": "station",
+      "station": "workbench",
+      "model": "assets/models/props/workbench.glb",
+      "pos": [
+        11.0,
+        0.0,
+        -13.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Use the Workbench"
     }
   ],
   "portals": [

@@ -22,6 +22,7 @@ public:
     std::vector<SkillDef> skills;
     std::vector<SynergyDef> synergies;
     std::vector<PerkDef> perks;
+    std::vector<RecipeDef> recipes;
     const PerkDef* GetPerk(const std::string& id) const {
         for (const auto& p : perks) if (p.id == id) return &p;
         return nullptr;

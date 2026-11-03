@@ -758,6 +758,327 @@
           "spell_id": "core:spell.unauthorised_entry"
         }
       ]
+    },
+    {
+      "id": "core:item.marigold",
+      "name_key": "item.marigold.name",
+      "description_key": "item.marigold.description",
+      "category": "misc",
+      "icon": "assets/ui/items/marigold.png",
+      "world_model": "assets/models/props/herb_marigold.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.wayside_sage",
+      "name_key": "item.wayside_sage.name",
+      "description_key": "item.wayside_sage.description",
+      "category": "misc",
+      "icon": "assets/ui/items/wayside_sage.png",
+      "world_model": "assets/models/props/herb_sage.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.wolfsbane",
+      "name_key": "item.wolfsbane.name",
+      "description_key": "item.wolfsbane.description",
+      "category": "misc",
+      "icon": "assets/ui/items/wolfsbane.png",
+      "world_model": "assets/models/props/herb_wolfsbane.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.glowcap",
+      "name_key": "item.glowcap.name",
+      "description_key": "item.glowcap.description",
+      "category": "misc",
+      "icon": "assets/ui/items/glowcap.png",
+      "world_model": "assets/models/props/mushroom_glowcap.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.grave_moss",
+      "name_key": "item.grave_moss.name",
+      "description_key": "item.grave_moss.description",
+      "category": "misc",
+      "icon": "assets/ui/items/grave_moss.png",
+      "world_model": "assets/models/props/moss_grave.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.bladderwrack",
+      "name_key": "item.bladderwrack.name",
+      "description_key": "item.bladderwrack.description",
+      "category": "misc",
+      "icon": "assets/ui/items/bladderwrack.png",
+      "world_model": "assets/models/props/seaweed.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.sea_salt",
+      "name_key": "item.sea_salt.name",
+      "description_key": "item.sea_salt.description",
+      "category": "misc",
+      "icon": "assets/ui/items/sea_salt.png",
+      "world_model": "assets/models/props/salt_crust.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.iron_scrap",
+      "name_key": "item.iron_scrap.name",
+      "description_key": "item.iron_scrap.description",
+      "category": "misc",
+      "icon": "assets/ui/items/iron_scrap.png",
+      "world_model": "assets/models/props/ore_iron.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.ashwood_branch",
+      "name_key": "item.ashwood_branch.name",
+      "description_key": "item.ashwood_branch.description",
+      "category": "misc",
+      "icon": "assets/ui/items/ashwood_branch.png",
+      "world_model": "assets/models/props/branches_ash.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.pine_resin",
+      "name_key": "item.pine_resin.name",
+      "description_key": "item.pine_resin.description",
+      "category": "misc",
+      "icon": "assets/ui/items/pine_resin.png",
+      "world_model": "assets/models/props/resin_stump.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 3,
+      "weight": 0.05
+    },
+    {
+      "id": "core:item.oil_fire",
+      "name_key": "item.oil_fire.name",
+      "description_key": "item.oil_fire.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/oil_fire.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 30,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "weapon_oil",
+          "stat": "burn",
+          "value": 0.45,
+          "amount": 5,
+          "duration": 120
+        }
+      ]
+    },
+    {
+      "id": "core:item.oil_frost",
+      "name_key": "item.oil_frost.name",
+      "description_key": "item.oil_frost.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/oil_frost.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 30,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "weapon_oil",
+          "stat": "chill",
+          "value": 0.5,
+          "amount": 0,
+          "duration": 120
+        }
+      ]
+    },
+    {
+      "id": "core:item.oil_storm",
+      "name_key": "item.oil_storm.name",
+      "description_key": "item.oil_storm.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/oil_storm.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 30,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "weapon_oil",
+          "stat": "shock",
+          "value": 0.4,
+          "amount": 0,
+          "duration": 120
+        }
+      ]
+    },
+    {
+      "id": "core:item.oil_venom",
+      "name_key": "item.oil_venom.name",
+      "description_key": "item.oil_venom.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/oil_venom.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 30,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "weapon_oil",
+          "stat": "bleed",
+          "value": 0.5,
+          "amount": 3,
+          "duration": 120
+        }
+      ]
+    },
+    {
+      "id": "core:item.oil_ink",
+      "name_key": "item.oil_ink.name",
+      "description_key": "item.oil_ink.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/oil_ink.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 30,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "weapon_oil",
+          "stat": "ink",
+          "value": 0.35,
+          "amount": 0,
+          "duration": 120
+        }
+      ]
+    },
+    {
+      "id": "core:item.quiet_mind_tea",
+      "name_key": "item.quiet_mind_tea.name",
+      "description_key": "item.quiet_mind_tea.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/quiet_mind_tea.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 25,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "consumable_sanity",
+          "amount": 40
+        },
+        {
+          "type": "buff",
+          "stat": "sanity_regen",
+          "value": 1.0,
+          "duration": 180
+        }
+      ]
+    },
+    {
+      "id": "core:item.bureaucrats_brew",
+      "name_key": "item.bureaucrats_brew.name",
+      "description_key": "item.bureaucrats_brew.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/bureaucrats_brew.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 45,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "buff",
+          "stat": "combo_damage_bonus",
+          "value": 0.4,
+          "duration": 240
+        },
+        {
+          "type": "buff",
+          "stat": "status_duration_bonus",
+          "value": 0.25,
+          "duration": 240
+        }
+      ]
+    },
+    {
+      "id": "core:item.whetstone",
+      "name_key": "item.whetstone.name",
+      "description_key": "item.whetstone.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/whetstone.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 15,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "buff",
+          "stat": "melee_bonus_magic_damage",
+          "value": 4,
+          "duration": 300
+        }
+      ]
+    },
+    {
+      "id": "core:item.hunters_draught",
+      "name_key": "item.hunters_draught.name",
+      "description_key": "item.hunters_draught.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/hunters_draught.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 35,
+      "weight": 0.3,
+      "effects": [
+        {
+          "type": "buff",
+          "stat": "crit_chance_bonus",
+          "value": 0.1,
+          "duration": 240
+        },
+        {
+          "type": "buff",
+          "stat": "move_speed_bonus",
+          "value": 0.1,
+          "duration": 240
+        }
+      ]
     }
   ]
 }

@@ -499,7 +499,7 @@ struct MapCreatureSpawnDef {
 
 struct MapInteractableDef {
     std::string instance_id;
-    std::string type; // door, chest, lever, pressure_plate, readable, pickup, quest_pedestal
+    std::string type; // door, chest, lever, pressure_plate, readable, pickup, quest_pedestal, harvest, station
     std::string model;
     Vector3 pos = {0.0f, 0.0f, 0.0f};
     float rot_y = 0.0f;
@@ -523,6 +523,19 @@ struct MapInteractableDef {
     int sanity = 0;                          // readables: sanity change the first time it's read (forbidden texts are negative)
     std::vector<std::string> narration_keys; // full-screen narration cards shown after use
     std::string requires_dead;               // creature instance that must be defeated before use
+    int qty_max = 0;                         // harvest: yields qty..qty_max (0 = exactly qty)
+    float respawn_seconds = 600.0f;          // harvest: play time before it grows back
+    std::string station;                     // station: which recipes it crafts (alchemy, workbench)
+};
+
+struct RecipeDef {
+    std::string id;
+    std::string station;       // alchemy, workbench
+    std::string result;        // item id
+    int qty = 1;
+    std::vector<std::pair<std::string, int>> ingredients;
+    std::string skill;         // skill trained (and required, if skill_level > 0)
+    int skill_level = 0;
 };
 
 struct MapPortalDef {

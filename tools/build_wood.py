@@ -174,6 +174,19 @@ creature("wood_wolf_0", "core:enemy.grey_wolf", (12.0, 0.0, -9.0), (9.0, 0.0, -1
 creature("wood_wolf_1", "core:enemy.grey_wolf", (-12.0, 0.0, -7.0), (-15.0, 0.0, -8.0), (-9.0, 0.0, -6.0))
 interactables.append({"instance_id": "wood_carrots", "type": "pickup", "item_id": "core:item.carrot", "qty": 3, "pos": [-6.4, 0.2, -9.2]})
 
+# ============================================================================ gathering (tools/authoring/crafting.py)
+interactables.append({"instance_id": "wood_wolfsbane_50_175", "type": "harvest", "model": "assets/models/props/herb_wolfsbane.glb", "pos": [5.0, 0.0, 17.5], "rot_y": 17.5, "item_id": "core:item.wolfsbane", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Wolfsbane", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "wood_wolfsbane_150_95", "type": "harvest", "model": "assets/models/props/herb_wolfsbane.glb", "pos": [15.0, 0.0, 9.5], "rot_y": 299.5, "item_id": "core:item.wolfsbane", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Wolfsbane", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "wood_wolfsbane_30_160", "type": "harvest", "model": "assets/models/props/herb_wolfsbane.glb", "pos": [-3.0, 0.0, 16.0], "rot_y": 65.0, "item_id": "core:item.wolfsbane", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Wolfsbane", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "wood_glowcap_100_100", "type": "harvest", "model": "assets/models/props/mushroom_glowcap.glb", "pos": [-10.0, 0.0, 10.0], "rot_y": 100.0, "item_id": "core:item.glowcap", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Glowcap", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "wood_glowcap_175_90", "type": "harvest", "model": "assets/models/props/mushroom_glowcap.glb", "pos": [-17.5, 0.0, 9.0], "rot_y": 171.5, "item_id": "core:item.glowcap", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Glowcap", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "wood_glowcap_180_80", "type": "harvest", "model": "assets/models/props/mushroom_glowcap.glb", "pos": [-18.0, 0.0, -8.0], "rot_y": 326.0, "item_id": "core:item.glowcap", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Glowcap", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "wood_pine_resin_60_170", "type": "harvest", "model": "assets/models/props/resin_stump.glb", "pos": [-6.0, 0.0, -17.0], "rot_y": 311.0, "item_id": "core:item.pine_resin", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Collect Pine Resin"})
+interactables.append({"instance_id": "wood_pine_resin_160_120", "type": "harvest", "model": "assets/models/props/resin_stump.glb", "pos": [16.0, 0.0, -12.0], "rot_y": 100.0, "item_id": "core:item.pine_resin", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Collect Pine Resin"})
+interactables.append({"instance_id": "wood_ashwood_branch_70_60", "type": "harvest", "model": "assets/models/props/branches_ash.glb", "pos": [-7.0, 0.0, -6.0], "rot_y": 35.0, "item_id": "core:item.ashwood_branch", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Gather Ashwood Branch"})
+interactables.append({"instance_id": "wood_iron_scrap_200_170", "type": "harvest", "model": "assets/models/props/ore_iron.glb", "pos": [-20.0, 0.0, -17.0], "rot_y": 153.0, "item_id": "core:item.iron_scrap", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Mine Iron Ore"})
+interactables.append({"instance_id": "wood_marigold_20_40", "type": "harvest", "model": "assets/models/props/herb_marigold.glb", "pos": [2.0, 0.0, 4.0], "rot_y": 118.0, "item_id": "core:item.marigold", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Marigold", "scale": [1.4, 1.4, 1.4]})
+
 region = {
     "schema_version": 1,
     "id": "core:map.whistling_wood",

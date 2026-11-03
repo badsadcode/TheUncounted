@@ -752,6 +752,107 @@ def reef_items():
     icon("silas_shanty", shanty)
 
 
+def harvest_models():
+    """Gathering nodes (vertex-coloured, low poly) and the two crafting stations."""
+    env = os.path.join("..", "props")
+    rnd = random.Random(301)
+
+    def plant(name, leaf, flower, n_stems=7, height=0.35, flower_r=0.05, seed=1):
+        m = Mesh(seed)
+        r = random.Random(seed)
+        for k in range(n_stems):
+            a = k * 2 * math.pi / n_stems + r.random() * 0.5
+            d = 0.05 + r.random() * 0.12
+            base = (math.cos(a) * d, 0.0, math.sin(a) * d)
+            h = height * (0.7 + r.random() * 0.5)
+            top = (base[0] * 1.6, h, base[2] * 1.6)
+            _tube(m, [base, ((base[0] + top[0]) / 2, h * 0.5, (base[2] + top[2]) / 2), top], [0.012, 0.01, 0.007], lambda s_, si: leaf, sides=4)
+            m.ellipsoid((base[0] * 1.3, h * 0.35, base[2] * 1.3), (0.06, 0.012, 0.03), leaf, seg=5, rings=2)
+            if flower:
+                m.ellipsoid(top, (flower_r, flower_r * 0.6, flower_r), flower, seg=6, rings=3)
+        m.ellipsoid((0, 0.0, 0), (0.2, 0.04, 0.2), tuple(int(c * 0.7) for c in leaf), seg=8, rings=2, y_min=0.0)
+        m.write_glb(os.path.join(env, name))
+
+    plant("herb_marigold.glb", (70, 120, 50), (240, 150, 30), seed=11)
+    plant("herb_sage.glb", (130, 150, 120), (180, 160, 210), n_stems=9, height=0.28, flower_r=0.025, seed=12)
+    plant("herb_wolfsbane.glb", (50, 90, 50), (110, 60, 170), height=0.5, flower_r=0.04, seed=13)
+
+    m = Mesh(14)  # glowcap mushrooms
+    for k in range(5):
+        a, d = k * 1.3, 0.04 + 0.06 * k
+        x, z = math.cos(a) * d, math.sin(a) * d
+        h = 0.1 + rnd.random() * 0.12
+        m.cylinder((x, 0.0, z), 0.018, h, (210, 220, 200), seg=6)
+        m.ellipsoid((x, h, z), (0.06 + 0.02 * (k % 2), 0.035, 0.06 + 0.02 * (k % 2)), (90, 200, 255), seg=8, rings=3, y_min=0.0)
+    m.write_glb(os.path.join(env, "mushroom_glowcap.glb"))
+
+    m = Mesh(15)  # grave moss: lumpy green mounds
+    for k in range(6):
+        a = k * 1.05
+        m.ellipsoid((math.cos(a) * 0.12, 0.0, math.sin(a) * 0.12), (0.12, 0.07, 0.1), (60 + k * 6, 100 + k * 4, 50), seg=7, rings=3, y_min=0.0)
+    m.write_glb(os.path.join(env, "moss_grave.glb"))
+
+    m = Mesh(16)  # bladderwrack seaweed draped over a rock
+    m.ellipsoid((0, 0.0, 0), (0.25, 0.15, 0.2), (80, 84, 80), seg=8, rings=4, y_min=0.0)
+    for k in range(8):
+        a = k * 0.8
+        _tube(m, [(math.cos(a) * 0.05, 0.15, math.sin(a) * 0.05), (math.cos(a) * 0.2, 0.1, math.sin(a) * 0.18), (math.cos(a) * 0.3, 0.0, math.sin(a) * 0.26)],
+              [0.03, 0.025, 0.015], lambda s_, si: (90, 80, 30) if (s_ + si) % 3 else (120, 110, 40), sides=4)
+    m.write_glb(os.path.join(env, "seaweed.glb"))
+
+    m = Mesh(17)  # sea-salt crust: white crystals
+    for k in range(9):
+        a, d = k * 0.7, 0.03 * k
+        m.box((math.cos(a) * d, 0.03, math.sin(a) * d), (0.05, 0.06 + 0.02 * (k % 3), 0.05), (235, 235, 230), rot_y=k * 20.0)
+    m.write_glb(os.path.join(env, "salt_crust.glb"))
+
+    m = Mesh(18)  # iron-veined rock
+    m.ellipsoid((0, 0.0, 0), (0.32, 0.26, 0.28), (90, 86, 82), seg=7, rings=4, y_min=0.0,
+                color_fn=lambda i, j: (150, 90, 60) if (i * 3 + j) % 5 == 0 else (90, 86, 82))
+    m.write_glb(os.path.join(env, "ore_iron.glb"))
+
+    m = Mesh(19)  # ashwood branches in a pile
+    for k in range(5):
+        a = k * 0.6 - 1.2
+        m.box((0, 0.04 + k * 0.03, 0), (0.6, 0.05, 0.05), (150 - k * 6, 125 - k * 5, 95), rot_y=a * 40.0)
+    m.write_glb(os.path.join(env, "branches_ash.glb"))
+
+    m = Mesh(20)  # pine stump with amber resin
+    m.cylinder((0, 0.0, 0), 0.22, 0.3, (95, 70, 50), seg=9, r_top=0.2)
+    m.cylinder((0, 0.3, 0), 0.2, 0.01, (190, 160, 110), seg=9)
+    for k in range(3):
+        a = k * 2.1
+        m.ellipsoid((math.cos(a) * 0.2, 0.15 + k * 0.04, math.sin(a) * 0.2), (0.04, 0.06, 0.04), (230, 150, 40), seg=6, rings=3)
+    m.write_glb(os.path.join(env, "resin_stump.glb"))
+
+    # Stations
+    m = Mesh(21)  # alchemy bench: table with flasks, a burner and a mortar
+    wood, dark = (120, 85, 55), (80, 56, 38)
+    m.box((0, 0.8, 0), (1.6, 0.08, 0.7), wood)
+    for x in (-0.72, 0.72):
+        for z in (-0.28, 0.28):
+            m.box((x, 0.4, z), (0.07, 0.8, 0.07), dark)
+    for k, (x, col) in enumerate([(-0.55, (120, 220, 120)), (-0.3, (230, 90, 90)), (-0.05, (120, 150, 255))]):
+        m.cylinder((x, 0.84, 0.1), 0.07, 0.12, col, seg=8, r_top=0.03)
+        m.cylinder((x, 0.96, 0.1), 0.02, 0.08, (210, 220, 230), seg=6)
+    m.cylinder((0.35, 0.84, -0.1), 0.09, 0.1, (60, 60, 66), seg=8)
+    m.ellipsoid((0.35, 0.98, -0.1), (0.1, 0.07, 0.1), (200, 220, 230), seg=8, rings=4)
+    m.cylinder((0.6, 0.84, 0.15), 0.07, 0.07, (150, 150, 140), seg=8, r_top=0.08)
+    m.write_glb(os.path.join(env, "alchemy_bench.glb"))
+
+    m = Mesh(22)  # workbench: heavy table, vice, tools, a stack of arrows
+    m.box((0, 0.85, 0), (1.8, 0.12, 0.8), (140, 100, 65))
+    for x in (-0.8, 0.8):
+        for z in (-0.32, 0.32):
+            m.box((x, 0.42, z), (0.12, 0.85, 0.12), (100, 72, 48))
+    m.box((-0.6, 0.98, 0.0), (0.2, 0.14, 0.16), (80, 80, 88))
+    m.box((0.2, 0.93, 0.15), (0.5, 0.03, 0.04), (200, 200, 205))
+    for k in range(6):
+        m.box((0.55, 0.92 + k * 0.012, -0.15 + k * 0.03), (0.6, 0.012, 0.012), (170, 140, 100))
+    m.box((0, 0.2, 0), (1.6, 0.05, 0.6), (100, 72, 48))
+    m.write_glb(os.path.join(env, "workbench.glb"))
+
+
 def _tube(m, path, radii, color_fn, sides=8):
     """Tapered tube along a polyline (for tentacles). color_fn(segment, side) -> rgb."""
     def sub(a, b): return (a[0] - b[0], a[1] - b[1], a[2] - b[2])
@@ -876,6 +977,7 @@ BUILDERS = {
     "case3_items": case3_items,
     "wood_models": wood_models,
     "reef_items": reef_items,
+    "harvest_models": harvest_models,
 }
 
 

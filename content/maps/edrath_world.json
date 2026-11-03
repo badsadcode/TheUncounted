@@ -13700,6 +13700,137 @@
       "set_flag": "trout_c_roof"
     },
     {
+      "instance_id": "bell_marigold_160_110",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 7.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_marigold_125_175",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        -12.5,
+        0.0,
+        17.5
+      ],
+      "rot_y": 90.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_marigold_165_25",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        16.5,
+        0.0,
+        2.5
+      ],
+      "rot_y": 278.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_wayside_sage_170_25",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        -17.0,
+        0.0,
+        -2.5
+      ],
+      "rot_y": 63.5,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_wayside_sage_35_172",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        3.5,
+        0.0,
+        17.2
+      ],
+      "rot_y": 318.7,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "bell_alchemy_bench",
+      "type": "station",
+      "station": "alchemy",
+      "model": "assets/models/props/alchemy_bench.glb",
+      "pos": [
+        -10.2,
+        0.0,
+        7.4
+      ],
+      "rot_y": 90.0,
+      "prompt": "Use the Alchemy Bench"
+    },
+    {
+      "instance_id": "bell_workbench",
+      "type": "station",
+      "station": "workbench",
+      "model": "assets/models/props/workbench.glb",
+      "pos": [
+        11.0,
+        0.0,
+        -13.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Use the Workbench"
+    },
+    {
       "instance_id": "monolith_inscription",
       "type": "readable",
       "model": "assets/models/props/lectern_ledger.glb",
@@ -13836,6 +13967,149 @@
       "title": "On Top of the Boundary Stone",
       "text": "Eleven feet up, on the very top of the boundary stone, where nothing larger than a crow could possibly perch, there is a neat, fresh pile of horse manure.\n\nIt is still steaming.\n\nThere are no hoofprints anywhere round the base of the stone. There are no hoofprints on the stone. There is just the evidence, on top, steaming, defying every law of nature and several of the Bureau's.",
       "set_flag": "trout_c_stone"
+    },
+    {
+      "instance_id": "old__wayside_sage_20_80",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        46.0,
+        0.0,
+        8.0
+      ],
+      "rot_y": 14.0,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "old__wayside_sage_140_90",
+      "type": "harvest",
+      "model": "assets/models/props/herb_sage.glb",
+      "pos": [
+        62.0,
+        0.0,
+        9.0
+      ],
+      "rot_y": 257.0,
+      "item_id": "core:item.wayside_sage",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wayside Sage",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "old__iron_scrap_180_110",
+      "type": "harvest",
+      "model": "assets/models/props/ore_iron.glb",
+      "pos": [
+        66.0,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 185.0,
+      "item_id": "core:item.iron_scrap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Mine Iron Ore"
+    },
+    {
+      "instance_id": "old__iron_scrap_140_110",
+      "type": "harvest",
+      "model": "assets/models/props/ore_iron.glb",
+      "pos": [
+        34.0,
+        0.0,
+        -11.0
+      ],
+      "rot_y": 81.0,
+      "item_id": "core:item.iron_scrap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Mine Iron Ore"
+    },
+    {
+      "instance_id": "old__ashwood_branch_60_100",
+      "type": "harvest",
+      "model": "assets/models/props/branches_ash.glb",
+      "pos": [
+        42.0,
+        0.0,
+        10.0
+      ],
+      "rot_y": 248.0,
+      "item_id": "core:item.ashwood_branch",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Ashwood Branch"
+    },
+    {
+      "instance_id": "old__ashwood_branch_90_110",
+      "type": "harvest",
+      "model": "assets/models/props/branches_ash.glb",
+      "pos": [
+        57.0,
+        0.0,
+        11.0
+      ],
+      "rot_y": 94.0,
+      "item_id": "core:item.ashwood_branch",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Ashwood Branch"
+    },
+    {
+      "instance_id": "old__pine_resin_0_115",
+      "type": "harvest",
+      "model": "assets/models/props/resin_stump.glb",
+      "pos": [
+        48.0,
+        0.0,
+        11.5
+      ],
+      "rot_y": 126.5,
+      "item_id": "core:item.pine_resin",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Collect Pine Resin"
+    },
+    {
+      "instance_id": "old__marigold_200_60",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        68.0,
+        0.0,
+        6.0
+      ],
+      "rot_y": 86.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
     },
     {
       "instance_id": "annex_inner_door",
@@ -14795,6 +15069,111 @@
       "text": "\"Congratulations on finding the Secret Treasure of Hollowmere!\n\nIt's a party hat. I'm sorry. I had it made for my last party. Nobody came, so nobody wore it.\n\nThey always say the real treasure is the friends you made along the way. I never made any. Perhaps you could wear it for me, the next time you're somewhere with friends.\n\n- P.\""
     },
     {
+      "instance_id": "mans_grave_moss_159_140",
+      "type": "harvest",
+      "model": "assets/models/props/moss_grave.glb",
+      "pos": [
+        -15.9,
+        0.0,
+        28.0
+      ],
+      "rot_y": 337.69999999999993,
+      "item_id": "core:item.grave_moss",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Grave Moss",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_grave_moss_115_140",
+      "type": "harvest",
+      "model": "assets/models/props/moss_grave.glb",
+      "pos": [
+        -11.5,
+        0.0,
+        28.0
+      ],
+      "rot_y": 140.5,
+      "item_id": "core:item.grave_moss",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Grave Moss",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_grave_moss_137_108",
+      "type": "harvest",
+      "model": "assets/models/props/moss_grave.glb",
+      "pos": [
+        -13.7,
+        0.0,
+        31.2
+      ],
+      "rot_y": 94.29999999999995,
+      "item_id": "core:item.grave_moss",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Grave Moss",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_marigold_165_140",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        16.5,
+        0.0,
+        28.0
+      ],
+      "rot_y": 96.5,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "mans_wolfsbane_170_100",
+      "type": "harvest",
+      "model": "assets/models/props/herb_wolfsbane.glb",
+      "pos": [
+        17.0,
+        0.0,
+        32.0
+      ],
+      "rot_y": 159.0,
+      "item_id": "core:item.wolfsbane",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wolfsbane",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
       "instance_id": "tavern_sign",
       "type": "readable",
       "model": "assets/models/props/lectern_ledger.glb",
@@ -14980,6 +15359,145 @@
       "sanity": -12
     },
     {
+      "instance_id": "dock_bladderwrack_0_93",
+      "type": "harvest",
+      "model": "assets/models/props/seaweed.glb",
+      "pos": [
+        1.6,
+        0.0,
+        -51.3
+      ],
+      "rot_y": 257.7,
+      "item_id": "core:item.bladderwrack",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Bladderwrack",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "dock_bladderwrack_135_86",
+      "type": "harvest",
+      "model": "assets/models/props/seaweed.glb",
+      "pos": [
+        -11.9,
+        0.0,
+        -50.6
+      ],
+      "rot_y": 125.89999999999998,
+      "item_id": "core:item.bladderwrack",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Bladderwrack",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "dock_bladderwrack_125_90",
+      "type": "harvest",
+      "model": "assets/models/props/seaweed.glb",
+      "pos": [
+        14.1,
+        0.0,
+        -51.0
+      ],
+      "rot_y": 3.5,
+      "item_id": "core:item.bladderwrack",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Bladderwrack",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "dock_sea_salt_175_84",
+      "type": "harvest",
+      "model": "assets/models/props/salt_crust.glb",
+      "pos": [
+        19.1,
+        0.0,
+        -50.4
+      ],
+      "rot_y": 195.10000000000002,
+      "item_id": "core:item.sea_salt",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Sea Salt",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "dock_sea_salt_180_20",
+      "type": "harvest",
+      "model": "assets/models/props/salt_crust.glb",
+      "pos": [
+        -16.4,
+        0.0,
+        -44.0
+      ],
+      "rot_y": 32.0,
+      "item_id": "core:item.sea_salt",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Sea Salt",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "dock_sea_salt_40_88",
+      "type": "harvest",
+      "model": "assets/models/props/salt_crust.glb",
+      "pos": [
+        5.6,
+        0.0,
+        -50.8
+      ],
+      "rot_y": 51.19999999999999,
+      "item_id": "core:item.sea_salt",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Sea Salt",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "docks_alchemy_bench",
+      "type": "station",
+      "station": "alchemy",
+      "model": "assets/models/props/alchemy_bench.glb",
+      "pos": [
+        -16.2,
+        0.0,
+        -35.8
+      ],
+      "rot_y": 90.0,
+      "prompt": "Use Mother Brine's Alchemy Bench"
+    },
+    {
       "instance_id": "wood_sign",
       "type": "readable",
       "model": "assets/models/props/signpost.glb",
@@ -15064,6 +15582,217 @@
         -52.4,
         0.2,
         -9.2
+      ]
+    },
+    {
+      "instance_id": "wood_wolfsbane_50_175",
+      "type": "harvest",
+      "model": "assets/models/props/herb_wolfsbane.glb",
+      "pos": [
+        -41.0,
+        0.0,
+        17.5
+      ],
+      "rot_y": 17.5,
+      "item_id": "core:item.wolfsbane",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wolfsbane",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "wood_wolfsbane_150_95",
+      "type": "harvest",
+      "model": "assets/models/props/herb_wolfsbane.glb",
+      "pos": [
+        -31.0,
+        0.0,
+        9.5
+      ],
+      "rot_y": 299.5,
+      "item_id": "core:item.wolfsbane",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wolfsbane",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "wood_wolfsbane_30_160",
+      "type": "harvest",
+      "model": "assets/models/props/herb_wolfsbane.glb",
+      "pos": [
+        -49.0,
+        0.0,
+        16.0
+      ],
+      "rot_y": 65.0,
+      "item_id": "core:item.wolfsbane",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Wolfsbane",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "wood_glowcap_100_100",
+      "type": "harvest",
+      "model": "assets/models/props/mushroom_glowcap.glb",
+      "pos": [
+        -56.0,
+        0.0,
+        10.0
+      ],
+      "rot_y": 100.0,
+      "item_id": "core:item.glowcap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Glowcap",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "wood_glowcap_175_90",
+      "type": "harvest",
+      "model": "assets/models/props/mushroom_glowcap.glb",
+      "pos": [
+        -63.5,
+        0.0,
+        9.0
+      ],
+      "rot_y": 171.5,
+      "item_id": "core:item.glowcap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Glowcap",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "wood_glowcap_180_80",
+      "type": "harvest",
+      "model": "assets/models/props/mushroom_glowcap.glb",
+      "pos": [
+        -64.0,
+        0.0,
+        -8.0
+      ],
+      "rot_y": 326.0,
+      "item_id": "core:item.glowcap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Glowcap",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "wood_pine_resin_60_170",
+      "type": "harvest",
+      "model": "assets/models/props/resin_stump.glb",
+      "pos": [
+        -52.0,
+        0.0,
+        -17.0
+      ],
+      "rot_y": 311.0,
+      "item_id": "core:item.pine_resin",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Collect Pine Resin"
+    },
+    {
+      "instance_id": "wood_pine_resin_160_120",
+      "type": "harvest",
+      "model": "assets/models/props/resin_stump.glb",
+      "pos": [
+        -30.0,
+        0.0,
+        -12.0
+      ],
+      "rot_y": 100.0,
+      "item_id": "core:item.pine_resin",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Collect Pine Resin"
+    },
+    {
+      "instance_id": "wood_ashwood_branch_70_60",
+      "type": "harvest",
+      "model": "assets/models/props/branches_ash.glb",
+      "pos": [
+        -53.0,
+        0.0,
+        -6.0
+      ],
+      "rot_y": 35.0,
+      "item_id": "core:item.ashwood_branch",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Ashwood Branch"
+    },
+    {
+      "instance_id": "wood_iron_scrap_200_170",
+      "type": "harvest",
+      "model": "assets/models/props/ore_iron.glb",
+      "pos": [
+        -66.0,
+        0.0,
+        -17.0
+      ],
+      "rot_y": 153.0,
+      "item_id": "core:item.iron_scrap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Mine Iron Ore"
+    },
+    {
+      "instance_id": "wood_marigold_20_40",
+      "type": "harvest",
+      "model": "assets/models/props/herb_marigold.glb",
+      "pos": [
+        -44.0,
+        0.0,
+        4.0
+      ],
+      "rot_y": 118.0,
+      "item_id": "core:item.marigold",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Marigold",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
       ]
     },
     {
@@ -15192,6 +15921,111 @@
       "text": "A lamp-glass, of all things, the chimney off an old oil lamp, stoppered at both ends with cork. Inside, a lock of grey hair tied with string, and a label in a neat, tired hand:\n\nONDINE MARSH. Keeper.\n\n\"If anyone finds this, I was here. I kept the light. Please tell somebody.\"",
       "set_flag": "reef_ondine",
       "sanity": 2
+    },
+    {
+      "instance_id": "reef_bladderwrack_80_80",
+      "type": "harvest",
+      "model": "assets/models/props/seaweed.glb",
+      "pos": [
+        -6.4,
+        0.0,
+        -142.0
+      ],
+      "rot_y": 152.0,
+      "item_id": "core:item.bladderwrack",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Bladderwrack",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "reef_bladderwrack_90_20",
+      "type": "harvest",
+      "model": "assets/models/props/seaweed.glb",
+      "pos": [
+        10.6,
+        0.0,
+        -152.0
+      ],
+      "rot_y": 311.0,
+      "item_id": "core:item.bladderwrack",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Gather Bladderwrack",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "reef_sea_salt_120_35",
+      "type": "harvest",
+      "model": "assets/models/props/salt_crust.glb",
+      "pos": [
+        13.6,
+        0.0,
+        -146.5
+      ],
+      "rot_y": 122.5,
+      "item_id": "core:item.sea_salt",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Sea Salt",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "reef_sea_salt_120_10",
+      "type": "harvest",
+      "model": "assets/models/props/salt_crust.glb",
+      "pos": [
+        -10.4,
+        0.0,
+        -151.0
+      ],
+      "rot_y": 265.0,
+      "item_id": "core:item.sea_salt",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Scrape Sea Salt",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "instance_id": "reef_glowcap_35_125",
+      "type": "harvest",
+      "model": "assets/models/props/mushroom_glowcap.glb",
+      "pos": [
+        -1.9,
+        0.0,
+        -162.5
+      ],
+      "rot_y": 93.0,
+      "item_id": "core:item.glowcap",
+      "qty": 1,
+      "qty_max": 2,
+      "respawn_seconds": 480,
+      "prompt": "Pick Glowcap",
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
     },
     {
       "instance_id": "flour_handprints",

@@ -262,6 +262,15 @@ creature("wh_drowned", "core:enemy.the_drowned", (15.5, CY, -5.0), (15.5, CY, -5
 creature("avatar", "core:enemy.name_eater_avatar", (10.5, CY, -14.5), requires_flag="avatar_rises",
          group="avatar", group_quest_id=QUEST, group_set_stage=40, group_set_flag="saltmere_resolved")
 
+# ============================================================================ gathering (tools/authoring/crafting.py)
+interactables.append({"instance_id": "dock_bladderwrack_0_93", "type": "harvest", "model": "assets/models/props/seaweed.glb", "pos": [0.0, 0.0, -9.3], "rot_y": 257.7, "item_id": "core:item.bladderwrack", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Gather Bladderwrack", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "dock_bladderwrack_135_86", "type": "harvest", "model": "assets/models/props/seaweed.glb", "pos": [-13.5, 0.0, -8.6], "rot_y": 125.89999999999998, "item_id": "core:item.bladderwrack", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Gather Bladderwrack", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "dock_bladderwrack_125_90", "type": "harvest", "model": "assets/models/props/seaweed.glb", "pos": [12.5, 0.0, -9.0], "rot_y": 3.5, "item_id": "core:item.bladderwrack", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Gather Bladderwrack", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "dock_sea_salt_175_84", "type": "harvest", "model": "assets/models/props/salt_crust.glb", "pos": [17.5, 0.0, -8.4], "rot_y": 195.10000000000002, "item_id": "core:item.sea_salt", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Scrape Sea Salt", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "dock_sea_salt_180_20", "type": "harvest", "model": "assets/models/props/salt_crust.glb", "pos": [-18.0, 0.0, -2.0], "rot_y": 32.0, "item_id": "core:item.sea_salt", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Scrape Sea Salt", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "dock_sea_salt_40_88", "type": "harvest", "model": "assets/models/props/salt_crust.glb", "pos": [4.0, 0.0, -8.8], "rot_y": 51.19999999999999, "item_id": "core:item.sea_salt", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Scrape Sea Salt", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "docks_alchemy_bench", "type": "station", "station": "alchemy", "model": "assets/models/props/alchemy_bench.glb", "pos": [-17.8, 0.0, 6.2], "rot_y": 90.0, "prompt": "Use Mother Brine's Alchemy Bench"})
+
 region = {
     "schema_version": 1,
     "id": "core:map.saltmere",

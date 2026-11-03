@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "recipes": [
+    {
+      "id": "core:recipe.health_potion",
+      "station": "alchemy",
+      "result": "core:item.health_potion",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.marigold",
+          "qty": 2
+        },
+        {
+          "item": "core:item.wayside_sage",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.mana_potion",
+      "station": "alchemy",
+      "result": "core:item.mana_potion",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.glowcap",
+          "qty": 2
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.stamina_tonic",
+      "station": "alchemy",
+      "result": "core:item.stamina_tonic",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.wayside_sage",
+          "qty": 2
+        },
+        {
+          "item": "core:item.pine_resin",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.quiet_mind_tea",
+      "station": "alchemy",
+      "result": "core:item.quiet_mind_tea",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.grave_moss",
+          "qty": 1
+        },
+        {
+          "item": "core:item.marigold",
+          "qty": 1
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "restoration",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.oil_fire",
+      "station": "alchemy",
+      "result": "core:item.oil_fire",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.pine_resin",
+          "qty": 2
+        },
+        {
+          "item": "core:item.marigold",
+          "qty": 1
+        }
+      ],
+      "skill": "elemental",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.oil_frost",
+      "station": "alchemy",
+      "result": "core:item.oil_frost",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.bladderwrack",
+          "qty": 2
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "elemental",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.oil_storm",
+      "station": "alchemy",
+      "result": "core:item.oil_storm",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.glowcap",
+          "qty": 2
+        },
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 1
+        }
+      ],
+      "skill": "elemental",
+      "skill_level": 8
+    },
+    {
+      "id": "core:recipe.oil_venom",
+      "station": "alchemy",
+      "result": "core:item.oil_venom",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.wolfsbane",
+          "qty": 2
+        },
+        {
+          "item": "core:item.pine_resin",
+          "qty": 1
+        }
+      ],
+      "skill": "lore",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.oil_ink",
+      "station": "alchemy",
+      "result": "core:item.oil_ink",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.grave_moss",
+          "qty": 2
+        },
+        {
+          "item": "core:item.glowcap",
+          "qty": 1
+        }
+      ],
+      "skill": "illusion",
+      "skill_level": 8
+    },
+    {
+      "id": "core:recipe.hunters_draught",
+      "station": "alchemy",
+      "result": "core:item.hunters_draught",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.wayside_sage",
+          "qty": 1
+        },
+        {
+          "item": "core:item.pine_resin",
+          "qty": 1
+        },
+        {
+          "item": "core:item.wolfsbane",
+          "qty": 1
+        }
+      ],
+      "skill": "lore",
+      "skill_level": 10
+    },
+    {
+      "id": "core:recipe.bureaucrats_brew",
+      "station": "alchemy",
+      "result": "core:item.bureaucrats_brew",
+      "qty": 1,
+      "ingredients": [
+        {
+          "item": "core:item.glowcap",
+          "qty": 1
+        },
+        {
+          "item": "core:item.bladderwrack",
+          "qty": 1
+        },
+        {
+          "item": "core:item.pine_resin",
+          "qty": 1
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "lore",
+      "skill_level": 14
+    },
+    {
+      "id": "core:recipe.arrows",
+      "station": "workbench",
+      "result": "core:item.wooden_arrow",
+      "qty": 10,
+      "ingredients": [
+        {
+          "item": "core:item.ashwood_branch",
+          "qty": 1
+        },
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 1
+        }
+      ],
+      "skill": "bows",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.lockpicks",
+      "station": "workbench",
+      "result": "core:item.lockpick",
+      "qty": 3,
+      "ingredients": [
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 2
+        }
+      ],
+      "skill": "lockpicking",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.whetstone",
+      "station": "workbench",
+      "result": "core:item.whetstone",
+      "qty": 2,
+      "ingredients": [
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 1
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "swords",
+      "skill_level": 0
+    },
+    {
+      "id": "core:recipe.wand_sparks",
+      "station": "workbench",
+      "result": "core:item.wand_sparks",
+      "qty": 3,
+      "ingredients": [
+        {
+          "item": "core:item.ashwood_branch",
+          "qty": 1
+        },
+        {
+          "item": "core:item.glowcap",
+          "qty": 2
+        },
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 1
+        }
+      ],
+      "skill": "elemental",
+      "skill_level": 12
+    },
+    {
+      "id": "core:recipe.wand_frost",
+      "station": "workbench",
+      "result": "core:item.wand_frost",
+      "qty": 3,
+      "ingredients": [
+        {
+          "item": "core:item.ashwood_branch",
+          "qty": 1
+        },
+        {
+          "item": "core:item.bladderwrack",
+          "qty": 2
+        },
+        {
+          "item": "core:item.sea_salt",
+          "qty": 1
+        }
+      ],
+      "skill": "elemental",
+      "skill_level": 12
+    },
+    {
+      "id": "core:recipe.wand_entry",
+      "station": "workbench",
+      "result": "core:item.wand_entry",
+      "qty": 3,
+      "ingredients": [
+        {
+          "item": "core:item.ashwood_branch",
+          "qty": 1
+        },
+        {
+          "item": "core:item.iron_scrap",
+          "qty": 2
+        }
+      ],
+      "skill": "lockpicking",
+      "skill_level": 15
+    }
+  ]
+}

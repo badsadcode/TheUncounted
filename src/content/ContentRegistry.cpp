@@ -179,6 +179,7 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     skills.clear();
     synergies.clear();
     perks.clear();
+    recipes.clear();
     factions.clear();
     spells_ordered.clear();
     spells.clear();
@@ -424,6 +425,25 @@ bool ContentRegistry::LoadManifestFile(const std::string& rootDir, const std::st
                 if (el.contains("bonuses"))
                     for (auto it = el["bonuses"].begin(); it != el["bonuses"].end(); ++it) d.bonuses[it.key()] = it.value().get<float>();
                 perks.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("recipes")) {
+        std::string rel = m["recipes"].get<std::string>();
+        json jr;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), jr, err)) {
+            for (const auto& el : jr["recipes"]) {
+                RecipeDef d;
+                d.id = el.value("id", "");
+                d.station = el.value("station", "alchemy");
+                d.result = el.value("result", "");
+                d.qty = el.value("qty", 1);
+                d.skill = el.value("skill", "");
+                d.skill_level = el.value("skill_level", 0);
+                if (el.contains("ingredients"))
+                    for (const auto& ing : el["ingredients"]) d.ingredients.push_back({ing.value("item", ""), ing.value("qty", 1)});
+                recipes.push_back(d);
             }
         } else RecordIssue(rel, "root", err);
     }
@@ -1121,6 +1141,9 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             in.set_flag = ij.value("set_flag", "");
             in.sanity = ij.value("sanity", 0);
             in.requires_dead = ij.value("requires_dead", "");
+            in.qty_max = ij.value("qty_max", 0);
+            in.respawn_seconds = ij.value("respawn_seconds", 600.0f);
+            in.station = ij.value("station", "");
             if (ij.contains("narration") && ij["narration"].is_array())
                 for (const auto& nk : ij["narration"]) in.narration_keys.push_back(nk.get<std::string>());
             m.interactables.push_back(in);
@@ -1233,6 +1256,16 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
     }
 
     // 6. Validate NPCs & Dialogues
+    // Recipes must make and use real items.
+    for (const auto& r : recipes) {
+        if (!GetItem(r.result)) RecordIssue("Recipe:" + r.id, "result", "Unknown item '" + r.result + "'");
+        for (const auto& [it, q] : r.ingredients)
+            if (!GetItem(it)) RecordIssue("Recipe:" + r.id, "ingredients", "Unknown item '" + it + "'");
+    }
+    for (const auto& [mid, map] : maps)
+        for (const auto& in : map.interactables)
+            if (in.type == "harvest" && !GetItem(in.item_id)) RecordIssue("Map:" + mid + "/" + in.instance_id, "item_id", "Unknown harvest item '" + in.item_id + "'");
+
     // Perks must belong to a real skill, and every milestone should offer a choice.
     for (const auto& p : perks) {
         bool known = false;

@@ -192,6 +192,13 @@ creature("limb_drowned_1", "core:enemy.the_drowned", (-11.0, 0.0, -6.5), (-11.0,
 creature("reef_drowned_0", "core:enemy.the_drowned", (9.0, 0.0, -11.0), (9.0, 0.0, -11.0), (11.0, 0.0, -3.0))
 creature("reef_drowned_1", "core:enemy.the_drowned", (10.0, 0.0, 9.0), (10.0, 0.0, 9.0), (6.0, 0.0, 12.0))
 
+# ============================================================================ gathering (tools/authoring/crafting.py)
+interactables.append({"instance_id": "reef_bladderwrack_80_80", "type": "harvest", "model": "assets/models/props/seaweed.glb", "pos": [-8.0, 0.0, 8.0], "rot_y": 152.0, "item_id": "core:item.bladderwrack", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Gather Bladderwrack", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "reef_bladderwrack_90_20", "type": "harvest", "model": "assets/models/props/seaweed.glb", "pos": [9.0, 0.0, -2.0], "rot_y": 311.0, "item_id": "core:item.bladderwrack", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Gather Bladderwrack", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "reef_sea_salt_120_35", "type": "harvest", "model": "assets/models/props/salt_crust.glb", "pos": [12.0, 0.0, 3.5], "rot_y": 122.5, "item_id": "core:item.sea_salt", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Scrape Sea Salt", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "reef_sea_salt_120_10", "type": "harvest", "model": "assets/models/props/salt_crust.glb", "pos": [-12.0, 0.0, -1.0], "rot_y": 265.0, "item_id": "core:item.sea_salt", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Scrape Sea Salt", "scale": [1.4, 1.4, 1.4]})
+interactables.append({"instance_id": "reef_glowcap_35_125", "type": "harvest", "model": "assets/models/props/mushroom_glowcap.glb", "pos": [-3.5, 0.0, -12.5], "rot_y": 93.0, "item_id": "core:item.glowcap", "qty": 1, "qty_max": 2, "respawn_seconds": 480, "prompt": "Pick Glowcap", "scale": [1.4, 1.4, 1.4]})
+
 region = {
     "schema_version": 1,
     "id": "core:map.sleepers_reef",

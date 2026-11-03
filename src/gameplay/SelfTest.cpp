@@ -1121,6 +1121,53 @@ int GameEngine::RunSelfTest() {
               "every book returned; six spells copied; library card number 0000001");
     }
 
+    // --- Gathering and crafting: harvest, regrowth, alchemy bench, weapon oil
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        int ni = -1;
+        for (size_t i = 0; i < scene_.interactables.size(); i++)
+            if (scene_.interactables[i].def.type == "harvest" && scene_.interactables[i].def.item_id == "core:item.marigold") { ni = static_cast<int>(i); break; }
+        check(ni >= 0, "marigolds grow in the world");
+        if (ni >= 0) {
+            InteractableInstance& n = scene_.interactables[ni];
+            int before = CountItem("core:item.marigold");
+            Vector3 nc = Vector3Scale(Vector3Add(n.world_box.min, n.world_box.max), 0.5f);
+            standAndUse({nc.x, n.world_box.min.y, nc.z + 1.1f}, 180.0f, -35.0f);
+            check(CountItem("core:item.marigold") > before && n.used, "picking a marigold (it's gone until it regrows)");
+            player_.play_time += n.def.respawn_seconds + 1.0;
+            UpdateWorldObjects(0.0f);
+            check(!n.used, "the marigold grows back after a while");
+        }
+        int si = -1;
+        for (size_t i = 0; i < scene_.interactables.size(); i++)
+            if (scene_.interactables[i].def.type == "station" && scene_.interactables[i].def.station == "alchemy") si = static_cast<int>(i);
+        check(si >= 0, "there is an alchemy bench in the world");
+        if (si >= 0) {
+            InteractableInstance& b = scene_.interactables[si];
+            Vector3 bc = Vector3Scale(Vector3Add(b.world_box.min, b.world_box.max), 0.5f);
+            standAndUse({bc.x + 1.4f, b.world_box.min.y, bc.z}, -90.0f, -25.0f);
+        }
+        check(overlay_ == Overlay::Crafting && craft_station_ == "alchemy", "the bench opens the alchemy screen");
+        AddItem("core:item.pine_resin", 2, false);
+        AddItem("core:item.marigold", 1, false);
+        int resin = CountItem("core:item.pine_resin");
+        check(Craft("core:recipe.oil_fire") && CountItem("core:item.oil_fire") >= 1 && CountItem("core:item.pine_resin") == resin - 2,
+              "brewed Dragon's Breath Oil (ingredients used up)");
+        check(!Craft("core:recipe.bureaucrats_brew") || SkillLevel("lore") >= 14, "can't brew without the ingredients");
+        SetOverlay(Overlay::None);
+        UseItem("core:item.oil_fire");
+        CreatureInstance dummy;
+        dummy.instance_id = "oil_dummy";
+        dummy.def = content_.GetCreature("core:enemy.grey_wolf");
+        dummy.health = dummy.max_health = 999;
+        dummy.state = CreatureState::Idle;
+        for (int i = 0; i < 20 && dummy.burn_time <= 0.0f; i++) ApplyOilOnHit(dummy);
+        check(dummy.burn_time > 0.0f, "an oiled weapon sets foes alight");
+        player_.buffs.clear();
+        check(SaveGame("selftest_craft"), "saved with harvest state");
+    }
+
     // --- Perks: milestones, one choice each, real effects, save/load, and Brother Aldous's respec
     {
         auto savedSkills = player_.skills;

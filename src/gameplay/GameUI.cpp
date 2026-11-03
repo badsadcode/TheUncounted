@@ -255,6 +255,7 @@ void GameEngine::DrawFrame() {
             case Overlay::Dialogue: DrawDialogue(); break;
             case Overlay::Shop: DrawShop(); break;
             case Overlay::Container: DrawContainer(); break;
+            case Overlay::Crafting: DrawCrafting(); break;
             case Overlay::Reader: DrawReader(); break;
             case Overlay::Options: DrawOptions(); break;
             case Overlay::Narration: DrawNarration(); break;
@@ -880,6 +881,12 @@ void GameEngine::DrawInventory() {
         else if (e.type == "consumable_mana") stat("Restores " + std::to_string(e.amount) + " mana");
         else if (e.type == "consumable_stamina") stat("Restores " + std::to_string(e.amount) + " stamina");
         else if (e.type == "learn_spell") { if (const SpellDef* s = content_.GetSpell(e.spell_id)) stat("Teaches: " + content_.Tr(s->name_key)); }
+        else if (e.type == "consumable_sanity") stat("Restores " + std::to_string(e.amount) + " sanity");
+        else if (e.type == "weapon_oil") {
+            static const std::map<std::string, std::string> nm = {{"burn", "burn"}, {"chill", "chill"}, {"shock", "shock"}, {"ink", "blind"}, {"bleed", "bleed"}};
+            statC("Weapon oil: " + Pct(e.value) + " chance to " + (nm.count(e.stat) ? nm.at(e.stat) : e.stat) + " on hit, " +
+                  std::to_string(static_cast<int>(e.duration)) + "s", Color{255, 190, 120, 255});
+        }
         else if (e.type == "cast_spell") {
             if (const SpellDef* s = content_.GetSpell(e.spell_id)) statC("Casts " + content_.Tr(s->name_key) + " for free. " + std::to_string(CountItem(d->id)) + " charges.", kAccent);
         }
@@ -1519,6 +1526,64 @@ void GameEngine::DrawShop() {
 // ============================================================================
 // Container
 // ============================================================================
+void GameEngine::DrawCrafting() {
+    float u = U();
+    float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
+    Rectangle P = {VW * 0.5f - 520, VH * 0.5f - 290, 1040, 580};
+    Panel(P);
+    std::string title = craft_station_ == "alchemy" ? "Alchemy Bench" : craft_station_ == "workbench" ? "Workbench" : "Crafting";
+    Text(title, P.x + 20, P.y + 14, 28, kGold);
+    Text(craft_station_ == "alchemy" ? "Potions, tonics and weapon oils. Gather herbs out in the world." : "Arrows, lockpicks and tools.",
+         P.x + 260, P.y + 24, 14, kDim);
+    std::vector<const RecipeDef*> list;
+    for (const auto& r : content_.recipes) if (r.station == craft_station_) list.push_back(&r);
+    if (craft_selected_.empty() && !list.empty()) craft_selected_ = list[0]->id;
+    float y = P.y + 64;
+    for (const RecipeDef* r : list) {
+        const ItemDef* d = content_.GetItem(r->result);
+        if (!d) continue;
+        Rectangle row = {P.x + 20, y, 440, 38};
+        Rectangle s = {row.x * u, row.y * u, row.width * u, row.height * u};
+        bool hover = CheckCollisionPointRec(GetMousePosition(), s);
+        bool sel = craft_selected_ == r->id;
+        DrawRectangleRec(s, sel ? Color{60, 48, 32, 230} : hover ? Color{40, 36, 30, 220} : Color{20, 20, 24, 160});
+        Icon(d->icon, {row.x + 4, row.y + 3, 32, 32});
+        bool can = CanCraft(*r);
+        Text(content_.Tr(d->name_key) + (r->qty > 1 ? "  x" + std::to_string(r->qty) : ""), row.x + 44, row.y + 9, 17, can ? kText : kDim);
+        if (can) Text("ready", row.x + row.width - 54, row.y + 11, 14, Color{150, 230, 140, 255});
+        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) craft_selected_ = r->id;
+        y += 41;
+    }
+    const RecipeDef* cur = nullptr;
+    for (const RecipeDef* r : list) if (r->id == craft_selected_) cur = r;
+    if (cur) {
+        const ItemDef* d = content_.GetItem(cur->result);
+        float x = P.x + 490, dy = P.y + 64;
+        Icon(d->icon, {x, dy, 64, 64});
+        Text(content_.Tr(d->name_key), x + 76, dy + 6, 22, kGold);
+        TextWrapped(content_.Tr(d->description_key), {x + 76, dy + 36, 440, 70}, 14, kText);
+        dy += 120;
+        Text("Ingredients", x, dy, 18, kGold);
+        dy += 28;
+        for (const auto& [it, q] : cur->ingredients) {
+            const ItemDef* ing = content_.GetItem(it);
+            int have = CountItem(it);
+            if (ing) Icon(ing->icon, {x, dy, 28, 28});
+            Text((ing ? content_.Tr(ing->name_key) : it) + "  " + std::to_string(have) + " / " + std::to_string(q), x + 36, dy + 5, 16,
+                 have >= q ? Color{150, 230, 140, 255} : Color{255, 150, 130, 255});
+            dy += 32;
+        }
+        if (cur->skill_level > 0) {
+            std::string sn = cur->skill;
+            for (const auto& sd : content_.skills) if (sd.id == cur->skill) sn = content_.Tr(sd.name_key);
+            Text("Requires " + sn + " " + std::to_string(cur->skill_level), x, dy + 6, 15, SkillLevel(cur->skill) >= cur->skill_level ? kDim : Color{255, 150, 130, 255});
+        }
+        bool can = CanCraft(*cur);
+        if (Button({x, P.y + P.height - 64, 240, 44}, can ? "Craft" : "Missing ingredients", can)) Craft(cur->id);
+    }
+    if (Button({P.x + P.width - 180, P.y + P.height - 64, 160, 44}, "Close") || IsKeyPressed(KEY_ESCAPE)) SetOverlay(Overlay::None);
+}
+
 void GameEngine::DrawContainer() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
