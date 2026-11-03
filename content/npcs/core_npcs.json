@@ -290,7 +290,314 @@
         {
           "text_key": "bark.scout.chests"
         }
-      ]
+      ],
+      "companion": {
+        "damage": 8,
+        "attack_time": 1.05,
+        "reach": 2.0,
+        "heal_amount": 16,
+        "heal_cooldown": 50,
+        "zone_lines": {
+          "bellwether": "comp.kaelen.zone.bellwether",
+          "old_road": "comp.kaelen.zone.old_road",
+          "annex": "comp.kaelen.zone.annex",
+          "vault_three": "comp.kaelen.zone.vault_three",
+          "seal_chamber": "comp.kaelen.zone.seal_chamber",
+          "hollowmere": "comp.kaelen.zone.hollowmere",
+          "hollowmere_manor": "comp.kaelen.zone.hollowmere_manor"
+        },
+        "idle_lines": [
+          {
+            "text_key": "comp.kaelen.idle.1"
+          },
+          {
+            "text_key": "comp.kaelen.idle.2"
+          },
+          {
+            "text_key": "comp.kaelen.idle.3"
+          },
+          {
+            "text_key": "comp.kaelen.idle.4"
+          },
+          {
+            "text_key": "comp.kaelen.idle.5"
+          },
+          {
+            "text_key": "comp.kaelen.idle.6"
+          },
+          {
+            "text_key": "comp.kaelen.idle.seal",
+            "flag": "seal_renewed"
+          },
+          {
+            "text_key": "comp.kaelen.idle.ilse",
+            "flag": "ilse_remembered"
+          },
+          {
+            "text_key": "comp.kaelen.idle.dinner",
+            "flag": "dinner_done"
+          }
+        ],
+        "combat_lines": [
+          "comp.kaelen.combat.1",
+          "comp.kaelen.combat.2",
+          "comp.kaelen.combat.3",
+          "comp.kaelen.combat.4"
+        ],
+        "kill_lines": [
+          "comp.kaelen.kill.1",
+          "comp.kaelen.kill.2",
+          "comp.kaelen.kill.3"
+        ],
+        "heal_lines": [
+          "comp.kaelen.heal.1",
+          "comp.kaelen.heal.2"
+        ],
+        "level_lines": [
+          "comp.kaelen.level.1",
+          "comp.kaelen.level.2"
+        ],
+        "catchup_lines": [
+          "comp.kaelen.catchup.1",
+          "comp.kaelen.catchup.2",
+          "comp.kaelen.catchup.3"
+        ],
+        "banter": [
+          {
+            "id": "intro",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.intro.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.intro.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.intro.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.intro.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.intro.4"
+              }
+            ]
+          },
+          {
+            "id": "counting",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.counting.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.counting.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.counting.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.counting.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.counting.4"
+              }
+            ]
+          },
+          {
+            "id": "hedge",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.hedge.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.hedge.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.hedge.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.hedge.3"
+              }
+            ]
+          },
+          {
+            "id": "ilse",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.ilse.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.ilse.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.ilse.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.ilse.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.ilse.4"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.ilse.5"
+              }
+            ],
+            "flag": "baggy_ilse"
+          },
+          {
+            "id": "hollowmere",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.hollowmere.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.hollowmere.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.hollowmere.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.hollowmere.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.hollowmere.4"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.hollowmere.5"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.hollowmere.6"
+              }
+            ],
+            "flag": "hollowmere_visited"
+          },
+          {
+            "id": "theatre",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.theatre.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.theatre.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.theatre.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.theatre.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.theatre.4"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.theatre.5"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.theatre.6"
+              }
+            ],
+            "flag": "cast_baggy"
+          },
+          {
+            "id": "dinner",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.dinner.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.dinner.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.dinner.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.dinner.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.dinner.4"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.dinner.5"
+              }
+            ],
+            "flag": "dinner_done"
+          },
+          {
+            "id": "seal",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.seal.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.seal.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.seal.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.kaelen.banter.seal.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.kaelen.banter.seal.4"
+              }
+            ],
+            "flag": "seal_renewed"
+          }
+        ]
+      }
     },
     {
       "id": "core:npc.erased_spirit",

@@ -60,7 +60,7 @@ struct PlayerState {
     std::map<std::string, std::vector<int>> quest_log;
     std::set<std::string> flags;
     std::set<std::string> claimed; // one-time dialogue rewards
-    std::string companion;         // NPC def id of whoever travels with the player (empty = alone)
+    std::vector<std::string> companions;  // NPC def ids of whoever travels with the player (party of up to kMaxCompanions)
     std::string tracked_quest;     // side quest shown on the HUD next to the main story
     double play_time = 0.0;
 
@@ -160,7 +160,7 @@ private:
     int boot_shot_frames_ = 0;
     std::string boot_shot_overlay_;
     std::vector<std::string> boot_shot_flags_;
-    std::string boot_shot_companion_;
+    std::vector<std::string> boot_shot_companions_;
 
     // ---- combat/animation
     float attack_timer_ = -1.0f;    // >=0 while a swing is in progress
@@ -325,13 +325,22 @@ private:
     void ResolveMeleeHit();
     // Companion
     void UpdateCompanion(float dt);
+    // Objective markers for the HUD compass and the map: the tracked side quest, else the main story.
+    bool ObjectiveMarker(Vector3& out, std::string& questTitle) const;
+    void DrawCompass();
     void SpawnCreature(const MapCreatureSpawnDef& c);
     void CheckGroupCleared(const CreatureInstance& c);
     std::vector<const MapCreatureSpawnDef*> pending_spawns_;   // waiting for their requires_flag
     int RollD20(const DialogueChoice& ch, int& bonus, bool& rigged);
     int DialogueRollChance(const DialogueChoice& ch) const;   // % chance to pass, shown on the choice
-    int CompanionIndex() const;
-    void CompanionSay(const std::vector<std::string>& keys, float chance = 1.0f);
+    int CompanionIndex() const;                 // the first companion's NPC index, or -1
+    std::vector<int> CompanionIndices() const;  // every companion present in the scene
+    bool IsCompanion(const std::string& npcId) const;
+    void CompanionSay(const std::vector<std::string>& keys, float chance = 1.0f, int npcIndex = -1);
+    static constexpr int kMaxCompanions = 2;
+    // Subtitles queued to play one after another (party chatter and banter).
+    std::vector<std::pair<std::string, std::string>> say_queue_;
+    void QueueSay(const std::string& speaker, const std::string& text);
     float companion_heal_cd_ = 0.0f;
     float companion_idle_cd_ = 60.0f;
     float companion_calm_ = 10.0f;        // seconds since the companion last fought

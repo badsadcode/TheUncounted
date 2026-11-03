@@ -12,7 +12,7 @@ the previous session (Windows desktop, MinGW) knew and you won't: read this file
   under the Old Road; Vault III sits under the Annex's crypt (three storeys of descent via walkable stairs).
 - **Target platform: Windows 10/11 only** (MinGW build). Linux is *not* a shipping target; it is only used as a headless
   test box in cloud sessions (which run Linux and cannot execute `game.exe`). Don't add Linux packaging or Linux-only code.
-- `--validate` → 0 errors; `--selftest` → 0 failures (174 checks); `--balance` → every calling beats every creature
+- `--validate` → 0 errors; `--selftest` → 0 failures (184 checks); `--balance` → every calling beats every creature
   (36/36 at 100%). Last cloud verification 2026-11-02; re-check on Windows after pulling.
 - **Not play-tested by a human for feel.** Everything was verified by headless tests and screenshots.
 
@@ -154,6 +154,26 @@ that speaker's own name and title).
    moments → three bows/endings (triumph ≥5, good ≥3, glorious disaster), each with Mortimer's review read in narration.
 `tools/authoring/players_campaign.py` is the (already-run, do-not-rerun) authoring script — copy its `Dlg` helper for new long dialogue.
 Engine additions: condition `flags_fewer_than`; dialogue box shows the node speaker's own title.
+
+### Quest markers, party, text size, Dungeons & Debtors (added 2026-11-03)
+
+- **Quest markers:** a quest stage may list `markers` (instance ids of NPCs / interactables / creatures / pickups); the
+  nearest relevant one is shown (hidden NPCs, dead creatures, used objects and readables whose `set_flag` is already set
+  are skipped). The HUD compass (above the quick slots) points at the tracked side quest's marker, else the main
+  story's, with distance and up/down; the map pins it (at the edge if it's on another storey/area). Validation fails if
+  a marker isn't placed in any map. **Give every new quest stage markers.**
+- **Party:** `player.companions` (max 2, `kMaxCompanions`; old saves' `companion` still loads). Companions take the two
+  slots behind you; subtitles from party members queue (`QueueSay`) instead of overwriting each other. Companion `banter`
+  blocks (`id`, `partner`, `lines` [{by: self|partner, text_key}], `flag`/`not_flag`) play once per save when both are
+  present. Conditions `party_has_room` / `party_full`. **Kaelen** is the second companion (8 banter scenes with Baggy).
+- **Options → Dialogue text size** (100–150%, `text_scale` in config/game.json) scales dialogue, choices, subtitles,
+  books and narration; the dialogue panel shrinks the font only if a scene wouldn't fit. For streaming.
+- **Campaign `dungeons_debtors`** (Dungeons & Debtors): Session Zero–Three, started from Clerk Oakhaven ("What do you
+  do on Thursdays?"); Oakhaven is the Game Master, Baggy/Rolf/Hollis/Ashgrave/Marta the players (in script format).
+  Class flags `dnd_*` unlock class moves; `dnd_win_*` tally good play. Reward: Oakhaven's Lucky d20 (`dice_bonus` +2:
+  added to every dialogue roll) and the GM's Screen (off-hand). Authoring script: `tools/authoring/dungeons_debtors.py`
+  (already run — do not rerun).
+- Fixes: hidden NPCs no longer appear on the map, and NPC visibility is right from the first frame.
 
 ### Story canon (keep new writing consistent with this)
 

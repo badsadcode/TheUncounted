@@ -1010,6 +1010,101 @@
         ],
         "light_radius": 6.5
       }
+    },
+    {
+      "id": "thursday_table",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -4.5,
+        0.72,
+        8.6
+      ],
+      "scale": [
+        2.2,
+        0.1,
+        1.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.2
+      ]
+    },
+    {
+      "id": "thursday_leg_0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -5.5,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        0.1,
+        0.72,
+        0.1
+      ],
+      "solid": false,
+      "uv_scale": [
+        1,
+        0.2
+      ]
+    },
+    {
+      "id": "thursday_leg_1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -3.5,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        0.1,
+        0.72,
+        0.1
+      ],
+      "solid": false,
+      "uv_scale": [
+        1,
+        0.2
+      ]
+    },
+    {
+      "id": "thursday_leg_2",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -5.5,
+        0.0,
+        9.2
+      ],
+      "scale": [
+        0.1,
+        0.72,
+        0.1
+      ],
+      "solid": false,
+      "uv_scale": [
+        1,
+        0.2
+      ]
+    },
+    {
+      "id": "thursday_leg_3",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -3.5,
+        0.0,
+        9.2
+      ],
+      "scale": [
+        0.1,
+        0.72,
+        0.1
+      ],
+      "solid": false,
+      "uv_scale": [
+        1,
+        0.2
+      ]
     }
   ],
   "lights": [
@@ -1418,6 +1513,20 @@
       "prompt": "Read the Casting Call",
       "title": "CASTING CALL!",
       "text": "THE VELOUR TRAVELLING PLAYERS\nproudly present\nTHE TRAGEDIE OF THE UNCOUNTED KING\n\nA play in five acts. Two intervals. One dragon.\n\nNOW CASTING: a LEAD (must have suffered), a PRINCE (must own sword), a GHOST (must be pale), a DRAGON (must be large), a HERALD, a NARRATOR, a SECOND GUARD (there is no First Guard; budget), a PROMPTER, and someone who is not afraid of fire, or the law.\n\nNo experience required. No pay guaranteed. Glory almost certain.\n\nApply to Madame Odette Velour, in person, in the large hat.\n\nUnderneath, in red ink: 'Two stars. The font is overwrought. - M.Q.'"
+    },
+    {
+      "instance_id": "thursday_sheets",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -4.5,
+        0.95,
+        8.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Character Sheets",
+      "title": "Form 1-CS: Character Sheets (Thursday Group)",
+      "text": "A neat stack of character sheets, every one filled out on official Bureau Form 1-CS.\n\nSIR DETECTIVE INSPECTOR BAGGINGTON. Paladin of Justice. Equipment: magnifying glass (+1), eleven spare magnifying glasses, a hat. Notes: 'Suspects the hedge.'\n\nGERALD. Human. Accountant. Equipment: abacus, cardigan (+3 AC, knitted). Notes: 'Wants to audit the dragon.'\n\nGRIZZLEBEARD. Monster hunter. White hair. Two swords. Says 'hmm'. All attributes listed as 18. In pencil, in Oakhaven's hand: 'NO.'\n\nLORD DEFINITELY-NOT-A-VAMPIRE. Paladin. Avoids sunlight 'for unrelated reasons'. Backstory: see attached, 41 pages.\n\nSISTER CRUMB. Cleric. Heals with bread. Spell list: 'bread'. Notes: 'Brings real snacks. Protect at all costs.'\n\nUnder the stack, a blank sheet with your name already written at the top in neat Bureau handwriting, as if somebody hoped you'd say yes."
     }
   ],
   "portals": [

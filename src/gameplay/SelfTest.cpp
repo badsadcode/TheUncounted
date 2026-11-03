@@ -66,6 +66,14 @@ int GameEngine::RunSelfTest() {
     const std::string side = "core:quest.bakers_daughter";
     check(current_map_ == content_.game_cfg.starting_map, "new game starts in the world map");
     check(zone_id_ == "bellwether", "player starts in the Bellwether zone");
+    {
+        Vector3 mk;
+        std::string qt;
+        bool atClerk = false;
+        if (ObjectiveMarker(mk, qt))
+            for (const auto& n : scene_.npcs) if (n.instance_id == "npc_oakhaven" && Vector3Distance(n.pos, mk) < 0.1f) atClerk = true;
+        check(atClerk, "the objective marker points at Clerk Oakhaven");
+    }
     check(atmo_.weather == "rain", "it is raining in Bellwether at the start");
     const Vector3 road = {48.0f, 0.0f, 0.0f};
     const Vector3 annex = {87.0f, -4.8f, -8.4f};
@@ -428,7 +436,7 @@ int GameEngine::RunSelfTest() {
         int bi = npcIndex("core:npc.detective_baggy");
         player_.pos = at(road, 6.0f, 0.0f, -3.0f);
         StartDialogue(bi);
-        check(chooseNext("join") && player_.companion == "core:npc.detective_baggy", "Baggy joins as a companion");
+        check(chooseNext("join") && IsCompanion("core:npc.detective_baggy"), "Baggy joins as a companion");
         int rolls = CountItem("core:item.sweet_roll");
         EndDialogue();
         check(rolls >= 2, "Baggy hands over emergency sweet rolls");
@@ -458,10 +466,42 @@ int GameEngine::RunSelfTest() {
         simulate(0.1f);
         check(player_.health > low + 10.0f, "Baggy hands over food when the player is badly hurt");
         StartDialogue(bi);
-        check(chooseNext("wait") && player_.companion.empty(), "Baggy can be asked to wait");
+        check(chooseNext("wait") && !IsCompanion("core:npc.detective_baggy"), "Baggy can be asked to wait");
         EndDialogue();
         StartDialogue(bi);
-        check(chooseNext("join") && player_.companion == "core:npc.detective_baggy", "and rejoins later");
+        check(chooseNext("join") && IsCompanion("core:npc.detective_baggy"), "and rejoins later");
+        EndDialogue();
+    }
+
+    // --- A party of two: Kaelen joins Baggy; they banter
+    {
+        int ki = npcIndex("core:npc.ashbound_scout");
+        StartDialogue(ki);
+        check(chooseNext("join") && IsCompanion("core:npc.ashbound_scout") && player_.companions.size() == 2, "Kaelen joins Baggy in the party");
+        EndDialogue();
+        player_.pos = {0.0f, 0.0f, 0.0f};
+        simulate(3.0f);
+        auto party = CompanionIndices();
+        bool close = party.size() == 2;
+        for (int i : party) close = close && hdist(scene_.npcs[i].pos, player_.pos) < 4.5f;
+        check(close && hdist(scene_.npcs[party[0]].pos, scene_.npcs[party[1]].pos) > 0.5f, "both companions follow, side by side");
+        companion_idle_cd_ = 0.0f;
+        companion_calm_ = 30.0f;
+        subtitle_time_ = 0.0f;
+        say_queue_.clear();
+        player_.claimed.erase("banter:core:npc.ashbound_scout:intro");
+        for (int tries = 0; tries < 20 && !player_.claimed.count("banter:core:npc.ashbound_scout:intro"); tries++) {
+            companion_idle_cd_ = 0.0f;
+            subtitle_time_ = 0.0f;
+            say_queue_.clear();
+            UpdateCompanion(0.016f);
+        }
+        check(player_.claimed.count("banter:core:npc.ashbound_scout:intro") && !say_queue_.empty(), "Kaelen and Baggy banter on the road");
+        say_queue_.clear();
+        int vi = npcIndex("core:npc.librarian_fenwick");
+        (void)vi;
+        StartDialogue(npcIndex("core:npc.ashbound_scout"));
+        check(chooseNext("wait") && player_.companions.size() == 1, "Kaelen can wait while Baggy carries on");
         EndDialogue();
     }
 
@@ -672,6 +712,34 @@ int GameEngine::RunSelfTest() {
         AdvanceNarration();
         EndDialogue();
         check(screen_ == Screen::Playing, "the show doesn't end the chapter");
+    }
+
+    // --- Dungeons & Debtors: four tabletop sessions with Oakhaven as Game Master
+    {
+        const char* qs[] = {"core:quest.dnd_session0", "core:quest.dnd_session1", "core:quest.dnd_session2", "core:quest.dnd_session3"};
+        auto play = [&](std::initializer_list<const char*> path) {
+            StartDialogue(npcIndex("core:npc.clerk_oakhaven"));
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            EndDialogue();
+            return ok;
+        };
+        check(play({"pitch", "s0_rules", "s0_hollis", "s0_class", "s0_backstory", "s0_party", "s0_end", "greeting"}) &&
+              QuestStage(qs[0]) == 100 && player_.flags.count("dnd_barbarian"), "Session Zero: rolled up a Barbarian (with Hollis 'helping')");
+        check(play({"s1_start", "s1_quest", "s1_brawl", "s1_brawl_win", "s1_shop", "greeting"}) && QuestStage(qs[1]) == 100,
+              "Session One: met in a tavern, threw Steve");
+        check(play({"s2_start", "s2_trap", "s2_room", "s2_mimic_bread", "s2_puzzle", "s2_riddle_win", "s2_split", "s2_end", "greeting"}) &&
+              QuestStage(qs[2]) == 100, "Session Two: befriended the mimic, solved the candle riddle, didn't split the party");
+        check(play({"s3_start", "s3_fight", "s3_fight_team", "s3_end", "s3_bow_great", "after", "greeting"}) && QuestStage(qs[3]) == 100 &&
+              CountItem("core:item.lucky_d20") == 1, "Session Three: Debtrax falls; Oakhaven's lucky d20");
+        auto savedEquip = player_.equipment;
+        EquipItem("core:item.lucky_d20");
+        const DialogueDef* hd = content_.GetDialogue("core:dialogue.hunter_hollis");
+        int withDie = hd ? DialogueRollChance(hd->nodes.at("cards").choices[0]) : 0;
+        player_.equipment = savedEquip;
+        int without = hd ? DialogueRollChance(hd->nodes.at("cards").choices[0]) : 0;
+        check(withDie == std::min(95, without + 10), "the lucky d20 adds +2 to every roll (" + std::to_string(without) + "% -> " +
+              std::to_string(withDie) + "%)");
     }
 
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)

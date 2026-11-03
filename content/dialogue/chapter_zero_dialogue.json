@@ -176,6 +176,76 @@
               "next": "prop_thunder"
             },
             {
+              "text_key": "dlg.dnd.topic.pitch",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.dnd_session0",
+                  "stage": 0
+                }
+              ],
+              "next": "pitch"
+            },
+            {
+              "text_key": "dlg.dnd.topic.s1",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dnd_session0",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.dnd_session1",
+                  "stage": 100
+                }
+              ],
+              "next": "s1_start"
+            },
+            {
+              "text_key": "dlg.dnd.topic.s2",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dnd_session1",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.dnd_session2",
+                  "stage": 100
+                }
+              ],
+              "next": "s2_start"
+            },
+            {
+              "text_key": "dlg.dnd.topic.s3",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dnd_session2",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.dnd_session3",
+                  "stage": 100
+                }
+              ],
+              "next": "s3_start"
+            },
+            {
+              "text_key": "dlg.dnd.topic.after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.dnd_session3",
+                  "stage": 100
+                }
+              ],
+              "next": "after"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -566,6 +636,1068 @@
           "choices": [
             {
               "text_key": "dlg.clerk.players.prop_thunder.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "pitch": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.pitch",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.pitch.c0",
+              "next": "s0_rules",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.dnd_session0",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.pitch.c1",
+              "next": "s0_rules",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.dnd_session0",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.pitch.c2",
+              "next": "greeting"
+            }
+          ]
+        },
+        "s0_rules": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_rules",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_rules.c0",
+              "next": "s0_stats",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_good_stats",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "athletics",
+                "dc": 10,
+                "fail_next": "s0_stats_bad"
+              }
+            },
+            {
+              "text_key": "dlg.dnd.s0_rules.c1",
+              "next": "s0_hollis"
+            }
+          ]
+        },
+        "s0_stats": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_stats",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_stats.c0",
+              "next": "s0_class"
+            }
+          ]
+        },
+        "s0_stats_bad": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_stats_bad",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_stats_bad.c0",
+              "next": "s0_class"
+            }
+          ]
+        },
+        "s0_hollis": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_hollis",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_hollis.c0",
+              "next": "s0_class"
+            }
+          ]
+        },
+        "s0_class": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_class",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_class.c0",
+              "next": "s0_backstory",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_barbarian",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s0_class.c1",
+              "next": "s0_backstory",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_bard",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s0_class.c2",
+              "next": "s0_backstory",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_rogue",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s0_class.c3",
+              "next": "s0_backstory",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_wizard",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s0_class.c4",
+              "next": "s0_backstory",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_paladin",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "s0_backstory": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_backstory",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_backstory.c0",
+              "next": "s0_party",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_tragic",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s0_backstory.c1",
+              "next": "s0_party",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_simple",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s0_backstory.c2",
+              "next": "s0_party",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_relatable",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "s0_party": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_party",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_party.c0",
+              "next": "s0_end"
+            }
+          ]
+        },
+        "s0_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s0_end",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dnd_session0",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s0_end.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "s1_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_start",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_start.c0",
+              "next": "s1_quest",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_1",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s1_start.c1",
+              "next": "s1_insight",
+              "roll": {
+                "skill": "perception",
+                "dc": 8,
+                "fail_next": "s1_insight"
+              }
+            },
+            {
+              "text_key": "dlg.dnd.s1_start.c2",
+              "next": "s1_hood"
+            }
+          ]
+        },
+        "s1_insight": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_insight",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_insight.c0",
+              "next": "s1_quest"
+            }
+          ]
+        },
+        "s1_hood": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_hood",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_hood.c0",
+              "next": "s1_quest"
+            }
+          ]
+        },
+        "s1_quest": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_quest",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_quest.c0",
+              "next": "s1_brawl"
+            }
+          ]
+        },
+        "s1_brawl": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_brawl",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_brawl.c0",
+              "next": "s1_brawl_win",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_barbarian"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_2",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s1_brawl.c1",
+              "next": "s1_brawl_bard",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_bard"
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 12,
+                "fail_next": "s1_brawl_fail"
+              }
+            },
+            {
+              "text_key": "dlg.dnd.s1_brawl.c2",
+              "next": "s1_brawl_rogue",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_rogue"
+                }
+              ],
+              "roll": {
+                "skill": "stealth",
+                "dc": 11,
+                "fail_next": "s1_brawl_fail"
+              }
+            },
+            {
+              "text_key": "dlg.dnd.s1_brawl.c3",
+              "next": "s1_brawl_wizard",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_wizard"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s1_brawl.c4",
+              "next": "s1_brawl_paladin",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_paladin"
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 10,
+                "fail_next": "s1_brawl_fail"
+              }
+            }
+          ]
+        },
+        "s1_brawl_win": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_brawl_win",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_brawl_win.c0",
+              "next": "s1_shop"
+            }
+          ]
+        },
+        "s1_brawl_bard": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_brawl_bard",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dnd_win_2",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_brawl_bard.c0",
+              "next": "s1_shop"
+            }
+          ]
+        },
+        "s1_brawl_rogue": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_brawl_rogue",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dnd_win_2",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_brawl_rogue.c0",
+              "next": "s1_shop"
+            }
+          ]
+        },
+        "s1_brawl_wizard": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_brawl_wizard",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_brawl_wizard.c0",
+              "next": "s1_shop"
+            }
+          ]
+        },
+        "s1_brawl_paladin": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_brawl_paladin",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dnd_win_2",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_brawl_paladin.c0",
+              "next": "s1_shop"
+            }
+          ]
+        },
+        "s1_brawl_fail": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_brawl_fail",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_brawl_fail.c0",
+              "next": "s1_shop"
+            }
+          ]
+        },
+        "s1_shop": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s1_shop",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dnd_session1",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s1_shop.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "s2_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_start",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_start.c0",
+              "next": "s2_trap",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_3",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s2_start.c1",
+              "next": "s2_trap_hit"
+            },
+            {
+              "text_key": "dlg.dnd.s2_start.c2",
+              "next": "s2_gerald"
+            }
+          ]
+        },
+        "s2_trap": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_trap",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_trap.c0",
+              "next": "s2_room"
+            }
+          ]
+        },
+        "s2_trap_hit": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_trap_hit",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_trap_hit.c0",
+              "next": "s2_room"
+            }
+          ]
+        },
+        "s2_gerald": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_gerald",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dnd_win_3",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_gerald.c0",
+              "next": "s2_room"
+            }
+          ]
+        },
+        "s2_room": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_room",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_room.c0",
+              "next": "s2_mimic_rogue",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_rogue"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_4",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s2_room.c1",
+              "next": "s2_search"
+            },
+            {
+              "text_key": "dlg.dnd.s2_room.c2",
+              "next": "s2_mimic"
+            },
+            {
+              "text_key": "dlg.dnd.s2_room.c3",
+              "next": "s2_mimic_bread",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_4",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "s2_mimic_rogue": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_mimic_rogue",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_mimic_rogue.c0",
+              "next": "s2_puzzle"
+            }
+          ]
+        },
+        "s2_search": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_search",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_search.c0",
+              "next": "s2_puzzle"
+            }
+          ]
+        },
+        "s2_mimic": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_mimic",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_mimic.c0",
+              "next": "s2_puzzle"
+            }
+          ]
+        },
+        "s2_mimic_bread": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_mimic_bread",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_mimic_bread.c0",
+              "next": "s2_puzzle"
+            }
+          ]
+        },
+        "s2_puzzle": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_puzzle",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_puzzle.c0",
+              "next": "s2_riddle_win",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_5",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s2_puzzle.c1",
+              "next": "s2_riddle_lose"
+            },
+            {
+              "text_key": "dlg.dnd.s2_puzzle.c2",
+              "next": "s2_riddle_lose"
+            },
+            {
+              "text_key": "dlg.dnd.s2_puzzle.c3",
+              "next": "s2_riddle_door",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_barbarian"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_5",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "s2_riddle_win": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_riddle_win",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_riddle_win.c0",
+              "next": "s2_split"
+            }
+          ]
+        },
+        "s2_riddle_lose": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_riddle_lose",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_riddle_lose.c0",
+              "next": "s2_split"
+            }
+          ]
+        },
+        "s2_riddle_door": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_riddle_door",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_riddle_door.c0",
+              "next": "s2_split"
+            }
+          ]
+        },
+        "s2_split": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_split",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_split.c0",
+              "next": "s2_end",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_win_6",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s2_split.c1",
+              "next": "s2_split_bad"
+            }
+          ]
+        },
+        "s2_split_bad": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_split_bad",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_split_bad.c0",
+              "next": "s2_end"
+            }
+          ]
+        },
+        "s2_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s2_end",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dnd_session2",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "perception",
+              "amount": 50
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s2_end.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "s3_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_start",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_start.c0",
+              "next": "s3_fight"
+            },
+            {
+              "text_key": "dlg.dnd.s3_start.c1",
+              "next": "s3_talk"
+            },
+            {
+              "text_key": "dlg.dnd.s3_start.c2",
+              "next": "s3_bard",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_bard"
+                }
+              ]
+            }
+          ]
+        },
+        "s3_fight": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_fight",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_fight.c0",
+              "next": "s3_fight_win",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_dragon_down",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "athletics",
+                "dc": 14,
+                "fail_next": "s3_tpk"
+              }
+            },
+            {
+              "text_key": "dlg.dnd.s3_fight.c1",
+              "next": "s3_fight_team",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "dnd_win_1",
+                    "dnd_win_2",
+                    "dnd_win_3",
+                    "dnd_win_4",
+                    "dnd_win_5",
+                    "dnd_win_6"
+                  ],
+                  "value": 3
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_dragon_down",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "s3_fight_win": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_fight_win",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_fight_win.c0",
+              "next": "s3_end"
+            }
+          ]
+        },
+        "s3_fight_team": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_fight_team",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_fight_team.c0",
+              "next": "s3_end"
+            }
+          ]
+        },
+        "s3_tpk": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_tpk",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_tpk.c0",
+              "next": "s3_fight_team",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_dragon_down",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "s3_talk": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_talk",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_talk.c0",
+              "next": "s3_talk_win",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_dragon_friend",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 13,
+                "fail_next": "s3_talk_audit"
+              }
+            },
+            {
+              "text_key": "dlg.dnd.s3_talk.c1",
+              "next": "s3_talk_audit"
+            }
+          ]
+        },
+        "s3_talk_win": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_talk_win",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_talk_win.c0",
+              "next": "s3_end"
+            }
+          ]
+        },
+        "s3_talk_audit": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_talk_audit",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dnd_dragon_friend",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_talk_audit.c0",
+              "next": "s3_end"
+            }
+          ]
+        },
+        "s3_bard": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_bard",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_bard.c0",
+              "next": "s3_bard_win",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dnd_dragon_friend",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 15,
+                "fail_next": "s3_bard_lose"
+              }
+            }
+          ]
+        },
+        "s3_bard_win": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_bard_win",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_bard_win.c0",
+              "next": "s3_end"
+            }
+          ]
+        },
+        "s3_bard_lose": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_bard_lose",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_bard_lose.c0",
+              "next": "s3_end"
+            }
+          ]
+        },
+        "s3_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_end",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_end.c0",
+              "next": "s3_bow_great",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "dnd_win_1",
+                    "dnd_win_2",
+                    "dnd_win_3",
+                    "dnd_win_4",
+                    "dnd_win_5",
+                    "dnd_win_6"
+                  ],
+                  "value": 4
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dnd.s3_end.c1",
+              "next": "s3_bow",
+              "conditions": [
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "dnd_win_1",
+                    "dnd_win_2",
+                    "dnd_win_3",
+                    "dnd_win_4",
+                    "dnd_win_5",
+                    "dnd_win_6"
+                  ],
+                  "value": 4
+                }
+              ]
+            }
+          ]
+        },
+        "s3_bow_great": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_bow_great",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dnd_session3",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.lucky_d20",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.gm_screen",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 120
+            },
+            {
+              "type": "give_gold",
+              "amount": 150
+            },
+            {
+              "type": "set_flag",
+              "flag": "dnd_legend",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_bow_great.c0",
+              "next": "after"
+            }
+          ]
+        },
+        "s3_bow": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.s3_bow",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dnd_session3",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.lucky_d20",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.gm_screen",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 120
+            },
+            {
+              "type": "give_gold",
+              "amount": 90
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.dnd.s3_bow.c0",
+              "next": "after"
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dnd.after",
+          "choices": [
+            {
+              "text_key": "dlg.dnd.after.c0",
               "next": "greeting"
             }
           ]
@@ -1813,6 +2945,42 @@
               "next": "invite_dinner"
             },
             {
+              "text_key": "dlg.scout.choice_join",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "kaelen_following"
+                },
+                {
+                  "type": "party_has_room"
+                }
+              ],
+              "next": "join"
+            },
+            {
+              "text_key": "dlg.scout.party_full.choice",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "kaelen_following"
+                },
+                {
+                  "type": "party_full"
+                }
+              ],
+              "next": "party_full"
+            },
+            {
+              "text_key": "dlg.scout.choice_wait",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "kaelen_following"
+                }
+              ],
+              "next": "wait"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -1911,6 +3079,56 @@
               "value": true
             }
           ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
+              "next": "root"
+            }
+          ]
+        },
+        "join": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.join",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "kaelen_following",
+              "value": true
+            },
+            {
+              "type": "recruit_companion"
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.scout.choice_lets_go",
+              "next": "END"
+            }
+          ]
+        },
+        "wait": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.wait",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "kaelen_following",
+              "value": false
+            },
+            {
+              "type": "dismiss_companion"
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_leave",
+              "next": "END"
+            }
+          ]
+        },
+        "party_full": {
+          "speaker_key": "npc.ashbound_scout.name",
+          "text_key": "dlg.scout.party_full",
           "choices": [
             {
               "text_key": "dlg.clerk.choice_back",
@@ -2190,9 +3408,25 @@
                 {
                   "type": "flag_not_set",
                   "flag": "baggy_following"
+                },
+                {
+                  "type": "party_has_room"
                 }
               ],
               "next": "join"
+            },
+            {
+              "text_key": "dlg.baggy.party_full.choice",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "baggy_following"
+                },
+                {
+                  "type": "party_full"
+                }
+              ],
+              "next": "party_full"
             },
             {
               "text_key": "dlg.baggy.choice_wait",
@@ -2486,6 +3720,16 @@
           "choices": [
             {
               "text_key": "dlg.baggy.players.cast_baggy.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "party_full": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.baggy.party_full",
+          "choices": [
+            {
+              "text_key": "dlg.clerk.choice_back",
               "next": "root"
             }
           ]

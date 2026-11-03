@@ -63,6 +63,7 @@ struct NpcInstance {
     std::string anim = "idle";
     float attack_cd = 0.0f;
     float anim_hold = 0.0f;  // keeps a one-shot animation (attack) on screen briefly
+    float heal_cd = 0.0f;    // companions: time until they can hand over food again
 };
 
 struct InteractableInstance {

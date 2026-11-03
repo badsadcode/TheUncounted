@@ -143,7 +143,7 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (a == "--pitch") shotPitch = static_cast<float>(atof(next().c_str()));
         else if (a == "--overlay") boot_shot_overlay_ = next();
         else if (a == "--flag") boot_shot_flags_.push_back(next());          // --shot: set a story flag first
-        else if (a == "--companion") boot_shot_companion_ = next();          // --shot: travel with this NPC
+        else if (a == "--companion") boot_shot_companions_.push_back(next());  // --shot: travel with this NPC (repeatable)
         else if (a == "--pos" && i + 3 < argc) {
             shotPos = {static_cast<float>(atof(argv[i + 1])), static_cast<float>(atof(argv[i + 2])), static_cast<float>(atof(argv[i + 3]))};
             shotHasPos = true;
@@ -200,15 +200,18 @@ bool GameEngine::Init(int argc, char** argv) {
         player_.pitch = shotPitch * DEG2RAD;
         overlay_ = Overlay::None;
         for (const auto& f : boot_shot_flags_) player_.flags.insert(f);
-        if (!boot_shot_companion_.empty()) {
-            player_.companion = boot_shot_companion_;
-            if (int ci = CompanionIndex(); ci >= 0) {
-                // Stand the companion where the follow logic would settle: just behind and to the right.
+        for (size_t k = 0; k < boot_shot_companions_.size(); k++) {
+            player_.companions.push_back(boot_shot_companions_[k]);
+            for (auto& n : scene_.npcs) {
+                if (n.def->id != boot_shot_companions_[k]) continue;
+                // Stand each companion where the follow logic would settle, a little ahead so they're in shot.
                 Vector3 f = Forward(player_.yaw);
-                scene_.npcs[ci].pos = Vector3Add(player_.pos, {-f.x * 1.5f + f.z * 0.9f + f.x * 3.2f, 0.0f, -f.z * 1.5f - f.x * 0.9f + f.z * 3.2f});
-                scene_.npcs[ci].pos.y = GroundHeight({scene_.npcs[ci].pos.x, player_.pos.y + 0.5f, scene_.npcs[ci].pos.z}, kStepHeight);
-                companion_last_zone_ = "none";
+                Vector3 sd = {f.z, 0.0f, -f.x};
+                float sgn = k == 0 ? 1.0f : -1.0f;
+                n.pos = Vector3Add(player_.pos, Vector3Add(Vector3Scale(f, 2.4f), Vector3Scale(sd, 1.1f * sgn)));
+                n.pos.y = GroundHeight({n.pos.x, player_.pos.y + 0.5f, n.pos.z}, kStepHeight);
             }
+            companion_last_zone_ = "none";
         }
         if (boot_shot_overlay_ == "showcase") {
             // Line up every wearable/consumable as a world pickup in front of the camera (asset review aid).
@@ -679,6 +682,8 @@ void GameEngine::BuildScene() {
         ni.home = n.pos;
         ni.requires_flag = n.requires_flag;
         ni.hidden_flag = n.hidden_flag;
+        ni.hidden = (!n.requires_flag.empty() && !player_.flags.count(n.requires_flag)) ||
+                    (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag));  // right from the first frame
         scene_.npcs.push_back(ni);
     }
 
@@ -1714,137 +1719,225 @@ void GameEngine::CheckGroupCleared(const CreatureInstance& dead) {
     }
 }
 
-int GameEngine::CompanionIndex() const {
-    if (player_.companion.empty()) return -1;
-    for (size_t i = 0; i < scene_.npcs.size(); i++)
-        if (scene_.npcs[i].def && scene_.npcs[i].def->id == player_.companion) return static_cast<int>(i);
-    return -1;
+bool GameEngine::ObjectiveMarker(Vector3& out, std::string& questTitle) const {
+    auto stageFor = [&](const std::string& qid) -> const QuestStageDef* {
+        const QuestDef* q = content_.GetQuest(qid);
+        auto it = player_.quest_stages.find(qid);
+        if (!q || it == player_.quest_stages.end()) return nullptr;
+        for (const auto& st : q->stages)
+            if (st.stage == it->second) return st.completed || st.markers.empty() ? nullptr : &st;
+        return nullptr;
+    };
+    std::string qid = player_.tracked_quest;
+    const QuestStageDef* st = qid.empty() ? nullptr : stageFor(qid);
+    if (!st) { qid = content_.game_cfg.starting_quest; st = stageFor(qid); }
+    if (!st) return false;
+    float best = 1e9f;
+    bool found = false;
+    auto consider = [&](Vector3 p) {
+        float d = Vector3Distance(p, player_.pos);
+        if (d < best) { best = d; out = p; found = true; }
+    };
+    for (const auto& id : st->markers) {
+        for (const auto& n : scene_.npcs)
+            if (n.instance_id == id && !n.hidden) consider(n.pos);
+        for (const auto& in : scene_.interactables) {
+            if (in.def.instance_id != id || in.used) continue;
+            if (!in.def.set_flag.empty() && player_.flags.count(in.def.set_flag)) continue;  // already read / done
+            consider(in.def.pos);
+        }
+        for (const auto& c : scene_.creatures)
+            if (c.instance_id == id && c.state != CreatureState::Dead) consider(c.pos);
+        for (const auto& p : scene_.pickups)
+            if (p.key == id || p.key.find(":" + id) != std::string::npos) consider(p.pos);
+    }
+    if (found)
+        if (const QuestDef* q = content_.GetQuest(qid)) questTitle = content_.Tr(q->title_key);
+    return found;
 }
 
-void GameEngine::CompanionSay(const std::vector<std::string>& keys, float chance) {
-    int ci = CompanionIndex();
+int GameEngine::CompanionIndex() const {
+    auto all = CompanionIndices();
+    return all.empty() ? -1 : all.front();
+}
+
+std::vector<int> GameEngine::CompanionIndices() const {
+    std::vector<int> out;
+    for (const auto& id : player_.companions)
+        for (size_t i = 0; i < scene_.npcs.size(); i++)
+            if (scene_.npcs[i].def && scene_.npcs[i].def->id == id) { out.push_back(static_cast<int>(i)); break; }
+    return out;
+}
+
+bool GameEngine::IsCompanion(const std::string& npcId) const {
+    return std::find(player_.companions.begin(), player_.companions.end(), npcId) != player_.companions.end();
+}
+
+void GameEngine::QueueSay(const std::string& speaker, const std::string& text) {
+    if (subtitle_time_ <= 0.0f && say_queue_.empty()) Say(speaker, text);
+    else if (say_queue_.size() < 6) say_queue_.push_back({speaker, text});
+}
+
+void GameEngine::CompanionSay(const std::vector<std::string>& keys, float chance, int npcIndex) {
+    int ci = npcIndex >= 0 ? npcIndex : CompanionIndex();
     if (ci < 0 || keys.empty() || RandF() > chance) return;
-    Say(content_.Tr(scene_.npcs[ci].def->name_key), content_.Tr(keys[static_cast<size_t>(RandF() * keys.size()) % keys.size()]));
+    QueueSay(content_.Tr(scene_.npcs[ci].def->name_key), content_.Tr(keys[static_cast<size_t>(RandF() * keys.size()) % keys.size()]));
 }
 
 void GameEngine::UpdateCompanion(float dt) {
     for (auto& n : scene_.npcs) n.companion = false;
-    int ci = CompanionIndex();
-    if (ci < 0) return;
-    NpcInstance& n = scene_.npcs[ci];
-    const CompanionDef& cd = n.def->companion;
-    n.companion = true;
-    n.attack_cd = std::max(0.0f, n.attack_cd - dt);
-    n.anim_hold = std::max(0.0f, n.anim_hold - dt);
-    companion_heal_cd_ = std::max(0.0f, companion_heal_cd_ - dt);
+    if (subtitle_time_ <= 0.0f && !say_queue_.empty()) {
+        Say(say_queue_.front().first, say_queue_.front().second);
+        say_queue_.erase(say_queue_.begin());
+    }
+    std::vector<int> party = CompanionIndices();
+    if (party.empty()) return;
     companion_idle_cd_ -= dt;
     companion_calm_ += dt;
-    if (overlay_ == Overlay::Dialogue || overlay_ == Overlay::Shop) {
-        n.yaw = YawTo(n.pos, player_.pos);
-        if (n.anim_hold <= 0.0f) n.anim = "idle";
-        return;
-    }
-
+    bool zoneChanged = !zone_id_.empty() && zone_id_ != companion_last_zone_;
+    bool fighting = false;
     Vector3 fwd = Forward(player_.yaw);
-    Vector3 right = {fwd.z, 0.0f, -fwd.x};
-    // Lost (other storey, far behind, behind a closed door): catch up out of sight, behind the player.
-    float hd = HDist(n.pos, player_.pos);
-    if (hd > 15.0f || fabsf(n.pos.y - player_.pos.y) > 2.2f) {
-        Vector3 behind = Vector3Add(player_.pos, Vector3Scale(fwd, -1.3f));
-        float t;
-        Vector3 nrm;
-        Vector3 eye = {player_.pos.x, player_.pos.y + 1.0f, player_.pos.z};
-        if (SegmentHitsWorld(eye, {behind.x, behind.y + 1.0f, behind.z}, t, nrm)) behind = Vector3Add(player_.pos, Vector3Scale(right, 0.7f));
-        n.pos = behind;
-        n.pos.y = GroundHeight({n.pos.x, player_.pos.y + 0.5f, n.pos.z}, kStepHeight);
-        hd = HDist(n.pos, player_.pos);
-        if (!companion_last_zone_.empty() && subtitle_time_ <= 0.0f) CompanionSay(cd.catchup_lines, 0.4f);
-    }
+    Vector3 side = {fwd.z, 0.0f, -fwd.x};
 
-    auto stepToward = [&](Vector3 target, float speed) {
-        float ty = YawTo(n.pos, target);
-        n.yaw = ty;
-        Vector3 before = n.pos;
-        n.pos = MoveWithCollision(n.pos, Vector3Scale(Forward(ty), speed * dt), 0.3f, 1.7f, false);
-        n.pos.y = GroundHeight({n.pos.x, n.pos.y + 0.3f, n.pos.z}, kStepHeight);
-        return HDist(before, n.pos) > speed * dt * 0.2f;
-    };
+    for (size_t slot = 0; slot < party.size(); slot++) {
+        NpcInstance& n = scene_.npcs[party[slot]];
+        const CompanionDef& cd = n.def->companion;
+        n.companion = true;
+        n.attack_cd = std::max(0.0f, n.attack_cd - dt);
+        n.anim_hold = std::max(0.0f, n.anim_hold - dt);
+        n.heal_cd = std::max(0.0f, n.heal_cd - dt);
+        if (overlay_ == Overlay::Dialogue || overlay_ == Overlay::Shop) {
+            n.yaw = YawTo(n.pos, player_.pos);
+            if (n.anim_hold <= 0.0f) n.anim = "idle";
+            continue;
+        }
+        float sideSign = slot == 0 ? 1.0f : -1.0f;  // first companion one side, second the other
 
-    // Pick a fight: the nearest creature that has noticed us, near the player, in view.
-    CreatureInstance* target = nullptr;
-    float best = 1e9f;
-    Vector3 eye = {n.pos.x, n.pos.y + 1.4f, n.pos.z};
-    for (auto& c : scene_.creatures) {
-        if (c.state == CreatureState::Dead || !c.alerted) continue;
-        float dp = HDist(c.pos, player_.pos);
-        float dc = HDist(c.pos, n.pos);
-        if (dp > 12.0f || fabsf(c.pos.y - n.pos.y) > 2.0f) continue;
-        if (!LineOfSight(eye, {c.pos.x, c.pos.y + c.height * 0.6f, c.pos.z})) continue;
-        if (dc < best) { best = dc; target = &c; }
-    }
-    bool moved = false;
-    if (target) {
-        if (companion_calm_ > 8.0f) CompanionSay(cd.combat_lines, 0.6f);
-        companion_calm_ = 0.0f;
-        companion_target_ = target->instance_id;
-        float reach = cd.reach + target->radius;
-        if (best > reach) {
-            moved = stepToward(target->pos, 4.4f);
+        // Lost (other storey, far behind, behind a closed door): catch up out of sight, behind the player.
+        float hd = HDist(n.pos, player_.pos);
+        if (hd > 15.0f || fabsf(n.pos.y - player_.pos.y) > 2.2f) {
+            Vector3 behind = Vector3Add(player_.pos, Vector3Add(Vector3Scale(fwd, -1.3f), Vector3Scale(side, 0.6f * sideSign)));
+            float t;
+            Vector3 nrm;
+            Vector3 eye = {player_.pos.x, player_.pos.y + 1.0f, player_.pos.z};
+            if (SegmentHitsWorld(eye, {behind.x, behind.y + 1.0f, behind.z}, t, nrm))
+                behind = Vector3Add(player_.pos, Vector3Scale(side, 0.7f * sideSign));
+            n.pos = behind;
+            n.pos.y = GroundHeight({n.pos.x, player_.pos.y + 0.5f, n.pos.z}, kStepHeight);
+            hd = HDist(n.pos, player_.pos);
+            if (!companion_last_zone_.empty() && subtitle_time_ <= 0.0f) CompanionSay(cd.catchup_lines, 0.4f, party[slot]);
+        }
+
+        auto stepToward = [&](Vector3 target, float speed) {
+            float ty = YawTo(n.pos, target);
+            n.yaw = ty;
+            Vector3 before = n.pos;
+            n.pos = MoveWithCollision(n.pos, Vector3Scale(Forward(ty), speed * dt), 0.3f, 1.7f, false);
+            n.pos.y = GroundHeight({n.pos.x, n.pos.y + 0.3f, n.pos.z}, kStepHeight);
+            return HDist(before, n.pos) > speed * dt * 0.2f;
+        };
+
+        // Pick a fight: the nearest creature that has noticed us, near the player, in view.
+        CreatureInstance* target = nullptr;
+        float best = 1e9f;
+        Vector3 eye = {n.pos.x, n.pos.y + 1.4f, n.pos.z};
+        for (auto& c : scene_.creatures) {
+            if (c.state == CreatureState::Dead || !c.alerted) continue;
+            float dp = HDist(c.pos, player_.pos);
+            float dc = HDist(c.pos, n.pos);
+            if (dp > 12.0f || fabsf(c.pos.y - n.pos.y) > 2.0f) continue;
+            if (!LineOfSight(eye, {c.pos.x, c.pos.y + c.height * 0.6f, c.pos.z})) continue;
+            if (dc < best) { best = dc; target = &c; }
+        }
+        bool moved = false;
+        if (target) {
+            fighting = true;
+            if (companion_calm_ > 8.0f) CompanionSay(cd.combat_lines, slot == 0 ? 0.6f : 0.35f, party[slot]);
+            float reach = cd.reach + target->radius;
+            if (best > reach) {
+                moved = stepToward(target->pos, 4.4f);
+            } else {
+                n.yaw = YawTo(n.pos, target->pos);
+                if (n.attack_cd <= 0.0f) {
+                    int dmg = static_cast<int>(std::round(cd.damage * (1.0f + 0.12f * (player_.level - 1)) * (0.85f + RandF() * 0.3f)));
+                    bool killed = target->health <= std::max(1, dmg - static_cast<int>(std::round(target->def->armor * 0.6f)));
+                    DamageCreature(*target, dmg, false, "companion", false);
+                    PlaySfxAt("assets/audio/sfx/sword_hit.wav", n.pos, 0.6f);
+                    n.attack_cd = cd.attack_time;
+                    n.anim = "attack";
+                    n.anim_hold = 0.3f;
+                    if (killed) CompanionSay(cd.kill_lines, 0.5f, party[slot]);
+                }
+            }
         } else {
-            n.yaw = YawTo(n.pos, target->pos);
-            if (n.attack_cd <= 0.0f) {
-                int dmg = static_cast<int>(std::round(cd.damage * (1.0f + 0.12f * (player_.level - 1)) * (0.85f + RandF() * 0.3f)));
-                bool killed = target->health <= std::max(1, dmg - static_cast<int>(std::round(target->def->armor * 0.6f)));
-                DamageCreature(*target, dmg, false, "companion", false);
-                PlaySfxAt("assets/audio/sfx/sword_hit.wav", n.pos, 0.6f);
-                n.attack_cd = cd.attack_time;
-                n.anim = "attack";
-                n.anim_hold = 0.3f;
-                if (killed) CompanionSay(cd.kill_lines, 0.5f);
+            // Follow a little behind and to the side, so the companion stays in the corner of your eye.
+            Vector3 spot = Vector3Add(player_.pos, Vector3Add(Vector3Scale(fwd, -1.5f - 0.3f * slot), Vector3Scale(side, 0.9f * sideSign)));
+            float ds = HDist(n.pos, spot);
+            if (hd > 2.4f || ds > 1.6f) moved = stepToward(spot, Clamp(ds * 1.7f, 2.2f, 7.5f));
+            else n.yaw += WrapAngle(player_.yaw - n.yaw) * std::min(1.0f, dt * 2.0f);
+        }
+        if (n.anim_hold <= 0.0f) n.anim = moved ? "walk" : "idle";
+
+        // Looking after you: food when you're badly hurt (one companion at a time).
+        if (player_.health < MaxHealth() * 0.35f && player_.health > 0.0f && n.heal_cd <= 0.0f && companion_heal_cd_ <= 0.0f) {
+            player_.health += cd.heal_amount;
+            ClampVitals();
+            n.heal_cd = cd.heal_cooldown;
+            companion_heal_cd_ = 4.0f;
+            res_.PlaySfx("assets/audio/sfx/spell_heal.wav", 0.5f, 1.2f);
+            Toast("+" + std::to_string(cd.heal_amount) + " health", Color{150, 255, 170, 255});
+            CompanionSay(cd.heal_lines, 1.0f, party[slot]);
+        }
+
+        // First time in each area: a remark from each companion, in turn.
+        if (zoneChanged) {
+            auto it = cd.zone_lines.find(zone_id_);
+            std::string key = "companion_zone:" + n.def->id + ":" + zone_id_;
+            if (it != cd.zone_lines.end() && !player_.claimed.count(key)) {
+                player_.claimed.insert(key);
+                QueueSay(content_.Tr(n.def->name_key), content_.Tr(it->second));
+                companion_idle_cd_ = std::max(companion_idle_cd_, 30.0f);
             }
         }
-    } else {
-        companion_target_.clear();
-        // Follow a little behind and to the side, so the companion stays in the corner of your eye.
-        Vector3 slot = Vector3Add(player_.pos, Vector3Add(Vector3Scale(fwd, -1.5f), Vector3Scale(right, 0.9f)));
-        float ds = HDist(n.pos, slot);
-        if (hd > 2.4f || ds > 1.6f) moved = stepToward(slot, Clamp(ds * 1.7f, 2.2f, 7.5f));
-        else n.yaw += WrapAngle(player_.yaw - n.yaw) * std::min(1.0f, dt * 2.0f);
     }
-    if (n.anim_hold <= 0.0f) n.anim = moved ? "walk" : "idle";
+    companion_heal_cd_ = std::max(0.0f, companion_heal_cd_ - dt);
+    if (fighting) companion_calm_ = 0.0f;
+    if (zoneChanged) companion_last_zone_ = zone_id_;
 
-    // Looking after you: food when you're badly hurt.
-    if (player_.health < MaxHealth() * 0.35f && player_.health > 0.0f && companion_heal_cd_ <= 0.0f) {
-        player_.health += cd.heal_amount;
-        ClampVitals();
-        companion_heal_cd_ = cd.heal_cooldown;
-        res_.PlaySfx("assets/audio/sfx/spell_heal.wav", 0.5f, 1.2f);
-        Toast("+" + std::to_string(cd.heal_amount) + " health", Color{150, 255, 170, 255});
-        CompanionSay(cd.heal_lines);
-    }
-
-    // First time in each area: a remark. Quiet moments: chatter that follows the story.
-    if (!zone_id_.empty() && zone_id_ != companion_last_zone_) {
-        companion_last_zone_ = zone_id_;
-        auto it = cd.zone_lines.find(zone_id_);
-        std::string key = "companion_zone:" + n.def->id + ":" + zone_id_;
-        if (it != cd.zone_lines.end() && !player_.claimed.count(key)) {
-            player_.claimed.insert(key);
-            Say(content_.Tr(n.def->name_key), content_.Tr(it->second));
-            companion_idle_cd_ = std::max(companion_idle_cd_, 30.0f);
+    // Quiet moments: banter between two companions if there's any left, otherwise one of them chats.
+    if (companion_idle_cd_ > 0.0f || companion_calm_ <= 15.0f || subtitle_time_ > 0.0f || !say_queue_.empty() || overlay_ != Overlay::None) return;
+    companion_idle_cd_ = 75.0f + RandF() * 45.0f;
+    auto flagsOk = [&](const std::string& f, const std::string& nf) {
+        return (f.empty() || player_.flags.count(f)) && (nf.empty() || !player_.flags.count(nf));
+    };
+    if (party.size() >= 2 && RandF() < 0.6f) {
+        for (int a : party) {
+            for (int b : party) {
+                if (a == b) continue;
+                const NpcInstance& na = scene_.npcs[a];
+                const NpcInstance& nb = scene_.npcs[b];
+                for (const auto& bt : na.def->companion.banter) {
+                    std::string key = "banter:" + na.def->id + ":" + bt.id;
+                    if (bt.partner != nb.def->id || player_.claimed.count(key) || !flagsOk(bt.flag, bt.not_flag)) continue;
+                    player_.claimed.insert(key);
+                    for (const auto& [byPartner, k] : bt.lines)
+                        QueueSay(content_.Tr((byPartner ? nb : na).def->name_key), content_.Tr(k));
+                    return;
+                }
+            }
         }
     }
-    if (companion_idle_cd_ <= 0.0f && companion_calm_ > 15.0f && subtitle_time_ <= 0.0f && overlay_ == Overlay::None && !cd.idle_lines.empty()) {
-        companion_idle_cd_ = 75.0f + RandF() * 45.0f;
-        for (size_t k = 0; k < cd.idle_lines.size(); k++) {
-            const CompanionLineDef& l = cd.idle_lines[(companion_idle_next_ + k) % cd.idle_lines.size()];
-            if (!l.flag.empty() && !player_.flags.count(l.flag)) continue;
-            if (!l.not_flag.empty() && player_.flags.count(l.not_flag)) continue;
-            companion_idle_next_ = (companion_idle_next_ + k + 1) % cd.idle_lines.size();
-            Say(content_.Tr(n.def->name_key), content_.Tr(l.text_key));
-            break;
-        }
+    const NpcInstance& talker = scene_.npcs[party[companion_idle_next_ % party.size()]];
+    const CompanionDef& cd = talker.def->companion;
+    if (cd.idle_lines.empty()) return;
+    size_t start = static_cast<size_t>(RandF() * cd.idle_lines.size());
+    for (size_t k = 0; k < cd.idle_lines.size(); k++) {
+        const CompanionLineDef& l = cd.idle_lines[(start + k) % cd.idle_lines.size()];
+        if (!flagsOk(l.flag, l.not_flag)) continue;
+        QueueSay(content_.Tr(talker.def->name_key), content_.Tr(l.text_key));
+        break;
     }
+    companion_idle_next_++;
 }
 
 int GameEngine::SplashDamage(const Projectile& p, Vector3 at, const std::string& skipId) {
@@ -2253,7 +2346,7 @@ void GameEngine::UpdateWorldObjects(float dt) {
     }
     for (auto& n : scene_.npcs)
         n.hidden = (!n.requires_flag.empty() && !player_.flags.count(n.requires_flag)) ||
-                   (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag) && n.def->id != player_.companion);
+                   (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag) && !IsCompanion(n.def->id));
     UpdateCompanion(dt);
 
     // NPCs idly turn to face a nearby player and back again.
@@ -2542,6 +2635,8 @@ bool GameEngine::EvalCondition(const DialogueCondition& c) const {
     if (c.type == "skill_at_least") return SkillLevel(c.skill) >= c.value;
     if (c.type == "flag_set") return player_.flags.count(c.flag) > 0;
     if (c.type == "flag_not_set") return player_.flags.count(c.flag) == 0;
+    if (c.type == "party_has_room") return static_cast<int>(player_.companions.size()) < kMaxCompanions;
+    if (c.type == "party_full") return static_cast<int>(player_.companions.size()) >= kMaxCompanions;
     if (c.type == "item_equipped") return IsEquipped(c.item_id);
     if (c.type == "item_not_equipped") return !IsEquipped(c.item_id);
     if (c.type == "flags_at_least" || c.type == "flags_fewer_than") {
@@ -2584,22 +2679,29 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
         if (!keys.empty()) StartNarration(keys);
     } else if (a.type == "recruit_companion") {
         if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size()) && scene_.npcs[dialogue_npc_].def->companion.enabled) {
-            player_.companion = scene_.npcs[dialogue_npc_].def->id;
-            companion_last_zone_ = zone_id_;
-            companion_idle_cd_ = 40.0f;
-            Toast(content_.Tr(scene_.npcs[dialogue_npc_].def->name_key) + " is travelling with you", Color{255, 220, 150, 255});
+            const NpcDef* d = scene_.npcs[dialogue_npc_].def;
+            if (IsCompanion(d->id)) {
+            } else if (static_cast<int>(player_.companions.size()) >= kMaxCompanions) {
+                Toast("Your party is full. Ask someone to wait first.", Color{255, 180, 140, 255});
+            } else {
+                player_.companions.push_back(d->id);
+                if (player_.companions.size() == 1) companion_last_zone_ = zone_id_;
+                companion_idle_cd_ = 40.0f;
+                Toast(content_.Tr(d->name_key) + " is travelling with you", Color{255, 220, 150, 255});
+            }
         }
     } else if (a.type == "dismiss_companion") {
-        int ci = CompanionIndex();
-        if (ci >= 0) {
-            NpcInstance& n = scene_.npcs[ci];
-            n.companion = false;
-            n.pos = n.home;
-            n.yaw = n.base_yaw;
-            n.anim = "idle";
-            Toast(content_.Tr(n.def->name_key) + " heads back to wait for you");
+        if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size())) {
+            NpcInstance& n = scene_.npcs[dialogue_npc_];
+            if (IsCompanion(n.def->id)) {
+                player_.companions.erase(std::find(player_.companions.begin(), player_.companions.end(), n.def->id));
+                n.companion = false;
+                n.pos = n.home;
+                n.yaw = n.base_yaw;
+                n.anim = "idle";
+                Toast(content_.Tr(n.def->name_key) + " heads back to wait for you");
+            }
         }
-        player_.companion.clear();
     } else if (a.type == "open_shop") {
         if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size())) shop_npc_ = scene_.npcs[dialogue_npc_].def->id;
     } else {
@@ -2681,14 +2783,16 @@ void GameEngine::ChooseDialogue(int choiceIndex) {
 }
 
 int GameEngine::DialogueRollChance(const DialogueChoice& ch) const {
-    int bonus = SkillLevel(ch.roll_skill) / 4 + (ch.roll_skill == "persuasion" ? (Attr("presence") - 10) / 2 : 0);
+    int bonus = SkillLevel(ch.roll_skill) / 4 + (ch.roll_skill == "persuasion" ? (Attr("presence") - 10) / 2 : 0) +
+                static_cast<int>(Bonus("dice_bonus"));
     int need = ch.roll_dc - bonus;  // d20 >= need passes; 1 always fails, 20 always passes
     int pass = 21 - std::clamp(need, 2, 20);
     return pass * 5;
 }
 
 int GameEngine::RollD20(const DialogueChoice& ch, int& bonus, bool& rigged) {
-    bonus = SkillLevel(ch.roll_skill) / 4 + (ch.roll_skill == "persuasion" ? (Attr("presence") - 10) / 2 : 0);
+    bonus = SkillLevel(ch.roll_skill) / 4 + (ch.roll_skill == "persuasion" ? (Attr("presence") - 10) / 2 : 0) +
+            static_cast<int>(Bonus("dice_bonus"));
     std::string key = dialogue_id_ + "/" + dialogue_node_;
     rigged = false;
     if (ch.roll_rigged) {
@@ -2880,7 +2984,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     pj["quest_stages"] = p.quest_stages;
     pj["quest_log"] = p.quest_log;
     pj["flags"] = p.flags;
-    pj["companion"] = p.companion;
+    pj["companions"] = p.companions;
     pj["tracked_quest"] = p.tracked_quest;
     pj["claimed"] = p.claimed;
     pj["play_time"] = p.play_time;
@@ -2976,7 +3080,8 @@ bool GameEngine::LoadGame(const std::string& slot) {
         p.quest_stages = pj.value("quest_stages", std::map<std::string, int>{});
         p.quest_log = pj.value("quest_log", std::map<std::string, std::vector<int>>{});
         p.flags = pj.value("flags", std::set<std::string>{});
-        p.companion = pj.value("companion", std::string{});
+        p.companions = pj.value("companions", std::vector<std::string>{});
+        if (p.companions.empty() && !pj.value("companion", std::string{}).empty()) p.companions.push_back(pj["companion"].get<std::string>());
         p.tracked_quest = pj.value("tracked_quest", std::string{});
         p.claimed = pj.value("claimed", std::set<std::string>{});
         p.play_time = pj.value("play_time", 0.0);

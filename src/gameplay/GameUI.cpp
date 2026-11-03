@@ -40,6 +40,7 @@ static std::string BonusLabel(const std::string& key, float v) {
     else if (key == "spell_cost_reduction") snprintf(b, sizeof(b), "-%.0f%% spell cost", v * 100);
     else if (key == "shop_discount") snprintf(b, sizeof(b), "+%.0f%% shop discount", v * 100);
     else if (key == "lockpick_bonus") snprintf(b, sizeof(b), "+%.0f%% lockpick chance", v * 100);
+    else if (key == "dice_bonus") snprintf(b, sizeof(b), "+%.0f to dice rolls", v);
     else if (key == "health_regen") snprintf(b, sizeof(b), "+%.1f health per second", v);
     else if (key == "stamina_regen") snprintf(b, sizeof(b), "+%.1f stamina per second", v);
     else snprintf(b, sizeof(b), "%s %+.2f", key.c_str(), v);
@@ -423,6 +424,33 @@ void GameEngine::DrawHud() {
         float f = bow_draw_ > 0 ? bow_draw_ : std::min(1.0f, charge_time_ / 0.35f);
         Bar({VW * 0.5f - 40, VH * 0.5f + 18, 80, 6}, f, f >= 1.0f ? kGold : Color{200, 200, 200, 255}, "");
     }
+    DrawCompass();
+}
+
+void GameEngine::DrawCompass() {
+    Vector3 obj;
+    std::string title;
+    if (!ObjectiveMarker(obj, title)) return;
+    float u = U();
+    float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
+    float cx = VW * 0.5f, y = VH - 104.0f, half = 170.0f;
+    DrawRectangle(static_cast<int>((cx - half) * u), static_cast<int>(y * u), static_cast<int>(half * 2 * u), static_cast<int>(2 * u), Color{226, 196, 128, 90});
+    for (int k = -2; k <= 2; k++)
+        DrawRectangle(static_cast<int>((cx + k * half * 0.5f) * u), static_cast<int>((y - 3) * u), static_cast<int>(1 * u), static_cast<int>(8 * u), Color{226, 196, 128, 90});
+    float want = atan2f(obj.x - player_.pos.x, obj.z - player_.pos.z);
+    float rel = want - player_.yaw;
+    while (rel > PI) rel -= 2 * PI;
+    while (rel < -PI) rel += 2 * PI;
+    // yaw grows to the left of the screen in this engine (forward = sin, cos), so screen x runs against the angle
+    float x = cx - Clamp(rel / (PI * 0.5f), -1.0f, 1.0f) * half;
+    bool edge = fabsf(rel) > PI * 0.5f;
+    Color c = edge ? Color{255, 150, 60, 150} : Color{255, 160, 70, 255};
+    DrawPoly({x * u, (y + 1) * u}, 4, 7 * u, 45.0f, c);
+    float dist = sqrtf((obj.x - player_.pos.x) * (obj.x - player_.pos.x) + (obj.z - player_.pos.z) * (obj.z - player_.pos.z));
+    std::string lbl = std::to_string(static_cast<int>(dist)) + " m";
+    if (obj.y > player_.pos.y + 2.0f) lbl += "  (up)";
+    else if (obj.y < player_.pos.y - 2.0f) lbl += "  (down)";
+    Text(lbl, x - TextWidth(lbl, 13) * 0.5f, y + 9, 13, Color{255, 200, 140, 230});
 }
 
 void GameEngine::DrawToasts() {
@@ -618,7 +646,7 @@ void GameEngine::DrawOptions() {
         if (Button({x + 330, y, 40, 32}, "<")) { onLeft(); changed = true; }
         Text(value, x + 380 + (170 - TextWidth(value, 18)) * 0.5f, y + 6, 18, kGold);
         if (Button({x + 560, y, 40, 32}, ">")) { onRight(); changed = true; }
-        y += 38;
+        y += 34;
     };
     auto pct = [](float v) { return std::to_string(static_cast<int>(std::round(v * 100))) + "%"; };
     auto step = [](float& v, float d) { v = Clamp(std::round((v + d) * 100) / 100, 0.0f, 1.0f); };
@@ -657,6 +685,8 @@ void GameEngine::DrawOptions() {
         gc.difficulty = ds[(i + d + 3) % 3];
     };
     row("Difficulty", gc.difficulty, [&] { cycleDiff(-1); }, [&] { cycleDiff(1); });
+    row("Dialogue text size", pct(gc.text_scale), [&] { gc.text_scale = std::max(1.0f, gc.text_scale - 0.1f); },
+        [&] { gc.text_scale = std::min(1.5f, gc.text_scale + 0.1f); });
     row("Enable mods (restart)", gc.enable_mods ? "On" : "Off", [&] { gc.enable_mods = !gc.enable_mods; }, [&] { gc.enable_mods = !gc.enable_mods; });
 
     if (changed) {
@@ -1009,7 +1039,8 @@ void GameEngine::DrawCombatSheet(Rectangle P) {
     head(x, y, "Active bonuses");
     static const char* keys[] = {"crit_chance_bonus", "crit_damage_bonus", "life_steal", "spell_power_bonus", "spell_cost_reduction",
                                  "melee_bonus_magic_damage", "mana_on_melee_hit", "heal_on_block", "armor_bonus",
-                                 "ranged_crit_multiplier", "move_speed_bonus", "shop_discount", "lockpick_bonus", "health_regen", "stamina_regen"};
+                                 "ranged_crit_multiplier", "move_speed_bonus", "shop_discount", "lockpick_bonus", "health_regen", "stamina_regen",
+                                 "dice_bonus"};
     bool any = false;
     for (const char* k : keys) {
         float syn = SynergyBonus(k), gear = GearBonus(k), food = BuffBonus(k);
@@ -1196,7 +1227,7 @@ void GameEngine::DrawMapOverlay() {
         else DrawCircleV(toS(in.def.pos.x, in.def.pos.z), std::max(3.0f, 0.35f * sc) * u, c);
     }
     for (const auto& n : scene_.npcs) {
-        if (!pointInView(n.pos)) continue;
+        if (n.hidden || !pointInView(n.pos)) continue;
         Vector2 p = toS(n.pos.x, n.pos.z);
         DrawCircleV(p, 5 * u, Color{255, 220, 90, 255});
         Text(content_.Tr(n.def->name_key), p.x / u + 8, p.y / u - 8, 13, Color{255, 230, 150, 255});
@@ -1210,6 +1241,22 @@ void GameEngine::DrawMapOverlay() {
         float lx = Clamp(p.x / u - tw * 0.5f, 10.0f, VW - tw - 10);
         Text(label, lx, p.y / u + pt.radius * sc + 4, 13, Color{140, 230, 255, 255});
     }
+    // Objective pin
+    Vector3 obj;
+    std::string objTitle;
+    if (ObjectiveMarker(obj, objTitle)) {
+        bool here = pointInView(obj);
+        Vector2 op = toS(obj.x, obj.z);
+        if (!here) {  // on another storey or in another area: pin at the map's edge in its direction
+            op.x = Clamp(op.x, (area.x + 10) * u, (area.x + area.width - 10) * u);
+            op.y = Clamp(op.y, (area.y + 10) * u, (area.y + area.height - 10) * u);
+        }
+        float pulse = 6.0f + 2.0f * sinf(time_ * 5.0f);
+        DrawCircleV(op, (pulse + 3) * u, Color{40, 20, 10, 200});
+        DrawCircleV(op, pulse * u, Color{255, 150, 60, 255});
+        std::string lbl = objTitle + (here ? "" : obj.y > player_.pos.y + 2.0f ? "  (upstairs)" : obj.y < player_.pos.y - 2.0f ? "  (below)" : "  (that way)");
+        Text(lbl, op.x / u - TextWidth(lbl, 14) * 0.5f, op.y / u + 12, 14, Color{255, 190, 110, 255});
+    }
     // Player arrow
     Vector2 pp = toS(player_.pos.x, player_.pos.z);
     Vector2 f = {sinf(player_.yaw), cosf(player_.yaw)};
@@ -1220,7 +1267,7 @@ void GameEngine::DrawMapOverlay() {
     Vector2 br = {pp.x - f.x * L * 0.6f - r.x * L * 0.6f, pp.y - f.y * L * 0.6f - r.y * L * 0.6f};
     DrawTriangle(tip, br, bl, Color{255, 80, 60, 255});
     DrawTriangle(tip, bl, br, Color{255, 80, 60, 255});
-    Text("[" + BindingLabel("map") + "] close     Yellow: people   Gold: unopened chests   Red: locked doors   Blue: mechanisms", 60, VH - 40, 14, kDim);
+    Text("[" + BindingLabel("map") + "] close     Orange: objective   Yellow: people   Gold: unopened chests   Red: locked doors   Blue: mechanisms", 60, VH - 40, 14, kDim);
 }
 
 // ============================================================================
@@ -1235,11 +1282,27 @@ void GameEngine::DrawDialogue() {
     if (it == d->nodes.end()) return;
     const DialogueNode& node = it->second;
     std::vector<int> vis = VisibleChoices();
-    // The panel grows upward so long story beats never push the choices off-screen.
-    float textH = TextWrapped(content_.Tr(node.text_key), {0, 0, 1040 - 48, 0}, 17, kText, false);
-    float needH = 62 + textH + 32.0f * std::max<size_t>(vis.size(), 1) + 16;
-    float panelH = std::clamp(needH, 310.0f, VH - 40);
-    Rectangle P = {VW * 0.5f - 520, VH - 20 - panelH, 1040, panelH};
+    std::vector<std::string> labels;
+    for (size_t k = 0; k < vis.size(); k++) {
+        const DialogueChoice& c = node.choices[vis[k]];
+        std::string label = std::to_string(k + 1) + ". " + content_.Tr(c.text_key);
+        if (c.roll_dc > 0) label += "   (d20, DC " + std::to_string(c.roll_dc) + ": " + std::to_string(DialogueRollChance(c)) + "%)";
+        labels.push_back(label);
+    }
+    if (labels.empty()) labels.push_back("1. [Continue]");
+    const std::string body = content_.Tr(node.text_key);
+    const float W = 1040.0f;
+    // Text size follows the player's setting, shrinking only if the whole scene wouldn't fit on screen.
+    float fs = 17.0f * content_.game_cfg.text_scale, textH = 0, choicesH = 0;
+    for (int fit = 0; fit < 12; fit++) {
+        textH = TextWrapped(body, {0, 0, W - 48, 0}, fs, kText, false);
+        choicesH = 0;
+        for (const auto& l : labels) choicesH += TextWrapped(l, {0, 0, W - 64, 0}, fs, kText, false) + 10;
+        if (62 + textH + choicesH + 16 <= VH - 40 || fs <= 13.0f) break;
+        fs -= 1.0f;
+    }
+    float panelH = std::clamp(62 + textH + choicesH + 16, 310.0f, VH - 40);
+    Rectangle P = {VW * 0.5f - W * 0.5f, VH - 20 - panelH, W, panelH};
     Panel(P, Color{14, 13, 18, 240});
     std::string speaker = content_.Tr(node.speaker_key);
     std::string title;
@@ -1252,27 +1315,24 @@ void GameEngine::DrawDialogue() {
             for (const auto& other : content_.npcs)
                 if (other.second.name_key == node.speaker_key) title = content_.Tr(other.second.title_key);
     }
-    Text(speaker, P.x + 24, P.y + 16, 24, kGold);
-    if (!title.empty()) Text(title, P.x + 30 + TextWidth(speaker, 24), P.y + 22, 15, kDim);
-    float h = TextWrapped(content_.Tr(node.text_key), {P.x + 24, P.y + 52, P.width - 48, 140}, 17, kText);
-    float y = P.y + 62 + h;
+    float ns = 24.0f * std::min(content_.game_cfg.text_scale, 1.25f);
+    Text(speaker, P.x + 24, P.y + 16, ns, kGold);
+    if (!title.empty()) Text(title, P.x + 30 + TextWidth(speaker, ns), P.y + 16 + ns - 17, 15, kDim);
+    float y = P.y + 52 + TextWrapped(body, {P.x + 24, P.y + 52, P.width - 48, 140}, fs, kText) + 10;
     if (vis.empty()) {
-        if (Button({P.x + 24, y, P.width - 48, 32}, "1. [Continue]", true, 17)) { EndDialogue(); return; }
+        float h = TextWrapped(labels[0], {0, 0, W - 64, 0}, fs, kText, false) + 8;
+        if (Button({P.x + 24, y, P.width - 48, h}, labels[0], true, fs)) { EndDialogue(); return; }
         return;
     }
-    int n = 1;
-    for (int ci : vis) {
-        std::string label = std::to_string(n) + ". " + content_.Tr(node.choices[ci].text_key);
-        if (node.choices[ci].roll_dc > 0)
-            label += "   (d20, DC " + std::to_string(node.choices[ci].roll_dc) + ": " + std::to_string(DialogueRollChance(node.choices[ci])) + "%)";
-        Rectangle r = {P.x + 24, y, P.width - 48, 30};
+    for (size_t k = 0; k < vis.size(); k++) {
+        float h = TextWrapped(labels[k], {0, 0, W - 64, 0}, fs, kText, false) + 8;
+        Rectangle r = {P.x + 24, y, P.width - 48, h};
         Rectangle s = {r.x * u, r.y * u, r.width * u, r.height * u};
         bool hover = CheckCollisionPointRec(GetMousePosition(), s);
         if (hover) DrawRectangleRec(s, Color{60, 48, 32, 200});
-        Text(label, r.x + 8, r.y + 5, 17, hover ? kGold : Color{210, 200, 180, 255});
-        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) { ChooseDialogue(ci); return; }
-        y += 32;
-        n++;
+        TextWrapped(labels[k], {r.x + 8, r.y + 4, r.width - 16, h}, fs, hover ? kGold : Color{210, 200, 180, 255});
+        if (hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) { ChooseDialogue(vis[k]); return; }
+        y += h + 2;
     }
     if (y > VH) ui_scroll_ = 0;
 }
@@ -1381,11 +1441,12 @@ void GameEngine::DrawReader() {
     float tw = TextWidth(reader_title_, 26);
     Text(reader_title_, P.x + (P.width - tw) * 0.5f, P.y + 26, 26, Color{90, 30, 20, 255});
     Rectangle body = {P.x + 40, P.y + 76, P.width - 80, P.height - 150};
-    float total = TextWrapped(reader_text_, body, 18, ink, false);
+    float rfs = 18.0f * content_.game_cfg.text_scale;
+    float total = TextWrapped(reader_text_, body, rfs, ink, false);
     float wheel = GetMouseWheelMove();
     ui_scroll_ = Clamp(ui_scroll_ - wheel * 40, 0.0f, std::max(0.0f, total - body.height));
     BeginScissorMode(static_cast<int>(body.x * u), static_cast<int>(body.y * u), static_cast<int>(body.width * u), static_cast<int>(body.height * u));
-    TextWrapped(reader_text_, {body.x, body.y - ui_scroll_, body.width, body.height}, 18, ink);
+    TextWrapped(reader_text_, {body.x, body.y - ui_scroll_, body.width, body.height}, rfs, ink);
     EndScissorMode();
     if (ui_scroll_ < total - body.height - 1.0f) {
         const std::string more = "(scroll for more)";
@@ -1405,10 +1466,13 @@ void GameEngine::DrawNarration() {
     float a = Clamp(narration_time_ / 1.2f, 0.0f, 1.0f);
     Color c = {kText.r, kText.g, kText.b, static_cast<unsigned char>(a * 255)};
     const std::string& page = narration_pages_[narration_page_];
-    Rectangle box = {VW * 0.5f - 360, 0, 720, 400};
-    float h = TextWrapped(page, box, 24, c, false);
+    float bw = 720.0f * std::min(content_.game_cfg.text_scale, 1.4f);
+    Rectangle box = {VW * 0.5f - bw * 0.5f, 0, bw, 400};
+    float fs = 24.0f * content_.game_cfg.text_scale;
+    float h = TextWrapped(page, box, fs, c, false);
+    while (h > VH - 140 && fs > 16.0f) { fs -= 1.0f; h = TextWrapped(page, box, fs, c, false); }
     box.y = VH * 0.5f - h * 0.5f - 20;
-    TextWrapped(page, box, 24, c);
+    TextWrapped(page, box, fs, c);
     std::string hint = content_.Tr("ui.prologue.continue");
     Color hc = {kDim.r, kDim.g, kDim.b, static_cast<unsigned char>(a * 160)};
     Text(hint, VW * 0.5f - TextWidth(hint, 14) * 0.5f, VH - 50, 14, hc);
@@ -1423,13 +1487,14 @@ void GameEngine::DrawSubtitle() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
     float a = Clamp(subtitle_time_ * 2.0f, 0.0f, 1.0f);
-    float width = 760;
-    float h = TextWrapped(subtitle_text_, {0, 0, width, 200}, 18, kText, false);
+    float width = 760 * std::min(content_.game_cfg.text_scale, 1.3f);
+    float fs = 18.0f * content_.game_cfg.text_scale;
+    float h = TextWrapped(subtitle_text_, {0, 0, width, 200}, fs, kText, false);
     float y = VH - 132 - h;
     DrawRectangle(static_cast<int>((VW * 0.5f - width * 0.5f - 14) * u), static_cast<int>((y - 26) * u), static_cast<int>((width + 28) * u),
                   static_cast<int>((h + 36) * u), Color{0, 0, 0, static_cast<unsigned char>(a * 150)});
     Text(subtitle_speaker_, VW * 0.5f - width * 0.5f, y - 22, 16, Color{kGold.r, kGold.g, kGold.b, static_cast<unsigned char>(a * 255)});
-    TextWrapped(subtitle_text_, {VW * 0.5f - width * 0.5f, y, width, 200}, 18, Color{kText.r, kText.g, kText.b, static_cast<unsigned char>(a * 255)});
+    TextWrapped(subtitle_text_, {VW * 0.5f - width * 0.5f, y, width, 200}, fs, Color{kText.r, kText.g, kText.b, static_cast<unsigned char>(a * 255)});
 }
 
 // ============================================================================

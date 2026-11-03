@@ -10,22 +10,35 @@
         {
           "stage": 0,
           "objective_key": "quest.legally_deceased.stage0",
-          "journal_key": "quest.legally_deceased.journal0"
+          "journal_key": "quest.legally_deceased.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.legally_deceased.stage10",
-          "journal_key": "quest.legally_deceased.journal10"
+          "journal_key": "quest.legally_deceased.journal10",
+          "markers": [
+            "annex_inner_door"
+          ]
         },
         {
           "stage": 20,
           "objective_key": "quest.legally_deceased.stage20",
-          "journal_key": "quest.legally_deceased.journal20"
+          "journal_key": "quest.legally_deceased.journal20",
+          "markers": [
+            "grand_ledger_lectern",
+            "npc_spirit"
+          ]
         },
         {
           "stage": 30,
           "objective_key": "quest.legally_deceased.stage30",
-          "journal_key": "quest.legally_deceased.journal30"
+          "journal_key": "quest.legally_deceased.journal30",
+          "markers": [
+            "npc_oakhaven"
+          ]
         },
         {
           "stage": 100,
@@ -50,22 +63,34 @@
         {
           "stage": 0,
           "objective_key": "quest.bakers_daughter.stage0",
-          "journal_key": "quest.bakers_daughter.journal0"
+          "journal_key": "quest.bakers_daughter.journal0",
+          "markers": [
+            "npc_marta"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.bakers_daughter.stage10",
-          "journal_key": "quest.bakers_daughter.journal10"
+          "journal_key": "quest.bakers_daughter.journal10",
+          "markers": [
+            "oakhallow_census"
+          ]
         },
         {
           "stage": 20,
           "objective_key": "quest.bakers_daughter.stage20",
-          "journal_key": "quest.bakers_daughter.journal20"
+          "journal_key": "quest.bakers_daughter.journal20",
+          "markers": [
+            "npc_spirit"
+          ]
         },
         {
           "stage": 30,
           "objective_key": "quest.bakers_daughter.stage30",
-          "journal_key": "quest.bakers_daughter.journal30"
+          "journal_key": "quest.bakers_daughter.journal30",
+          "markers": [
+            "npc_marta"
+          ]
         },
         {
           "stage": 100,
@@ -84,12 +109,18 @@
         {
           "stage": 0,
           "objective_key": "quest.vault_three.stage0",
-          "journal_key": "quest.vault_three.journal0"
+          "journal_key": "quest.vault_three.journal0",
+          "markers": [
+            "ilse_cradle"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.vault_three.stage10",
-          "journal_key": "quest.vault_three.journal10"
+          "journal_key": "quest.vault_three.journal10",
+          "markers": [
+            "seal_of_names"
+          ]
         },
         {
           "stage": 100,
@@ -108,17 +139,37 @@
         {
           "stage": 0,
           "objective_key": "quest.dinner.stage0",
-          "journal_key": "quest.dinner.journal0"
+          "journal_key": "quest.dinner.journal0",
+          "markers": [
+            "npc_sabrino"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.dinner.stage10",
-          "journal_key": "quest.dinner.journal10"
+          "journal_key": "quest.dinner.journal10",
+          "markers": [
+            "crypt_truffle",
+            "nursery_truffle",
+            "npc_vaelen",
+            "road_crawler_1",
+            "archive_crawler_1",
+            "nursery_crawler"
+          ]
         },
         {
           "stage": 20,
           "objective_key": "quest.dinner.stage20",
-          "journal_key": "quest.dinner.journal20"
+          "journal_key": "quest.dinner.journal20",
+          "markers": [
+            "npc_marta",
+            "npc_baggy",
+            "npc_kaelen",
+            "npc_fenwick",
+            "npc_aldous",
+            "npc_oakhaven",
+            "npc_vaelen"
+          ]
         },
         {
           "stage": 100,
@@ -137,17 +188,31 @@
         {
           "stage": 0,
           "objective_key": "quest.rats.stage0",
-          "journal_key": "quest.rats.journal0"
+          "journal_key": "quest.rats.journal0",
+          "markers": [
+            "town_rat_0",
+            "town_rat_1",
+            "town_rat_2",
+            "town_rat_3",
+            "town_rat_4"
+          ]
         },
         {
           "stage": 20,
           "objective_key": "quest.rats.stage20",
-          "journal_key": "quest.rats.journal20"
+          "journal_key": "quest.rats.journal20",
+          "markers": [
+            "rat_king",
+            "hollowmere_kitchen_door"
+          ]
         },
         {
           "stage": 40,
           "objective_key": "quest.rats.stage40",
-          "journal_key": "quest.rats.journal40"
+          "journal_key": "quest.rats.journal40",
+          "markers": [
+            "npc_vaelen"
+          ]
         },
         {
           "stage": 100,
@@ -166,22 +231,40 @@
         {
           "stage": 0,
           "objective_key": "quest.haunt.stage0",
-          "journal_key": "quest.haunt.journal0"
+          "journal_key": "quest.haunt.journal0",
+          "markers": [
+            "npc_hollis"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.haunt.stage10",
-          "journal_key": "quest.haunt.journal10"
+          "journal_key": "quest.haunt.journal10",
+          "markers": [
+            "ballroom_cold",
+            "study_writing",
+            "dining_floating",
+            "garden_howl",
+            "kitchen_claws",
+            "bedroom_decanter"
+          ]
         },
         {
           "stage": 20,
           "objective_key": "quest.haunt.stage20",
-          "journal_key": "quest.haunt.journal20"
+          "journal_key": "quest.haunt.journal20",
+          "markers": [
+            "npc_percival",
+            "npc_hollis"
+          ]
         },
         {
           "stage": 30,
           "objective_key": "quest.haunt.stage30",
-          "journal_key": "quest.haunt.journal30"
+          "journal_key": "quest.haunt.journal30",
+          "markers": [
+            "wrathful_host"
+          ]
         },
         {
           "stage": 100,
@@ -206,12 +289,25 @@
         {
           "stage": 0,
           "objective_key": "quest.casting.stage0",
-          "journal_key": "quest.casting.journal0"
+          "journal_key": "quest.casting.journal0",
+          "markers": [
+            "npc_odette"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.casting.stage10",
-          "journal_key": "quest.casting.journal10"
+          "journal_key": "quest.casting.journal10",
+          "markers": [
+            "npc_baggy",
+            "npc_marta",
+            "npc_fenwick",
+            "npc_oakhaven",
+            "npc_hollis",
+            "npc_rolf",
+            "npc_ashgrave",
+            "npc_sabrino"
+          ]
         },
         {
           "stage": 100,
@@ -230,17 +326,31 @@
         {
           "stage": 0,
           "objective_key": "quest.script.stage0",
-          "journal_key": "quest.script.journal0"
+          "journal_key": "quest.script.journal0",
+          "markers": [
+            "script_page_1",
+            "script_page_2",
+            "script_page_3",
+            "script_page_4",
+            "script_page_5"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.script.stage10",
-          "journal_key": "quest.script.journal10"
+          "journal_key": "quest.script.journal10",
+          "markers": [
+            "npc_mortimer"
+          ]
         },
         {
           "stage": 20,
           "objective_key": "quest.script.stage20",
-          "journal_key": "quest.script.journal20"
+          "journal_key": "quest.script.journal20",
+          "markers": [
+            "npc_odette",
+            "npc_odette_stage"
+          ]
         },
         {
           "stage": 100,
@@ -259,12 +369,21 @@
         {
           "stage": 0,
           "objective_key": "quest.rehearsal.stage0",
-          "journal_key": "quest.rehearsal.journal0"
+          "journal_key": "quest.rehearsal.journal0",
+          "markers": [
+            "npc_odette_stage"
+          ]
         },
         {
           "stage": 10,
           "objective_key": "quest.rehearsal.stage10",
-          "journal_key": "quest.rehearsal.journal10"
+          "journal_key": "quest.rehearsal.journal10",
+          "markers": [
+            "npc_fenwick",
+            "npc_vaelen",
+            "npc_sabrino",
+            "npc_oakhaven"
+          ]
         },
         {
           "stage": 100,
@@ -283,12 +402,103 @@
         {
           "stage": 0,
           "objective_key": "quest.opening.stage0",
-          "journal_key": "quest.opening.journal0"
+          "journal_key": "quest.opening.journal0",
+          "markers": [
+            "npc_odette_stage"
+          ]
         },
         {
           "stage": 100,
           "objective_key": "quest.opening.stage100",
           "journal_key": "quest.opening.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.dnd_session0",
+      "title_key": "quest.dnd0.title",
+      "summary_key": "quest.dnd0.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.dnd0.stage0",
+          "journal_key": "quest.dnd0.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.dnd0.stage100",
+          "journal_key": "quest.dnd0.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.dnd_session1",
+      "title_key": "quest.dnd1.title",
+      "summary_key": "quest.dnd1.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.dnd1.stage0",
+          "journal_key": "quest.dnd1.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.dnd1.stage100",
+          "journal_key": "quest.dnd1.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.dnd_session2",
+      "title_key": "quest.dnd2.title",
+      "summary_key": "quest.dnd2.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.dnd2.stage0",
+          "journal_key": "quest.dnd2.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.dnd2.stage100",
+          "journal_key": "quest.dnd2.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.dnd_session3",
+      "title_key": "quest.dnd3.title",
+      "summary_key": "quest.dnd3.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.dnd3.stage0",
+          "journal_key": "quest.dnd3.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.dnd3.stage100",
+          "journal_key": "quest.dnd3.journal100",
           "completed": true
         }
       ]
@@ -322,6 +532,13 @@
       "desc_key": "campaign.players.desc",
       "kind": "side",
       "order": 25
+    },
+    {
+      "id": "dungeons_debtors",
+      "name_key": "campaign.dnd.name",
+      "desc_key": "campaign.dnd.desc",
+      "kind": "tales",
+      "order": 27
     }
   ]
 }

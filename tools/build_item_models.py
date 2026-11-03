@@ -557,6 +557,30 @@ def players_items():
     icon("thunder_sheet", thunder)
 
 
+def dnd_items():
+    """Icons for Dungeons & Debtors."""
+    def icon(name, draw):
+        img, d = icon_canvas()
+        draw(d)
+        save_icon(img, name)
+
+    def d20(d):
+        d.polygon([(16, 3), (28, 10), (28, 23), (16, 29), (4, 23), (4, 10)], fill=(240, 236, 220, 255), outline=(150, 140, 120, 255))
+        d.polygon([(16, 8), (24, 21), (8, 21)], outline=(150, 140, 120, 255))
+        d.line([(16, 3), (16, 8)], fill=(150, 140, 120, 255))
+        d.line([(4, 10), (8, 21)], fill=(150, 140, 120, 255))
+        d.line([(28, 10), (24, 21)], fill=(150, 140, 120, 255))
+        d.text((12, 12), "20", fill=(170, 40, 40, 255))
+    icon("lucky_d20", d20)
+
+    def screen(d):
+        for i, x in enumerate((4, 13, 22)):
+            d.polygon([(x, 8 + (i % 2) * 2), (x + 8, 6 + (i % 2) * 2), (x + 8, 26 - (i % 2) * 2), (x, 28 - (i % 2) * 2)],
+                      fill=(120, 40, 40, 255) if i != 1 else (140, 50, 46, 255), outline=(220, 180, 90, 255))
+        d.polygon([(12, 14), (18, 11), (20, 16), (15, 19)], fill=(230, 190, 80, 255))  # a painted dragon, sort of
+    icon("gm_screen", screen)
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -573,6 +597,7 @@ BUILDERS = {
     "dinner_items": dinner_items,
     "manor_items": manor_items,
     "players_items": players_items,
+    "dnd_items": dnd_items,
 }
 
 

@@ -46,6 +46,7 @@ struct GameConfig {
     float ambience_volume = 0.70f;
     float sfx_volume = 0.85f;
     bool subtitles_enabled = true;
+    float text_scale = 1.0f;   // dialogue / subtitles / books / narration size (1.0 - 1.5), for reading on stream
     bool enable_mods = false;
     std::string starting_map = "core:map.edrath";
     std::string starting_spawn = "village_gate";
@@ -314,6 +315,14 @@ struct CompanionDef {
     std::vector<std::string> heal_lines;             // hands the player food
     std::vector<std::string> level_lines;            // the player levels up
     std::vector<std::string> catchup_lines;          // had to catch up (stuck behind a door, left on another floor)
+    // Conversations with another companion, when both travel with the player. Each plays once per save.
+    struct Banter {
+        std::string id;
+        std::string partner;                             // the other companion's NPC id
+        std::vector<std::pair<bool, std::string>> lines; // (spoken by partner?, text key)
+        std::string flag, not_flag;
+    };
+    std::vector<Banter> banter;
 };
 
 struct NpcDef {
@@ -385,6 +394,8 @@ struct QuestStageDef {
     std::string objective_key;
     std::string journal_key;
     bool completed = false;
+    // Where to go: instance ids of NPCs, interactables or creatures (the nearest one still relevant is shown).
+    std::vector<std::string> markers;
 };
 
 struct QuestDef {

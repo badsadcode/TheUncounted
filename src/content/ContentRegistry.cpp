@@ -97,6 +97,7 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         game_cfg.ambience_volume = j.value("ambience_volume", 0.70f);
         game_cfg.sfx_volume = j.value("sfx_volume", 0.85f);
         game_cfg.subtitles_enabled = j.value("subtitles_enabled", true);
+        game_cfg.text_scale = std::clamp(j.value("text_scale", 1.0f), 1.0f, 1.5f);
         game_cfg.enable_mods = j.value("enable_mods", false);
         game_cfg.starting_map = j.value("starting_map", "core:map.edrath");
         game_cfg.starting_spawn = j.value("starting_spawn", "village_gate");
@@ -149,6 +150,7 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["ambience_volume"] = game_cfg.ambience_volume;
         j["sfx_volume"] = game_cfg.sfx_volume;
         j["subtitles_enabled"] = game_cfg.subtitles_enabled;
+        j["text_scale"] = game_cfg.text_scale;
         j["enable_mods"] = game_cfg.enable_mods;
         j["starting_map"] = game_cfg.starting_map;
         j["starting_spawn"] = game_cfg.starting_spawn;
@@ -738,6 +740,17 @@ void ContentRegistry::LoadNpcsFile(const std::string& rootDir, const std::string
             cd.heal_lines = strs("heal_lines");
             cd.level_lines = strs("level_lines");
             cd.catchup_lines = strs("catchup_lines");
+            if (cj.contains("banter")) {
+                for (const auto& bj : cj["banter"]) {
+                    CompanionDef::Banter b;
+                    b.id = bj.value("id", "");
+                    b.partner = bj.value("partner", "");
+                    b.flag = bj.value("flag", "");
+                    b.not_flag = bj.value("not_flag", "");
+                    for (const auto& lj : bj["lines"]) b.lines.push_back({lj.value("by", "self") == "partner", lj.value("text_key", "")});
+                    cd.banter.push_back(b);
+                }
+            }
             if (cj.contains("idle_lines")) {
                 for (const auto& lj : cj["idle_lines"]) {
                     CompanionLineDef l;
@@ -861,6 +874,7 @@ void ContentRegistry::LoadQuestsFile(const std::string& rootDir, const std::stri
                 qs.objective_key = sj.value("objective_key", "");
                 qs.journal_key = sj.value("journal_key", "");
                 qs.completed = sj.value("completed", false);
+                if (sj.contains("markers")) qs.markers = sj["markers"].get<std::vector<std::string>>();
                 d.stages.push_back(qs);
             }
         }
@@ -1079,6 +1093,18 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
     for (const auto& [qid, q] : quests) {
         if (!q.campaign.empty() && !GetCampaign(q.campaign)) RecordIssue("Quest:" + qid, "campaign", "Unknown campaign '" + q.campaign + "'");
     }
+    {
+        std::unordered_set<std::string> placed;
+        for (const auto& [mid, m] : maps) {
+            for (const auto& n : m.npcs) placed.insert(n.instance_id);
+            for (const auto& c : m.creatures) placed.insert(c.instance_id);
+            for (const auto& i : m.interactables) placed.insert(i.instance_id);
+        }
+        for (const auto& [qid, q] : quests)
+            for (const auto& st : q.stages)
+                for (const auto& mk : st.markers)
+                    if (!placed.count(mk)) RecordIssue("Quest:" + qid, "markers", "Marker '" + mk + "' is not placed in any map");
+    }
     for (const auto& c : campaigns) {
         if (!loc_strings.count(c.name_key)) RecordIssue("Campaign:" + c.id, "name_key", "Missing localization string '" + c.name_key + "'");
         if (!loc_strings.count(c.desc_key)) RecordIssue("Campaign:" + c.id, "desc_key", "Missing localization string '" + c.desc_key + "'");
@@ -1167,6 +1193,10 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
             for (const auto* v : {&npc.companion.combat_lines, &npc.companion.kill_lines, &npc.companion.heal_lines, &npc.companion.level_lines,
                                   &npc.companion.catchup_lines})
                 keys.insert(keys.end(), v->begin(), v->end());
+            for (const auto& b : npc.companion.banter) {
+                for (const auto& l : b.lines) keys.push_back(l.second);
+                if (!npcs.count(b.partner)) RecordIssue("NPC:" + id, "companion.banter", "Unknown partner NPC '" + b.partner + "'");
+            }
             for (const auto& k : keys)
                 if (!loc_strings.count(k)) RecordIssue("NPC:" + id, "companion", "Missing localization string '" + k + "'");
         }

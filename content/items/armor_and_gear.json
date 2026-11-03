@@ -414,6 +414,58 @@
           "value": 0.03
         }
       ]
+    },
+    {
+      "id": "core:item.lucky_d20",
+      "name_key": "item.lucky_d20.name",
+      "description_key": "item.lucky_d20.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/lucky_d20.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 200,
+      "weight": 0.05,
+      "armor": 0,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "dice_bonus",
+          "value": 2.0
+        },
+        {
+          "type": "bonus",
+          "stat": "crit_chance_bonus",
+          "value": 0.02
+        }
+      ]
+    },
+    {
+      "id": "core:item.gm_screen",
+      "name_key": "item.gm_screen.name",
+      "description_key": "item.gm_screen.description",
+      "category": "armor",
+      "icon": "assets/ui/items/gm_screen.png",
+      "world_model": "assets/models/items/iron_shield.glb",
+      "slots": [
+        "off_hand"
+      ],
+      "value": 120,
+      "weight": 2.5,
+      "armor": 4,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "intellect",
+          "amount": 1
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "presence",
+          "amount": 1
+        }
+      ]
     }
   ]
 }
