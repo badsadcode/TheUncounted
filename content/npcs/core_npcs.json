@@ -1561,8 +1561,8 @@
       "dialogue_id": "core:dialogue.grout",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/grout.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/grout_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.5
       },
       "barks": [

@@ -48,6 +48,7 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/wailing_footman.webp` | `assets/sprites/enemies/wailing_footman_painted.png` | Wailing Footman |
 | `spritesheets/werewolf_rolf.webp` | `assets/sprites/npcs/werewolf_rolf_painted.png` | Rolf |
 | `spritesheets/wrathful_host.webp` | `assets/sprites/enemies/wrathful_host_painted.png` | The Wrathful Host |
+| `spritesheets/grout.webp` | `assets/sprites/npcs/grout_painted.png` | Grout |
 
 **A whole package at once** (folder or .zip; file names just need to contain the character's name):
 
