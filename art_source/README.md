@@ -17,6 +17,7 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/erased_spirit.webp` | `assets/sprites/npcs/erased_spirit_painted.png` | The Erased Spirit |
 | `spritesheets/innkeeper_marta.webp` | `assets/sprites/npcs/innkeeper_marta_painted.png` | Marta |
 | `spritesheets/librarian_fenwick.webp` | `assets/sprites/npcs/librarian_fenwick_painted.png` | Fenwick |
+| `spritesheets/merchant_vaelen.webp` | `assets/sprites/npcs/merchant_vaelen_painted.png` | Vaelen |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

@@ -66,8 +66,8 @@
       "dialogue_id": "core:dialogue.merchant_vaelen",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/merchant_vaelen.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/merchant_vaelen_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "vendor_inventory": [

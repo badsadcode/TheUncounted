@@ -14,7 +14,6 @@ Suggested order: the characters Toasty spends the most time with first.
 | `detective_baggy.png` | **Baggy**, companion | Bumbling, good-hearted private eye. Long tan trenchcoat, fedora, magnifying glass, furled black umbrella (used as a weapon). Toasty's own character from Shadows of Doubt. |
 | `hunter_hollis.png` | **Hollis the Grey** | Old monster hunter, white hair, cat-yellow eyes, scarred, dark leather, two swords on his back. Grumpy, says "Hmm". |
 | `witch_sabrino.png` | **Sabrino** | Italian witch, tall dented pointed hat with a faded sash, purple robes, very dramatic. A nod to Toasty's ESO character. |
-| `merchant_vaelen.png` | **Vaelen**, merchant | Brown leather and green cloak, a pack of wares, cheerful trader. |
 | `steve.png` | **Steve** | Level-one bandit: a cooking pot worn as a helmet, a patched coat, a bent spoon as his only weapon. Nervous, lovable. |
 | `trout.png` | **Trout**, Hollis's horse | Bay mare, white blaze, red saddle. Calm, unbothered. (Four-legged: the walk rows should be a trot.) |
 
