@@ -1376,6 +1376,30 @@ int GameEngine::RunSelfTest() {
                   talk("core:npc.figure_snacks", {"hero", "root"}), "Snacks's brave feather");
     }
 
+    // --- Grout, the gargoyle companion (grumpy, terse, punchy)
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        auto savedParty = player_.companions;
+        auto savedFlags = player_.flags;
+        player_.companions.clear();
+        UpdateWorldObjects(0.0f);
+        int gi = -1;
+        for (size_t i = 0; i < scene_.npcs.size(); i++) if (scene_.npcs[i].def->id == "core:npc.grout" && !scene_.npcs[i].hidden) gi = static_cast<int>(i);
+        check(gi >= 0, "Grout sits by the Records Office door");
+        if (gi >= 0) {
+            StartDialogue(gi);
+            check(chooseNext("who") && chooseNext("fixture") && chooseNext("same") && player_.flags.count("grout_kin") && chooseNext("root"),
+                  "Grout: 'Fixture. Not citizen.' Legally nobody, like you");
+            check(chooseNext("join") && IsCompanion("core:npc.grout") && player_.flags.count("grout_following"), "Grout joins: 'No.' (stands up anyway)");
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            const NpcDef* g = content_.GetNpc("core:npc.grout");
+            check(g && g->companion.banter.size() == 5 && g->companion.zone_lines.size() == 11, "Grout has banter with Baggy and Kaelen and a line for every area");
+        }
+        player_.companions = savedParty;
+        player_.flags = savedFlags;
+    }
+
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
     Logger::Info("Self-test finished with " + std::to_string(failures) + " failure(s).");

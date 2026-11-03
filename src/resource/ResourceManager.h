@@ -46,6 +46,11 @@ public:
 
     void SetSfxVolume(float v) { sfx_volume_ = v; }
     void PlaySfx(const std::string& relPath, float volume = 1.0f, float pitch = 1.0f);
+    // Recorded voice lines: assets/audio/voice/<line key>.ogg|.wav|.mp3 (the line's localization key, e.g.
+    // comp.grout.idle.1.ogg). Plays it if it exists, cutting off the previous voice line; returns its length in seconds
+    // (0 when there's no recording, so the game just shows the subtitle as usual).
+    float PlayVoice(const std::string& lineKey);
+    void SetVoiceVolume(float v) { voice_volume_ = v; }
 
     void SetPointFilter(bool point);
 
@@ -62,6 +67,9 @@ private:
     std::string root_ = ".";
     bool point_filter_ = true;
     float sfx_volume_ = 1.0f;
+    float voice_volume_ = 1.0f;
+    Sound voice_{};
+    bool voice_loaded_ = false;
     Shader model_shader_{};
     bool has_model_shader_ = false;
 

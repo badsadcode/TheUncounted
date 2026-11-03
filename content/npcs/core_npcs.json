@@ -1552,6 +1552,239 @@
         "scale": 1.62
       },
       "barks": []
+    },
+    {
+      "id": "core:npc.grout",
+      "name_key": "npc.grout.name",
+      "title_key": "npc.grout.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.grout",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/grout.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.5
+      },
+      "barks": [
+        {
+          "text_key": "bark.grout.1"
+        },
+        {
+          "text_key": "bark.grout.2"
+        }
+      ],
+      "companion": {
+        "damage": 11,
+        "attack_time": 1.5,
+        "reach": 1.7,
+        "heal_amount": 15,
+        "heal_cooldown": 60,
+        "zone_lines": {
+          "bellwether": "comp.grout.zone.bellwether",
+          "old_road": "comp.grout.zone.old_road",
+          "annex": "comp.grout.zone.annex",
+          "vault_three": "comp.grout.zone.vault_three",
+          "seal_chamber": "comp.grout.zone.seal_chamber",
+          "hollowmere": "comp.grout.zone.hollowmere",
+          "hollowmere_manor": "comp.grout.zone.hollowmere_manor",
+          "saltmere": "comp.grout.zone.saltmere",
+          "sunken_chapel": "comp.grout.zone.sunken_chapel",
+          "whistling_wood": "comp.grout.zone.whistling_wood",
+          "sleepers_reef": "comp.grout.zone.sleepers_reef"
+        },
+        "idle_lines": [
+          {
+            "text_key": "comp.grout.idle.1"
+          },
+          {
+            "text_key": "comp.grout.idle.2"
+          },
+          {
+            "text_key": "comp.grout.idle.3"
+          },
+          {
+            "text_key": "comp.grout.idle.4"
+          },
+          {
+            "text_key": "comp.grout.idle.5"
+          },
+          {
+            "text_key": "comp.grout.idle.6"
+          },
+          {
+            "text_key": "comp.grout.idle.7"
+          },
+          {
+            "text_key": "comp.grout.idle.8"
+          },
+          {
+            "text_key": "comp.grout.idle.9"
+          },
+          {
+            "text_key": "comp.grout.idle.10"
+          },
+          {
+            "text_key": "comp.grout.idle.11",
+            "flag": "baggy_following"
+          },
+          {
+            "text_key": "comp.grout.idle.12",
+            "flag": "seal_renewed"
+          },
+          {
+            "text_key": "comp.grout.idle.13",
+            "flag": "sabrino_in_town"
+          },
+          {
+            "text_key": "comp.grout.idle.14",
+            "flag": "fig3_done"
+          },
+          {
+            "text_key": "comp.grout.idle.15",
+            "flag": "grout_kin"
+          },
+          {
+            "text_key": "comp.grout.idle.16",
+            "flag": "trout_case"
+          }
+        ],
+        "combat_lines": [
+          "comp.grout.combat.1",
+          "comp.grout.combat.2",
+          "comp.grout.combat.3",
+          "comp.grout.combat.4",
+          "comp.grout.combat.5"
+        ],
+        "kill_lines": [
+          "comp.grout.kill.1",
+          "comp.grout.kill.2",
+          "comp.grout.kill.3",
+          "comp.grout.kill.4"
+        ],
+        "heal_lines": [
+          "comp.grout.heal.1",
+          "comp.grout.heal.2",
+          "comp.grout.heal.3"
+        ],
+        "level_lines": [
+          "comp.grout.level.1",
+          "comp.grout.level.2"
+        ],
+        "catchup_lines": [
+          "comp.grout.catchup.1",
+          "comp.grout.catchup.2",
+          "comp.grout.catchup.3",
+          "comp.grout.catchup.4"
+        ],
+        "banter": [
+          {
+            "id": "baggy_story",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.baggy_story.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.baggy_story.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.baggy_story.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.baggy_story.3"
+              }
+            ]
+          },
+          {
+            "id": "baggy_masks",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.baggy_masks.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.baggy_masks.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.baggy_masks.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.baggy_masks.3"
+              }
+            ]
+          },
+          {
+            "id": "baggy_barely",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.baggy_barely.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.baggy_barely.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.baggy_barely.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.baggy_barely.3"
+              }
+            ]
+          },
+          {
+            "id": "kaelen_roof",
+            "partner": "core:npc.ashbound_scout",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.kaelen_roof.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.kaelen_roof.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.kaelen_roof.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.kaelen_roof.3"
+              }
+            ]
+          },
+          {
+            "id": "kaelen_chronicle",
+            "partner": "core:npc.ashbound_scout",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.kaelen_chronicle.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.grout.banter.kaelen_chronicle.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.grout.banter.kaelen_chronicle.2"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

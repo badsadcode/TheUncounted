@@ -399,6 +399,21 @@ def humanoid(style, row, col_dir=0):
     for sx in (-1, 1):
         prims.append(sphere(v3(0.031 * sx, eye_y, eye_z - (0.005 if skeletal else 0)), 0.014 if not style.get("glow_eyes") else 0.017, eye_m))
 
+    # Gargoyle bits: stubby horns and folded stone wings
+    if style.get("horns"):
+        horn_m = M(style.get("horn", shade(style["body"], 0.7)))
+        for sx in (-1, 1):
+            base = head_c + v3(0.05 * sx, 0.06, -0.01)
+            prims.append(capsule(base, base + v3(0.035 * sx, 0.06, -0.03), 0.018, horn_m, 0.005))
+    if style.get("wings"):
+        wing_m = M(style.get("wing", shade(style["body"], 0.85)))
+        flap = 0.08 * walk
+        for sx in (-1, 1):
+            root = v3(0.07 * sx, 0.76 + bob, -0.08)
+            prims.append(capsule(root, root + v3(0.17 * sx, 0.14 + flap, -0.05), 0.022, wing_m, 0.012))
+            prims.append(box(root + v3(0.1 * sx, -0.02 + flap * 0.5, -0.05), (0.09, 0.15, 0.01), wing_m, rnd=0.02,
+                             rot=rot_z(math.radians(-18 * sx))))
+
     # Arms. Right arm (-X) carries the weapon.
     weapon = style.get("weapon")
     r_pitch, r_roll, r_bend = math.radians(-22) * walk + math.radians(8), math.radians(-8), math.radians(-18)
@@ -785,6 +800,11 @@ SHEETS = {
     "assets/sprites/npcs/figure_agnes.png": {
         "kind": "humanoid", "body": (226, 190, 160), "armor": (230, 130, 40), "legs": (180, 60, 50), "trim": (250, 170, 70),
         "eye": (30, 30, 30), "hat": "bun", "hair": (110, 70, 40), "weapon": "ledger", "book": (180, 60, 50),
+    },
+    "assets/sprites/npcs/grout.png": {
+        "kind": "humanoid", "body": (128, 128, 122), "armor": (110, 110, 106), "legs": (100, 100, 96), "boots": (84, 84, 80),
+        "trim": (90, 140, 70), "eye": (250, 200, 80), "glow_eyes": True, "hat": "bald", "hair": (96, 96, 92), "horns": True,
+        "wings": True, "bare_arms": True,
     },
     "assets/sprites/npcs/figure_snacks.png": {"kind": "quadruped", "scale": 1.0, "body": (150, 110, 70), "armor": (100, 70, 40),
                                               "eye": (240, 190, 70)},

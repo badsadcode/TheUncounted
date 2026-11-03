@@ -2095,21 +2095,22 @@ bool GameEngine::IsCompanion(const std::string& npcId) const {
     return std::find(player_.companions.begin(), player_.companions.end(), npcId) != player_.companions.end();
 }
 
-void GameEngine::QueueSay(const std::string& speaker, const std::string& text) {
-    if (subtitle_time_ <= 0.0f && say_queue_.empty()) Say(speaker, text);
-    else if (say_queue_.size() < 6) say_queue_.push_back({speaker, text});
+void GameEngine::QueueSay(const std::string& speaker, const std::string& text, const std::string& voiceKey) {
+    if (subtitle_time_ <= 0.0f && say_queue_.empty()) Say(speaker, text, 0.0f, voiceKey);
+    else if (say_queue_.size() < 6) say_queue_.push_back({speaker, text, voiceKey});
 }
 
 void GameEngine::CompanionSay(const std::vector<std::string>& keys, float chance, int npcIndex) {
     int ci = npcIndex >= 0 ? npcIndex : CompanionIndex();
     if (ci < 0 || keys.empty() || RandF() > chance) return;
-    QueueSay(content_.Tr(scene_.npcs[ci].def->name_key), content_.Tr(keys[static_cast<size_t>(RandF() * keys.size()) % keys.size()]));
+    const std::string& k = keys[static_cast<size_t>(RandF() * keys.size()) % keys.size()];
+    QueueSay(content_.Tr(scene_.npcs[ci].def->name_key), content_.Tr(k), k);
 }
 
 void GameEngine::UpdateCompanion(float dt) {
     for (auto& n : scene_.npcs) n.companion = false;
     if (subtitle_time_ <= 0.0f && !say_queue_.empty()) {
-        Say(say_queue_.front().first, say_queue_.front().second);
+        Say(say_queue_.front().first, say_queue_.front().second, 0.0f, say_queue_.front().voice);
         say_queue_.erase(say_queue_.begin());
     }
     std::vector<int> party = CompanionIndices();
@@ -2218,7 +2219,7 @@ void GameEngine::UpdateCompanion(float dt) {
             std::string key = "companion_zone:" + n.def->id + ":" + zone_id_;
             if (it != cd.zone_lines.end() && !player_.claimed.count(key)) {
                 player_.claimed.insert(key);
-                QueueSay(content_.Tr(n.def->name_key), content_.Tr(it->second));
+                QueueSay(content_.Tr(n.def->name_key), content_.Tr(it->second), it->second);
                 companion_idle_cd_ = std::max(companion_idle_cd_, 30.0f);
             }
         }
@@ -2244,7 +2245,7 @@ void GameEngine::UpdateCompanion(float dt) {
                     if (bt.partner != nb.def->id || player_.claimed.count(key) || !flagsOk(bt.flag, bt.not_flag)) continue;
                     player_.claimed.insert(key);
                     for (const auto& [byPartner, k] : bt.lines)
-                        QueueSay(content_.Tr((byPartner ? nb : na).def->name_key), content_.Tr(k));
+                        QueueSay(content_.Tr((byPartner ? nb : na).def->name_key), content_.Tr(k), k);
                     return;
                 }
             }
@@ -2257,7 +2258,7 @@ void GameEngine::UpdateCompanion(float dt) {
     for (size_t k = 0; k < cd.idle_lines.size(); k++) {
         const CompanionLineDef& l = cd.idle_lines[(start + k) % cd.idle_lines.size()];
         if (!flagsOk(l.flag, l.not_flag)) continue;
-        QueueSay(content_.Tr(talker.def->name_key), content_.Tr(l.text_key));
+        QueueSay(content_.Tr(talker.def->name_key), content_.Tr(l.text_key), l.text_key);
         break;
     }
     companion_idle_next_++;
@@ -2569,7 +2570,7 @@ int GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, cons
         c.state = CreatureState::Chase;
         if (wasUnaware) PlaySfxAt(c.def->sfx_alert, c.pos, 0.8f);
         if (wasUnaware && !c.def->alert_line_key.empty() && spoke_alert_.insert(c.instance_id).second)
-            Say(content_.Tr(c.def->name_key), content_.Tr(c.def->alert_line_key));
+            Say(content_.Tr(c.def->name_key), content_.Tr(c.def->alert_line_key), 0.0f, c.def->alert_line_key);
     }
     (void)skill;
     return final;
@@ -2585,7 +2586,7 @@ void GameEngine::KillCreature(CreatureInstance& c) {
     ps.corpse_pos[c.instance_id] = c.pos;
     Container("corpse:" + c.instance_id, c.def->loot_table, {});
     PlaySfxAt(c.def->sfx_death.empty() ? "assets/audio/sfx/enemy_death.wav" : c.def->sfx_death, c.pos, 0.9f);
-    if (!c.def->death_line_key.empty()) Say(content_.Tr(c.def->name_key), content_.Tr(c.def->death_line_key));
+    if (!c.def->death_line_key.empty()) Say(content_.Tr(c.def->name_key), content_.Tr(c.def->death_line_key), 0.0f, c.def->death_line_key);
     Toast("Defeated " + content_.Tr(c.def->name_key) + "  (+" + std::to_string(c.def->xp_reward) + " XP)", Color{230, 200, 160, 255});
     GainXp(c.def->xp_reward);
     if (float h = Bonus("heal_on_kill"); h > 0.0f) player_.health += h;
@@ -2783,7 +2784,7 @@ void GameEngine::UpdateCreatures(float dt) {
             c.alerted = true;
             c.last_known = player_.pos;
             PlaySfxAt(d.sfx_alert, c.pos, 0.9f);
-            if (!d.alert_line_key.empty() && spoke_alert_.insert(c.instance_id).second) Say(content_.Tr(d.name_key), content_.Tr(d.alert_line_key));
+            if (!d.alert_line_key.empty() && spoke_alert_.insert(c.instance_id).second) Say(content_.Tr(d.name_key), content_.Tr(d.alert_line_key), 0.0f, d.alert_line_key);
         };
 
         switch (c.state) {
@@ -3462,6 +3463,7 @@ void GameEngine::EnterDialogueNode(const std::string& node) {
         return;
     }
     dialogue_node_ = node;
+    res_.PlayVoice(it->second.text_key);   // a recorded line for this node, if anyone recorded one
     std::string key = dialogue_id_ + "/" + node;
     for (size_t i = 0; i < it->second.actions.size(); i++) ExecAction(it->second.actions[i], key);
     player_.claimed.insert(key);
@@ -3913,10 +3915,12 @@ bool GameEngine::LoadGame(const std::string& slot) {
 // ============================================================================
 // Story presentation: subtitles, ambient barks, prologue
 // ============================================================================
-void GameEngine::Say(const std::string& speaker, const std::string& text, float seconds) {
+void GameEngine::Say(const std::string& speaker, const std::string& text, float seconds, const std::string& voiceKey) {
     subtitle_speaker_ = speaker;
     subtitle_text_ = text;
     subtitle_time_ = seconds > 0 ? seconds : Clamp(2.5f + text.size() * 0.055f, 3.0f, 9.0f);
+    float voice = res_.PlayVoice(voiceKey);
+    if (voice > 0.0f) subtitle_time_ = std::max(subtitle_time_, voice + 0.5f);
 }
 
 void GameEngine::UpdateBarks(float dt) {
@@ -3940,7 +3944,7 @@ void GameEngine::UpdateBarks(float dt) {
             if (!b.flag.empty() && !player_.flags.count(b.flag)) continue;
             if (!b.not_flag.empty() && player_.flags.count(b.not_flag)) continue;
             bark_next_[n.instance_id] = idx + 1;
-            Say(content_.Tr(n.def->name_key), content_.Tr(b.text_key));
+            Say(content_.Tr(n.def->name_key), content_.Tr(b.text_key), 0.0f, b.text_key);
             bark_cd_[n.instance_id] = 22.0f + RandF() * 18.0f;
             bark_global_cd_ = 7.0f;
             return;

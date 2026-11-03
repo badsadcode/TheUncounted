@@ -14502,6 +14502,187 @@
           ]
         }
       }
+    },
+    {
+      "id": "core:dialogue.grout",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.root",
+          "choices": [
+            {
+              "text_key": "dlg.grout.root.c0",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.grout.root.c1",
+              "next": "join",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "grout_following"
+                },
+                {
+                  "type": "party_has_room"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.grout.root.c2",
+              "next": "full",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "grout_following"
+                },
+                {
+                  "type": "party_full"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.grout.root.c3",
+              "next": "wait",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "grout_following"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.grout.root.c4",
+              "next": "advice"
+            },
+            {
+              "text_key": "dlg.grout.root.c5",
+              "next": "like"
+            },
+            {
+              "text_key": "dlg.grout.root.c6",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.who",
+          "choices": [
+            {
+              "text_key": "dlg.grout.who.c0",
+              "next": "fixture"
+            }
+          ]
+        },
+        "fixture": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.fixture",
+          "choices": [
+            {
+              "text_key": "dlg.grout.fixture.c0",
+              "next": "same",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "grout_kin"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.grout.fixture.c1",
+              "next": "root"
+            }
+          ]
+        },
+        "same": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.same",
+          "choices": [
+            {
+              "text_key": "dlg.grout.same.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "grout_kin",
+              "value": true
+            }
+          ]
+        },
+        "join": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.join",
+          "choices": [
+            {
+              "text_key": "dlg.grout.join.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "grout_following",
+              "value": true
+            },
+            {
+              "type": "recruit_companion"
+            }
+          ]
+        },
+        "full": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.full",
+          "choices": [
+            {
+              "text_key": "dlg.grout.full.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "wait": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.wait",
+          "choices": [
+            {
+              "text_key": "dlg.grout.wait.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "grout_following",
+              "value": false
+            },
+            {
+              "type": "dismiss_companion"
+            }
+          ]
+        },
+        "advice": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.advice",
+          "choices": [
+            {
+              "text_key": "dlg.grout.advice.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "like": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.grout.like",
+          "choices": [
+            {
+              "text_key": "dlg.grout.like.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
     }
   ]
 }

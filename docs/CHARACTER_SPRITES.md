@@ -94,6 +94,7 @@ animals. The original goes in `art_source/spritesheets/`. The character's `appea
 | **Baggy** (they/them) | ✅ | Bumbling, good-hearted private eye (licence pending) and founding member of the Figure It Out Gang. Long rain-dark coat, hat, a magnifying glass, crumbs in the pockets. Always about to run away. Toasty's recurring character. |
 | **Sabrino** (they/them) | ✅ | The Italian Witch (Wanted): a theatrical, slightly war-criminal witch. Tall dented pointed hat with a red sash, purple robes, a confident grin, fire at the fingertips. Toasty's recurring character. |
 | **Steve** | ✅ | A level-one bandit living in the Whistling Wood. He's a human, and very proud of being a bandit. Patched leathers, a too-big hood, a rusty knife. |
+| **Grout** | 🟡 | Companion. A squat, mossy stone gargoyle: grey stone, stubby horns (one chipped), folded stone wings, glowing amber eyes, big fists, a scowl. Two hundred years on the Records Office roof. Grumpy, few words, punches hard. |
 | **Professor Pickering** | ✅ | Collegium academic, Dept. of Unusual Studies. Tweed, a notebook, wild hair, an excited pointing finger. |
 
 ### Hollowmere Manor

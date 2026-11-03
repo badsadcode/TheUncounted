@@ -212,7 +212,28 @@ void ResourceManager::PlaySfx(const std::string& relPath, float volume, float pi
     PlaySound(s);
 }
 
+float ResourceManager::PlayVoice(const std::string& lineKey) {
+    if (lineKey.empty() || !IsAudioDeviceReady()) return 0.0f;
+    for (const char* ext : {".ogg", ".wav", ".mp3"}) {
+        std::string rel = "assets/audio/voice/" + lineKey + ext;
+        if (!Exists(rel)) continue;
+        if (voice_loaded_) {
+            StopSound(voice_);
+            UnloadSound(voice_);
+            voice_loaded_ = false;
+        }
+        voice_ = LoadSound(Resolve(rel).c_str());
+        if (voice_.frameCount == 0) return 0.0f;
+        voice_loaded_ = true;
+        SetSoundVolume(voice_, Clamp(voice_volume_ * std::max(sfx_volume_, 0.6f), 0.0f, 1.0f));
+        PlaySound(voice_);
+        return voice_.stream.sampleRate > 0 ? static_cast<float>(voice_.frameCount) / voice_.stream.sampleRate : 0.0f;
+    }
+    return 0.0f;
+}
+
 void ResourceManager::UnloadAll() {
+    if (voice_loaded_) { StopSound(voice_); UnloadSound(voice_); voice_loaded_ = false; }
     for (auto& [path, tex] : textures_) {
         if (path != kMissingTexture && tex.id > 0) {
             bool isAlias = false;

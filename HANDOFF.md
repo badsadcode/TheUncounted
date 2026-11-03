@@ -350,6 +350,17 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
 - Sprites are prerendered placeholders (`build_sprites_prerendered.py`: figure_*, phantom_clerk, howler); the user may
   paint proper sheets later.
 
+### Grout and recorded voice lines (added 2026-11-03)
+
+- **Grout** (`core:npc.grout`, `tools/authoring/grout.py`): a grumpy, terse gargoyle companion by the Records Office
+  door, written for the user to voice on stream. Classified by the Bureau as "a fixture, not a citizen" (legally nobody,
+  like the player; `grout_kin`). Hits hard (11 per swing, slow). Banter with Baggy and Kaelen, a line per area. The full
+  line list in script format is `docs/GROUT_VOICE_SCRIPT.md`. Avoid pronouns for Grout in text.
+- **Voice playback:** `ResourceManager::PlayVoice(key)` plays `assets/audio/voice/<localization key>.ogg|wav|mp3` if it
+  exists, for companion lines, banter, barks, creature alert/death lines and dialogue nodes (on entering the node).
+  The subtitle stays up at least as long as the clip. No file = text only, as before.
+- **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
+
 ## 8. The user (what they care about)
 
 - **Story and immersion are the priority.** Bigger, multi-level spaces without loading screens. Better graphics/sprites welcome.

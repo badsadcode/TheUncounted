@@ -152,7 +152,7 @@ private:
     float narration_time_ = 0.0f;
     bool narration_is_prologue_ = false;
     void StartNarration(const std::vector<std::string>& keys);
-    void Say(const std::string& speaker, const std::string& text, float seconds = 0.0f);
+    void Say(const std::string& speaker, const std::string& text, float seconds = 0.0f, const std::string& voiceKey = "");
     void UpdateBarks(float dt);
     void AdvanceNarration();
     void DrawNarration();
@@ -354,8 +354,9 @@ private:
     void CompanionSay(const std::vector<std::string>& keys, float chance = 1.0f, int npcIndex = -1);
     static constexpr int kMaxCompanions = 2;
     // Subtitles queued to play one after another (party chatter and banter).
-    std::vector<std::pair<std::string, std::string>> say_queue_;
-    void QueueSay(const std::string& speaker, const std::string& text);
+    struct SayItem { std::string first, second, voice; };
+    std::vector<SayItem> say_queue_;
+    void QueueSay(const std::string& speaker, const std::string& text, const std::string& voiceKey = "");
     float companion_heal_cd_ = 0.0f;
     float companion_idle_cd_ = 60.0f;
     float companion_calm_ = 10.0f;        // seconds since the companion last fought

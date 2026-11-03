@@ -1321,6 +1321,16 @@
       "yaw": 180.0,
       "requires_flag": "fig1_caught",
       "hidden_flag": "fig1_done"
+    },
+    {
+      "instance_id": "npc_grout",
+      "npc_id": "core:npc.grout",
+      "pos": [
+        -12.0,
+        0.0,
+        -6.0
+      ],
+      "yaw": 135.0
     }
   ],
   "creatures": [
