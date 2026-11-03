@@ -373,6 +373,11 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   world; raylib's screen-right is decreasing azimuth). Bloom is `glow_level` 0-3 (default Medium) with a higher
   brightness threshold. Rain/wind ambience low-passed (no hiss). Levers: mesh 0 (base) fixed, the rest pivot.
   `door_frames()` in build_world.py fills the gaps between doors and their walls/lintels with wooden frames.
+- **Level editing in Blender** (`tools/blender/uncounted_level_editor.py`, guide `docs/LEVEL_EDITOR.md`): Import World builds
+  the map in Blender (meshes re-originated at the game's bottom-centre anchor, game (x,y,z) = Blender (x,-z,y), rot_y =
+  rotation about Z); Export writes `mods/level_edits/map_edits.json` (props modify/add/remove, npcs/creatures/interactables
+  modify). `ContentRegistry::ApplyMapEdits` applies every `mods/*/map_edits.json` after loading (always, even with mods
+  disabled). To bake a user's edits into the real levels, apply them to the region builders/JSON by prop id.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

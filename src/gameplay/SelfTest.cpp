@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <fstream>
 // Headless walkthrough of Chapter Zero used by `game.exe --selftest`. It drives the real gameplay code
 // (dialogue, interaction, collision, combat, loot, saves) and reports every broken step to the log.
 #include "gameplay/GameEngine.h"
@@ -1630,6 +1631,33 @@ int GameEngine::RunSelfTest() {
             for (const auto& e : v->vendor_inventory) sells = sells || e.item_id == "core:item.book_forbidden_footnotes";
         check(sells, "Sabrino sells the Forbidden Footnotes");
         player_.skills = savedSkills;
+    }
+
+    // --- Level edits from Blender (mods/<name>/map_edits.json): modify, add, remove, move markers
+    {
+        MapDef* m = nullptr;
+        for (auto& [id, md] : content_.maps) if (!md.props.empty()) { m = &md; break; }
+        if (m) {
+            std::string victim = m->props.front().id, mover = m->props.back().id;
+            std::string npc = m->npcs.empty() ? "" : m->npcs.front().instance_id;
+            std::filesystem::create_directories("mods/zz_selftest_edits", ec);
+            {
+                std::ofstream f("mods/zz_selftest_edits/map_edits.json");
+                f << "{\"map\": \"" << m->id << "\", \"props\": {\"remove\": [\"" << victim << "\"], \"modify\": {\"" << mover
+                  << "\": {\"pos\": [1, 2, 3], \"rot_y\": 45}}, \"add\": [{\"id\": \"selftest_added\", \"model\": \"assets/models/props/wooden_crate.glb\", \"pos\": [4, 0, 4]}]},"
+                  << " \"npcs\": {\"modify\": {\"" << npc << "\": {\"pos\": [7, 0, 7]}}}}";
+            }
+            content_.ApplyMapEdits(".");
+            std::filesystem::remove_all("mods/zz_selftest_edits", ec);
+            bool removed = true, moved = false, added = false, npcMoved = npc.empty();
+            for (const auto& p : m->props) {
+                if (p.id == victim) removed = false;
+                if (p.id == mover) moved = p.pos.x == 1.0f && p.pos.z == 3.0f && p.rot_y == 45.0f;
+                if (p.id == "selftest_added") added = true;
+            }
+            for (const auto& n : m->npcs) if (n.instance_id == npc && n.pos.x == 7.0f) npcMoved = true;
+            check(removed && moved && added && npcMoved, "level edits from Blender: remove, move, add props and move NPCs");
+        }
     }
 
     std::filesystem::remove(SavePath("autosave"), ec);

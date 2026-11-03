@@ -221,6 +221,7 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     for (const auto& modRel : extraModManifests) {
         LoadManifestFile(rootDir, modRel);
     }
+    ApplyMapEdits(rootDir);   // your own Blender edits: always on (delete mods/level_edits/map_edits.json to undo them)
 
     Logger::Info("Loaded " + std::to_string(items.size()) + " items, " +
                  std::to_string(creatures.size()) + " creatures, " +
@@ -985,6 +986,97 @@ static Vector3 JsonToVec3(const json& j, Vector3 fallback = {0.0f, 0.0f, 0.0f}) 
     return fallback;
 }
 
+static MapPropDef PropFromJson(const json& pj) {
+    MapPropDef p;
+    p.id = pj.value("id", "");
+    p.model = pj.value("model", "");
+    p.pos = JsonToVec3(pj["pos"]);
+    p.rot_y = pj.value("rot_y", 0.0f);
+    if (pj.contains("scale")) p.scale = JsonToVec3(pj["scale"], {1.0f, 1.0f, 1.0f});
+    if (pj.contains("uv_scale") && pj["uv_scale"].is_array() && pj["uv_scale"].size() >= 2) {
+        p.uv_scale = {pj["uv_scale"][0].get<float>(), pj["uv_scale"][1].get<float>()};
+    }
+    p.solid = pj.value("solid", true);
+    p.ramp_dir = pj.value("ramp", "");
+    if (pj.contains("emitter") && pj["emitter"].is_object()) {
+        const auto& ej = pj["emitter"];
+        p.emitter_sprite = ej.value("sprite", "");
+        if (ej.contains("offset")) p.emitter_offset = JsonToVec3(ej["offset"]);
+        p.emitter_size = ej.value("size", 0.35f);
+        if (ej.contains("light_color")) p.emitter_light_color = JsonToVec3(ej["light_color"]);
+        p.emitter_light_radius = ej.value("light_radius", 0.0f);
+    }
+    return p;
+}
+
+// Level edits made in Blender (tools/blender/uncounted_level_editor.py): every mods/<name>/map_edits.json, in
+// alphabetical order, modifies/adds/removes props and moves NPCs, creatures and objects of one map. Kept out of the
+// generated level files so rebuilding the world never overwrites them.
+void ContentRegistry::ApplyMapEdits(const std::string& rootDir) {
+    std::vector<fs::path> files;
+    std::error_code ec;
+    for (const auto& e : fs::directory_iterator(fs::path(rootDir) / "mods", ec))
+        if (e.is_directory() && fs::exists(e.path() / "map_edits.json")) files.push_back(e.path() / "map_edits.json");
+    std::sort(files.begin(), files.end());
+    for (const auto& f : files) {
+        json j;
+        std::string err;
+        std::string rel = fs::relative(f, rootDir, ec).generic_string();
+        if (!ReadJsonFile(f.string(), j, err)) { RecordIssue(rel, "root", err); continue; }
+        std::string mapId = j.value("map", maps.empty() ? std::string() : maps.begin()->first);
+        auto mit = maps.find(mapId);
+        if (mit == maps.end()) { RecordIssue(rel, "map", "Unknown map '" + mapId + "'"); continue; }
+        MapDef& m = mit->second;
+        int changed = 0;
+        auto vec3 = [](const json& a, Vector3 d) { return (a.is_array() && a.size() >= 3) ? Vector3{a[0].get<float>(), a[1].get<float>(), a[2].get<float>()} : d; };
+        if (j.contains("props")) {
+            const json& pj = j["props"];
+            if (pj.contains("remove"))
+                for (const auto& id : pj["remove"]) {
+                    std::string sid = id.get<std::string>();
+                    auto before = m.props.size();
+                    m.props.erase(std::remove_if(m.props.begin(), m.props.end(), [&](const MapPropDef& p) { return p.id == sid; }), m.props.end());
+                    changed += static_cast<int>(before - m.props.size());
+                }
+            if (pj.contains("modify"))
+                for (const auto& [id, mod] : pj["modify"].items())
+                    for (auto& p : m.props) {
+                        if (p.id != id) continue;
+                        if (mod.contains("pos")) p.pos = vec3(mod["pos"], p.pos);
+                        if (mod.contains("rot_y")) p.rot_y = mod["rot_y"].get<float>();
+                        if (mod.contains("scale")) p.scale = vec3(mod["scale"], p.scale);
+                        if (mod.contains("model")) p.model = mod["model"].get<std::string>();
+                        if (mod.contains("solid")) p.solid = mod["solid"].get<bool>();
+                        changed++;
+                    }
+            if (pj.contains("add"))
+                for (const auto& a : pj["add"]) { m.props.push_back(PropFromJson(a)); changed++; }
+        }
+        auto moveAll = [&](const char* key, auto& list, auto apply) {
+            if (!j.contains(key) || !j[key].contains("modify")) return;
+            for (const auto& [id, mod] : j[key]["modify"].items())
+                for (auto& e : list) if (e.instance_id == id) { apply(e, mod); changed++; }
+        };
+        moveAll("npcs", m.npcs, [&](MapNpcSpawnDef& e, const json& mod) {
+            if (mod.contains("pos")) e.pos = vec3(mod["pos"], e.pos);
+            if (mod.contains("yaw")) e.yaw = mod["yaw"].get<float>();
+        });
+        moveAll("creatures", m.creatures, [&](MapCreatureSpawnDef& e, const json& mod) {
+            if (!mod.contains("pos")) return;
+            Vector3 np = vec3(mod["pos"], e.pos);
+            Vector3 d = {np.x - e.pos.x, np.y - e.pos.y, np.z - e.pos.z};   // the patrol route moves with it
+            e.pos = np;
+            e.patrol_a = {e.patrol_a.x + d.x, e.patrol_a.y + d.y, e.patrol_a.z + d.z};
+            e.patrol_b = {e.patrol_b.x + d.x, e.patrol_b.y + d.y, e.patrol_b.z + d.z};
+        });
+        moveAll("interactables", m.interactables, [&](MapInteractableDef& e, const json& mod) {
+            if (mod.contains("pos")) e.pos = vec3(mod["pos"], e.pos);
+            if (mod.contains("rot_y")) e.rot_y = mod["rot_y"].get<float>();
+        });
+        Logger::Info("Applied level edits " + rel + " to " + mapId + " (" + std::to_string(changed) + " changes)");
+    }
+}
+
 void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string& relPath) {
     json j;
     std::string err;
@@ -1055,25 +1147,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
 
     if (j.contains("props")) {
         for (const auto& pj : j["props"]) {
-            MapPropDef p;
-            p.id = pj.value("id", "");
-            p.model = pj.value("model", "");
-            p.pos = JsonToVec3(pj["pos"]);
-            p.rot_y = pj.value("rot_y", 0.0f);
-            if (pj.contains("scale")) p.scale = JsonToVec3(pj["scale"], {1.0f, 1.0f, 1.0f});
-            if (pj.contains("uv_scale") && pj["uv_scale"].is_array() && pj["uv_scale"].size() >= 2) {
-                p.uv_scale = {pj["uv_scale"][0].get<float>(), pj["uv_scale"][1].get<float>()};
-            }
-            p.solid = pj.value("solid", true);
-            p.ramp_dir = pj.value("ramp", "");
-            if (pj.contains("emitter") && pj["emitter"].is_object()) {
-                const auto& ej = pj["emitter"];
-                p.emitter_sprite = ej.value("sprite", "");
-                if (ej.contains("offset")) p.emitter_offset = JsonToVec3(ej["offset"]);
-                p.emitter_size = ej.value("size", 0.35f);
-                if (ej.contains("light_color")) p.emitter_light_color = JsonToVec3(ej["light_color"]);
-                p.emitter_light_radius = ej.value("light_radius", 0.0f);
-            }
+            MapPropDef p = PropFromJson(pj);
             m.props.push_back(p);
         }
     }

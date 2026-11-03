@@ -9,6 +9,8 @@ namespace uncounted {
 
 class ContentRegistry {
 public:
+    // Level edits made in Blender (mods/<name>/map_edits.json), applied after the maps load.
+    void ApplyMapEdits(const std::string& rootDir);
     GraphicsConfig graphics;
     ControlsConfig controls;
     GameConfig game_cfg;

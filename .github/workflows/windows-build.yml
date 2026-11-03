@@ -47,6 +47,7 @@ jobs:
           mkdir -p dist/TheUncounted
           cp game.exe dist/TheUncounted/
           cp -r assets content config mods docs README.md dist/TheUncounted/
+          mkdir -p dist/TheUncounted/tools && cp -r tools/blender dist/TheUncounted/tools/   # the Blender level editor add-on
           cat > dist/TheUncounted/HOW_TO_PLAY.txt <<'TXT'
           THE UNCOUNTED
           =============
