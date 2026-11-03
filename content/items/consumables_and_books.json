@@ -560,6 +560,204 @@
       "value": 0,
       "weight": 0.8,
       "book_text_key": "book.grimoire_clerical.text"
+    },
+    {
+      "id": "core:item.tome_bewilder",
+      "name_key": "item.tome_bewilder.name",
+      "description_key": "item.tome_bewilder.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_bewilder.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.8,
+      "book_text_key": "book.tome_bewilder.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.bewilder"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_friendship",
+      "name_key": "item.tome_friendship.name",
+      "description_key": "item.tome_friendship.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_friendship.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.8,
+      "book_text_key": "book.tome_friendship.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.sudden_friendship"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_entry",
+      "name_key": "item.tome_entry.name",
+      "description_key": "item.tome_entry.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_entry.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.8,
+      "book_text_key": "book.tome_entry.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.unauthorised_entry"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_vitality",
+      "name_key": "item.tome_vitality.name",
+      "description_key": "item.tome_vitality.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_vitality.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.8,
+      "book_text_key": "book.tome_vitality.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.borrowed_vitality"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_late",
+      "name_key": "item.tome_late.name",
+      "description_key": "item.tome_late.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_late.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.8,
+      "book_text_key": "book.tome_late.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.late_for_appointment"
+        }
+      ]
+    },
+    {
+      "id": "core:item.tome_paper",
+      "name_key": "item.tome_paper.name",
+      "description_key": "item.tome_paper.description",
+      "category": "book",
+      "icon": "assets/ui/items/tome_paper.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 70,
+      "weight": 0.8,
+      "book_text_key": "book.tome_paper.text",
+      "effects": [
+        {
+          "type": "learn_spell",
+          "spell_id": "core:spell.paper_storm"
+        }
+      ]
+    },
+    {
+      "id": "core:item.wand_sparks",
+      "name_key": "item.wand_sparks.name",
+      "description_key": "item.wand_sparks.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/wand_sparks.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 12,
+      "weight": 0.05,
+      "effects": [
+        {
+          "type": "cast_spell",
+          "spell_id": "core:spell.chain_of_command"
+        }
+      ]
+    },
+    {
+      "id": "core:item.wand_frost",
+      "name_key": "item.wand_frost.name",
+      "description_key": "item.wand_frost.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/wand_frost.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 12,
+      "weight": 0.05,
+      "effects": [
+        {
+          "type": "cast_spell",
+          "spell_id": "core:spell.frost_lance"
+        }
+      ]
+    },
+    {
+      "id": "core:item.wand_bewilder",
+      "name_key": "item.wand_bewilder.name",
+      "description_key": "item.wand_bewilder.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/wand_bewilder.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 12,
+      "weight": 0.05,
+      "effects": [
+        {
+          "type": "cast_spell",
+          "spell_id": "core:spell.bewilder"
+        }
+      ]
+    },
+    {
+      "id": "core:item.wand_friendship",
+      "name_key": "item.wand_friendship.name",
+      "description_key": "item.wand_friendship.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/wand_friendship.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 12,
+      "weight": 0.05,
+      "effects": [
+        {
+          "type": "cast_spell",
+          "spell_id": "core:spell.sudden_friendship"
+        }
+      ]
+    },
+    {
+      "id": "core:item.wand_entry",
+      "name_key": "item.wand_entry.name",
+      "description_key": "item.wand_entry.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/wand_entry.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 12,
+      "weight": 0.05,
+      "effects": [
+        {
+          "type": "cast_spell",
+          "spell_id": "core:spell.unauthorised_entry"
+        }
+      ]
     }
   ]
 }

@@ -466,3 +466,21 @@ nodes per region (respawning), an alchemy table (Mother Brine / Fenwick?) making
 tonics (burn/chill oils that add `on_hit_status` to weapons for a while; resist potions), a simple workbench (arrows,
 lockpicks, upgrading weapon base damage), fishing at Saltmere, and recipes as readable books.
 
+### Roguelike pack: bleed, confuse, charm, knock, buff_stat, wands (added 2026-11-03)
+
+Inspired by classic roguelikes such as Barony (mechanics only; names, writing and code are our own).
+- Statuses: **bleed** (stacks to 3, `status_power` × stacks per second, blood drips), **confuse** (wanders; attacks the
+  nearest creature in reach, friend or foe; bosses half duration), **charm** (fights the nearest non-charmed creature,
+  follows you otherwise; bosses immune; hitting it ends the charm and it turns on you). Creature-vs-creature hits go
+  through `CreatureHitCreature` (2× the attacker's damage; the victim's `foe` makes it fight back). Companions ignore
+  charmed creatures. Tints: charm pink, confuse flickering violet, bleed reddened.
+- Spell primitives: `knock` (nearest locked door/chest you face within 6 m, if `lock_difficulty` ≤ power), `buff_stat`
+  (`bonus_key`, `bonus_value`, `duration_seconds`; stored as an ActiveBuff so `Bonus()` sees it). `CastSpell(spell,
+  freeCast)` is the shared cast path.
+- Wands: consumables with effect `cast_spell` (`spell_id`); the stack size is the charge count; quick-slot friendly.
+- New spells: Bewilder, Sudden Friendship, Unauthorised Entry, Borrowed Vitality, Late for an Appointment, Paper Storm
+  (tomes in loot/Vaelen; Ashgrave gives Borrowed Vitality if you're honest about his poetry). Wands of Sparks, Frost,
+  Bewilderment, Sudden Friendship, Unauthorised Entry. Weapons: Serrated Cleaver and Thornbow (bleed), the Sword of
+  Mild Inconvenience (confuse). Authoring: `tools/authoring/roguelike.py` (already run — do not rerun).
+  `--shot … --overlay status_demo2` shows charm/confuse/bleed.
+

@@ -857,10 +857,10 @@ void GameEngine::DrawInventory() {
         if (wp.life_steal > 0.0f) statC("Life steal " + Pct(wp.life_steal), kGold);
         if (wp.mana_on_hit > 0.0f) statC("+" + Fmt1(wp.mana_on_hit) + " mana per hit", kGold);
         if (!wp.on_hit_status.empty()) {
-            static const std::map<std::string, std::string> nm = {{"burn", "Burns"}, {"chill", "Chills"}, {"shock", "Shocks"}, {"ink", "Blinds"}};
+            static const std::map<std::string, std::string> nm = {{"burn", "Burns"}, {"chill", "Chills"}, {"shock", "Shocks"}, {"ink", "Blinds"}, {"bleed", "Bleeds"}, {"confuse", "Confuses"}, {"charm", "Charms"}};
             std::string st = (nm.count(wp.on_hit_status) ? nm.at(wp.on_hit_status) : wp.on_hit_status) + " on hit: " + Pct(wp.status_chance) +
                              " chance, " + Fmt1(wp.status_duration) + "s";
-            if (wp.on_hit_status == "burn") st += ", " + Fmt1(wp.status_power) + " dmg/s";
+            if (wp.on_hit_status == "burn" || wp.on_hit_status == "bleed") st += ", " + Fmt1(wp.status_power) + " dmg/s";
             statC(st, Color{255, 190, 120, 255});
         }
     }
@@ -879,7 +879,10 @@ void GameEngine::DrawInventory() {
         else if (e.type == "consumable_heal") stat("Restores " + std::to_string(e.amount) + " health");
         else if (e.type == "consumable_mana") stat("Restores " + std::to_string(e.amount) + " mana");
         else if (e.type == "consumable_stamina") stat("Restores " + std::to_string(e.amount) + " stamina");
-        else if (e.type == "learn_spell") if (const SpellDef* s = content_.GetSpell(e.spell_id)) stat("Teaches: " + content_.Tr(s->name_key));
+        else if (e.type == "learn_spell") { if (const SpellDef* s = content_.GetSpell(e.spell_id)) stat("Teaches: " + content_.Tr(s->name_key)); }
+        else if (e.type == "cast_spell") {
+            if (const SpellDef* s = content_.GetSpell(e.spell_id)) statC("Casts " + content_.Tr(s->name_key) + " for free. " + std::to_string(CountItem(d->id)) + " charges.", kAccent);
+        }
     }
     if (!d->slots.empty()) stat("Slot: " + d->slots[0]);
     Text("Value " + std::to_string(d->value) + "   Weight " + Fmt1(d->weight), D.x + 20, D.y + D.height - 100, 15, kDim);
@@ -1126,12 +1129,14 @@ void GameEngine::DrawCombatSheet(Rectangle P) {
         } else if (pr == "chain") what = Fmt1(pw) + " dmg, jumps " + std::to_string(s->effect.chain_count) + "x";
         else if (pr == "nova") what = Fmt1(pw) + " dmg in " + Fmt1(s->effect.radius) + "m";
         else if (pr == "blink") what = "blink " + Fmt1(s->effect.blink_distance) + "m";
+        else if (pr == "knock") what = "unlocks locks up to " + std::to_string(static_cast<int>(pw));
+        else if (pr == "buff_stat") what = BonusLabel(s->effect.bonus_key, s->effect.bonus_value) + ", " + Fmt1(s->effect.duration_seconds) + "s";
         else if (pr == "self_heal") what = "heals " + Fmt1(pw);
         else if (pr == "buff_armor") what = "+" + Fmt1(pw) + " armor, " + Fmt1(s->effect.duration_seconds) + "s";
         else if (pr == "buff_stealth") what = Pct(1.0f - s->effect.visibility_multiplier) + " less visible";
         else what = Fmt1(s->effect.duration_seconds) + "s light";
         if (!s->effect.status.empty()) {
-            static const std::map<std::string, std::string> nm = {{"burn", "burns"}, {"chill", "chills"}, {"shock", "shocks"}, {"ink", "blinds"}};
+            static const std::map<std::string, std::string> nm = {{"burn", "burns"}, {"chill", "chills"}, {"shock", "shocks"}, {"ink", "blinds"}, {"bleed", "bleeds"}, {"confuse", "confuses"}, {"charm", "charms"}};
             what += ", " + (s->effect.status_chance < 1.0f ? Pct(s->effect.status_chance) + " " : std::string()) +
                     (nm.count(s->effect.status) ? nm.at(s->effect.status) : s->effect.status);
         }

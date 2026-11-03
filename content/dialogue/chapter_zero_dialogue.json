@@ -7628,6 +7628,11 @@
               "type": "give_xp",
               "skill": "persuasion",
               "amount": 20
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.tome_vitality",
+              "qty": 1
             }
           ],
           "choices": [

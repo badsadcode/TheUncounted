@@ -431,6 +431,86 @@
         "status_chance": 0.4,
         "status_duration": 3.0
       }
+    },
+    {
+      "id": "core:item.serrated_cleaver",
+      "name_key": "item.serrated_cleaver.name",
+      "description_key": "item.serrated_cleaver.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/serrated_cleaver.png",
+      "world_model": "assets/models/items/rusted_sword.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 110,
+      "weight": 2.6,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "slashing",
+        "base_damage": 15,
+        "attack_time_seconds": 0.55,
+        "stamina_cost": 8,
+        "reach_meters": 1.9,
+        "on_hit_status": "bleed",
+        "status_chance": 0.45,
+        "status_power": 3,
+        "status_duration": 4.0
+      }
+    },
+    {
+      "id": "core:item.thornbow",
+      "name_key": "item.thornbow.name",
+      "description_key": "item.thornbow.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/thornbow.png",
+      "world_model": "assets/models/items/hunting_bow.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 140,
+      "weight": 1.6,
+      "weapon": {
+        "kind": "ranged",
+        "skill": "bows",
+        "damage_type": "piercing",
+        "base_damage": 16,
+        "attack_time_seconds": 0.9,
+        "stamina_cost": 6,
+        "reach_meters": 2.0,
+        "ammo_item": "core:item.wooden_arrow",
+        "projectile_speed": 30.0,
+        "crit_chance": 0.08,
+        "on_hit_status": "bleed",
+        "status_chance": 0.4,
+        "status_power": 3,
+        "status_duration": 5.0
+      }
+    },
+    {
+      "id": "core:item.inconvenient_sword",
+      "name_key": "item.inconvenient_sword.name",
+      "description_key": "item.inconvenient_sword.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/inconvenient_sword.png",
+      "world_model": "assets/models/items/iron_longsword.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 95,
+      "weight": 2.8,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "slashing",
+        "base_damage": 13,
+        "attack_time_seconds": 0.55,
+        "stamina_cost": 8,
+        "reach_meters": 2.1,
+        "on_hit_status": "confuse",
+        "status_chance": 0.2,
+        "status_duration": 4.0
+      }
     }
   ]
 }

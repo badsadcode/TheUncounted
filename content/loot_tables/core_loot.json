@@ -48,6 +48,18 @@
           "weight": 15,
           "min_qty": 1,
           "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wand_frost",
+          "weight": 6,
+          "min_qty": 2,
+          "max_qty": 4
+        },
+        {
+          "item_id": "core:item.wand_entry",
+          "weight": 6,
+          "min_qty": 2,
+          "max_qty": 3
         }
       ]
     },
@@ -79,6 +91,30 @@
           "weight": 30,
           "min_qty": 1,
           "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wand_sparks",
+          "weight": 10,
+          "min_qty": 3,
+          "max_qty": 6
+        },
+        {
+          "item_id": "core:item.wand_bewilder",
+          "weight": 8,
+          "min_qty": 3,
+          "max_qty": 5
+        },
+        {
+          "item_id": "core:item.tome_bewilder",
+          "weight": 5,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.tome_paper",
+          "weight": 5,
+          "min_qty": 1,
+          "max_qty": 1
         }
       ]
     },
@@ -103,6 +139,24 @@
           "weight": 100,
           "min_qty": 2,
           "max_qty": 2
+        },
+        {
+          "item_id": "core:item.wand_friendship",
+          "weight": 15,
+          "min_qty": 3,
+          "max_qty": 5
+        },
+        {
+          "item_id": "core:item.tome_friendship",
+          "weight": 10,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.inconvenient_sword",
+          "weight": 8,
+          "min_qty": 1,
+          "max_qty": 1
         }
       ]
     },
@@ -276,6 +330,12 @@
           "weight": 25,
           "min_qty": 1,
           "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wand_frost",
+          "weight": 6,
+          "min_qty": 2,
+          "max_qty": 4
         }
       ]
     },
@@ -292,6 +352,18 @@
           "weight": 60,
           "min_qty": 1,
           "max_qty": 2
+        },
+        {
+          "item_id": "core:item.tome_vitality",
+          "weight": 20,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wand_friendship",
+          "weight": 15,
+          "min_qty": 3,
+          "max_qty": 6
         }
       ]
     },
@@ -317,6 +389,12 @@
           "weight": 18,
           "min_qty": 1,
           "max_qty": 1
+        },
+        {
+          "item_id": "core:item.wand_bewilder",
+          "weight": 4,
+          "min_qty": 2,
+          "max_qty": 3
         }
       ]
     }

@@ -155,6 +155,36 @@
           "item_id": "core:item.storm_stamp",
           "stock": 1,
           "price": 160
+        },
+        {
+          "item_id": "core:item.wand_entry",
+          "stock": 4,
+          "price": 30
+        },
+        {
+          "item_id": "core:item.wand_sparks",
+          "stock": 5,
+          "price": 28
+        },
+        {
+          "item_id": "core:item.tome_late",
+          "stock": 1,
+          "price": 80
+        },
+        {
+          "item_id": "core:item.tome_entry",
+          "stock": 1,
+          "price": 90
+        },
+        {
+          "item_id": "core:item.serrated_cleaver",
+          "stock": 1,
+          "price": 110
+        },
+        {
+          "item_id": "core:item.thornbow",
+          "stock": 1,
+          "price": 140
         }
       ],
       "barks": [

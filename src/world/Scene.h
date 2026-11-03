@@ -53,6 +53,13 @@ struct CreatureInstance {
     int chill_stacks = 0;
     float shock_time = 0.0f;
     float ink_time = 0.0f;
+    float bleed_time = 0.0f, bleed_tick = 0.0f;
+    int bleed_stacks = 0;
+    float bleed_power = 0.0f;
+    float confuse_time = 0.0f, charm_time = 0.0f;
+    float wander_timer = 0.0f;
+    Vector3 wander_to{};
+    int foe = -1;   // index of another creature it's fighting (charmed/confused brawls)
 };
 
 struct NpcInstance {

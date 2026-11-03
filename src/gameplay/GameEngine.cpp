@@ -271,7 +271,7 @@ bool GameEngine::Init(int argc, char** argv) {
             overlay_ = Overlay::Character;
             toasts_.clear();
         }
-        else if (boot_shot_overlay_ == "status_demo") {
+        else if (boot_shot_overlay_ == "status_demo" || boot_shot_overlay_ == "status_demo2") {
             // Four wolves in a row in front of the camera: burning, chilled, frozen, shocked + inked.
             const CreatureDef* wolf = content_.GetCreature("core:enemy.grey_wolf");
             Vector3 fwd = Forward(player_.yaw), side = {-fwd.z, 0.0f, fwd.x};
@@ -293,6 +293,15 @@ bool GameEngine::Init(int argc, char** argv) {
             scene_.creatures[n - 2].frozen_time = 999.0f;
             ApplyStatus(scene_.creatures[n - 1], "shock", 0.0f, 999.0f);
             ApplyStatus(scene_.creatures[n - 1], "ink", 0.0f, 999.0f);
+            if (boot_shot_overlay_ == "status_demo2") {  // the roguelike set: charmed, confused, bleeding
+                scene_.creatures[n - 4].burn_time = 0.0f;
+                ApplyStatus(scene_.creatures[n - 4], "charm", 0.0f, 999.0f);
+                scene_.creatures[n - 3].chill_time = 0.0f;
+                ApplyStatus(scene_.creatures[n - 3], "confuse", 0.0f, 999.0f);
+                scene_.creatures[n - 2].frozen_time = scene_.creatures[n - 2].chill_time = 0.0f;
+                for (int k = 0; k < 3; k++) ApplyStatus(scene_.creatures[n - 2], "bleed", 0.01f, 999.0f);
+                scene_.creatures[n - 1].ink_time = scene_.creatures[n - 1].shock_time = 0.0f;
+            }
             player_.known_spells.push_back("core:spell.chain_of_command");
             player_.known_spells.push_back("core:spell.cold_shoulder");
             toasts_.clear();
@@ -1525,6 +1534,16 @@ void GameEngine::UseItem(const std::string& id) {
             if (e.type == "consumable_heal") player_.health += e.amount * pot;
             else if (e.type == "consumable_mana") player_.mana += e.amount * pot;
             else if (e.type == "consumable_stamina") player_.stamina += e.amount * pot;
+            else if (e.type == "cast_spell") {
+                // Wands: each charge casts its spell for free. The stack size is the charge count.
+                if (const SpellDef* ws = content_.GetSpell(e.spell_id)) {
+                    cast_flash_ = 1.0f;
+                    cast_color_ = ws->effect.light_color;
+                    cast_sprite_ = ws->effect.projectile_sprite.empty() ? "assets/sprites/vfx/spell_arcane.png" : ws->effect.projectile_sprite;
+                    res_.PlaySfx(ws->cast_sfx, 0.75f);
+                    CastSpell(*ws, true);
+                }
+            }
             else if (e.type == "buff") {
                 // Food: a named build bonus for a while. Eating the same dish again refreshes it.
                 ActiveBuff* slot = nullptr;
@@ -1680,15 +1699,21 @@ void GameEngine::FireArrow(float power) {
 void GameEngine::CastSelectedSpell() {
     if (player_.known_spells.empty()) { Toast("You know no spells"); return; }
     player_.selected_spell = std::clamp(player_.selected_spell, 0, static_cast<int>(player_.known_spells.size()) - 1);
-    const SpellDef* s = content_.GetSpell(player_.known_spells[player_.selected_spell]);
-    if (!s || spell_cooldown_ > 0.0f) return;
-    float cost = SpellCost(*s);
+    const SpellDef* sp = content_.GetSpell(player_.known_spells[player_.selected_spell]);
+    if (!sp || spell_cooldown_ > 0.0f) return;
+    float cost = SpellCost(*sp);
     if (player_.mana < cost) {
         Toast("Not enough mana", Color{140, 160, 255, 255});
         return;
     }
     player_.mana -= cost;
-    spell_cooldown_ = s->cooldown_seconds * (1.0f - std::min(0.5f, Bonus("spell_cooldown_reduction")));
+    spell_cooldown_ = sp->cooldown_seconds * (1.0f - std::min(0.5f, Bonus("spell_cooldown_reduction")));
+    CastSpell(*sp, false);
+}
+
+void GameEngine::CastSpell(const SpellDef& spell, bool freeCast) {
+    const SpellDef* s = &spell;
+    (void)freeCast;
     cast_flash_ = 1.0f;
     cast_color_ = s->effect.light_color;
     cast_sprite_ = s->effect.projectile_sprite.empty() ? "assets/sprites/vfx/spell_arcane.png" : s->effect.projectile_sprite;
@@ -1809,6 +1834,46 @@ void GameEngine::CastSelectedSpell() {
         player_.pos.y = GroundHeight({player_.pos.x, player_.pos.y + 0.5f, player_.pos.z}, kStepHeight);
         SpawnBurst({player_.pos.x, player_.pos.y + 1.0f, player_.pos.z}, Color{190, 160, 255, 255}, 24, 2.0f, true, 0.5f);
         GainSkillXp(s->skill, 1.5f);
+    } else if (prim == "knock") {
+        // Unauthorised Entry: the nearest locked door or chest you're looking at, within 6 m, simply... isn't.
+        Vector3 eye = {player_.pos.x, player_.pos.y + player_.eye_height, player_.pos.z};
+        Vector3 fwd = Forward(player_.yaw);
+        InteractableInstance* best = nullptr;
+        float bd = 6.0f;
+        for (auto& in : scene_.interactables) {
+            if (!in.locked || in.def.mechanism_only) continue;
+            Vector3 c = Vector3Scale(Vector3Add(in.world_box.min, in.world_box.max), 0.5f);
+            Vector3 to = Vector3Subtract(c, player_.pos);
+            to.y = 0;
+            float d = Vector3Length(to);
+            if (d > bd || (d > 0.8f && Vector3DotProduct(Vector3Scale(to, 1.0f / d), fwd) < 0.5f)) continue;
+            bd = d;
+            best = &in;
+        }
+        if (!best) Toast("Nothing locked in reach.", Color{200, 190, 255, 255});
+        else if (best->def.lock_difficulty > power) Toast("This lock is above your clearance level.", Color{255, 180, 150, 255});
+        else {
+            best->locked = false;
+            Persist().unlocked.insert(best->def.instance_id);
+            Vector3 c = Vector3Scale(Vector3Add(best->world_box.min, best->world_box.max), 0.5f);
+            SpawnBurst(c, Color{200, 170, 255, 255}, 30, 2.5f, true, 0.5f);
+            res_.PlaySfx("assets/audio/sfx/door_open.wav", 0.6f, 1.5f);
+            Toast("Unlocked. (Form 12-K filed retroactively.)", Color{200, 190, 255, 255});
+            (void)eye;
+        }
+        GainSkillXp(s->skill, best ? 2.0f : 0.5f);
+    } else if (prim == "buff_stat") {
+        // A timed build bonus (lifesteal aura, haste...): stored like food buffs so Bonus() picks it up.
+        ActiveBuff* slot = nullptr;
+        for (auto& b : player_.buffs) if (b.spell_id == s->id) slot = &b;
+        if (!slot) { player_.buffs.push_back({}); slot = &player_.buffs.back(); }
+        slot->spell_id = s->id;
+        slot->primitive = "buff_stat";
+        slot->bonus_key = s->effect.bonus_key;
+        slot->bonus_value = s->effect.bonus_value * (1.0f + SkillEffect(s->skill));
+        slot->remaining = slot->duration = s->effect.duration_seconds;
+        slot->light_color = s->effect.light_color;
+        GainSkillXp(s->skill, 2.0f);
     } else if (prim == "self_heal") {
         player_.health += power * (1.0f + Bonus("heal_power_bonus"));
         player_.stamina += s->effect.stamina_restore;
@@ -2061,7 +2126,7 @@ void GameEngine::UpdateCompanion(float dt) {
         float best = 1e9f;
         Vector3 eye = {n.pos.x, n.pos.y + 1.4f, n.pos.z};
         for (auto& c : scene_.creatures) {
-            if (c.state == CreatureState::Dead || !c.alerted) continue;
+            if (c.state == CreatureState::Dead || !c.alerted || c.charm_time > 0.0f) continue;
             float dp = HDist(c.pos, player_.pos);
             float dc = HDist(c.pos, n.pos);
             if (dp > 12.0f || fabsf(c.pos.y - n.pos.y) > 2.0f) continue;
@@ -2236,6 +2301,23 @@ void GameEngine::ApplyStatus(CreatureInstance& c, const std::string& status, flo
             SpawnBurst(mid, Color{180, 220, 255, 255}, 30, 2.5f, true, 0.5f, 0.06f);
             Toast("Frozen solid!", Color{170, 220, 255, 255});
         }
+    } else if (status == "bleed") {
+        c.bleed_time = std::max(c.bleed_time, duration);
+        c.bleed_stacks = std::min(3, c.bleed_stacks + 1);
+        c.bleed_power = std::max(c.bleed_power, power);
+        if (c.bleed_stacks == 3) Toast("Bleeding heavily!", Color{230, 90, 90, 255});
+    } else if (status == "confuse") {
+        if (boss) duration *= 0.5f;
+        c.confuse_time = std::max(c.confuse_time, duration);
+        c.wander_timer = 0.0f;
+        SpawnBurst(mid, Color{220, 140, 255, 255}, 16, 1.5f, true, -0.5f, 0.05f);
+    } else if (status == "charm") {
+        if (boss) { Toast(content_.Tr(c.def->name_key) + " is not that easily won over.", Color{255, 180, 200, 255}); return; }
+        c.charm_time = std::max(c.charm_time, duration);
+        c.alerted = false;
+        c.foe = -1;
+        SpawnBurst(mid, Color{255, 150, 210, 255}, 22, 1.8f, true, -0.8f, 0.06f);
+        Toast(content_.Tr(c.def->name_key) + " is your new best friend (for now)", Color{255, 170, 220, 255});
     } else if (status == "ink") {
         c.ink_time = std::max(c.ink_time, duration);
         SpawnBurst(mid, Color{30, 30, 40, 255}, 14, 2.0f, false, 2.0f, 0.06f);
@@ -2270,10 +2352,55 @@ void GameEngine::UpdateCreatureStatus(CreatureInstance& c, float dt) {
         if (RandF() < dt * 6.0f) SpawnBurst({c.pos.x, c.pos.y + c.height * (0.3f + RandF() * 0.6f), c.pos.z}, Color{255, 240, 150, 255}, 2, 2.5f, true, 0.0f, 0.04f);
     }
     if (c.ink_time > 0.0f) c.ink_time -= dt;
+    if (c.bleed_time > 0.0f) {
+        c.bleed_time -= dt;
+        c.bleed_tick -= dt;
+        if (c.bleed_tick <= 0.0f) {
+            c.bleed_tick = 0.5f;
+            StatusDamage(c, std::max(1, static_cast<int>(std::round(c.bleed_power * c.bleed_stacks * 0.5f))), Color{170, 20, 30, 255});
+        }
+        if (c.bleed_time <= 0.0f) { c.bleed_stacks = 0; c.bleed_power = 0.0f; }
+    }
+    if (c.bleed_time > 0.0f && RandF() < dt * 5.0f) {
+        Particle pt;
+        pt.pos = {c.pos.x + (RandF() - 0.5f) * c.radius, c.pos.y + c.height * (0.3f + RandF() * 0.4f), c.pos.z + (RandF() - 0.5f) * c.radius};
+        pt.vel = {0.0f, -0.5f, 0.0f};
+        pt.color = Color{150, 10, 20, 255};
+        pt.life = pt.max_life = 0.6f;
+        pt.size = 0.04f;
+        pt.gravity = 6.0f;
+        scene_.particles.push_back(pt);
+    }
+    if (c.confuse_time > 0.0f) {
+        c.confuse_time -= dt;
+        if (RandF() < dt * 3.0f) SpawnBurst({c.pos.x, c.pos.y + c.height + 0.15f, c.pos.z}, Color{230, 200, 255, 255}, 1, 0.8f, true, 0.0f, 0.05f);
+    }
+    if (c.charm_time > 0.0f && RandF() < dt * 2.5f)
+        SpawnBurst({c.pos.x, c.pos.y + c.height + 0.15f, c.pos.z}, Color{255, 130, 200, 255}, 1, 0.6f, true, -0.4f, 0.06f);
+    if (c.charm_time > 0.0f && (c.charm_time -= dt) <= 0.0f) {
+        c.alerted = true;  // the spell wears off; it remembers who did it
+        c.last_known = player_.pos;
+        c.state = CreatureState::Chase;
+    }
+}
+
+void GameEngine::CreatureHitCreature(CreatureInstance& a, CreatureInstance& v) {
+    if (v.state == CreatureState::Dead) return;
+    int dmg = std::max(1, a.def->attack.damage * 2 - static_cast<int>(std::round(v.def->armor * 0.6f)));
+    v.health -= dmg;
+    v.hit_flash = 0.15f;
+    v.last_damaged_time = time_;
+    SpawnBurst({v.pos.x, v.pos.y + v.height * 0.6f, v.pos.z}, v.def->hit_color, 8, 2.4f, v.def->hit_glow);
+    PlaySfxAt(v.def->sfx_hit.empty() ? "assets/audio/sfx/sword_hit.wav" : v.def->sfx_hit, v.pos, 0.7f);
+    // Whoever gets hit hits back.
+    for (size_t i = 0; i < scene_.creatures.size(); i++)
+        if (&scene_.creatures[i] == &a) v.foe = static_cast<int>(i);
+    if (v.health <= 0) KillCreature(v);
 }
 
 int GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy, bool crit) {
     if (c.state == CreatureState::Dead) return 0;
+    if (c.charm_time > 0.0f) c.charm_time = 0.01f;  // betrayal ends friendships
     if (c.shock_time > 0.0f) amount = static_cast<int>(std::round(amount * (1.25f + Bonus("shock_damage_bonus"))));
     if (c.health >= c.max_health) amount = static_cast<int>(std::round(amount * (1.0f + Bonus("opener_damage_bonus"))));
     if (player_.health < MaxHealth() * 0.35f) amount = static_cast<int>(std::round(amount * (1.0f + Bonus("desperation_damage_bonus"))));
@@ -2427,6 +2554,70 @@ void GameEngine::UpdateCreatures(float dt) {
         if (c.frozen_time > 0.0f) continue;  // frozen solid: no thinking, no moving, no attacking
         float slow = c.chill_time > 0.0f ? 0.55f : 1.0f;
         c.attack_cooldown -= dt * (c.chill_time > 0.0f ? 0.65f : 1.0f);
+
+        // Charmed, confused or brawling: fight other creatures instead of the player.
+        {
+            CreatureInstance* other = nullptr;
+            bool charmed = c.charm_time > 0.0f, confused = c.confuse_time > 0.0f;
+            auto nearest = [&](bool skipCharmed) -> CreatureInstance* {
+                CreatureInstance* best = nullptr;
+                float bd = 14.0f;
+                for (size_t j = 0; j < scene_.creatures.size(); j++) {
+                    CreatureInstance& o = scene_.creatures[j];
+                    if (j == idx || o.state == CreatureState::Dead || (skipCharmed && o.charm_time > 0.0f)) continue;
+                    float dd = HDist(o.pos, c.pos);
+                    if (dd < bd && fabsf(o.pos.y - c.pos.y) < 2.5f) { bd = dd; best = &o; }
+                }
+                return best;
+            };
+            if (charmed) other = nearest(true);
+            else if (confused) {
+                CreatureInstance* n = nearest(false);
+                if (n && HDist(n->pos, c.pos) < d.attack.reach_meters * 1.3f + n->radius) other = n;
+            } else if (c.foe >= 0 && c.foe < static_cast<int>(scene_.creatures.size()) && static_cast<size_t>(c.foe) != idx) {
+                CreatureInstance& f = scene_.creatures[c.foe];
+                if (f.state != CreatureState::Dead && (f.charm_time > 0.0f || f.confuse_time > 0.0f) && HDist(f.pos, c.pos) < 15.0f) other = &f;
+                else c.foe = -1;
+            }
+            if (other || charmed || confused) {
+                float spd = d.move_speed * slow;
+                auto step = [&](Vector3 target, float stop) {
+                    float hd = HDist(c.pos, target);
+                    if (hd <= stop) return;
+                    float ty = YawTo(c.pos, target);
+                    c.yaw = ty;
+                    Vector3 before = c.pos;
+                    c.pos = MoveWithCollision(c.pos, Vector3Scale(Forward(ty), spd * dt), c.radius, c.height, false, static_cast<int>(idx));
+                    c.pos.y = GroundHeight({c.pos.x, c.pos.y + 0.3f, c.pos.z}, kStepHeight);
+                    c.moving = HDist(before, c.pos) > spd * dt * 0.2f;
+                };
+                if (other) {
+                    float reach = d.attack.reach_meters + other->radius;
+                    if (HDist(c.pos, other->pos) > reach * 0.9f) step(other->pos, reach * 0.8f);
+                    else if (c.attack_cooldown <= 0.0f) {
+                        c.yaw = YawTo(c.pos, other->pos);
+                        c.state = CreatureState::Recover;
+                        c.state_timer = 0.4f;
+                        c.anim_time = 0.0f;
+                        c.attack_cooldown = d.attack.cooldown_seconds;
+                        PlaySfxAt(d.sfx_attack, c.pos, 0.6f);
+                        CreatureHitCreature(c, *other);
+                    }
+                } else if (charmed) {
+                    if (HDist(c.pos, player_.pos) > 3.0f) step(player_.pos, 2.5f);  // nobody to fight: tag along
+                } else {
+                    c.wander_timer -= dt;
+                    if (c.wander_timer <= 0.0f) {
+                        float a = RandF() * 2.0f * PI;
+                        c.wander_to = {c.pos.x + sinf(a) * 3.0f, c.pos.y, c.pos.z + cosf(a) * 3.0f};
+                        c.wander_timer = 1.2f + RandF();
+                    }
+                    step(c.wander_to, 0.3f);
+                }
+                if (c.state == CreatureState::Recover && (c.state_timer -= dt) <= 0.0f) c.state = CreatureState::Idle;
+                continue;
+            }
+        }
 
         Vector3 eye = {c.pos.x, c.pos.y + c.height * 0.85f, c.pos.z};
         float dist = Vector3Distance(c.pos, player_.pos);

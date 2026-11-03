@@ -180,6 +180,8 @@ struct SpellEffectDef {
     float chain_range = 14.0f;     // chain: reach to the first target (jumps are 6 m)
     float radius = 0.0f;           // nova: radius around the caster
     float blink_distance = 0.0f;   // blink: metres moved forward
+    std::string bonus_key;         // buff_stat: named build bonus while active (e.g. life_steal, move_speed_bonus)
+    float bonus_value = 0.0f;
 };
 
 struct SpellDef {

@@ -366,6 +366,8 @@ private:
     void UpdateCreatureStatus(CreatureInstance& c, float dt);
     void FireArrow(float power);
     void CastSelectedSpell();
+    void CastSpell(const SpellDef& s, bool freeCast);
+    void CreatureHitCreature(CreatureInstance& attacker, CreatureInstance& victim);
     int DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy, bool crit = false);
     void KillCreature(CreatureInstance& c);
     void DamagePlayer(int raw, Vector3 from, CreatureInstance* attacker);

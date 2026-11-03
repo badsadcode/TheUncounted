@@ -1036,6 +1036,54 @@ int GameEngine::RunSelfTest() {
         const ItemDef* dag = content_.GetItem("core:item.cinderglass_dagger");
         check(dag && dag->weapon.on_hit_status == "burn" && dag->weapon.status_chance > 0.0f, "the Cinderglass Dagger sets things alight");
 
+        // Roguelike pack: bleed stacks, confused and charmed foes brawl, the unlock spell, a timed buff, wands
+        for (int i : {a, b, c3}) { at(i).health = 400; at(i).burn_time = at(i).chill_time = at(i).frozen_time = at(i).shock_time = at(i).ink_time = 0.0f; at(i).chill_stacks = 0; }
+        for (int k = 0; k < 4; k++) ApplyStatus(at(a), "bleed", 3.0f, 4.0f);
+        int hpBleed = at(a).health;
+        for (int i = 0; i < 60; i++) UpdateCreatureStatus(at(a), 1.0f / 60.0f);
+        check(at(a).bleed_stacks == 3 && hpBleed - at(a).health >= 8, "bleeding stacks three times (" + std::to_string(hpBleed - at(a).health) + " in 1s)");
+        at(a).bleed_time = 0.0f; at(a).bleed_stacks = 0;
+        at(a).pos = {0.0f, 0.0f, 0.0f};
+        at(b).pos = {0.9f, 0.0f, 0.0f};
+        at(c3).pos = {0.0f, 0.0f, -9.0f};
+        player_.pos = {0.0f, 0.0f, 12.0f};
+        ApplyStatus(at(a), "confuse", 0.0f, 6.0f);
+        at(a).attack_cooldown = 0.0f;
+        int hpB0 = at(b).health;
+        simulate(1.0f);
+        check(at(b).health < hpB0, "a confused wolf bites the wolf next to it");
+        at(a).confuse_time = 0.0f;
+        for (int i : {a, b, c3}) { at(i).health = 400; at(i).foe = -1; at(i).alerted = false; at(i).state = CreatureState::Idle; at(i).state_timer = 999.0f; }
+        at(b).pos = {4.0f, 0.0f, 0.0f};
+        ApplyStatus(at(a), "charm", 0.0f, 10.0f);
+        at(a).attack_cooldown = 0.0f;
+        simulate(2.5f);
+        check(at(b).health < 400 && at(a).charm_time > 0.0f, "a charmed wolf hunts down the other wolf for you");
+        DamageCreature(at(a), 5, false, "swords", false);
+        simulate(0.1f);
+        check(at(a).charm_time <= 0.0f && at(a).alerted, "hitting your new friend ends the friendship");
+        for (int i : {a, b, c3}) { at(i).health = 0; at(i).state = CreatureState::Dead; }
+
+        InteractableInstance* chest = interactable("road_ranger_chest");
+        if (chest) {
+            chest->locked = true;
+            Vector3 cc = Vector3Scale(Vector3Add(chest->world_box.min, chest->world_box.max), 0.5f);
+            player_.pos = {cc.x, chest->world_box.min.y, cc.z + 1.6f};
+            player_.yaw = PI;
+            cast("core:spell.unauthorised_entry");
+        }
+        check(chest && !chest->locked, "Unauthorised Entry opens a locked chest");
+        float ls0 = Bonus("life_steal");
+        cast("core:spell.borrowed_vitality");
+        check(Bonus("life_steal") > ls0 + 0.15f, "Borrowed Vitality: a timed life-steal aura");
+        player_.buffs.clear();
+        AddItem("core:item.wand_frost", 3, false);
+        player_.mana = 5.0f;
+        size_t proj = scene_.projectiles.size();
+        UseItem("core:item.wand_frost");
+        check(CountItem("core:item.wand_frost") == 2 && player_.mana == 5.0f && scene_.projectiles.size() == proj + 1,
+              "a wand charge casts Frost Lance for free (2 charges left)");
+
         scene_.creatures.erase(scene_.creatures.begin() + a, scene_.creatures.end());
         player_.known_spells = savedSpells;
         player_.flags = savedFlags;

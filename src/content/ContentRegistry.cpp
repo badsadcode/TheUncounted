@@ -528,6 +528,8 @@ void ContentRegistry::LoadSpellsFile(const std::string& rootDir, const std::stri
             d.effect.chain_range = ef.value("chain_range", 14.0f);
             d.effect.radius = ef.value("radius", 0.0f);
             d.effect.blink_distance = ef.value("blink_distance", 0.0f);
+            d.effect.bonus_key = ef.value("bonus_key", "");
+            d.effect.bonus_value = ef.value("bonus_value", 0.0f);
             if (ef.contains("light_color") && ef["light_color"].is_array() && ef["light_color"].size() == 3) {
                 d.effect.light_color = {
                     ef["light_color"][0].get<float>(),

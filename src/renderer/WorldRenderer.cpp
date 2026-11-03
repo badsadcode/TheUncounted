@@ -436,6 +436,9 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
             else if (c.chill_time > 0.0f) tint = Color{165, 210, 255, 255};
             else if (c.burn_time > 0.0f) tint = Color{255, static_cast<unsigned char>(120 + 50 * fl), static_cast<unsigned char>(60 + 30 * fl), 255};
             else if (c.shock_time > 0.0f) tint = fl > 0.6f ? Color{255, 255, 140, 255} : Color{230, 230, 200, 255};
+            if (c.charm_time > 0.0f) tint = Color{255, 160, 215, 255};
+            else if (c.confuse_time > 0.0f) tint = fl > 0.5f ? Color{215, 150, 255, 255} : Color{255, 255, 255, 255};
+            if (c.bleed_time > 0.0f && c.frozen_time <= 0.0f) tint = Color{static_cast<unsigned char>(tint.r), static_cast<unsigned char>(tint.g * 0.7f), static_cast<unsigned char>(tint.b * 0.7f), 255};
             if (c.ink_time > 0.0f) tint = Color{static_cast<unsigned char>(tint.r * 0.35f), static_cast<unsigned char>(tint.g * 0.35f), static_cast<unsigned char>(tint.b * 0.42f), 255};
             if (c.hit_flash > 0) tint = Color{255, 110, 110, 255};
             float t = c.frozen_time > 0.0f ? 0.0f : c.anim_time;
