@@ -362,6 +362,8 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
 
 ### Hand-painted sprite sheets (added 2026-11-03, trial)
 
+- The user's original sheets live in `art_source/spritesheets/` (see `art_source/README.md` for the mapping).
+
 - `tools/import_spritesheet.py SRC DST --frame 128 --match OLD.png [--match-col N] --anim-from OLD.json --anim-out NEW.json`
   converts an external 8x6 sheet (same direction/row order as the engine) on a flat background: background removal by
   connectivity (flood fill from the border + flat enclosed pockets only, so dark paint inside a figure stays opaque),
