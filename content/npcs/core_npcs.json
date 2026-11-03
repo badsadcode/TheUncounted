@@ -1271,8 +1271,8 @@
       "dialogue_id": "core:dialogue.tide_priest",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/tide_priest.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/tide_priest_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.95
       },
       "barks": [
@@ -1323,8 +1323,8 @@
       "dialogue_id": "core:dialogue.trout",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/trout.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/trout_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 2.3
       },
       "barks": [

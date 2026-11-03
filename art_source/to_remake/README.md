@@ -8,11 +8,6 @@ Write the 8 directions turning the same way as the earlier sheets (front, then t
 
 Suggested order: the characters Toasty spends the most time with first.
 
-## Main characters
-| File | Who | Notes for the remake |
-|---|---|---|
-| `trout.png` | **Trout**, Hollis's horse | Bay mare, white blaze, red saddle. Calm, unbothered. (Four-legged: the walk rows should be a trot.) |
-
 ## Hollowmere Manor
 | File | Who | Notes |
 |---|---|---|
@@ -21,20 +16,8 @@ Suggested order: the characters Toasty spends the most time with first.
 | `wrathful_host.png` | **The Wrathful Host** (boss) | Same ghost as Percival but furious: red, flaring, floating robes. |
 | `wailing_footman.png` | **Wailing Footman** (enemy) | Ghostly servant in old livery, pale blue, mouth open in a wail. |
 
-## Saltmere Docks
-| File | Who | Notes |
-|---|---|---|
-| `tide_priest.png` | **The Tide Priest** | Cult leader, dark teal robes with gold trim, unsettling. |
-
-## Monsters
-| File | What | Notes |
-|---|---|---|
-| `the_drowned.png` | The Drowned | Waterlogged greenish corpse-men, glowing eyes, seaweed. |
-| `tide_acolyte.png` | Tide Acolyte | Hooded teal cultist with a glowing green spell. |
-| `truffle_hog.png` | Truffle Hog | A pink-brown pig snuffling for truffles. |
-
 ## The Figure It Out Gang (Toasty's mystery-gang spinoff)
-Placeholder sheets rendered by `tools/build_sprites_prerendered.py`. Same 8x6 layout. (Not in `_overview.png`.)
+Placeholder sheets rendered by `tools/build_sprites_prerendered.py`. Same 8x6 layout.
 | File | Who | Notes |
 |---|---|---|
 | `figure_rodrick.png` | **Sir Rodrick Ascot-Smythe** | Square-jawed blond leader, white tunic, orange cravat, coil of rope. Heroic poses, bad plans. |

@@ -386,8 +386,8 @@
       "name_key": "enemy.truffle_hog.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/truffle_hog.png",
-        "animation_data": "assets/animations/grave_rat.json",
+        "sprite_sheet": "assets/sprites/enemies/truffle_hog_painted.png",
+        "animation_data": "assets/animations/grave_rat_128.json",
         "scale": 1.15
       },
       "stats": {
@@ -627,8 +627,8 @@
       "name_key": "enemy.the_drowned.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/the_drowned.png",
-        "animation_data": "assets/animations/skeleton.json",
+        "sprite_sheet": "assets/sprites/enemies/the_drowned_painted.png",
+        "animation_data": "assets/animations/skeleton_128.json",
         "scale": 1.8
       },
       "stats": {
@@ -676,8 +676,8 @@
       "name_key": "enemy.tide_acolyte.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/tide_acolyte.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/tide_acolyte_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 1.8
       },
       "stats": {
