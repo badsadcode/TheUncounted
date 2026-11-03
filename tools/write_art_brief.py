@@ -118,6 +118,12 @@ for cat in ("weapon", "armor", "accessory", "consumable", "ammo", "book", "key",
         d = tr(i.get("description_key", ""))
         w(f"| `{os.path.basename(i['icon'])}` | {tr(i['name_key'])} | {d[:220] + ('…' if len(d) > 220 else '')} |")
 
+w("\n## 6. A daytime sky\n")
+w("The game now has day and night. Your night and dusk horizons are used at night and at dawn/dusk; daytime needs a "
+  "third one in the same format: `sky_day.png`, **1024 × 256 px**, a 360° strip that repeats left to right, opaque. "
+  "An overcast, slightly melancholy day (it's Edrath): pale grey-blue sky, soft white-grey clouds, the same distant hills "
+  "and pine line along the bottom as the other two so they cross-fade smoothly. Deliver it in a `skies/` folder (a "
+  "placeholder made from your night sky is in the game until then).\n")
 w("\n## Done, thank you!\n")
 w("Fire (main, small and magic: in the game since 3 Nov), all 62 characters, the world textures, skies and ground "
   "scatter.\n")

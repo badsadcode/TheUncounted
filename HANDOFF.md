@@ -683,3 +683,16 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   Ten-Foot Pole (reach 3.3 m). Oakhaven teases Campaign Four (a dragon's pension paperwork).
   Authoring: `tools/authoring/mimic_campaign.py` (already run — do not rerun).
 
+
+### Day and night (added 2026-11-03)
+
+- `PlayerState.hour` (0-24, saved; new games start at 21:00) advances while playing: a day takes
+  `game.json` `day_length_minutes` real minutes (default 48; Options "Length of a day": 24/48/96 min, 3 h, clock stopped).
+- Outdoor zones (those with a `sky_panorama`, or `day_night: true` on a zone or map) treat their authored look as the
+  night and blend towards an overcast day (`DayNightLook` in GameEngine.cpp) with warm dawn (5-7) and dusk (18.5-20.5);
+  the sun direction follows the hour. Panorama: authored at night, `sky_dusk.png` at twilight, `sky_day.png` by day
+  (a placeholder recoloured from Noor's night sky; a real one is in her brief). Fireflies only at night; stars hide
+  when the sky is bright. Indoor zones never change.
+- `night_outdoors_`: monster sight x0.75 at night outdoors. NPC spawns take `"hours": [from, to]` (wraps past midnight).
+- **T** opens Wait (1 h, 3 h, until 7:00, 19:00, midnight); refused when an alerted enemy is within 30 m; restores
+  stamina and advances play_time so gathering nodes regrow. HUD clock top right. `--hour h` for screenshots.

@@ -38,7 +38,7 @@ cmake --build build -j 8
 |---|---|
 | `--validate` | Load and cross-validate all content, print issues, exit (non-zero on errors) |
 | `--selftest` | Headless walkthrough of the whole chapter (dialogue, keys, lever, plate, boss, pedestal, save/load, ending); exit code 0 = all passed |
-| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--overlay inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|reader:<item id>\|ending\|combat\|compare\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
+| `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--hour h] [--overlay wait\|inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|reader:<item id>\|ending\|combat\|compare\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
 | `--balance` | Headless duels of every starting calling vs every creature; prints win rate, time-to-kill, HP left and potions used to the log |
 | `--showcase` | With `--shot`: lines up every wearable/consumable pickup and sample hit particles in front of the camera |
 | `--mods` | Enable every mod in `mods/` for this run (alphabetical; later mods override earlier ids). See [docs/MODDING_3D.md](docs/MODDING_3D.md) |
@@ -55,6 +55,7 @@ cmake --build build -j 8
 | Cast spell / next spell | Q / R (or mouse wheel) |
 | Quick slots | 1–4 (hover a consumable in the inventory and press 1–4 to assign) |
 | Inventory / character / journal / map | I / C / J / M |
+| Wait (an hour, until morning...) | T |
 | Quick save / quick load | F6 / F9 |
 | Hot-reload content & shaders / debug overlay | F5 / F3 |
 | Pause | Esc |

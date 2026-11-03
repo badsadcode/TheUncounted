@@ -13,7 +13,7 @@
 namespace uncounted {
 
 enum class Screen { Title, Creation, Playing, Dead, Ending };
-enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting };
+enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting, Wait };
 
 struct InvItem {
     std::string id;
@@ -46,6 +46,7 @@ struct PlayerState {
     std::string name = "Nameless";
     std::string race_id, background_id, archetype_id;
     std::string portrait;   // chosen at creation (cosmetic); empty = the race's default
+    float hour = 21.0f;     // time of day, 0-24 (a new game starts at nine in the evening)
     std::map<std::string, int> attributes; // permanent values (base + race + archetype + spent points)
     std::map<std::string, SkillState> skills;
     int level = 1;
@@ -217,6 +218,17 @@ private:
     int creation_race_ = 0, creation_bg_ = 0, creation_arch_ = 0, creation_portrait_ = 0;
     std::vector<std::string> PortraitChoices(const RaceDef& r, const ArchetypeDef& a) const;
     const std::string& PlayerPortrait() const;
+    // --- Day and night
+    void AdvanceClock(float realSeconds);
+    float Daylight() const;          // 0 night .. 1 day (outdoors)
+    float Twilight() const;          // 0..1, strongest in the middle of dawn and dusk
+    bool InHours(float from, float to) const;
+    bool NightOutdoors() const { return night_outdoors_; }
+    std::string WaitBlockedReason() const;
+    void WaitUntil(float hour);
+    void DrawWait();
+    bool night_outdoors_ = false;
+    float boot_shot_hour_ = -1.0f;
     std::string creation_name_ = "Wren";
     bool options_from_title_ = false;
     int ending_stage_ = 0;

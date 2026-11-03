@@ -106,6 +106,7 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         game_cfg.sfx_volume = j.value("sfx_volume", 0.85f);
         game_cfg.subtitles_enabled = j.value("subtitles_enabled", true);
         game_cfg.text_scale = std::clamp(j.value("text_scale", 1.0f), 1.0f, 1.5f);
+        game_cfg.day_length_minutes = std::clamp(j.value("day_length_minutes", 48.0f), 0.0f, 600.0f);
         game_cfg.enable_mods = j.value("enable_mods", false);
         game_cfg.starting_map = j.value("starting_map", "core:map.edrath");
         game_cfg.starting_spawn = j.value("starting_spawn", "village_gate");
@@ -164,6 +165,7 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["sfx_volume"] = game_cfg.sfx_volume;
         j["subtitles_enabled"] = game_cfg.subtitles_enabled;
         j["text_scale"] = game_cfg.text_scale;
+        j["day_length_minutes"] = game_cfg.day_length_minutes;
         j["enable_mods"] = game_cfg.enable_mods;
         j["starting_map"] = game_cfg.starting_map;
         j["starting_spawn"] = game_cfg.starting_spawn;
@@ -1004,6 +1006,10 @@ static MapNpcSpawnDef NpcSpawnFromJson(const json& nj) {
     ns.yaw = nj.value("yaw", 0.0f);
     ns.requires_flag = nj.value("requires_flag", "");
     ns.hidden_flag = nj.value("hidden_flag", "");
+    if (nj.contains("hours") && nj["hours"].is_array() && nj["hours"].size() == 2) {
+        ns.hours_from = nj["hours"][0].get<float>();
+        ns.hours_to = nj["hours"][1].get<float>();
+    }
     return ns;
 }
 
@@ -1280,6 +1286,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
     m.fog_density = j.value("fog_density", 0.025f);
     m.weather = j.value("weather", "");
     m.sky_panorama = j.value("sky_panorama", "");
+    if (j.contains("day_night")) m.day_night = j.value("day_night", true) ? 1 : 0;
     if (j.contains("zones") && j["zones"].is_array()) {
         for (const auto& zj : j["zones"]) {
             MapZoneDef z;
@@ -1292,6 +1299,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             z.ambience = zj.value("ambience", m.ambience);
             z.weather = zj.value("weather", "");
             z.sky_panorama = zj.value("sky_panorama", m.sky_panorama);
+            z.day_night = zj.contains("day_night") ? (zj.value("day_night", true) ? 1 : 0) : m.day_night;
             z.sky_color = m.sky_color;
             if (zj.contains("sky_color") && zj["sky_color"].size() >= 3)
                 z.sky_color = {static_cast<unsigned char>(zj["sky_color"][0].get<int>()), static_cast<unsigned char>(zj["sky_color"][1].get<int>()),

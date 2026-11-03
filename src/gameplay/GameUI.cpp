@@ -258,6 +258,7 @@ void GameEngine::DrawFrame() {
             case Overlay::Shop: DrawShop(); break;
             case Overlay::Container: DrawContainer(); break;
             case Overlay::Crafting: DrawCrafting(); break;
+            case Overlay::Wait: DrawWait(); break;
             case Overlay::Reader: DrawReader(); break;
             case Overlay::Options: DrawOptions(); break;
             case Overlay::Narration: DrawNarration(); break;
@@ -460,6 +461,16 @@ void GameEngine::DrawHud() {
         Bar({VW * 0.5f - 40, VH * 0.5f + 18, 80, 6}, f, f >= 1.0f ? kGold : Color{200, 200, 200, 255}, "");
     }
     DrawCompass();
+    {   // The time of day, top right
+        float u = U();
+        float VW = GetScreenWidth() / u;
+        float h = player_.hour;
+        char buf[16];
+        snprintf(buf, sizeof(buf), "%02d:%02d", static_cast<int>(h), static_cast<int>(fmodf(h, 1.0f) * 60.0f));
+        const char* part = Twilight() > 0.35f ? (h < 12 ? "Dawn" : "Dusk") : (Daylight() > 0.5f ? "Day" : "Night");
+        std::string s = std::string(buf) + "  " + part;
+        Text(s, VW - 24 - TextWidth(s, 16), 14, 16, Daylight() > 0.5f ? kGold : Color{170, 180, 220, 255});
+    }
 }
 
 void GameEngine::DrawCompass() {
@@ -682,7 +693,7 @@ void GameEngine::DrawPause() {
     if (Button({x, y + g * 4, bw, bh}, "Options")) { options_from_title_ = false; SetOverlay(Overlay::Options); return; }
     if (Button({x, y + g * 5, bw, bh}, "Quit to Title")) { ReturnToTitle(); return; }
     if (Button({x, y + g * 6, bw, bh}, "Quit Game")) running_ = false;
-    std::string help = "WASD move  Shift sprint  Ctrl sneak  Space jump  E interact  LMB attack (hold: heavy)  RMB block  Q cast  R next spell  I/C/J/M menus  F6/F9 quick save/load";
+    std::string help = "WASD move  Shift sprint  Ctrl sneak  Space jump  E interact  LMB attack (hold: heavy)  RMB block  Q cast  R next spell  I/C/J/M menus  T wait  F6/F9 quick save/load";
     TextWrapped(help, {VW * 0.5f - 190, y + g * 7 + 4, 380, 80}, 12, kDim);
 }
 
@@ -759,6 +770,13 @@ void GameEngine::DrawOptions() {
         gc.difficulty = ds[(i + d + 3) % 3];
     };
     row("Difficulty", gc.difficulty, [&] { cycleDiff(-1); }, [&] { cycleDiff(1); });
+    {
+        static const float lens[] = {24.0f, 48.0f, 96.0f, 180.0f, 0.0f};
+        static const char* names[] = {"24 minutes", "48 minutes", "96 minutes", "3 hours", "Clock stopped"};
+        int i = 1;
+        for (int k = 0; k < 5; k++) if (fabsf(gc.day_length_minutes - lens[k]) < 0.5f) i = k;
+        row("Length of a day", names[i], [&] { gc.day_length_minutes = lens[(i + 4) % 5]; }, [&] { gc.day_length_minutes = lens[(i + 1) % 5]; });
+    }
     row("Dialogue text size", pct(gc.text_scale), [&] { gc.text_scale = std::max(1.0f, gc.text_scale - 0.1f); },
         [&] { gc.text_scale = std::min(1.5f, gc.text_scale + 0.1f); });
     row("Enable mods (restart)", gc.enable_mods ? "On" : "Off", [&] { gc.enable_mods = !gc.enable_mods; }, [&] { gc.enable_mods = !gc.enable_mods; });
@@ -1928,6 +1946,33 @@ void GameEngine::DrawDebug() {
         std::string s = log[i].message.substr(0, 80);
         line(s, log[i].level == LogLevel::Info ? Color{200, 200, 200, 255} : Color{255, 170, 120, 255});
     }
+}
+
+void GameEngine::DrawWait() {
+    float u = U();
+    float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
+    Rectangle P = {VW * 0.5f - 210, VH * 0.5f - 200, 420, 400};
+    Panel(P);
+    Text("Wait", P.x + 210 - TextWidth("Wait", 30) * 0.5f, P.y + 16, 30, kGold);
+    char buf[64];
+    snprintf(buf, sizeof(buf), "It is %02d:%02d.", static_cast<int>(player_.hour), static_cast<int>(fmodf(player_.hour, 1.0f) * 60.0f));
+    Text(buf, P.x + 210 - TextWidth(buf, 18) * 0.5f, P.y + 58, 18, kText);
+    std::string blocked = WaitBlockedReason();
+    if (!blocked.empty()) {
+        TextWrapped(blocked, {P.x + 30, P.y + 120, 360, 60}, 18, Color{230, 120, 110, 255});
+        if (Button({P.x + 110, P.y + 330, 200, 44}, "Back")) SetOverlay(Overlay::None);
+        return;
+    }
+    struct Opt { const char* label; float hour; };
+    float h = player_.hour;
+    const Opt opts[] = {{"One hour", fmodf(h + 1.0f, 24.0f)}, {"Three hours", fmodf(h + 3.0f, 24.0f)}, {"Until morning (7:00)", 7.0f},
+                        {"Until evening (19:00)", 19.0f}, {"Until midnight", 0.0f}};
+    float y = P.y + 96;
+    for (const auto& o : opts) {
+        if (Button({P.x + 60, y, 300, 40}, o.label)) { WaitUntil(o.hour); SetOverlay(Overlay::None); return; }
+        y += 48;
+    }
+    if (Button({P.x + 110, P.y + 340, 200, 40}, "Back")) SetOverlay(Overlay::None);
 }
 
 } // namespace uncounted

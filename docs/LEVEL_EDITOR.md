@@ -77,6 +77,8 @@ your own models stay as you left them.
 - **Portals** (the cones): `destination_map` (a map id: `core:map.edrath` for the game's world, `core:map.<name>` for
   yours), `destination_spawn` (a spawn point in that map), `prompt` (shown as "[E] *prompt*"), `radius` (how close you
   must stand). A portal is an invisible spot: put a door, archway or stairs model on it so players see where to go.
+- **Hours** (NPCs): to have someone around only at certain times, add a custom property `game_json_hours` with the
+  text `[20, 6]` (from 20:00 to 6:00; `[8, 18]` for daytime only). Leave quest characters without hours.
 - Fields ending in `_flag` control when things appear or vanish in the story. Leave them alone unless you know the flag.
 - Ids of the game's items, monsters and NPCs are in `content/items`, `content/creatures` and `content/npcs`.
 
@@ -176,7 +178,8 @@ You can delete the game's ground, walls, buildings and stairs (in **Uncounted Wo
 2. Build: palette pieces, your own meshes, templates (doors, NPCs, monsters...), as above.
 3. **Lights**: add Blender **Point** lights (**Shift+A → Light → Point**). Their colour is kept, and their Power sets
    how far they reach (600 W ≈ 10 m). Palette torches already glow.
-4. **Map atmosphere** in the sidebar: sky and fog colours, fog density (0 = clear, 0.05 = thick), ambient light,
+4. **Map atmosphere** in the sidebar: **Day and night** (an outdoor map follows the game's clock; untick it for caves
+   and interiors), sky and fog colours (the look at night; daytime is worked out from it), fog density (0 = clear, 0.05 = thick), ambient light,
    moon/sun light, weather (rain, dust, fireflies), horizon picture (night or dusk sky), music and ambience (file paths
    under `assets/audio/...`).
 5. **Spawn points**: the `start` arrows are where players arrive. Copy the spawn template for more (each gets a name in

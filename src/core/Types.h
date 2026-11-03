@@ -56,6 +56,7 @@ struct GameConfig {
     std::string starting_map = "core:map.edrath";
     std::string starting_spawn = "village_gate";
     std::string starting_quest = "core:quest.legally_deceased";
+    float day_length_minutes = 48.0f;   // real minutes for a full day outdoors; 0 = the clock stands still
 };
 
 // ============================================================================
@@ -485,6 +486,7 @@ struct MapNpcSpawnDef {
     float yaw = 0.0f;
     std::string requires_flag;   // only present once this story flag is set
     std::string hidden_flag;     // gone once this story flag is set
+    float hours_from = -1.0f, hours_to = -1.0f;   // only around between these hours (e.g. 20 to 6); -1 = always
 };
 
 struct MapCreatureSpawnDef {
@@ -576,6 +578,7 @@ struct MapZoneDef {
     std::string override_ambience;
     float sanity_drain = 0.0f;   // sanity lost per second while this is the dominant zone (eldritch places)
     std::string sky_panorama;    // optional 360-degree horizon image (repeats horizontally); "" = plain sky gradient
+    int day_night = -1;          // follows the clock (outdoors)? -1 = yes when it has a sky panorama (crypts and rooms don't)
 };
 
 // Ground scatter: small cut-out sprites (grass tufts, ferns, mushrooms) that turn to face the camera around their
@@ -600,6 +603,7 @@ struct MapDef {
     float fog_density = 0.025f;
     std::string weather; // "", "rain", "dust"
     std::string sky_panorama;
+    int day_night = -1;   // map without zones: follows the clock? -1 = yes when it has a sky panorama
     std::vector<MapZoneDef> zones;
     std::map<std::string, MapSpawnDef> spawns;
     std::vector<MapPropDef> props;

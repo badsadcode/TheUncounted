@@ -72,7 +72,8 @@ struct NpcInstance {
     float anim_time = 0.0f;
     Vector3 home{};          // where the map placed it (companions return here when dismissed)
     std::string requires_flag, hidden_flag;
-    bool hidden = false;     // not present right now (story flags)
+    float hours_from = -1.0f, hours_to = -1.0f;   // only around between these hours (-1 = always)
+    bool hidden = false;     // not present right now (story flags, or outside its hours)
     bool companion = false;  // currently travelling with the player
     std::string anim = "idle";
     float attack_cd = 0.0f;

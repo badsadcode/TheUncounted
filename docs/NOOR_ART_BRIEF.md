@@ -306,6 +306,11 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `wayside_sage.png` | Wayside Sage | Grey-green, peppery, grows along every road in the Marches. Good for stamina, better for soup. (Crafting material.) |
 | `wolfsbane.png` | Wolfsbane | Purple hooded flowers from the Whistling Wood. Rolf asks that you not wave it near him. Makes wounds that won't close. (Crafting material.) |
 
+## 6. A daytime sky
+
+The game now has day and night. Your night and dusk horizons are used at night and at dawn/dusk; daytime needs a third one in the same format: `sky_day.png`, **1024 × 256 px**, a 360° strip that repeats left to right, opaque. An overcast, slightly melancholy day (it's Edrath): pale grey-blue sky, soft white-grey clouds, the same distant hills and pine line along the bottom as the other two so they cross-fade smoothly. Deliver it in a `skies/` folder (a placeholder made from your night sky is in the game until then).
+
+
 ## Done, thank you!
 
 Fire (main, small and magic: in the game since 3 Nov), all 62 characters, the world textures, skies and ground scatter.

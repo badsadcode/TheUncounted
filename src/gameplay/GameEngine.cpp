@@ -74,7 +74,7 @@ static const std::map<std::string, std::string>& DefaultBindings() {
         {"attack", "MOUSE_LEFT"}, {"block_or_aim", "MOUSE_RIGHT"}, {"cast_spell", "Q"}, {"cycle_spell", "R"},
         {"quick_slot_1", "1"}, {"quick_slot_2", "2"}, {"quick_slot_3", "3"}, {"quick_slot_4", "4"},
         {"inventory", "I"}, {"character", "C"}, {"journal", "J"}, {"map", "M"},
-        {"quick_save", "F6"}, {"quick_load", "F9"}, {"hot_reload", "F5"}, {"debug_overlay", "F3"},
+        {"wait", "T"}, {"quick_save", "F6"}, {"quick_load", "F9"}, {"hot_reload", "F5"}, {"debug_overlay", "F3"},
     };
     return d;
 }
@@ -155,6 +155,7 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (a == "--balance") balance_ = true;
         else if (a == "--mute") mute_ = true;
         else if (a == "--arch") creation_arch_ = atoi(next().c_str());
+        else if (a == "--hour") boot_shot_hour_ = static_cast<float>(atof(next().c_str()));   // --shot: time of day
         else if (a == "--showcase") boot_shot_overlay_ = "showcase";
     }
 
@@ -202,6 +203,7 @@ bool GameEngine::Init(int argc, char** argv) {
         overlay_ = Overlay::None;
         for (const auto& f : boot_shot_flags_) player_.flags.insert(f);
         if (boot_shot_sanity_ >= 0.0f) player_.sanity = boot_shot_sanity_;
+        if (boot_shot_hour_ >= 0.0f) { player_.hour = boot_shot_hour_; content_.game_cfg.day_length_minutes = 0.0f; UpdateAtmosphere(0.0f, true); }
         for (size_t k = 0; k < boot_shot_companions_.size(); k++) {
             player_.companions.push_back(boot_shot_companions_[k]);
             for (auto& n : scene_.npcs) {
@@ -261,6 +263,7 @@ bool GameEngine::Init(int argc, char** argv) {
             ui_ignore_hover_ = true;
         }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
+        else if (boot_shot_overlay_ == "wait") overlay_ = Overlay::Wait;
         else if (boot_shot_overlay_ == "options") overlay_ = Overlay::Options;
         else if (boot_shot_overlay_ == "fishing") {
             fishing_ = true;
@@ -490,9 +493,45 @@ static float BoxDistance(const Vector3& p, const Vector3& mn, const Vector3& mx)
     return sqrtf(dx * dx + dy * dy + dz * dz);
 }
 
+// Outdoors, the authored look is the night; the clock blends it towards an overcast day, with warm dawns and dusks.
+namespace {
+struct Look { Vector3 sky, amb, sd, sc, fc; float fd; };
+Vector3 V(Color c) { return {c.r / 255.0f, c.g / 255.0f, c.b / 255.0f}; }
+Look DayNightLook(Look n, float day, float twilight, float hour) {
+    if (day <= 0.0f && twilight <= 0.0f) return n;
+    Look d;
+    d.sky = Vector3Lerp(n.sky, {0.58f, 0.67f, 0.78f}, 0.85f);
+    d.amb = Vector3Lerp(Vector3Scale(n.amb, 1.6f), {0.8f, 0.8f, 0.8f}, 0.5f);
+    d.sc = {0.82f, 0.78f, 0.7f};
+    d.fc = Vector3Lerp(n.fc, Vector3Scale(d.sky, 0.95f), 0.8f);
+    d.fd = n.fd * 0.6f;
+    float a = (hour - 6.0f) / 12.0f * PI;                       // the sun crosses from east to west
+    d.sd = Vector3Normalize({-cosf(a) * 0.8f, std::max(0.15f, sinf(a)), -0.35f});
+    Look r;
+    r.sky = Vector3Lerp(n.sky, d.sky, day);
+    r.amb = Vector3Lerp(n.amb, d.amb, day);
+    r.sc = Vector3Lerp(n.sc, d.sc, day);
+    r.fc = Vector3Lerp(n.fc, d.fc, day);
+    r.fd = n.fd + (d.fd - n.fd) * day;
+    r.sd = Vector3Normalize(Vector3Lerp(n.sd, d.sd, day));
+    float w = twilight * 0.75f;                                   // a warm glow at dawn and dusk
+    r.sky = Vector3Lerp(r.sky, {0.8f, 0.48f, 0.3f}, w);
+    r.amb = Vector3Lerp(r.amb, Vector3Lerp(Vector3Scale(n.amb, 1.3f), {0.95f, 0.7f, 0.6f}, 0.4f), w);
+    r.sc = Vector3Lerp(r.sc, {1.0f, 0.62f, 0.4f}, w);
+    r.fc = Vector3Lerp(r.fc, {0.58f, 0.38f, 0.3f}, w);
+    return r;
+}
+Color C(Vector3 v) {
+    return {static_cast<unsigned char>(Clamp(v.x * 255.0f, 0.0f, 255.0f)), static_cast<unsigned char>(Clamp(v.y * 255.0f, 0.0f, 255.0f)),
+            static_cast<unsigned char>(Clamp(v.z * 255.0f, 0.0f, 255.0f)), 255};
+}
+bool Outdoor(int dayNight, const std::string& pano) { return dayNight < 0 ? !pano.empty() : dayNight > 0; }
+}  // namespace
+
 Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant) const {
     Atmosphere a;
     const MapDef* m = scene_.map;
+    const float day = Daylight(), tw = Twilight();
     if (dominant) *dominant = nullptr;
     if (!m) return a;
     a.sky = m->sky_color;
@@ -503,7 +542,15 @@ Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant)
     a.fog_density = m->fog_density;
     a.weather = m->weather;
     a.sky_panorama = m->sky_panorama;
-    if (m->zones.empty()) return a;
+    auto timeOfDay = [&](bool outdoor, Atmosphere& at) {
+        if (!outdoor) return;
+        Look l = DayNightLook({V(at.sky), at.ambient, at.sun_dir, at.sun_color, at.fog_color, at.fog_density}, day, tw, player_.hour);
+        at.sky = C(l.sky); at.ambient = l.amb; at.sun_dir = l.sd; at.sun_color = l.sc; at.fog_color = l.fc; at.fog_density = l.fd;
+        if (tw > 0.35f) at.sky_panorama = "assets/textures/sky/sky_dusk.png";
+        else if (day > 0.5f) at.sky_panorama = "assets/textures/sky/sky_day.png";
+        if (day > 0.5f && at.weather == "fireflies") at.weather = "";
+    };
+    if (m->zones.empty()) { timeOfDay(Outdoor(m->day_night, m->sky_panorama), a); return a; }
 
     float wsum = 0.0f, best = 0.0f;
     float sky[3] = {0, 0, 0};
@@ -516,12 +563,15 @@ Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant)
         if (w <= 0.0f) continue;
         if (w > best) { best = w; if (dominant) *dominant = &z; }
         wsum += w;
-        sky[0] += z.sky_color.r * w; sky[1] += z.sky_color.g * w; sky[2] += z.sky_color.b * w;
-        amb = Vector3Add(amb, Vector3Scale(z.ambient_color, w));
-        sd = Vector3Add(sd, Vector3Scale(z.sun_direction, w));
-        sc = Vector3Add(sc, Vector3Scale(z.sun_color, w));
-        fc = Vector3Add(fc, Vector3Scale(z.fog_color, w));
-        fd += z.fog_density * w;
+        Look l = {V(z.sky_color), z.ambient_color, z.sun_direction, z.sun_color, z.fog_color, z.fog_density};
+        if (Outdoor(z.day_night, z.sky_panorama)) l = DayNightLook(l, day, tw, player_.hour);
+        Color zs = C(l.sky);
+        sky[0] += zs.r * w; sky[1] += zs.g * w; sky[2] += zs.b * w;
+        amb = Vector3Add(amb, Vector3Scale(l.amb, w));
+        sd = Vector3Add(sd, Vector3Scale(l.sd, w));
+        sc = Vector3Add(sc, Vector3Scale(l.sc, w));
+        fc = Vector3Add(fc, Vector3Scale(l.fc, w));
+        fd += l.fd * w;
     }
     if (wsum <= 0.0f) return a;
     float k = 1.0f / wsum;
@@ -535,6 +585,11 @@ Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant)
     if (dominant && *dominant) a.sky_panorama = (*dominant)->sky_panorama;
     if (dominant && *dominant && !(*dominant)->override_flag.empty() && player_.flags.count((*dominant)->override_flag))
         a.weather = (*dominant)->override_weather;
+    if (dominant && *dominant && Outdoor((*dominant)->day_night, (*dominant)->sky_panorama)) {
+        if (tw > 0.35f) a.sky_panorama = "assets/textures/sky/sky_dusk.png";
+        else if (day > 0.5f) a.sky_panorama = "assets/textures/sky/sky_day.png";
+        if (day > 0.5f && a.weather == "fireflies") a.weather = "";
+    }
     return a;
 }
 
@@ -564,6 +619,7 @@ void GameEngine::UpdateAtmosphere(float dt, bool snap) {
         atmo_.weather = target.weather;
         atmo_.sky_panorama = target.sky_panorama;
     }
+    night_outdoors_ = Daylight() < 0.3f && (dom ? Outdoor(dom->day_night, dom->sky_panorama) : Outdoor(scene_.map->day_night, scene_.map->sky_panorama));
     std::string id = dom ? dom->id : "";
     if (id != zone_id_) {
         zone_id_ = id;
@@ -765,8 +821,11 @@ void GameEngine::BuildScene() {
         ni.home = n.pos;
         ni.requires_flag = n.requires_flag;
         ni.hidden_flag = n.hidden_flag;
+        ni.hours_from = n.hours_from;
+        ni.hours_to = n.hours_to;
         ni.hidden = (!n.requires_flag.empty() && !player_.flags.count(n.requires_flag)) ||
-                    (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag));  // right from the first frame
+                    (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag)) ||
+                    !InHours(n.hours_from, n.hours_to);  // right from the first frame
         scene_.npcs.push_back(ni);
     }
 
@@ -899,6 +958,7 @@ void GameEngine::UpdatePlaying(float dt) {
     }
 
     player_.play_time += dt;
+    AdvanceClock(dt);
 
     // Mouse look (per frame for responsiveness)
     Vector2 md = GetMouseDelta();
@@ -931,6 +991,7 @@ void GameEngine::HandleGameplayInput(float dt) {
     if (ActionPressed("character")) { SetOverlay(Overlay::Character); return; }
     if (ActionPressed("journal")) { SetOverlay(Overlay::Journal); return; }
     if (ActionPressed("map")) { SetOverlay(Overlay::Map); return; }
+    if (ActionPressed("wait")) { SetOverlay(Overlay::Wait); return; }
     if (ActionPressed("quick_save")) { if (SaveGame("slot_1")) Toast("Game saved"); }
     if (ActionPressed("quick_load")) {
         if (SaveExists("slot_1")) { LoadGame("slot_1"); return; }
@@ -2794,7 +2855,7 @@ void GameEngine::UpdateCreatures(float dt) {
         float dist = Vector3Distance(c.pos, player_.pos);
         float yawToPlayer = YawTo(c.pos, player_.pos);
         float facingDiff = fabsf(WrapAngle(yawToPlayer - c.yaw));
-        float sight = d.sight_meters * vis;
+        float sight = d.sight_meters * vis * (night_outdoors_ ? 0.75f : 1.0f);   // night outdoors: easier to sneak
         bool inCone = c.alerted ? true : facingDiff < 70.0f * DEG2RAD;
         if (c.ink_time > 0.0f) sight = std::min(sight, 2.5f);  // inked: can barely see past its own nose
         bool canSee = dist < sight && inCone && LineOfSight(eye, playerEye);
@@ -3066,7 +3127,8 @@ void GameEngine::UpdateWorldObjects(float dt) {
     }
     for (auto& n : scene_.npcs)
         n.hidden = (!n.requires_flag.empty() && !player_.flags.count(n.requires_flag)) ||
-                   (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag) && !IsCompanion(n.def->id));
+                   (!n.hidden_flag.empty() && player_.flags.count(n.hidden_flag) && !IsCompanion(n.def->id)) ||
+                   (!InHours(n.hours_from, n.hours_to) && !IsCompanion(n.def->id) && dialogue_npc_ != static_cast<int>(&n - &scene_.npcs[0]));
     UpdateCompanion(dt);
 
     // NPCs idly turn to face a nearby player and back again.
@@ -3734,6 +3796,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     pj["name"] = p.name;
     pj["race"] = p.race_id;
     pj["portrait"] = p.portrait;
+    pj["hour"] = p.hour;
     pj["background"] = p.background_id;
     pj["archetype"] = p.archetype_id;
     pj["attributes"] = p.attributes;
@@ -3845,6 +3908,7 @@ bool GameEngine::LoadGame(const std::string& slot) {
         p.name = pj.value("name", "Nameless");
         p.race_id = pj.value("race", "");
         p.portrait = pj.value("portrait", "");
+        p.hour = pj.value("hour", 21.0f);
         p.background_id = pj.value("background", "");
         p.archetype_id = pj.value("archetype", "");
         p.attributes = pj.value("attributes", std::map<std::string, int>{});
@@ -4109,6 +4173,61 @@ const std::string& GameEngine::PlayerPortrait() const {
     if (!player_.portrait.empty() && res_.Exists(player_.portrait)) return player_.portrait;
     const RaceDef* race = content_.GetRace(player_.race_id);
     return race ? race->portrait : none;
+}
+
+// ============================================================================
+// Day and night
+// ============================================================================
+void GameEngine::AdvanceClock(float realSeconds) {
+    float minutes = content_.game_cfg.day_length_minutes;
+    if (minutes <= 0.0f) return;                                  // Options: the clock stands still
+    player_.hour = fmodf(player_.hour + realSeconds * 24.0f / (minutes * 60.0f), 24.0f);
+}
+
+static float Smooth(float e0, float e1, float x) {
+    float t = Clamp((x - e0) / (e1 - e0), 0.0f, 1.0f);
+    return t * t * (3.0f - 2.0f * t);
+}
+
+// Night until 5, dawn 5-7, day 7-18.5, dusk 18.5-20.5, night again.
+float GameEngine::Daylight() const {
+    float h = player_.hour;
+    return h < 12.0f ? Smooth(5.0f, 7.0f, h) : 1.0f - Smooth(18.5f, 20.5f, h);
+}
+
+float GameEngine::Twilight() const {
+    float h = player_.hour;
+    auto bump = [](float a, float b, float x) { return (x <= a || x >= b) ? 0.0f : sinf((x - a) / (b - a) * PI); };
+    return std::max(bump(4.6f, 7.4f, h), bump(18.1f, 20.9f, h));
+}
+
+bool GameEngine::InHours(float from, float to) const {
+    if (from < 0.0f || to < 0.0f) return true;
+    float h = player_.hour;
+    return from <= to ? (h >= from && h < to) : (h >= from || h < to);   // e.g. 20 to 6 wraps past midnight
+}
+
+std::string GameEngine::WaitBlockedReason() const {
+    for (const auto& c : scene_.creatures) {
+        if (c.state == CreatureState::Dead || !c.alerted) continue;
+        if (Vector3Distance(c.pos, player_.pos) < 30.0f) return "You can't wait with enemies nearby.";
+    }
+    return "";
+}
+
+void GameEngine::WaitUntil(float hour) {
+    float before = player_.hour;
+    float span = fmodf(hour - before + 24.0f, 24.0f);
+    if (span < 0.01f) span = 24.0f;
+    player_.hour = fmodf(hour, 24.0f);
+    // A rest: catch your breath, and the hours pass for whatever regrows.
+    player_.stamina = static_cast<float>(MaxStamina());
+    player_.play_time += span * 60.0f;
+    UpdateWorldObjects(0.0f);
+    UpdateAtmosphere(0.0f, true);
+    char buf[64];
+    snprintf(buf, sizeof(buf), "You wait. It is now %02d:%02d.", static_cast<int>(player_.hour), static_cast<int>(fmodf(player_.hour, 1.0f) * 60.0f));
+    Toast(buf);
 }
 
 } // namespace uncounted

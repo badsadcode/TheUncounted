@@ -10,6 +10,7 @@ Folders it understands (anywhere in the zip, any letter case):
   spell_icons/    <spell icon name>.png    -> assets/ui/spells/              (must match an existing icon's file name)
   item_icons/     <item icon name>.png     -> assets/ui/items/               (must match an existing icon's file name)
   spell_effects/  spell_*.png              -> assets/sprites/vfx/            (square frames in one row; alpha made hard)
+  skies/          sky_day.png (1024x256)   -> assets/textures/sky/
   monsters/       lost_sentinel / animated_armor / headless_knight / repossession_golem 8x6 sheets:
                   the four monsters are switched from the shared 3D model to sprites, then imported with
                   tools/import_package.py like every other character sheet.
@@ -27,7 +28,7 @@ import tempfile
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECTIONS = ("portraits", "spell_icons", "item_icons", "spell_effects", "monsters")
+SECTIONS = ("portraits", "spell_icons", "item_icons", "spell_effects", "monsters", "skies")
 MONSTERS = {  # sheet name -> (creature id, height in metres)
     "lost_sentinel": ("core:enemy.lost_sentinel", 2.2),
     "animated_armor": ("core:enemy.animated_armor", 1.95),
@@ -127,6 +128,14 @@ def main():
             problems.append(f"spell_effects/{name}: {w}x{h} isn't a row of square frames")
             continue
         plan.append(("spell_effects", path, f"assets/sprites/vfx/{name}", "hard_alpha"))
+    for path in found["skies"]:
+        name = os.path.basename(path).lower()
+        if name not in ("sky_day.png", "sky_night.png", "sky_dusk.png"):
+            problems.append(f"skies/{os.path.basename(path)}: should be sky_day.png (or sky_night / sky_dusk)")
+            continue
+        if Image.open(path).size != (1024, 256):
+            problems.append(f"skies/{name}: {Image.open(path).size}, expected 1024x256 (it will be resized)")
+        plan.append(("skies", path, f"assets/textures/sky/{name}", "sky"))
     monsters = []
     for path in found["monsters"]:
         stem = re.sub(r"[^a-z0-9]+", "_", os.path.basename(path).lower().rsplit(".", 1)[0]).strip("_")
@@ -138,7 +147,7 @@ def main():
 
     print(f"Found: " + ", ".join(f"{len(found[s])} {s.replace('_', ' ')}" for s in SECTIONS) +
           (f", {len(unknown)} outside the known folders" if unknown else ""))
-    for s in ("portraits", "spell_icons", "item_icons", "spell_effects"):
+    for s in ("portraits", "spell_icons", "item_icons", "spell_effects"):  # (skies: just sky_day.png)
         done = {os.path.basename(d) for sec, _, d, _ in plan if sec == s}
         todo = sorted(exp[s] - done) if s != "portraits" else sorted(n for n in exp[s] if n not in done)
         print(f"  {s}: importing {len(done)}; still to come {len(todo)}" + (f" (e.g. {', '.join(todo[:4])})" if todo else ""))
@@ -156,6 +165,8 @@ def main():
         os.makedirs(os.path.dirname(keep), exist_ok=True)
         shutil.copyfile(path, keep)
         im = Image.open(path).convert("RGBA")
+        if fix == "sky" and im.size != (1024, 256):
+            im = im.resize((1024, 256), Image.LANCZOS)
         if fix == "resize128":
             im = im.resize((128, 128), Image.LANCZOS if im.width > 128 else Image.NEAREST)
         if fix == "hard_alpha":

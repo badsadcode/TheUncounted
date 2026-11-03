@@ -1723,6 +1723,57 @@ int GameEngine::RunSelfTest() {
         }
     }
 
+    // --- Day and night
+    {
+        const float savedHour = player_.hour, savedLen = content_.game_cfg.day_length_minutes;
+        content_.game_cfg.day_length_minutes = 48.0f;
+        player_.hour = 23.9f;
+        AdvanceClock(60.0f);   // one real minute = half an hour
+        check(player_.hour > 0.3f && player_.hour < 0.5f, "the clock runs and wraps past midnight");
+        LoadMap("core:map.edrath", "village_gate");
+        player_.hour = 0.0f; UpdateAtmosphere(0.0f, true);
+        const Atmosphere night = atmo_;
+        const bool nightOut = NightOutdoors();
+        player_.hour = 12.0f; UpdateAtmosphere(0.0f, true);
+        const Atmosphere noon = atmo_;
+        check(noon.ambient.x > night.ambient.x * 1.3f && noon.sky.r + noon.sky.g + noon.sky.b > 300 &&
+                  noon.sky_panorama == "assets/textures/sky/sky_day.png" && nightOut && !NightOutdoors(),
+              "outdoors, noon is bright with a day sky and midnight is night (no stars by day)");
+        player_.hour = 19.6f; UpdateAtmosphere(0.0f, true);
+        check(atmo_.sky_panorama == "assets/textures/sky/sky_dusk.png", "dusk paints the dusk sky");
+        Vector3 annex{};
+        for (const auto& z : scene_.map->zones)
+            if (z.id == "annex") annex = Vector3Scale(Vector3Add(z.box_min, z.box_max), 0.5f);
+        player_.hour = 0.0f; const Atmosphere in0 = ComputeAtmosphere(annex, nullptr);
+        player_.hour = 12.0f; const Atmosphere in12 = ComputeAtmosphere(annex, nullptr);
+        check(fabsf(in0.ambient.x - in12.ambient.x) < 0.001f && in0.sky_panorama == in12.sky_panorama,
+              "indoors (the Registry Annex) looks the same at midnight and noon");
+        NpcInstance* someone = nullptr;
+        for (auto& n : scene_.npcs) if (!n.hidden && !IsCompanion(n.def->id)) { someone = &n; break; }
+        if (someone) {
+            someone->hours_from = 20.0f; someone->hours_to = 6.0f;
+            player_.hour = 12.0f; UpdateWorldObjects(0.0f);
+            bool goneByDay = someone->hidden;
+            player_.hour = 23.0f; UpdateWorldObjects(0.0f);
+            check(goneByDay && !someone->hidden, "an NPC with hours 20 to 6 is around at night and gone by day");
+            someone->hours_from = someone->hours_to = -1.0f;
+            UpdateWorldObjects(0.0f);
+        }
+        CreatureInstance* foe = nullptr;
+        for (auto& c : scene_.creatures) if (c.state != CreatureState::Dead) { foe = &c; break; }
+        if (foe) {
+            const Vector3 fp = foe->pos; const bool fa = foe->alerted;
+            foe->pos = Vector3Add(player_.pos, {3, 0, 0}); foe->alerted = true;
+            check(!WaitBlockedReason().empty(), "you can't wait with an enemy after you");
+            foe->pos = fp; foe->alerted = fa;
+        }
+        player_.hour = 22.0f;
+        if (WaitBlockedReason().empty()) WaitUntil(7.0f);
+        check(fabsf(player_.hour - 7.0f) < 0.01f, "waiting until morning makes it 7:00");
+        player_.hour = savedHour;
+        content_.game_cfg.day_length_minutes = savedLen;
+    }
+
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
     Logger::Info("Self-test finished with " + std::to_string(failures) + " failure(s).");

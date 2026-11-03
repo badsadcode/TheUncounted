@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 8, 0),
+    "version": (4, 9, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -677,6 +677,7 @@ class UNC_OT_import_map(bpy.types.Operator):
         sc.uncounted_weather = m.get("weather", "") or "NONE"
         sc.uncounted_panorama = {"": "NONE", "assets/textures/sky/sky_night.png": "NIGHT", "assets/textures/sky/sky_dusk.png": "DUSK"}.get(
             m.get("sky_panorama", ""), "NONE")
+        sc.uncounted_day_night = bool(m.get("day_night", bool(m.get("sky_panorama"))))
         sc.uncounted_music = m.get("music", "")
         sc.uncounted_ambience = m.get("ambience", "")
         for name in (COL_WORLD, COL_OBJECTS, COL_PALETTE):
@@ -1148,6 +1149,7 @@ class UNC_OT_export(bpy.types.Operator):
                  "sun_direction": [-0.3, 0.8, -0.3], "sun_color": [round(c, 3) for c in sc.uncounted_sun],
                  "fog_color": [round(c, 3) for c in sc.uncounted_fog], "fog_density": round(sc.uncounted_fog_density, 4),
                  "weather": "" if sc.uncounted_weather == "NONE" else sc.uncounted_weather, "sky_panorama": pano,
+                 "day_night": bool(sc.uncounted_day_night),
                  "spawns": spawns, "props": r["props"], "lights": r["lights"]}
             for k in KINDS:
                 m[k] = r["objs"][k]
@@ -1351,6 +1353,7 @@ class UNC_PT_panel(bpy.types.Panel):
             row.operator("uncounted.import_map", icon="IMPORT")
             box = lay.box()
             box.label(text="Map atmosphere", icon="WORLD")
+            box.prop(sc, "uncounted_day_night")
             for p in ("uncounted_sky", "uncounted_fog", "uncounted_fog_density", "uncounted_ambient", "uncounted_sun",
                       "uncounted_weather", "uncounted_panorama", "uncounted_music", "uncounted_ambience"):
                 box.prop(sc, p)
@@ -1397,6 +1400,9 @@ def register():
     S.uncounted_mode = P.EnumProperty(name="Mode", items=[("WORLD", "Edit World", "Change the game's world"),
                                                           ("MAP", "New Map", "Build your own map")], default="WORLD")
     S.uncounted_map_name = P.StringProperty(name="Map name", default="My Map")
+    S.uncounted_day_night = P.BoolProperty(name="Day and night", default=True,
+                                           description="Outdoor map: follows the game's clock (dawn, day, dusk, night). "
+                                                       "Untick for caves and interiors that always look as you set them")
     S.uncounted_keep_scatter = P.BoolProperty(name="Keep grass & flowers", default=True,
                                               description="The game's grass tufts and wild flowers on the ground. Untick when you rebuild the ground yourself")
     S.uncounted_sky = P.FloatVectorProperty(name="Sky", subtype="COLOR", min=0, max=1, default=(0.09, 0.11, 0.17))
@@ -1426,7 +1432,7 @@ def register():
 def unregister():
     for c in reversed(CLASSES):
         bpy.utils.unregister_class(c)
-    for name in ("uncounted_game_dir", "uncounted_mode", "uncounted_map_name", "uncounted_keep_scatter", "uncounted_sky", "uncounted_fog", "uncounted_fog_density",
+    for name in ("uncounted_game_dir", "uncounted_mode", "uncounted_map_name", "uncounted_keep_scatter", "uncounted_day_night", "uncounted_sky", "uncounted_fog", "uncounted_fog_density",
                  "uncounted_ambient", "uncounted_sun", "uncounted_weather", "uncounted_panorama", "uncounted_music", "uncounted_ambience"):
         delattr(bpy.types.Scene, name)
     del bpy.types.Object.uncounted_solid
