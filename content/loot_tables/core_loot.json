@@ -617,6 +617,28 @@
       "guaranteed": [
         "core:item.bonnet_thread"
       ]
+    },
+    {
+      "id": "core:loot.repossession_golem",
+      "gold_min": 60,
+      "gold_max": 100,
+      "guaranteed": [
+        "core:item.quillsby_ledger"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.iron_scrap",
+          "weight": 100,
+          "min_qty": 3,
+          "max_qty": 5
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 60,
+          "min_qty": 1,
+          "max_qty": 2
+        }
+      ]
     }
   ]
 }

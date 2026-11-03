@@ -1101,6 +1101,71 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.dragon_pension",
+      "title_key": "quest.dp.title",
+      "summary_key": "quest.dp.summary",
+      "campaign": "dragon_pension",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.dp.stage0",
+          "journal_key": "quest.dp.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.dp.stage10",
+          "journal_key": "quest.dp.journal10",
+          "markers": [
+            "npc_dragon_cindermaw"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.dp.stage20",
+          "journal_key": "quest.dp.journal20",
+          "markers": [
+            "npc_fenwick",
+            "npc_pickering",
+            "npc_dragon_cindermaw",
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.dp.stage30",
+          "journal_key": "quest.dp.journal30",
+          "markers": [
+            "npc_kobold_quillsby"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.dp.stage40",
+          "journal_key": "quest.dp.journal40",
+          "markers": [
+            "dp_golem"
+          ]
+        },
+        {
+          "stage": 50,
+          "objective_key": "quest.dp.stage50",
+          "journal_key": "quest.dp.journal50",
+          "markers": [
+            "npc_dragon_cindermaw"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.dp.stage100",
+          "journal_key": "quest.dp.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [
@@ -1145,6 +1210,13 @@
       "desc_key": "campaign.figure.desc",
       "kind": "tales",
       "order": 32
+    },
+    {
+      "id": "dragon_pension",
+      "name_key": "campaign.dragon.name",
+      "desc_key": "campaign.dragon.desc",
+      "kind": "tales",
+      "order": 34
     }
   ]
 }

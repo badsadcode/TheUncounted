@@ -668,8 +668,22 @@ def quadruped(style, row):
             p.append(capsule(hc + v3(-0.065, 0.02, 0.02), hc + v3(0.065, 0.02, 0.02), 0.014, lace))
             p.append(ellipsoid(v3(0, by + 0.05, 0.15), (0.095, 0.03, 0.06), lace))
             p.append(ellipsoid(v3(0, by + 0.01, -0.02), (br[0] * 1.08, br[1] * 1.05, br[2] * 0.7), Mat(style.get("gown", (150, 170, 210)))))
+        if style.get("dragon"):  # horns, back spines and great leathery wings
+            horn = Mat(style.get("horn", (220, 205, 170)))
+            wing = Mat(style.get("wing", shade(style["body"], 0.75)))
+            for sx in (-1, 1):
+                p.append(capsule(hc + v3(0.025 * sx, 0.04, -0.02), hc + v3(0.05 * sx, 0.1, -0.08), 0.012, horn, 0.003))
+            for k in range(5):
+                p.append(capsule(v3(0, by + br[1] * 0.9, 0.1 - k * 0.07), v3(0, by + br[1] * 0.9 + 0.04, 0.08 - k * 0.07), 0.012, horn, 0.002))
+            flap = 0.06 * walk + (0.08 if row == 3 else (-0.04 if row == 4 else 0.0))
+            for sx in (-1, 1):
+                root = v3(0.05 * sx, by + br[1] * 0.8, 0.04)
+                tip = root + v3(0.26 * sx, 0.2 + flap, -0.1)
+                p.append(capsule(root, tip, 0.014, wing, 0.006))
+                p.append(box(root + (tip - root) * 0.5 + v3(0, -0.06, -0.03), (0.13, 0.11, 0.008), wing, rnd=0.02,
+                             rot=rot_z(math.radians(-28 * sx)) @ rot_x(math.radians(-12))))
         prev = v3(0, by + 0.03, -0.2)
-        for i in range(4):
+        for i in range(6 if style.get("dragon") else 4):
             nxt = prev + v3(0.02 * math.sin(i + walk), -0.035, -0.04)
             p.append(capsule(prev, nxt, 0.03 + (0.008 if i in (1, 2) else 0.0), coat if i < 3 else light_, 0.025))
             prev = nxt
@@ -800,6 +814,12 @@ SHEETS = {
     "assets/sprites/npcs/figure_agnes.png": {
         "kind": "humanoid", "body": (226, 190, 160), "armor": (230, 130, 40), "legs": (180, 60, 50), "trim": (250, 170, 70),
         "eye": (30, 30, 30), "hat": "bun", "hair": (110, 70, 40), "weapon": "ledger", "book": (180, 60, 50),
+    },
+    "assets/sprites/npcs/dragon_cindermaw.png": {"kind": "quadruped", "scale": 1.0, "body": (150, 46, 34), "armor": (96, 30, 24),
+                                                 "eye": (255, 200, 60), "glow_eyes": True, "dragon": True, "horn": (226, 210, 170), "wing": (110, 36, 30)},
+    "assets/sprites/npcs/kobold_quillsby.png": {
+        "kind": "humanoid", "body": (110, 140, 70), "armor": (120, 84, 50), "legs": (70, 60, 50), "trim": (210, 180, 90), "eye": (230, 200, 60),
+        "hat": "bald", "hair": (90, 120, 60), "horns": True, "horn": (200, 190, 150), "weapon": "ledger", "book": (60, 40, 30),
     },
     "assets/sprites/npcs/druid_squirrel.png": {"kind": "rat", "scale": 1.0, "body": (176, 92, 48), "armor": (140, 70, 36), "eye": (30, 20, 16)},
     "assets/sprites/npcs/druid_bramble.png": {

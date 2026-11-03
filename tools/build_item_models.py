@@ -1096,6 +1096,23 @@ def druid_icons():
     path = os.path.join(ROOT, "assets", "ui", "spells", "barkskin.png"); img.save(path); print("Wrote", os.path.relpath(path, ROOT))
 
 
+def dragon_icons():
+    """The Dragon's Pension: evidence, the scale, the ledger and Dragon's Sigh."""
+    from PIL import Image
+    T = lambda src, dst, mul, folder="items": tinted(f"assets/ui/{folder}/{src}.png", f"assets/ui/{folder}/{dst}.png", mul)
+    T("uncounted_ledger", "hatching_record", ((1.1, 0.3), (0.55, 0.25), (0.35, 0.2)))
+    T("form_27b", "dragon_likeness", ((0.85, 0.35), (0.88, 0.35), (0.95, 0.4)))
+    T("uncounted_ledger", "quillsby_ledger", ((0.45, 0.3), (0.75, 0.35), (0.35, 0.2)))
+    T("tide_charm", "cindermaw_scale", ((1.3, 0.3), (0.45, 0.2), (0.3, 0.15)))
+    T("ember_bolt", "dragon_sigh", ((1.25, 0.35), (0.6, 0.25), (0.25, 0.15)), "spells")
+    img, d = icon_canvas()
+    d.rectangle([8, 9, 24, 21], fill=(120, 80, 46, 255)); d.rectangle([8, 9, 24, 11], fill=(150, 104, 60, 255))
+    d.ellipse([12, 11, 20, 19], fill=(200, 170, 80, 255)); d.ellipse([14, 13, 18, 17], fill=(40, 50, 70, 255))
+    for x0, x1 in ((10, 7), (16, 16), (22, 25)): d.line([(x0, 21), (x1, 29)], fill=(90, 62, 36, 255), width=2)
+    d.rectangle([20, 5, 24, 9], fill=(20, 20, 24, 255))
+    save_icon(img, "likeness_box")
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -1125,6 +1142,7 @@ BUILDERS = {
     "gang_icons": gang_icons,
     "boss_crafting_icons": boss_crafting_icons,
     "druid_icons": druid_icons,
+    "dragon_icons": dragon_icons,
 }
 
 

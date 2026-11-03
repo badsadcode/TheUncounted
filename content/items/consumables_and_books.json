@@ -1729,6 +1729,51 @@
       "value": 5,
       "weight": 0.1,
       "stackable": true
+    },
+    {
+      "id": "core:item.hatching_record",
+      "name_key": "item.hatching_record.name",
+      "description_key": "item.hatching_record.description",
+      "category": "misc",
+      "icon": "assets/ui/items/hatching_record.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 2.0
+    },
+    {
+      "id": "core:item.likeness_box",
+      "name_key": "item.likeness_box.name",
+      "description_key": "item.likeness_box.description",
+      "category": "misc",
+      "icon": "assets/ui/items/likeness_box.png",
+      "world_model": "assets/models/props/wooden_crate.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 3.0
+    },
+    {
+      "id": "core:item.dragon_likeness",
+      "name_key": "item.dragon_likeness.name",
+      "description_key": "item.dragon_likeness.description",
+      "category": "misc",
+      "icon": "assets/ui/items/dragon_likeness.png",
+      "world_model": "assets/models/items/form_27b_scroll.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.3
+    },
+    {
+      "id": "core:item.quillsby_ledger",
+      "name_key": "item.quillsby_ledger.name",
+      "description_key": "item.quillsby_ledger.description",
+      "category": "book",
+      "icon": "assets/ui/items/quillsby_ledger.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 25,
+      "weight": 0.3,
+      "book_text_key": "book.quillsby_ledger.text"
     }
   ]
 }

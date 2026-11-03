@@ -1470,6 +1470,49 @@ int GameEngine::RunSelfTest() {
               "Bramble teaches Barkskin and hands over his spare squirrel tail");
     }
 
+    // --- Campaign Four: The Dragon's Pension
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        const std::string q = "core:quest.dragon_pension";
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            return ok;
+        };
+        check(visible("core:npc.dragon_cindermaw") < 0 && talk("core:npc.clerk_oakhaven", {"dp_start"}) && QuestStage(q) == 10 &&
+                  visible("core:npc.dragon_cindermaw") >= 0, "Oakhaven's scorched letter: I AM NOT DEAD. I WAS ASLEEP. I AM COMING. (It lands.)");
+        check(talk("core:npc.dragon_cindermaw", {"intro", "deal", "root"}) && QuestStage(q) == 20, "Cindermaw: eleven gold, one sheep and one apology per century");
+        check(!talk("core:npc.clerk_oakhaven", {"dp_file"}), "can't file Form 9-L without the proof");
+        check(talk("core:npc.innkeeper_marta", {"dp_wit"}) && talk("core:npc.merchant_vaelen", {"dp_wit"}) && talk("core:npc.grout", {"dp_wit"}) &&
+                  player_.flags.count("dwit_grout"), "three witnesses: a pie, a hat, and a roof ('Roof's fine.')");
+        check(talk("core:npc.librarian_fenwick", {"dp_rec"}) && CountItem("core:item.hatching_record") == 1, "Fenwick finds the Register of Hatchings (returned four days late, 312 years ago)");
+        check(talk("core:npc.professor_pickering", {"dp_box"}) && talk("core:npc.dragon_cindermaw", {"likeness"}) && CountItem("core:item.dragon_likeness") == 1,
+              "Pickering's likeness engine: the dragon, mid-sneeze");
+        check(talk("core:npc.clerk_oakhaven", {"dp_file"}) && QuestStage(q) == 30 && visible("core:npc.kobold_quillsby") >= 0,
+              "Form 9-L stamped ALIVE; the death notice was filed by the hoard-keeper");
+        check(talk("core:npc.kobold_quillsby", {"p_wit", "root", "p_rec", "root", "p_lik", "root", "panic"}) && QuestStage(q) == 40 &&
+                  visible("core:npc.kobold_quillsby") < 0, "the hearing finds the dragon ALIVE; Quillsby throws a golem out of the window and flees");
+        bool golem = false;
+        UpdateWorldObjects(0.0f);
+        for (auto& c : scene_.creatures)
+            if (c.instance_id == "dp_golem" && c.state != CreatureState::Dead) { golem = true; DamageCreature(c, 9999, false, "swords", false); }
+        check(golem && QuestStage(q) == 50, "the Repossession Golem is scrap");
+        check(talk("core:npc.dragon_cindermaw", {"done", "root"}) && QuestStage(q) == 100 && CountItem("core:item.cindermaw_scale") == 1 &&
+                  std::count(player_.known_spells.begin(), player_.known_spells.end(), std::string("core:spell.dragon_sigh")) > 0,
+              "officially alive: Dragon's Sigh and one of Cindermaw's scales");
+    }
+
     // --- Deeper crafting: boss reagents, recipe books, locked recipes
     {
         overlay_ = Overlay::None;

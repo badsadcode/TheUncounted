@@ -397,6 +397,16 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   (`druid_restored`), with antlers: he teaches **Barkskin** (buff_stat armour +8 / 40 s) and gives his spare squirrel tail.
 - New dialogue condition `item_not_held`. Placeholder sprites `druid_squirrel.png`, `druid_bramble.png`.
 
+### Campaign Four: The Dragon's Pension (added 2026-11-03)
+
+- `tools/authoring/dragon_pension.py`, campaign `dragon_pension` (tales). Oakhaven topic `dp_start` -> Cindermaw the Elder
+  lands in Bellwether's square (`dragon_arrived`), legally deceased after sleeping through 300 years of census letters.
+  Proof of life: >=3 of 7 witness topics (`dwit_*`: Marta, Vaelen, Baggy, Hollis, Sabrino, Steve, Grout), the Register of
+  Hatchings (Fenwick), a likeness (Pickering's box, used on the dragon). Oakhaven files Form 9-L (`dp_file`) -> hearing
+  with Grubnik Quillsby, Esq. in the Records Office (present all three; optional Persuasion DC 13 for the confession) ->
+  the Repossession Golem in the square (group -> 50) -> Cindermaw: Dragon's Sigh (fire nova) + Cindermaw's Scale + 250 g.
+- Sprites are placeholders (the quadruped generator now has `dragon`: horns, spines, wings).
+
 ## 8. The user (what they care about)
 
 - **Story and immersion are the priority.** Bigger, multi-level spaces without loading screens. Better graphics/sprites welcome.

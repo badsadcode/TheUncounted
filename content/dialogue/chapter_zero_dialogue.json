@@ -415,6 +415,60 @@
               "next": "m_after"
             },
             {
+              "text_key": "dlg.dp.oak.choice_dp_start",
+              "next": "dp_start",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.oak.choice_dp_file",
+              "next": "dp_file",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "dwit_marta",
+                    "dwit_vaelen",
+                    "dwit_baggy",
+                    "dwit_hollis",
+                    "dwit_sabrino",
+                    "dwit_steve",
+                    "dwit_grout"
+                  ],
+                  "value": 3
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.hatching_record"
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.dragon_likeness"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.oak.choice_dp_epilogue",
+              "next": "dp_epilogue",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 100
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -3819,6 +3873,75 @@
               "next": "greeting"
             }
           ]
+        },
+        "dp_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dp.oak.dp_start",
+          "choices": [
+            {
+              "text_key": "dlg.dp.oak.dp_start.c0",
+              "next": "greeting"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dragon_pension",
+              "stage": 0
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dragon_pension",
+              "stage": 10
+            },
+            {
+              "type": "set_flag",
+              "flag": "dragon_arrived",
+              "value": true
+            }
+          ]
+        },
+        "dp_file": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dp.oak.dp_file",
+          "choices": [
+            {
+              "text_key": "dlg.dp.oak.dp_file.c0",
+              "next": "greeting"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dragon_pension",
+              "stage": 30
+            },
+            {
+              "type": "set_flag",
+              "flag": "dragon_hearing",
+              "value": true
+            },
+            {
+              "type": "take_item",
+              "item_id": "core:item.hatching_record",
+              "qty": 1
+            },
+            {
+              "type": "take_item",
+              "item_id": "core:item.dragon_likeness",
+              "qty": 1
+            }
+          ]
+        },
+        "dp_epilogue": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.dp.oak.dp_epilogue",
+          "choices": [
+            {
+              "text_key": "dlg.dp.oak.dp_epilogue.c0",
+              "next": "greeting"
+            }
+          ]
         }
       }
     },
@@ -3830,6 +3953,21 @@
           "speaker_key": "npc.merchant_vaelen.name",
           "text_key": "dlg.merchant.greeting",
           "choices": [
+            {
+              "text_key": "dlg.dp.vaelen.choice_dp_wit",
+              "next": "dp_wit",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dwit_vaelen"
+                }
+              ]
+            },
             {
               "text_key": "dlg.merchant.choice_shop",
               "actions": [
@@ -4188,6 +4326,23 @@
               "next": "root"
             }
           ]
+        },
+        "dp_wit": {
+          "speaker_key": "npc.merchant_vaelen.name",
+          "text_key": "dlg.dp.vaelen.dp_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.vaelen.dp_wit.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dwit_vaelen",
+              "value": true
+            }
+          ]
         }
       }
     },
@@ -4363,6 +4518,21 @@
                 }
               ],
               "next": "cast_marta"
+            },
+            {
+              "text_key": "dlg.dp.marta.choice_dp_wit",
+              "next": "dp_wit",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dwit_marta"
+                }
+              ]
             },
             {
               "text_key": "dlg.clerk.choice_leave",
@@ -4665,6 +4835,23 @@
               "next": "root"
             }
           ]
+        },
+        "dp_wit": {
+          "speaker_key": "npc.innkeeper_marta.name",
+          "text_key": "dlg.dp.marta.dp_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.marta.dp_wit.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dwit_marta",
+              "value": true
+            }
+          ]
         }
       }
     },
@@ -4804,6 +4991,21 @@
                   "type": "quest_stage_below",
                   "quest_id": "core:quest.overdue",
                   "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.fen.choice_dp_rec",
+              "next": "dp_rec",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "item_not_held",
+                  "item_id": "core:item.hatching_record"
                 }
               ]
             },
@@ -5308,6 +5510,23 @@
             {
               "text_key": "dlg.overdue.fenwick.od_done.c0",
               "next": "root"
+            }
+          ]
+        },
+        "dp_rec": {
+          "speaker_key": "npc.librarian_fenwick.name",
+          "text_key": "dlg.dp.fen.dp_rec",
+          "choices": [
+            {
+              "text_key": "dlg.dp.fen.dp_rec.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.hatching_record",
+              "qty": 1
             }
           ]
         }
@@ -6150,6 +6369,21 @@
               "next": "gang"
             },
             {
+              "text_key": "dlg.dp.baggy.choice_dp_wit",
+              "next": "dp_wit",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dwit_baggy"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -6463,6 +6697,23 @@
               "next": "gang"
             }
           ]
+        },
+        "dp_wit": {
+          "speaker_key": "npc.detective_baggy.name",
+          "text_key": "dlg.dp.baggy.dp_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.baggy.dp_wit.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dwit_baggy",
+              "value": true
+            }
+          ]
         }
       }
     },
@@ -6592,6 +6843,21 @@
             {
               "text_key": "dlg.sabrino.choice_magic",
               "next": "magic"
+            },
+            {
+              "text_key": "dlg.dp.sabrino.choice_dp_wit",
+              "next": "dp_wit",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dwit_sabrino"
+                }
+              ]
             },
             {
               "text_key": "dlg.sabrino.choice_shop",
@@ -6919,6 +7185,23 @@
               "next": "root"
             }
           ]
+        },
+        "dp_wit": {
+          "speaker_key": "npc.witch_sabrino.name",
+          "text_key": "dlg.dp.sabrino.dp_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.sabrino.dp_wit.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dwit_sabrino",
+              "value": true
+            }
+          ]
         }
       }
     },
@@ -7181,6 +7464,21 @@
                   "type": "quest_stage_equals",
                   "quest_id": "core:quest.trout",
                   "stage": 30
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.hollis.choice_dp_wit",
+              "next": "dp_wit",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dwit_hollis"
                 }
               ]
             },
@@ -8063,6 +8361,23 @@
             {
               "text_key": "dlg.trout.hollis.c3_reward.c0",
               "next": "root"
+            }
+          ]
+        },
+        "dp_wit": {
+          "speaker_key": "npc.hunter_hollis.name",
+          "text_key": "dlg.dp.hollis.dp_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.hollis.dp_wit.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dwit_hollis",
+              "value": true
             }
           ]
         }
@@ -11780,6 +12095,25 @@
               ]
             },
             {
+              "text_key": "dlg.dp.pick.choice_dp_box",
+              "next": "dp_box",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "item_not_held",
+                  "item_id": "core:item.likeness_box"
+                },
+                {
+                  "type": "item_not_held",
+                  "item_id": "core:item.dragon_likeness"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.pickering.root.c4",
               "next": "END"
             }
@@ -11899,6 +12233,23 @@
             {
               "text_key": "dlg.overdue.pick.od_pick.c0",
               "next": "root"
+            }
+          ]
+        },
+        "dp_box": {
+          "speaker_key": "npc.professor_pickering.name",
+          "text_key": "dlg.dp.pick.dp_box",
+          "choices": [
+            {
+              "text_key": "dlg.dp.pick.dp_box.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.likeness_box",
+              "qty": 1
             }
           ]
         }
@@ -12746,6 +13097,21 @@
               ]
             },
             {
+              "text_key": "dlg.dp.steve.choice_dp_wit",
+              "next": "dp_wit",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dwit_steve"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.steve.root.c6",
               "next": "END"
             }
@@ -12979,6 +13345,23 @@
             {
               "text_key": "dlg.steve.town.c0",
               "next": "END"
+            }
+          ]
+        },
+        "dp_wit": {
+          "speaker_key": "npc.steve.name",
+          "text_key": "dlg.dp.steve.dp_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.steve.dp_wit.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dwit_steve",
+              "value": true
             }
           ]
         }
@@ -14686,6 +15069,21 @@
               "next": "like"
             },
             {
+              "text_key": "dlg.dp.grout.choice_dp_wit",
+              "next": "dp_wit",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dwit_grout"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.grout.root.c6",
               "next": "END"
             }
@@ -14805,6 +15203,23 @@
             {
               "text_key": "dlg.grout.like.c0",
               "next": "root"
+            }
+          ]
+        },
+        "dp_wit": {
+          "speaker_key": "npc.grout.name",
+          "text_key": "dlg.dp.grout.dp_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.grout.dp_wit.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dwit_grout",
+              "value": true
             }
           ]
         }
@@ -15169,6 +15584,398 @@
             {
               "text_key": "dlg.druid.dr.later.c0",
               "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.dragon_cindermaw",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.dp.dr.root",
+          "choices": [
+            {
+              "text_key": "dlg.dp.dr.root.c0",
+              "next": "intro",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.dr.root.c1",
+              "next": "waiting",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 50
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.dr.root.c2",
+              "next": "likeness",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.likeness_box"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.dr.root.c3",
+              "next": "done",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 50
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.dr.root.c4",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.dr.root.c5",
+              "next": "END"
+            }
+          ]
+        },
+        "intro": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.dp.dr.intro",
+          "choices": [
+            {
+              "text_key": "dlg.dp.dr.intro.c0",
+              "next": "deal"
+            }
+          ]
+        },
+        "deal": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.dp.dr.deal",
+          "choices": [
+            {
+              "text_key": "dlg.dp.dr.deal.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.dragon_pension",
+                  "stage": 20
+                }
+              ]
+            }
+          ]
+        },
+        "waiting": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.dp.dr.waiting",
+          "choices": [
+            {
+              "text_key": "dlg.dp.dr.waiting.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "likeness": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.dp.dr.likeness",
+          "choices": [
+            {
+              "text_key": "dlg.dp.dr.likeness.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.likeness_box",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.dragon_likeness",
+              "qty": 1
+            }
+          ]
+        },
+        "done": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.dp.dr.done",
+          "choices": [
+            {
+              "text_key": "dlg.dp.dr.done.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.dragon_sigh"
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.cindermaw_scale",
+              "qty": 1
+            },
+            {
+              "type": "give_gold",
+              "amount": 250
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dragon_pension",
+              "stage": 100
+            },
+            {
+              "type": "set_flag",
+              "flag": "dragon_retired",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 80
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.dragon_cindermaw.name",
+          "text_key": "dlg.dp.dr.after",
+          "choices": [
+            {
+              "text_key": "dlg.dp.dr.after.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.kobold_quillsby",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.kobold_quillsby.name",
+          "text_key": "dlg.dp.kq.root",
+          "choices": [
+            {
+              "text_key": "dlg.dp.kq.root.c0",
+              "next": "p_wit",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "dwit_marta",
+                    "dwit_vaelen",
+                    "dwit_baggy",
+                    "dwit_hollis",
+                    "dwit_sabrino",
+                    "dwit_steve",
+                    "dwit_grout"
+                  ],
+                  "value": 3
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dhear_w"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dhear_w",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.kq.root.c1",
+              "next": "p_rec",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "dhear_r"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dhear_r",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.kq.root.c2",
+              "next": "p_lik",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "dhear_l"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "dhear_l",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.kq.root.c3",
+              "next": "confess",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "dragon_confession"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "dragon_denied"
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 13,
+                "fail_next": "deny"
+              }
+            },
+            {
+              "text_key": "dlg.dp.kq.root.c4",
+              "next": "panic",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dhear_w"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "dhear_r"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "dhear_l"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dp.kq.root.c5",
+              "next": "END"
+            }
+          ]
+        },
+        "p_wit": {
+          "speaker_key": "npc.kobold_quillsby.name",
+          "text_key": "dlg.dp.kq.p_wit",
+          "choices": [
+            {
+              "text_key": "dlg.dp.kq.p_wit.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "p_rec": {
+          "speaker_key": "npc.kobold_quillsby.name",
+          "text_key": "dlg.dp.kq.p_rec",
+          "choices": [
+            {
+              "text_key": "dlg.dp.kq.p_rec.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "p_lik": {
+          "speaker_key": "npc.kobold_quillsby.name",
+          "text_key": "dlg.dp.kq.p_lik",
+          "choices": [
+            {
+              "text_key": "dlg.dp.kq.p_lik.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "confess": {
+          "speaker_key": "npc.kobold_quillsby.name",
+          "text_key": "dlg.dp.kq.confess",
+          "choices": [
+            {
+              "text_key": "dlg.dp.kq.confess.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dragon_confession",
+              "value": true
+            }
+          ]
+        },
+        "deny": {
+          "speaker_key": "npc.kobold_quillsby.name",
+          "text_key": "dlg.dp.kq.deny",
+          "choices": [
+            {
+              "text_key": "dlg.dp.kq.deny.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dragon_denied",
+              "value": true
+            }
+          ]
+        },
+        "panic": {
+          "speaker_key": "npc.kobold_quillsby.name",
+          "text_key": "dlg.dp.kq.panic",
+          "choices": [
+            {
+              "text_key": "dlg.dp.kq.panic.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dragon_golem",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.dragon_pension",
+              "stage": 40
             }
           ]
         }

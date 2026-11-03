@@ -886,6 +886,41 @@
           "value": 0.1
         }
       ]
+    },
+    {
+      "id": "core:item.cindermaw_scale",
+      "name_key": "item.cindermaw_scale.name",
+      "description_key": "item.cindermaw_scale.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/cindermaw_scale.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 400,
+      "weight": 0.2,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "burn_damage_bonus",
+          "value": 0.35
+        },
+        {
+          "type": "bonus",
+          "stat": "armor_bonus",
+          "value": 2.0
+        },
+        {
+          "type": "bonus",
+          "stat": "spell_power_bonus",
+          "value": 0.1
+        },
+        {
+          "type": "bonus",
+          "stat": "status_duration_bonus",
+          "value": 0.15
+        }
+      ]
     }
   ]
 }

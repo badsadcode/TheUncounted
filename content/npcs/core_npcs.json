@@ -2037,6 +2037,45 @@
           "text_key": "bark.druid.dr.1"
         }
       ]
+    },
+    {
+      "id": "core:npc.dragon_cindermaw",
+      "name_key": "npc.dragon_cindermaw.name",
+      "title_key": "npc.dragon_cindermaw.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.dragon_cindermaw",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/dragon_cindermaw.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 7.5
+      },
+      "barks": [
+        {
+          "text_key": "bark.dragon.1"
+        },
+        {
+          "text_key": "bark.dragon.2"
+        },
+        {
+          "text_key": "bark.dragon.3",
+          "flag": "dragon_retired"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.kobold_quillsby",
+      "name_key": "npc.kobold_quillsby.name",
+      "title_key": "npc.kobold_quillsby.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.kobold_quillsby",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/kobold_quillsby.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.25
+      },
+      "barks": []
     }
   ]
 }

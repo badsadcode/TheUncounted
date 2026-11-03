@@ -478,6 +478,30 @@
         ],
         "light_radius": 3.0
       }
+    },
+    {
+      "id": "core:spell.dragon_sigh",
+      "name_key": "spell.dragon_sigh.name",
+      "description_key": "spell.dragon_sigh.desc",
+      "icon": "assets/ui/spells/dragon_sigh.png",
+      "skill": "elemental",
+      "mana_cost": 26,
+      "cooldown_seconds": 3.0,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "nova",
+        "damage_type": "fire",
+        "base_power": 16,
+        "radius": 5.0,
+        "status": "burn",
+        "status_duration": 5.0,
+        "light_color": [
+          1.0,
+          0.55,
+          0.2
+        ],
+        "light_radius": 7.0
+      }
     }
   ]
 }

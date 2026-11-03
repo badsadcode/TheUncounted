@@ -1331,6 +1331,29 @@
         -6.0
       ],
       "yaw": 135.0
+    },
+    {
+      "instance_id": "npc_dragon_cindermaw",
+      "npc_id": "core:npc.dragon_cindermaw",
+      "pos": [
+        5.5,
+        0.0,
+        5.0
+      ],
+      "yaw": -100.0,
+      "requires_flag": "dragon_arrived"
+    },
+    {
+      "instance_id": "npc_kobold_quillsby",
+      "npc_id": "core:npc.kobold_quillsby",
+      "pos": [
+        -3.8,
+        0.0,
+        -11.8
+      ],
+      "yaw": -40.0,
+      "requires_flag": "dragon_hearing",
+      "hidden_flag": "dragon_golem"
     }
   ],
   "creatures": [
@@ -1472,6 +1495,30 @@
       "group_quest_id": "core:quest.figure_ep1",
       "group_set_stage": 40,
       "group_set_flag": "fig1_caught"
+    },
+    {
+      "instance_id": "dp_golem",
+      "creature_id": "core:enemy.repossession_golem",
+      "pos": [
+        -3.5,
+        0.0,
+        -4.5
+      ],
+      "patrol_a": [
+        -6.0,
+        0.0,
+        -4.5
+      ],
+      "patrol_b": [
+        -1.0,
+        0.0,
+        -4.5
+      ],
+      "requires_flag": "dragon_golem",
+      "group": "dp_golem",
+      "group_quest_id": "core:quest.dragon_pension",
+      "group_set_stage": 50,
+      "group_set_flag": "dragon_golem_down"
     }
   ],
   "interactables": [
