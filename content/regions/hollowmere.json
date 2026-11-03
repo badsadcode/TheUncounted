@@ -3419,7 +3419,7 @@
         -14.3
       ],
       "rot_y": 0.0,
-      "prompt": "Set Rodrick's Trap",
+      "prompt": "Set Bread's Trap",
       "title": "The Trap",
       "text": "(The trap is set.)",
       "set_flag": "fig2_trap",

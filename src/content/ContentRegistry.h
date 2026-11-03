@@ -21,6 +21,7 @@ public:
     std::unordered_map<std::string, std::string> loc_strings;
     std::vector<AttributeDef> attributes;
     std::vector<RaceDef> races;
+    std::vector<std::string> portraits;   // every assets/ui/portraits/*.png, sorted (named <race>_<calling>_<n>.png)
     std::vector<BackgroundDef> backgrounds;
     std::vector<ArchetypeDef> archetypes;
     std::vector<SkillDef> skills;

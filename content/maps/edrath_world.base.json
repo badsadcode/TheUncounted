@@ -25534,7 +25534,7 @@
         2.0
       ],
       "rot_y": 0.0,
-      "prompt": "Set Rodrick's Trap",
+      "prompt": "Set Bread's Trap",
       "title": "The Trap",
       "text": "(The trap is set.)",
       "set_flag": "fig1_trap",
@@ -25839,7 +25839,7 @@
       "rot_y": 0.0,
       "prompt": "Read the Wagon's Side",
       "title": "The Figure It Out Wagon",
-      "text": "Painted along the side in enormous wobbly letters, between the flowers:\n\nTHE FIGURE IT OUT GANG\nMysteries Solved! Monsters Unmasked! Reasonable Rates!\n\nUnderneath, in smaller letters, added later: \"Not responsible for traps.\"\n\nUnderneath THAT, smaller still, in Agnes's handwriting: \"Rodrick is responsible for traps.\""
+      "text": "Painted along the side in enormous wobbly letters, between the flowers:\n\nTHE FIGURE IT OUT GANG\nMysteries Solved! Monsters Unmasked! Reasonable Rates!\n\nUnderneath, in smaller letters, added later: \"Not responsible for traps.\"\n\nUnderneath THAT, smaller still, in Karma's handwriting: \"Bread is responsible for traps.\""
     },
     {
       "instance_id": "fig3_clue_hat",
@@ -25853,7 +25853,7 @@
       "rot_y": 0.0,
       "prompt": "Look in the Ditch",
       "title": "A Hat on a Stick",
-      "text": "In the ditch beside the road: a broom handle with a battered felt hat nailed to the top. Seen from a distance, at night, through a visor, it would look exactly like a knight's plume.\n\nOr a hat on a stick. Which is what it is.\n\nAgnes is going to be unbearable about this.",
+      "text": "In the ditch beside the road: a broom handle with a battered felt hat nailed to the top. Seen from a distance, at night, through a visor, it would look exactly like a knight's plume.\n\nOr a hat on a stick. Which is what it is.\n\nKarma is going to be unbearable about this.",
       "set_flag": "fig3_c1",
       "requires_flag": "fig3_open"
     },
@@ -25899,7 +25899,7 @@
         0.6
       ],
       "rot_y": 0.0,
-      "prompt": "Set Rodrick's Trap",
+      "prompt": "Set Bread's Trap",
       "title": "The Trap",
       "text": "(The trap is set.)",
       "set_flag": "fig3_trap",
@@ -27031,7 +27031,7 @@
         27.7
       ],
       "rot_y": 0.0,
-      "prompt": "Set Rodrick's Trap",
+      "prompt": "Set Bread's Trap",
       "title": "The Trap",
       "text": "(The trap is set.)",
       "set_flag": "fig2_trap",

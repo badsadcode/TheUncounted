@@ -603,10 +603,23 @@ void GameEngine::DrawCreation() {
     // Portrait & descriptions
     float dx = ox + 900;
     Panel({dx, 116, 300, 300});
-    Icon(r.portrait, {dx + 20, 130, 96, 96});
+    {   // Portrait picker (cosmetic): this race and calling first, then the race's others
+        std::vector<std::string> ports = PortraitChoices(r, a);
+        int n = std::max(1, static_cast<int>(ports.size()));
+        static int lastRace = -1, lastArch = -1;
+        if (lastRace != creation_race_ || lastArch != creation_arch_) { creation_portrait_ = 0; lastRace = creation_race_; lastArch = creation_arch_; }
+        creation_portrait_ = ((creation_portrait_ % n) + n) % n;
+        Icon(ports.empty() ? r.portrait : ports[creation_portrait_], {dx + 20, 130, 96, 96});
+        if (ports.size() > 1) {
+            if (Button({dx + 20, 230, 28, 24}, "<", true, 14)) creation_portrait_ = (creation_portrait_ + n - 1) % n;
+            std::string lbl = std::to_string(creation_portrait_ + 1) + "/" + std::to_string(n);
+            Text(lbl, dx + 68 - TextWidth(lbl, 13) * 0.5f, 234, 13, kDim);
+            if (Button({dx + 88, 230, 28, 24}, ">", true, 14)) creation_portrait_ = (creation_portrait_ + 1) % n;
+        }
+    }
     Text(content_.Tr(r.name_key), dx + 130, 140, 24, kGold);
     TextWrapped(content_.Tr(r.trait_key), {dx + 130, 172, 160, 60}, 13, kAccent);
-    TextWrapped(content_.Tr(r.description_key), {dx + 18, 238, 266, 170}, 14, kText);
+    TextWrapped(content_.Tr(r.description_key), {dx + 18, 262, 266, 150}, 14, kText);
 
     Panel({ox, 410, 580, 200});
     Text(content_.Tr(b.name_key), ox + 16, 420, 20, kGold);
@@ -1097,7 +1110,7 @@ void GameEngine::DrawCharacter() {
     const RaceDef* race = content_.GetRace(player_.race_id);
     const BackgroundDef* bg = content_.GetBackground(player_.background_id);
     const ArchetypeDef* arch = content_.GetArchetype(player_.archetype_id);
-    if (race) Icon(race->portrait, {P.x + 20, P.y + 20, 80, 80});
+    if (!PlayerPortrait().empty()) Icon(PlayerPortrait(), {P.x + 20, P.y + 20, 80, 80});
     Text(player_.name, P.x + 116, P.y + 20, 30, kGold);
     std::string line = (race ? content_.Tr(race->name_key) : "") + "  -  " + (bg ? content_.Tr(bg->name_key) : "") + "  -  " + (arch ? content_.Tr(arch->name_key) : "");
     Text(line, P.x + 116, P.y + 56, 17, kText);

@@ -55,11 +55,25 @@ int GameEngine::RunSelfTest() {
     };
     const std::string quest = "core:quest.legally_deceased";
 
+    // --- Portraits: this race and calling first, then the race's others, then its default (cosmetic)
+    {
+        const std::vector<std::string> saved = content_.portraits;
+        content_.portraits = {"assets/ui/portraits/elf_mage_1.png", "assets/ui/portraits/human_mage_1.png",
+                              "assets/ui/portraits/human_warrior_1.png", "assets/ui/portraits/human_warrior_2.png"};
+        auto c = PortraitChoices(content_.races[0], content_.archetypes[0]);
+        check(c.size() == 4 && c[0] == "assets/ui/portraits/human_warrior_1.png" && c[1] == "assets/ui/portraits/human_warrior_2.png" &&
+                  c[2] == "assets/ui/portraits/human_mage_1.png" && c[3] == content_.races[0].portrait,
+              "portrait picker: race and calling first, then the race's other portraits, then its default");
+        content_.portraits = saved;
+    }
+
     // --- New game as a Human Displaced Heir Warrior
     creation_race_ = 0;
     creation_bg_ = 0;
     creation_arch_ = 0;
+    creation_portrait_ = 0;
     NewGame();
+    check(!player_.portrait.empty() && PlayerPortrait() == player_.portrait, "the chosen portrait is the character's");
     check(overlay_ == Overlay::Narration && narration_pages_.size() >= 3, "new game opens with the prologue narration");
     narration_page_ = static_cast<int>(narration_pages_.size());
     AdvanceNarration();
@@ -329,8 +343,11 @@ int GameEngine::RunSelfTest() {
     check(SaveGame("selftest"), "saved game");
     int stage = QuestStage(quest);
     size_t items = player_.inventory.size();
+    const std::string portrait = player_.portrait;
     player_.inventory.clear();
+    player_.portrait.clear();
     check(LoadGame("selftest"), "loaded game");
+    check(player_.portrait == portrait, "the chosen portrait survives save and load");
     check(QuestStage(quest) == stage && player_.inventory.size() == items, "save round trip preserves quest & inventory");
     InteractableInstance* door2 = interactable("annex_inner_door");
     check(door2 && door2->open && !door2->locked, "door state persisted across save/load");
@@ -1345,37 +1362,37 @@ int GameEngine::RunSelfTest() {
         };
         const std::string e1 = "core:quest.figure_ep1", e2 = "core:quest.figure_ep2";
         check(!use("fig1_clue_ink"), "no clues lying about before anyone asks");
-        check(talk("core:npc.figure_rodrick", {"what", "root", "e1_open", "root"}) && QuestStage(e1) == 10, "Rodrick: 'Let's split up and look for clues!'");
-        check(talk("core:npc.figure_rodrick", {"e1_hint", "root"}), "Rodrick reminds you where the clues are");
+        check(talk("core:npc.figure_rodrick", {"what", "root", "e1_open", "root"}) && QuestStage(e1) == 10, "Bread: 'Let's split up and look for clues!'");
+        check(talk("core:npc.figure_rodrick", {"e1_hint", "root"}), "Bread reminds you where the clues are");
         check(!use("fig1_trap"), "no trap until the clues are in");
         check(use("fig1_clue_ink") && use("fig1_clue_receipt") && use("fig1_clue_tags") && player_.flags.count("fig1_c3"), "three clues: ink, a receipt from 'V.', price tags");
-        check(talk("core:npc.figure_rodrick", {"e1_trap", "root"}) && QuestStage(e1) == 20, "Rodrick's plan: a net, a pulley, a barrel of feathers, and you");
+        check(talk("core:npc.figure_rodrick", {"e1_trap", "root"}) && QuestStage(e1) == 20, "Bread's plan: a net, a pulley, a barrel of feathers, and you");
         check(visible("core:npc.unmask_clerk") < 0 && use("fig1_trap") && lastScene.find("pigeon") != std::string::npos && QuestStage(e1) == 30 && (UpdateWorldObjects(0.0f), interactable("fig1_trap")->hidden),
-              "the trap catches Baggy, a pigeon and Rodrick");
-        check(catchMonster("fig1_phantom") && QuestStage(e1) == 40, "the Phantom Clerk is caught (it fell over Snacks)");
+              "the trap catches Baggy, a pigeon and Bread");
+        check(catchMonster("fig1_phantom") && QuestStage(e1) == 40, "the Phantom Clerk is caught (it fell over Doobie)");
         check(talk("core:npc.unmask_clerk", {"reveal", "refund"}) && player_.flags.count("fig1_guessed") && QuestStage(e1) == 50,
               "it was Vaelen all along (Baggy barely knew her)");
         check(visible("core:npc.unmask_clerk") < 0, "the netted suspect is gone once it's done");
         check(talk("core:npc.figure_rodrick", {"e1_done", "root"}) && QuestStage(e1) == 100 && CountItem("core:item.crumb_cake") == 5, "FIGURED OUT! Paid in Crumb Cakes");
         check(talk("core:npc.detective_baggy", {"gang", "gang_barely", "gang_horse", "gang", "root"}), "Baggy, founding member: 'I barely knew her' (even the horse)");
-        check(talk("core:npc.figure_snacks", {"cake", "root"}) && CountItem("core:item.crumb_cake") == 4, "Snacks would not do something brave for a Crumb Cake");
+        check(talk("core:npc.figure_snacks", {"cake", "root"}) && CountItem("core:item.crumb_cake") == 4, "Doobie would not do something brave for a Crumb Cake");
         check(talk("core:npc.figure_rodrick", {"e2_open", "root"}) && QuestStage(e2) == 10, "episode two: the Howler of Hollowmere");
         check(use("fig2_clue_prints") && use("fig2_clue_wool") && use("fig2_clue_list") && talk("core:npc.figure_rodrick", {"e2_trap", "root"}) && QuestStage(e2) == 20,
               "sandal prints, brown wool, four years of second place");
-        check(use("fig2_trap") && QuestStage(e2) == 30 && catchMonster("fig2_howler") && QuestStage(e2) == 40, "the seesaw launches Rodrick; the Howler is caught");
+        check(use("fig2_trap") && QuestStage(e2) == 30 && catchMonster("fig2_howler") && QuestStage(e2) == 40, "the seesaw launches Bread; the Howler is caught");
         check(talk("core:npc.unmask_howler", {"guess", "reveal", "rolf"}) && player_.flags.count("fig2_guessed") && QuestStage(e2) == 50,
               "Rolf's face is his actual face; the Howler is Brother Aldous");
         check(talk("core:npc.figure_rodrick", {"e2_done", "root"}) && QuestStage(e2) == 100 && CountItem("core:item.gang_scarf") == 1, "full member of the gang: the scarf");
         const std::string e3 = "core:quest.figure_ep3";
         check(talk("core:npc.figure_rodrick", {"e3_open", "root"}) && QuestStage(e3) == 10, "episode three: the Headless Knight of the Old Road");
         check(use("fig3_clue_hat") && use("fig3_clue_sign") && use("fig3_clue_receipt") && talk("core:npc.figure_rodrick", {"e3_trap", "root"}) &&
-                  QuestStage(e3) == 20, "a hat on a stick (Agnes was right), a misspelt toll sign, a receipt for 'S.'");
-        check(use("fig3_trap") && lastScene.find("goose") != std::string::npos && QuestStage(e3) == 30, "the trap catches a goose, a cake and Rodrick");
-        check(catchMonster("fig3_knight") && QuestStage(e3) == 40, "Snacks charges the knight");
+                  QuestStage(e3) == 20, "a hat on a stick (Karma was right), a misspelt toll sign, a receipt for 'S.'");
+        check(use("fig3_trap") && lastScene.find("goose") != std::string::npos && QuestStage(e3) == 30, "the trap catches a goose, a cake and Bread");
+        check(catchMonster("fig3_knight") && QuestStage(e3) == 40, "Doobie charges the knight");
         check(talk("core:npc.unmask_knight", {"reveal", "smile"}) && player_.flags.count("fig3_guessed") && QuestStage(e3) == 50,
               "it was Steve, and he's thrilled to be a real villain");
         check(talk("core:npc.figure_rodrick", {"e3_done", "root"}) && QuestStage(e3) == 100 && CountItem("core:item.snacks_feather") == 1 &&
-                  talk("core:npc.figure_snacks", {"hero", "root"}), "Snacks's brave feather");
+                  talk("core:npc.figure_snacks", {"hero", "root"}), "Doobie's brave feather");
     }
 
     // --- Grout, the gargoyle companion (grumpy, terse, punchy)
@@ -1402,7 +1419,7 @@ int GameEngine::RunSelfTest() {
         player_.flags = savedFlags;
     }
 
-    // --- Snacks the owlbear cub as a companion (after the Headless Knight)
+    // --- Doobie the owlbear cub as a companion (after the Headless Knight)
     {
         overlay_ = Overlay::None;
         screen_ = Screen::Playing;
@@ -1415,9 +1432,9 @@ int GameEngine::RunSelfTest() {
         for (size_t i = 0; i < scene_.npcs.size(); i++) if (scene_.npcs[i].def->id == "core:npc.figure_snacks" && !scene_.npcs[i].hidden) si = static_cast<int>(i);
         bool joined = false;
         if (si >= 0) { StartDialogue(si); joined = chooseNext("join"); if (overlay_ == Overlay::Dialogue) EndDialogue(); }
-        check(joined && IsCompanion("core:npc.figure_snacks"), "Snacks joins you ('Have it back by bedtime!')");
+        check(joined && IsCompanion("core:npc.figure_snacks"), "Doobie joins you ('Have it back by bedtime!')");
         const NpcDef* sd = content_.GetNpc("core:npc.figure_snacks");
-        check(sd && sd->companion.heal_amount > 0 && sd->companion.banter.size() == 5, "Snacks shares snacks and banters with Grout, Baggy and Kaelen");
+        check(sd && sd->companion.heal_amount > 0 && sd->companion.banter.size() == 5, "Doobie shares snacks and banters with Grout, Baggy and Kaelen");
         player_.companions = savedParty;
         player_.flags = savedFlags;
     }

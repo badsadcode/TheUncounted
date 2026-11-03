@@ -594,6 +594,7 @@ void GameEngine::NewGame() {
     for (const auto& s : content_.skills) player_.skills[s.id].level = 5;
     if (race) {
         player_.race_id = race->id;
+        player_.portrait = arch ? [&] { auto c = PortraitChoices(*race, *arch); return c.empty() ? std::string() : c[creation_portrait_ % c.size()]; }() : std::string();
         for (auto& [k, v] : race->attribute_modifiers) player_.attributes[k] += v;
         for (auto& [k, v] : race->skill_bonuses) player_.skills[k].level += v;
     }
@@ -3732,6 +3733,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     json pj;
     pj["name"] = p.name;
     pj["race"] = p.race_id;
+    pj["portrait"] = p.portrait;
     pj["background"] = p.background_id;
     pj["archetype"] = p.archetype_id;
     pj["attributes"] = p.attributes;
@@ -3842,6 +3844,7 @@ bool GameEngine::LoadGame(const std::string& slot) {
         const json& pj = j.at("player");
         p.name = pj.value("name", "Nameless");
         p.race_id = pj.value("race", "");
+        p.portrait = pj.value("portrait", "");
         p.background_id = pj.value("background", "");
         p.archetype_id = pj.value("archetype", "");
         p.attributes = pj.value("attributes", std::map<std::string, int>{});
@@ -4079,6 +4082,33 @@ void GameEngine::PlaySfxAt(const std::string& path, Vector3 pos, float volume) {
     float att = Clamp(1.0f - d / 28.0f, 0.0f, 1.0f);
     if (att <= 0.01f) return;
     res_.PlaySfx(path, volume * att, 0.95f + RandF() * 0.1f);
+}
+
+namespace {
+std::string ShortId(const std::string& id) {          // "core:race.half_orc" -> "half_orc"
+    size_t dot = id.rfind('.');
+    return dot == std::string::npos ? id : id.substr(dot + 1);
+}
+}
+
+// Portraits to pick from at creation: this race and calling first, then the race's others, then its default.
+std::vector<std::string> GameEngine::PortraitChoices(const RaceDef& r, const ArchetypeDef& a) const {
+    std::vector<std::string> out;
+    const std::string race = ShortId(r.id), both = race + "_" + ShortId(a.id) + "_";
+    auto file = [](const std::string& p) { return p.substr(p.rfind('/') + 1); };
+    for (const auto& p : content_.portraits)
+        if (file(p).rfind(both, 0) == 0) out.push_back(p);
+    for (const auto& p : content_.portraits)
+        if (file(p).rfind(race + "_", 0) == 0 && std::find(out.begin(), out.end(), p) == out.end()) out.push_back(p);
+    if (!r.portrait.empty() && std::find(out.begin(), out.end(), r.portrait) == out.end()) out.push_back(r.portrait);
+    return out;
+}
+
+const std::string& GameEngine::PlayerPortrait() const {
+    static const std::string none;
+    if (!player_.portrait.empty() && res_.Exists(player_.portrait)) return player_.portrait;
+    const RaceDef* race = content_.GetRace(player_.race_id);
+    return race ? race->portrait : none;
 }
 
 } // namespace uncounted

@@ -221,6 +221,14 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     for (const auto& modRel : extraModManifests) {
         LoadManifestFile(rootDir, modRel);
     }
+    {   // Character portraits: any PNG in assets/ui/portraits ("<race>_<calling>_<n>.png" sorts them by race and calling)
+        std::error_code pec;
+        portraits.clear();
+        for (const auto& e : fs::directory_iterator(fs::path(rootDir) / "assets" / "ui" / "portraits", pec))
+            if (e.is_regular_file() && e.path().extension() == ".png")
+                portraits.push_back("assets/ui/portraits/" + e.path().filename().string());
+        std::sort(portraits.begin(), portraits.end());
+    }
     LoadUserMaps(rootDir);    // maps you built in Blender (New Map): mods/user_maps/<name>/map.json, always on
     ApplyMapEdits(rootDir);   // your own Blender edits: always on (delete mods/level_edits/map_edits.json to undo them)
     ApplyPropPresets(rootDir); // fires burn and torches glow wherever they're placed (content/props/prop_presets.json)

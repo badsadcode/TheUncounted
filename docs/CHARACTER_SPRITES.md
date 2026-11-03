@@ -125,10 +125,10 @@ animals. The original goes in `art_source/spritesheets/`. The character's `appea
 ### The Figure It Out Gang (a mystery-gang spinoff Toasty invented)
 | Character | Status | Description |
 |---|---|---|
-| **Sir Rodrick Ascot-Smythe** | ✅ | Square-jawed blond leader. White tunic, orange cravat, a coil of rope. Heroic poses, terrible trap plans. |
-| **Lady Primrose Vane** | ✅ | Tall and glamorous, red hair pinned up, purple gown, green silk scarf. Always being kidnapped; secretly punches very hard. |
-| **Agnes Thimble** | ✅ | Short, huge orange jumper, red skirt, very thick spectacles (always sliding off), a book. Actually solves every case. |
-| **Snacks** | ✅ | Owlbear *cub*: dog-sized, four-legged, brown feathers and fluffy fur, owl face, enormous worried eyes. Cowardly. Loves Crumb Cakes. |
+| **Bread** | ✅ | Square-jawed blond leader. White tunic, orange cravat, a coil of rope. Heroic poses, terrible trap plans. |
+| **Badnee** | ✅ | Tall and glamorous, red hair pinned up, purple gown, green silk scarf. Always being kidnapped; secretly punches very hard. |
+| **Karma** | ✅ | Short, huge orange jumper, red skirt, very thick spectacles (always sliding off), a book. Actually solves every case. |
+| **Doobie** | ✅ | Owlbear *cub*: dog-sized, four-legged, brown feathers and fluffy fur, owl face, enormous worried eyes. Cowardly. Loves Crumb Cakes. |
 | *(Baggy)* | ✅ | Gang member, see above. |
 | **The Figure It Out Wagon** | 🧊 | A painted caravan (3D prop): teal, orange stripes, flowers, a big question mark. |
 

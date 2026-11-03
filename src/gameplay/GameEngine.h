@@ -45,6 +45,7 @@ struct ActiveBuff {
 struct PlayerState {
     std::string name = "Nameless";
     std::string race_id, background_id, archetype_id;
+    std::string portrait;   // chosen at creation (cosmetic); empty = the race's default
     std::map<std::string, int> attributes; // permanent values (base + race + archetype + spent points)
     std::map<std::string, SkillState> skills;
     int level = 1;
@@ -213,7 +214,9 @@ private:
     int death_tip_ = 0;
     bool ui_ignore_hover_ = false;   // screenshot previews: show the selected item, not whatever is under the cursor   // character screen: 0 overview, 1 combat sheet
     std::string inv_selected_;
-    int creation_race_ = 0, creation_bg_ = 0, creation_arch_ = 0;
+    int creation_race_ = 0, creation_bg_ = 0, creation_arch_ = 0, creation_portrait_ = 0;
+    std::vector<std::string> PortraitChoices(const RaceDef& r, const ArchetypeDef& a) const;
+    const std::string& PlayerPortrait() const;
     std::string creation_name_ = "Wren";
     bool options_from_title_ = false;
     int ending_stage_ = 0;
