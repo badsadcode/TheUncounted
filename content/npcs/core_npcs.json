@@ -248,8 +248,8 @@
       "dialogue_id": "core:dialogue.brother_aldous",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/brother_aldous.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/brother_aldous_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.76
       },
       "barks": [
@@ -276,8 +276,8 @@
       "dialogue_id": "core:dialogue.ashbound_scout",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/ashbound_scout.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/ashbound_scout_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.8
       },
       "barks": [
