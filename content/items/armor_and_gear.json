@@ -673,6 +673,32 @@
           "value": 0.06
         }
       ]
+    },
+    {
+      "id": "core:item.mimic_satchel",
+      "name_key": "item.mimic_satchel.name",
+      "description_key": "item.mimic_satchel.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/mimic_satchel.png",
+      "world_model": "assets/models/items/leather_jerkin.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 220,
+      "weight": 0.5,
+      "armor": 0,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "carry_capacity_bonus",
+          "value": 30
+        },
+        {
+          "type": "bonus",
+          "stat": "gold_find_bonus",
+          "value": 0.15
+        }
+      ]
     }
   ]
 }

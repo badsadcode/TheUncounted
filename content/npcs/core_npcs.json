@@ -55,6 +55,11 @@
         {
           "text_key": "bark.clerk.steve",
           "flag": "steve_in_town"
+        },
+        {
+          "text_key": "bark.clerk.chester",
+          "quest_id": "core:quest.mimic_s3",
+          "min_stage": 100
         }
       ]
     },
@@ -1287,6 +1292,10 @@
         {
           "text_key": "bark.steve.town",
           "flag": "steve_in_town"
+        },
+        {
+          "text_key": "bark.steve.chester",
+          "flag": "mimic_steve_opened"
         }
       ]
     },

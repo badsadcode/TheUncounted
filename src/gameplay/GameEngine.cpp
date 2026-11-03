@@ -1265,7 +1265,7 @@ int GameEngine::MaxMana() const {
     return std::max(0, b.base_mana + b.mana_per_intellect * (Attr("intellect") - 10) + b.mana_per_will * (Attr("will") - 10));
 }
 float GameEngine::CarryCapacity() const {
-    return content_.balancing.base_carry_weight + content_.balancing.carry_weight_per_might * Attr("might");
+    return content_.balancing.base_carry_weight + content_.balancing.carry_weight_per_might * Attr("might") + Bonus("carry_capacity_bonus");
 }
 float GameEngine::CarriedWeight() const {
     float w = 0;

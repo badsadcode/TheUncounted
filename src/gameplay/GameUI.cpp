@@ -44,6 +44,8 @@ static std::string BonusLabel(const std::string& key, float v) {
     else if (key == "dice_bonus") snprintf(b, sizeof(b), "+%.0f to dice rolls", v);
     else if (key == "health_regen") snprintf(b, sizeof(b), "+%.1f health per second", v);
     else if (key == "stamina_regen") snprintf(b, sizeof(b), "+%.1f stamina per second", v);
+    else if (key == "carry_capacity_bonus") snprintf(b, sizeof(b), "+%.0f carry weight", v);
+    else if (key == "gold_find_bonus") snprintf(b, sizeof(b), "+%.0f%% gold found", v * 100);
     else if (key == "status_duration_bonus") snprintf(b, sizeof(b), "+%.0f%% status effect duration", v * 100);
     else if (key == "status_chance_bonus") snprintf(b, sizeof(b), "+%.0f%% chance to apply status effects", v * 100);
     else if (key == "burn_damage_bonus") snprintf(b, sizeof(b), "+%.0f%% burning damage", v * 100);

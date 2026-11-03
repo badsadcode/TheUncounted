@@ -800,6 +800,72 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.mimic_s1",
+      "title_key": "quest.mimic1.title",
+      "summary_key": "quest.mimic1.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.mimic1.stage0",
+          "journal_key": "quest.mimic1.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.mimic1.stage100",
+          "journal_key": "quest.mimic1.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.mimic_s2",
+      "title_key": "quest.mimic2.title",
+      "summary_key": "quest.mimic2.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.mimic2.stage0",
+          "journal_key": "quest.mimic2.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.mimic2.stage100",
+          "journal_key": "quest.mimic2.journal100",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "core:quest.mimic_s3",
+      "title_key": "quest.mimic3.title",
+      "summary_key": "quest.mimic3.summary",
+      "campaign": "dungeons_debtors",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.mimic3.stage0",
+          "journal_key": "quest.mimic3.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.mimic3.stage100",
+          "journal_key": "quest.mimic3.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

@@ -764,6 +764,23 @@ int GameEngine::RunSelfTest() {
         StartDialogue(npcIndex("core:npc.clerk_oakhaven"));
         check(chooseNext("l_after") && screen_ == Screen::Playing, "Oakhaven took his first day off in nineteen years");
         EndDialogue();
+
+        // Campaign Three: The Mimic Who Wanted to Be a Real Chest (Steve still in the wood: Kaelen opens Chester)
+        const char* ms[] = {"core:quest.mimic_s1", "core:quest.mimic_s2", "core:quest.mimic_s3"};
+        player_.flags.erase("steve_in_town");
+        check(play({"m1_start", "m1_nosteve", "m1_door", "m1_letter", "m1_road", "m1_troll_audit", "m1_end", "greeting"}) && QuestStage(ms[0]) == 100,
+              "Mimic I: Chester's Form C-1, and Gerald audits a troll");
+        check(play({"m2_start", "m2_stand", "m2_stalls", "m2_accused", "m2_clue_audit", "m2_accuse", "m2_wrong_wardrobe", "m2_accuse", "m2_right", "m2_end",
+                    "greeting"}) && QuestStage(ms[1]) == 100,
+              "Mimic II: Lord Strongbox was a mimic all along");
+        check(play({"m3_start", "m3_capacity", "m3_character", "m3_composure_kaelen", "m3_open", "m3_inside", "m3_bow_great", "greeting"}) &&
+                  QuestStage(ms[2]) == 100 && CountItem("core:item.mimic_satchel") == 1 && CountItem("core:item.ten_foot_pole") == 1,
+              "Mimic III: Kaelen puts down the quill; Chester doesn't bite; a satchel with teeth");
+        float cap0 = CarryCapacity();
+        auto eq = player_.equipment;
+        EquipItem("core:item.mimic_satchel");
+        check(CarryCapacity() >= cap0 + 30.0f, "Chester's Cousin carries 30 more");
+        player_.equipment = eq;
     }
 
     // --- Sanity: eldritch places drain it, company slows the drain, breaking point wakes you on the quay

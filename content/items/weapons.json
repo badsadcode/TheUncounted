@@ -511,6 +511,30 @@
         "status_chance": 0.2,
         "status_duration": 4.0
       }
+    },
+    {
+      "id": "core:item.ten_foot_pole",
+      "name_key": "item.ten_foot_pole.name",
+      "description_key": "item.ten_foot_pole.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/ten_foot_pole.png",
+      "world_model": "assets/models/items/oak_staff.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 10,
+      "weight": 3.0,
+      "weapon": {
+        "kind": "melee",
+        "skill": "swords",
+        "damage_type": "blunt",
+        "base_damage": 8,
+        "attack_time_seconds": 0.7,
+        "stamina_cost": 7,
+        "reach_meters": 3.3,
+        "crit_chance": 0.05,
+        "crit_mult": 1.5
+      }
     }
   ]
 }

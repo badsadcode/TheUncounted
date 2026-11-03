@@ -504,3 +504,15 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   Authoring: `tools/authoring/fishing.py` (already run — do not rerun). `--shot … --overlay fishing`.
 - Not yet: recipes found as books, rare reagents from bosses.
 
+### Dungeons & Debtors III: The Mimic Who Wanted to Be a Real Chest (added 2026-11-03)
+
+- Three sessions (`core:quest.mimic_s1..s3`, campaign `dungeons_debtors`, after `lich_s4` = 100) on Oakhaven's greeting:
+  Chester's Form C-1 and the troll bridge (class moves, a persuasion roll, Gerald's audit); the Container Convention (a
+  stolen Golden Key, Chester framed, Baggington investigates; Lord Strongbox turns out to be a mimic himself); the
+  Royal Board's trials (Capacity, Character, Composure). If `steve_in_town`, Steve plays in person (a bard called Steve)
+  and opens Chester; otherwise Steve posts his moves and **Kaelen** puts down the quill to open Chester. Oakhaven
+  doesn't roll for the last bit. `mimic_win_1..6` (≥4 → `mimic_legend`).
+- Rewards: Chester's Cousin (satchel accessory: `carry_capacity_bonus` 30 — new bonus key — and +15% gold) and the
+  Ten-Foot Pole (reach 3.3 m). Oakhaven teases Campaign Four (a dragon's pension paperwork).
+  Authoring: `tools/authoring/mimic_campaign.py` (already run — do not rerun).
+

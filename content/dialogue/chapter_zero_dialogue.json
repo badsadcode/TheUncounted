@@ -356,6 +356,65 @@
               ]
             },
             {
+              "text_key": "dlg.mimic.topic.s1",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.lich_s4",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.mimic_s1",
+                  "stage": 100
+                }
+              ],
+              "next": "m1_start"
+            },
+            {
+              "text_key": "dlg.mimic.topic.s2",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.mimic_s1",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.mimic_s2",
+                  "stage": 100
+                }
+              ],
+              "next": "m2_start"
+            },
+            {
+              "text_key": "dlg.mimic.topic.s3",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.mimic_s2",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.mimic_s3",
+                  "stage": 100
+                }
+              ],
+              "next": "m3_start"
+            },
+            {
+              "text_key": "dlg.mimic.topic.after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.mimic_s3",
+                  "stage": 100
+                }
+              ],
+              "next": "m_after"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -3062,6 +3121,701 @@
           "choices": [
             {
               "text_key": "dlg.overdue.oak.od_oak.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "m1_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_start",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.mimic_s1",
+              "stage": 0
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_start.c0",
+              "next": "m1_steve",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "steve_in_town"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m1_start.c1",
+              "next": "m1_nosteve",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "steve_in_town"
+                }
+              ]
+            }
+          ]
+        },
+        "m1_steve": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_steve",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_steve.c0",
+              "next": "m1_door",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_1",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "m1_nosteve": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_nosteve",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_nosteve.c0",
+              "next": "m1_door"
+            }
+          ]
+        },
+        "m1_door": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_door",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_door.c0",
+              "next": "m1_letter"
+            }
+          ]
+        },
+        "m1_letter": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_letter",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_letter.c0",
+              "next": "m1_road",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_2",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m1_letter.c1",
+              "next": "m1_doubt"
+            }
+          ]
+        },
+        "m1_doubt": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_doubt",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_doubt.c0",
+              "next": "m1_road"
+            }
+          ]
+        },
+        "m1_road": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_road",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_road.c0",
+              "next": "m1_troll_open",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_3",
+                  "value": true
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 11,
+                "fail_next": "m1_troll_bite"
+              }
+            },
+            {
+              "text_key": "dlg.mimic.m1_road.c1",
+              "next": "m1_troll_song",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_bard"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_3",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m1_road.c2",
+              "next": "m1_troll_fists",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dnd_barbarian"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m1_road.c3",
+              "next": "m1_troll_audit",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_3",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "m1_troll_open": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_troll_open",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_troll_open.c0",
+              "next": "m1_end"
+            }
+          ]
+        },
+        "m1_troll_bite": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_troll_bite",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_troll_bite.c0",
+              "next": "m1_end"
+            }
+          ]
+        },
+        "m1_troll_song": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_troll_song",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_troll_song.c0",
+              "next": "m1_end"
+            }
+          ]
+        },
+        "m1_troll_fists": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_troll_fists",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_troll_fists.c0",
+              "next": "m1_end"
+            }
+          ]
+        },
+        "m1_troll_audit": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_troll_audit",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_troll_audit.c0",
+              "next": "m1_end"
+            }
+          ]
+        },
+        "m1_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m1_end",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.mimic_s1",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 40
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m1_end.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "m2_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_start",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.mimic_s2",
+              "stage": 0
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_start.c0",
+              "next": "m2_stand",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_4",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m2_start.c1",
+              "next": "m2_stalls"
+            }
+          ]
+        },
+        "m2_stand": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_stand",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_stand.c0",
+              "next": "m2_stalls"
+            }
+          ]
+        },
+        "m2_stalls": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_stalls",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_stalls.c0",
+              "next": "m2_accused"
+            }
+          ]
+        },
+        "m2_accused": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_accused",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_accused.c0",
+              "next": "m2_clue_cushion",
+              "roll": {
+                "skill": "perception",
+                "dc": 10,
+                "fail_next": "m2_clue_cushion_poor"
+              }
+            },
+            {
+              "text_key": "dlg.mimic.m2_accused.c1",
+              "next": "m2_clue_audit"
+            }
+          ]
+        },
+        "m2_clue_cushion": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_clue_cushion",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "mimic_win_5",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "mimic_clue_iron",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_clue_cushion.c0",
+              "next": "m2_accuse"
+            }
+          ]
+        },
+        "m2_clue_cushion_poor": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_clue_cushion_poor",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "mimic_clue_iron",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_clue_cushion_poor.c0",
+              "next": "m2_accuse"
+            }
+          ]
+        },
+        "m2_clue_audit": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_clue_audit",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "mimic_win_5",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "mimic_clue_iron",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_clue_audit.c0",
+              "next": "m2_accuse"
+            }
+          ]
+        },
+        "m2_accuse": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_accuse",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_accuse.c0",
+              "next": "m2_wrong_wardrobe"
+            },
+            {
+              "text_key": "dlg.mimic.m2_accuse.c1",
+              "next": "m2_wrong_satchel"
+            },
+            {
+              "text_key": "dlg.mimic.m2_accuse.c2",
+              "next": "m2_right",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "mimic_clue_iron"
+                }
+              ]
+            }
+          ]
+        },
+        "m2_wrong_wardrobe": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_wrong_wardrobe",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_wrong_wardrobe.c0",
+              "next": "m2_accuse"
+            }
+          ]
+        },
+        "m2_wrong_satchel": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_wrong_satchel",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_wrong_satchel.c0",
+              "next": "m2_accuse"
+            }
+          ]
+        },
+        "m2_right": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_right",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_right.c0",
+              "next": "m2_end"
+            }
+          ]
+        },
+        "m2_end": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m2_end",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.mimic_s2",
+              "stage": 100
+            },
+            {
+              "type": "give_xp",
+              "skill": "perception",
+              "amount": 40
+            },
+            {
+              "type": "set_flag",
+              "flag": "mimic_win_6",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m2_end.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "m3_start": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_start",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.mimic_s3",
+              "stage": 0
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_start.c0",
+              "next": "m3_capacity"
+            }
+          ]
+        },
+        "m3_capacity": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_capacity",
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "mimic_win_1",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_capacity.c0",
+              "next": "m3_character"
+            }
+          ]
+        },
+        "m3_character": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_character",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_character.c0",
+              "next": "m3_composure_steve",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "steve_in_town"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m3_character.c1",
+              "next": "m3_composure_kaelen",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "steve_in_town"
+                }
+              ]
+            }
+          ]
+        },
+        "m3_composure_steve": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_composure_steve",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_composure_steve.c0",
+              "next": "m3_open",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_steve_opened",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m3_composure_steve.c1",
+              "next": "m3_open",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_steve_opened",
+                  "value": true
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_2",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "m3_composure_kaelen": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_composure_kaelen",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_composure_kaelen.c0",
+              "next": "m3_open"
+            },
+            {
+              "text_key": "dlg.mimic.m3_composure_kaelen.c1",
+              "next": "m3_open",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "mimic_win_2",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "m3_open": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_open",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_open.c0",
+              "next": "m3_inside"
+            }
+          ]
+        },
+        "m3_inside": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_inside",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_inside.c0",
+              "next": "m3_bow_great",
+              "conditions": [
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "mimic_win_1",
+                    "mimic_win_2",
+                    "mimic_win_3",
+                    "mimic_win_4",
+                    "mimic_win_5",
+                    "mimic_win_6"
+                  ],
+                  "value": 4
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.mimic.m3_inside.c1",
+              "next": "m3_bow",
+              "conditions": [
+                {
+                  "type": "flags_fewer_than",
+                  "flags": [
+                    "mimic_win_1",
+                    "mimic_win_2",
+                    "mimic_win_3",
+                    "mimic_win_4",
+                    "mimic_win_5",
+                    "mimic_win_6"
+                  ],
+                  "value": 4
+                }
+              ]
+            }
+          ]
+        },
+        "m3_bow_great": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_bow_great",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.mimic_s3",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.mimic_satchel",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.ten_foot_pole",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 120
+            },
+            {
+              "type": "give_gold",
+              "amount": 150
+            },
+            {
+              "type": "set_flag",
+              "flag": "mimic_legend",
+              "value": true
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_bow_great.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "m3_bow": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m3_bow",
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.mimic_s3",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.mimic_satchel",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.ten_foot_pole",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 120
+            },
+            {
+              "type": "give_gold",
+              "amount": 90
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m3_bow.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "m_after": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.mimic.m_after",
+          "choices": [
+            {
+              "text_key": "dlg.mimic.m_after.c0",
               "next": "greeting"
             }
           ]
