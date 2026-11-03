@@ -1061,6 +1061,46 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.druid_distress",
+      "title_key": "quest.druid.title",
+      "summary_key": "quest.druid.summary",
+      "campaign": "tales_of_bellwether",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.druid.stage0",
+          "journal_key": "quest.druid.journal0",
+          "markers": [
+            "npc_druid_squirrel"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.druid.stage10",
+          "journal_key": "quest.druid.journal10",
+          "markers": [
+            "druid_acorn",
+            "npc_rolf",
+            "npc_druid_squirrel"
+          ]
+        },
+        {
+          "stage": 50,
+          "objective_key": "quest.druid.stage50",
+          "journal_key": "quest.druid.journal50",
+          "markers": [
+            "npc_druid_bramble"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.druid.stage100",
+          "journal_key": "quest.druid.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

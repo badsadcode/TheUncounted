@@ -1714,6 +1714,28 @@
       "yaw": 10.0,
       "requires_flag": "trout_case",
       "hidden_flag": "steve_in_town"
+    },
+    {
+      "instance_id": "npc_druid_squirrel",
+      "npc_id": "core:npc.druid_squirrel",
+      "pos": [
+        -11.6,
+        0.0,
+        4.2
+      ],
+      "yaw": 40.0,
+      "hidden_flag": "druid_restored"
+    },
+    {
+      "instance_id": "npc_druid_bramble",
+      "npc_id": "core:npc.druid_bramble",
+      "pos": [
+        -11.4,
+        0.0,
+        3.8
+      ],
+      "yaw": 40.0,
+      "requires_flag": "druid_restored"
     }
   ],
   "creatures": [
@@ -2175,6 +2197,17 @@
       "rot_y": 0.0,
       "loot_table": "core:loot.fish_pond",
       "prompt": "Fish in the pond"
+    },
+    {
+      "instance_id": "druid_acorn",
+      "type": "pickup",
+      "item_id": "core:item.oak_acorn",
+      "qty": 1,
+      "pos": [
+        -12.8,
+        0.15,
+        5.0
+      ]
     }
   ],
   "portals": []

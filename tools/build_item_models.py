@@ -1067,6 +1067,35 @@ def boss_crafting_icons():
     save_icon(img, "granny_mittens")
 
 
+def druid_icons():
+    """A Druid in Distress: acorn, Rolf's fur, the spare squirrel tail, and the Barkskin spell icon."""
+    from PIL import Image, ImageDraw
+    img, d = icon_canvas()
+    d.ellipse([10, 12, 22, 28], fill=(150, 96, 44, 255)); d.ellipse([12, 14, 16, 22], fill=(186, 130, 70, 255))
+    d.chord([8, 6, 24, 18], 180, 360, fill=(110, 80, 50, 255)); d.rectangle([8, 11, 24, 13], fill=(110, 80, 50, 255))
+    for x in range(10, 23, 3): d.point((x, 9), fill=(80, 58, 36, 255))
+    d.line([(16, 6), (17, 2)], fill=(90, 64, 40, 255), width=2)
+    save_icon(img, "oak_acorn")
+    img, d = icon_canvas()
+    for i, (x, y) in enumerate([(9, 20), (13, 14), (17, 18), (20, 12), (12, 23), (21, 22)]):
+        d.ellipse([x - 4, y - 5, x + 4, y + 5], fill=(122 + i * 4, 92 + i * 3, 64, 255))
+    for x0, y0, x1, y1 in [(8, 16, 6, 10), (14, 10, 13, 5), (21, 9, 24, 4), (17, 14, 18, 8)]:
+        d.line([(x0, y0), (x1, y1)], fill=(150, 116, 80, 255))
+    save_icon(img, "rolf_fur")
+    img, d = icon_canvas()
+    d.pieslice([4, 4, 28, 30], 200, 20, fill=(176, 92, 48, 255))
+    d.ellipse([9, 8, 25, 24], fill=(196, 112, 60, 255)); d.ellipse([13, 12, 22, 20], fill=(216, 140, 80, 255))
+    d.rectangle([13, 25, 18, 28], fill=(110, 80, 50, 255))
+    save_icon(img, "squirrel_tail")
+    img = Image.new("RGBA", (32, 32), (24, 30, 22, 255)); d = ImageDraw.Draw(img)
+    d.rectangle([0, 0, 31, 31], outline=(90, 150, 70, 255))
+    d.rounded_rectangle([9, 4, 23, 29], 5, fill=(110, 78, 46, 255))            # an arm turned to bark
+    for y in range(7, 28, 4): d.line([(10, y), (22, y + 1)], fill=(80, 56, 32, 255))
+    for x in (13, 18): d.line([(x, 5), (x - 1, 28)], fill=(140, 104, 64, 255))
+    d.ellipse([20, 3, 28, 11], fill=(110, 190, 80, 255)); d.line([(24, 7), (21, 12)], fill=(80, 140, 60, 255))   # leaf
+    path = os.path.join(ROOT, "assets", "ui", "spells", "barkskin.png"); img.save(path); print("Wrote", os.path.relpath(path, ROOT))
+
+
 BUILDERS = {
     "bread": bread,
     "leather_jerkin": lambda: garment("leather_jerkin", (122, 80, 46), (84, 54, 32)),
@@ -1095,6 +1124,7 @@ BUILDERS = {
     "wagon_models": wagon_models,
     "gang_icons": gang_icons,
     "boss_crafting_icons": boss_crafting_icons,
+    "druid_icons": druid_icons,
 }
 
 

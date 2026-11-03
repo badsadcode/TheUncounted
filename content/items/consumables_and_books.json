@@ -1705,6 +1705,30 @@
           "duration": 300
         }
       ]
+    },
+    {
+      "id": "core:item.oak_acorn",
+      "name_key": "item.oak_acorn.name",
+      "description_key": "item.oak_acorn.description",
+      "category": "misc",
+      "icon": "assets/ui/items/oak_acorn.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 5,
+      "weight": 0.1,
+      "stackable": true
+    },
+    {
+      "id": "core:item.rolf_fur",
+      "name_key": "item.rolf_fur.name",
+      "description_key": "item.rolf_fur.description",
+      "category": "misc",
+      "icon": "assets/ui/items/rolf_fur.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 5,
+      "weight": 0.1,
+      "stackable": true
     }
   ]
 }

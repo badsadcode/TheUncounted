@@ -456,6 +456,28 @@
         ],
         "light_radius": 5.0
       }
+    },
+    {
+      "id": "core:spell.barkskin",
+      "name_key": "spell.barkskin.name",
+      "description_key": "spell.barkskin.desc",
+      "icon": "assets/ui/spells/barkskin.png",
+      "skill": "restoration",
+      "mana_cost": 18,
+      "cooldown_seconds": 2.0,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "buff_stat",
+        "bonus_key": "armor_bonus",
+        "bonus_value": 8.0,
+        "duration_seconds": 40.0,
+        "light_color": [
+          0.4,
+          0.8,
+          0.3
+        ],
+        "light_radius": 3.0
+      }
     }
   ]
 }

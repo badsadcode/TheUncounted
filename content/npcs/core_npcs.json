@@ -1998,6 +1998,45 @@
           }
         ]
       }
+    },
+    {
+      "id": "core:npc.druid_squirrel",
+      "name_key": "npc.druid_squirrel.name",
+      "title_key": "npc.druid_squirrel.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.druid_squirrel",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/druid_squirrel.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 0.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.druid.sq.1"
+        },
+        {
+          "text_key": "bark.druid.sq.2"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.druid_bramble",
+      "name_key": "npc.druid_bramble.name",
+      "title_key": "npc.druid_bramble.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.druid_bramble",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/druid_bramble.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.82
+      },
+      "barks": [
+        {
+          "text_key": "bark.druid.dr.1"
+        }
+      ]
     }
   ]
 }

@@ -1,3 +1,4 @@
+#include <algorithm>
 // Headless walkthrough of Chapter Zero used by `game.exe --selftest`. It drives the real gameplay code
 // (dialogue, interaction, collision, combat, loot, saves) and reports every broken step to the log.
 #include "gameplay/GameEngine.h"
@@ -1418,6 +1419,55 @@ int GameEngine::RunSelfTest() {
         check(sd && sd->companion.heal_amount > 0 && sd->companion.banter.size() == 5, "Snacks shares snacks and banters with Grout, Baggy and Kaelen");
         player_.companions = savedParty;
         player_.flags = savedFlags;
+    }
+
+    // --- A Druid in Distress: the squirrel, the ingredients, the goose, Barkskin
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        const std::string dq = "core:quest.druid_distress";
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            return ok;
+        };
+        check(visible("core:npc.druid_bramble") < 0 && talk("core:npc.druid_squirrel", {"who", "stuck", "task", "root"}) && QuestStage(dq) == 10,
+              "a squirrel by the Old Oak: a druid who sneezed mid-shapeshift");
+        UpdateWorldObjects(0.0f);
+        bool acorn = false;
+        for (const auto& wp : scene_.pickups) acorn = acorn || wp.key == "druid_acorn";
+        check(acorn, "an acorn lies under the Old Oak");
+        AddItem("core:item.oak_acorn", 1, false);
+        AddItem("core:item.glowcap", 1, false);
+        check(talk("core:npc.werewolf_rolf", {"druid_fur", "root"}) && CountItem("core:item.rolf_fur") == 1, "Rolf: 'Take it from the back. The front is for show.'");
+        int si = visible("core:npc.druid_squirrel");
+        bool goose = false, restored = false;
+        if (si >= 0) {
+            StartDialogue(si);
+            chooseNext("ritual");
+            chooseNext("restored");
+            goose = dialogue_node_ == "goose";
+            for (int i = 0; i < 20 && dialogue_node_ != "restored"; i++) chooseNext("restored");
+            restored = dialogue_node_ == "restored";
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+        }
+        check(goose && player_.flags.count("druid_was_goose"), "the first reading turns him into a goose (HONK)");
+        check(restored && QuestStage(dq) == 50 && visible("core:npc.druid_squirrel") < 0 && visible("core:npc.druid_bramble") >= 0,
+              "the rite works: Bramble is back, with antlers");
+        check(talk("core:npc.druid_bramble", {"teach", "root"}) && QuestStage(dq) == 100 &&
+                  std::count(player_.known_spells.begin(), player_.known_spells.end(), std::string("core:spell.barkskin")) > 0 &&
+                  CountItem("core:item.squirrel_tail") == 1,
+              "Bramble teaches Barkskin and hands over his spare squirrel tail");
     }
 
     // --- Deeper crafting: boss reagents, recipe books, locked recipes

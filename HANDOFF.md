@@ -389,6 +389,14 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   Fighting Mittens), Sabrino's Forbidden Footnotes (Sabrino, 180: Ember Draught, Lullaby Tonic, Oil of Forgetting),
   Mother Brine's Greasy Recipe Card (Mother Brine, 40: Dreaming Calamari, Saltmere Fish Pie).
 
+### A Druid in Distress (added 2026-11-03)
+
+- `tools/authoring/druid.py` (tales_of_bellwether): a squirrel by the Old Oak is Bramble Thistlewick, Druid (Third Class),
+  stuck since he sneezed mid-shapeshift. Bring an Acorn of the Old Oak (pickup under the oak), a glowcap and a tuft of
+  Rolf's fur (new Rolf topic); the incantation is a rigged Lore roll (first try: goose; then DC 9, then DC 6). Restored
+  (`druid_restored`), with antlers: he teaches **Barkskin** (buff_stat armour +8 / 40 s) and gives his spare squirrel tail.
+- New dialogue condition `item_not_held`. Placeholder sprites `druid_squirrel.png`, `druid_bramble.png`.
+
 ## 8. The user (what they care about)
 
 - **Story and immersion are the priority.** Bigger, multi-level spaces without loading screens. Better graphics/sprites welcome.

@@ -3356,6 +3356,7 @@ bool GameEngine::EvalCondition(const DialogueCondition& c) const {
     if (c.type == "quest_stage_at_least") return QuestStage(c.quest_id) >= c.stage;
     if (c.type == "quest_stage_below") return QuestStage(c.quest_id) < c.stage;
     if (c.type == "has_item") return CountItem(c.item_id) > 0;
+    if (c.type == "item_not_held") return CountItem(c.item_id) == 0;
     if (c.type == "race_is") return player_.race_id == c.race_id;
     if (c.type == "skill_at_least") return SkillLevel(c.skill) >= c.value;
     if (c.type == "flag_set") return player_.flags.count(c.flag) > 0;

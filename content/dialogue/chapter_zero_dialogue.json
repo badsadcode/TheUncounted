@@ -8552,6 +8552,21 @@
               ]
             },
             {
+              "text_key": "dlg.druid.rolf.choice",
+              "next": "druid_fur",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 10
+                },
+                {
+                  "type": "item_not_held",
+                  "item_id": "core:item.rolf_fur"
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -8696,6 +8711,23 @@
           "choices": [
             {
               "text_key": "dlg.trout.rolf.trout.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "druid_fur": {
+          "speaker_key": "npc.werewolf_rolf.name",
+          "text_key": "dlg.druid.rolf.fur",
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.rolf_fur",
+              "qty": 1
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.druid.rolf.fur.c0",
               "next": "root"
             }
           ]
@@ -14772,6 +14804,370 @@
           "choices": [
             {
               "text_key": "dlg.grout.like.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.druid_squirrel",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.root",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.root.c0",
+              "next": "who",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.druid.sq.root.c1",
+              "next": "task",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.druid.sq.root.c2",
+              "next": "hint",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.druid.sq.root.c3",
+              "next": "ritual",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 10
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.oak_acorn"
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.glowcap"
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.rolf_fur"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.druid.sq.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.who",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.who.c0",
+              "next": "stuck"
+            }
+          ]
+        },
+        "stuck": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.stuck",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.stuck.c0",
+              "next": "task"
+            }
+          ]
+        },
+        "task": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.task",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.task.c0",
+              "next": "root",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 0
+                },
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 10
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "druid_quest",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "hint": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.hint",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.hint.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "ritual": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.ritual",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.ritual.c0",
+              "next": "restored",
+              "roll": {
+                "skill": "lore",
+                "dc": 11,
+                "fail_next": "goose",
+                "rigged": true
+              }
+            },
+            {
+              "text_key": "dlg.druid.sq.ritual.c1",
+              "next": "root"
+            }
+          ]
+        },
+        "goose": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.goose",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.goose.c0",
+              "next": "restored",
+              "roll": {
+                "skill": "lore",
+                "dc": 9,
+                "fail_next": "goose_again"
+              }
+            },
+            {
+              "text_key": "dlg.druid.sq.goose.c1",
+              "next": "goose_sorry"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "druid_was_goose",
+              "value": true
+            },
+            {
+              "type": "sanity",
+              "amount": -3
+            }
+          ]
+        },
+        "goose_sorry": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.goose_sorry",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.goose_sorry.c0",
+              "next": "restored",
+              "roll": {
+                "skill": "lore",
+                "dc": 9,
+                "fail_next": "goose_again"
+              }
+            }
+          ]
+        },
+        "goose_again": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.goose_again",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.goose_again.c0",
+              "next": "restored",
+              "roll": {
+                "skill": "lore",
+                "dc": 6,
+                "fail_next": "goose_again"
+              }
+            }
+          ]
+        },
+        "restored": {
+          "speaker_key": "npc.druid_squirrel.name",
+          "text_key": "dlg.druid.sq.restored",
+          "choices": [
+            {
+              "text_key": "dlg.druid.sq.restored.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "druid_restored",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.druid_distress",
+              "stage": 50
+            },
+            {
+              "type": "take_item",
+              "item_id": "core:item.oak_acorn",
+              "qty": 1
+            },
+            {
+              "type": "take_item",
+              "item_id": "core:item.glowcap",
+              "qty": 1
+            },
+            {
+              "type": "take_item",
+              "item_id": "core:item.rolf_fur",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 40
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.druid_bramble",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.druid_bramble.name",
+          "text_key": "dlg.druid.dr.root",
+          "choices": [
+            {
+              "text_key": "dlg.druid.dr.root.c0",
+              "next": "feel",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 50
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.druid.dr.root.c1",
+              "next": "antlers"
+            },
+            {
+              "text_key": "dlg.druid.dr.root.c2",
+              "next": "teach",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 50
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.druid.dr.root.c3",
+              "next": "later",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.druid_distress",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.druid.dr.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "feel": {
+          "speaker_key": "npc.druid_bramble.name",
+          "text_key": "dlg.druid.dr.feel",
+          "choices": [
+            {
+              "text_key": "dlg.druid.dr.feel.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "antlers": {
+          "speaker_key": "npc.druid_bramble.name",
+          "text_key": "dlg.druid.dr.antlers",
+          "choices": [
+            {
+              "text_key": "dlg.druid.dr.antlers.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "teach": {
+          "speaker_key": "npc.druid_bramble.name",
+          "text_key": "dlg.druid.dr.teach",
+          "choices": [
+            {
+              "text_key": "dlg.druid.dr.teach.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.barkskin"
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.squirrel_tail",
+              "qty": 1
+            },
+            {
+              "type": "give_gold",
+              "amount": 60
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.druid_distress",
+              "stage": 100
+            }
+          ]
+        },
+        "later": {
+          "speaker_key": "npc.druid_bramble.name",
+          "text_key": "dlg.druid.dr.later",
+          "choices": [
+            {
+              "text_key": "dlg.druid.dr.later.c0",
               "next": "root"
             }
           ]

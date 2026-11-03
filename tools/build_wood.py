@@ -195,6 +195,11 @@ for _k in range(10):
     box(f"pond_rim_{_k}", STONE, -16.0 + math.cos(_a) * 2.1 - 0.25, -16.0 + math.cos(_a) * 2.1 + 0.25, 0.0, 0.18, -0.5 + math.sin(_a) * 2.0 - 0.25, -0.5 + math.sin(_a) * 2.0 + 0.25, solid=False, uv=[0.3, 0.1])
 interactables.append({"instance_id": "fish_pond", "type": "fishing", "model": "", "pos": [-16.0, 0.0, -0.5], "rot_y": 0.0, "loot_table": "core:loot.fish_pond", "prompt": "Fish in the pond"})
 
+# ============================================================================ A Druid in Distress (tools/authoring/druid.py)
+npcs.append({"instance_id": "npc_druid_squirrel", "npc_id": "core:npc.druid_squirrel", "pos": [-11.6, 0.0, 4.2], "yaw": 40.0, "hidden_flag": "druid_restored"})
+npcs.append({"instance_id": "npc_druid_bramble", "npc_id": "core:npc.druid_bramble", "pos": [-11.4, 0.0, 3.8], "yaw": 40.0, "requires_flag": "druid_restored"})
+interactables.append({"instance_id": "druid_acorn", "type": "pickup", "item_id": "core:item.oak_acorn", "qty": 1, "pos": [-12.8, 0.15, 5.0]})
+
 region = {
     "schema_version": 1,
     "id": "core:map.whistling_wood",

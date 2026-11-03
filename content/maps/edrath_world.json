@@ -6695,101 +6695,83 @@
     {
       "sprite": "assets/sprites/scatter/fern.png",
       "pos": [
-        -59.02,
+        -64.13,
         0.0,
-        5.2
+        -10.35
       ],
-      "size": 0.95
-    },
-    {
-      "sprite": "assets/sprites/scatter/mushrooms.png",
-      "pos": [
-        -30.69,
-        0.0,
-        -18.65
-      ],
-      "size": 0.47
-    },
-    {
-      "sprite": "assets/sprites/scatter/bush.png",
-      "pos": [
-        -53.4,
-        0.0,
-        17.72
-      ],
-      "size": 0.78
-    },
-    {
-      "sprite": "assets/sprites/scatter/mushrooms.png",
-      "pos": [
-        -50.66,
-        0.0,
-        17.73
-      ],
-      "size": 0.47
+      "size": 0.77
     },
     {
       "sprite": "assets/sprites/scatter/grass_tuft.png",
       "pos": [
-        -62.7,
+        -66.92,
         0.0,
-        -10.34
+        8.18
       ],
-      "size": 0.64
-    },
-    {
-      "sprite": "assets/sprites/scatter/mushrooms.png",
-      "pos": [
-        -27.92,
-        0.0,
-        14.28
-      ],
-      "size": 0.34
+      "size": 0.46
     },
     {
       "sprite": "assets/sprites/scatter/fern.png",
       "pos": [
-        -58.33,
+        -29.04,
         0.0,
-        -20.75
+        -5.18
+      ],
+      "size": 0.69
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -57.83,
+        0.0,
+        -1.38
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -27.52,
+        0.0,
+        -19.68
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -33.78,
+        0.0,
+        -19.99
+      ],
+      "size": 0.75
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -35.42,
+        0.0,
+        -9.31
       ],
       "size": 0.81
     },
     {
       "sprite": "assets/sprites/scatter/fern.png",
       "pos": [
-        -54.33,
+        -33.91,
         0.0,
-        11.05
+        -7.53
       ],
-      "size": 0.95
+      "size": 0.93
     },
     {
-      "sprite": "assets/sprites/scatter/fern.png",
+      "sprite": "assets/sprites/scatter/bush.png",
       "pos": [
-        -66.09,
+        -40.96,
         0.0,
-        17.6
+        -6.0
       ],
-      "size": 0.74
-    },
-    {
-      "sprite": "assets/sprites/scatter/grass_tuft.png",
-      "pos": [
-        -56.19,
-        0.0,
-        8.88
-      ],
-      "size": 0.52
-    },
-    {
-      "sprite": "assets/sprites/scatter/mushrooms.png",
-      "pos": [
-        -38.24,
-        0.0,
-        -7.46
-      ],
-      "size": 0.42
+      "size": 1.07
     },
     {
       "sprite": "assets/sprites/scatter/fern.png",
@@ -8637,22 +8619,22 @@
       "size": 0.78
     },
     {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        3.44,
-        0.0,
-        -136.14
-      ],
-      "size": 1.2
-    },
-    {
       "sprite": "assets/sprites/scatter/grass_tuft.png",
       "pos": [
-        -1.62,
+        -43.84,
         0.0,
-        -144.13
+        20.8
       ],
-      "size": 0.6
+      "size": 0.51
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -52.09,
+        0.0,
+        9.62
+      ],
+      "size": 0.88
     },
     {
       "sprite": "assets/sprites/scatter/grass_tuft.png",
@@ -9179,128 +9161,146 @@
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -58.94,
-        0.0,
-        -0.14
+        14.68,
+        -0.45,
+        -136.79
       ],
-      "size": 1.5
+      "size": 1.1
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -59.62,
+        -4.31,
         0.0,
-        1.1
+        -136.46
+      ],
+      "size": 1.21
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.35,
+        0.0,
+        -0.74
       ],
       "size": 1.2
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -60.14,
+        -59.5,
         0.0,
-        1.65
+        0.43
       ],
-      "size": 1.28
+      "size": 1.22
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -61.29,
+        -60.37,
         0.0,
-        2.2
+        1.99
       ],
-      "size": 1.18
+      "size": 1.38
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -62.29,
+        -60.94,
         0.0,
-        2.24
+        2.37
       ],
-      "size": 1.18
+      "size": 1.3
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -63.47,
+        -62.73,
         0.0,
-        1.86
-      ],
-      "size": 1.42
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -64.76,
-        0.0,
-        0.71
-      ],
-      "size": 1.13
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -64.89,
-        0.0,
-        -0.73
-      ],
-      "size": 1.32
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -64.69,
-        0.0,
-        -2.18
-      ],
-      "size": 1.25
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -63.89,
-        0.0,
-        -2.74
-      ],
-      "size": 1.24
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -62.78,
-        0.0,
-        -3.27
-      ],
-      "size": 1.49
-    },
-    {
-      "sprite": "assets/sprites/scatter/reeds.png",
-      "pos": [
-        -61.71,
-        0.0,
-        -3.18
+        2.53
       ],
       "size": 1.48
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -60.27,
+        -63.7,
         0.0,
-        -2.73
+        1.79
+      ],
+      "size": 1.32
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.47,
+        0.0,
+        0.84
+      ],
+      "size": 1.28
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.64,
+        0.0,
+        -0.89
+      ],
+      "size": 1.17
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.4,
+        0.0,
+        -2.08
+      ],
+      "size": 1.25
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.01,
+        0.0,
+        -2.39
+      ],
+      "size": 1.17
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -62.66,
+        0.0,
+        -3.06
+      ],
+      "size": 1.3
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -61.53,
+        0.0,
+        -3.44
       ],
       "size": 1.11
     },
     {
       "sprite": "assets/sprites/scatter/reeds.png",
       "pos": [
-        -59.66,
+        -60.1,
         0.0,
-        -1.84
+        -2.64
       ],
-      "size": 1.27
+      "size": 1.23
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.57,
+        0.0,
+        -1.98
+      ],
+      "size": 1.16
     },
     {
       "sprite": "assets/sprites/scatter/cobweb.png",
@@ -21759,6 +21759,28 @@
       "hidden_flag": "steve_in_town"
     },
     {
+      "instance_id": "npc_druid_squirrel",
+      "npc_id": "core:npc.druid_squirrel",
+      "pos": [
+        -57.6,
+        0.0,
+        4.2
+      ],
+      "yaw": 40.0,
+      "hidden_flag": "druid_restored"
+    },
+    {
+      "instance_id": "npc_druid_bramble",
+      "npc_id": "core:npc.druid_bramble",
+      "pos": [
+        -57.4,
+        0.0,
+        3.8
+      ],
+      "yaw": 40.0,
+      "requires_flag": "druid_restored"
+    },
+    {
       "instance_id": "npc_silas_reef",
       "npc_id": "core:npc.silas_gale",
       "pos": [
@@ -25489,6 +25511,17 @@
       "rot_y": 0.0,
       "loot_table": "core:loot.fish_pond",
       "prompt": "Fish in the pond"
+    },
+    {
+      "instance_id": "druid_acorn",
+      "type": "pickup",
+      "item_id": "core:item.oak_acorn",
+      "qty": 1,
+      "pos": [
+        -58.8,
+        0.15,
+        5.0
+      ]
     },
     {
       "instance_id": "light_plaque",

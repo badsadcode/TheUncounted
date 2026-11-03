@@ -801,6 +801,12 @@ SHEETS = {
         "kind": "humanoid", "body": (226, 190, 160), "armor": (230, 130, 40), "legs": (180, 60, 50), "trim": (250, 170, 70),
         "eye": (30, 30, 30), "hat": "bun", "hair": (110, 70, 40), "weapon": "ledger", "book": (180, 60, 50),
     },
+    "assets/sprites/npcs/druid_squirrel.png": {"kind": "rat", "scale": 1.0, "body": (176, 92, 48), "armor": (140, 70, 36), "eye": (30, 20, 16)},
+    "assets/sprites/npcs/druid_bramble.png": {
+        "kind": "humanoid", "robe": True, "body": (222, 186, 150), "armor": (70, 110, 60), "cloak": (96, 74, 46), "trim": (170, 140, 70),
+        "eye": (40, 70, 40), "hat": "bald", "hair": (150, 110, 70), "beard": True, "horns": True, "horn": (120, 92, 60), "weapon": "staff",
+        "orb": (150, 230, 120),
+    },
     "assets/sprites/npcs/grout.png": {
         "kind": "humanoid", "body": (128, 128, 122), "armor": (110, 110, 106), "legs": (100, 100, 96), "boots": (84, 84, 80),
         "trim": (90, 140, 70), "eye": (250, 200, 80), "glow_eyes": True, "hat": "bald", "hair": (96, 96, 92), "horns": True,
