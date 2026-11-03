@@ -428,6 +428,8 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   Noor's flames arrived (10 frames of 64 px; main, small, magic; originals in art_source/fire/). Pieces: fire_embers,
   fire_embers_small, fire_embers_magic (teal coals texture embers_magic.png), campfire. build_fire_assets.py keeps her
   sheet unless --placeholder.
+- **Noor's art package**: `python3 tools/import_art_package.py ZIP` (dry run) then `--apply`: portraits, spell/item icons,
+  spell effects (alpha made hard) and the four model monsters (switched to sprite_8dir, then tools/import_package.py).
 - **Portraits**: any assets/ui/portraits/<race>_<calling>_<n>.png appears in the creation picker (race+calling first);
   PlayerState.portrait is saved. Remaining art is listed in docs/NOOR_ART_BRIEF.md (tools/write_art_brief.py).
 - **The Figure It Out Gang** uses Toasty's spin-off names: Baggy, Bread (was Rodrick), Badnee (Primrose), Karma (Agnes),
