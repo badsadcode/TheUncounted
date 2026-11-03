@@ -414,4 +414,8 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
 - **Weather `fireflies`** (pulsing emissive motes around the camera; the Whistling Wood) and **stars** in dark,
   clear, low-fog skies (none when raining or fog density >= 0.045).
 - New graphics config keys: `retro_dither`, `glow`, `world_motion`. `--shot … --overlay options` shows the menu.
+- **Screen effects** (`screen_effect` in graphics.json; Options → Screen effect): `crt` (Old TV: curvature, scanlines,
+  RGB mask, tube edge), `vhs` (chroma bleed, wobble, rolling tracking band, noise, PLAY/counter/date overlay top-right),
+  `fisheye` (strong barrel lens), `film` (sepia, grain, scratches, gate weave, dust), `handheld` (4-shade green LCD at
+  144 lines). All in `post.fs`; the HUD is drawn afterwards, so it stays crisp.
 

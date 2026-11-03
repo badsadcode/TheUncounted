@@ -98,6 +98,9 @@ void WorldRenderer::ReloadShaders() {
     post_dither_ = GetShaderLocation(post_shader_, "uDither");
     post_glow_ = GetShaderLocation(post_shader_, "uGlow");
     post_vignette_ = GetShaderLocation(post_shader_, "uVignette");
+    post_effect_ = GetShaderLocation(post_shader_, "uEffect");
+    post_time_ = GetShaderLocation(post_shader_, "uTime");
+    post_res_ = GetShaderLocation(post_shader_, "uScreen");
     ResolveLocs(world_shader_, wl_);
     ResolveLocs(sprite_shader_, sl_);
     res_->SetModelShader(world_shader_);
@@ -692,9 +695,30 @@ void WorldRenderer::BlitToScreen() {
         SetShaderValue(post_shader_, post_dither_, &dither, SHADER_UNIFORM_FLOAT);
         SetShaderValue(post_shader_, post_glow_, &glow, SHADER_UNIFORM_FLOAT);
         SetShaderValue(post_shader_, post_vignette_, &vig, SHADER_UNIFORM_FLOAT);
+        static const char* kEffects[] = {"off", "crt", "vhs", "fisheye", "film", "handheld"};
+        int effect = 0;
+        for (int i = 0; i < 6; i++) if (gfx_->screen_effect == kEffects[i]) effect = i;
+        Vector2 screen = {dw, dh};
+        SetShaderValue(post_shader_, post_effect_, &effect, SHADER_UNIFORM_INT);
+        SetShaderValue(post_shader_, post_time_, &time_, SHADER_UNIFORM_FLOAT);
+        SetShaderValue(post_shader_, post_res_, &screen, SHADER_UNIFORM_VEC2);
     }
     DrawTexturePro(target_.texture, src, dst, {0, 0}, 0.0f, WHITE);
     if (post) EndShaderMode();
+    if (gfx_->screen_effect == "vhs") {
+        // The camcorder overlay: PLAY, and a tape counter that never quite matches reality.
+        // Top-right, clear of the quest tracker (top-left) and the HUD (bottom).
+        int fs = std::max(16, static_cast<int>(dh / 28.0f));
+        int right = static_cast<int>(dst.x + dw - dh * 0.04f), y0 = static_cast<int>(dst.y + dh * 0.04f);
+        Color vc = {235, 235, 235, 230};
+        if (fmodf(time_, 2.0f) < 1.4f) DrawText("PLAY  >", right - MeasureText("PLAY  >", fs), y0, fs, vc);
+        int secs = static_cast<int>(time_);
+        char buf[64];
+        snprintf(buf, sizeof(buf), "SP  0:%02d:%02d", (secs / 60) % 60, secs % 60);
+        DrawText(buf, right - MeasureText(buf, fs), y0 + fs + 4, fs, vc);
+        const char* date = "NOV. 3 1993";
+        DrawText(date, right - MeasureText(date, fs), y0 + (fs + 4) * 2, fs, vc);
+    }
 }
 
 } // namespace uncounted

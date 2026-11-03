@@ -661,13 +661,13 @@ void GameEngine::DrawOptions() {
     GraphicsConfig& gfx = content_.graphics;
     ControlsConfig& cc = content_.controls;
     bool changed = false;
-    float x = VW * 0.5f - 300, y = VH * 0.5f - 292;
+    float x = VW * 0.5f - 300, y = VH * 0.5f - 296;
     auto row = [&](const std::string& label, const std::string& value, auto onLeft, auto onRight) {
         Text(label, x, y + 6, 18, kText);
         if (Button({x + 330, y, 40, 32}, "<")) { onLeft(); changed = true; }
         Text(value, x + 380 + (170 - TextWidth(value, 18)) * 0.5f, y + 6, 18, kGold);
         if (Button({x + 560, y, 40, 32}, ">")) { onRight(); changed = true; }
-        y += 32;
+        y += 30;
     };
     auto pct = [](float v) { return std::to_string(static_cast<int>(std::round(v * 100))) + "%"; };
     auto step = [](float& v, float d) { v = Clamp(std::round((v + d) * 100) / 100, 0.0f, 1.0f); };
@@ -701,6 +701,15 @@ void GameEngine::DrawOptions() {
         [&] { gfx.dynamic_lights_enabled = !gfx.dynamic_lights_enabled; });
     row("Retro dithering", gfx.retro_dither ? "On" : "Off", [&] { gfx.retro_dither = !gfx.retro_dither; }, [&] { gfx.retro_dither = !gfx.retro_dither; });
     row("Glow", gfx.glow ? "On" : "Off", [&] { gfx.glow = !gfx.glow; }, [&] { gfx.glow = !gfx.glow; });
+    auto cycleFx = [&](int d) {
+        static const std::vector<std::string> ids = {"off", "crt", "vhs", "fisheye", "film", "handheld"};
+        auto it = std::find(ids.begin(), ids.end(), gfx.screen_effect);
+        int i = it == ids.end() ? 0 : static_cast<int>(it - ids.begin());
+        gfx.screen_effect = ids[(i + d + ids.size()) % ids.size()];
+    };
+    static const std::map<std::string, std::string> fxName = {{"off", "Off"}, {"crt", "Old TV"}, {"vhs", "VHS tape"},
+                                                              {"fisheye", "Fisheye"}, {"film", "Silent film"}, {"handheld", "Handheld"}};
+    row("Screen effect", fxName.count(gfx.screen_effect) ? fxName.at(gfx.screen_effect) : "Off", [&] { cycleFx(-1); }, [&] { cycleFx(1); });
     row("Swaying trees & water", gfx.world_motion ? "On" : "Off", [&] { gfx.world_motion = !gfx.world_motion; },
         [&] { gfx.world_motion = !gfx.world_motion; });
     auto cycleDiff = [&](int d) {

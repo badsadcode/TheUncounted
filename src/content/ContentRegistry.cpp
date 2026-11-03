@@ -65,6 +65,7 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         graphics.retro_dither = j.value("retro_dither", true);
         graphics.glow = j.value("glow", true);
         graphics.world_motion = j.value("world_motion", true);
+        graphics.screen_effect = j.value("screen_effect", "off");
         if (j.contains("available_internal_resolutions") && j["available_internal_resolutions"].is_array()) {
             graphics.available_internal_resolutions.clear();
             for (const auto& r : j["available_internal_resolutions"]) {
@@ -133,6 +134,7 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["retro_dither"] = graphics.retro_dither;
         j["glow"] = graphics.glow;
         j["world_motion"] = graphics.world_motion;
+        j["screen_effect"] = graphics.screen_effect;
         std::ofstream ofs((fs::path(rootDir) / "config/graphics.json").string());
         if (ofs.is_open()) ofs << j.dump(2);
     }

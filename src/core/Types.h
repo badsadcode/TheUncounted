@@ -31,6 +31,7 @@ struct GraphicsConfig {
     bool retro_dither = true;   // post pass: ordered dithering + colour banding on the internal-resolution grid
     bool glow = true;           // post pass: soft bloom around bright, emissive things (torches, spells, eyes)
     bool world_motion = true;   // foliage sway, rippling water, breathing tentacles
+    std::string screen_effect = "off";  // off, crt, vhs, fisheye, film, handheld
 };
 
 struct ControlsConfig {
