@@ -909,8 +909,8 @@
       "dialogue_id": "core:dialogue.hunter_hollis",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/hunter_hollis.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/hunter_hollis_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.76
       },
       "barks": [
@@ -1018,8 +1018,8 @@
       "dialogue_id": "core:dialogue.odette",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/impresario_odette.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/impresario_odette_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.7
       },
       "barks": [
@@ -1077,8 +1077,8 @@
       "dialogue_id": "core:dialogue.harbourmaster",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/harbourmaster.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/harbourmaster_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [

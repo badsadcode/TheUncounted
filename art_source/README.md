@@ -27,6 +27,11 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/gale_younger.webp` | `assets/sprites/npcs/gale_younger_painted.png` | Abel Gale (and the Shorter Stranger) |
 | `spritesheets/ghost_percival.webp` | `assets/sprites/npcs/ghost_percival_painted.png` | Sir Percival |
 | `spritesheets/granny_wolf.webp` | `assets/sprites/enemies/granny_wolf_painted.png` | Wolf in Grandmother's Nightgown |
+| `spritesheets/grey_wolf.webp` | `assets/sprites/enemies/grey_wolf_painted.png` | Grey Wolf |
+| `spritesheets/harbourmaster.webp` | `assets/sprites/npcs/harbourmaster_painted.png` | The Harbourmaster |
+| `spritesheets/hunter_hollis.webp` | `assets/sprites/npcs/hunter_hollis_painted.png` | Hollis the Grey |
+| `spritesheets/impresario_odette.webp` | `assets/sprites/npcs/impresario_odette_painted.png` | Odette |
+| `spritesheets/ink_wraith.webp` | `assets/sprites/enemies/ink_wraith_painted.png` | Ink Wraith |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

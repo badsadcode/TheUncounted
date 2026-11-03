@@ -335,8 +335,8 @@
       "name_key": "enemy.ink_wraith.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/ink_wraith.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/ink_wraith_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 1.9
       },
       "stats": {
@@ -780,8 +780,8 @@
       "name_key": "enemy.grey_wolf.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/grey_wolf.png",
-        "animation_data": "assets/animations/grave_rat.json",
+        "sprite_sheet": "assets/sprites/enemies/grey_wolf_painted.png",
+        "animation_data": "assets/animations/grave_rat_128.json",
         "scale": 1.6
       },
       "stats": {

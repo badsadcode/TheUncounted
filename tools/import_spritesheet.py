@@ -21,6 +21,8 @@ import numpy as np
 from PIL import Image
 
 COLS, ROWS, PIVOT_Y = 8, 6, 0.92
+W_DIST = 0.0  # >0 pulls row/column cuts toward the grid line
+WIN = 0.18     # contacts between neighbouring figures sit close to the grid line; a neck further off must not win
 
 
 def remove_background(img, bg, lo, hi):
@@ -122,7 +124,7 @@ def main():
             owner[lab] = min(ROWS - 1, int(my // ch)) * COLS + min(COLS - 1, int(mx // cw))
             # Bigger than one cell: two neighbouring figures touch (a raised staff meets the feet above). Split those
             # pixels along the grid lines instead of giving the whole lump to one cell.
-            merged[lab] = bw > cw * 1.2 or bh > ch * 1.2
+            merged[lab] = bw > cw * 1.05 or bh > ch * 1.05
     own = owner[labels]
     for lab in np.nonzero(merged)[0]:
         ys, xs = np.nonzero(labels == lab)
@@ -133,15 +135,24 @@ def main():
             for k in range(1, count):
                 b = k * step
                 if coords.min() < b < coords.max():
-                    lo, hi = int(b - step * 0.3), int(b + step * 0.3)
-                    hist = np.bincount(np.clip(coords, lo, hi) - lo, minlength=hi - lo + 1)[1:-1]
-                    out.append(lo + 1 + int(np.argmin(hist)))
+                    lo, hi = int(b - step * WIN), int(b + step * WIN)
+                    hist = np.bincount(np.clip(coords, lo, hi) - lo, minlength=hi - lo + 1)[1:-1].astype(float)
+                    # Thin AND close to the grid line: a gap at someone's neck 25 px away loses to the contact point.
+                    dist = np.abs(np.arange(lo + 1, hi) - b)
+                    out.append(lo + 1 + int(np.argmin(hist + W_DIST * dist)))
                 else:
                     out.append(b)
             return np.array(out)
 
-        ry, rx = cuts(ys, ch, ROWS), cuts(xs, cw, COLS)
-        own[ys, xs] = np.searchsorted(ry, ys, side="right") * COLS + np.searchsorted(rx, xs, side="right")
+        # Columns first (from the whole blob), then each column's row cuts from only that column's pixels, so a figure
+        # in a neighbouring column can't drag the cut up to someone's neck.
+        rx = cuts(xs, cw, COLS)
+        col = np.searchsorted(rx, xs, side="right")
+        row = np.zeros_like(ys)
+        for c in np.unique(col):
+            m = col == c
+            row[m] = np.searchsorted(cuts(ys[m], ch, ROWS), ys[m], side="right")
+        own[ys, xs] = row * COLS + col
     cells, boxes = {}, {}
     pad = int(max(cw, ch) * 0.25)
     for r in range(ROWS):
