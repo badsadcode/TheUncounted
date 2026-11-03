@@ -11,7 +11,6 @@ Suggested order: the characters Toasty spends the most time with first.
 ## Main characters
 | File | Who | Notes for the remake |
 |---|---|---|
-| `steve.png` | **Steve** | Level-one bandit: a cooking pot worn as a helmet, a patched coat, a bent spoon as his only weapon. Nervous, lovable. |
 | `trout.png` | **Trout**, Hollis's horse | Bay mare, white blaze, red saddle. Calm, unbothered. (Four-legged: the walk rows should be a trot.) |
 
 ## Hollowmere Manor

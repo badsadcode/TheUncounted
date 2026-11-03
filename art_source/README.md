@@ -38,6 +38,7 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/professor_pickering.webp` | `assets/sprites/npcs/professor_pickering_painted.png` | Professor Pickering |
 | `spritesheets/rat_king.webp` | `assets/sprites/enemies/rat_king_painted.png` | The Rat King |
 | `spritesheets/silas_gale.webp` | `assets/sprites/npcs/silas_gale_painted.png` | Old Silas |
+| `spritesheets/steve.webp` | `assets/sprites/npcs/steve_painted.png` | Steve |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

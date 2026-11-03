@@ -1216,8 +1216,8 @@
       "dialogue_id": "core:dialogue.steve",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/steve.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/steve_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.62
       },
       "barks": [
