@@ -897,6 +897,67 @@ void GameEngine::DrawInventory() {
 // ============================================================================
 // Character sheet
 // ============================================================================
+void GameEngine::DrawPerks(Rectangle P) {
+    float u = U();
+    // Left: skills that have perks (with a marker where a choice is waiting). Right: that skill's milestones.
+    std::vector<std::string> order;
+    for (const auto& sd : content_.skills)
+        for (const auto& p : content_.perks)
+            if (p.skill == sd.id) { order.push_back(sd.id); break; }
+    if (order.empty()) { Text("No perks defined.", P.x + 20, P.y + 130, 16, kDim); return; }
+    if (std::find(order.begin(), order.end(), perk_skill_) == order.end()) {
+        perk_skill_ = order[0];
+        for (const auto& id : order)
+            for (const auto& p : content_.perks)
+                if (p.skill == id && PerkAvailable(p)) { perk_skill_ = id; goto picked; }
+    }
+picked:
+    float y = P.y + 124;
+    for (const auto& id : order) {
+        std::string name = id;
+        for (const auto& sd : content_.skills) if (sd.id == id) name = content_.Tr(sd.name_key);
+        bool waiting = false;
+        int chosen = 0;
+        for (const auto& p : content_.perks)
+            if (p.skill == id) { waiting = waiting || PerkAvailable(p); chosen += player_.perks.count(p.id) ? 1 : 0; }
+        std::string label = name + "  " + std::to_string(SkillLevel(id)) + (waiting ? "  !" : "");
+        Rectangle b = {P.x + 20, y, 230, 33};
+        if (Button(b, label, true, 15)) perk_skill_ = id;
+        if (perk_skill_ == id) DrawRectangle(static_cast<int>(b.x * u), static_cast<int>((b.y + 31) * u), static_cast<int>(b.width * u), static_cast<int>(2 * u), kGold);
+        if (chosen > 0) Text(std::string(chosen, '*'), P.x + 256, y + 8, 15, kGold);
+        y += 36;
+    }
+
+    std::map<int, std::vector<const PerkDef*>> tiers;
+    for (const auto& p : content_.perks)
+        if (p.skill == perk_skill_) tiers[p.level].push_back(&p);
+    float x = P.x + 300, ty = P.y + 124;
+    std::string sname = perk_skill_;
+    for (const auto& sd : content_.skills) if (sd.id == perk_skill_) sname = content_.Tr(sd.name_key);
+    Text(sname + " perks", x, ty - 6, 22, kGold);
+    Text("At each milestone, choose one. Brother Aldous can help you change your mind.", x + 260, ty, 13, kDim);
+    ty += 32;
+    for (const auto& [lvl, list] : tiers) {
+        bool reached = SkillLevel(perk_skill_) >= lvl;
+        Text("Level " + std::to_string(lvl) + (reached ? "" : "  (locked)"), x, ty, 16, reached ? kText : kDim);
+        ty += 24;
+        float cx = x;
+        for (const PerkDef* p : list) {
+            Rectangle card = {cx, ty, 386, 112};
+            bool mine = player_.perks.count(p->id) > 0;
+            bool can = PerkAvailable(*p);
+            DrawRectangleRec({card.x * u, card.y * u, card.width * u, card.height * u}, mine ? Color{60, 48, 22, 235} : Color{22, 22, 30, 235});
+            DrawRectangleLinesEx({card.x * u, card.y * u, card.width * u, card.height * u}, std::max(1.0f, u), mine ? kGold : (can ? kAccent : Color{60, 60, 70, 255}));
+            Text(content_.Tr(p->name_key), card.x + 10, card.y + 8, 17, mine ? kGold : (reached ? kText : kDim));
+            TextWrapped(content_.Tr(p->desc_key), {card.x + 10, card.y + 32, card.width - 20, 50}, 13, reached ? kText : kDim);
+            if (mine) Text("Chosen", card.x + card.width - 70, card.y + 10, 14, kGold);
+            else if (can && Button({card.x + card.width - 96, card.y + card.height - 34, 86, 26}, "Choose", true, 14)) ChoosePerk(p->id);
+            cx += 396;
+        }
+        ty += 120;
+    }
+}
+
 void GameEngine::DrawCharacter() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
@@ -911,13 +972,16 @@ void GameEngine::DrawCharacter() {
     Text(line, P.x + 116, P.y + 56, 17, kText);
     Text("Level " + std::to_string(player_.level) + "   XP " + std::to_string(player_.xp) + " / " + std::to_string(100 * player_.level), P.x + 116, P.y + 80, 16, kDim);
     if (race) TextWrapped(content_.Tr(race->trait_key), {P.x + 560, P.y + 24, 540, 50}, 14, kAccent);
-    const char* tabs[] = {"Overview", "Combat Sheet"};
-    for (int i = 0; i < 2; i++) {
-        Rectangle t = {P.x + P.width - 360 + i * 172, P.y + 78, 166, 30};
+    int pending = PendingPerks();
+    std::string perkTab = pending > 0 ? "Perks (" + std::to_string(pending) + ")" : "Perks";
+    const char* tabs[] = {"Overview", "Combat Sheet", perkTab.c_str()};
+    for (int i = 0; i < 3; i++) {
+        Rectangle t = {P.x + P.width - 532 + i * 172, P.y + 78, 166, 30};
         if (Button(t, tabs[i], true, 15)) char_tab_ = i;
         if (char_tab_ == i) DrawRectangle(static_cast<int>(t.x * u), static_cast<int>((t.y + 28) * u), static_cast<int>(t.width * u), static_cast<int>(3 * u), kGold);
     }
     if (char_tab_ == 1) { DrawCombatSheet(P); return; }
+    if (char_tab_ == 2) { DrawPerks(P); return; }
 
     float y = P.y + 120;
     Text("Attributes", P.x + 20, y, 22, kGold);

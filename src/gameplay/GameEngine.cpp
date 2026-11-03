@@ -262,6 +262,15 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         else if (boot_shot_overlay_ == "journal") overlay_ = Overlay::Journal;
         else if (boot_shot_overlay_ == "options") overlay_ = Overlay::Options;
+        else if (boot_shot_overlay_ == "perks") {
+            // A mid-game mage: Elemental 27 with one perk chosen and one waiting.
+            player_.skills["elemental"].level = 27;
+            player_.perks.insert("core:perk.kindling");
+            perk_skill_ = "elemental";
+            char_tab_ = 2;
+            overlay_ = Overlay::Character;
+            toasts_.clear();
+        }
         else if (boot_shot_overlay_ == "status_demo") {
             // Four wolves in a row in front of the camera: burning, chilled, frozen, shocked + inked.
             const CreatureDef* wolf = content_.GetCreature("core:enemy.grey_wolf");
@@ -1270,7 +1279,40 @@ float GameEngine::BuffBonus(const std::string& key) const {
         if (b.bonus_key == key) v += b.bonus_value;
     return v;
 }
-float GameEngine::Bonus(const std::string& key) const { return SynergyBonus(key) + GearBonus(key) + BuffBonus(key); }
+float GameEngine::Bonus(const std::string& key) const { return SynergyBonus(key) + GearBonus(key) + BuffBonus(key) + PerkBonus(key); }
+
+float GameEngine::PerkBonus(const std::string& key) const {
+    float v = 0.0f;
+    for (const auto& id : player_.perks)
+        if (const PerkDef* p = content_.GetPerk(id)) {
+            auto it = p->bonuses.find(key);
+            if (it != p->bonuses.end()) v += it->second;
+        }
+    return v;
+}
+
+bool GameEngine::PerkAvailable(const PerkDef& p) const {
+    if (SkillLevel(p.skill) < p.level || player_.perks.count(p.id)) return false;
+    for (const auto& o : content_.perks)
+        if (o.skill == p.skill && o.level == p.level && player_.perks.count(o.id)) return false;  // that milestone's choice is made
+    return true;
+}
+
+int GameEngine::PendingPerks() const {
+    std::set<std::pair<std::string, int>> open;
+    for (const auto& p : content_.perks)
+        if (PerkAvailable(p)) open.insert({p.skill, p.level});
+    return static_cast<int>(open.size());
+}
+
+void GameEngine::ChoosePerk(const std::string& id) {
+    const PerkDef* p = content_.GetPerk(id);
+    if (!p || !PerkAvailable(*p)) return;
+    player_.perks.insert(id);
+    res_.PlaySfx("assets/audio/sfx/level_up.wav", 0.6f, 1.2f);
+    Toast("Perk: " + content_.Tr(p->name_key), Color{255, 210, 120, 255});
+    ClampVitals();
+}
 
 float GameEngine::MeleeHitDamage(const ItemDef* w, bool heavy) const {
     std::string skill = w ? w->weapon.skill : "athletics";
@@ -1311,7 +1353,7 @@ float GameEngine::MoveSpeed() const {
 }
 float GameEngine::Visibility() const {
     float v = 1.0f;
-    if (player_.crouching) v *= 0.55f * (1.0f - std::min(0.5f, SkillEffect("stealth")));
+    if (player_.crouching) v *= 0.55f * (1.0f - std::min(0.5f, SkillEffect("stealth"))) * (1.0f - std::min(0.5f, Bonus("sneak_visibility_reduction")));
     for (const auto& b : player_.buffs) {
         if (b.primitive == "buff_stealth") v *= b.visibility;
         if (b.primitive == "buff_light") v *= 1.15f;
@@ -1332,6 +1374,7 @@ void GameEngine::GainSkillXp(const std::string& skill, float amount, bool bypass
     if (!bypassCooldown && now - s.last_gain < content_.balancing.skill_anti_exploit_cooldown_sec) return;
     s.last_gain = now;
     amount /= (1.0f + content_.balancing.skill_diminishing_factor * (s.level / 10.0f));
+    amount *= 1.0f + Bonus("skill_xp_bonus");
     s.xp += amount;
     for (;;) {
         float needed = 6.0f + s.level * 0.6f;
@@ -1341,6 +1384,11 @@ void GameEngine::GainSkillXp(const std::string& skill, float amount, bool bypass
         std::string name = skill;
         for (const auto& sd : content_.skills) if (sd.id == skill) name = content_.Tr(sd.name_key);
         Toast(name + " increased to " + std::to_string(s.level), Color{150, 200, 255, 255});
+        for (const auto& p : content_.perks)
+            if (p.skill == skill && p.level == s.level) {
+                Toast("New perk available in " + name + "! [" + BindingLabel("character") + "]", Color{255, 210, 120, 255});
+                break;
+            }
         for (const auto& syn : content_.synergies) {
             auto req = syn.requirements.find(skill);
             if (req != syn.requirements.end() && req->second == s.level && SynergyActive(syn))
@@ -1473,9 +1521,10 @@ void GameEngine::UseItem(const std::string& id) {
     }
     if (d->category == "consumable") {
         for (const auto& e : d->effects) {
-            if (e.type == "consumable_heal") player_.health += e.amount;
-            else if (e.type == "consumable_mana") player_.mana += e.amount;
-            else if (e.type == "consumable_stamina") player_.stamina += e.amount;
+            float pot = 1.0f + Bonus("potion_bonus");
+            if (e.type == "consumable_heal") player_.health += e.amount * pot;
+            else if (e.type == "consumable_mana") player_.mana += e.amount * pot;
+            else if (e.type == "consumable_stamina") player_.stamina += e.amount * pot;
             else if (e.type == "buff") {
                 // Food: a named build bonus for a while. Eating the same dish again refreshes it.
                 ActiveBuff* slot = nullptr;
@@ -1576,12 +1625,14 @@ void GameEngine::ResolveMeleeHit() {
 
     float dmg = MeleeHitDamage(w, attack_heavy_);
     bool sneak = !best->alerted;
-    if (sneak) dmg *= skill == "daggers" ? 2.5f : 1.75f;
+    if (sneak) dmg *= (skill == "daggers" ? 2.5f : 1.75f) + Bonus("sneak_damage_bonus");
+    if (attack_heavy_) dmg *= 1.0f + Bonus("heavy_damage_bonus");
     bool crit = RandF() < CritChance(w);
     if (crit) dmg *= CritMult(w);
     if (w && !w->weapon.bane_family.empty() && w->weapon.bane_family == best->def->family) dmg *= w->weapon.bane_mult;
     player_.mana += Bonus("mana_on_melee_hit") + (w ? w->weapon.mana_on_hit : 0.0f);
     int dealt = DamageCreature(*best, static_cast<int>(std::round(dmg)), sneak, skill, attack_heavy_, crit);
+    if (crit && Bonus("crit_burn") > 0.0f && RandF() < Bonus("crit_burn")) ApplyStatus(*best, "burn", 6.0f, 3.0f);
     if (w && !w->weapon.on_hit_status.empty())
         TryStatus(*best, w->weapon.on_hit_status, w->weapon.status_chance * (attack_heavy_ ? 1.5f : 1.0f), w->weapon.status_power,
                   w->weapon.status_duration);
@@ -1637,7 +1688,7 @@ void GameEngine::CastSelectedSpell() {
         return;
     }
     player_.mana -= cost;
-    spell_cooldown_ = s->cooldown_seconds;
+    spell_cooldown_ = s->cooldown_seconds * (1.0f - std::min(0.5f, Bonus("spell_cooldown_reduction")));
     cast_flash_ = 1.0f;
     cast_color_ = s->effect.light_color;
     cast_sprite_ = s->effect.projectile_sprite.empty() ? "assets/sprites/vfx/spell_arcane.png" : s->effect.projectile_sprite;
@@ -1710,7 +1761,8 @@ void GameEngine::CastSelectedSpell() {
             }
         };
         if (!cur) arc(from, Vector3Add(from, Vector3Scale(fwd, 4.0f)));
-        for (int jump = 0; cur && jump <= s->effect.chain_count; jump++) {
+        int jumps = s->effect.chain_count + static_cast<int>(Bonus("chain_jump_bonus"));
+        for (int jump = 0; cur && jump <= jumps; jump++) {
             Vector3 to = {cur->pos.x, cur->pos.y + cur->height * 0.6f, cur->pos.z};
             arc(from, to);
             hitList.push_back(cur);
@@ -1732,7 +1784,7 @@ void GameEngine::CastSelectedSpell() {
         GainSkillXp(s->skill, hitList.empty() ? 0.5f : 1.5f);
     } else if (prim == "nova") {
         // A ring around the caster: damage and a status to every foe within the radius.
-        float r = s->effect.radius;
+        float r = s->effect.radius * (1.0f + Bonus("nova_radius_bonus"));
         for (int i = 0; i < 36; i++) {
             float a = i * 2.0f * PI / 36.0f;
             SpawnBurst({player_.pos.x + sinf(a) * r * 0.9f, player_.pos.y + 0.5f, player_.pos.z + cosf(a) * r * 0.9f},
@@ -1753,18 +1805,18 @@ void GameEngine::CastSelectedSpell() {
         Vector3 start = player_.pos;
         SpawnBurst({start.x, start.y + 1.0f, start.z}, Color{190, 160, 255, 255}, 24, 2.0f, true, 0.5f);
         Vector3 fwd = Forward(player_.yaw);
-        player_.pos = MoveWithCollision(player_.pos, Vector3Scale(fwd, s->effect.blink_distance), kPlayerRadius, 1.75f, true);
+        player_.pos = MoveWithCollision(player_.pos, Vector3Scale(fwd, s->effect.blink_distance * (1.0f + Bonus("blink_distance_bonus"))), kPlayerRadius, 1.75f, true);
         player_.pos.y = GroundHeight({player_.pos.x, player_.pos.y + 0.5f, player_.pos.z}, kStepHeight);
         SpawnBurst({player_.pos.x, player_.pos.y + 1.0f, player_.pos.z}, Color{190, 160, 255, 255}, 24, 2.0f, true, 0.5f);
         GainSkillXp(s->skill, 1.5f);
     } else if (prim == "self_heal") {
-        player_.health += power;
+        player_.health += power * (1.0f + Bonus("heal_power_bonus"));
         player_.stamina += s->effect.stamina_restore;
         ClampVitals();
         cast_color_ = {0.5f, 1.0f, 0.6f};
         GainSkillXp(s->skill, 2.0f);
     } else if (prim == "buff_armor") {
-        addBuff(power);
+        addBuff(power * (1.0f + Bonus("heal_power_bonus")));
         cast_color_ = {0.6f, 0.8f, 1.0f};
         GainSkillXp(s->skill, 2.0f);
     } else if (prim == "buff_light") {
@@ -2026,7 +2078,8 @@ void GameEngine::UpdateCompanion(float dt) {
             } else {
                 n.yaw = YawTo(n.pos, target->pos);
                 if (n.attack_cd <= 0.0f) {
-                    int dmg = static_cast<int>(std::round(cd.damage * (1.0f + 0.12f * (player_.level - 1)) * (0.85f + RandF() * 0.3f)));
+                    int dmg = static_cast<int>(std::round(cd.damage * (1.0f + 0.12f * (player_.level - 1)) * (0.85f + RandF() * 0.3f) *
+                                                          (1.0f + Bonus("companion_damage_bonus"))));
                     bool killed = target->health <= std::max(1, dmg - static_cast<int>(std::round(target->def->armor * 0.6f)));
                     DamageCreature(*target, dmg, false, "companion", false);
                     PlaySfxAt("assets/audio/sfx/sword_hit.wav", n.pos, 0.6f);
@@ -2176,7 +2229,8 @@ void GameEngine::ApplyStatus(CreatureInstance& c, const std::string& status, flo
         c.shock_time = std::max(c.shock_time, duration);
     } else if (status == "chill") {
         c.chill_time = std::max(c.chill_time, duration);
-        if (++c.chill_stacks >= (boss ? 5 : 3) && c.frozen_time <= 0.0f) {
+        int need = std::max(2, (boss ? 5 : 3) - static_cast<int>(Bonus("freeze_stacks_reduction")));
+        if (++c.chill_stacks >= need && c.frozen_time <= 0.0f) {
             c.frozen_time = boss ? 1.0f : 2.2f;
             c.chill_stacks = 0;
             SpawnBurst(mid, Color{180, 220, 255, 255}, 30, 2.5f, true, 0.5f, 0.06f);
@@ -2220,7 +2274,9 @@ void GameEngine::UpdateCreatureStatus(CreatureInstance& c, float dt) {
 
 int GameEngine::DamageCreature(CreatureInstance& c, int amount, bool sneak, const std::string& skill, bool heavy, bool crit) {
     if (c.state == CreatureState::Dead) return 0;
-    if (c.shock_time > 0.0f) amount = static_cast<int>(std::round(amount * 1.25f));
+    if (c.shock_time > 0.0f) amount = static_cast<int>(std::round(amount * (1.25f + Bonus("shock_damage_bonus"))));
+    if (c.health >= c.max_health) amount = static_cast<int>(std::round(amount * (1.0f + Bonus("opener_damage_bonus"))));
+    if (player_.health < MaxHealth() * 0.35f) amount = static_cast<int>(std::round(amount * (1.0f + Bonus("desperation_damage_bonus"))));
     // Armour blunts each blow; 60% weighting keeps fast light weapons viable against armoured foes.
     int final = std::max(1, amount - static_cast<int>(std::round(c.def->armor * 0.6f)));
     c.health -= final;
@@ -2278,6 +2334,16 @@ void GameEngine::KillCreature(CreatureInstance& c) {
     if (!c.def->death_line_key.empty()) Say(content_.Tr(c.def->name_key), content_.Tr(c.def->death_line_key));
     Toast("Defeated " + content_.Tr(c.def->name_key) + "  (+" + std::to_string(c.def->xp_reward) + " XP)", Color{230, 200, 160, 255});
     GainXp(c.def->xp_reward);
+    if (float h = Bonus("heal_on_kill"); h > 0.0f) player_.health += h;
+    if (float m = Bonus("mana_on_kill"); m > 0.0f) player_.mana += m;
+    ClampVitals();
+    if (c.burn_time > 0.0f && Bonus("burn_spread_on_death") > 0.0f) {
+        // Pyre perk: the flames jump to whoever's standing too close.
+        float dps = c.burn_dps, dur = std::max(2.0f, c.burn_time);
+        c.burn_time = 0.0f;
+        for (auto& o : scene_.creatures)
+            if (o.state != CreatureState::Dead && &o != &c && Vector3Distance(o.pos, c.pos) < 3.5f) ApplyStatus(o, "burn", dps, dur);
+    }
     CheckGroupCleared(c);
     if (c.def->behavior == "boss_archivist") {
         Toast("The Archivist Shade dissolves into loose pages. Search its remains.", Color{180, 220, 255, 255});
@@ -2306,9 +2372,9 @@ void GameEngine::DamagePlayer(int raw, Vector3 from, CreatureInstance* attacker)
             return;
         }
         float red = b.block_damage_reduction * (shield ? 1.0f : 0.6f) * (1.0f + SkillEffect("block") * 0.5f);
-        red = std::min(red, 0.92f);
+        red = std::min(red + Bonus("block_reduction_bonus"), 0.92f);
         dmg *= (1.0f - red);
-        player_.stamina -= raw * 0.6f;
+        player_.stamina -= raw * 0.6f * (1.0f - std::min(0.7f, Bonus("block_stamina_reduction")));
         stamina_delay_ = 0.8f;
         res_.PlaySfx("assets/audio/sfx/shield_block.wav", 0.9f, 0.95f + RandF() * 0.1f);
         player_.health += Bonus("heal_on_block");
@@ -2533,7 +2599,7 @@ void GameEngine::UpdateProjectiles(float dt) {
             if (hit && (!worldHit || hitT <= tWorld)) {
                 bool sneak = !hit->alerted;
                 float dmg = static_cast<float>(p.damage);
-                if (sneak) dmg *= p.is_arrow ? 1.6f * std::max(1.0f, Bonus("ranged_crit_multiplier")) : 1.4f;
+                if (sneak) dmg *= (p.is_arrow ? 1.6f * std::max(1.0f, Bonus("ranged_crit_multiplier")) : 1.4f) + Bonus("sneak_damage_bonus");
                 bool crit = p.crit_chance > 0.0f && RandF() < p.crit_chance;
                 if (crit) dmg *= p.crit_mult;
                 if (!p.bane_family.empty() && p.bane_family == hit->def->family) dmg *= p.bane_mult;
@@ -2984,6 +3050,13 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
                 Toast(content_.Tr(n.def->name_key) + " heads back to wait for you");
             }
         }
+    } else if (a.type == "take_gold") {
+        player_.gold = std::max(0, player_.gold - a.amount);
+        Toast("- " + std::to_string(a.amount) + " gold", Color{255, 215, 100, 255});
+    } else if (a.type == "reset_perks") {
+        player_.perks.clear();
+        Toast("Your perks are yours to choose again", Color{255, 210, 120, 255});
+        ClampVitals();
     } else if (a.type == "learn_spell") {
         if (std::find(player_.known_spells.begin(), player_.known_spells.end(), a.spell_id) == player_.known_spells.end()) {
             player_.known_spells.push_back(a.spell_id);
@@ -3161,6 +3234,7 @@ void GameEngine::TakeFromContainer(int index) {
     ContainerState& c = Persist().containers[container_key_];
     if (index == -1) {
         if (c.gold > 0) {
+            c.gold = static_cast<int>(std::round(c.gold * (1.0f + Bonus("gold_find_bonus"))));
             player_.gold += c.gold;
             Toast("+ " + std::to_string(c.gold) + " gold", Color{255, 215, 100, 255});
             res_.PlaySfx("assets/audio/sfx/coin_jingle.wav", 0.7f);
@@ -3271,6 +3345,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     pj["inventory"] = inv;
     pj["equipment"] = p.equipment;
     pj["known_spells"] = p.known_spells;
+    pj["perks"] = std::vector<std::string>(p.perks.begin(), p.perks.end());
     pj["selected_spell"] = p.selected_spell;
     pj["quick_slots"] = std::vector<std::string>(p.quick_slots.begin(), p.quick_slots.end());
     json buffs = json::array();
@@ -3375,6 +3450,10 @@ bool GameEngine::LoadGame(const std::string& slot) {
         for (const auto& it : pj["inventory"]) p.inventory.push_back({it.value("id", ""), it.value("qty", 1)});
         p.equipment = pj.value("equipment", std::map<std::string, std::string>{});
         p.known_spells = pj.value("known_spells", std::vector<std::string>{});
+        {
+            auto v = pj.value("perks", std::vector<std::string>{});
+            p.perks = std::set<std::string>(v.begin(), v.end());
+        }
         p.selected_spell = pj.value("selected_spell", 0);
         auto qs = pj.value("quick_slots", std::vector<std::string>{});
         for (size_t i = 0; i < qs.size() && i < 4; i++) p.quick_slots[i] = qs[i];

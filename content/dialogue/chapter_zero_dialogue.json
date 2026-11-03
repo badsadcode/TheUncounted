@@ -4630,6 +4630,10 @@
               ]
             },
             {
+              "text_key": "dlg.aldous.respec.t",
+              "next": "respec"
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -4717,6 +4721,47 @@
           "choices": [
             {
               "text_key": "dlg.overdue.aldous.od_aldous.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "respec": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.aldous.respec",
+          "choices": [
+            {
+              "text_key": "dlg.aldous.respec.c0",
+              "next": "respec_done",
+              "conditions": [
+                {
+                  "type": "gold_at_least",
+                  "value": 50
+                }
+              ],
+              "actions": [
+                {
+                  "type": "take_gold",
+                  "amount": 50
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.aldous.respec.c1",
+              "next": "root"
+            }
+          ]
+        },
+        "respec_done": {
+          "speaker_key": "npc.brother_aldous.name",
+          "text_key": "dlg.aldous.respec_done",
+          "actions": [
+            {
+              "type": "reset_perks"
+            }
+          ],
+          "choices": [
+            {
+              "text_key": "dlg.aldous.respec_done.c0",
               "next": "root"
             }
           ]

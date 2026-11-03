@@ -40,5 +40,6 @@
   ],
   "maps": [
     "content/maps/edrath_world.json"
-  ]
+  ],
+  "perks": "content/perks/perks.json"
 }

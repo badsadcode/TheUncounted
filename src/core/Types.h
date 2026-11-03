@@ -143,6 +143,15 @@ struct SynergyDef {
     std::map<std::string, float> bonuses;
 };
 
+struct PerkDef {
+    std::string id;
+    std::string skill;
+    int level = 15;               // skill level that unlocks this tier; one perk per (skill, level) may be chosen
+    std::string name_key;
+    std::string desc_key;
+    std::map<std::string, float> bonuses;
+};
+
 struct FactionDef {
     std::string id;
     std::string name_key;

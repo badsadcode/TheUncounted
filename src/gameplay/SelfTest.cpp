@@ -1073,6 +1073,60 @@ int GameEngine::RunSelfTest() {
               "every book returned; six spells copied; library card number 0000001");
     }
 
+    // --- Perks: milestones, one choice each, real effects, save/load, and Brother Aldous's respec
+    {
+        auto savedSkills = player_.skills;
+        auto savedPerks = player_.perks;
+        auto savedSpells = player_.known_spells;
+        player_.perks.clear();
+        player_.skills["elemental"].level = 14;
+        player_.skills["elemental"].xp = 0;
+        check(!PerkAvailable(*content_.GetPerk("core:perk.kindling")), "no perk before the milestone");
+        player_.skills["elemental"].xp = 999;
+        GainSkillXp("elemental", 0.1f, true);
+        check(SkillLevel("elemental") >= 15 && PendingPerks() >= 1, "reaching Elemental 15 offers a perk");
+        float before = Bonus("burn_damage_bonus");
+        ChoosePerk("core:perk.kindling");
+        check(player_.perks.count("core:perk.kindling") && Bonus("burn_damage_bonus") >= before + 0.5f, "Kindling: burning deals 50% more");
+        ChoosePerk("core:perk.permafrost");
+        check(!player_.perks.count("core:perk.permafrost"), "only one perk per milestone");
+        player_.skills["elemental"].level = 40;
+        ChoosePerk("core:perk.forked");
+        ChoosePerk("core:perk.pyre");
+        check(Bonus("chain_jump_bonus") >= 1.0f && Bonus("burn_spread_on_death") > 0.0f, "Forked Lightning and Funeral Pyre chosen");
+        // Funeral Pyre: a burning foe dies and its neighbours catch fire.
+        const CreatureDef* wolf = content_.GetCreature("core:enemy.grey_wolf");
+        size_t base = scene_.creatures.size();
+        for (int i = 0; i < 2; i++) {
+            CreatureInstance c;
+            c.instance_id = "perk_" + std::to_string(i);
+            c.def = wolf;
+            c.pos = c.spawn = c.patrol_a = c.patrol_b = {0.5f * i, 0.0f, 0.0f};
+            c.health = c.max_health = 200;
+            c.state = CreatureState::Idle;
+            scene_.creatures.push_back(c);
+        }
+        ApplyStatus(scene_.creatures[base], "burn", 6.0f, 4.0f);
+        KillCreature(scene_.creatures[base]);
+        check(scene_.creatures[base + 1].burn_time > 0.0f, "Funeral Pyre: the flames spread from the dead to the living");
+        scene_.creatures.erase(scene_.creatures.begin() + base, scene_.creatures.end());
+        check(SaveGame("selftest_perks") && (player_.perks.clear(), LoadGame("selftest_perks")) && player_.perks.count("core:perk.pyre"),
+              "perks survive a save and load");
+        player_.gold = 100;
+        int ai = -1;
+        for (size_t i = 0; i < scene_.npcs.size(); i++) if (scene_.npcs[i].def->id == "core:npc.brother_aldous") ai = static_cast<int>(i);
+        bool rite = false;
+        if (ai >= 0) {
+            StartDialogue(ai);
+            rite = chooseNext("respec") && chooseNext("respec_done");
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+        }
+        check(rite && player_.perks.empty() && player_.gold == 50, "the Rite of Second Thoughts returns every perk for 50 gold");
+        player_.skills = savedSkills;
+        player_.perks = savedPerks;
+        player_.known_spells = savedSpells;
+    }
+
     // --- Alternate orders for Marta's Vault III news (flags only; restored afterwards)
     {
         auto savedFlags = player_.flags;

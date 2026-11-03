@@ -21,6 +21,11 @@ public:
     std::vector<ArchetypeDef> archetypes;
     std::vector<SkillDef> skills;
     std::vector<SynergyDef> synergies;
+    std::vector<PerkDef> perks;
+    const PerkDef* GetPerk(const std::string& id) const {
+        for (const auto& p : perks) if (p.id == id) return &p;
+        return nullptr;
+    }
     std::vector<FactionDef> factions;
 
     std::vector<SpellDef> spells_ordered;

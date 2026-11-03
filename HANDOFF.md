@@ -443,3 +443,26 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   all six = Fenwick's Library Card (accessory). Authoring: `tools/authoring/grimoires.py` (already run — do not rerun).
 - `--shot … --overlay status_demo` lines up four wolves with each status.
 
+### Perks (added 2026-11-03)
+
+- `content/perks/perks.json` (manifest key `perks`; `PerkDef`): combat/magic skills have milestones at 15/25/40,
+  utility skills at 15/30; two perks per milestone, choose one (`PerkAvailable`, `ChoosePerk`, `PendingPerks`;
+  `player.perks`, saved). Perk `bonuses` feed `Bonus()` like gear/synergies. Validation: perk skill exists, every
+  milestone has ≥2 options. Character screen → **Perks** tab (count of pending choices on the tab).
+- New mechanical bonus keys: `heal_on_kill`, `mana_on_kill`, `burn_spread_on_death`, `chain_jump_bonus`,
+  `nova_radius_bonus`, `freeze_stacks_reduction`, `shock_damage_bonus`, `opener_damage_bonus` (vs unhurt foes),
+  `desperation_damage_bonus` (below 35% hp), `sneak_damage_bonus`, `heavy_damage_bonus`, `crit_burn`,
+  `spell_cooldown_reduction`, `heal_power_bonus` (heals + wards), `blink_distance_bonus`, `block_reduction_bonus`,
+  `block_stamina_reduction`, `potion_bonus`, `gold_find_bonus`, `companion_damage_bonus`, `skill_xp_bonus`,
+  `sneak_visibility_reduction`.
+- Dialogue actions `take_gold`, `reset_perks`; Brother Aldous's "Rite of Second Thoughts" (50 gold) resets perks.
+  Authoring: `tools/authoring/perks.py` (already run — do not rerun). `--shot … --overlay perks`.
+
+### Planned next (user request): gathering, alchemy, basic crafting
+
+The user asked for "stuff to do besides quests — gathering, alchemy, basic crafting, to bring some life to the
+world", to come after spells/character building. Ideas that fit the existing systems: harvestable herb/mushroom/ore
+nodes per region (respawning), an alchemy table (Mother Brine / Fenwick?) making potions and status-themed
+tonics (burn/chill oils that add `on_hit_status` to weapons for a while; resist potions), a simple workbench (arrows,
+lockpicks, upgrading weapon base damage), fishing at Saltmere, and recipes as readable books.
+

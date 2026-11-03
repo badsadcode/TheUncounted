@@ -54,6 +54,7 @@ struct PlayerState {
     std::vector<InvItem> inventory;
     std::map<std::string, std::string> equipment; // slot -> item id
     std::vector<std::string> known_spells;
+    std::set<std::string> perks;   // chosen perk ids (one per skill milestone)
     int selected_spell = 0;
     std::array<std::string, 4> quick_slots;
     std::vector<ActiveBuff> buffs;
@@ -290,7 +291,11 @@ public:
     float SynergyBonus(const std::string& key) const;
     float GearBonus(const std::string& key) const;   // "bonus" effects on equipped items
     float BuffBonus(const std::string& key) const;   // active food buffs
-    float Bonus(const std::string& key) const;       // synergies + gear
+    float Bonus(const std::string& key) const;       // synergies + gear + food + perks
+    float PerkBonus(const std::string& key) const;
+    bool PerkAvailable(const PerkDef& p) const;       // skill high enough and no perk chosen at that milestone yet
+    void ChoosePerk(const std::string& id);
+    int PendingPerks() const;
     // Build maths shared by combat and the character sheet, so what you read is what you hit for.
     float MeleeHitDamage(const ItemDef* w, bool heavy) const;   // before crit, sneak, bane and enemy armour
     float ArrowHitDamage(const ItemDef* w, float draw) const;
@@ -411,6 +416,8 @@ private:
     void DrawInventory();
     void DrawCharacter();
     void DrawCombatSheet(Rectangle P);
+    void DrawPerks(Rectangle P);
+    std::string perk_skill_;
     void DrawJournal();
     void DrawMapOverlay();
     void DrawDialogue();

@@ -178,6 +178,7 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     archetypes.clear();
     skills.clear();
     synergies.clear();
+    perks.clear();
     factions.clear();
     spells_ordered.clear();
     spells.clear();
@@ -405,6 +406,24 @@ bool ContentRegistry::LoadManifestFile(const std::string& rootDir, const std::st
                         d.bonuses[it.key()] = it.value().get<float>();
                 }
                 synergies.push_back(d);
+            }
+        } else RecordIssue(rel, "root", err);
+    }
+
+    if (m.contains("perks")) {
+        std::string rel = m["perks"].get<std::string>();
+        json jp;
+        if (ReadJsonFile((fs::path(rootDir) / rel).string(), jp, err)) {
+            for (const auto& el : jp["perks"]) {
+                PerkDef d;
+                d.id = el.value("id", "");
+                d.skill = el.value("skill", "");
+                d.level = el.value("level", 15);
+                d.name_key = el.value("name_key", "");
+                d.desc_key = el.value("desc_key", "");
+                if (el.contains("bonuses"))
+                    for (auto it = el["bonuses"].begin(); it != el["bonuses"].end(); ++it) d.bonuses[it.key()] = it.value().get<float>();
+                perks.push_back(d);
             }
         } else RecordIssue(rel, "root", err);
     }
@@ -1212,6 +1231,16 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
     }
 
     // 6. Validate NPCs & Dialogues
+    // Perks must belong to a real skill, and every milestone should offer a choice.
+    for (const auto& p : perks) {
+        bool known = false;
+        for (const auto& s : skills) known = known || s.id == p.skill;
+        if (!known) RecordIssue("Perk:" + p.id, "skill", "Unknown skill '" + p.skill + "'");
+        int options = 0;
+        for (const auto& o : perks) options += (o.skill == p.skill && o.level == p.level) ? 1 : 0;
+        if (options < 2) RecordIssue("Perk:" + p.id, "level", "Milestone has only one perk to choose from");
+    }
+
     // Dialogue actions that move the player must name a spawn some map actually has.
     for (const auto& [did, dlg] : dialogues) {
         auto checkTravel = [&](const DialogueAction& a) {

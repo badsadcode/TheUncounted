@@ -1,0 +1,680 @@
+{
+  "schema_version": 1,
+  "perks": [
+    {
+      "id": "core:perk.blade_rhythm",
+      "skill": "swords",
+      "level": 15,
+      "name_key": "perk.blade_rhythm.name",
+      "desc_key": "perk.blade_rhythm.desc",
+      "bonuses": {
+        "crit_chance_bonus": 0.08
+      }
+    },
+    {
+      "id": "core:perk.heavy_handed",
+      "skill": "swords",
+      "level": 15,
+      "name_key": "perk.heavy_handed.name",
+      "desc_key": "perk.heavy_handed.desc",
+      "bonuses": {
+        "heavy_damage_bonus": 0.3
+      }
+    },
+    {
+      "id": "core:perk.riposte",
+      "skill": "swords",
+      "level": 25,
+      "name_key": "perk.riposte.name",
+      "desc_key": "perk.riposte.desc",
+      "bonuses": {
+        "block_stamina_reduction": 0.4
+      }
+    },
+    {
+      "id": "core:perk.first_cut",
+      "skill": "swords",
+      "level": 25,
+      "name_key": "perk.first_cut.name",
+      "desc_key": "perk.first_cut.desc",
+      "bonuses": {
+        "opener_damage_bonus": 0.4
+      }
+    },
+    {
+      "id": "core:perk.last_stand",
+      "skill": "swords",
+      "level": 40,
+      "name_key": "perk.last_stand.name",
+      "desc_key": "perk.last_stand.desc",
+      "bonuses": {
+        "desperation_damage_bonus": 0.35
+      }
+    },
+    {
+      "id": "core:perk.battle_trance",
+      "skill": "swords",
+      "level": 40,
+      "name_key": "perk.battle_trance.name",
+      "desc_key": "perk.battle_trance.desc",
+      "bonuses": {
+        "heal_on_kill": 12
+      }
+    },
+    {
+      "id": "core:perk.from_shadows",
+      "skill": "daggers",
+      "level": 15,
+      "name_key": "perk.from_shadows.name",
+      "desc_key": "perk.from_shadows.desc",
+      "bonuses": {
+        "sneak_damage_bonus": 0.75
+      }
+    },
+    {
+      "id": "core:perk.quick_hands",
+      "skill": "daggers",
+      "level": 15,
+      "name_key": "perk.quick_hands.name",
+      "desc_key": "perk.quick_hands.desc",
+      "bonuses": {
+        "crit_damage_bonus": 0.4
+      }
+    },
+    {
+      "id": "core:perk.ember_edge",
+      "skill": "daggers",
+      "level": 25,
+      "name_key": "perk.ember_edge.name",
+      "desc_key": "perk.ember_edge.desc",
+      "bonuses": {
+        "crit_burn": 0.5
+      }
+    },
+    {
+      "id": "core:perk.vampire_cut",
+      "skill": "daggers",
+      "level": 25,
+      "name_key": "perk.vampire_cut.name",
+      "desc_key": "perk.vampire_cut.desc",
+      "bonuses": {
+        "life_steal": 0.08
+      }
+    },
+    {
+      "id": "core:perk.assassin",
+      "skill": "daggers",
+      "level": 40,
+      "name_key": "perk.assassin.name",
+      "desc_key": "perk.assassin.desc",
+      "bonuses": {
+        "sneak_damage_bonus": 1.0,
+        "mana_on_kill": 15
+      }
+    },
+    {
+      "id": "core:perk.thousand_cuts",
+      "skill": "daggers",
+      "level": 40,
+      "name_key": "perk.thousand_cuts.name",
+      "desc_key": "perk.thousand_cuts.desc",
+      "bonuses": {
+        "crit_chance_bonus": 0.1,
+        "crit_damage_bonus": 0.3
+      }
+    },
+    {
+      "id": "core:perk.eagle_eye",
+      "skill": "bows",
+      "level": 15,
+      "name_key": "perk.eagle_eye.name",
+      "desc_key": "perk.eagle_eye.desc",
+      "bonuses": {
+        "ranged_crit_multiplier": 1.25
+      }
+    },
+    {
+      "id": "core:perk.steady_breath",
+      "skill": "bows",
+      "level": 15,
+      "name_key": "perk.steady_breath.name",
+      "desc_key": "perk.steady_breath.desc",
+      "bonuses": {
+        "crit_chance_bonus": 0.06,
+        "move_speed_bonus": 0.05
+      }
+    },
+    {
+      "id": "core:perk.hunters_mark",
+      "skill": "bows",
+      "level": 25,
+      "name_key": "perk.hunters_mark.name",
+      "desc_key": "perk.hunters_mark.desc",
+      "bonuses": {
+        "opener_damage_bonus": 0.5
+      }
+    },
+    {
+      "id": "core:perk.quiet_quiver",
+      "skill": "bows",
+      "level": 25,
+      "name_key": "perk.quiet_quiver.name",
+      "desc_key": "perk.quiet_quiver.desc",
+      "bonuses": {
+        "sneak_visibility_reduction": 0.25
+      }
+    },
+    {
+      "id": "core:perk.deadeye",
+      "skill": "bows",
+      "level": 40,
+      "name_key": "perk.deadeye.name",
+      "desc_key": "perk.deadeye.desc",
+      "bonuses": {
+        "sneak_damage_bonus": 0.75,
+        "crit_damage_bonus": 0.3
+      }
+    },
+    {
+      "id": "core:perk.ranger_stride",
+      "skill": "bows",
+      "level": 40,
+      "name_key": "perk.ranger_stride.name",
+      "desc_key": "perk.ranger_stride.desc",
+      "bonuses": {
+        "move_speed_bonus": 0.12,
+        "stamina_regen": 3.0
+      }
+    },
+    {
+      "id": "core:perk.shieldwall",
+      "skill": "block",
+      "level": 15,
+      "name_key": "perk.shieldwall.name",
+      "desc_key": "perk.shieldwall.desc",
+      "bonuses": {
+        "block_reduction_bonus": 0.12
+      }
+    },
+    {
+      "id": "core:perk.thick_skin",
+      "skill": "block",
+      "level": 15,
+      "name_key": "perk.thick_skin.name",
+      "desc_key": "perk.thick_skin.desc",
+      "bonuses": {
+        "armor_bonus": 3
+      }
+    },
+    {
+      "id": "core:perk.second_wind",
+      "skill": "block",
+      "level": 25,
+      "name_key": "perk.second_wind.name",
+      "desc_key": "perk.second_wind.desc",
+      "bonuses": {
+        "heal_on_block": 5
+      }
+    },
+    {
+      "id": "core:perk.iron_will",
+      "skill": "block",
+      "level": 25,
+      "name_key": "perk.iron_will.name",
+      "desc_key": "perk.iron_will.desc",
+      "bonuses": {
+        "block_stamina_reduction": 0.5
+      }
+    },
+    {
+      "id": "core:perk.unbreakable",
+      "skill": "block",
+      "level": 40,
+      "name_key": "perk.unbreakable.name",
+      "desc_key": "perk.unbreakable.desc",
+      "bonuses": {
+        "armor_bonus": 5,
+        "block_reduction_bonus": 0.1
+      }
+    },
+    {
+      "id": "core:perk.counterweight",
+      "skill": "block",
+      "level": 40,
+      "name_key": "perk.counterweight.name",
+      "desc_key": "perk.counterweight.desc",
+      "bonuses": {
+        "heavy_damage_bonus": 0.4
+      }
+    },
+    {
+      "id": "core:perk.kindling",
+      "skill": "elemental",
+      "level": 15,
+      "name_key": "perk.kindling.name",
+      "desc_key": "perk.kindling.desc",
+      "bonuses": {
+        "burn_damage_bonus": 0.5
+      }
+    },
+    {
+      "id": "core:perk.permafrost",
+      "skill": "elemental",
+      "level": 15,
+      "name_key": "perk.permafrost.name",
+      "desc_key": "perk.permafrost.desc",
+      "bonuses": {
+        "freeze_stacks_reduction": 1
+      }
+    },
+    {
+      "id": "core:perk.forked",
+      "skill": "elemental",
+      "level": 25,
+      "name_key": "perk.forked.name",
+      "desc_key": "perk.forked.desc",
+      "bonuses": {
+        "chain_jump_bonus": 1,
+        "shock_damage_bonus": 0.1
+      }
+    },
+    {
+      "id": "core:perk.wide_berth",
+      "skill": "elemental",
+      "level": 25,
+      "name_key": "perk.wide_berth.name",
+      "desc_key": "perk.wide_berth.desc",
+      "bonuses": {
+        "nova_radius_bonus": 0.35
+      }
+    },
+    {
+      "id": "core:perk.pyre",
+      "skill": "elemental",
+      "level": 40,
+      "name_key": "perk.pyre.name",
+      "desc_key": "perk.pyre.desc",
+      "bonuses": {
+        "burn_spread_on_death": 1
+      }
+    },
+    {
+      "id": "core:perk.thermal_shock",
+      "skill": "elemental",
+      "level": 40,
+      "name_key": "perk.thermal_shock.name",
+      "desc_key": "perk.thermal_shock.desc",
+      "bonuses": {
+        "combo_damage_bonus": 0.6
+      }
+    },
+    {
+      "id": "core:perk.bedside",
+      "skill": "restoration",
+      "level": 15,
+      "name_key": "perk.bedside.name",
+      "desc_key": "perk.bedside.desc",
+      "bonuses": {
+        "heal_power_bonus": 0.3
+      }
+    },
+    {
+      "id": "core:perk.herbalist",
+      "skill": "restoration",
+      "level": 15,
+      "name_key": "perk.herbalist.name",
+      "desc_key": "perk.herbalist.desc",
+      "bonuses": {
+        "potion_bonus": 0.4
+      }
+    },
+    {
+      "id": "core:perk.renewal",
+      "skill": "restoration",
+      "level": 25,
+      "name_key": "perk.renewal.name",
+      "desc_key": "perk.renewal.desc",
+      "bonuses": {
+        "health_regen": 1.2
+      }
+    },
+    {
+      "id": "core:perk.siphoner",
+      "skill": "restoration",
+      "level": 25,
+      "name_key": "perk.siphoner.name",
+      "desc_key": "perk.siphoner.desc",
+      "bonuses": {
+        "mana_on_kill": 10,
+        "heal_on_kill": 6
+      }
+    },
+    {
+      "id": "core:perk.sanctuary",
+      "skill": "restoration",
+      "level": 40,
+      "name_key": "perk.sanctuary.name",
+      "desc_key": "perk.sanctuary.desc",
+      "bonuses": {
+        "armor_bonus": 4,
+        "heal_power_bonus": 0.25
+      }
+    },
+    {
+      "id": "core:perk.lifeline",
+      "skill": "restoration",
+      "level": 40,
+      "name_key": "perk.lifeline.name",
+      "desc_key": "perk.lifeline.desc",
+      "bonuses": {
+        "life_steal": 0.06,
+        "sanity_regen": 0.5
+      }
+    },
+    {
+      "id": "core:perk.misdirection",
+      "skill": "illusion",
+      "level": 15,
+      "name_key": "perk.misdirection.name",
+      "desc_key": "perk.misdirection.desc",
+      "bonuses": {
+        "status_duration_bonus": 0.25
+      }
+    },
+    {
+      "id": "core:perk.quickening",
+      "skill": "illusion",
+      "level": 15,
+      "name_key": "perk.quickening.name",
+      "desc_key": "perk.quickening.desc",
+      "bonuses": {
+        "spell_cooldown_reduction": 0.15
+      }
+    },
+    {
+      "id": "core:perk.long_hop",
+      "skill": "illusion",
+      "level": 25,
+      "name_key": "perk.long_hop.name",
+      "desc_key": "perk.long_hop.desc",
+      "bonuses": {
+        "blink_distance_bonus": 0.5
+      }
+    },
+    {
+      "id": "core:perk.smoke_mirrors",
+      "skill": "illusion",
+      "level": 25,
+      "name_key": "perk.smoke_mirrors.name",
+      "desc_key": "perk.smoke_mirrors.desc",
+      "bonuses": {
+        "sneak_visibility_reduction": 0.3
+      }
+    },
+    {
+      "id": "core:perk.hex_master",
+      "skill": "illusion",
+      "level": 40,
+      "name_key": "perk.hex_master.name",
+      "desc_key": "perk.hex_master.desc",
+      "bonuses": {
+        "status_chance_bonus": 0.15
+      }
+    },
+    {
+      "id": "core:perk.cheap_tricks",
+      "skill": "illusion",
+      "level": 40,
+      "name_key": "perk.cheap_tricks.name",
+      "desc_key": "perk.cheap_tricks.desc",
+      "bonuses": {
+        "spell_cost_reduction": 0.12,
+        "spell_cooldown_reduction": 0.1
+      }
+    },
+    {
+      "id": "core:perk.long_legs",
+      "skill": "athletics",
+      "level": 15,
+      "name_key": "perk.long_legs.name",
+      "desc_key": "perk.long_legs.desc",
+      "bonuses": {
+        "move_speed_bonus": 0.08
+      }
+    },
+    {
+      "id": "core:perk.deep_lungs",
+      "skill": "athletics",
+      "level": 15,
+      "name_key": "perk.deep_lungs.name",
+      "desc_key": "perk.deep_lungs.desc",
+      "bonuses": {
+        "stamina_regen": 3.0
+      }
+    },
+    {
+      "id": "core:perk.marathon",
+      "skill": "athletics",
+      "level": 30,
+      "name_key": "perk.marathon.name",
+      "desc_key": "perk.marathon.desc",
+      "bonuses": {
+        "move_speed_bonus": 0.1,
+        "stamina_regen": 2.0
+      }
+    },
+    {
+      "id": "core:perk.brawler",
+      "skill": "athletics",
+      "level": 30,
+      "name_key": "perk.brawler.name",
+      "desc_key": "perk.brawler.desc",
+      "bonuses": {
+        "heavy_damage_bonus": 0.25
+      }
+    },
+    {
+      "id": "core:perk.keen_eye",
+      "skill": "perception",
+      "level": 15,
+      "name_key": "perk.keen_eye.name",
+      "desc_key": "perk.keen_eye.desc",
+      "bonuses": {
+        "crit_chance_bonus": 0.05
+      }
+    },
+    {
+      "id": "core:perk.magpie",
+      "skill": "perception",
+      "level": 15,
+      "name_key": "perk.magpie.name",
+      "desc_key": "perk.magpie.desc",
+      "bonuses": {
+        "gold_find_bonus": 0.3
+      }
+    },
+    {
+      "id": "core:perk.weak_spot",
+      "skill": "perception",
+      "level": 30,
+      "name_key": "perk.weak_spot.name",
+      "desc_key": "perk.weak_spot.desc",
+      "bonuses": {
+        "crit_damage_bonus": 0.35
+      }
+    },
+    {
+      "id": "core:perk.treasure_nose",
+      "skill": "perception",
+      "level": 30,
+      "name_key": "perk.treasure_nose.name",
+      "desc_key": "perk.treasure_nose.desc",
+      "bonuses": {
+        "gold_find_bonus": 0.4,
+        "lockpick_bonus": 0.1
+      }
+    },
+    {
+      "id": "core:perk.light_step",
+      "skill": "stealth",
+      "level": 15,
+      "name_key": "perk.light_step.name",
+      "desc_key": "perk.light_step.desc",
+      "bonuses": {
+        "sneak_visibility_reduction": 0.2
+      }
+    },
+    {
+      "id": "core:perk.backstabber",
+      "skill": "stealth",
+      "level": 15,
+      "name_key": "perk.backstabber.name",
+      "desc_key": "perk.backstabber.desc",
+      "bonuses": {
+        "sneak_damage_bonus": 0.5
+      }
+    },
+    {
+      "id": "core:perk.ghost",
+      "skill": "stealth",
+      "level": 30,
+      "name_key": "perk.ghost.name",
+      "desc_key": "perk.ghost.desc",
+      "bonuses": {
+        "sneak_visibility_reduction": 0.25
+      }
+    },
+    {
+      "id": "core:perk.ambusher",
+      "skill": "stealth",
+      "level": 30,
+      "name_key": "perk.ambusher.name",
+      "desc_key": "perk.ambusher.desc",
+      "bonuses": {
+        "opener_damage_bonus": 0.5
+      }
+    },
+    {
+      "id": "core:perk.tumbler",
+      "skill": "lockpicking",
+      "level": 15,
+      "name_key": "perk.tumbler.name",
+      "desc_key": "perk.tumbler.desc",
+      "bonuses": {
+        "lockpick_bonus": 0.12
+      }
+    },
+    {
+      "id": "core:perk.pocket_lint",
+      "skill": "lockpicking",
+      "level": 15,
+      "name_key": "perk.pocket_lint.name",
+      "desc_key": "perk.pocket_lint.desc",
+      "bonuses": {
+        "gold_find_bonus": 0.25
+      }
+    },
+    {
+      "id": "core:perk.master_key",
+      "skill": "lockpicking",
+      "level": 30,
+      "name_key": "perk.master_key.name",
+      "desc_key": "perk.master_key.desc",
+      "bonuses": {
+        "lockpick_bonus": 0.15
+      }
+    },
+    {
+      "id": "core:perk.quick_fingers",
+      "skill": "lockpicking",
+      "level": 30,
+      "name_key": "perk.quick_fingers.name",
+      "desc_key": "perk.quick_fingers.desc",
+      "bonuses": {
+        "crit_chance_bonus": 0.06
+      }
+    },
+    {
+      "id": "core:perk.haggler",
+      "skill": "persuasion",
+      "level": 15,
+      "name_key": "perk.haggler.name",
+      "desc_key": "perk.haggler.desc",
+      "bonuses": {
+        "shop_discount": 0.1
+      }
+    },
+    {
+      "id": "core:perk.rally",
+      "skill": "persuasion",
+      "level": 15,
+      "name_key": "perk.rally.name",
+      "desc_key": "perk.rally.desc",
+      "bonuses": {
+        "companion_damage_bonus": 0.4
+      }
+    },
+    {
+      "id": "core:perk.silver_tongue",
+      "skill": "persuasion",
+      "level": 30,
+      "name_key": "perk.silver_tongue.name",
+      "desc_key": "perk.silver_tongue.desc",
+      "bonuses": {
+        "dice_bonus": 2.0
+      }
+    },
+    {
+      "id": "core:perk.inspiring",
+      "skill": "persuasion",
+      "level": 30,
+      "name_key": "perk.inspiring.name",
+      "desc_key": "perk.inspiring.desc",
+      "bonuses": {
+        "companion_damage_bonus": 0.5,
+        "sanity_regen": 0.5
+      }
+    },
+    {
+      "id": "core:perk.scholar",
+      "skill": "lore",
+      "level": 15,
+      "name_key": "perk.scholar.name",
+      "desc_key": "perk.scholar.desc",
+      "bonuses": {
+        "skill_xp_bonus": 0.15
+      }
+    },
+    {
+      "id": "core:perk.arcanist",
+      "skill": "lore",
+      "level": 15,
+      "name_key": "perk.arcanist.name",
+      "desc_key": "perk.arcanist.desc",
+      "bonuses": {
+        "spell_power_bonus": 0.08
+      }
+    },
+    {
+      "id": "core:perk.polymath",
+      "skill": "lore",
+      "level": 30,
+      "name_key": "perk.polymath.name",
+      "desc_key": "perk.polymath.desc",
+      "bonuses": {
+        "skill_xp_bonus": 0.2
+      }
+    },
+    {
+      "id": "core:perk.forbidden",
+      "skill": "lore",
+      "level": 30,
+      "name_key": "perk.forbidden.name",
+      "desc_key": "perk.forbidden.desc",
+      "bonuses": {
+        "spell_power_bonus": 0.12,
+        "sanity_regen": -0.3
+      }
+    }
+  ]
+}
