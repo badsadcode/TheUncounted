@@ -502,6 +502,32 @@
         ],
         "light_radius": 7.0
       }
+    },
+    {
+      "id": "core:spell.unsay",
+      "name_key": "spell.unsay.name",
+      "description_key": "spell.unsay.desc",
+      "icon": "assets/ui/spells/unsay.png",
+      "skill": "illusion",
+      "mana_cost": 16,
+      "cooldown_seconds": 4.0,
+      "cast_sfx": "assets/audio/sfx/spell_cast.wav",
+      "effect": {
+        "primitive": "projectile_damage",
+        "damage_type": "ink",
+        "base_power": 2,
+        "projectile_speed": 18.0,
+        "projectile_sprite": "assets/sprites/vfx/spell_arcane.png",
+        "light_color": [
+          0.8,
+          0.8,
+          1.0
+        ],
+        "light_radius": 4.0,
+        "status": "forget",
+        "status_chance": 1.0,
+        "status_duration": 8.0
+      }
     }
   ]
 }

@@ -1796,6 +1796,84 @@
       "slots": [],
       "value": 0,
       "weight": 8.0
+    },
+    {
+      "id": "core:item.here_permit",
+      "name_key": "item.here_permit.name",
+      "description_key": "item.here_permit.description",
+      "category": "key",
+      "icon": "assets/ui/items/here_permit.png",
+      "world_model": "assets/models/items/form_27b_scroll.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.3
+    },
+    {
+      "id": "core:item.here_archive_key",
+      "name_key": "item.here_archive_key.name",
+      "description_key": "item.here_archive_key.description",
+      "category": "key",
+      "icon": "assets/ui/items/here_archive_key.png",
+      "world_model": "assets/models/items/annex_key.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.3
+    },
+    {
+      "id": "core:item.here_recipe",
+      "name_key": "item.here_recipe.name",
+      "description_key": "item.here_recipe.description",
+      "category": "misc",
+      "icon": "assets/ui/items/here_recipe.png",
+      "world_model": "assets/models/items/form_27b_scroll.glb",
+      "slots": [],
+      "value": 0,
+      "weight": 0.3
+    },
+    {
+      "id": "core:item.here_map",
+      "name_key": "item.here_map.name",
+      "description_key": "item.here_map.description",
+      "category": "misc",
+      "icon": "assets/ui/items/here_map.png",
+      "world_model": "assets/models/items/form_27b_scroll.glb",
+      "slots": [],
+      "value": 30,
+      "weight": 0.3
+    },
+    {
+      "id": "core:item.here_bread",
+      "name_key": "item.here_bread.name",
+      "description_key": "item.here_bread.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/here_bread.png",
+      "world_model": "assets/models/items/bread_loaf.glb",
+      "slots": [],
+      "value": 8,
+      "weight": 0.3,
+      "stackable": true,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 20
+        },
+        {
+          "type": "consumable_sanity",
+          "amount": 15
+        }
+      ]
+    },
+    {
+      "id": "core:item.here_quiet_name",
+      "name_key": "item.here_quiet_name.name",
+      "description_key": "item.here_quiet_name.description",
+      "category": "book",
+      "icon": "assets/ui/items/here_quiet_name.png",
+      "world_model": "assets/models/items/spell_tome.glb",
+      "slots": [],
+      "value": 50,
+      "weight": 0.3,
+      "book_text_key": "book.here_quiet_name.text"
     }
   ]
 }

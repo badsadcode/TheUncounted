@@ -1307,6 +1307,8 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             z.weather = zj.value("weather", "");
             z.sky_panorama = zj.value("sky_panorama", m.sky_panorama);
             z.day_night = zj.contains("day_night") ? (zj.value("day_night", true) ? 1 : 0) : m.day_night;
+            z.priority = zj.value("priority", 0);
+            z.day_fog_density = zj.value("day_fog_density", 0.0f);
             z.sky_color = m.sky_color;
             if (zj.contains("sky_color") && zj["sky_color"].size() >= 3)
                 z.sky_color = {static_cast<unsigned char>(zj["sky_color"][0].get<int>()), static_cast<unsigned char>(zj["sky_color"][1].get<int>()),

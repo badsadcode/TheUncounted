@@ -46,6 +46,14 @@
         0.0
       ],
       "yaw_degrees": -90.0
+    },
+    "road_dusk": {
+      "pos": [
+        2.0,
+        0.0,
+        11.0
+      ],
+      "yaw_degrees": 180.0
     }
   },
   "props": [
@@ -1202,6 +1210,29 @@
       "set_stage": 30,
       "narration": [
         "story.fig3.trap"
+      ]
+    },
+    {
+      "instance_id": "road_dusk_milestone",
+      "type": "travel",
+      "model": "assets/models/props/signpost.glb",
+      "pos": [
+        2.0,
+        0.0,
+        13.2
+      ],
+      "rot_y": 0.0,
+      "prompt": "Follow the Road That Wasn't There",
+      "travel_spawn": "here_gate",
+      "requires_flag": "here_known",
+      "hours": [
+        18.0,
+        6.0
+      ],
+      "quest_id": "core:quest.ch1_here",
+      "set_stage": 20,
+      "narration": [
+        "story.here.road"
       ]
     }
   ],

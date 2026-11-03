@@ -33,7 +33,7 @@ w("# Art brief for Noor: everything that still needs painting\n")
 w("Thank you for all the characters, textures and skies! This is the rest of the game's art, in order of how much it "
   "shows during play. Everything is placeholder art right now, so any part you deliver goes straight in.\n")
 w("**Delivery**: a zip with one folder per section (`portraits/`, `monsters/`, `spell_effects/`, `spell_icons/`, "
-  "`item_icons/`), files named exactly as listed. Partial deliveries are welcome.\n")
+  "`item_icons/`, `characters/` for Chapter One's people, `skies/`), files named exactly as listed. Partial deliveries are welcome.\n")
 w("**Everywhere**: the same painted pixel-art style as the character sheets; PNG; sizes exact.\n")
 
 w("\n## 1. Character portraits (character creation) — %d portraits\n" % (len(races) * len(callings) * 2))
@@ -73,6 +73,25 @@ w("| `headless_knight.png` | The Headless Knight of the Old Road | Comedy: it's 
   "stick above it to look 'headless'; his patched leathers and too-big hood poke out. Proudly dramatic poses. |")
 w("| `repossession_golem.png` | The Repossession Golem | A big, blocky iron golem stamped REPOSSESSED all over in red, "
   "riveted plates, glowing furnace eyes, bought with a dragon's money. Bigger than a person (about 2.3 m). |")
+
+w("\n## 2b. Chapter One: the people of Here — 9 sprite sheets\n")
+w("A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. Same 8 × 6 "
+  "layout as the other characters. The residents are slightly faded, like a memory (soft, pale edges are fine: the game "
+  "keeps them a little see-through itself). Simple placeholders are in the game until yours arrive.\n")
+w("| File | Who | Look |")
+w("|---|---|---|")
+for f, who, look in [
+    ("here_gatekeeper.png", "Ottoline Pell, Gatekeeper", "A very upright woman in a faded blue customs uniform and cap, a big rubber stamp in one hand and a form in the other. Four hundred years of patience; tearfully delighted to finally have a visitor."),
+    ("here_baker.png", "The Baker, Probably", "A floury baker in a white apron and a hair bun, flour on their face and arms, forever kneading dough that isn't there."),
+    ("here_butt_butt.png", "Butt-Butt", "A small, loud child (about 1.15 m) with messy ginger hair, a stub of chalk, chalk dust everywhere, an orange jumper, enormous grin. Picked their own name: Butt-Butt. Toasty's character!"),
+    ("here_cartographer.png", "The Cartographer (Retired)", "An elderly mapmaker with white hair and beard, a much-mended brown coat, a battered hat, maps rolled under one arm."),
+    ("here_person_in_hat.png", "Person in a Hat", "Someone in a VERY tall, slightly bent hat (the most important part), a purple coat, dignified and vague."),
+    ("here_night_merchant.png", "The Night Merchant", "A tall, thin, hooded figure in deep night-blue, glowing pale eyes, a staff hung with little lanterns of different colours."),
+    ("here_echo.png", "The Last Archivist", "A ghostly archivist made of almost nothing: robes, spectacles, ink-stained fingers, an open ledger; floats slightly, faintly glowing."),
+    ("here_mouth.png", "Mouth of the Hunger (monster)", "A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names."),
+    ("here_unsaying.png", "The Unsaying (boss)", "Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be."),
+]:
+    w(f"| `{f}` | {who} | {look} |")
 
 w("\n## 3. Spell effects in flight — 5 animated strips\n")
 w("The ball you see flying when a spell is cast. Currently plain coloured circles.\n")

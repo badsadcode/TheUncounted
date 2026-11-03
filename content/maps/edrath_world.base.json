@@ -33,6 +33,98 @@
   "weather": "rain",
   "zones": [
     {
+      "id": "here_archive",
+      "display_name_key": "map.here_archive.name",
+      "box_min": [
+        -10.0,
+        -1.0,
+        152.0
+      ],
+      "box_max": [
+        10.0,
+        12.0,
+        166.0
+      ],
+      "blend": 1.5,
+      "music": "assets/audio/music/crypt_theme.wav",
+      "ambience": "assets/audio/ambience/crypt_drips.wav",
+      "sky_color": [
+        8,
+        8,
+        16
+      ],
+      "ambient_color": [
+        0.24,
+        0.24,
+        0.36
+      ],
+      "sun_direction": [
+        -0.3,
+        0.8,
+        -0.3
+      ],
+      "sun_color": [
+        0.45,
+        0.45,
+        0.6
+      ],
+      "fog_color": [
+        0.05,
+        0.05,
+        0.1
+      ],
+      "fog_density": 0.05,
+      "weather": "",
+      "sanity_drain": 0.6,
+      "priority": 1
+    },
+    {
+      "id": "here",
+      "display_name_key": "map.here.name",
+      "box_min": [
+        -31.0,
+        -2.0,
+        149.0
+      ],
+      "box_max": [
+        31.0,
+        40.0,
+        235.0
+      ],
+      "blend": 3.0,
+      "music": "assets/audio/music/vault_lullaby.wav",
+      "ambience": "assets/audio/ambience/forest_wind.wav",
+      "sky_color": [
+        30,
+        28,
+        46
+      ],
+      "ambient_color": [
+        0.36,
+        0.36,
+        0.48
+      ],
+      "sun_direction": [
+        -0.3,
+        0.8,
+        -0.3
+      ],
+      "sun_color": [
+        0.45,
+        0.45,
+        0.6
+      ],
+      "fog_color": [
+        0.17,
+        0.16,
+        0.24
+      ],
+      "fog_density": 0.045,
+      "weather": "dust",
+      "day_fog_density": 0.12,
+      "sky_panorama": "assets/textures/sky/sky_night.png"
+    },
+    {
       "id": "seaside_house",
       "display_name_key": "map.seaside_house.name",
       "box_min": [
@@ -3084,29 +3176,20 @@
       "size": 0.45
     },
     {
-      "sprite": "assets/sprites/scatter/fern.png",
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
       "pos": [
-        50.65,
+        23.26,
         0.0,
-        13.2
+        -8.1
       ],
-      "size": 0.74
+      "size": 0.5
     },
     {
       "sprite": "assets/sprites/scatter/grass_tuft.png",
       "pos": [
-        66.32,
+        65.73,
         0.0,
-        11.07
-      ],
-      "size": 0.64
-    },
-    {
-      "sprite": "assets/sprites/scatter/grass_tuft.png",
-      "pos": [
-        36.75,
-        0.0,
-        10.53
+        10.82
       ],
       "size": 0.56
     },
@@ -4094,20 +4177,29 @@
     {
       "sprite": "assets/sprites/scatter/grass_tuft.png",
       "pos": [
-        -15.73,
+        66.31,
         0.0,
-        59.89
+        10.69
       ],
-      "size": 0.56
+      "size": 0.65
     },
     {
-      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "sprite": "assets/sprites/scatter/bush.png",
       "pos": [
-        2.45,
+        -17.88,
         0.0,
-        29.11
+        44.94
       ],
-      "size": 0.59
+      "size": 1.03
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        18.37,
+        0.0,
+        59.98
+      ],
+      "size": 0.42
     },
     {
       "sprite": "assets/sprites/scatter/grass_tuft.png",
@@ -9856,6 +9948,14 @@
       ],
       "yaw_degrees": -90.0
     },
+    "road_dusk": {
+      "pos": [
+        50.0,
+        0.0,
+        11.0
+      ],
+      "yaw_degrees": 180.0
+    },
     "annex_entry": {
       "pos": [
         87.0,
@@ -9917,6 +10017,14 @@
         160.0,
         0.0,
         -49.0
+      ],
+      "yaw_degrees": 180.0
+    },
+    "here_gate": {
+      "pos": [
+        0.0,
+        0.0,
+        226.0
       ],
       "yaw_degrees": 180.0
     }
@@ -17324,6 +17432,2549 @@
       ]
     },
     {
+      "id": "here_here_ground",
+      "model": "assets/models/env/floor_flagstones.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        184.0
+      ],
+      "scale": [
+        60.0,
+        0.5,
+        68.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        22,
+        26
+      ]
+    },
+    {
+      "id": "here_here_road",
+      "model": "assets/models/env/floor_cobble.glb",
+      "pos": [
+        0.0,
+        -0.5,
+        226.0
+      ],
+      "scale": [
+        8.0,
+        0.5,
+        16.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "here_here_verge_w",
+      "model": "assets/models/env/floor_flagstones.glb",
+      "pos": [
+        -17.0,
+        -0.5,
+        226.0
+      ],
+      "scale": [
+        26.0,
+        0.48,
+        16.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        10,
+        6
+      ]
+    },
+    {
+      "id": "here_here_verge_e",
+      "model": "assets/models/env/floor_flagstones.glb",
+      "pos": [
+        17.0,
+        -0.5,
+        226.0
+      ],
+      "scale": [
+        26.0,
+        0.48,
+        16.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        10,
+        6
+      ]
+    },
+    {
+      "id": "here_citywall_n_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        150.0
+      ],
+      "scale": [
+        60.0,
+        7.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        23.08,
+        2.33
+      ]
+    },
+    {
+      "id": "here_citywall_w_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -30.0,
+        0.0,
+        192.0
+      ],
+      "scale": [
+        1.2,
+        7.0,
+        84.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        32.31,
+        2.33
+      ]
+    },
+    {
+      "id": "here_citywall_e_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        30.0,
+        0.0,
+        192.0
+      ],
+      "scale": [
+        1.2,
+        7.0,
+        84.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        32.31,
+        2.33
+      ]
+    },
+    {
+      "id": "here_fogbank_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        234.0
+      ],
+      "scale": [
+        60.0,
+        7.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        23.08,
+        2.33
+      ]
+    },
+    {
+      "id": "here_gatewall_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        218.0
+      ],
+      "scale": [
+        28.0,
+        5.0,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        10.77,
+        1.67
+      ]
+    },
+    {
+      "id": "here_gatewall_lintel0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        4.0,
+        218.0
+      ],
+      "scale": [
+        4.0,
+        1.0,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.54,
+        0.33
+      ]
+    },
+    {
+      "id": "here_gatewall_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        16.0,
+        0.0,
+        218.0
+      ],
+      "scale": [
+        28.0,
+        5.0,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        10.77,
+        1.67
+      ]
+    },
+    {
+      "id": "here_gatetower_w",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -3.0,
+        0.0,
+        218.0
+      ],
+      "scale": [
+        2.0,
+        6.5,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        2.17
+      ]
+    },
+    {
+      "id": "here_gatetower_e",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        3.0,
+        0.0,
+        218.0
+      ],
+      "scale": [
+        2.0,
+        6.5,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        2.17
+      ]
+    },
+    {
+      "id": "here_booth_desk",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.5,
+        0.0,
+        220.8
+      ],
+      "scale": [
+        3.0,
+        1.05,
+        0.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_booth_back",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -6.5,
+        0.0,
+        219.15
+      ],
+      "scale": [
+        3.4,
+        2.8,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.31,
+        0.93
+      ]
+    },
+    {
+      "id": "here_booth_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -6.5,
+        2.8,
+        220.3
+      ],
+      "scale": [
+        4.2,
+        0.3,
+        2.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.62,
+        0.1
+      ]
+    },
+    {
+      "id": "here_torch_gate_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -2.6,
+        2.2,
+        219.1
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "here_torch_gate_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        2.6,
+        2.2,
+        219.1
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "here_fountain_ring",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        195.0
+      ],
+      "scale": [
+        5.2,
+        0.7,
+        5.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        2,
+        0.3
+      ]
+    },
+    {
+      "id": "here_fountain_pillar",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        195.0
+      ],
+      "scale": [
+        1.0,
+        2.4,
+        1.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.38,
+        0.8
+      ]
+    },
+    {
+      "id": "here_stall_0_counter",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        190.0
+      ],
+      "scale": [
+        3.2,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_stall_0_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -10.0,
+        2.5,
+        189.75
+      ],
+      "scale": [
+        3.8,
+        0.2,
+        2.3
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.46,
+        0.1
+      ]
+    },
+    {
+      "id": "here_stall_0_post0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -11.7,
+        0.0,
+        188.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_0_post1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -8.3,
+        0.0,
+        188.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_1_counter",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        200.0
+      ],
+      "scale": [
+        3.2,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_stall_1_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -10.0,
+        2.5,
+        199.75
+      ],
+      "scale": [
+        3.8,
+        0.2,
+        2.3
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.46,
+        0.1
+      ]
+    },
+    {
+      "id": "here_stall_1_post0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -11.7,
+        0.0,
+        198.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_1_post1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -8.3,
+        0.0,
+        198.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_2_counter",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        10.0,
+        0.0,
+        190.0
+      ],
+      "scale": [
+        3.2,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_stall_2_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        10.0,
+        2.5,
+        189.75
+      ],
+      "scale": [
+        3.8,
+        0.2,
+        2.3
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.46,
+        0.1
+      ]
+    },
+    {
+      "id": "here_stall_2_post0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        8.3,
+        0.0,
+        188.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_2_post1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        11.7,
+        0.0,
+        188.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_3_counter",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        10.0,
+        0.0,
+        200.0
+      ],
+      "scale": [
+        3.2,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_stall_3_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        10.0,
+        2.5,
+        199.75
+      ],
+      "scale": [
+        3.8,
+        0.2,
+        2.3
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.46,
+        0.1
+      ]
+    },
+    {
+      "id": "here_stall_3_post0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        8.3,
+        0.0,
+        198.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_3_post1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        11.7,
+        0.0,
+        198.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_4_counter",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -5.0,
+        0.0,
+        184.0
+      ],
+      "scale": [
+        3.2,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_stall_4_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -5.0,
+        2.5,
+        183.75
+      ],
+      "scale": [
+        3.8,
+        0.2,
+        2.3
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.46,
+        0.1
+      ]
+    },
+    {
+      "id": "here_stall_4_post0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -6.7,
+        0.0,
+        182.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_4_post1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -3.3,
+        0.0,
+        182.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_5_counter",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        5.0,
+        0.0,
+        184.0
+      ],
+      "scale": [
+        3.2,
+        1.0,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_stall_5_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        5.0,
+        2.5,
+        183.75
+      ],
+      "scale": [
+        3.8,
+        0.2,
+        2.3
+      ],
+      "solid": false,
+      "uv_scale": [
+        1.46,
+        0.1
+      ]
+    },
+    {
+      "id": "here_stall_5_post0",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        3.3,
+        0.0,
+        182.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_stall_5_post1",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        6.7,
+        0.0,
+        182.78
+      ],
+      "scale": [
+        0.16,
+        2.5,
+        0.16
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.06,
+        0.83
+      ]
+    },
+    {
+      "id": "here_baker_house_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        192.0
+      ],
+      "scale": [
+        8.0,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_baker_house_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        200.0
+      ],
+      "scale": [
+        8.0,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_baker_house_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -24.0,
+        0.0,
+        196.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_baker_house_e_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        193.5
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.13
+      ]
+    },
+    {
+      "id": "here_baker_house_e_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        2.8,
+        196.0
+      ],
+      "scale": [
+        0.4,
+        0.6,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.2
+      ]
+    },
+    {
+      "id": "here_baker_house_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        198.5
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.13
+      ]
+    },
+    {
+      "id": "here_baker_house_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -20.0,
+        -0.4,
+        196.0
+      ],
+      "scale": [
+        8.0,
+        0.42,
+        8.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_baker_house_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -20.0,
+        3.4,
+        196.0
+      ],
+      "scale": [
+        8.8,
+        0.35,
+        8.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        0.12
+      ]
+    },
+    {
+      "id": "here_torch_baker",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -15.7,
+        2.1,
+        194.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "here_bakery_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        8.0,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_bakery_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        188.0
+      ],
+      "scale": [
+        8.0,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_bakery_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -24.0,
+        0.0,
+        184.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_bakery_e_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        181.5
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.13
+      ]
+    },
+    {
+      "id": "here_bakery_e_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        2.8,
+        184.0
+      ],
+      "scale": [
+        0.4,
+        0.6,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.2
+      ]
+    },
+    {
+      "id": "here_bakery_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        186.5
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.13
+      ]
+    },
+    {
+      "id": "here_bakery_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -20.0,
+        -0.4,
+        184.0
+      ],
+      "scale": [
+        8.0,
+        0.42,
+        8.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_bakery_oven",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -22.3,
+        0.0,
+        181.7
+      ],
+      "scale": [
+        2.6,
+        1.8,
+        2.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.0,
+        0.6
+      ]
+    },
+    {
+      "id": "here_bakery_rubble_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -19.3,
+        0.0,
+        186.2
+      ],
+      "scale": [
+        1.4,
+        0.6,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.5,
+        0.3
+      ]
+    },
+    {
+      "id": "here_bakery_rubble_1",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -21.35,
+        0.0,
+        186.0
+      ],
+      "scale": [
+        2.3,
+        0.35,
+        2.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.8,
+        0.3
+      ]
+    },
+    {
+      "id": "here_carto_house_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        20.0,
+        0.0,
+        192.0
+      ],
+      "scale": [
+        8.0,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_carto_house_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        20.0,
+        0.0,
+        200.0
+      ],
+      "scale": [
+        8.0,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_carto_house_w_0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        16.0,
+        0.0,
+        193.5
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.13
+      ]
+    },
+    {
+      "id": "here_carto_house_w_lintel0",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        16.0,
+        2.8,
+        196.0
+      ],
+      "scale": [
+        0.4,
+        0.6,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.77,
+        0.2
+      ]
+    },
+    {
+      "id": "here_carto_house_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        16.0,
+        0.0,
+        198.5
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        3.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.15,
+        1.13
+      ]
+    },
+    {
+      "id": "here_carto_house_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        24.0,
+        0.0,
+        196.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_carto_house_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        20.0,
+        -0.4,
+        196.0
+      ],
+      "scale": [
+        8.0,
+        0.42,
+        8.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_carto_house_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        20.0,
+        3.4,
+        196.0
+      ],
+      "scale": [
+        8.8,
+        0.35,
+        8.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        0.12
+      ]
+    },
+    {
+      "id": "here_carto_table",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        19.5,
+        0.0,
+        195.0
+      ],
+      "scale": [
+        3.0,
+        0.9,
+        2.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1.2,
+        0.4
+      ]
+    },
+    {
+      "id": "here_torch_carto",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        15.7,
+        2.1,
+        194.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "here_house_0_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        204.0
+      ],
+      "scale": [
+        8,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_0_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        212.0
+      ],
+      "scale": [
+        8,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_0_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -24.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_0_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_0_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -20.0,
+        -0.4,
+        208.0
+      ],
+      "scale": [
+        8,
+        0.42,
+        8
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_house_0_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -20.0,
+        3.4,
+        208.0
+      ],
+      "scale": [
+        8.8,
+        0.35,
+        8.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        0.12
+      ]
+    },
+    {
+      "id": "here_house_1_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        20.0,
+        0.0,
+        204.0
+      ],
+      "scale": [
+        8,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_1_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        20.0,
+        0.0,
+        212.0
+      ],
+      "scale": [
+        8,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_1_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        16.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_1_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        24.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_1_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        20.0,
+        -0.4,
+        208.0
+      ],
+      "scale": [
+        8,
+        0.42,
+        8
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_house_1_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        20.0,
+        3.4,
+        208.0
+      ],
+      "scale": [
+        8.8,
+        0.35,
+        8.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        0.12
+      ]
+    },
+    {
+      "id": "here_house_2_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        168.0
+      ],
+      "scale": [
+        8,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_2_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -20.0,
+        0.0,
+        176.0
+      ],
+      "scale": [
+        8,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_2_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -24.0,
+        0.0,
+        172.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_2_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        172.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_2_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -20.0,
+        -0.4,
+        172.0
+      ],
+      "scale": [
+        8,
+        0.42,
+        8
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_house_2_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -20.0,
+        3.4,
+        172.0
+      ],
+      "scale": [
+        8.8,
+        0.35,
+        8.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        0.12
+      ]
+    },
+    {
+      "id": "here_house_3_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        204.0
+      ],
+      "scale": [
+        6,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.31,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_3_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        212.0
+      ],
+      "scale": [
+        6,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.31,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_3_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -13.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_3_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        -7.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_3_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -10.0,
+        -0.4,
+        208.0
+      ],
+      "scale": [
+        6,
+        0.42,
+        8
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_house_3_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        -10.0,
+        3.4,
+        208.0
+      ],
+      "scale": [
+        6.8,
+        0.35,
+        8.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        0.12
+      ]
+    },
+    {
+      "id": "here_house_4_n_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        10.0,
+        0.0,
+        204.0
+      ],
+      "scale": [
+        6,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.31,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_4_s_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        10.0,
+        0.0,
+        212.0
+      ],
+      "scale": [
+        6,
+        3.4,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.31,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_4_w_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        7.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_4_e_end",
+      "model": "assets/models/env/wall_timber.glb",
+      "pos": [
+        13.0,
+        0.0,
+        208.0
+      ],
+      "scale": [
+        0.4,
+        3.4,
+        8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.08,
+        1.13
+      ]
+    },
+    {
+      "id": "here_house_4_floor",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        10.0,
+        -0.4,
+        208.0
+      ],
+      "scale": [
+        6,
+        0.42,
+        8
+      ],
+      "solid": false,
+      "uv_scale": [
+        3.08,
+        0.14
+      ]
+    },
+    {
+      "id": "here_house_4_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        10.0,
+        3.4,
+        208.0
+      ],
+      "scale": [
+        6.8,
+        0.35,
+        8.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        0.12
+      ]
+    },
+    {
+      "id": "here_tower_body",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        23.0,
+        0.0,
+        167.0
+      ],
+      "scale": [
+        6.0,
+        7.0,
+        6.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.4,
+        2.4
+      ]
+    },
+    {
+      "id": "here_tower_walkway",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        18.75,
+        0.0,
+        167.0
+      ],
+      "scale": [
+        2.5,
+        7.0,
+        6.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        2.4
+      ]
+    },
+    {
+      "id": "here_tower_stairs",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        18.75,
+        0.0,
+        177.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        2.5,
+        7.0,
+        14.0
+      ],
+      "solid": false,
+      "ramp": "-z"
+    },
+    {
+      "id": "here_tower_top",
+      "model": "assets/models/env/floor_flagstones.glb",
+      "pos": [
+        21.75,
+        6.98,
+        167.0
+      ],
+      "scale": [
+        8.5,
+        0.08,
+        6.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "here_parapet_n",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        21.75,
+        7.0,
+        163.85
+      ],
+      "scale": [
+        8.5,
+        0.9,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.3
+      ]
+    },
+    {
+      "id": "here_parapet_e",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        26.15,
+        7.0,
+        167.0
+      ],
+      "scale": [
+        0.3,
+        0.9,
+        6.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.3
+      ]
+    },
+    {
+      "id": "here_parapet_s",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        23.15,
+        7.0,
+        170.15
+      ],
+      "scale": [
+        6.3,
+        0.9,
+        0.3
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.3
+      ]
+    },
+    {
+      "id": "here_parapet_w",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        17.35,
+        7.0,
+        167.0
+      ],
+      "scale": [
+        0.3,
+        0.9,
+        6.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        0.3
+      ]
+    },
+    {
+      "id": "here_tower_post_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        20.3,
+        7.0,
+        164.3
+      ],
+      "scale": [
+        0.5,
+        3.0,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.19,
+        1.0
+      ]
+    },
+    {
+      "id": "here_tower_post_1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        25.7,
+        7.0,
+        164.3
+      ],
+      "scale": [
+        0.5,
+        3.0,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.19,
+        1.0
+      ]
+    },
+    {
+      "id": "here_tower_post_2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        25.7,
+        7.0,
+        169.7
+      ],
+      "scale": [
+        0.5,
+        3.0,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.19,
+        1.0
+      ]
+    },
+    {
+      "id": "here_tower_post_3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        20.3,
+        7.0,
+        169.7
+      ],
+      "scale": [
+        0.5,
+        3.0,
+        0.5
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.19,
+        1.0
+      ]
+    },
+    {
+      "id": "here_tower_belfry",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        23.0,
+        10.0,
+        167.0
+      ],
+      "scale": [
+        6.4,
+        0.4,
+        6.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        2.46,
+        0.13
+      ]
+    },
+    {
+      "id": "here_tower_bell",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        23.0,
+        8.2,
+        167.0
+      ],
+      "scale": [
+        1.4,
+        1.6,
+        1.4
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.6
+      ]
+    },
+    {
+      "id": "here_archive_floor",
+      "model": "assets/models/env/floor_flagstones.glb",
+      "pos": [
+        0.0,
+        -0.4,
+        159.0
+      ],
+      "scale": [
+        20.0,
+        0.42,
+        14.0
+      ],
+      "solid": false,
+      "uv_scale": [
+        6,
+        4
+      ]
+    },
+    {
+      "id": "here_archive_s_0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -5.6,
+        0.0,
+        166.0
+      ],
+      "scale": [
+        8.8,
+        9.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        3.0
+      ]
+    },
+    {
+      "id": "here_archive_s_lintel0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        2.8,
+        166.0
+      ],
+      "scale": [
+        2.4,
+        6.2,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.92,
+        2.07
+      ]
+    },
+    {
+      "id": "here_archive_s_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        5.6,
+        0.0,
+        166.0
+      ],
+      "scale": [
+        8.8,
+        9.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        3.38,
+        3.0
+      ]
+    },
+    {
+      "id": "here_archive_n_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        0.0,
+        152.0
+      ],
+      "scale": [
+        20.0,
+        9.0,
+        0.4
+      ],
+      "solid": true,
+      "uv_scale": [
+        7.69,
+        3.0
+      ]
+    },
+    {
+      "id": "here_archive_w_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -10.0,
+        0.0,
+        159.0
+      ],
+      "scale": [
+        0.4,
+        9.0,
+        14.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        5.38,
+        3.0
+      ]
+    },
+    {
+      "id": "here_archive_e_end",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        10.0,
+        0.0,
+        159.0
+      ],
+      "scale": [
+        0.4,
+        9.0,
+        14.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        5.38,
+        3.0
+      ]
+    },
+    {
+      "id": "here_archive_roof",
+      "model": "assets/models/env/floor_roof_slate_mossy.glb",
+      "pos": [
+        0.0,
+        9.0,
+        159.0
+      ],
+      "scale": [
+        21.0,
+        0.4,
+        15.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        8.08,
+        0.13
+      ]
+    },
+    {
+      "id": "here_archive_shelf_0",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        -6.0,
+        0.0,
+        161.0
+      ],
+      "scale": [
+        0.6,
+        2.6,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "here_archive_shelf_1",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        -2.0,
+        0.0,
+        161.0
+      ],
+      "scale": [
+        0.6,
+        2.6,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "here_archive_shelf_2",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        2.0,
+        0.0,
+        161.0
+      ],
+      "scale": [
+        0.6,
+        2.6,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "here_archive_shelf_3",
+      "model": "assets/models/props/bookshelf_prop.glb",
+      "pos": [
+        6.0,
+        0.0,
+        161.0
+      ],
+      "scale": [
+        0.6,
+        2.6,
+        4.0
+      ],
+      "solid": true,
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "here_archive_stairs",
+      "model": "assets/models/env/stairs_stone.glb",
+      "pos": [
+        -8.6,
+        0.0,
+        161.5
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        2.4,
+        4.0,
+        7.0
+      ],
+      "solid": false,
+      "ramp": "-z"
+    },
+    {
+      "id": "here_archive_gallery",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        0.0,
+        3.7,
+        155.1
+      ],
+      "scale": [
+        19.6,
+        0.3,
+        5.8
+      ],
+      "solid": true,
+      "uv_scale": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "here_archive_gallery_rail",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        1.2,
+        4.0,
+        158.0
+      ],
+      "scale": [
+        17.2,
+        0.9,
+        0.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        5,
+        0.3
+      ]
+    },
+    {
+      "id": "here_archive_plinth",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        0.0,
+        4.0,
+        154.0
+      ],
+      "scale": [
+        1.2,
+        1.1,
+        1.2
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.46,
+        0.37
+      ]
+    },
+    {
+      "id": "here_torch_archive_w",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        -9.75,
+        2.2,
+        160.0
+      ],
+      "rot_y": 90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "here_torch_archive_e",
+      "model": "assets/models/props/wall_torch.glb",
+      "pos": [
+        9.75,
+        2.2,
+        160.0
+      ],
+      "rot_y": -90.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
       "id": "bell_west_gate_n",
       "model": "assets/models/env/pillar_stone.glb",
       "pos": [
@@ -22710,6 +25361,101 @@
         0.2,
         0.5
       ]
+    },
+    {
+      "id": "door_frame_12",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        -1.55,
+        0.0,
+        218.0
+      ],
+      "scale": [
+        0.9,
+        2.92,
+        1.06
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.2,
+        0.5
+      ]
+    },
+    {
+      "id": "door_frame_13",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        1.55,
+        0.0,
+        218.0
+      ],
+      "scale": [
+        0.9,
+        2.92,
+        1.06
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.2,
+        0.5
+      ]
+    },
+    {
+      "id": "door_frame_14",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        0.0,
+        2.9,
+        218.0
+      ],
+      "scale": [
+        4.0,
+        1.1,
+        1.06
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.2,
+        0.5
+      ]
+    },
+    {
+      "id": "door_frame_15",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        -1.06,
+        0.0,
+        166.0
+      ],
+      "scale": [
+        0.28,
+        2.82,
+        0.46
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.2,
+        0.5
+      ]
+    },
+    {
+      "id": "door_frame_16",
+      "model": "assets/models/env/wall_wood_panelling.glb",
+      "pos": [
+        1.06,
+        0.0,
+        166.0
+      ],
+      "scale": [
+        0.28,
+        2.82,
+        0.46
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.2,
+        0.5
+      ]
     }
   ],
   "lights": [
@@ -23141,6 +25887,188 @@
         0.65
       ],
       "radius": 7.0
+    },
+    {
+      "pos": [
+        0.0,
+        2.6,
+        221.5
+      ],
+      "color": [
+        0.8,
+        0.8,
+        1.0
+      ],
+      "radius": 10.0
+    },
+    {
+      "pos": [
+        -6.0,
+        2.6,
+        202.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        6.0,
+        2.6,
+        188.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        -14.0,
+        2.6,
+        184.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        14.0,
+        2.6,
+        204.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        -20.0,
+        2.6,
+        184.0
+      ],
+      "color": [
+        0.9,
+        0.7,
+        0.5
+      ],
+      "radius": 7.0
+    },
+    {
+      "pos": [
+        -20.0,
+        2.6,
+        202.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 8.0
+    },
+    {
+      "pos": [
+        20.0,
+        2.6,
+        202.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 8.0
+    },
+    {
+      "pos": [
+        -20.0,
+        2.6,
+        178.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 8.0
+    },
+    {
+      "pos": [
+        0.0,
+        2.6,
+        210.0
+      ],
+      "color": [
+        0.75,
+        0.78,
+        1.0
+      ],
+      "radius": 8.0
+    },
+    {
+      "pos": [
+        22.0,
+        8.0,
+        167.0
+      ],
+      "color": [
+        0.8,
+        0.85,
+        1.0
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        -6.0,
+        2.6,
+        163.0
+      ],
+      "color": [
+        0.65,
+        0.7,
+        1.0
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        6.0,
+        2.6,
+        163.0
+      ],
+      "color": [
+        0.65,
+        0.7,
+        1.0
+      ],
+      "radius": 9.0
+    },
+    {
+      "pos": [
+        0.0,
+        6.4,
+        155.0
+      ],
+      "color": [
+        0.65,
+        0.7,
+        1.0
+      ],
+      "radius": 9.0
     }
   ],
   "npcs": [
@@ -23625,6 +26553,96 @@
         159.6,
         0.0,
         -46.0
+      ],
+      "yaw": 180.0
+    },
+    {
+      "instance_id": "npc_here_gatekeeper",
+      "npc_id": "core:npc.here_gatekeeper",
+      "pos": [
+        -6.5,
+        0.0,
+        220.0
+      ],
+      "yaw": 0.0
+    },
+    {
+      "instance_id": "npc_here_butt_butt",
+      "npc_id": "core:npc.here_butt_butt",
+      "pos": [
+        3.2,
+        0.0,
+        199.0
+      ],
+      "yaw": 160.0,
+      "hours": [
+        18.0,
+        7.0
+      ]
+    },
+    {
+      "instance_id": "npc_here_hat",
+      "npc_id": "core:npc.here_person_in_hat",
+      "pos": [
+        10.0,
+        0.0,
+        191.6
+      ],
+      "yaw": 180.0,
+      "hours": [
+        18.0,
+        7.0
+      ]
+    },
+    {
+      "instance_id": "npc_here_night_merchant",
+      "npc_id": "core:npc.here_night_merchant",
+      "pos": [
+        -5.0,
+        0.0,
+        185.4
+      ],
+      "yaw": 180.0,
+      "hours": [
+        0.0,
+        2.0
+      ]
+    },
+    {
+      "instance_id": "npc_here_baker",
+      "npc_id": "core:npc.here_baker",
+      "pos": [
+        -14.0,
+        0.0,
+        196.0
+      ],
+      "yaw": -90.0,
+      "hours": [
+        18.0,
+        7.0
+      ]
+    },
+    {
+      "instance_id": "npc_here_cartographer",
+      "npc_id": "core:npc.here_cartographer",
+      "pos": [
+        14.4,
+        0.0,
+        196.0
+      ],
+      "yaw": 90.0,
+      "hours": [
+        18.0,
+        7.0
+      ]
+    },
+    {
+      "instance_id": "npc_here_echo",
+      "npc_id": "core:npc.here_echo",
+      "pos": [
+        2.2,
+        0.0,
+        155.0
       ],
       "yaw": 180.0
     }
@@ -25162,6 +28180,87 @@
       "group_quest_id": "core:quest.missing_third",
       "group_set_stage": 30,
       "group_set_flag": "quillsby_caught"
+    },
+    {
+      "instance_id": "here_mouth_0",
+      "creature_id": "core:enemy.here_mouth",
+      "pos": [
+        -4.0,
+        0.0,
+        161.0
+      ],
+      "patrol_a": [
+        -8.0,
+        0.0,
+        161.0
+      ],
+      "patrol_b": [
+        0.0,
+        0.0,
+        161.0
+      ]
+    },
+    {
+      "instance_id": "here_mouth_1",
+      "creature_id": "core:enemy.here_mouth",
+      "pos": [
+        4.0,
+        0.0,
+        161.0
+      ],
+      "patrol_a": [
+        0.0,
+        0.0,
+        161.0
+      ],
+      "patrol_b": [
+        8.0,
+        0.0,
+        161.0
+      ]
+    },
+    {
+      "instance_id": "here_mouth_2",
+      "creature_id": "core:enemy.here_mouth",
+      "pos": [
+        0.0,
+        0.0,
+        156.0
+      ],
+      "patrol_a": [
+        -6.0,
+        0.0,
+        156.0
+      ],
+      "patrol_b": [
+        6.0,
+        0.0,
+        156.0
+      ]
+    },
+    {
+      "instance_id": "here_unsaying",
+      "creature_id": "core:enemy.here_unsaying",
+      "pos": [
+        0.0,
+        0.0,
+        160.0
+      ],
+      "patrol_a": [
+        -4.0,
+        0.0,
+        160.0
+      ],
+      "patrol_b": [
+        4.0,
+        0.0,
+        160.0
+      ],
+      "requires_flag": "here_spoken",
+      "group": "here_unsaying",
+      "group_quest_id": "core:quest.ch1_here",
+      "group_set_stage": 90,
+      "group_set_flag": "here_unsaying_down"
     }
   ],
   "interactables": [
@@ -25909,6 +29008,29 @@
       "set_stage": 30,
       "narration": [
         "story.fig3.trap"
+      ]
+    },
+    {
+      "instance_id": "road_dusk_milestone",
+      "type": "travel",
+      "model": "assets/models/props/signpost.glb",
+      "pos": [
+        50.0,
+        0.0,
+        13.2
+      ],
+      "rot_y": 0.0,
+      "prompt": "Follow the Road That Wasn't There",
+      "travel_spawn": "here_gate",
+      "requires_flag": "here_known",
+      "hours": [
+        18.0,
+        6.0
+      ],
+      "quest_id": "core:quest.ch1_here",
+      "set_stage": 20,
+      "narration": [
+        "story.here.road"
       ]
     },
     {
@@ -28077,6 +31199,199 @@
       "narration": [
         "story.missing_third.vault"
       ]
+    },
+    {
+      "instance_id": "here_inner_gate",
+      "type": "door",
+      "model": "assets/models/props/iron_gate.glb",
+      "pos": [
+        0.0,
+        0.0,
+        218.0
+      ],
+      "rot_y": 0.0,
+      "scale": [
+        2.2,
+        1.4,
+        1.0
+      ],
+      "locked": true,
+      "key_id": "core:item.here_permit",
+      "lock_difficulty": 99,
+      "prompt": "City Gate"
+    },
+    {
+      "instance_id": "here_customs_sign",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -9.0,
+        0.0,
+        221.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Sign",
+      "title": "CUSTOMS",
+      "text": "CUSTOMS\n[CITY NAME HERE] MUNICIPAL BOUNDARY\n\nOPEN: DUSK TO DAWN\nCLOSED: DAWN TO DUSK\n\nAll visitors must present Form 1 (Entry, Municipal, Non-Existent), correctly completed, in ink.\n\nNo pencils.\nNo exceptions.\nNo one has come in four hundred years. We are VERY ready for you."
+    },
+    {
+      "instance_id": "here_road_back",
+      "type": "travel",
+      "model": "",
+      "pos": [
+        0.0,
+        0.0,
+        230.5
+      ],
+      "rot_y": 0.0,
+      "prompt": "Follow the Road Back to the Old Road",
+      "travel_spawn": "road_dusk"
+    },
+    {
+      "instance_id": "here_fountain",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        0.0,
+        0.7,
+        197.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look into the Fountain",
+      "title": "The Dry Fountain",
+      "text": "The fountain is dry. Carved round its rim, worn almost smooth, are the words: 'WELCOME TO ' and then a long gouge where a name used to be, as if something bit it out of the stone.\n\nSomeone has chalked underneath, in big wobbly letters: 'BUTT-BUTT WOZ ERE'."
+    },
+    {
+      "instance_id": "here_midnight_sign",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -5.0,
+        0.0,
+        182.4
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Stall Sign",
+      "title": "The Midnight Market",
+      "text": "THE MIDNIGHT MARKET\nOpen from Midnight until Two\n(Closed at all other times, including yesterday)\n\nToday's Specials:\n- Yesterdays (slightly used)\n- Lost Umbrellas (all colours, all owners)\n- One (1) Tuesday\n- Names (NOT FOR SALE. Do not ask.)"
+    },
+    {
+      "instance_id": "here_recipe",
+      "type": "pickup",
+      "model": "",
+      "pos": [
+        -22.0,
+        0.0,
+        181.6
+      ],
+      "item_id": "core:item.here_recipe",
+      "qty": 1,
+      "prompt": "Take the Recipe Card"
+    },
+    {
+      "instance_id": "here_verse_1",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -12.8,
+        1.2,
+        208.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Chalk on the Wall",
+      "title": "Chalked Verse (One)",
+      "text": "In a child's chalk, big and careful, only legible by moonlight:\n\n'OUR TOWN IS BY THE BENDING RIVER,\nOUR BREAD IS WARM, OUR BELLS ARE SILVER...'\n\n(and a drawing of a bell with a face)",
+      "hours": [
+        18.0,
+        7.0
+      ],
+      "set_flag": "here_verse1"
+    },
+    {
+      "instance_id": "here_verse_2",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        16.0,
+        1.2,
+        172.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Chalk on the Wall",
+      "title": "Chalked Verse (Two)",
+      "text": "'...WE NEVER LOCK OUR DOORS AT NIGHT,\nWE SING OUR NAME TO KEEP IT RIGHT...'\n\n(and a drawing of a door, open, with a smiley sun)",
+      "hours": [
+        18.0,
+        7.0
+      ],
+      "set_flag": "here_verse2"
+    },
+    {
+      "instance_id": "here_verse_3",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -26.4,
+        1.2,
+        190.0
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Chalk on the Wall",
+      "title": "Chalked Verse (Three)",
+      "text": "'...AND IF YOU FORGET, THE BELL WILL TELL:\nWE ARE ...'\n\nThe last word has been rubbed out, hard, by something that wasn't a hand. Underneath, the same child has written: 'I DIDN'T DO THAT. - BUTT-BUTT'.",
+      "hours": [
+        18.0,
+        7.0
+      ],
+      "set_flag": "here_verse3"
+    },
+    {
+      "instance_id": "here_tower_view",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        21.5,
+        7.0,
+        168.8
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look Out over the City",
+      "title": "From the Bell Tower",
+      "text": "You lean on the parapet. Under the moon, the streets of Here spread out below you, and for the first time you see their shape: not a grid, not a tangle, but letters. The streets spell something, the way a river spells a valley.\n\nYou trace it with your finger, street by street, and hold it in your head before it can slip away.\n\nThe Cartographer will want to hear about this.",
+      "hours": [
+        18.0,
+        7.0
+      ],
+      "set_flag": "here_tower_view"
+    },
+    {
+      "instance_id": "here_archive_door",
+      "type": "door",
+      "model": "assets/models/props/oak_door.glb",
+      "pos": [
+        0.0,
+        0.0,
+        166.0
+      ],
+      "rot_y": 0.0,
+      "locked": true,
+      "key_id": "core:item.here_archive_key",
+      "lock_difficulty": 99,
+      "prompt": "Archive Door"
+    },
+    {
+      "instance_id": "here_archive_plaque",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        2.4,
+        1.4,
+        166.3
+      ],
+      "rot_y": 0.0,
+      "prompt": "Read the Plaque",
+      "title": "The Archive",
+      "text": "THE ARCHIVE OF [CITY NAME HERE]\nWherein Is Kept the Name\n\nThe brass where the name should be is chewed, like a pencil end."
     },
     {
       "instance_id": "flour_handprints",

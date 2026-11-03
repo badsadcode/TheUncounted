@@ -591,6 +591,34 @@
         "status_power": 6,
         "status_duration": 4.0
       }
+    },
+    {
+      "id": "core:item.red_pen",
+      "name_key": "item.red_pen.name",
+      "description_key": "item.red_pen.description",
+      "category": "weapon",
+      "icon": "assets/ui/items/red_pen.png",
+      "world_model": "assets/models/items/steel_dagger.glb",
+      "slots": [
+        "main_hand"
+      ],
+      "value": 420,
+      "weight": 0.6,
+      "weapon": {
+        "kind": "melee",
+        "skill": "daggers",
+        "damage_type": "piercing",
+        "base_damage": 15,
+        "attack_time_seconds": 0.34,
+        "stamina_cost": 5,
+        "reach_meters": 1.8,
+        "crit_chance": 0.18,
+        "crit_mult": 2.0,
+        "on_hit_status": "confuse",
+        "status_chance": 0.2,
+        "status_power": 0,
+        "status_duration": 3.0
+      }
     }
   ]
 }

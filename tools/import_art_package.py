@@ -11,6 +11,7 @@ Folders it understands (anywhere in the zip, any letter case):
   item_icons/     <item icon name>.png     -> assets/ui/items/               (must match an existing icon's file name)
   spell_effects/  spell_*.png              -> assets/sprites/vfx/            (square frames in one row; alpha made hard)
   skies/          sky_day.png (1024x256)   -> assets/textures/sky/
+  characters/     any character sheet (e.g. Chapter One's here_*.png): passed to tools/import_package.py
   monsters/       lost_sentinel / animated_armor / headless_knight / repossession_golem 8x6 sheets:
                   the four monsters are switched from the shared 3D model to sprites, then imported with
                   tools/import_package.py like every other character sheet.
@@ -28,7 +29,7 @@ import tempfile
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECTIONS = ("portraits", "spell_icons", "item_icons", "spell_effects", "monsters", "skies")
+SECTIONS = ("portraits", "spell_icons", "item_icons", "spell_effects", "monsters", "skies", "characters")
 MONSTERS = {  # sheet name -> (creature id, height in metres)
     "lost_sentinel": ("core:enemy.lost_sentinel", 2.2),
     "animated_armor": ("core:enemy.animated_armor", 1.95),
@@ -177,6 +178,13 @@ def main():
                       "pixels over 50% opacity). Ask for a version with solid pixels.")
         os.makedirs(os.path.dirname(os.path.join(ROOT, dest)), exist_ok=True)
         im.save(os.path.join(ROOT, dest))
+    if found["characters"]:
+        cdir = tempfile.mkdtemp(prefix="characters_")
+        for path in found["characters"]:
+            shutil.copyfile(path, os.path.join(cdir, os.path.basename(path)))
+        subprocess.run([sys.executable, os.path.join(ROOT, "tools/import_package.py"), cdir, "--apply",
+                        "--report", os.path.join(ROOT, "import_report_characters.png")], check=False)
+        shutil.rmtree(cdir, ignore_errors=True)
     if monsters:
         cpath = os.path.join(ROOT, "content/creatures/core_creatures.json")
         data = json.load(open(cpath))

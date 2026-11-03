@@ -696,3 +696,23 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
 - `night_outdoors_`: monster sight x0.75 at night outdoors. NPC spawns take `"hours": [from, to]` (wraps past midnight).
 - **T** opens Wait (1 h, 3 h, until 7:00, 19:00, midnight); refused when an alerted enemy is within 30 m; restores
   stamina and advances play_time so gathering nodes regrow. HUD clock top right. `--hour h` for screenshots.
+
+### Chapter One: The City Formerly Known As (added 2026-11-03)
+
+- Campaign `chapter_one` (kind main, order 1), quest `core:quest.ch1_here`: 0 (Oakhaven: `ch1_bureau` or `ch1_ashbound`
+  depending on Chapter Zero's ending 100/101; sets `here_known`) → 10 → 20 (the `road_dusk_milestone` travel object on the
+  Old Road, hours 18-6, to spawn `here_gate`) → 30 (Ottoline's Form One, `here_permit` opens `here_inner_gate`) → three
+  fragments `here_frag_smell` (recipe in the ruined bakery → the Baker), `here_frag_song` (three chalk verses, hours 18-7 →
+  Butt-Butt, who gives the night trinket), `here_frag_shape` (bell tower lookout → the Cartographer) → 40 (Ottoline: Archive
+  key + Unsay) → the Last Archivist at the plinth: `say` (50, `here_spoken` spawns the Unsaying, group → 90, `end_a` → 100),
+  `write` (101), `give_bureau`/`give_ashbound` (102). The city's name was always "Here".
+- Region `tools/build_here.py` → `content/regions/here.json` at HERE_OFF (0, 0, 190); zones `here` (outdoor, night sky,
+  `day_fog_density` 0.12: pale fog by day) and `here_archive` (indoor, `priority` 1 so the city's daylight doesn't leak in).
+  Residents have `hours` [18, 7]: gone by day. The Night Merchant [0, 2] has a shop. A blockout for Toasty to rebuild.
+- Engine: interactable type `travel` (travel_spawn, optional quest/flag/narration), interactable `hours`, dialogue
+  conditions `hour_between` / `not_hour_between` (`from`, `to`), status `forget` (Unsay: drops alert, blind to the player
+  for the duration, 40% on bosses), gear effect `bonus_night` (counts when Daylight() < 0.3), zone `priority` and
+  `day_fog_density`, `UseInteractTarget()` (Interact() without re-targeting, for tests).
+- Content written by `tools/authoring/chapter_one.py` (archive). Placeholder sprites/icons until Noor's (brief section
+  2b). Balance: the Unsaying (behaviour `boss_unsaying`) is beaten by every build; Mouths are ordinary fights.
+- Not done yet: companion banter in Here, the ghost tax inspector side tale.

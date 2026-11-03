@@ -1726,6 +1726,108 @@ int GameEngine::RunSelfTest() {
         }
     }
 
+    // --- Chapter One: The City Formerly Known As (Here)
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        const std::string q = "core:quest.ch1_here";
+        const float savedLen = content_.game_cfg.day_length_minutes;
+        content_.game_cfg.day_length_minutes = 0.0f;
+        LoadMap("core:map.edrath", "village_gate");
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            overlay_ = Overlay::None;
+            return ok;
+        };
+        auto use = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.interactables.size(); i++)
+                if (scene_.interactables[i].def.instance_id == id && !scene_.interactables[i].hidden) {
+                    interact_.kind = InteractTarget::Interactable;
+                    interact_.index = static_cast<int>(i);
+                    UseInteractTarget();
+                    narration_page_ = static_cast<int>(narration_pages_.size());
+                    if (overlay_ == Overlay::Narration) AdvanceNarration();
+                    overlay_ = Overlay::None;
+                    return true;
+                }
+            return false;
+        };
+        auto take = [&](const std::string& item) {
+            for (size_t i = 0; i < scene_.pickups.size(); i++)
+                if (scene_.pickups[i].item_id == item) {
+                    interact_.kind = InteractTarget::Pickup;
+                    interact_.index = static_cast<int>(i);
+                    UseInteractTarget();
+                    return CountItem(item) > 0;
+                }
+            return false;
+        };
+        player_.hour = 12.0f;
+        check(talk("core:npc.clerk_oakhaven", {"ch1_ashbound"}) && QuestStage(q) == 10, "Chapter One begins: a milestone that was never on any survey");
+        check(!use("road_dusk_milestone"), "by day there's no milestone on the Old Road");
+        player_.hour = 19.0f;
+        check(use("road_dusk_milestone") && QuestStage(q) == 20 && player_.pos.z > 200.0f, "at dusk the road appears, and leads through the fog to Here");
+        player_.hour = 12.0f;
+        check(talk("core:npc.here_gatekeeper", {"day"}) && QuestStage(q) == 20 && visible("core:npc.here_baker") < 0,
+              "by day the city is thin: the residents fade, Ottoline asks you to come back at dusk");
+        player_.hour = 22.0f;
+        check(talk("core:npc.here_gatekeeper", {"form1", "q1_wise", "q2", "q3", "stamp_ex", "stamp"}) && QuestStage(q) == 30 &&
+                  CountItem("core:item.here_permit") == 1, "Form One (purpose of visit: existential): a Visitor's Permit");
+        check(visible("core:npc.here_baker") >= 0 && visible("core:npc.here_butt_butt") >= 0, "at night the residents of Here are solid");
+        check(talk("core:npc.here_butt_butt", {"name", "root", "song"}) && !player_.flags.count("here_frag_song"), "Butt-Butt picked the name. It's the BEST name.");
+        check(use("here_verse_1") && use("here_verse_2") && use("here_verse_3") && talk("core:npc.here_butt_butt", {"sing"}) &&
+                  player_.flags.count("here_frag_song") && CountItem("core:item.butt_butt_chalk") == 1, "three chalked verses, one VERY loud song: ...EERRRR");
+        check(take("core:item.here_recipe") && talk("core:npc.here_baker", {"bake"}) && player_.flags.count("here_frag_smell") &&
+                  CountItem("core:item.here_bread") == 2, "the recipe from the ruined bakery: the smell of the town's bread (Hhh...)");
+        check(!talk("core:npc.here_cartographer", {"shape"}), "the Cartographer needs someone to climb the bell tower first");
+        check(use("here_tower_view") && talk("core:npc.here_cartographer", {"shape"}) && player_.flags.count("here_frag_shape"),
+              "from the bell tower the streets spell the last letter: ...E");
+        check(talk("core:npc.here_gatekeeper", {"three"}) && QuestStage(q) == 40 && CountItem("core:item.here_archive_key") == 1 &&
+                  std::count(player_.known_spells.begin(), player_.known_spells.end(), std::string("core:spell.unsay")) > 0,
+              "the Archive key, and the Archivists' last trick: Unsay");
+        {
+            CreatureInstance* mouth = nullptr;
+            for (auto& c : scene_.creatures) if (c.instance_id == "here_mouth_0") mouth = &c;
+            if (mouth) {
+                mouth->alerted = true;
+                ApplyStatus(*mouth, "forget", 0.0f, 8.0f);
+            }
+            check(mouth && !mouth->alerted && mouth->forget_time > 7.0f, "Unsay: a Mouth of the Hunger forgets it ever saw you");
+        }
+        check(talk("core:npc.here_echo", {"pieces", "choice"}), "the Last Archivist: the name was always Here");
+        SaveGame("selftest_ch1");
+        // Ending A: say it aloud, stop the Unsaying
+        check(talk("core:npc.here_echo", {"pieces", "choice", "say"}) && QuestStage(q) == 50, "say it aloud: HERE. Something heard.");
+        UpdateWorldObjects(0.0f);
+        bool boss = false;
+        for (auto& c : scene_.creatures)
+            if (c.instance_id == "here_unsaying" && c.state != CreatureState::Dead) { boss = true; DamageCreature(c, 99999, false, "swords", false); }
+        check(boss && QuestStage(q) == 90, "The Unsaying rises from the gaps between words, and falls");
+        check(talk("core:npc.here_echo", {"end_a"}) && QuestStage(q) == 100 && CountItem("core:item.here_silver_bell") == 1,
+              "ending one: Here is back on every map (the Silver Bell of Here)");
+        // Ending B: write it quietly
+        check(LoadGame("selftest_ch1") && talk("core:npc.here_echo", {"pieces", "choice", "write"}) && QuestStage(q) == 101 &&
+                  CountItem("core:item.here_quiet_name") == 1, "ending two: hidden and whole (everyone gets their name back; Butt-Butt keeps Butt-Butt)");
+        // Ending C: hand it to the Ashbound (Chapter Zero's ending decides who keeps the Ledger)
+        check(LoadGame("selftest_ch1") && talk("core:npc.here_echo", {"pieces", "choice", "give_ashbound"}) && QuestStage(q) == 102,
+              "ending three: the name goes into the Ledger, for Kaelen to read aloud");
+        std::filesystem::remove(SavePath("selftest_ch1"), ec);
+        content_.game_cfg.day_length_minutes = savedLen;
+        LoadMap("core:map.edrath", "village_gate");
+    }
+
     // --- Day and night
     {
         const float savedHour = player_.hour, savedLen = content_.game_cfg.day_length_minutes;

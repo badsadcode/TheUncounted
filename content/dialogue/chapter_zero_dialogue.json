@@ -469,6 +469,49 @@
               ]
             },
             {
+              "text_key": "dlg.ch1.oak.choice_ch1_bureau",
+              "next": "ch1_bureau",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 100
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.oak.choice_ch1_ashbound",
+              "next": "ch1_ashbound",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 101
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.oak.choice_ch1_after",
+              "next": "ch1_after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 100
+                }
+              ]
+            },
+            {
               "text_key": "dlg.clerk.choice_leave",
               "next": "END"
             }
@@ -3939,6 +3982,70 @@
           "choices": [
             {
               "text_key": "dlg.dp.oak.dp_epilogue.c0",
+              "next": "greeting"
+            }
+          ]
+        },
+        "ch1_bureau": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.ch1.oak.ch1_bureau",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.oak.ch1_bureau.c0",
+              "next": "greeting"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 0
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 10
+            },
+            {
+              "type": "set_flag",
+              "flag": "here_known",
+              "value": true
+            }
+          ]
+        },
+        "ch1_ashbound": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.ch1.oak.ch1_ashbound",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.oak.ch1_ashbound.c0",
+              "next": "greeting"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 0
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 10
+            },
+            {
+              "type": "set_flag",
+              "flag": "here_known",
+              "value": true
+            }
+          ]
+        },
+        "ch1_after": {
+          "speaker_key": "npc.clerk_oakhaven.name",
+          "text_key": "dlg.ch1.oak.ch1_after",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.oak.ch1_after.c0",
               "next": "greeting"
             }
           ]
@@ -16178,6 +16285,1056 @@
               "type": "set_quest_stage",
               "quest_id": "core:quest.dragon_pension",
               "stage": 40
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.here_gatekeeper",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.root.c0",
+              "next": "day",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 20
+                },
+                {
+                  "type": "not_hour_between",
+                  "from": 18.0,
+                  "to": 7.0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.root.c1",
+              "next": "form1",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 20
+                },
+                {
+                  "type": "hour_between",
+                  "from": 18.0,
+                  "to": 7.0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.root.c2",
+              "next": "here",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.root.c3",
+              "next": "how",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.root.c4",
+              "next": "three",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                },
+                {
+                  "type": "flags_at_least",
+                  "flags": [
+                    "here_frag_smell",
+                    "here_frag_song",
+                    "here_frag_shape"
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.root.c5",
+              "next": "archive",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 40
+                },
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.root.c6",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.root.c7",
+              "next": "END"
+            }
+          ]
+        },
+        "day": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.day",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.day.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "form1": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.form1",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.form1.c0",
+              "next": "q2",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "here_gave_name",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.gk.form1.c1",
+              "next": "q1_wise"
+            }
+          ]
+        },
+        "q1_wise": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.q1_wise",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.q1_wise.c0",
+              "next": "q2"
+            }
+          ]
+        },
+        "q2": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.q2",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.q2.c0",
+              "next": "q3"
+            },
+            {
+              "text_key": "dlg.ch1.gk.q2.c1",
+              "next": "q3"
+            },
+            {
+              "text_key": "dlg.ch1.gk.q2.c2",
+              "next": "q3"
+            }
+          ]
+        },
+        "q3": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.q3",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.q3.c0",
+              "next": "stamp"
+            },
+            {
+              "text_key": "dlg.ch1.gk.q3.c1",
+              "next": "stamp"
+            },
+            {
+              "text_key": "dlg.ch1.gk.q3.c2",
+              "next": "stamp_ex"
+            }
+          ]
+        },
+        "stamp_ex": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.stamp_ex",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.stamp_ex.c0",
+              "next": "stamp"
+            }
+          ]
+        },
+        "stamp": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.stamp",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.stamp.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.here_permit",
+              "qty": 1
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 30
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 30
+            }
+          ]
+        },
+        "here": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.here",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.here.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "how": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.how",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.how.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "three": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.three",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.three.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "give_item",
+              "item_id": "core:item.here_archive_key",
+              "qty": 1
+            },
+            {
+              "type": "learn_spell",
+              "spell_id": "core:spell.unsay"
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 40
+            }
+          ]
+        },
+        "archive": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.archive",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.archive.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.here_gatekeeper.name",
+          "text_key": "dlg.ch1.gk.after",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.gk.after.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.here_baker",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_baker.name",
+          "text_key": "dlg.ch1.bk.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bk.root.c0",
+              "next": "what",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_frag_smell"
+                },
+                {
+                  "type": "item_not_held",
+                  "item_id": "core:item.here_recipe"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.bk.root.c1",
+              "next": "bake",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                },
+                {
+                  "type": "has_item",
+                  "item_id": "core:item.here_recipe"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.bk.root.c2",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "here_frag_smell"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.bk.root.c3",
+              "next": "END"
+            }
+          ]
+        },
+        "what": {
+          "speaker_key": "npc.here_baker.name",
+          "text_key": "dlg.ch1.bk.what",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bk.what.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "bake": {
+          "speaker_key": "npc.here_baker.name",
+          "text_key": "dlg.ch1.bk.bake",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bk.bake.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "take_item",
+              "item_id": "core:item.here_recipe",
+              "qty": 1
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.here_bread",
+              "qty": 2
+            },
+            {
+              "type": "set_flag",
+              "flag": "here_frag_smell",
+              "value": true
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.here_baker.name",
+          "text_key": "dlg.ch1.bk.after",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bk.after.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.here_butt_butt",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_butt_butt.name",
+          "text_key": "dlg.ch1.bb.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bb.root.c0",
+              "next": "name",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_bb_named"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "here_bb_named",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.bb.root.c1",
+              "next": "song",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_frag_song"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.bb.root.c2",
+              "next": "sing",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_frag_song"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "here_verse1"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "here_verse2"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "here_verse3"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.bb.root.c3",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "here_frag_song"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.bb.root.c4",
+              "next": "END"
+            }
+          ]
+        },
+        "name": {
+          "speaker_key": "npc.here_butt_butt.name",
+          "text_key": "dlg.ch1.bb.name",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bb.name.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "song": {
+          "speaker_key": "npc.here_butt_butt.name",
+          "text_key": "dlg.ch1.bb.song",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bb.song.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "sing": {
+          "speaker_key": "npc.here_butt_butt.name",
+          "text_key": "dlg.ch1.bb.sing",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bb.sing.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "here_frag_song",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.butt_butt_chalk",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 20
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.here_butt_butt.name",
+          "text_key": "dlg.ch1.bb.after",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.bb.after.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.here_cartographer",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_cartographer.name",
+          "text_key": "dlg.ch1.ca.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ca.root.c0",
+              "next": "maps",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_frag_shape"
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_tower_view"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ca.root.c1",
+              "next": "shape",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 30
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "here_frag_shape"
+                },
+                {
+                  "type": "flag_set",
+                  "flag": "here_tower_view"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ca.root.c2",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "here_frag_shape"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ca.root.c3",
+              "next": "END"
+            }
+          ]
+        },
+        "maps": {
+          "speaker_key": "npc.here_cartographer.name",
+          "text_key": "dlg.ch1.ca.maps",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ca.maps.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "shape": {
+          "speaker_key": "npc.here_cartographer.name",
+          "text_key": "dlg.ch1.ca.shape",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ca.shape.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "here_frag_shape",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.here_map",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 30
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.here_cartographer.name",
+          "text_key": "dlg.ch1.ca.after",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ca.after.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.here_person_in_hat",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_person_in_hat.name",
+          "text_key": "dlg.ch1.ph.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ph.root.c0",
+              "next": "hat"
+            },
+            {
+              "text_key": "dlg.ch1.ph.root.c1",
+              "next": "name"
+            },
+            {
+              "text_key": "dlg.ch1.ph.root.c2",
+              "next": "END"
+            }
+          ]
+        },
+        "hat": {
+          "speaker_key": "npc.here_person_in_hat.name",
+          "text_key": "dlg.ch1.ph.hat",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ph.hat.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "name": {
+          "speaker_key": "npc.here_person_in_hat.name",
+          "text_key": "dlg.ch1.ph.name",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ph.name.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.here_night_merchant",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_night_merchant.name",
+          "text_key": "dlg.ch1.nm.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.nm.root.c0",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "open_shop"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.nm.root.c1",
+              "next": "names"
+            },
+            {
+              "text_key": "dlg.ch1.nm.root.c2",
+              "next": "END"
+            }
+          ]
+        },
+        "names": {
+          "speaker_key": "npc.here_night_merchant.name",
+          "text_key": "dlg.ch1.nm.names",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.nm.names.c0",
+              "next": "root"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.here_echo",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.root",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.root.c0",
+              "next": "pieces",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 40
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ec.root.c1",
+              "next": "end_a",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 90
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ec.root.c2",
+              "next": "after",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ec.root.c3",
+              "next": "END"
+            }
+          ]
+        },
+        "pieces": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.pieces",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.pieces.c0",
+              "next": "choice"
+            }
+          ]
+        },
+        "choice": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.choice",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.choice.c0",
+              "next": "say",
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "flag": "here_spoken",
+                  "value": true
+                },
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.ch1_here",
+                  "stage": 50
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ec.choice.c1",
+              "next": "write"
+            },
+            {
+              "text_key": "dlg.ch1.ec.choice.c2",
+              "next": "give_bureau",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 100
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ec.choice.c3",
+              "next": "give_ashbound",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.legally_deceased",
+                  "stage": 101
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.ch1.ec.choice.c4",
+              "next": "root"
+            }
+          ]
+        },
+        "say": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.say",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.say.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "end_a": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.end_a",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.end_a.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 100
+            },
+            {
+              "type": "set_flag",
+              "flag": "here_ending_spoken",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.here_silver_bell",
+              "qty": 1
+            },
+            {
+              "type": "give_gold",
+              "amount": 300
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 120
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.here.end_spoken"
+                },
+                {
+                  "key": "story.here.epilogue"
+                }
+              ]
+            }
+          ]
+        },
+        "write": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.write",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.write.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 101
+            },
+            {
+              "type": "set_flag",
+              "flag": "here_ending_written",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.here_quiet_name",
+              "qty": 1
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 120
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.here.end_written"
+                },
+                {
+                  "key": "story.here.epilogue"
+                }
+              ]
+            }
+          ]
+        },
+        "give_bureau": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.give_bureau",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.give_bureau.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 102
+            },
+            {
+              "type": "set_flag",
+              "flag": "here_ending_given",
+              "value": true
+            },
+            {
+              "type": "give_gold",
+              "amount": 400
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 100
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.here.end_bureau"
+                },
+                {
+                  "key": "story.here.epilogue"
+                }
+              ]
+            }
+          ]
+        },
+        "give_ashbound": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.give_ashbound",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.give_ashbound.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.ch1_here",
+              "stage": 102
+            },
+            {
+              "type": "set_flag",
+              "flag": "here_ending_given",
+              "value": true
+            },
+            {
+              "type": "give_gold",
+              "amount": 250
+            },
+            {
+              "type": "give_xp",
+              "skill": "lore",
+              "amount": 100
+            },
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.here.end_ashbound"
+                },
+                {
+                  "key": "story.here.epilogue"
+                }
+              ]
+            }
+          ]
+        },
+        "after": {
+          "speaker_key": "npc.here_echo.name",
+          "text_key": "dlg.ch1.ec.after",
+          "choices": [
+            {
+              "text_key": "dlg.ch1.ec.after.c0",
+              "next": "root"
             }
           ]
         }

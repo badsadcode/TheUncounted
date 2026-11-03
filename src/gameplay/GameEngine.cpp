@@ -556,7 +556,11 @@ Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant)
     float sky[3] = {0, 0, 0};
     Vector3 amb{}, sd{}, sc{}, fc{};
     float fd = 0.0f;
+    int topPriority = 0;      // a building inside a city: once you're inside it, only it counts
+    for (const auto& z : m->zones)
+        if (z.priority > topPriority && BoxDistance(p, z.box_min, z.box_max) <= 0.0f) topPriority = z.priority;
     for (const auto& z : m->zones) {
+        if (z.priority < topPriority) continue;
         float d = BoxDistance(p, z.box_min, z.box_max);
         float w = Clamp(1.0f - d / std::max(0.01f, z.blend), 0.0f, 1.0f);
         w *= w;
@@ -564,7 +568,13 @@ Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant)
         if (w > best) { best = w; if (dominant) *dominant = &z; }
         wsum += w;
         Look l = {V(z.sky_color), z.ambient_color, z.sun_direction, z.sun_color, z.fog_color, z.fog_density};
-        if (Outdoor(z.day_night, z.sky_panorama)) l = DayNightLook(l, day, tw, player_.hour);
+        if (Outdoor(z.day_night, z.sky_panorama)) {
+            l = DayNightLook(l, day, tw, player_.hour);
+            if (z.day_fog_density > 0.0f) {      // "thin" by day: the place fades into a pale fog
+                l.fd += (z.day_fog_density - l.fd) * day;
+                l.fc = Vector3Lerp(l.fc, {0.82f, 0.84f, 0.88f}, day * 0.85f);
+            }
+        }
         Color zs = C(l.sky);
         sky[0] += zs.r * w; sky[1] += zs.g * w; sky[2] += zs.b * w;
         amb = Vector3Add(amb, Vector3Scale(l.amb, w));
@@ -3268,6 +3278,10 @@ void GameEngine::UpdateInteractTarget() {
 void GameEngine::Interact() {
     if (fishing_) { FishPress(); return; }
     UpdateInteractTarget();
+    UseInteractTarget();
+}
+
+void GameEngine::UseInteractTarget() {
     MapPersist& ps = Persist();
     switch (interact_.kind) {
         case InteractTarget::None: return;

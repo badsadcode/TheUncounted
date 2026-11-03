@@ -77,6 +77,8 @@ your own models stay as you left them.
 - **Portals** (the cones): `destination_map` (a map id: `core:map.edrath` for the game's world, `core:map.<name>` for
   yours), `destination_spawn` (a spawn point in that map), `prompt` (shown as "[E] *prompt*"), `radius` (how close you
   must stand). A portal is an invisible spot: put a door, archway or stairs model on it so players see where to go.
+- **Travel spots**: an object with `game_type` `travel` and `game_travel_spawn` (a spawn point's name) moves the player
+  there when used: roads, boats, secret paths. Objects take `game_json_hours` too (the dusk milestone is `[18, 6]`).
 - **Hours** (NPCs): to have someone around only at certain times, add a custom property `game_json_hours` with the
   text `[20, 6]` (from 20:00 to 6:00; `[8, 18]` for daytime only). Leave quest characters without hours.
 - Fields ending in `_flag` control when things appear or vanish in the story. Leave them alone unless you know the flag.

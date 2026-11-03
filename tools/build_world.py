@@ -33,6 +33,7 @@ HOLLOW_OFF = (0.0, 0.0, 42.0)
 WOOD_OFF = (-46.0, 0.0, 0.0)   # the Whistling Wood: west of Bellwether, through a gap in the west wall
 REEF_OFF = (1.6, 0.0, -150.0)   # the Sleeper's Reef: far out past the fog, only reachable by boat
 SEASIDE_OFF = (160.0, 0.0, -60.0)   # "The Late Cindermaw": Quillsby's seaside house, only reachable by boat
+HERE_OFF = (0.0, 0.0, 190.0)   # "Here", the city whose name was eaten (Chapter One): only by the dusk road from the Old Road
 DOCKS_OFF = (1.6, 0.0, -42.0)   # Saltmere Docks: north of Bellwether, through a gap in the village's north wall  # Hollowmere Manor: south of Bellwether, through a gap in the village's south wall
 WALL = "assets/models/env/wall_crypt.glb"
 COBBLE = "assets/models/env/floor_cobble.glb"
@@ -247,7 +248,7 @@ def door_frames(props, interactables):
     return out
 
 SKIES = {"bellwether": "night", "old_road": "night", "hollowmere": "night", "saltmere": "night", "sleepers_reef": "night",
-         "whistling_wood": "dusk", "seaside_house": "dusk"}
+         "whistling_wood": "dusk", "seaside_house": "dusk", "here": "night"}
 
 
 def with_skies(zones):
@@ -365,6 +366,7 @@ def build():
     wood = shift_region(load("whistling_wood.json"), WOOD_OFF, "wood_")
     reef = shift_region(load("sleepers_reef.json"), REEF_OFF, "reef_")
     seaside = shift_region(load("seaside_house.json"), SEASIDE_OFF, "sea_")
+    here = shift_region(load("here.json"), HERE_OFF, "here_")
 
     props = []
     for p in bell["props"]:
@@ -397,6 +399,7 @@ def build():
     props += wood["props"]
     props += reef["props"]
     props += seaside["props"]
+    props += here["props"]
     props += [
         {"id": "bell_west_gate_n", "model": "assets/models/env/pillar_stone.glb", "pos": [-20.0, 0.0, -2.1], "scale": [1.4, 1.25, 1.1], "solid": True},
         {"id": "bell_west_gate_s", "model": "assets/models/env/pillar_stone.glb", "pos": [-20.0, 0.0, 2.1], "scale": [1.4, 1.25, 1.1], "solid": True},
@@ -498,7 +501,7 @@ def build():
     ]
     props += vault["props"]
 
-    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"] + hollow["interactables"] + docks["interactables"] + wood["interactables"] + reef["interactables"] + seaside["interactables"]
+    interactables = bell["interactables"] + road["interactables"] + annex["interactables"] + vault["interactables"] + hollow["interactables"] + docks["interactables"] + wood["interactables"] + reef["interactables"] + seaside["interactables"] + here["interactables"]
     interactables.append({
         "instance_id": "flour_handprints", "type": "readable", "model": "", "pos": [65.75, -3.8, VAULT_Z + 2.3], "rot_y": 0.0,
         "prompt": "Look at the Marks on the Wall", "title": "Handprints in Old Flour",
@@ -514,11 +517,11 @@ def build():
                  "centuries:\n\nTURN BACK. THE NAMES ARE LISTENING.\n\n"
                  "Beneath them, newer and neater, in Bureau ink: \"Graffiti is a Class III municipal offence.\""),
     })
-    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"] + hollow["npcs"] + docks["npcs"] + wood["npcs"] + reef["npcs"] + seaside["npcs"]
-    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"] + hollow["creatures"] + docks["creatures"] + wood["creatures"] + reef["creatures"] + seaside["creatures"]
-    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"] + hollow["lights"] + docks["lights"] + wood["lights"] + reef["lights"] + seaside["lights"]
+    npcs = bell["npcs"] + road["npcs"] + annex["npcs"] + vault["npcs"] + hollow["npcs"] + docks["npcs"] + wood["npcs"] + reef["npcs"] + seaside["npcs"] + here["npcs"]
+    creatures = bell["creatures"] + road["creatures"] + annex["creatures"] + vault["creatures"] + hollow["creatures"] + docks["creatures"] + wood["creatures"] + reef["creatures"] + seaside["creatures"] + here["creatures"]
+    lights = bell["lights"] + road["lights"] + annex["lights"] + vault["lights"] + hollow["lights"] + docks["lights"] + wood["lights"] + reef["lights"] + seaside["lights"] + here["lights"]
     spawns = {}
-    for m in (bell, road, annex, vault, hollow, docks, wood, reef, seaside):
+    for m in (bell, road, annex, vault, hollow, docks, wood, reef, seaside, here):
         spawns.update(m["spawns"])
 
     for kind, items in (("interactable", interactables), ("npc", npcs), ("creature", creatures)):
@@ -554,7 +557,17 @@ def build():
     reef_zone["sanity_drain"] = 0.5
     sx, sz = SEASIDE_OFF[0], SEASIDE_OFF[2]
     seaside_zone = zone_from(seaside, "seaside_house", [sx - 17.0, -2.0, sz - 21.0], [sx + 17.0, 40.0, sz + 27.0], 3.0)
+    hx, hz = HERE_OFF[0], HERE_OFF[2]
+    here_zone = zone_from(here, "here", [hx - 31.0, -2.0, hz - 41.0], [hx + 31.0, 40.0, hz + 45.0], 3.0)
+    here_zone["day_fog_density"] = 0.12       # by day the city goes thin: it fades into a pale fog
+    archive_zone = zone_from(here, "here_archive", [hx - 10.0, -1.0, hz - 38.0], [hx + 10.0, 12.0, hz - 24.0], 1.5)
+    archive_zone.update({"display_name_key": "map.here_archive.name", "fog_color": [0.05, 0.05, 0.1], "fog_density": 0.05,
+                         "ambient_color": [0.24, 0.24, 0.36], "sky_color": [8, 8, 16], "weather": "",
+                         "ambience": "assets/audio/ambience/crypt_drips.wav", "music": "assets/audio/music/crypt_theme.wav",
+                         "sanity_drain": 0.6, "priority": 1})
     zones = [
+        archive_zone,
+        here_zone,
         seaside_zone,
         reef_zone,
         wood_zone,

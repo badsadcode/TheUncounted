@@ -825,6 +825,30 @@ SHEETS = {
         "kind": "humanoid", "body": (100, 130, 80), "armor": (60, 70, 120), "legs": (50, 50, 60), "trim": (200, 200, 210), "eye": (230, 200, 60),
         "hat": "bald", "hair": (80, 110, 60), "horns": True, "horn": (190, 180, 140), "weapon": "ledger", "book": (120, 40, 40),
     },
+    # --- Chapter One: Here (placeholders until Noor's sheets; residents are faint, the city is half-forgotten)
+    "assets/sprites/npcs/here_gatekeeper.png": {
+        "kind": "humanoid", "alpha": 225, "body": (214, 200, 190), "armor": (60, 70, 96), "legs": (40, 44, 60), "cloak": (50, 58, 80),
+        "trim": (210, 180, 90), "eye": (60, 50, 40), "hat": "cap", "cap": (52, 60, 86), "hair": (120, 110, 110), "weapon": "ledger", "book": (200, 190, 160)},
+    "assets/sprites/npcs/here_baker.png": {
+        "kind": "humanoid", "alpha": 205, "body": (230, 214, 200), "armor": (236, 230, 220), "legs": (110, 96, 80), "cloak": (200, 190, 176),
+        "trim": (170, 140, 100), "eye": (60, 50, 40), "hat": "bun", "hair": (150, 120, 90), "weapon": "spoon"},
+    "assets/sprites/npcs/here_butt_butt.png": {
+        "kind": "humanoid", "alpha": 215, "body": (226, 196, 170), "armor": (200, 120, 60), "legs": (90, 80, 70), "trim": (240, 240, 240),
+        "eye": (50, 40, 30), "hat": "none", "hair": (160, 90, 50)},
+    "assets/sprites/npcs/here_cartographer.png": {
+        "kind": "humanoid", "alpha": 205, "body": (210, 196, 186), "armor": (110, 86, 60), "legs": (70, 60, 50), "cloak": (96, 80, 60),
+        "trim": (200, 170, 110), "eye": (60, 50, 40), "hat": "fedora", "hair": (210, 210, 210), "beard": True, "weapon": "ledger", "book": (220, 210, 170)},
+    "assets/sprites/npcs/here_person_in_hat.png": {
+        "kind": "humanoid", "alpha": 200, "body": (220, 204, 190), "armor": (80, 60, 90), "legs": (50, 44, 56), "cloak": (70, 54, 80),
+        "trim": (180, 150, 200), "eye": (60, 50, 40), "hat": "witch", "hair": (90, 70, 60)},
+    "assets/sprites/npcs/here_night_merchant.png": {
+        "kind": "humanoid", "robe": True, "alpha": 220, "body": (190, 200, 230), "armor": (30, 30, 50), "cloak": (24, 24, 40), "trim": (160, 170, 255),
+        "eye": (200, 210, 255), "glow_eyes": True, "hat": "hood", "hood": (26, 26, 44), "weapon": "staff", "orb": (170, 180, 255)},
+    "assets/sprites/npcs/here_echo.png": {
+        "kind": "humanoid", "robe": True, "hover": True, "alpha": 170, "body": (220, 224, 240), "armor": (90, 92, 120), "cloak": (70, 72, 100),
+        "trim": (220, 210, 170), "eye": (240, 240, 255), "glow_eyes": True, "hat": "bald", "hair": (230, 230, 240), "weapon": "ledger", "book": (230, 226, 210)},
+    "assets/sprites/enemies/here_mouth.png": {"kind": "eldritch", "scale": 0.9, "body": (54, 50, 70), "armor": (28, 26, 40), "eye": (230, 220, 255), "glow": (190, 180, 255)},
+    "assets/sprites/enemies/here_unsaying.png": {"kind": "eldritch", "scale": 1.7, "body": (40, 38, 56), "armor": (18, 16, 28), "eye": (250, 250, 255), "glow": (210, 205, 255)},
     # --- more monsters (tools/authoring/more_monsters.py)
     "assets/sprites/enemies/kevin_bandit.png": {
         "kind": "humanoid", "body": (226, 190, 160), "armor": (110, 90, 60), "legs": (80, 66, 50), "cloak": (70, 80, 50), "trim": (150, 120, 70),

@@ -1220,6 +1220,97 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.ch1_here",
+      "title_key": "quest.ch1.title",
+      "summary_key": "quest.ch1.summary",
+      "campaign": "chapter_one",
+      "stages": [
+        {
+          "stage": 0,
+          "objective_key": "quest.ch1.stage0",
+          "journal_key": "quest.ch1.journal0",
+          "markers": [
+            "npc_oakhaven"
+          ]
+        },
+        {
+          "stage": 10,
+          "objective_key": "quest.ch1.stage10",
+          "journal_key": "quest.ch1.journal10",
+          "markers": [
+            "road_dusk_milestone"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.ch1.stage20",
+          "journal_key": "quest.ch1.journal20",
+          "markers": [
+            "npc_here_gatekeeper"
+          ]
+        },
+        {
+          "stage": 30,
+          "objective_key": "quest.ch1.stage30",
+          "journal_key": "quest.ch1.journal30",
+          "markers": [
+            "npc_here_baker",
+            "here_recipe",
+            "npc_here_butt_butt",
+            "here_verse_1",
+            "here_verse_2",
+            "here_verse_3",
+            "npc_here_cartographer",
+            "here_tower_view",
+            "npc_here_gatekeeper"
+          ]
+        },
+        {
+          "stage": 40,
+          "objective_key": "quest.ch1.stage40",
+          "journal_key": "quest.ch1.journal40",
+          "markers": [
+            "here_archive_door",
+            "npc_here_echo"
+          ]
+        },
+        {
+          "stage": 50,
+          "objective_key": "quest.ch1.stage50",
+          "journal_key": "quest.ch1.journal50",
+          "markers": [
+            "here_unsaying"
+          ]
+        },
+        {
+          "stage": 90,
+          "objective_key": "quest.ch1.stage90",
+          "journal_key": "quest.ch1.journal90",
+          "markers": [
+            "npc_here_echo"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.ch1.stage100",
+          "journal_key": "quest.ch1.journal100",
+          "completed": true
+        },
+        {
+          "stage": 101,
+          "objective_key": "quest.ch1.stage101",
+          "journal_key": "quest.ch1.journal101",
+          "completed": true
+        },
+        {
+          "stage": 102,
+          "objective_key": "quest.ch1.stage102",
+          "journal_key": "quest.ch1.journal102",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [
@@ -1271,6 +1362,13 @@
       "desc_key": "campaign.dragon.desc",
       "kind": "tales",
       "order": 34
+    },
+    {
+      "id": "chapter_one",
+      "name_key": "campaign.ch1.name",
+      "desc_key": "campaign.ch1.desc",
+      "kind": "main",
+      "order": 1
     }
   ]
 }

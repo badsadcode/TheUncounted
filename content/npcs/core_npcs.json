@@ -2076,6 +2076,174 @@
         "scale": 1.25
       },
       "barks": []
+    },
+    {
+      "id": "core:npc.here_gatekeeper",
+      "name_key": "npc.here_gatekeeper.name",
+      "title_key": "npc.here_gatekeeper.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.here_gatekeeper",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_gatekeeper.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_gatekeeper.0"
+        },
+        {
+          "text_key": "bark.here_gatekeeper.1"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.here_baker",
+      "name_key": "npc.here_baker.name",
+      "title_key": "npc.here_baker.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.here_baker",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_baker.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_baker.0"
+        },
+        {
+          "text_key": "bark.here_baker.1"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.here_butt_butt",
+      "name_key": "npc.here_butt_butt.name",
+      "title_key": "npc.here_butt_butt.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.here_butt_butt",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_butt_butt.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.15
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_butt_butt.0"
+        },
+        {
+          "text_key": "bark.here_butt_butt.1"
+        },
+        {
+          "text_key": "bark.here_butt_butt.2"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.here_cartographer",
+      "name_key": "npc.here_cartographer.name",
+      "title_key": "npc.here_cartographer.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.here_cartographer",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_cartographer.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_cartographer.0"
+        },
+        {
+          "text_key": "bark.here_cartographer.1"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.here_person_in_hat",
+      "name_key": "npc.here_person_in_hat.name",
+      "title_key": "npc.here_person_in_hat.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.here_person_in_hat",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_person_in_hat.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_person_in_hat.0"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.here_night_merchant",
+      "name_key": "npc.here_night_merchant.name",
+      "title_key": "npc.here_night_merchant.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.here_night_merchant",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_night_merchant.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_night_merchant.0"
+        }
+      ],
+      "vendor_inventory": [
+        {
+          "item_id": "core:item.health_potion",
+          "stock": 6,
+          "price": 20
+        },
+        {
+          "item_id": "core:item.mana_potion",
+          "stock": 6,
+          "price": 22
+        },
+        {
+          "item_id": "core:item.here_bread",
+          "stock": 5,
+          "price": 8
+        },
+        {
+          "item_id": "core:item.lockpick",
+          "stock": 4,
+          "price": 12
+        },
+        {
+          "item_id": "core:item.moonlit_cloak",
+          "stock": 1,
+          "price": 260
+        }
+      ]
+    },
+    {
+      "id": "core:npc.here_echo",
+      "name_key": "npc.here_echo.name",
+      "title_key": "npc.here_echo.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.here_echo",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/here_echo.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.75
+      },
+      "barks": [
+        {
+          "text_key": "bark.here_echo.0"
+        }
+      ]
     }
   ]
 }

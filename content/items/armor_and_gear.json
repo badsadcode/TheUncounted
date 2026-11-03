@@ -946,6 +946,91 @@
           "value": 0.1
         }
       ]
+    },
+    {
+      "id": "core:item.butt_butt_chalk",
+      "name_key": "item.butt_butt_chalk.name",
+      "description_key": "item.butt_butt_chalk.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/butt_butt_chalk.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 180,
+      "weight": 0.1,
+      "effects": [
+        {
+          "type": "bonus_night",
+          "stat": "crit_chance_bonus",
+          "value": 0.08
+        },
+        {
+          "type": "bonus_night",
+          "stat": "crit_damage_bonus",
+          "value": 0.25
+        },
+        {
+          "type": "bonus",
+          "stat": "gold_find_bonus",
+          "value": 0.05
+        }
+      ]
+    },
+    {
+      "id": "core:item.moonlit_cloak",
+      "name_key": "item.moonlit_cloak.name",
+      "description_key": "item.moonlit_cloak.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/moonlit_cloak.png",
+      "world_model": "assets/models/items/scholar_robe.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 260,
+      "weight": 1.0,
+      "effects": [
+        {
+          "type": "bonus_night",
+          "stat": "move_speed_bonus",
+          "value": 0.1
+        },
+        {
+          "type": "bonus_night",
+          "stat": "status_chance_bonus",
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "id": "core:item.here_silver_bell",
+      "name_key": "item.here_silver_bell.name",
+      "description_key": "item.here_silver_bell.description",
+      "category": "accessory",
+      "icon": "assets/ui/items/here_silver_bell.png",
+      "world_model": "assets/models/items/signet_ring.glb",
+      "slots": [
+        "accessory"
+      ],
+      "value": 500,
+      "weight": 0.2,
+      "effects": [
+        {
+          "type": "bonus",
+          "stat": "spell_power_bonus",
+          "value": 0.12
+        },
+        {
+          "type": "bonus",
+          "stat": "status_duration_bonus",
+          "value": 0.2
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "will",
+          "amount": 1
+        }
+      ]
     }
   ]
 }

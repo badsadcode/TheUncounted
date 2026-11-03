@@ -674,6 +674,41 @@
           "max_qty": 2
         }
       ]
+    },
+    {
+      "id": "core:loot.here_mouth",
+      "gold_min": 4,
+      "gold_max": 14,
+      "entries": [
+        {
+          "item_id": "core:item.mana_potion",
+          "weight": 40,
+          "min_qty": 1,
+          "max_qty": 1
+        },
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 30,
+          "min_qty": 1,
+          "max_qty": 1
+        }
+      ]
+    },
+    {
+      "id": "core:loot.here_unsaying",
+      "gold_min": 80,
+      "gold_max": 140,
+      "guaranteed": [
+        "core:item.red_pen"
+      ],
+      "entries": [
+        {
+          "item_id": "core:item.health_potion",
+          "weight": 60,
+          "min_qty": 2,
+          "max_qty": 3
+        }
+      ]
     }
   ]
 }

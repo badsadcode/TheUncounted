@@ -582,6 +582,8 @@ struct MapZoneDef {
     float sanity_drain = 0.0f;   // sanity lost per second while this is the dominant zone (eldritch places)
     std::string sky_panorama;    // optional 360-degree horizon image (repeats horizontally); "" = plain sky gradient
     int day_night = -1;          // follows the clock (outdoors)? -1 = yes when it has a sky panorama (crypts and rooms don't)
+    int priority = 0;            // fully inside a zone with a higher priority, lower ones don't count (a building in a city)
+    float day_fog_density = 0.0f;  // > 0: by day this zone sinks into a pale fog this thick (a place that's "thin" in daylight)
 };
 
 // Ground scatter: small cut-out sprites (grass tufts, ferns, mushrooms) that turn to face the camera around their

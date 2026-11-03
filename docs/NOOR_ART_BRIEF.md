@@ -2,7 +2,7 @@
 
 Thank you for all the characters, textures and skies! This is the rest of the game's art, in order of how much it shows during play. Everything is placeholder art right now, so any part you deliver goes straight in.
 
-**Delivery**: a zip with one folder per section (`portraits/`, `monsters/`, `spell_effects/`, `spell_icons/`, `item_icons/`), files named exactly as listed. Partial deliveries are welcome.
+**Delivery**: a zip with one folder per section (`portraits/`, `monsters/`, `spell_effects/`, `spell_icons/`, `item_icons/`, `characters/` for Chapter One's people, `skies/`), files named exactly as listed. Partial deliveries are welcome.
 
 **Everywhere**: the same painted pixel-art style as the character sheets; PNG; sizes exact.
 
@@ -41,6 +41,22 @@ Right now all four share one plain 3D model. Same 8 × 6 sheet layout and rules 
 | `headless_knight.png` | The Headless Knight of the Old Road | Comedy: it's obviously Steve (the level-one bandit from your Steve sheet) in ill-fitting, mismatched armour, the helmet pulled down over his head, holding a hat on a stick above it to look 'headless'; his patched leathers and too-big hood poke out. Proudly dramatic poses. |
 | `repossession_golem.png` | The Repossession Golem | A big, blocky iron golem stamped REPOSSESSED all over in red, riveted plates, glowing furnace eyes, bought with a dragon's money. Bigger than a person (about 2.3 m). |
 
+## 2b. Chapter One: the people of Here — 9 sprite sheets
+
+A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. Same 8 × 6 layout as the other characters. The residents are slightly faded, like a memory (soft, pale edges are fine: the game keeps them a little see-through itself). Simple placeholders are in the game until yours arrive.
+
+| File | Who | Look |
+|---|---|---|
+| `here_gatekeeper.png` | Ottoline Pell, Gatekeeper | A very upright woman in a faded blue customs uniform and cap, a big rubber stamp in one hand and a form in the other. Four hundred years of patience; tearfully delighted to finally have a visitor. |
+| `here_baker.png` | The Baker, Probably | A floury baker in a white apron and a hair bun, flour on their face and arms, forever kneading dough that isn't there. |
+| `here_butt_butt.png` | Butt-Butt | A small, loud child (about 1.15 m) with messy ginger hair, a stub of chalk, chalk dust everywhere, an orange jumper, enormous grin. Picked their own name: Butt-Butt. Toasty's character! |
+| `here_cartographer.png` | The Cartographer (Retired) | An elderly mapmaker with white hair and beard, a much-mended brown coat, a battered hat, maps rolled under one arm. |
+| `here_person_in_hat.png` | Person in a Hat | Someone in a VERY tall, slightly bent hat (the most important part), a purple coat, dignified and vague. |
+| `here_night_merchant.png` | The Night Merchant | A tall, thin, hooded figure in deep night-blue, glowing pale eyes, a staff hung with little lanterns of different colours. |
+| `here_echo.png` | The Last Archivist | A ghostly archivist made of almost nothing: robes, spectacles, ink-stained fingers, an open ledger; floats slightly, faintly glowing. |
+| `here_mouth.png` | Mouth of the Hunger (monster) | A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names. |
+| `here_unsaying.png` | The Unsaying (boss) | Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be. |
+
 ## 3. Spell effects in flight — 5 animated strips
 
 The ball you see flying when a spell is cast. Currently plain coloured circles.
@@ -50,13 +66,13 @@ The ball you see flying when a spell is cast. Currently plain coloured circles.
 
 | File | Used by | Look |
 |---|---|---|
-| `spell_arcane.png` | Bewilder, Sudden Friendship | a pulsing violet orb with orbiting runes |
+| `spell_arcane.png` | Bewilder, Sudden Friendship, Unsay | a pulsing violet orb with orbiting runes |
 | `spell_ember.png` | Ember Bolt, Slow Burn | a tumbling ball of flame with sparks |
 | `spell_frost.png` | Frost Lance | a spinning shard of ice with frosty mist |
 | `spell_ink.png` | Siphon Ink, [REDACTED] | a splattering glob of black ink with drips |
 | `spell_sabrino.png` | Sabrino's Questionable Fireball | Sabrino the witch's signature hex: a green-purple swirl with a tiny grinning face |
 
-## 4. Spell icons — 22 icons
+## 4. Spell icons — 23 icons
 
 Shown in the spell bar and spellbook, all the time. **64 × 64 px**, opaque square (dark background), a clear symbol of the spell, readable at 32 px. A coloured border per school is welcome (fire orange, frost blue, restoration green, arcane violet...).
 
@@ -82,15 +98,16 @@ Shown in the spell bar and spellbook, all the time. **64 × 64 px**, opaque squa
 | `standing_ovation.png` | Standing Ovation | Thunderous applause from nowhere. Everything near you is staggered and shocked. Odette says it's the only spell that has ever made a critic leave early. |
 | `sudden_friendship.png` | Sudden Friendship | For fourteen seconds, the target thinks you are the best person it has ever met, and fights anything that disagrees. Hitting your new friend ends the friendship. Bosses have trust issues. |
 | `unauthorised_entry.png` | Unauthorised Entry | The lock you are looking at is persuaded that it was never locked in the first place. Works on locks up to a difficulty that grows with your Illusion. Leaves no lockpicks broken and no paperwork filed. |
+| `unsay.png` | Unsay | The Archivists' last trick: say something so quietly it un-happens. The target forgets it ever saw you, and can't see you again for eight seconds (less for the very large). For walking past things that shouldn't notice you. |
 | `veil.png` | Veil | Dulls sound and bends shadow, reducing enemy sight detection. |
 | `ward.png` | Ward | Sheathes the caster in a resonant arcane barrier (+8 Armor). |
 
-## 5. Item icons — 176 icons (a big set: any part helps)
+## 5. Item icons — 186 icons (a big set: any part helps)
 
 Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px. Grouped by kind below; the description is what the game says about it.
 
 
-### Weapon (21)
+### Weapon (22)
 
 | File | Item | Description |
 |---|---|---|
@@ -104,6 +121,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `ladle_of_justice.png` | The Ladle of Justice | Sabrino's own copper ladle, warm from a hundred kitchens. It has stirred risottos, settled arguments and once, memorably, a ghost. Restores mana on every hit and is unkind to spirits. |
 | `letter_opener.png` | Morvath's Letter-Opener | The Chief Archivist's silver letter-opener. Slits envelopes, wax seals and, it is rumoured, one auditor. Tiny, fast and vicious: built for critical hits. |
 | `oak_staff.png` | Collegium Focus Staff | Shod with iron and tipped with a resonant pale-blue Silence shard. |
+| `red_pen.png` | The Red Pen | An Archivist's editing pen, long enough to use as a dagger, still wet with red ink after four hundred years. It strikes things out: a hit can make a foe forget what it was doing. |
 | `rimecaller_mace.png` | Rimecaller Mace | A mace with a head of blue ice that never melts. Every few hits, the target slows. Three chills and it's a statue. |
 | `rusted_sword.png` | Rusted Broadsword | Pitted with rain, yet balanced enough to split bone. |
 | `saltmere_harpoon.png` | The Old Master's Harpoon | Black iron, barbed, wrapped in old whaleskin. Made by Hollis's master for a thing in the deep he never got to fight. Long reach, and terrible to anything eldritch. |
@@ -134,16 +152,18 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `scholar_robe.png` | Collegium Archivist Robe | Woven with silver thread that steadies the mind during casting. |
 | `traveler_boots.png` | Wayfarer's Dry-Stitched Boots | Waxed against Bellwether's unending drizzle. |
 
-### Accessory (22)
+### Accessory (25)
 
 | File | Item | Description |
 |---|---|---|
 | `bone_spectacles.png` | Bone Clerk's Spectacles | Wire-rimmed reading glasses, still perched on the nose of a clerk who had no nose. Everything looks slightly more like a typo. +1 Intellect, +5% critical chance, +5% lockpick chance. |
+| `butt_butt_chalk.png` | Butt-Butt's Lucky Chalk | A stub of chalk worn to a nub from writing BUTT-BUTT WOZ ERE on every wall in town. 'It's best at night. Everything is.' At night, you strike truer and luckier. |
 | `cape_brooding.png` | Cape of Eternal Brooding | Black velvet, blood-red lining, and a high collar to stare moodily out of. Sparkles faintly in sunlight, which ruins the effect. +2 Presence, 3% life steal. |
 | `cindermaw_scale.png` | Cindermaw's Scale | Pulled from the dragon's own chest, with a wince. Warm to the touch, always. Fire burns hotter for you, fire hurts you less, and your spells hit harder. |
 | `fang_unwritten.png` | Fang of the Unwritten | The Name-Eater's tooth on a cord. It takes a little of every enemy you hit and gives it to you. It would like your name too. It can't have it. |
 | `gang_scarf.png` | Figure It Out Gang Scarf | Long, orange, with a little embroidered question mark. Full membership of the Figure It Out Gang. +5% critical chance, +5% speed, steadier nerves, +1 to dice rolls. You will be chased by something at least once a week. |
 | `granny_mittens.png` | Grandmother's Fighting Mittens | Knitted from bonnet thread, impossibly tough. Blocking in them is like being hugged by a very stern grandmother. You carry more, too: deep pockets. |
+| `here_silver_bell.png` | Silver Bell of Here | A small silver bell from the tower of Here, given by the whole town. When it rings, things that eat names flinch. Your spells hit harder; you see further into the dark. |
 | `hollowmere_signet.png` | Hollowmere Signet | Sir Percival's own ring, given freely at the end of a very good party. It feels warm, like a hand on your shoulder. +2 Presence, +1 Will, slowly mends you. |
 | `ink_heart_quill.png` | Ink-Heart Quill | A quill whose nib dips itself in the Archivist's ink heart. Spells written with it cost less and stick harder. |
 | `library_card.png` | Fenwick's Library Card (Lifetime, Laminated) | Card number 0000001. There has never been a card 0000001 before. +1 Intellect, status effects last 30% longer, spells cost 6% less. All fines waived. All of them. Forever. |
@@ -151,6 +171,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `lucky_d20.png` | Oakhaven's Lucky d20 | A twenty-sided die worn smooth by years of Thursdays. It always rolled well for people who deserved it. +2 to every dice roll in conversation, +2% critical chance. |
 | `mask_uncounted.png` | Mask of the Uncounted King | The gilded half-mask you wore on opening night. Odette insisted you keep it. When you wear it, people turn to look at you, and for once you don't mind. +3 Presence, +5% spell power, +3% critical chance. |
 | `mimic_satchel.png` | Chester's Cousin (Satchel) | A leather satchel with brass corners and a very small row of teeth along the flap. +30 carry weight, find 15% more gold. Only bites people who try to steal from you. |
+| `moonlit_cloak.png` | Moonlit Cloak | From the Midnight Market: a cloak that's slightly more there at night. You move quicker after dark, and gold finds its way to you. |
 | `quillsby_cufflinks.png` | Quillsby's Gloating Cufflinks | Two tiny gold cufflinks shaped like dragons, worn to 'gloat, formal'. Lucky with money: +25% gold found, 10% off at every shop. |
 | `ring_of_recall.png` | Ring of Unwritten Recall | Warm to the touch. You remember wearing it tomorrow. |
 | `seal_quill.png` | Archivist's Seal-Quill | A raven quill with a nib of black iron, still wet with ink that never dries. It wrote the Seal of Names. Worn at the belt, it steadies the mind. +2 Will, +2 Intellect. |
@@ -161,7 +182,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `tide_charm.png` | Charm of the Quiet Tide | A smooth grey pebble with a hole through it, strung on fishing line. Hold it to your ear and you hear only the sea, and nothing counting. +2 Will, steadies a shaken mind. |
 | `trout_horseshoe.png` | Trout's First Horseshoe | Worn smooth on one side, scratched with tiny pictures: a lighthouse, a well, a tower, a roof, a roof, another roof. +1 Agility, +8% movement speed, faster stamina and sanity recovery. You will occasionally turn up somewh… |
 
-### Consumable (43)
+### Consumable (44)
 
 | File | Item | Description |
 |---|---|---|
@@ -182,6 +203,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `fish_trout.png` | A Trout (Fish) | A speckled trout. Not the horse. Hollis will want to know why you're laughing. |
 | `grilled_cod.png` | Grilled Cod | Crisp skin, flaky inside, a squeeze of salt. Heals 30, then +1.5 health per second for three minutes. |
 | `health_potion.png` | Crimson Draught | Bitter herbal tincture that rapidly closes wounds (+35 Health). |
+| `here_bread.png` | Bread of Here | Warm, dark, a little sour, a little sweet. It smells like knowing where you are. Steadies the mind. |
 | `hunters_draught.png` | Hunter's Draught | Sage, resin and something with teeth in it. For four minutes: +10% critical chance and +10% movement speed. |
 | `lullaby_tonic.png` | Lullaby Tonic | Brewed round the Warden's bell. Restores your nerve completely, then keeps it topped up for five minutes. You may hum. |
 | `mana_potion.png` | Aether Phial | Distilled starlight and frost-mint that restores 30 Mana. |
@@ -215,7 +237,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 |---|---|---|
 | `wooden_arrow.png` | Bodkin Arrow | Iron-tipped shaft capable of piercing bone and chitin. |
 
-### Book (34)
+### Book (35)
 
 | File | Item | Description |
 |---|---|---|
@@ -229,6 +251,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `grimoire_ovation.png` | The Standing Ovation (Advanced Theatrical Thaumaturgy) | A grimoire from the Bellwether Library's Restricted Section, decades overdue. Return it to Fenwick, who will let you copy Standing Ovation into your spellbook. |
 | `grimoire_redacted.png` | [REDACTED]: A Guide to Discreet Omission | A grimoire from the Bellwether Library's Restricted Section, decades overdue. Return it to Fenwick, who will let you copy [REDACTED] into your spellbook. |
 | `grimoire_slow.png` | Slow Burn: Patience in Pyromancy | A grimoire from the Bellwether Library's Restricted Section, decades overdue. Return it to Fenwick, who will let you copy Slow Burn into your spellbook. |
+| `here_quiet_name.png` | The Quiet Name | A sliver of the plinth's stone with a single word written on it in your own hand. Whoever reads it remembers where they are, and who. |
 | `hollis_deck.png` | Hollis's Deck | A battered deck of cards in a leather case. The rules are folded inside. They are long. |
 | `oakhaven_postcard.png` | A Postcard from Oakhaven | A postcard of a beach, written in neat Bureau handwriting. |
 | `quillsby_ledger.png` | Quillsby's Second Ledger | The real accounts. Eleven thousand gold in, seven thousand declared, and a column headed 'INVESTMENTS (SHOES)'. |
@@ -254,19 +277,21 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `tome_ward.png` | Tome: Ward | Use from inventory to permanently learn the Ward spell. |
 | `uncounted_ledger.png` | The Uncounted Ledger | A heavy stone-vellum register in which the Archivists of Annex III recorded every name they hid. Its last pages describe things that have not happened yet. |
 
-### Key (7)
+### Key (9)
 
 | File | Item | Description |
 |---|---|---|
 | `annex_key.png` | Brass Registry Annex Key | Stamped 'ANNEX III - DO NOT ENTER WITHOUT FORM 27-B'. Form 27-B is kept inside. Nobody at the Bureau sees the problem. |
 | `cellar_key.png` | Gale & Sons Cellar Key | Heavy iron, crusted with salt. It's always slightly damp, no matter how long you keep it in your pocket. |
 | `crypt_key.png` | Cold-Iron Sanctum Key | Given by the Uncounted Witness. Cold enough to ache. Opens the Sanctum of the Uncounted, where Chief Archivist Morvath keeps the Ledger. |
+| `here_archive_key.png` | Key to the Archive of Here | Heavy, iron, and warm from four hundred years in Ottoline's drawer. |
+| `here_permit.png` | Visitor's Permit (Here) | The bottom of Form One, stamped APPROVED in four-hundred-year-old ink. Purpose of visit: see attached. |
 | `hollowmere_key.png` | Key to Hollowmere Manor | A heavy iron key with a bow shaped like a wine glass. Hollis says it was 'acquired'. Hollis does not elaborate. |
 | `lockpick.png` | Tempered Lockpick | Used to bypass mechanical locks when you lack the matching key. |
 | `quillsby_vault_key.png` | Quillsby's Vault Key | A tiny gold key on a velvet ribbon, engraved 'MINE'. |
 | `study_key.png` | Study Key | Found in a drawer clearly labelled 'STUDY KEY - DO NOT LOOK HERE'. Security at Hollowmere was a matter of trust. |
 
-### Misc (35)
+### Misc (37)
 
 | File | Item | Description |
 |---|---|---|
@@ -286,6 +311,8 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `grave_truffle.png` | Grave-cap Truffle | A knobbly black truffle that grows only where it's very quiet for a very long time. Sabrino would know what to do with it. |
 | `grumpy_frog.png` | A Grumpy Frog | It is grumpy. It will not be kissed. It has been asked. |
 | `hatching_record.png` | Register of Hatchings, Vol. IX | Entry 4,211: one egg, red, enormous. Hatched. Very loud. Named Cindermaw. No date of death. Fenwick wants it BACK. |
+| `here_map.png` | The Cartographer's Map | Every street of Here, measured and checked twice. From above, the streets make one great curling letter. There's a blank space at the top for the name. |
+| `here_recipe.png` | Recipe Card (Bread of Here) | Flour, salt, a pinch of something dark. A long slow knead, a fold, a fold. In the corner, a smudge of four-hundred-year-old flour. |
 | `hoard_third.png` | The Missing Third | Four thousand gold in heavy sacks stamped 'INVESTMENTS'. It belongs to a dragon. Take it back to Bellwether. |
 | `host_ember.png` | Ember of the Wrathful Host | A coal from Sir Percival's fury, still warm and still faintly offended. A crafting reagent. |
 | `ink_heart.png` | Archivist's Ink Heart | What was left of Archivist Morvath: a fist-sized knot of black ink that beats, slowly, in time with nothing. A crafting reagent. |

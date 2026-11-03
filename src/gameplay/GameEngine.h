@@ -276,6 +276,7 @@ private:
     void UpdateBuffs(float dt);
     void UpdateInteractTarget();
     void Interact();
+    void UseInteractTarget();   // use whatever interact_ points at (Interact() picks it first)
     void CheckPressurePlates();
     void UpdateParticles(float dt);
     void SpawnBurst(Vector3 pos, Color color, int count, float speed, bool glow, float gravity = 6.0f, float size = 0.05f);
