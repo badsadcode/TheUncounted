@@ -111,7 +111,11 @@ edge is the ground.
 
 ---
 
-## 4. Getting them into the game
+## 4. Status
+
+All 42 are in the game (Noor's set, added 2026-11-03). See HANDOFF.md, "World textures", for how they're wired.
+
+## 5. Getting more into the game
 
 Send them over in a zip like the sprite sheets. The current textures are baked into the 3D models that use them, so I'll
 swap them in with a script and rebuild. The new ones also need new wall/floor pieces and a bit of world editing, which

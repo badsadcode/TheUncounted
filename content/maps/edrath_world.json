@@ -535,6 +535,4254 @@
       "sky_panorama": "assets/textures/sky/sky_night.png"
     }
   ],
+  "scatter": [
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        7.21,
+        0.0,
+        -17.47
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        4.86,
+        0.0,
+        -14.76
+      ],
+      "size": 0.6
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        15.98,
+        0.0,
+        -10.51
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -18.12,
+        0.0,
+        7.36
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        1.27,
+        0.0,
+        -20.19
+      ],
+      "size": 0.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -17.84,
+        0.0,
+        -11.97
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -15.07,
+        0.0,
+        -8.17
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        14.6,
+        0.0,
+        11.73
+      ],
+      "size": 0.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -1.01,
+        0.0,
+        11.88
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        11.3,
+        0.0,
+        18.44
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -0.62,
+        0.0,
+        13.34
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        13.02,
+        0.0,
+        -14.4
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        9.27,
+        0.0,
+        -17.7
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        0.28,
+        0.0,
+        -17.32
+      ],
+      "size": 0.51
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.88,
+        0.0,
+        -16.75
+      ],
+      "size": 0.6
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        13.38,
+        0.0,
+        -5.83
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -0.02,
+        0.0,
+        11.48
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -15.17,
+        0.0,
+        -18.98
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        14.38,
+        0.0,
+        -18.07
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        7.07,
+        0.0,
+        -18.45
+      ],
+      "size": 0.61
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -14.77,
+        0.0,
+        -11.88
+      ],
+      "size": 0.43
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        7.34,
+        0.0,
+        18.33
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        14.23,
+        0.0,
+        -17.1
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        14.36,
+        0.0,
+        13.76
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        6.75,
+        0.0,
+        -16.64
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -1.02,
+        0.0,
+        17.48
+      ],
+      "size": 0.89
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        0.38,
+        0.0,
+        10.48
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        13.61,
+        0.0,
+        -10.2
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -14.5,
+        0.0,
+        -7.85
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        0.64,
+        0.0,
+        -18.1
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -6.39,
+        0.0,
+        -17.52
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.48,
+        0.0,
+        18.91
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        5.15,
+        0.0,
+        -18.13
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -5.39,
+        0.0,
+        18.05
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        4.37,
+        0.0,
+        -18.02
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        0.89,
+        0.0,
+        11.3
+      ],
+      "size": 0.95
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -17.63,
+        0.0,
+        -8.69
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        15.3,
+        0.0,
+        -6.02
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        10.22,
+        0.0,
+        18.42
+      ],
+      "size": 0.94
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -15.94,
+        0.0,
+        4.2
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        17.92,
+        0.0,
+        8.91
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        17.26,
+        0.0,
+        15.83
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        14.03,
+        0.0,
+        9.53
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        3.63,
+        0.0,
+        14.58
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        3.36,
+        0.0,
+        -16.54
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        1.95,
+        0.0,
+        -15.46
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.11,
+        0.0,
+        18.02
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        17.57,
+        0.0,
+        -16.47
+      ],
+      "size": 0.38
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -12.71,
+        0.0,
+        4.52
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -9.6,
+        0.0,
+        17.96
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -16.81,
+        0.0,
+        -18.66
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.04,
+        0.0,
+        9.02
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        14.98,
+        0.0,
+        -10.55
+      ],
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -14.37,
+        0.0,
+        -14.12
+      ],
+      "size": 0.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        17.7,
+        0.0,
+        -6.14
+      ],
+      "size": 0.4
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -4.02,
+        0.0,
+        -18.09
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        0.77,
+        0.0,
+        12.84
+      ],
+      "size": 0.51
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        0.04,
+        0.0,
+        -15.0
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        1.16,
+        0.0,
+        17.88
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        12.65,
+        0.0,
+        4.25
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -7.75,
+        0.0,
+        -18.23
+      ],
+      "size": 0.4
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -10.51,
+        0.0,
+        -18.19
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -14.92,
+        0.0,
+        -4.45
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        0.94,
+        0.0,
+        17.68
+      ],
+      "size": 0.6
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -12.97,
+        0.0,
+        -11.61
+      ],
+      "size": 0.36
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        15.84,
+        0.0,
+        13.3
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -3.29,
+        0.0,
+        18.61
+      ],
+      "size": 0.96
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        3.02,
+        0.0,
+        10.89
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -13.69,
+        0.0,
+        -17.96
+      ],
+      "size": 0.61
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -18.34,
+        0.0,
+        -5.04
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        49.1,
+        0.0,
+        -5.27
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        61.42,
+        0.0,
+        -16.4
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        47.99,
+        0.0,
+        7.06
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        34.46,
+        0.0,
+        4.17
+      ],
+      "size": 0.66
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        31.45,
+        0.0,
+        -11.52
+      ],
+      "size": 1.04
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        50.2,
+        0.0,
+        -16.68
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        23.76,
+        0.0,
+        -6.55
+      ],
+      "size": 0.99
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        45.48,
+        0.0,
+        -5.47
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        70.41,
+        0.0,
+        16.45
+      ],
+      "size": 0.99
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        57.55,
+        0.0,
+        -3.12
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        49.95,
+        0.0,
+        5.16
+      ],
+      "size": 0.95
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        43.41,
+        0.0,
+        -6.19
+      ],
+      "size": 0.68
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        67.8,
+        0.0,
+        9.19
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        46.34,
+        0.0,
+        3.78
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        55.54,
+        0.0,
+        5.52
+      ],
+      "size": 0.89
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        51.3,
+        0.0,
+        8.12
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        35.16,
+        0.0,
+        -13.65
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        26.54,
+        0.0,
+        11.64
+      ],
+      "size": 0.84
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        55.43,
+        0.0,
+        4.42
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        33.78,
+        0.0,
+        -5.15
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        41.17,
+        0.0,
+        -13.77
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        41.35,
+        0.0,
+        8.32
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        40.35,
+        0.0,
+        3.87
+      ],
+      "size": 0.67
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        64.62,
+        0.0,
+        8.53
+      ],
+      "size": 0.9
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        32.37,
+        0.0,
+        -11.36
+      ],
+      "size": 0.71
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        44.86,
+        0.0,
+        4.25
+      ],
+      "size": 0.95
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        38.48,
+        0.0,
+        -7.59
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        73.5,
+        0.0,
+        6.65
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        35.44,
+        0.0,
+        -11.3
+      ],
+      "size": 0.84
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        36.12,
+        0.0,
+        -4.46
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        56.43,
+        0.0,
+        9.54
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        32.65,
+        0.0,
+        -6.58
+      ],
+      "size": 0.51
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        74.58,
+        0.0,
+        5.17
+      ],
+      "size": 1.02
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        37.24,
+        0.0,
+        16.89
+      ],
+      "size": 0.93
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        73.71,
+        0.0,
+        4.48
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        27.12,
+        0.0,
+        4.17
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        58.44,
+        0.0,
+        -8.26
+      ],
+      "size": 0.69
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        52.69,
+        0.0,
+        -10.17
+      ],
+      "size": 1.12
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        31.89,
+        0.0,
+        -4.18
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        56.15,
+        0.0,
+        12.12
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        38.44,
+        0.0,
+        -4.35
+      ],
+      "size": 0.93
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        69.99,
+        0.0,
+        13.31
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        65.76,
+        0.0,
+        7.49
+      ],
+      "size": 0.72
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        43.84,
+        0.0,
+        -8.15
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        48.47,
+        0.0,
+        5.62
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        38.25,
+        0.0,
+        -9.8
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        30.25,
+        0.0,
+        11.77
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        27.18,
+        0.0,
+        16.84
+      ],
+      "size": 0.91
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        28.2,
+        0.0,
+        -12.02
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        42.0,
+        0.0,
+        -13.42
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        64.09,
+        0.0,
+        -10.0
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        55.1,
+        0.0,
+        7.79
+      ],
+      "size": 1.13
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        37.91,
+        0.0,
+        -4.77
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        24.59,
+        0.0,
+        6.58
+      ],
+      "size": 1.04
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        50.54,
+        0.0,
+        16.47
+      ],
+      "size": 0.8
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        39.13,
+        0.0,
+        -16.29
+      ],
+      "size": 0.61
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        39.74,
+        0.0,
+        -4.73
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        62.92,
+        0.0,
+        -6.98
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        27.71,
+        0.0,
+        -5.99
+      ],
+      "size": 0.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        33.99,
+        0.0,
+        5.01
+      ],
+      "size": 0.82
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        50.03,
+        0.0,
+        -4.63
+      ],
+      "size": 0.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        25.23,
+        0.0,
+        6.23
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        58.37,
+        0.0,
+        12.4
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        49.34,
+        0.0,
+        8.9
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        38.1,
+        0.0,
+        9.84
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        55.03,
+        0.0,
+        -5.68
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        75.66,
+        0.0,
+        16.35
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        69.78,
+        0.0,
+        8.35
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        32.79,
+        0.0,
+        -7.73
+      ],
+      "size": 1.1
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        50.65,
+        0.0,
+        4.78
+      ],
+      "size": 0.36
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        45.39,
+        0.0,
+        -16.49
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        54.21,
+        0.0,
+        -3.15
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        46.14,
+        0.0,
+        16.63
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        55.88,
+        0.0,
+        -8.08
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        43.58,
+        0.0,
+        -3.95
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        56.97,
+        0.0,
+        7.91
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        50.89,
+        0.0,
+        12.71
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        43.78,
+        0.0,
+        -3.5
+      ],
+      "size": 0.6
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        74.36,
+        0.0,
+        5.85
+      ],
+      "size": 0.87
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        68.34,
+        0.0,
+        4.52
+      ],
+      "size": 0.85
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        59.17,
+        0.0,
+        16.95
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        73.84,
+        0.0,
+        12.55
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        53.8,
+        0.0,
+        -7.74
+      ],
+      "size": 0.83
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        35.35,
+        0.0,
+        -9.9
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        43.46,
+        0.0,
+        -4.55
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        65.42,
+        0.0,
+        6.92
+      ],
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        29.56,
+        0.0,
+        13.13
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        69.88,
+        0.0,
+        13.08
+      ],
+      "size": 0.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        23.47,
+        0.0,
+        -13.22
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        54.3,
+        0.0,
+        10.82
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        67.87,
+        0.0,
+        10.97
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        46.9,
+        0.0,
+        -13.15
+      ],
+      "size": 0.95
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        59.37,
+        0.0,
+        10.24
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        50.27,
+        0.0,
+        -6.53
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        35.38,
+        0.0,
+        16.42
+      ],
+      "size": 0.94
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        43.55,
+        0.0,
+        -12.98
+      ],
+      "size": 0.84
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        57.52,
+        0.0,
+        6.76
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        70.51,
+        0.0,
+        8.57
+      ],
+      "size": 0.83
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        59.35,
+        0.0,
+        -16.53
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        55.62,
+        0.0,
+        -3.77
+      ],
+      "size": 0.93
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        34.85,
+        0.0,
+        8.87
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        48.64,
+        0.0,
+        4.43
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        31.4,
+        0.0,
+        -9.89
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        55.12,
+        0.0,
+        -3.7
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        43.47,
+        0.0,
+        -9.34
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        45.5,
+        0.0,
+        -8.47
+      ],
+      "size": 0.79
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        45.52,
+        0.0,
+        -3.62
+      ],
+      "size": 0.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        38.98,
+        0.0,
+        7.55
+      ],
+      "size": 0.78
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        24.49,
+        0.0,
+        6.74
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        35.99,
+        0.0,
+        -8.3
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -16.94,
+        0.0,
+        54.81
+      ],
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -5.33,
+        0.0,
+        27.31
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.34,
+        0.0,
+        40.11
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.96,
+        0.0,
+        57.08
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        4.57,
+        0.0,
+        22.13
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -18.18,
+        0.0,
+        27.69
+      ],
+      "size": 0.61
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -16.76,
+        0.0,
+        59.28
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -5.58,
+        0.0,
+        32.52
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        15.83,
+        0.0,
+        38.51
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -10.19,
+        0.0,
+        32.24
+      ],
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -16.17,
+        0.0,
+        55.86
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        16.0,
+        0.0,
+        47.05
+      ],
+      "size": 1.08
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        8.98,
+        0.0,
+        29.02
+      ],
+      "size": 1.04
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        3.88,
+        0.0,
+        25.18
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        16.81,
+        0.0,
+        41.14
+      ],
+      "size": 0.96
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        12.07,
+        0.0,
+        64.82
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -9.44,
+        0.0,
+        26.05
+      ],
+      "size": 0.43
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -16.06,
+        0.0,
+        61.1
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -5.68,
+        0.0,
+        28.64
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        14.28,
+        0.0,
+        23.42
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        17.92,
+        0.0,
+        22.84
+      ],
+      "size": 1.04
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        5.45,
+        0.0,
+        59.5
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -18.66,
+        0.0,
+        25.66
+      ],
+      "size": 0.88
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        7.24,
+        0.0,
+        32.66
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -18.73,
+        0.0,
+        45.38
+      ],
+      "size": 1.06
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -6.3,
+        0.0,
+        63.79
+      ],
+      "size": 0.38
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -3.76,
+        0.0,
+        64.07
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        7.58,
+        0.0,
+        28.24
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        15.34,
+        0.0,
+        63.17
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -15.8,
+        0.0,
+        62.18
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -9.59,
+        0.0,
+        61.63
+      ],
+      "size": 1.07
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        13.36,
+        0.0,
+        60.88
+      ],
+      "size": 0.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        11.08,
+        0.0,
+        59.09
+      ],
+      "size": 1.06
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        8.88,
+        0.0,
+        59.68
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        18.19,
+        0.0,
+        61.3
+      ],
+      "size": 0.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        7.67,
+        0.0,
+        62.35
+      ],
+      "size": 0.61
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -18.14,
+        0.0,
+        64.81
+      ],
+      "size": 0.51
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -15.34,
+        0.0,
+        47.43
+      ],
+      "size": 0.81
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -3.7,
+        0.0,
+        29.89
+      ],
+      "size": 0.94
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -18.32,
+        0.0,
+        41.63
+      ],
+      "size": 0.83
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -4.07,
+        0.0,
+        59.1
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        3.42,
+        0.0,
+        31.75
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -12.01,
+        0.0,
+        59.45
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        0.71,
+        0.0,
+        64.63
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        2.89,
+        0.0,
+        60.65
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -6.12,
+        0.0,
+        27.2
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -15.11,
+        0.0,
+        41.81
+      ],
+      "size": 0.66
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -11.24,
+        0.0,
+        64.01
+      ],
+      "size": 0.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -17.53,
+        0.0,
+        34.75
+      ],
+      "size": 0.6
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -10.59,
+        0.0,
+        64.94
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -15.75,
+        0.0,
+        35.28
+      ],
+      "size": 0.78
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        8.62,
+        0.0,
+        32.55
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        13.43,
+        0.0,
+        23.79
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.94,
+        0.0,
+        64.26
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        5.35,
+        0.0,
+        25.23
+      ],
+      "size": 0.97
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        10.05,
+        0.0,
+        62.19
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        15.91,
+        0.0,
+        62.61
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -17.44,
+        0.0,
+        54.04
+      ],
+      "size": 0.51
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        10.75,
+        0.0,
+        27.98
+      ],
+      "size": 0.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        11.98,
+        0.0,
+        59.37
+      ],
+      "size": 1.11
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        2.09,
+        0.0,
+        27.6
+      ],
+      "size": 0.4
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -4.81,
+        0.0,
+        27.33
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -6.56,
+        0.0,
+        29.8
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -18.4,
+        0.0,
+        62.9
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        16.43,
+        0.0,
+        56.06
+      ],
+      "size": 0.89
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -15.47,
+        0.0,
+        32.42
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -3.01,
+        0.0,
+        23.43
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -12.74,
+        0.0,
+        22.78
+      ],
+      "size": 0.34
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        3.54,
+        0.0,
+        21.87
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        18.45,
+        0.0,
+        54.75
+      ],
+      "size": 0.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        17.85,
+        0.0,
+        30.36
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -2.62,
+        0.0,
+        31.93
+      ],
+      "size": 1.09
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -17.43,
+        0.0,
+        49.83
+      ],
+      "size": 0.35
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        17.68,
+        0.0,
+        53.97
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        7.31,
+        0.0,
+        60.03
+      ],
+      "size": 0.66
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -5.14,
+        0.0,
+        22.98
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -15.01,
+        0.0,
+        42.92
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.97,
+        0.0,
+        50.56
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -16.22,
+        0.0,
+        31.25
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        10.55,
+        0.0,
+        22.11
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        5.7,
+        0.0,
+        27.85
+      ],
+      "size": 0.54
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -4.06,
+        0.0,
+        27.84
+      ],
+      "size": 0.98
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        15.87,
+        0.0,
+        32.18
+      ],
+      "size": 0.84
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        18.13,
+        0.0,
+        27.69
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -17.28,
+        0.0,
+        62.93
+      ],
+      "size": 0.98
+    },
+    {
+      "sprite": "assets/sprites/scatter/flowers_wild.png",
+      "pos": [
+        -7.3,
+        0.0,
+        63.44
+      ],
+      "size": 0.51
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -15.83,
+        0.0,
+        51.61
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        13.44,
+        0.0,
+        23.44
+      ],
+      "size": 1.07
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -7.1,
+        0.0,
+        26.7
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -3.9,
+        0.0,
+        63.36
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -43.43,
+        0.0,
+        18.09
+      ],
+      "size": 0.48
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -64.35,
+        0.0,
+        8.22
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -49.63,
+        0.0,
+        8.54
+      ],
+      "size": 0.78
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -68.59,
+        0.0,
+        20.62
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -33.13,
+        0.0,
+        8.08
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -66.73,
+        0.0,
+        -2.35
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -29.58,
+        0.0,
+        3.65
+      ],
+      "size": 0.77
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -65.39,
+        0.0,
+        19.17
+      ],
+      "size": 0.8
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -29.06,
+        0.0,
+        9.0
+      ],
+      "size": 0.35
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -42.87,
+        0.0,
+        8.5
+      ],
+      "size": 0.68
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -52.79,
+        0.0,
+        -7.2
+      ],
+      "size": 0.68
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -57.04,
+        0.0,
+        -11.26
+      ],
+      "size": 1.1
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -44.17,
+        0.0,
+        20.32
+      ],
+      "size": 0.71
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -68.82,
+        0.0,
+        2.82
+      ],
+      "size": 0.82
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -43.42,
+        0.0,
+        18.97
+      ],
+      "size": 0.74
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -35.04,
+        0.0,
+        -17.45
+      ],
+      "size": 1.13
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -57.18,
+        0.0,
+        10.88
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -57.55,
+        0.0,
+        15.59
+      ],
+      "size": 1.05
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -46.13,
+        0.0,
+        17.16
+      ],
+      "size": 0.75
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -56.21,
+        0.0,
+        16.94
+      ],
+      "size": 0.7
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -55.98,
+        0.0,
+        -2.54
+      ],
+      "size": 0.35
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -35.4,
+        0.0,
+        -4.94
+      ],
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -25.38,
+        0.0,
+        5.02
+      ],
+      "size": 1.08
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -60.29,
+        0.0,
+        -14.51
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -37.13,
+        0.0,
+        17.96
+      ],
+      "size": 1.12
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -65.11,
+        0.0,
+        -12.79
+      ],
+      "size": 0.83
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -66.79,
+        0.0,
+        -7.55
+      ],
+      "size": 0.78
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -55.45,
+        0.0,
+        -14.02
+      ],
+      "size": 0.84
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -45.62,
+        0.0,
+        12.72
+      ],
+      "size": 1.13
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -52.4,
+        0.0,
+        18.75
+      ],
+      "size": 0.8
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -59.87,
+        0.0,
+        20.65
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -41.47,
+        0.0,
+        3.82
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -67.0,
+        0.0,
+        -16.44
+      ],
+      "size": 0.76
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -45.67,
+        0.0,
+        -15.23
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -66.88,
+        0.0,
+        1.28
+      ],
+      "size": 0.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -32.43,
+        0.0,
+        16.35
+      ],
+      "size": 0.61
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -67.01,
+        0.0,
+        3.31
+      ],
+      "size": 0.82
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -68.3,
+        0.0,
+        3.92
+      ],
+      "size": 0.91
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -41.24,
+        0.0,
+        -9.9
+      ],
+      "size": 0.93
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -41.05,
+        0.0,
+        8.24
+      ],
+      "size": 0.68
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -49.89,
+        0.0,
+        6.33
+      ],
+      "size": 0.81
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -50.76,
+        0.0,
+        -14.56
+      ],
+      "size": 0.68
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -58.03,
+        0.0,
+        -3.64
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -49.53,
+        0.0,
+        2.71
+      ],
+      "size": 0.71
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -36.97,
+        0.0,
+        10.86
+      ],
+      "size": 0.89
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -27.81,
+        0.0,
+        -14.58
+      ],
+      "size": 0.86
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -25.74,
+        0.0,
+        -9.76
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -59.82,
+        0.0,
+        7.38
+      ],
+      "size": 0.96
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -32.35,
+        0.0,
+        -17.62
+      ],
+      "size": 0.78
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -52.05,
+        0.0,
+        7.04
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -27.53,
+        0.0,
+        3.94
+      ],
+      "size": 0.83
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -63.76,
+        0.0,
+        5.5
+      ],
+      "size": 0.7
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -28.59,
+        0.0,
+        15.72
+      ],
+      "size": 0.84
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -31.02,
+        0.0,
+        -19.31
+      ],
+      "size": 0.9
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -58.36,
+        0.0,
+        -5.48
+      ],
+      "size": 0.68
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -31.19,
+        0.0,
+        -10.76
+      ],
+      "size": 0.74
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -36.04,
+        0.0,
+        18.39
+      ],
+      "size": 0.77
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -34.73,
+        0.0,
+        -9.77
+      ],
+      "size": 0.9
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -28.63,
+        0.0,
+        2.64
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -49.67,
+        0.0,
+        -20.45
+      ],
+      "size": 0.34
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -28.93,
+        0.0,
+        12.67
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -58.37,
+        0.0,
+        17.36
+      ],
+      "size": 0.69
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -52.4,
+        0.0,
+        10.27
+      ],
+      "size": 1.02
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -49.7,
+        0.0,
+        -20.69
+      ],
+      "size": 0.56
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -55.08,
+        0.0,
+        -16.1
+      ],
+      "size": 0.36
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -55.12,
+        0.0,
+        -16.99
+      ],
+      "size": 0.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -57.75,
+        0.0,
+        -7.65
+      ],
+      "size": 0.35
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -53.71,
+        0.0,
+        -0.7
+      ],
+      "size": 0.74
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -66.92,
+        0.0,
+        6.17
+      ],
+      "size": 0.89
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -33.61,
+        0.0,
+        18.43
+      ],
+      "size": 0.71
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -44.15,
+        0.0,
+        11.17
+      ],
+      "size": 0.43
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -68.32,
+        0.0,
+        -19.06
+      ],
+      "size": 1.06
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -62.38,
+        0.0,
+        14.13
+      ],
+      "size": 1.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -30.72,
+        0.0,
+        -13.41
+      ],
+      "size": 0.9
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -27.72,
+        0.0,
+        -5.67
+      ],
+      "size": 0.67
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -28.47,
+        0.0,
+        3.28
+      ],
+      "size": 0.67
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -67.52,
+        0.0,
+        -3.37
+      ],
+      "size": 0.75
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -61.17,
+        0.0,
+        -4.85
+      ],
+      "size": 0.84
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -27.87,
+        0.0,
+        10.92
+      ],
+      "size": 0.57
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -52.55,
+        0.0,
+        11.07
+      ],
+      "size": 0.97
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -66.21,
+        0.0,
+        -13.99
+      ],
+      "size": 0.98
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -42.56,
+        0.0,
+        -19.85
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -58.54,
+        0.0,
+        20.01
+      ],
+      "size": 1.02
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -46.58,
+        0.0,
+        4.82
+      ],
+      "size": 0.99
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -60.53,
+        0.0,
+        15.37
+      ],
+      "size": 0.79
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -30.15,
+        0.0,
+        18.75
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -53.19,
+        0.0,
+        13.54
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -38.19,
+        0.0,
+        19.92
+      ],
+      "size": 0.74
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -37.44,
+        0.0,
+        -12.6
+      ],
+      "size": 0.93
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -29.52,
+        0.0,
+        -3.18
+      ],
+      "size": 0.36
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -31.34,
+        0.0,
+        -20.55
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -47.82,
+        0.0,
+        -18.13
+      ],
+      "size": 0.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -42.37,
+        0.0,
+        4.72
+      ],
+      "size": 0.93
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -47.85,
+        0.0,
+        -19.42
+      ],
+      "size": 0.98
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -63.99,
+        0.0,
+        12.47
+      ],
+      "size": 1.05
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -27.76,
+        0.0,
+        1.65
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -32.17,
+        0.0,
+        2.58
+      ],
+      "size": 0.99
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -49.49,
+        0.0,
+        17.71
+      ],
+      "size": 1.09
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -63.83,
+        0.0,
+        20.52
+      ],
+      "size": 0.8
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -43.27,
+        0.0,
+        20.74
+      ],
+      "size": 0.76
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -65.52,
+        0.0,
+        9.34
+      ],
+      "size": 1.09
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -45.33,
+        0.0,
+        18.71
+      ],
+      "size": 0.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -47.28,
+        0.0,
+        18.57
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -59.02,
+        0.0,
+        20.87
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -63.24,
+        0.0,
+        -16.25
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -64.53,
+        0.0,
+        -9.19
+      ],
+      "size": 0.38
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -56.69,
+        0.0,
+        6.62
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -28.9,
+        0.0,
+        -8.82
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -40.39,
+        0.0,
+        1.84
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -55.87,
+        0.0,
+        12.38
+      ],
+      "size": 0.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -48.26,
+        0.0,
+        13.47
+      ],
+      "size": 0.4
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -68.62,
+        0.0,
+        -5.78
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -40.0,
+        0.0,
+        -9.17
+      ],
+      "size": 0.4
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -47.37,
+        0.0,
+        -16.45
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -33.06,
+        0.0,
+        -14.91
+      ],
+      "size": 0.85
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -51.23,
+        0.0,
+        -9.43
+      ],
+      "size": 0.5
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -67.7,
+        0.0,
+        15.8
+      ],
+      "size": 0.71
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -25.42,
+        0.0,
+        -6.37
+      ],
+      "size": 1.08
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -43.4,
+        0.0,
+        6.31
+      ],
+      "size": 0.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -32.75,
+        0.0,
+        18.73
+      ],
+      "size": 0.35
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -66.73,
+        0.0,
+        9.56
+      ],
+      "size": 0.38
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -29.2,
+        0.0,
+        -17.87
+      ],
+      "size": 0.46
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -63.32,
+        0.0,
+        -14.44
+      ],
+      "size": 0.66
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -37.55,
+        0.0,
+        -14.69
+      ],
+      "size": 0.67
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -37.93,
+        0.0,
+        19.64
+      ],
+      "size": 0.35
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -55.85,
+        0.0,
+        11.11
+      ],
+      "size": 0.96
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -27.64,
+        0.0,
+        -5.3
+      ],
+      "size": 0.64
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -44.78,
+        0.0,
+        -10.55
+      ],
+      "size": 1.08
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -29.1,
+        0.0,
+        14.57
+      ],
+      "size": 0.86
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -30.67,
+        0.0,
+        1.88
+      ],
+      "size": 1.01
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -45.81,
+        0.0,
+        -10.38
+      ],
+      "size": 0.7
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -28.99,
+        0.0,
+        11.73
+      ],
+      "size": 0.66
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -27.02,
+        0.0,
+        4.44
+      ],
+      "size": 0.63
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -67.08,
+        0.0,
+        10.81
+      ],
+      "size": 0.58
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -41.78,
+        0.0,
+        -18.26
+      ],
+      "size": 0.92
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -49.41,
+        0.0,
+        8.86
+      ],
+      "size": 0.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -57.77,
+        0.0,
+        -0.23
+      ],
+      "size": 0.96
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -25.83,
+        0.0,
+        5.77
+      ],
+      "size": 0.82
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -63.29,
+        0.0,
+        -6.0
+      ],
+      "size": 0.66
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -60.66,
+        0.0,
+        4.9
+      ],
+      "size": 0.59
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -60.42,
+        0.0,
+        -19.32
+      ],
+      "size": 0.6
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -48.59,
+        0.0,
+        20.02
+      ],
+      "size": 0.94
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -47.57,
+        0.0,
+        13.38
+      ],
+      "size": 0.77
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -64.22,
+        0.0,
+        -10.3
+      ],
+      "size": 0.69
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -27.0,
+        0.0,
+        14.73
+      ],
+      "size": 0.42
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -60.72,
+        0.0,
+        12.2
+      ],
+      "size": 0.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -43.92,
+        0.0,
+        20.81
+      ],
+      "size": 0.6
+    },
+    {
+      "sprite": "assets/sprites/scatter/fern.png",
+      "pos": [
+        -30.13,
+        0.0,
+        -8.27
+      ],
+      "size": 0.89
+    },
+    {
+      "sprite": "assets/sprites/scatter/mushrooms.png",
+      "pos": [
+        -68.55,
+        0.0,
+        -1.76
+      ],
+      "size": 0.37
+    },
+    {
+      "sprite": "assets/sprites/scatter/bush.png",
+      "pos": [
+        -39.98,
+        0.0,
+        -5.99
+      ],
+      "size": 1.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        5.52,
+        0.0,
+        -143.03
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        6.2,
+        0.0,
+        -144.77
+      ],
+      "size": 1.08
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        2.61,
+        0.0,
+        -149.59
+      ],
+      "size": 1.18
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        0.11,
+        0.0,
+        -142.3
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -4.29,
+        0.0,
+        -136.77
+      ],
+      "size": 1.25
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        7.61,
+        0.0,
+        -140.08
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -8.12,
+        0.0,
+        -143.44
+      ],
+      "size": 1.08
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        12.74,
+        0.0,
+        -154.06
+      ],
+      "size": 1.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        3.13,
+        0.0,
+        -146.18
+      ],
+      "size": 1.23
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -1.87,
+        0.0,
+        -137.21
+      ],
+      "size": 1.2
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -6.27,
+        0.0,
+        -157.04
+      ],
+      "size": 1.39
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -10.27,
+        -0.45,
+        -165.94
+      ],
+      "size": 1.34
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        5.06,
+        0.0,
+        -152.53
+      ],
+      "size": 1.3
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        8.35,
+        0.0,
+        -146.26
+      ],
+      "size": 1.36
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        10.16,
+        0.0,
+        -141.57
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -6.73,
+        0.0,
+        -148.09
+      ],
+      "size": 1.15
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        1.57,
+        0.0,
+        -147.32
+      ],
+      "size": 0.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -11.26,
+        -0.45,
+        -137.19
+      ],
+      "size": 0.62
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -5.32,
+        0.0,
+        -156.68
+      ],
+      "size": 1.23
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        5.56,
+        0.0,
+        -150.34
+      ],
+      "size": 1.49
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -1.58,
+        0.0,
+        -149.95
+      ],
+      "size": 0.61
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        0.39,
+        0.0,
+        -140.97
+      ],
+      "size": 1.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        11.29,
+        0.0,
+        -141.92
+      ],
+      "size": 0.55
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        14.97,
+        -0.45,
+        -143.56
+      ],
+      "size": 1.25
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -8.33,
+        0.0,
+        -162.15
+      ],
+      "size": 0.45
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        -8.09,
+        0.0,
+        -146.9
+      ],
+      "size": 0.65
+    },
+    {
+      "sprite": "assets/sprites/scatter/grass_tuft.png",
+      "pos": [
+        5.03,
+        0.0,
+        -147.61
+      ],
+      "size": 0.53
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        0.78,
+        0.0,
+        -144.35
+      ],
+      "size": 1.32
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        14.85,
+        -0.45,
+        -163.32
+      ],
+      "size": 1.52
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -4.43,
+        0.0,
+        -151.23
+      ],
+      "size": 1.47
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.3,
+        0.0,
+        -0.9
+      ],
+      "size": 1.32
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.42,
+        0.0,
+        0.85
+      ],
+      "size": 1.18
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.89,
+        0.0,
+        1.56
+      ],
+      "size": 1.44
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -61.36,
+        0.0,
+        2.43
+      ],
+      "size": 1.13
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -62.95,
+        0.0,
+        2.38
+      ],
+      "size": 1.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -63.52,
+        0.0,
+        2.0
+      ],
+      "size": 1.11
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.71,
+        0.0,
+        0.89
+      ],
+      "size": 1.41
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.84,
+        0.0,
+        -0.42
+      ],
+      "size": 1.26
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.53,
+        0.0,
+        -1.79
+      ],
+      "size": 1.4
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -64.02,
+        0.0,
+        -2.37
+      ],
+      "size": 1.17
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -62.83,
+        0.0,
+        -3.35
+      ],
+      "size": 1.34
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -61.0,
+        0.0,
+        -3.34
+      ],
+      "size": 1.2
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -60.35,
+        0.0,
+        -2.91
+      ],
+      "size": 1.18
+    },
+    {
+      "sprite": "assets/sprites/scatter/reeds.png",
+      "pos": [
+        -59.72,
+        0.0,
+        -1.89
+      ],
+      "size": 1.43
+    },
+    {
+      "sprite": "assets/sprites/scatter/cobweb.png",
+      "pos": [
+        3.496,
+        2.7,
+        34.504
+      ],
+      "size": 1.0,
+      "yaw": -45.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/cobweb.png",
+      "pos": [
+        -13.496,
+        2.7,
+        34.504
+      ],
+      "size": 1.0,
+      "yaw": 45.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/cobweb.png",
+      "pos": [
+        13.496,
+        2.7,
+        34.504
+      ],
+      "size": 1.0,
+      "yaw": -45.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/cobweb.png",
+      "pos": [
+        -13.496,
+        2.7,
+        57.496
+      ],
+      "size": 1.0,
+      "yaw": 135.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/cobweb.png",
+      "pos": [
+        13.496,
+        2.7,
+        57.496
+      ],
+      "size": 1.0,
+      "yaw": -135.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/cobweb.png",
+      "pos": [
+        -3.496,
+        2.7,
+        47.796
+      ],
+      "size": 1.0,
+      "yaw": 135.0
+    },
+    {
+      "sprite": "assets/sprites/scatter/cobweb.png",
+      "pos": [
+        -3.796,
+        2.7,
+        34.504
+      ],
+      "size": 1.0,
+      "yaw": 45.0
+    }
+  ],
   "spawns": {
     "village_gate": {
       "pos": [

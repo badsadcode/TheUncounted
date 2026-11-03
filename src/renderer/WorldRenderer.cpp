@@ -472,6 +472,7 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
 
     BeginShaderMode(sprite_shader_);
     ApplyEnvironment(sprite_shader_, sl_, view, map, true);
+    if (map) DrawScatter(*map, view);
     float emissive = 0.0f;
     for (const auto& sd : sprites) {
         if (sd.kind == 0) {
@@ -823,6 +824,42 @@ void WorldRenderer::DrawPanorama(const std::string& path, float alpha, const Ren
             DrawTexturePro(tex, src, Rectangle{rx0, ry0, rx1 - rx0, ry1 - ry0}, Vector2{0, 0}, 0.0f, c);
         }
     }
+}
+
+void WorldRenderer::DrawScatter(const MapDef& map, const RenderView& view) {
+    // Cut-outs (the sprite shader discards transparent texels), so no sorting is needed.
+    const Camera3D& cam = view.camera;
+    Vector3 fwd = Vector3Normalize(Vector3Subtract(cam.target, cam.position));
+    for (const auto& sc : map.scatter) {
+        Vector3 d = Vector3Subtract(sc.pos, cam.position);
+        float dist2 = d.x * d.x + d.z * d.z;
+        if (dist2 > 38.0f * 38.0f) continue;
+        if (Vector3DotProduct(d, fwd) < -1.5f) continue;   // behind the camera
+        Texture2D tex = res_->GetTexture(sc.sprite);
+        if (tex.id == 0) continue;
+        Rectangle src = {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
+        if (sc.yaw <= -999.0f) {
+            DrawBillboardPro(cam, tex, src, sc.pos, {0, 1, 0}, {sc.size, sc.size}, {sc.size * 0.5f, 0.0f}, 0.0f, WHITE);
+        } else {
+            float a = sc.yaw * DEG2RAD, h = sc.size * 0.5f;
+            Vector3 r = {cosf(a) * h, 0, -sinf(a) * h};
+            Vector3 p0 = Vector3Subtract(sc.pos, r), p1 = Vector3Add(sc.pos, r);
+            rlDisableBackfaceCulling();
+            rlSetTexture(tex.id);
+            rlBegin(RL_QUADS);
+            rlColor4ub(255, 255, 255, 255);
+            rlNormal3f(sinf(a), 0, cosf(a));
+            rlTexCoord2f(0, 1); rlVertex3f(p0.x, p0.y, p0.z);
+            rlTexCoord2f(1, 1); rlVertex3f(p1.x, p1.y, p1.z);
+            rlTexCoord2f(1, 0); rlVertex3f(p1.x, p1.y + sc.size, p1.z);
+            rlTexCoord2f(0, 0); rlVertex3f(p0.x, p0.y + sc.size, p0.z);
+            rlEnd();
+            rlSetTexture(0);
+            rlDrawRenderBatchActive();
+            rlEnableBackfaceCulling();
+        }
+    }
+    rlDrawRenderBatchActive();
 }
 
 } // namespace uncounted

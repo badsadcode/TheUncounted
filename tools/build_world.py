@@ -15,6 +15,7 @@ Run:  python tools/build_world.py
 
 import copy
 import json
+import math
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -85,6 +86,77 @@ OVERLAYS = {
         ("dining_rug", MAT_FLOOR("carpet_red"), (-12.6, -5.4, 0.02, 0.035, -2.2, 1.8), [1.0, 1.0]),
     ],
 }
+
+
+# ============================================================================ ground scatter (Noor's cut-out sprites)
+SC = "assets/sprites/scatter/"
+SCATTER_KINDS = {  # sprite, height in metres
+    "grass": (SC + "grass_tuft.png", 0.55), "flowers": (SC + "flowers_wild.png", 0.45), "fern": (SC + "fern.png", 0.8),
+    "bush": (SC + "bush.png", 0.95), "mushrooms": (SC + "mushrooms.png", 0.42), "reeds": (SC + "reeds.png", 1.3),
+}
+# (area name, world x range, world z range, ground models it may sit on, {kind: weight}, count)
+SCATTER_AREAS = [
+    ("bellwether", (-21, 21), (-21, 21), ("floor_grass",), {"grass": 6, "flowers": 3, "bush": 1}, 70),
+    ("old_road", (22, 76), (-17, 17), ("floor_grass",), {"grass": 6, "flowers": 2, "fern": 2, "bush": 2}, 110),
+    ("hollowmere", (-20, 20), (21, 66), ("floor_grass", "floor_graveyard_soil"), {"grass": 6, "flowers": 2, "bush": 2, "mushrooms": 1}, 90),
+    ("whistling_wood", (-69, -25), (-21, 21), ("floor_forest_floor",), {"fern": 5, "grass": 3, "mushrooms": 2, "bush": 2}, 150),
+    ("reef", (-12, 15), (-166, -136), ("floor_sand_wet",), {"grass": 2, "reeds": 3}, 30),
+]
+NO_BLOCK = ("tree_pine", "oak_canopy", "floor_")   # these don't push scatter away (trees only near the trunk)
+
+
+def build_scatter(props, interactables, npcs):
+    import random
+    rng = random.Random(1234)
+    boxes = []
+    for p in props:
+        (x0, x1), (y0, y1), (z0, z1) = extents(p)
+        name = p["model"].split("/")[-1].replace(".glb", "")
+        boxes.append((name, x0, x1, y0, y1, z0, z1, p["pos"]))
+    keep_clear = [e["pos"] for e in interactables] + [e["pos"] for e in npcs]
+    out = []
+    for area, (ax0, ax1), (az0, az1), grounds, weights, count in SCATTER_AREAS:
+        kinds = [k for k, w in weights.items() for _ in range(w)]
+        placed, tries = 0, 0
+        while placed < count and tries < count * 40:
+            tries += 1
+            x, z = rng.uniform(ax0, ax1), rng.uniform(az0, az1)
+            top, ok = None, True
+            for name, x0, x1, y0, y1, z0, z1, pos in boxes:
+                if name.startswith(("tree_pine", "oak_")):
+                    if (x - pos[0]) ** 2 + (z - pos[2]) ** 2 < 0.8 ** 2:
+                        ok = False
+                    continue
+                if name in grounds and x0 <= x <= x1 and z0 <= z <= z1 and y1 <= 0.1:
+                    top = y1 if top is None else max(top, y1)
+                    continue
+                if x0 - 0.35 <= x <= x1 + 0.35 and z0 - 0.35 <= z <= z1 + 0.35 and y1 > -0.6:
+                    ok = False   # a road, a wall, a house, a bench...
+                    break
+            if not ok or top is None:
+                continue
+            if any((x - q[0]) ** 2 + (z - q[2]) ** 2 < 1.0 for q in keep_clear):
+                continue
+            sprite, size = SCATTER_KINDS[rng.choice(kinds)]
+            out.append({"sprite": sprite, "pos": [round(x, 2), round(top, 3), round(z, 2)], "size": round(size * rng.uniform(0.8, 1.2), 2)})
+            placed += 1
+    # reeds round the Whistling Wood pond
+    pond = [p["pos"] for p in props if p["id"].startswith("wood_pond_rim_")]
+    if pond:
+        cx = sum(q[0] for q in pond) / len(pond); cz = sum(q[2] for q in pond) / len(pond)
+        r = max(((q[0] - cx) ** 2 + (q[2] - cz) ** 2) ** 0.5 for q in pond)
+        for i in range(14):
+            a = i / 14 * 6.2832 + rng.uniform(-0.15, 0.15)
+            rr = r + rng.uniform(0.5, 1.1)
+            out.append({"sprite": SCATTER_KINDS["reeds"][0], "pos": [round(cx + rr * math.cos(a), 2), 0.0, round(cz + rr * math.sin(a), 2)],
+                        "size": round(rng.uniform(1.1, 1.5), 2)})
+    # cobwebs across the upper corners of Hollowmere's ground-floor rooms (fixed quads, not billboards)
+    for cx, cz, sx, sz in [(3.85, -7.85, 1, -1), (-13.85, -7.85, -1, -1), (13.85, -7.85, 1, -1), (-13.85, 15.85, -1, 1),
+                           (13.85, 15.85, 1, 1), (-3.85, 6.15, -1, 1), (-4.15, -7.85, -1, -1)]:
+        yaw = math.degrees(math.atan2(-sx, -sz))
+        out.append({"sprite": SC + "cobweb.png", "pos": [round(HOLLOW_OFF[0] + cx - sx * 0.354, 3), 2.7, round(HOLLOW_OFF[2] + cz - sz * 0.354, 3)],
+                    "size": 1.0, "yaw": round(yaw, 1)})
+    return out
 
 
 SKIES = {"bellwether": "night", "old_road": "night", "hollowmere": "night", "saltmere": "night", "sleepers_reef": "night",
@@ -414,6 +486,7 @@ def build():
         "sun_color": bell["sun_color"], "fog_color": bell["fog_color"], "fog_density": bell["fog_density"],
         "weather": bell.get("weather", ""),
         "zones": with_skies(zones),
+        "scatter": build_scatter(props, interactables, npcs),
         "spawns": spawns,
         "props": props,
         "lights": lights,

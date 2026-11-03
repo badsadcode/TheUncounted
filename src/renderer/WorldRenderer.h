@@ -74,6 +74,7 @@ public:
 
 private:
     // Sky panorama: crossfades when the zone's image changes.
+    void DrawScatter(const MapDef& map, const RenderView& view);
     void DrawPanorama(const std::string& path, float alpha, const RenderView& view, float yaw, float pitch, int tw, float th, Color tint);
     std::string pano_cur_, pano_prev_;
     float pano_fade_ = 1.0f, pano_last_time_ = 0.0f;

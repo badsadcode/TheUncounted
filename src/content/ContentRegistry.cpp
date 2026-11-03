@@ -1,3 +1,4 @@
+#include <set>
 #include <algorithm>
 #include "content/ContentRegistry.h"
 #include "core/Logger.h"
@@ -1166,6 +1167,16 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             m.portals.push_back(pt);
         }
     }
+    if (j.contains("scatter") && j["scatter"].is_array()) {
+        for (const auto& sj : j["scatter"]) {
+            MapScatterDef sc;
+            sc.sprite = sj.value("sprite", "");
+            sc.pos = JsonToVec3(sj["pos"]);
+            sc.size = sj.value("size", 0.7f);
+            sc.yaw = sj.value("yaw", -1000.0f);
+            m.scatter.push_back(sc);
+        }
+    }
 
     maps[m.id] = m;
 }
@@ -1333,6 +1344,11 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
     for (const auto& [id, mp] : maps) {
         CheckFileExists(rootDir, mp.music, "Map:" + id, "music");
         CheckFileExists(rootDir, mp.ambience, "Map:" + id, "ambience");
+        {
+            std::set<std::string> seen;
+            for (const auto& sc : mp.scatter)
+                if (seen.insert(sc.sprite).second) CheckFileExists(rootDir, sc.sprite, "Map:" + id + "/scatter", "sprite");
+        }
         for (const auto& z : mp.zones) {
             if (!z.music.empty()) CheckFileExists(rootDir, z.music, "Map:" + id + "/Zone:" + z.id, "music");
             if (!z.sky_panorama.empty()) CheckFileExists(rootDir, z.sky_panorama, "Map:" + id + "/Zone:" + z.id, "sky_panorama");

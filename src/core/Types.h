@@ -574,6 +574,15 @@ struct MapZoneDef {
     std::string sky_panorama;    // optional 360-degree horizon image (repeats horizontally); "" = plain sky gradient
 };
 
+// Ground scatter: small cut-out sprites (grass tufts, ferns, mushrooms) that turn to face the camera around their
+// vertical axis, or, with a yaw, a fixed double-sided quad (a cobweb across a corner).
+struct MapScatterDef {
+    std::string sprite;
+    Vector3 pos = {0, 0, 0};   // bottom centre
+    float size = 0.7f;          // height in metres (sprites are square)
+    float yaw = -1000.0f;       // -1000 = billboard; otherwise a fixed quad facing this yaw (degrees)
+};
+
 struct MapDef {
     std::string id;
     std::string display_name_key;
@@ -595,6 +604,7 @@ struct MapDef {
     std::vector<MapCreatureSpawnDef> creatures;
     std::vector<MapInteractableDef> interactables;
     std::vector<MapPortalDef> portals;
+    std::vector<MapScatterDef> scatter;
 };
 
 struct ValidationIssue {
