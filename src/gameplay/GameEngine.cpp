@@ -493,6 +493,7 @@ Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant)
     a.fog_color = m->fog_color;
     a.fog_density = m->fog_density;
     a.weather = m->weather;
+    a.sky_panorama = m->sky_panorama;
     if (m->zones.empty()) return a;
 
     float wsum = 0.0f, best = 0.0f;
@@ -522,6 +523,7 @@ Atmosphere GameEngine::ComputeAtmosphere(Vector3 p, const MapZoneDef** dominant)
     a.fog_color = Vector3Scale(fc, k);
     a.fog_density = fd * k;
     a.weather = (dominant && *dominant) ? (*dominant)->weather : m->weather;
+    if (dominant && *dominant) a.sky_panorama = (*dominant)->sky_panorama;
     if (dominant && *dominant && !(*dominant)->override_flag.empty() && player_.flags.count((*dominant)->override_flag))
         a.weather = (*dominant)->override_weather;
     return a;
@@ -551,6 +553,7 @@ void GameEngine::UpdateAtmosphere(float dt, bool snap) {
         atmo_.fog_color = Vector3Lerp(atmo_.fog_color, target.fog_color, k);
         atmo_.fog_density += (target.fog_density - atmo_.fog_density) * k;
         atmo_.weather = target.weather;
+        atmo_.sky_panorama = target.sky_panorama;
     }
     std::string id = dom ? dom->id : "";
     if (id != zone_id_) {

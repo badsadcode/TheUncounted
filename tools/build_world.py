@@ -87,6 +87,17 @@ OVERLAYS = {
 }
 
 
+SKIES = {"bellwether": "night", "old_road": "night", "hollowmere": "night", "saltmere": "night", "sleepers_reef": "night",
+         "whistling_wood": "dusk"}
+
+
+def with_skies(zones):
+    for z in zones:
+        if z["id"] in SKIES:
+            z["sky_panorama"] = "assets/textures/sky/sky_%s.png" % SKIES[z["id"]]
+    return zones
+
+
 def apply_materials(name, region):
     import re
     rules = MATERIALS.get(name, [])
@@ -402,7 +413,7 @@ def build():
         "sky_color": bell["sky_color"], "ambient_color": bell["ambient_color"], "sun_direction": bell["sun_direction"],
         "sun_color": bell["sun_color"], "fog_color": bell["fog_color"], "fog_density": bell["fog_density"],
         "weather": bell.get("weather", ""),
-        "zones": zones,
+        "zones": with_skies(zones),
         "spawns": spawns,
         "props": props,
         "lights": lights,

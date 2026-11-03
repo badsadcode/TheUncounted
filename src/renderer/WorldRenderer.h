@@ -38,6 +38,7 @@ struct Atmosphere {
     Vector3 fog_color = {0.08f, 0.10f, 0.16f};
     float fog_density = 0.025f;
     std::string weather;
+    std::string sky_panorama;   // horizon image for the dominant zone ("" = none)
 };
 
 struct RenderView {
@@ -72,6 +73,10 @@ public:
     int InternalHeight() const { return target_.texture.height; }
 
 private:
+    // Sky panorama: crossfades when the zone's image changes.
+    void DrawPanorama(const std::string& path, float alpha, const RenderView& view, float yaw, float pitch, int tw, float th, Color tint);
+    std::string pano_cur_, pano_prev_;
+    float pano_fade_ = 1.0f, pano_last_time_ = 0.0f;
     ResourceManager* res_ = nullptr;
     const GraphicsConfig* gfx_ = nullptr;
     Shader world_shader_{};

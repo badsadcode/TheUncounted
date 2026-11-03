@@ -272,6 +272,29 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
         int top = hy - static_cast<int>(th * 0.9f);
         DrawRectangleGradientV(0, top, tw, hy - top, view.atmo.sky, fogC);
         if (hy < th) DrawRectangle(0, hy, tw, static_cast<int>(th) - hy + 1, fogC);
+        // Painted horizon (clouds, distant hills) over the gradient, tinted by the zone's sky colour.
+        {
+            float dt = Clamp(view.time - pano_last_time_, 0.0f, 0.25f);
+            pano_last_time_ = view.time;
+            if (view.atmo.sky_panorama != pano_cur_) {
+                pano_prev_ = pano_fade_ > 0.5f ? pano_cur_ : pano_prev_;
+                pano_cur_ = view.atmo.sky_panorama;
+                pano_fade_ = 0.0f;
+            }
+            pano_fade_ = std::min(1.0f, pano_fade_ + dt * 0.8f);
+            float yawA = atan2f(dir.x, dir.z);
+            float weatherK = view.atmo.weather == "rain" ? 0.55f : 1.0f;
+            float fogK = Clamp(1.0f - (view.atmo.fog_density - 0.03f) * 14.0f, 0.3f, 1.0f) * weatherK;
+            auto tc = [](unsigned char c) { return static_cast<unsigned char>(Clamp(150.0f + c * 2.6f, 0.0f, 255.0f)); };
+            Color tint = {tc(view.atmo.sky.r), tc(view.atmo.sky.g), tc(view.atmo.sky.b), 255};
+            if (!pano_prev_.empty() && pano_fade_ < 1.0f) DrawPanorama(pano_prev_, (1.0f - pano_fade_) * fogK, view, yawA, pitch, tw, th, tint);
+            if (!pano_cur_.empty()) DrawPanorama(pano_cur_, pano_fade_ * fogK, view, yawA, pitch, tw, th, tint);
+            if (!pano_cur_.empty() || !pano_prev_.empty()) {
+                // hills melt into the fog at the horizon
+                int band = static_cast<int>(th * 0.1f);
+                DrawRectangleGradientV(0, hy - band, tw, band + 1, Color{fogC.r, fogC.g, fogC.b, 0}, fogC);
+            }
+        }
         int skyLum = view.atmo.sky.r + view.atmo.sky.g + view.atmo.sky.b;
         if (skyLum < 180 && view.atmo.weather != "rain" && view.atmo.fog_density < 0.045f) {
             // A fixed star field on a sphere, projected with the camera's yaw and pitch; twinkling, chunky pixels.
@@ -744,6 +767,39 @@ void WorldRenderer::BlitToScreen() {
         DrawText(buf, right - MeasureText(buf, fs), y0 + fs + 4, fs, vc);
         const char* date = "NOV. 3 1993";
         DrawText(date, right - MeasureText(date, fs), y0 + (fs + 4) * 2, fs, vc);
+    }
+}
+
+void WorldRenderer::DrawPanorama(const std::string& path, float alpha, const RenderView& view, float yaw, float pitch, int tw, float th, Color tint) {
+    if (alpha <= 0.01f || !res_) return;
+    Texture2D tex = res_->GetTexture(path);
+    if (tex.id == 0 || tex.width < 8) return;
+    SetTextureWrap(tex, TEXTURE_WRAP_REPEAT);
+    // Same angular density both ways: the image spans 360 degrees across its width, and height * (2*pi / width)
+    // radians upward from the horizon (90 degrees for a 4:1 panorama), so nothing stretches.
+    const float ppr = tex.width / (2.0f * PI);
+    const float elTop = std::min(tex.height / ppr, 1.45f);
+    const float fovY = view.camera.fovy * DEG2RAD, fovX = 2.0f * atanf(tanf(fovY * 0.5f) * tw / th);
+    auto sx = [&](float da) { return tw * 0.5f + tanf(da) / tanf(fovX * 0.5f) * tw * 0.5f; };
+    auto sy = [&](float el) { float a = Clamp(el - pitch, -1.5f, 1.5f); return th * 0.5f - tanf(a) / tanf(fovY * 0.5f) * th * 0.5f; };
+    const int cols = 24, rows = 6;
+    const float half = fovX * 0.5f + 0.05f;
+    Color c = {tint.r, tint.g, tint.b, static_cast<unsigned char>(Clamp(alpha, 0.0f, 1.0f) * 255.0f)};
+    for (int i = 0; i < cols; i++) {
+        float d0 = -half + 2.0f * half * i / cols, d1 = -half + 2.0f * half * (i + 1) / cols;
+        float x0 = sx(d0), x1 = sx(d1);
+        if (x1 < 0 || x0 > tw) continue;
+        float u0 = (yaw + d0) * ppr, u1 = (yaw + d1) * ppr;
+        for (int r = 0; r < rows; r++) {
+            float e0 = elTop * r / rows, e1 = elTop * (r + 1) / rows;
+            float y1 = sy(e0), y0 = sy(e1);
+            if (y1 < 0 || y0 > th) continue;
+            Rectangle src = {u0, tex.height - e1 * ppr, u1 - u0, (e1 - e0) * ppr};
+            // whole-pixel edges so neighbouring patches meet exactly (an overlap would show as a brighter seam)
+            float rx0 = floorf(x0 + 0.5f), rx1 = floorf(x1 + 0.5f), ry0 = floorf(y0 + 0.5f), ry1 = floorf(y1 + 0.5f);
+            if (rx1 <= rx0 || ry1 <= ry0) continue;
+            DrawTexturePro(tex, src, Rectangle{rx0, ry0, rx1 - rx0, ry1 - ry0}, Vector2{0, 0}, 0.0f, c);
+        }
     }
 }
 

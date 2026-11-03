@@ -571,6 +571,7 @@ struct MapZoneDef {
     std::string override_weather;
     std::string override_ambience;
     float sanity_drain = 0.0f;   // sanity lost per second while this is the dominant zone (eldritch places)
+    std::string sky_panorama;    // optional 360-degree horizon image (repeats horizontally); "" = plain sky gradient
 };
 
 struct MapDef {
@@ -585,6 +586,7 @@ struct MapDef {
     Vector3 fog_color = {0.08f, 0.10f, 0.16f};
     float fog_density = 0.025f;
     std::string weather; // "", "rain", "dust"
+    std::string sky_panorama;
     std::vector<MapZoneDef> zones;
     std::map<std::string, MapSpawnDef> spawns;
     std::vector<MapPropDef> props;

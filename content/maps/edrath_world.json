@@ -75,7 +75,8 @@
       ],
       "fog_density": 0.06,
       "weather": "",
-      "sanity_drain": 0.5
+      "sanity_drain": 0.5,
+      "sky_panorama": "assets/textures/sky/sky_night.png"
     },
     {
       "id": "whistling_wood",
@@ -119,7 +120,8 @@
         0.22
       ],
       "fog_density": 0.04,
-      "weather": "fireflies"
+      "weather": "fireflies",
+      "sky_panorama": "assets/textures/sky/sky_dusk.png"
     },
     {
       "id": "sunken_chapel",
@@ -208,7 +210,8 @@
         0.2
       ],
       "fog_density": 0.05,
-      "weather": ""
+      "weather": "",
+      "sky_panorama": "assets/textures/sky/sky_night.png"
     },
     {
       "id": "hollowmere_manor",
@@ -301,7 +304,8 @@
         "flag": "seal_renewed",
         "weather": "",
         "ambience": "assets/audio/ambience/forest_wind.wav"
-      }
+      },
+      "sky_panorama": "assets/textures/sky/sky_night.png"
     },
     {
       "id": "seal_chamber",
@@ -477,7 +481,8 @@
         0.16
       ],
       "fog_density": 0.028,
-      "weather": ""
+      "weather": "",
+      "sky_panorama": "assets/textures/sky/sky_night.png"
     },
     {
       "id": "bellwether",
@@ -526,7 +531,8 @@
         "flag": "seal_renewed",
         "weather": "",
         "ambience": "assets/audio/ambience/forest_wind.wav"
-      }
+      },
+      "sky_panorama": "assets/textures/sky/sky_night.png"
     }
   ],
   "spawns": {

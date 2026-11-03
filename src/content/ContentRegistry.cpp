@@ -1005,6 +1005,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
     if (j.contains("fog_color")) m.fog_color = JsonToVec3(j["fog_color"], m.fog_color);
     m.fog_density = j.value("fog_density", 0.025f);
     m.weather = j.value("weather", "");
+    m.sky_panorama = j.value("sky_panorama", "");
     if (j.contains("zones") && j["zones"].is_array()) {
         for (const auto& zj : j["zones"]) {
             MapZoneDef z;
@@ -1016,6 +1017,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
             z.music = zj.value("music", m.music);
             z.ambience = zj.value("ambience", m.ambience);
             z.weather = zj.value("weather", "");
+            z.sky_panorama = zj.value("sky_panorama", m.sky_panorama);
             z.sky_color = m.sky_color;
             if (zj.contains("sky_color") && zj["sky_color"].size() >= 3)
                 z.sky_color = {static_cast<unsigned char>(zj["sky_color"][0].get<int>()), static_cast<unsigned char>(zj["sky_color"][1].get<int>()),
@@ -1333,6 +1335,7 @@ bool ContentRegistry::ValidateAll(const std::string& rootDir) {
         CheckFileExists(rootDir, mp.ambience, "Map:" + id, "ambience");
         for (const auto& z : mp.zones) {
             if (!z.music.empty()) CheckFileExists(rootDir, z.music, "Map:" + id + "/Zone:" + z.id, "music");
+            if (!z.sky_panorama.empty()) CheckFileExists(rootDir, z.sky_panorama, "Map:" + id + "/Zone:" + z.id, "sky_panorama");
             if (!z.ambience.empty()) CheckFileExists(rootDir, z.ambience, "Map:" + id + "/Zone:" + z.id, "ambience");
             if (loc_strings.find(z.display_name_key) == loc_strings.end())
                 RecordIssue("Map:" + id + "/Zone:" + z.id, "display_name_key", "Missing localization string '" + z.display_name_key + "'");
