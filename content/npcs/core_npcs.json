@@ -9,8 +9,8 @@
       "dialogue_id": "core:dialogue.clerk_oakhaven",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/clerk_oakhaven.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/clerk_oakhaven_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -169,8 +169,8 @@
       "dialogue_id": "core:dialogue.innkeeper_marta",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/innkeeper_marta.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/innkeeper_marta_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.72
       },
       "barks": [
@@ -214,8 +214,8 @@
       "dialogue_id": "core:dialogue.librarian_fenwick",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/librarian_fenwick.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/librarian_fenwick_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.74
       },
       "barks": [
@@ -675,8 +675,8 @@
       "dialogue_id": "core:dialogue.erased_spirit",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/erased_spirit.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/erased_spirit_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [

@@ -371,7 +371,8 @@ werewolves, fantasy bestsellers), plus typical game bugs players complain about.
   `skeleton_128.json` for `core:enemy.grave_rat` and `core:enemy.restless_skeleton`; `crypt_keeper_painted.png`
   (Crypt Keeper, and the Lullaby Warden's `lullaby_warden_painted.png`, both on `crypt_keeper_128.json`) and
   `ash_crawler_painted.png` / `ash_crawler_128.json`; NPCs Kaelen (`ashbound_scout_painted.png`) and Brother Aldous
-  (`brother_aldous_painted.png`), both on `npc_standard_128.json`. The old generated sheets are kept; revert by pointing the
+  (`brother_aldous_painted.png`), Oakhaven, Marta, Fenwick and the Erased Spirit (`*_painted.png`), all on
+  `npc_standard_128.json`. The old generated sheets are kept; revert by pointing the
   creatures back at them. Blobs bigger than a cell (two figures touching) are split at their thinnest slice near the
   grid line.
 
