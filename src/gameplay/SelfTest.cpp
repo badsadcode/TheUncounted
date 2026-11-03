@@ -1670,6 +1670,37 @@ int GameEngine::RunSelfTest() {
         }
     }
 
+    // --- A map built in Blender (New Map): loads from mods/user_maps, invisible collision walls block, portals lead home
+    {
+        std::filesystem::create_directories("mods/user_maps/zz_selftest_map", ec);
+        {
+            std::ofstream f("mods/user_maps/zz_selftest_map/map.json");
+            f << R"({"schema_version": 1, "id": "user:map.zz_selftest", "display_name_key": "Selftest Map", "weather": "fireflies",
+                "spawns": {"start": {"pos": [0, 0, 0], "yaw_degrees": 0}},
+                "props": [{"id": "starter_floor", "model": "assets/models/env/floor_cobble.glb", "pos": [0, -0.5, 0], "scale": [20, 0.5, 20], "solid": false},
+                          {"id": "col_fence", "model": "assets/models/env/wall_stone.glb", "pos": [0, 0, 3], "scale": [10, 2, 0.5], "solid": true, "invisible": true}],
+                "lights": [{"pos": [0, 2.5, 0], "color": [1, 0.6, 0.3], "radius": 8}],
+                "npcs": [], "creatures": [], "interactables": [],
+                "portals": [{"id": "home", "pos": [0, 0, -4], "radius": 2.2, "prompt": "Back to Bellwether",
+                             "destination_map": "core:map.edrath", "destination_spawn": "village_gate"}]})";
+        }
+        const std::string homeMap = "core:map.edrath";
+        content_.LoadUserMaps(".");
+        std::filesystem::remove_all("mods/user_maps/zz_selftest_map", ec);
+        const MapDef* um = content_.GetMap("user:map.zz_selftest");
+        check(um != nullptr && um->props.size() == 2 && um->portals.size() == 1, "a map built in Blender loads from mods/user_maps");
+        if (um) {
+            LoadMap(um->id, "start");
+            bool hidden = false;
+            for (const auto& pi : scene_.props) if (pi.id == "col_fence") hidden = pi.invisible && pi.solid;
+            check(scene_.map == um && hidden, "your map is entered and its COL box is an invisible solid wall");
+            const Vector3 stopped = walk({0, 0, 0}, {0, 0, 6});
+            check(stopped.z < 2.8f, "the invisible wall stops the player (z=" + std::to_string(stopped.z) + ")");
+            standAndUse({0, 0, -4}, 0.0f, 0.0f);
+            check(scene_.map && scene_.map->id == homeMap, "the portal in your map leads back to Bellwether");
+        }
+    }
+
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
     Logger::Info("Self-test finished with " + std::to_string(failures) + " failure(s).");

@@ -221,6 +221,7 @@ bool ContentRegistry::LoadAllContent(const std::string& rootDir, const std::vect
     for (const auto& modRel : extraModManifests) {
         LoadManifestFile(rootDir, modRel);
     }
+    LoadUserMaps(rootDir);    // maps you built in Blender (New Map): mods/user_maps/<name>/map.json, always on
     ApplyMapEdits(rootDir);   // your own Blender edits: always on (delete mods/level_edits/map_edits.json to undo them)
 
     Logger::Info("Loaded " + std::to_string(items.size()) + " items, " +
@@ -1052,6 +1053,17 @@ static MapInteractableDef InteractableFromJson(const json& ij) {
     return in;
 }
 
+static MapPortalDef PortalFromJson(const json& pj) {
+    MapPortalDef pt;
+    pt.id = pj.value("id", "");
+    pt.pos = JsonToVec3(pj["pos"]);
+    pt.radius = pj.value("radius", 2.2f);
+    pt.prompt = pj.value("prompt", "Travel");
+    pt.destination_map = pj.value("destination_map", "");
+    pt.destination_spawn = pj.value("destination_spawn", "");
+    return pt;
+}
+
 static MapPropDef PropFromJson(const json& pj) {
     MapPropDef p;
     p.id = pj.value("id", "");
@@ -1063,6 +1075,7 @@ static MapPropDef PropFromJson(const json& pj) {
         p.uv_scale = {pj["uv_scale"][0].get<float>(), pj["uv_scale"][1].get<float>()};
     }
     p.solid = pj.value("solid", true);
+    p.invisible = pj.value("invisible", false);
     p.ramp_dir = pj.value("ramp", "");
     if (pj.contains("emitter") && pj["emitter"].is_object()) {
         const auto& ej = pj["emitter"];
@@ -1078,6 +1091,16 @@ static MapPropDef PropFromJson(const json& pj) {
 // Level edits made in Blender (tools/blender/uncounted_level_editor.py): every mods/<name>/map_edits.json, in
 // alphabetical order, modifies/adds/removes props and moves NPCs, creatures and objects of one map. Kept out of the
 // generated level files so rebuilding the world never overwrites them.
+void ContentRegistry::LoadUserMaps(const std::string& rootDir) {
+    std::error_code uec;
+    std::vector<std::string> userMaps;
+    for (const auto& e : fs::directory_iterator(fs::path(rootDir) / "mods" / "user_maps", uec))
+        if (e.is_directory() && fs::exists(e.path() / "map.json"))
+            userMaps.push_back("mods/user_maps/" + e.path().filename().string() + "/map.json");
+    std::sort(userMaps.begin(), userMaps.end());
+    for (const auto& um : userMaps) { Logger::Info("Loading your map: " + um); LoadMapFile(rootDir, um); }
+}
+
 void ContentRegistry::ApplyMapEdits(const std::string& rootDir) {
     std::vector<fs::path> files;
     std::error_code ec;
@@ -1142,6 +1165,23 @@ void ContentRegistry::ApplyMapEdits(const std::string& rootDir) {
         removeSet("npcs", m.npcs, NpcSpawnFromJson);
         removeSet("creatures", m.creatures, CreatureSpawnFromJson);
         removeSet("interactables", m.interactables, InteractableFromJson);
+        if (j.contains("portals")) {
+            const json& kj = j["portals"];
+            if (kj.contains("remove"))
+                for (const auto& id : kj["remove"]) {
+                    std::string sid = id.get<std::string>();
+                    m.portals.erase(std::remove_if(m.portals.begin(), m.portals.end(), [&](const MapPortalDef& p) { return p.id == sid; }), m.portals.end());
+                    changed++;
+                }
+            if (kj.contains("set"))
+                for (const auto& def : kj["set"]) {
+                    MapPortalDef pt = PortalFromJson(def);
+                    bool replaced = false;
+                    for (auto& old : m.portals) if (old.id == pt.id) { old = pt; replaced = true; }
+                    if (!replaced) m.portals.push_back(pt);
+                    changed++;
+                }
+        }
         auto moveAll = [&](const char* key, auto& list, auto apply) {
             if (!j.contains(key) || !j[key].contains("modify")) return;
             for (const auto& [id, mod] : j[key]["modify"].items())
@@ -1275,13 +1315,7 @@ void ContentRegistry::LoadMapFile(const std::string& rootDir, const std::string&
 
     if (j.contains("portals")) {
         for (const auto& pj : j["portals"]) {
-            MapPortalDef pt;
-            pt.id = pj.value("id", "");
-            pt.pos = JsonToVec3(pj["pos"]);
-            pt.radius = pj.value("radius", 2.2f);
-            pt.prompt = pj.value("prompt", "Travel");
-            pt.destination_map = pj.value("destination_map", "");
-            pt.destination_spawn = pj.value("destination_spawn", "");
+            MapPortalDef pt = PortalFromJson(pj);
             m.portals.push_back(pt);
         }
     }

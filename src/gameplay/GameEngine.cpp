@@ -703,6 +703,7 @@ void GameEngine::BuildScene() {
         pi.world_box = TransformBox(lb, pi.transform);
         pi.collider = pi.world_box;
         pi.solid = p.solid;
+        pi.invisible = p.invisible;
         float h = pi.world_box.max.y - pi.world_box.min.y;
         pi.walkable = !p.solid && h <= 0.7f && p.ramp_dir.empty();
         if (p.ramp_dir == "+x") pi.ramp_axis = 1;

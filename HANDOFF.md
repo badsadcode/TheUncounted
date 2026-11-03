@@ -382,6 +382,12 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   `solid`/`uv_scale`. The add-on shows doors/chests as their models with editable `game_*` custom properties (types kept
   in `unc_types`), has templates in the palette, and bakes user-made meshes to `mods/level_edits/models/*.glb`
   (world-space, origin at the bottom-centre). Tested headless: an untouched import exports nothing; round trips are stable.
+  v3 (new maps): `ContentRegistry::LoadUserMaps` loads every `mods/user_maps/<slug>/map.json` (id `user:map.<slug>`, a
+  full map file) before the edits are applied; portals can be `set`/`remove`d by edits too. Props take `invisible: true`
+  (collision only, not drawn): the add-on exports meshes named `COL*` as stretched invisible `wall_stone.glb` boxes. Own
+  meshes carry `uncounted_solid`, `uncounted_ramp` and `uncounted_tile` (box-projected UVs, one repeat per N metres);
+  Blender POINT lights become map lights (radius = W / 60) in New Map mode only. Selftest builds a tiny user map, walks
+  into its invisible wall and takes its portal home.
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

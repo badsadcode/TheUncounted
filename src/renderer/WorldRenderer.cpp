@@ -346,7 +346,7 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
     ApplyEnvironment(world_shader_, wl_, view, map, true);
 
     // --- Static architecture & props
-    for (const auto& p : scene.props) DrawModelAt(p.model_path, p.transform, p.uv_scale);
+    for (const auto& p : scene.props) if (!p.invisible) DrawModelAt(p.model_path, p.transform, p.uv_scale);
 
     // --- Interactables
     Vector2 one = {1, 1};

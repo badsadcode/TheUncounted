@@ -462,6 +462,7 @@ struct MapPropDef {
     Vector3 scale = {1.0f, 1.0f, 1.0f};
     Vector2 uv_scale = {1.0f, 1.0f};
     bool solid = true;
+    bool invisible = false;  // collision-only piece (a level editor's invisible wall/floor): never drawn
     // Optional animated emitter (flame sprite + point light) attached to the prop, offset in prop-local space.
     std::string ramp_dir;  // walkable slope rising toward "+x", "-x", "+z" or "-z" (stairs)
     std::string emitter_sprite;

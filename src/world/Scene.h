@@ -17,6 +17,7 @@ struct PropInstance {
     BoundingBox collider{};
     bool solid = false;
     bool walkable = false; // flat slab the player can stand on
+    bool invisible = false; // collision only, not drawn
     int ramp_axis = 0;     // 0 none; 1 rises toward +x, 2 -x, 3 +z, 4 -z
 };
 
