@@ -208,3 +208,13 @@ Only Grout's lines need recording (the other parts are someone else's), but here
 - *KAELEN: I'm writing a chronicle of this journey. Anything you want recorded?*
 - `comp.grout.banter.kaelen_chronicle.1` **GROUT:** Hit things.
 - *KAELEN: ...I'll paraphrase.*
+
+## Added later
+
+**`dlg.dp.grout.dp_wit`** (The Dragon's Pension: witnessing the dragon)
+
+> "It sat on my roof. For an hour."
+>
+> A long pause.
+>
+> "Roof's fine." Grout signs with one stone fingertip, carving it into the paper. "Alive."
