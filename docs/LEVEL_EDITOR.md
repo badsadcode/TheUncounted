@@ -131,8 +131,12 @@ You can delete the game's ground, walls, buildings and stairs (in **Uncounted Wo
 - **Keep the ground at the old heights** (Bellwether, the road, the docks and the woods at 0; the Registry Annex at −4.8;
   Vault Three at −10.4), or move the things standing on it. Characters, monsters, chests and spawn points keep their
   heights.
-- **Stairs**: either one sloped mesh with **Ramp** set (and Solid off), or real steps no taller than 0.45 m each (the
-  shape-fitting collision makes each step something to stand on).
+- **Ramps and stairs**, three ways:
+  - **Any sloped shape, left Solid** (diagonal ramps, hills, curved paths): the shape-fitting collision turns the slope
+    into small steps (at most 0.2 m) that you walk up. Tested: a ramp turned 35° rising 2 m walks all the way up.
+  - **Real steps** of any layout, spiral stairs included: each step at most 0.45 m high and at least **0.65 m deep**
+    where people walk (the player is 0.64 m wide and would touch the step after next on narrower steps).
+  - **The Ramp setting** (Solid off): the smoothest walk, for straight slopes that rise along X or Y.
 - **Buildings** can be one mesh each, overlapping boxes included: collision follows the shape, so doorways and rooms stay
   open. Make doorways at least 1.2 m wide (the player is 0.64 m wide). Very big meshes (over about 15 m) get a coarser
   collision grid, so split huge things into a few objects, and keep floors separate objects for exact floor heights.

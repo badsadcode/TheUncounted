@@ -409,6 +409,9 @@ Authoring script `tools/authoring/figure_it_out.py` (archive, already ran, do no
   whose UVs differ from the original (`unc_uvhash`) export with `uv_scale` [1, 1].
   Tested headless on Blender 4.0.2 (`blender -b --python`) and 5.1.1 (`pip install bpy==5.1.1` in a venv, then
   `python script.py`): Toasty uses 5.1.
+  v4.4: fit collision is built in world directions (object rotation and scale applied, boxes rot_y 0, matching the
+  engine's world AABBs) with cells at most 0.2 m tall, so any slope becomes walkable steps (diagonal 35° ramp: 264 boxes,
+  walked to the top in a simulation of MoveWithCollision/GroundHeight; spiral stairs need >= 0.65 m step depth).
 - **Sprite packages:** `tools/import_package.py` (dry run, then `--apply`) imports a whole folder/zip of sheets.
 
 ### World textures (Noor's set, added 2026-11-03)

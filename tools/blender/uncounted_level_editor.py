@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 3, 0),
+    "version": (4, 4, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -657,7 +657,7 @@ def export_local_glb(me, gdir, rel):
 
 
 def fit_boxes(o, max_boxes=400):
-    """Collision that follows the shape. Each loose part of the mesh is filled with a fine grid (a cell counts when its
+    """Collision that follows the shape (also slopes: they become steps under 0.2 m). Each loose part of the mesh is filled with a fine grid (a cell counts when its
     centre is inside or a surface passes through it, so thin walls are caught) and the filled cells are merged into as
     few boxes as possible. Boxes are (min, max) in the object's scaled
     space (location and turn not applied). None means one box around everything will do."""
@@ -665,7 +665,9 @@ def fit_boxes(o, max_boxes=400):
     from mathutils.bvhtree import BVHTree
     bm = bmesh.new()
     bm.from_mesh(o.data)
-    bmesh.ops.scale(bm, vec=o.scale, verts=bm.verts)
+    # Turned and scaled like the object but not moved: the game's collision boxes are straight (world-aligned), so build
+    # them in world directions. A diagonal ramp becomes small, exact steps instead of oversized turned boxes.
+    bmesh.ops.transform(bm, matrix=o.matrix_world.to_3x3().to_4x4(), verts=bm.verts)
     bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-4)   # models split vertices at texture seams: weld them back
     left_faces, islands = set(bm.faces), []
     while left_faces:
@@ -690,9 +692,10 @@ def fit_boxes(o, max_boxes=400):
         size = hi - lo
         reach = size.length + 1.0
         cell = max(0.12, max(size) / 120.0)
-        while math.prod(max(1, math.ceil(size[i] / cell)) for i in range(3)) > 150000:
+        up = min(cell, 0.2)                            # never taller than 0.2 m: slopes become steps you walk up
+        while math.ceil(size.x / cell) * math.ceil(size.y / cell) * math.ceil(size.z / up) > 200000:
             cell *= 1.25
-        n = [max(1, math.ceil(size[i] / cell - 1e-6)) for i in range(3)]
+        n = [max(1, math.ceil(size.x / cell - 1e-6)), max(1, math.ceil(size.y / cell - 1e-6)), max(1, math.ceil(size.z / up - 1e-6))]
         step = [size[i] / n[i] for i in range(3)]
         near = 0.5 * max(step)
         dirs = [Vector(d) for d in ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))]
@@ -749,19 +752,17 @@ def fit_boxes(o, max_boxes=400):
 
 
 def fit_props(o, pid):
-    """Invisible solid boxes for a mesh's collision, placed and turned like the object. [] when one box will do."""
+    """Invisible solid boxes for a mesh's collision, straight (world-aligned) like all the game's collision. [] when one
+    box will do."""
     if not o.uncounted_fit:
         return []
     boxes = fit_boxes(o)
     if not boxes:
         return []
-    rz = o.rotation_euler.z
-    rot = round(math.degrees(rz), 2) + 0.0
     out = []
     for i, (mn, mx) in enumerate(boxes):
         c = Vector(((mn.x + mx.x) / 2, (mn.y + mx.y) / 2, mn.z))
-        c.rotate(o.rotation_euler.to_matrix())
-        out.append({"id": f"{pid}__fit{i + 1}", "model": BOX_MODEL, "pos": to_game(o.matrix_world.translation + c), "rot_y": rot,
+        out.append({"id": f"{pid}__fit{i + 1}", "model": BOX_MODEL, "pos": to_game(o.matrix_world.translation + c), "rot_y": 0.0,
                     "scale": [round(mx.x - mn.x, 3), round(mx.z - mn.z, 3), round(mx.y - mn.y, 3)], "solid": True, "invisible": True})
     return out
 
