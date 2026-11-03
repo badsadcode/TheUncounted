@@ -1017,8 +1017,8 @@
       "dialogue_id": "core:dialogue.vampire_ashgrave",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/vampire_ashgrave.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/vampire_ashgrave_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.76
       },
       "barks": [
@@ -1041,8 +1041,8 @@
       "dialogue_id": "core:dialogue.werewolf_rolf",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/werewolf_rolf.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/werewolf_rolf_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.95
       },
       "barks": [

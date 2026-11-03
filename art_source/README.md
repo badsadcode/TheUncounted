@@ -44,6 +44,10 @@ stagger/corpse; black background). The game uses the converted 128 px sheets in 
 | `spritesheets/tide_priest.webp` | `assets/sprites/npcs/tide_priest_painted.png` | The Tide Priest |
 | `spritesheets/trout.webp` | `assets/sprites/npcs/trout_painted.png` | Trout |
 | `spritesheets/truffle_hog.webp` | `assets/sprites/enemies/truffle_hog_painted.png` | Truffle Hog |
+| `spritesheets/vampire_ashgrave.webp` | `assets/sprites/npcs/vampire_ashgrave_painted.png` | Lord Ashgrave |
+| `spritesheets/wailing_footman.webp` | `assets/sprites/enemies/wailing_footman_painted.png` | Wailing Footman |
+| `spritesheets/werewolf_rolf.webp` | `assets/sprites/npcs/werewolf_rolf_painted.png` | Rolf |
+| `spritesheets/wrathful_host.webp` | `assets/sprites/enemies/wrathful_host_painted.png` | The Wrathful Host |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

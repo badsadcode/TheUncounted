@@ -8,14 +8,6 @@ Write the 8 directions turning the same way as the earlier sheets (front, then t
 
 Suggested order: the characters Toasty spends the most time with first.
 
-## Hollowmere Manor
-| File | Who | Notes |
-|---|---|---|
-| `werewolf_rolf.png` | **Rolf** | Huge shaggy werewolf-man, golden eyes, no shirt, gardener with a trowel. Gentle. |
-| `vampire_ashgrave.png` | **Lord Ashgrave** | Pale brooding young vampire, long black coat, blood-red cloak lining, skin that glitters faintly. |
-| `wrathful_host.png` | **The Wrathful Host** (boss) | Same ghost as Percival but furious: red, flaring, floating robes. |
-| `wailing_footman.png` | **Wailing Footman** (enemy) | Ghostly servant in old livery, pale blue, mouth open in a wail. |
-
 ## The Figure It Out Gang (Toasty's mystery-gang spinoff)
 Placeholder sheets rendered by `tools/build_sprites_prerendered.py`. Same 8x6 layout.
 | File | Who | Notes |

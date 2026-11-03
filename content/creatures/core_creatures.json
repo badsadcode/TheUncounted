@@ -477,8 +477,8 @@
       "name_key": "enemy.wailing_footman.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/wailing_footman.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/wailing_footman_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 1.8
       },
       "stats": {
@@ -576,8 +576,8 @@
       "name_key": "enemy.wrathful_host.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/wrathful_host.png",
-        "animation_data": "assets/animations/crypt_keeper.json",
+        "sprite_sheet": "assets/sprites/enemies/wrathful_host_painted.png",
+        "animation_data": "assets/animations/crypt_keeper_128.json",
         "scale": 2.1
       },
       "stats": {
