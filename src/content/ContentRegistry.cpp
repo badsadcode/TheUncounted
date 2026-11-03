@@ -929,6 +929,8 @@ void ContentRegistry::LoadDialoguesFile(const std::string& rootDir, const std::s
                                 cond.value = condj.value("value", 0);
                                 cond.flag = condj.value("flag", "");
                                 if (condj.contains("flags")) cond.flags = condj["flags"].get<std::vector<std::string>>();
+                                cond.hour_from = condj.value("from", 0.0f);
+                                cond.hour_to = condj.value("to", 0.0f);
                                 dc.conditions.push_back(cond);
                             }
                         }
@@ -1063,6 +1065,11 @@ static MapInteractableDef InteractableFromJson(const json& ij) {
     in.station = ij.value("station", "");
     in.requires_flag = ij.value("requires_flag", "");
     in.hidden_flag = ij.value("hidden_flag", "");
+    if (ij.contains("hours") && ij["hours"].is_array() && ij["hours"].size() == 2) {
+        in.hours_from = ij["hours"][0].get<float>();
+        in.hours_to = ij["hours"][1].get<float>();
+    }
+    in.travel_spawn = ij.value("travel_spawn", "");
     if (ij.contains("narration") && ij["narration"].is_array())
         for (const auto& nk : ij["narration"]) in.narration_keys.push_back(nk.get<std::string>());
     return in;

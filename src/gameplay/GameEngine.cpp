@@ -1381,7 +1381,7 @@ float GameEngine::GearBonus(const std::string& key) const {
     for (const auto& [slot, id] : player_.equipment)
         if (const ItemDef* d = content_.GetItem(id))
             for (const auto& e : d->effects)
-                if (e.type == "bonus" && e.stat == key) v += e.value;
+                if (e.stat == key && (e.type == "bonus" || (e.type == "bonus_night" && Daylight() < 0.3f))) v += e.value;
     return v;
 }
 float GameEngine::BuffBonus(const std::string& key) const {
@@ -2446,6 +2446,14 @@ void GameEngine::ApplyStatus(CreatureInstance& c, const std::string& status, flo
         c.confuse_time = std::max(c.confuse_time, duration);
         c.wander_timer = 0.0f;
         SpawnBurst(mid, Color{220, 140, 255, 255}, 16, 1.5f, true, -0.5f, 0.05f);
+    } else if (status == "forget") {
+        // Unsay: it forgets it ever saw you, and can't see you again for a while.
+        if (boss) duration *= 0.4f;
+        c.forget_time = std::max(c.forget_time, duration);
+        c.alerted = false;
+        c.foe = -1;
+        SpawnBurst(mid, Color{200, 200, 230, 255}, 18, 1.4f, true, -0.4f, 0.05f);
+        Toast(content_.Tr(c.def->name_key) + " forgets you were ever here", Color{210, 210, 240, 255});
     } else if (status == "charm") {
         if (boss) { Toast(content_.Tr(c.def->name_key) + " is not that easily won over.", Color{255, 180, 200, 255}); return; }
         c.charm_time = std::max(c.charm_time, duration);
@@ -2606,6 +2614,7 @@ void GameEngine::UpdateCreatureStatus(CreatureInstance& c, float dt) {
     }
     if (c.charm_time > 0.0f && RandF() < dt * 2.5f)
         SpawnBurst({c.pos.x, c.pos.y + c.height + 0.15f, c.pos.z}, Color{255, 130, 200, 255}, 1, 0.6f, true, -0.4f, 0.06f);
+    if (c.forget_time > 0.0f) c.forget_time -= dt;
     if (c.charm_time > 0.0f && (c.charm_time -= dt) <= 0.0f) {
         c.alerted = true;  // the spell wears off; it remembers who did it
         c.last_known = player_.pos;
@@ -2858,7 +2867,7 @@ void GameEngine::UpdateCreatures(float dt) {
         float sight = d.sight_meters * vis * (night_outdoors_ ? 0.75f : 1.0f);   // night outdoors: easier to sneak
         bool inCone = c.alerted ? true : facingDiff < 70.0f * DEG2RAD;
         if (c.ink_time > 0.0f) sight = std::min(sight, 2.5f);  // inked: can barely see past its own nose
-        bool canSee = dist < sight && inCone && LineOfSight(eye, playerEye);
+        bool canSee = dist < sight && inCone && c.forget_time <= 0.0f && LineOfSight(eye, playerEye);
         bool heard = dist < d.hearing_meters * noise && LineOfSight(eye, playerEye);
         if (!canSee && dist < 1.6f) canSee = true; // bumping into someone is hard to miss
         bool boss = d.behavior.find("boss") != std::string::npos;
@@ -3092,7 +3101,8 @@ void GameEngine::UpdateWorldObjects(float dt) {
     bool visibilityChanged = false;
     for (auto& in : scene_.interactables) {
         const bool h = (!in.def.requires_flag.empty() && !player_.flags.count(in.def.requires_flag)) ||
-                       (!in.def.hidden_flag.empty() && player_.flags.count(in.def.hidden_flag));
+                       (!in.def.hidden_flag.empty() && player_.flags.count(in.def.hidden_flag)) ||
+                       !InHours(in.def.hours_from, in.def.hours_to);
         if (h != in.hidden) visibilityChanged = true;
         in.hidden = h;
     }
@@ -3205,7 +3215,7 @@ void GameEngine::UpdateInteractTarget() {
         } else if (d.type == "chest") {
             if (in.locked) prompt = std::string("Locked Chest (") + (CountItem("core:item.lockpick") > 0 ? "pick lock, difficulty " + std::to_string(d.lock_difficulty) : "needs lockpick") + ")";
             else prompt = in.used ? "Search Chest" : "Open Chest";
-        } else if (d.type == "readable" || d.type == "lever") {
+        } else if (d.type == "readable" || d.type == "lever" || d.type == "travel") {
             prompt = d.prompt;
         } else if (d.type == "quest_pedestal") {
             if (in.used) continue;
@@ -3360,6 +3370,15 @@ void GameEngine::Interact() {
         else if (!d.quest_id.empty() && d.set_stage == 0 && QuestStage(d.quest_id) < 0) SetQuestStage(d.quest_id, 0);
         // A readable with narration plays it as a story scene instead of a page (e.g. a mystery gang's trap going wrong).
         if (!d.narration_keys.empty()) StartNarration(d.narration_keys);
+    } else if (d.type == "travel") {
+        // A road, a path, a boat: walk on to a spawn in the same map, optionally moving a quest on and telling the story.
+        if (!d.set_flag.empty()) player_.flags.insert(d.set_flag);
+        if (!d.quest_id.empty() && QuestStage(d.quest_id) < d.set_stage) SetQuestStage(d.quest_id, d.set_stage);
+        DialogueAction go;
+        go.type = "travel";
+        go.spawn = d.travel_spawn;
+        ExecAction(go, "");
+        if (!d.narration_keys.empty()) StartNarration(d.narration_keys);
     } else if (d.type == "lever") {
         in.open = !in.open;
         if (in.open) ps.open.insert(d.instance_id); else ps.open.erase(d.instance_id);
@@ -3444,6 +3463,8 @@ bool GameEngine::EvalCondition(const DialogueCondition& c) const {
     if (c.type == "has_item") return CountItem(c.item_id) > 0;
     if (c.type == "item_not_held") return CountItem(c.item_id) == 0;
     if (c.type == "race_is") return player_.race_id == c.race_id;
+    if (c.type == "hour_between") return InHours(c.hour_from, c.hour_to);
+    if (c.type == "not_hour_between") return !InHours(c.hour_from, c.hour_to);
     if (c.type == "skill_at_least") return SkillLevel(c.skill) >= c.value;
     if (c.type == "flag_set") return player_.flags.count(c.flag) > 0;
     if (c.type == "flag_not_set") return player_.flags.count(c.flag) == 0;
@@ -4164,7 +4185,7 @@ std::vector<std::string> GameEngine::PortraitChoices(const RaceDef& r, const Arc
         if (file(p).rfind(both, 0) == 0) out.push_back(p);
     for (const auto& p : content_.portraits)
         if (file(p).rfind(race + "_", 0) == 0 && std::find(out.begin(), out.end(), p) == out.end()) out.push_back(p);
-    if (!r.portrait.empty() && std::find(out.begin(), out.end(), r.portrait) == out.end()) out.push_back(r.portrait);
+    if (out.empty() && !r.portrait.empty()) out.push_back(r.portrait);   // the old placeholder, until the race has painted ones
     return out;
 }
 

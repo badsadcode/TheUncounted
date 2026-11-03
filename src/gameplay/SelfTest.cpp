@@ -61,9 +61,12 @@ int GameEngine::RunSelfTest() {
         content_.portraits = {"assets/ui/portraits/elf_mage_1.png", "assets/ui/portraits/human_mage_1.png",
                               "assets/ui/portraits/human_warrior_1.png", "assets/ui/portraits/human_warrior_2.png"};
         auto c = PortraitChoices(content_.races[0], content_.archetypes[0]);
-        check(c.size() == 4 && c[0] == "assets/ui/portraits/human_warrior_1.png" && c[1] == "assets/ui/portraits/human_warrior_2.png" &&
-                  c[2] == "assets/ui/portraits/human_mage_1.png" && c[3] == content_.races[0].portrait,
-              "portrait picker: race and calling first, then the race's other portraits, then its default");
+        check(c.size() == 3 && c[0] == "assets/ui/portraits/human_warrior_1.png" && c[1] == "assets/ui/portraits/human_warrior_2.png" &&
+                  c[2] == "assets/ui/portraits/human_mage_1.png",
+              "portrait picker: race and calling first, then the race's other portraits");
+        content_.portraits = {};
+        c = PortraitChoices(content_.races[0], content_.archetypes[0]);
+        check(c.size() == 1 && c[0] == content_.races[0].portrait, "a race without painted portraits shows its placeholder");
         content_.portraits = saved;
     }
 

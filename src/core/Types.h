@@ -379,6 +379,7 @@ struct DialogueCondition {
     int value = 0;
     std::string flag;
     std::vector<std::string> flags;   // flags_at_least: at least `value` of these are set
+    float hour_from = 0.0f, hour_to = 0.0f;   // hour_between: the time of day (wraps past midnight)
 };
 
 struct DialogueAction {
@@ -533,6 +534,8 @@ struct MapInteractableDef {
     std::string station;                     // station: which recipes it crafts (alchemy, workbench)
     std::string requires_flag;               // only present once this story flag is set (clues that appear with a case)
     std::string hidden_flag;                 // gone once this flag is set
+    float hours_from = -1.0f, hours_to = -1.0f;   // only there between these hours (e.g. the dusk milestone); -1 = always
+    std::string travel_spawn;                // type "travel": walk on to this spawn in the same map (a road, a boat)
 };
 
 struct RecipeDef {
