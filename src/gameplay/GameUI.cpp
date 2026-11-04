@@ -549,12 +549,38 @@ void GameEngine::DrawTitle() {
                    {bg.width * s * 0.53f, bg.height * s * 0.53f}, 0, WHITE);
     DrawRectangleGradientV(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 60}, Color{0, 0, 0, 200});
 
-    std::string title = content_.Tr("game.title");
-    Text(title, VW * 0.5f - TextWidth(title, 76) * 0.5f, VH * 0.14f, 76, kGold);
+    float subY = VH * 0.14f + 88;
+    const char* logoPath = "assets/ui/panels/title_logo.png";
+    if (res_.Exists(logoPath)) {
+        // The painted logo: smoothly scaled (it's drawn much smaller than painted), with its lantern glowing.
+        Texture2D logo = res_.GetTexture(logoPath);
+        static unsigned smoothed = 0;
+        if (smoothed != logo.id) { GenTextureMipmaps(&logo); SetTextureFilter(logo, TEXTURE_FILTER_TRILINEAR); smoothed = logo.id; }
+        float lw = std::min(VW * 0.5f, 760.0f), lh = lw * logo.height / logo.width;
+        Rectangle dst = {(VW * 0.5f - lw * 0.5f) * u, VH * 0.06f * u, lw * u, lh * u};
+        float flick = 0.75f + 0.15f * sinf(time_ * 7.3f) + 0.1f * sinf(time_ * 17.1f);
+        Vector2 lamp = {dst.x + dst.width * 0.3415f, dst.y + dst.height * 0.422f};
+        BeginBlendMode(BLEND_ADDITIVE);
+        for (int k = 3; k >= 1; k--)
+            DrawCircleGradient(static_cast<int>(lamp.x), static_cast<int>(lamp.y), dst.height * 0.16f * k * flick,
+                               Color{255, 170, 70, static_cast<unsigned char>(28 * flick)}, Color{255, 140, 40, 0});
+        EndBlendMode();
+        DrawTexturePro(logo, {0, 0, static_cast<float>(logo.width), static_cast<float>(logo.height)}, dst, {0, 0}, 0, WHITE);
+        subY = VH * 0.06f + lh + 6;
+    } else {
+        std::string title = content_.Tr("game.title");
+        Text(title, VW * 0.5f - TextWidth(title, 76) * 0.5f, VH * 0.14f, 76, kGold);
+    }
+    {   // a soft dark band so the small text reads over a busy painting
+        float bandW = std::min(VW * 0.8f, 900.0f), x0 = VW * 0.5f - bandW * 0.5f, y0 = subY - 8, h = 78;
+        Color c0{0, 0, 0, 0}, c1{0, 0, 0, 150};
+        DrawRectangleGradientH(static_cast<int>(x0 * u), static_cast<int>(y0 * u), static_cast<int>(bandW * 0.5f * u), static_cast<int>(h * u), c0, c1);
+        DrawRectangleGradientH(static_cast<int>(VW * 0.5f * u), static_cast<int>(y0 * u), static_cast<int>(bandW * 0.5f * u), static_cast<int>(h * u), c1, c0);
+    }
     std::string sub = content_.Tr("game.subtitle");
-    Text(sub, VW * 0.5f - TextWidth(sub, 28) * 0.5f, VH * 0.14f + 88, 28, kText);
+    Text(sub, VW * 0.5f - TextWidth(sub, 28) * 0.5f, subY, 28, kText);
     std::string quote = content_.Tr("game.quote");
-    Text(quote, VW * 0.5f - TextWidth(quote, 17) * 0.5f, VH * 0.14f + 130, 17, kDim);
+    Text(quote, VW * 0.5f - TextWidth(quote, 17) * 0.5f, subY + 42, 17, kDim);
 #ifndef UNCOUNTED_BUILD
 #define UNCOUNTED_BUILD "dev"
 #endif
