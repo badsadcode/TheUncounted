@@ -18284,6 +18284,14 @@
               ]
             },
             {
+              "text_key": "dlg.dunstan.root.c_mate",
+              "next": "mate"
+            },
+            {
+              "text_key": "dlg.dunstan.root.c_home",
+              "next": "home"
+            },
+            {
               "text_key": "dlg.dunstan.root.c6",
               "next": "END"
             }
@@ -18366,6 +18374,103 @@
             },
             {
               "type": "dismiss_companion"
+            }
+          ]
+        },
+        "mate": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.mate",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.mate.c0",
+              "next": "mate_share",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "dunstan_mate_shared"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dunstan.mate.c1",
+              "next": "mate_again",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dunstan_mate_shared"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dunstan.mate.c2",
+              "next": "root"
+            }
+          ]
+        },
+        "mate_share": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.mate_share",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.mate_share.c0",
+              "next": "mate_thanks"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dunstan_mate_shared",
+              "value": true
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.dunstan_mate",
+              "qty": 3
+            }
+          ]
+        },
+        "mate_thanks": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.mate_thanks",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.mate_thanks.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "mate_again": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.mate_again",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.mate_again.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "heal_player"
+            }
+          ]
+        },
+        "home": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.home",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.home.c0",
+              "next": "home_friends"
+            }
+          ]
+        },
+        "home_friends": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.home_friends",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.home_friends.c0",
+              "next": "root"
             }
           ]
         }

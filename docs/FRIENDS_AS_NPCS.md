@@ -8,7 +8,7 @@ Whistling Wood, Dunstan practises in the square. Eranu and Coth join after the q
 |---|---|
 | **Coth** (Cothfotmeoo) | Looks like a castaway lost a thousand years ago: scruffy, skinny, long dark hair, a long heavy black beard. A warrior who is usually missing his trousers (from the group's zombie-survival games, where he loses them often, winter included); he. |
 | **Eranu** | From Scotland. A brave, smart blonde warrior; she. |
-| **Dunstan** | Young warrior with a giant, heavy sword; he. |
+| **Dunstan** | Young warrior with a giant, heavy sword; he. From Uruguay (in game: the Eastern Shore): mate, asado, ¡Vamos!. Supports every stream. |
 
 ## In-jokes
 - Coth and Eranu joke that Coth is Eranu's waifu. She sometimes calls him **Cothepoo**.

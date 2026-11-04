@@ -330,6 +330,13 @@ def humanoid(style, row, col_dir=0):
         prims.append(capsule(v3(0, 0.56 + bob, 0), v3(0.02 * walk, 0.36, 0), 0.105, kilt_m, 0.15))
     if style.get("undies"):  # no trousers: just the essentials
         prims.append(ellipsoid(v3(0, 0.5 + bob, 0), (0.1, 0.06, 0.075), M(style["undies"])))
+    if style.get("mate"):  # a mate gourd hanging at the left hip, metal straw (bombilla) sticking out
+        gourd = Mat(style["mate"])
+        silver = Mat((200, 204, 212), shine=1.0)
+        g = v3(0.15, 0.5 + bob, 0.05)
+        prims.append(ellipsoid(g, (0.048, 0.056, 0.048), gourd))
+        prims.append(capsule(g + v3(0, 0.04, 0), g + v3(0, 0.052, 0), 0.034, Mat(shade(style["mate"], 0.7))))
+        prims.append(capsule(g + v3(0.0, 0.03, 0.0), g + v3(0.016, 0.12, -0.008), 0.008, silver, 0.006))
     if style.get("apron"):
         prims.append(box(v3(0, 0.45, 0.075), (0.085, 0.16, 0.008), trim_m, rnd=0.01))
 
@@ -1073,7 +1080,7 @@ SHEETS = {
     },
     "assets/sprites/npcs/friend_dunstan.png": {  # young, keen, and the sword is enormous
         "kind": "humanoid", "body": (226, 192, 164), "armor": (140, 146, 156), "legs": (70, 62, 54), "cloak": (120, 40, 36),
-        "trim": (190, 190, 200), "hair": (120, 80, 44), "weapon": "greatsword", "eye": (60, 80, 60),
+        "trim": (190, 190, 200), "hair": (120, 80, 44), "weapon": "greatsword", "eye": (60, 80, 60), "mate": (150, 104, 60),
     },
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),

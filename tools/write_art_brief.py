@@ -78,7 +78,7 @@ CHAPTER_ONE = [
 FRIENDS = [
     ("friend_eranu.png", "Eranu, Shieldmaiden of the Glens", "A tall, broad-shouldered Scottish warrior woman: long blonde braid, green tartan kilt, blue-grey tunic, round wooden targe (shield) and a sword. Brave and clever; confident, a little amused. She."),
     ("friend_coth.png", "Coth (Cothfotmeoo)", "Looks like a castaway lost for a thousand years: skinny, scruffy, long dark hair down his back, a long heavy black beard to his belt, a ragged tunic, and NO TROUSERS (bare legs, bare feet; plain undershorts). Carries a sword. Cheerful, slightly unhinged. He."),
-    ("friend_dunstan.png", "Dunstan, Nearly a Squire", "A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. He."),
+    ("friend_dunstan.png", "Dunstan, Nearly a Squire", "A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. A round mate gourd with a silver straw (bombilla) hangs at his hip: he's from Uruguay. Sunny, eager, a bit homesick. He."),
 ]
 SPELL_LOOKS = {"spell_ember.png": "a tumbling ball of flame with sparks", "spell_frost.png": "a spinning shard of ice with frosty mist",
                "spell_arcane.png": "a pulsing violet orb with orbiting runes", "spell_ink.png": "a splattering glob of black ink with drips",

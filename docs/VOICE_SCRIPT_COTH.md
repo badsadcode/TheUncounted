@@ -206,3 +206,13 @@ Little scenes between companions. Only the **bold** lines are this character's t
 | `comp.dunstan.banter.kilt.1` | **COTH: Dunstan.** |
 | `comp.dunstan.banter.kilt.2` | DUNSTAN: Yes? |
 | `comp.dunstan.banter.kilt.3` | **COTH: No.** |
+
+**Dunstan & Coth**
+
+| File name | Line |
+|---|---|
+| `comp.dunstan.banter.mate_coth.0` | **COTH: Is that bark tea?** |
+| `comp.dunstan.banter.mate_coth.1` | DUNSTAN: It's mate! Yerba! From the Eastern Shore! |
+| `comp.dunstan.banter.mate_coth.2` | **COTH: So... bark tea.** |
+| `comp.dunstan.banter.mate_coth.3` | DUNSTAN: It's NOT- ...okay, it's a bit like bark tea. |
+| `comp.dunstan.banter.mate_coth.4` | **COTH: I knew it. I'm a connoisseur.** |

@@ -180,3 +180,13 @@ Little scenes between companions. Only the **bold** lines are this character's t
 | `comp.dunstan.banter.stance.1` | **ERANU: It's a normal-sized sword, son.** |
 | `comp.dunstan.banter.stance.2` | DUNSTAN: Oh. |
 | `comp.dunstan.banter.stance.3` | **ERANU: That's the hale secret.** |
+
+**Dunstan & Eranu**
+
+| File name | Line |
+|---|---|
+| `comp.dunstan.banter.mate_eranu.0` | DUNSTAN: Eranu! Mate? |
+| `comp.dunstan.banter.mate_eranu.1` | **ERANU: Go on, then.** |
+| `comp.dunstan.banter.mate_eranu.2` | **ERANU: ...It's like drinkin' a hot lawn.** |
+| `comp.dunstan.banter.mate_eranu.3` | DUNSTAN: That's the best part! |
+| `comp.dunstan.banter.mate_eranu.4` | **ERANU: Aye. Aye, it kind o' is. Gie's another.** |

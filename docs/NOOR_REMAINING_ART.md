@@ -43,7 +43,7 @@ Real friends of Toasty's, as characters (two can join the party). Deliver in `ch
 |---|---|---|
 | `friend_eranu.png` | Eranu, Shieldmaiden of the Glens | A tall, broad-shouldered Scottish warrior woman: long blonde braid, green tartan kilt, blue-grey tunic, round wooden targe (shield) and a sword. Brave and clever; confident, a little amused. She. |
 | `friend_coth.png` | Coth (Cothfotmeoo) | Looks like a castaway lost for a thousand years: skinny, scruffy, long dark hair down his back, a long heavy black beard to his belt, a ragged tunic, and NO TROUSERS (bare legs, bare feet; plain undershorts). Carries a sword. Cheerful, slightly unhinged. He. |
-| `friend_dunstan.png` | Dunstan, Nearly a Squire | A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. He. |
+| `friend_dunstan.png` | Dunstan, Nearly a Squire | A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. A round mate gourd with a silver straw (bombilla) hangs at his hip: he's from Uruguay. Sunny, eager, a bit homesick. He. |
 
 ## Spell icons — 1 icon
 
@@ -53,7 +53,7 @@ Shown in the spell bar and spellbook. **64 × 64 px**, opaque square (dark backg
 |---|---|---|
 | `unsay.png` | Unsay | The Archivists' last trick: say something so quietly it un-happens. The target forgets it ever saw you, and can't see you again for eight seconds (less for the very large). For walking past things that shouldn't notice you. |
 
-## Item icons — 62 icons
+## Item icons — 63 icons
 
 Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px, matching the delivered ones. Grouped by kind; the description is what the game says about it.
 
@@ -80,11 +80,12 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `inspector_abacus.png` | The Inspector's Abacus | Aldric Thrupp's ghostly abacus, cold as a coin. Its beads slide on their own when there's money nearby, and click disapprovingly at locks. More gold finds you, and locks give a little. |
 | `moonlit_cloak.png` | Moonlit Cloak | From the Midnight Market: a cloak that's slightly more there at night. You move quicker after dark, and gold finds its way to you. |
 
-### Consumable (2)
+### Consumable (3)
 
 | File | Item | Description |
 |---|---|---|
 | `ash_pepper_stew.png` | Ash-Pepper Stew | Hot enough to make your eyes water and your aim improve. Nobody understands why. +8% critical chance for 5 minutes. |
+| `dunstan_mate.png` | Mate (Dunstan's) | Dried yerba from the Eastern Shore, a gift from Dunstan. Hot, grassy, bitter, and then somehow good. Restores a little health, and for 5 minutes your stamina comes back much faster. Best shared. Don't stir the bombilla. |
 | `here_bread.png` | Bread of Here | Warm, dark, a little sour, a little sweet. It smells like knowing where you are. Steadies the mind. |
 
 ### Book (7)

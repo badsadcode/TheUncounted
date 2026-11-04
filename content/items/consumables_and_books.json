@@ -1874,6 +1874,30 @@
       "value": 50,
       "weight": 0.3,
       "book_text_key": "book.here_quiet_name.text"
+    },
+    {
+      "id": "core:item.dunstan_mate",
+      "name_key": "item.dunstan_mate.name",
+      "description_key": "item.dunstan_mate.description",
+      "category": "consumable",
+      "icon": "assets/ui/items/dunstan_mate.png",
+      "world_model": "assets/models/items/potion_flask.glb",
+      "slots": [],
+      "stackable": true,
+      "value": 15,
+      "weight": 0.2,
+      "effects": [
+        {
+          "type": "consumable_heal",
+          "amount": 10
+        },
+        {
+          "type": "buff",
+          "stat": "stamina_regen",
+          "value": 6.0,
+          "duration": 300
+        }
+      ]
     }
   ]
 }

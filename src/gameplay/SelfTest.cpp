@@ -1940,10 +1940,14 @@ int GameEngine::RunSelfTest() {
               "Eranu and Coth join the party; Dunstan has to wait for a free place");
         check(talk("core:npc.coth", {"wait"}) && talk("core:npc.dunstan", {"lift", "root", "join"}) && IsCompanion("core:npc.dunstan"),
               "Dunstan and Big Margaret join ('Up is easy. It's the rest of it.')");
+        check(talk("core:npc.dunstan", {"mate", "mate_share", "mate_thanks", "root", "home", "home_friends"}) &&
+                  CountItem("core:item.dunstan_mate") == 3 && talk("core:npc.dunstan", {"mate", "mate_again"}),
+              "Dunstan shares his mate (drink it till it gurgles; 'thank you' means you're done) and talks about the Eastern Shore");
+        RemoveItem("core:item.dunstan_mate", 3);
         const NpcDef* e = content_.GetNpc("core:npc.eranu");
         const NpcDef* c = content_.GetNpc("core:npc.coth");
         const NpcDef* du = content_.GetNpc("core:npc.dunstan");
-        check(e && c && du && e->companion.banter.size() == 6 && c->companion.banter.size() == 5 && du->companion.banter.size() == 5 &&
+        check(e && c && du && e->companion.banter.size() == 6 && c->companion.banter.size() == 5 && du->companion.banter.size() == 9 &&
                   du->companion.damage > c->companion.damage && du->companion.attack_time > c->companion.attack_time,
               "the three friends banter with each other and the party; Dunstan hits hardest and slowest");
         player_.companions = savedParty;

@@ -53,7 +53,7 @@ Real friends of Toasty's, as characters (two can join the party). Deliver in `ch
 |---|---|---|
 | `friend_eranu.png` | Eranu, Shieldmaiden of the Glens | A tall, broad-shouldered Scottish warrior woman: long blonde braid, green tartan kilt, blue-grey tunic, round wooden targe (shield) and a sword. Brave and clever; confident, a little amused. She. |
 | `friend_coth.png` | Coth (Cothfotmeoo) | Looks like a castaway lost for a thousand years: skinny, scruffy, long dark hair down his back, a long heavy black beard to his belt, a ragged tunic, and NO TROUSERS (bare legs, bare feet; plain undershorts). Carries a sword. Cheerful, slightly unhinged. He. |
-| `friend_dunstan.png` | Dunstan, Nearly a Squire | A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. He. |
+| `friend_dunstan.png` | Dunstan, Nearly a Squire | A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. A round mate gourd with a silver straw (bombilla) hangs at his hip: he's from Uruguay. Sunny, eager, a bit homesick. He. |
 
 ## Spell effects in flight — 5 animated strips
 
@@ -97,7 +97,7 @@ Shown in the spell bar and spellbook. **64 × 64 px**, opaque square (dark backg
 | `veil.png` | Veil | Dulls sound and bends shadow, reducing enemy sight detection. |
 | `ward.png` | Ward | Sheathes the caster in a resonant arcane barrier (+8 Armor). |
 
-## Item icons — 186 icons
+## Item icons — 187 icons
 
 Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px, matching the delivered ones. Grouped by kind; the description is what the game says about it.
 
@@ -180,7 +180,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `tide_charm.png` | Charm of the Quiet Tide | A smooth grey pebble with a hole through it, strung on fishing line. Hold it to your ear and you hear only the sea, and nothing counting. +2 Will, steadies a shaken mind. |
 | `trout_horseshoe.png` | Trout's First Horseshoe | Worn smooth on one side, scratched with tiny pictures: a lighthouse, a well, a tower, a roof, a roof, another roof. +1 Agility, +8% movement speed, faster stamina and sanity recovery. You will occasionally turn up somewh… |
 
-### Consumable (44)
+### Consumable (45)
 
 | File | Item | Description |
 |---|---|---|
@@ -191,6 +191,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `carrot.png` | Carrot | Crunchy. Restores a little health and puts a spring in your step. Horses go mad for them. One particular horse goes mad for them in several places at once. |
 | `crumb_cake.png` | Crumb Cake | Doobie's favourite. Baggy's favourite (kept loose in the coat pockets, hence the name). A dense little honey cake that makes you feel briefly braver than you are. Heals 15, +10 sanity, and you run 12% faster for a minute… |
 | `dreaming_calamari.png` | Dreaming Calamari | Mother Brine's speciality, made with ink from the Dreaming Limb. You dream a little while awake. Your spells feel lighter, and your curses last longer. |
+| `dunstan_mate.png` | Mate (Dunstan's) | Dried yerba from the Eastern Shore, a gift from Dunstan. Hot, grassy, bitter, and then somehow good. Restores a little health, and for 5 minutes your stamina comes back much faster. Best shared. Don't stir the bombilla. |
 | `eel_pie.png` | Eldritch Eel Pie | The eyes have been baked shut. Mostly. +12% spell power for four minutes, -5 sanity. Worth it. |
 | `ember_draught.png` | Ember Draught | Bottled indignation. For five minutes your fire burns hotter and your spells hit harder. Tastes of smoke and grievance. |
 | `fish_cod.png` | Saltmere Cod | A fat grey cod. Edible raw, if you're desperate. Much better cooked. |

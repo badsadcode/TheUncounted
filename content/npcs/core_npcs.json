@@ -2887,27 +2887,50 @@
           {
             "text_key": "comp.dunstan.idle.7",
             "flag": "eranu_following"
+          },
+          {
+            "text_key": "comp.dunstan.idle.8"
+          },
+          {
+            "text_key": "comp.dunstan.idle.9"
+          },
+          {
+            "text_key": "comp.dunstan.idle.10"
+          },
+          {
+            "text_key": "comp.dunstan.idle.11"
+          },
+          {
+            "text_key": "comp.dunstan.idle.12",
+            "flag": "eranu_following"
           }
         ],
         "combat_lines": [
           "comp.dunstan.combat.1",
           "comp.dunstan.combat.2",
           "comp.dunstan.combat.3",
-          "comp.dunstan.combat.4"
+          "comp.dunstan.combat.4",
+          "comp.dunstan.combat.5",
+          "comp.dunstan.combat.6",
+          "comp.dunstan.combat.7"
         ],
         "kill_lines": [
           "comp.dunstan.kill.1",
           "comp.dunstan.kill.2",
-          "comp.dunstan.kill.3"
+          "comp.dunstan.kill.3",
+          "comp.dunstan.kill.4",
+          "comp.dunstan.kill.5"
         ],
         "heal_lines": [
           "comp.dunstan.heal.1",
           "comp.dunstan.heal.2",
-          "comp.dunstan.heal.3"
+          "comp.dunstan.heal.3",
+          "comp.dunstan.heal.4"
         ],
         "level_lines": [
           "comp.dunstan.level.1",
-          "comp.dunstan.level.2"
+          "comp.dunstan.level.2",
+          "comp.dunstan.level.3"
         ],
         "catchup_lines": [
           "comp.dunstan.catchup.1",
@@ -3029,6 +3052,110 @@
               {
                 "by": "self",
                 "text_key": "comp.dunstan.banter.lift.4"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_mate_eranu",
+            "partner": "core:npc.eranu",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.mate_eranu.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_eranu.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_eranu.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.mate_eranu.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_eranu.4"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_mate_coth",
+            "partner": "core:npc.coth",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_coth.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.mate_coth.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_coth.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.mate_coth.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_coth.4"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_mate_grout",
+            "partner": "core:npc.grout",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.mate_grout.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_grout.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.mate_grout.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.mate_grout.3"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_asado_baggy",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.asado_baggy.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.asado_baggy.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.asado_baggy.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.asado_baggy.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.asado_baggy.4"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.asado_baggy.5"
               }
             ]
           }
