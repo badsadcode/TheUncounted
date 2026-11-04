@@ -6,7 +6,7 @@ Friends from Toasty's community to add to the game as NPCs. Not started yet: det
 |---|---|
 | **Coth** (Cothfotmeoo) | Skinny, long dark hair, a long heavy black beard. A warrior with no trousers; he. |
 | **Eranu** | From Scotland. A brave, smart blonde warrior; she. |
-| **Dunstan** | Young warrior with a giant, heavy sword. |
+| **Dunstan** | Young warrior with a giant, heavy sword; he. |
 
 ## In-jokes
 - Coth and Eranu joke that Coth is Eranu's waifu. She sometimes calls him **Cothepoo**.
@@ -18,5 +18,4 @@ Friends from Toasty's community to add to the game as NPCs. Not started yet: det
 - Where each one lives (Bellwether, the Old Road, Here, Wednesbury in Chapter Two...) and what they do: a quest giver,
   a companion, a sparring partner in the Audit, a tavern regular.
 - In-jokes and catchphrases from the streams for each of them.
-- Pronouns for Dunstan (not stated yet, so the writing avoids them until we know).
 - Art: one 8-direction sprite sheet each for Noor, plus a portrait if they talk a lot.
