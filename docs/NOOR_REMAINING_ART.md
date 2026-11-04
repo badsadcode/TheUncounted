@@ -80,6 +80,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 
 | File | What to change |
 |---|---|
+| `characters/friend_dunstan.png` | Body larger in the frame (about the same height as Eranu's and Coth's), the huge sword held diagonally so it fits, clearer wind-up and attack poses. Keep the mate gourd and red cloak. |
 | `item_icons/ransom_note.png` | Currently a bound notebook. Should be a loose sheet of paper with charcoal scribbles (a crossed-out ransom note) and a faint grid showing through from the back. |
 
 ## Small extras (optional, whenever)

@@ -83,7 +83,9 @@ FRIENDS = [
 SPELL_LOOKS = {"spell_ember.png": "a tumbling ball of flame with sparks", "spell_frost.png": "a spinning shard of ice with frosty mist",
                "spell_arcane.png": "a pulsing violet orb with orbiting runes", "spell_ink.png": "a splattering glob of black ink with drips",
                "spell_sabrino.png": "Sabrino the witch's signature hex: a green-purple swirl with a tiny grinning face"}
-REVISIONS = [("item_icons/ransom_note.png", "Currently a bound notebook. Should be a loose sheet of paper with charcoal scribbles (a crossed-out ransom "
+REVISIONS = [("characters/friend_dunstan.png", "Body larger in the frame (about the same height as Eranu's and Coth's), the huge "
+                                              "sword held diagonally so it fits, clearer wind-up and attack poses. Keep the mate gourd and red cloak."),
+             ("item_icons/ransom_note.png", "Currently a bound notebook. Should be a loose sheet of paper with charcoal scribbles (a crossed-out ransom "
                                             "note) and a faint grid showing through from the back.")]
 
 # ---------------------------------------------------------------- header
