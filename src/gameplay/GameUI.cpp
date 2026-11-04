@@ -552,6 +552,28 @@ struct TitleRain {
     std::vector<Splash> splashes;
     float spawn_acc = 0;
     unsigned seed = 12345;
+    // lightning: a flash every so often (two or three quick pulses), sometimes with a bolt over the mountains
+    float next_flash = 4.0f, flash_t = -1.0f, thunder_in = -1.0f;
+    bool bolt = false, thunder_near = false, first_flash = true;
+    std::vector<Vector2> bolt_pts;                                // fractions of the painting
+    std::vector<std::pair<Vector2, Vector2>> bolt_branches;
+    float Flash() const {  // 0..1 brightness right now
+        if (flash_t < 0) return 0;
+        auto pulse = [&](float at, float amp) { float d = flash_t - at; return d < 0 ? 0.0f : amp * expf(-d * 14.0f); };
+        return std::min(1.0f, pulse(0, 1.0f) + pulse(0.11f, 0.7f) + pulse(0.27f, 0.45f));
+    }
+    void MakeBolt() {
+        bolt_pts.clear(); bolt_branches.clear();
+        Vector2 p = {Range(0.62f, 0.9f), 0.0f};
+        float endY = Range(0.17f, 0.26f);
+        while (p.y < endY) {
+            bolt_pts.push_back(p);
+            Vector2 q = {p.x + Range(-0.018f, 0.018f), p.y + Range(0.012f, 0.03f)};
+            if (Rand() < 0.22f) bolt_branches.push_back({q, {q.x + Range(-0.05f, 0.05f), q.y + Range(0.02f, 0.05f)}});
+            p = q;
+        }
+        bolt_pts.push_back(p);
+    }
     float Rand() { seed = seed * 1664525u + 1013904223u; return (seed >> 8) / 16777216.0f; }
     float Range(float a, float b) { return a + (b - a) * Rand(); }
     const std::vector<Area>& Areas() {
@@ -572,7 +594,21 @@ struct TitleRain {
         };
         return a;
     }
-    void Update(float dt, float sw, float sh) {
+    // Returns 1 when far thunder should play now, 2 for near thunder.
+    int Update(float dt, float sw, float sh) {
+        int thunder = 0;
+        next_flash -= dt;
+        if (next_flash <= 0) {
+            flash_t = 0;
+            bolt = first_flash || Rand() < 0.45f;  // the first one always shows its bolt
+            first_flash = false;
+            if (bolt) MakeBolt();
+            thunder_near = bolt;
+            thunder_in = bolt ? Range(0.25f, 0.6f) : Range(1.2f, 2.6f);  // sound travels slower than light
+            next_flash = Range(10.0f, 24.0f);
+        }
+        if (flash_t >= 0 && (flash_t += dt) > 0.9f) flash_t = -1;
+        if (thunder_in >= 0 && (thunder_in -= dt) < 0) thunder = thunder_near ? 2 : 1;
         if (drops.empty())
             for (int i = 0; i < 340; i++) {
                 int layer = i < 220 ? 0 : 1;
@@ -606,6 +642,28 @@ struct TitleRain {
         for (auto& sp : splashes) sp.t += dt;
         ripples.erase(std::remove_if(ripples.begin(), ripples.end(), [](const Ripple& r) { return r.t >= r.life; }), ripples.end());
         splashes.erase(std::remove_if(splashes.begin(), splashes.end(), [](const Splash& p) { return p.t >= 0.3f; }), splashes.end());
+        return thunder;
+    }
+    void DrawLightning(Rectangle img, float sw, float sh) {
+        float f = Flash();
+        if (f <= 0.01f) return;
+        auto at = [&](Vector2 v) { return Vector2{img.x + v.x * img.width, img.y + v.y * img.height}; };
+        BeginBlendMode(BLEND_ADDITIVE);
+        // the sky lights up most; the wet street catches a little of it
+        DrawRectangleGradientV(0, 0, static_cast<int>(sw), static_cast<int>(sh * 0.45f), Color{160, 180, 220, static_cast<unsigned char>(175 * f)},
+                               Color{90, 110, 150, static_cast<unsigned char>(40 * f)});
+        DrawRectangleGradientV(0, static_cast<int>(sh * 0.45f), static_cast<int>(sw), static_cast<int>(sh * 0.55f + 1),
+                               Color{90, 110, 150, static_cast<unsigned char>(40 * f)}, Color{110, 130, 170, static_cast<unsigned char>(70 * f)});
+        if (bolt && flash_t < 0.4f) {
+            float th = sh / 720.0f;
+            for (int pass = 0; pass < 2; pass++) {  // a soft glow, then the bright core
+                float w = (pass == 0 ? 6.0f : 1.8f) * th;
+                Color c = pass == 0 ? Color{120, 150, 255, static_cast<unsigned char>(70 * f)} : Color{235, 240, 255, static_cast<unsigned char>(255 * f)};
+                for (size_t i = 1; i < bolt_pts.size(); i++) DrawLineEx(at(bolt_pts[i - 1]), at(bolt_pts[i]), w, c);
+                for (const auto& b : bolt_branches) DrawLineEx(at(b.first), at(b.second), w * 0.6f, c);
+            }
+        }
+        EndBlendMode();
     }
     void DrawGround(Rectangle img, float sh) {
         auto at = [&](float fx, float fy) { return Vector2{img.x + fx * img.width, img.y + fy * img.height}; };
@@ -656,8 +714,11 @@ void GameEngine::DrawTitle() {
     {   // rain on the painting (+ its sound, when nothing else is playing)
         Rectangle img = {GetScreenWidth() * 0.5f + drift - bg.width * s * 0.53f, GetScreenHeight() * 0.5f - bg.height * s * 0.53f,
                          bg.width * s * 1.06f, bg.height * s * 1.06f};
-        g_title_rain.Update(std::min(GetFrameTime(), 0.05f), static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight()));
-        g_title_rain.DrawGround(img, static_cast<float>(GetScreenHeight()));
+        float sw = static_cast<float>(GetScreenWidth()), sh = static_cast<float>(GetScreenHeight());
+        int thunder = g_title_rain.Update(std::min(GetFrameTime(), 0.05f), sw, sh);
+        if (thunder) res_.PlaySfx(thunder == 2 ? "assets/audio/sfx/thunder_near.wav" : "assets/audio/sfx/thunder_far.wav", thunder == 2 ? 0.9f : 0.6f);
+        g_title_rain.DrawLightning(img, sw, sh);
+        g_title_rain.DrawGround(img, sh);
         g_title_rain.DrawFalling();
         if (want_music_.empty() && want_ambience_.empty()) SetWantedAudio("", "assets/audio/ambience/village_rain.wav");
     }
