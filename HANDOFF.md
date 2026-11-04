@@ -764,3 +764,5 @@ weapon `greatsword`); Noor's brief section 2c.
 - **Companions** (any two at a time, as usual): Eranu (after the quest; 10 dmg, sturdy, small heals), Coth (after the
   quest; fast, 9 dmg), Dunstan (any time, in the square; Big Margaret: 15 dmg, slow, long reach). Flags
   `eranu_following`, `coth_following`, `dunstan_following`. Banter among the three and with Baggy, Kaelen, Grout, Snacks.
+- **Eranu speaks light Scots** (aye, wee, ken, dinnae, no', hame, oot, doon, guid, braw; `tools/authoring/eranu_scots.py`).
+  Keep new Eranu lines in the same voice: readable first, Scottish second.
