@@ -322,8 +322,14 @@ def humanoid(style, row, col_dir=0):
         prims.append(capsule(v3(0, hip_y, -0.01), v3(0, 0.79 + bob, -0.01), 0.018, skin))
         prims.append(ellipsoid(chest_c + v3(0, 0.02, 0), (0.105, 0.105, 0.07), tunic))
     else:
-        prims.append(ellipsoid(chest_c, (0.135, 0.175, 0.09), tunic))
+        tw = style.get("torso_w", 1.0)
+        prims.append(ellipsoid(chest_c, (0.135 * tw, 0.175, 0.09 * tw), tunic))
         prims.append(box(v3(0, 0.555 + bob, 0), (0.125, 0.018, 0.085), trim_m, rnd=0.01))
+    if style.get("kilt"):  # a pleated kilt, tartan-ish stripes
+        kilt_m = M(style["kilt"], stripes=(0, 60.0, 0.5, shade(style["kilt"], 0.6)))
+        prims.append(capsule(v3(0, 0.56 + bob, 0), v3(0.02 * walk, 0.36, 0), 0.105, kilt_m, 0.15))
+    if style.get("undies"):  # no trousers: just the essentials
+        prims.append(ellipsoid(v3(0, 0.5 + bob, 0), (0.1, 0.06, 0.075), M(style["undies"])))
     if style.get("apron"):
         prims.append(box(v3(0, 0.45, 0.075), (0.085, 0.16, 0.008), trim_m, rnd=0.01))
 
@@ -390,7 +396,14 @@ def humanoid(style, row, col_dir=0):
             prims.append(ellipsoid(head_c + v3(0, -0.01, -0.035), (0.092, 0.055, 0.065), hair_m))
         elif not skeletal and hat != "none":
             prims.append(sphere(head_c + v3(0, 0.024, -0.018), 0.09, hair_m))
-        if style.get("beard"):
+        if style.get("long_hair"):  # hair down the back, past the shoulders
+            prims.append(ellipsoid(head_c + v3(0, -0.1, -0.06), (0.085, 0.15, 0.04), hair_m))
+            if style.get("braid"):
+                prims.append(capsule(head_c + v3(0, -0.05, -0.085), head_c + v3(0, -0.3, -0.1), 0.022, hair_m, 0.012))
+        if style.get("long_beard"):  # a long, heavy beard down the chest
+            prims.append(ellipsoid(head_c + v3(0, -0.07, 0.05), (0.064, 0.07, 0.045), hair_m))
+            prims.append(capsule(head_c + v3(0, -0.11, 0.07), head_c + v3(0, -0.26, 0.09), 0.045, hair_m, 0.018))
+        elif style.get("beard"):
             prims.append(ellipsoid(head_c + v3(0, -0.065, 0.048), (0.06, 0.065, 0.042), hair_m))
     if skeletal:
         sock = Mat((24, 20, 26))
@@ -418,7 +431,7 @@ def humanoid(style, row, col_dir=0):
     weapon = style.get("weapon")
     r_pitch, r_roll, r_bend = math.radians(-22) * walk + math.radians(8), math.radians(-8), math.radians(-18)
     l_pitch, l_roll, l_bend = math.radians(22) * walk + math.radians(8), math.radians(8), math.radians(-18)
-    if weapon in ("sword", "staff", "umbrella"):
+    if weapon in ("sword", "staff", "umbrella", "greatsword"):
         r_bend = math.radians(-60)
         r_pitch = math.radians(14) + math.radians(-8) * walk
     if weapon == "ledger":
@@ -456,6 +469,17 @@ def humanoid(style, row, col_dir=0):
         side = norm(np.cross(bdir, v3(0, 0, 1)) + 1e-6)
         prims.append(capsule(r_hand + bdir * 0.035 - side * 0.05, r_hand + bdir * 0.035 + side * 0.05, 0.011, trim_m))
         prims.append(capsule(r_hand - bdir * 0.05, r_hand + bdir * 0.02, 0.012, wood))
+    elif weapon == "greatsword":  # far too big: long, broad, and heavy
+        bdir = norm(rot_x(-math.radians(80)) @ fdir) if row != 4 else norm(fdir + v3(0, 0, 0.3))
+        if row == 3:
+            bdir = norm(v3(0.1, 0.6, -0.8))
+        if row in (0, 1, 2):  # too heavy to hold up: carried point-down, scraping along
+            bdir = norm(v3(0.05, -0.85, 0.5))
+        tip = r_hand + bdir * (0.6 if row in (0, 1, 2) else 0.5)
+        prims.append(capsule(r_hand + bdir * 0.06, tip, 0.04, metal, 0.012))
+        side = norm(np.cross(bdir, v3(0, 0, 1)) + 1e-6)
+        prims.append(capsule(r_hand + bdir * 0.05 - side * 0.11, r_hand + bdir * 0.05 + side * 0.11, 0.02, trim_m))
+        prims.append(capsule(r_hand - bdir * 0.12, r_hand + bdir * 0.03, 0.014, wood))
     elif weapon == "staff":
         sdir = v3(0, 1, 0.08) if row != 4 else norm(v3(0, 0.4, 1))
         if row == 3:
@@ -1035,6 +1059,21 @@ SHEETS = {
     "assets/sprites/npcs/silas_gale.png": {
         "kind": "humanoid", "body": (196, 160, 136), "armor": (210, 180, 50), "legs": (180, 150, 40), "cloak": (200, 170, 46),
         "trim": (120, 100, 30), "eye": (230, 230, 230), "hat": "hood", "hood": (210, 180, 50), "beard": True, "hair": (200, 200, 200),
+    },
+    # --- Friends from Toasty's streams (placeholders until Noor's sheets)
+    "assets/sprites/npcs/friend_coth.png": {  # a castaway lost for a thousand years; no trousers, as usual
+        "kind": "humanoid", "body": (214, 178, 146), "armor": (122, 108, 84), "legs": (214, 178, 146), "boots": (196, 160, 130),
+        "trim": (90, 80, 62), "hair": (34, 26, 22), "long_hair": True, "long_beard": True, "torso_w": 0.8, "bare_arms": True,
+        "undies": (150, 140, 120), "weapon": "sword", "eye": (40, 30, 24),
+    },
+    "assets/sprites/npcs/friend_eranu.png": {  # a brave Scottish warrior: blonde braid, kilt, targe
+        "kind": "humanoid", "body": (236, 206, 182), "armor": (70, 84, 110), "legs": (226, 196, 172), "boots": (70, 50, 36),
+        "trim": (200, 170, 90), "hair": (236, 206, 120), "long_hair": True, "braid": True, "kilt": (40, 96, 70),
+        "weapon": "sword", "shield": (110, 70, 40), "eye": (50, 100, 150),
+    },
+    "assets/sprites/npcs/friend_dunstan.png": {  # young, keen, and the sword is enormous
+        "kind": "humanoid", "body": (226, 192, 164), "armor": (140, 146, 156), "legs": (70, 62, 54), "cloak": (120, 40, 36),
+        "trim": (190, 190, 200), "hair": (120, 80, 44), "weapon": "greatsword", "eye": (60, 80, 60),
     },
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),

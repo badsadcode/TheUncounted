@@ -1889,6 +1889,70 @@ int GameEngine::RunSelfTest() {
         LoadMap("core:map.edrath", "village_gate");
     }
 
+    // --- Friends: Eranu, Coth and Dunstan ("Cothepoo, Come Home")
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        const std::string q = "core:quest.cothepoo";
+        auto savedParty = player_.companions;
+        auto savedFlags = player_.flags;
+        player_.companions.clear();
+        auto visible = [&](const std::string& id) {
+            UpdateWorldObjects(0.0f);
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == id && !scene_.npcs[i].hidden) return static_cast<int>(i);
+            return -1;
+        };
+        auto talk = [&](const std::string& id, std::initializer_list<const char*> path) {
+            int i = visible(id);
+            if (i < 0) return false;
+            StartDialogue(i);
+            bool ok = true;
+            for (const char* step : path) ok = ok && chooseNext(step);
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            overlay_ = Overlay::None;
+            return ok;
+        };
+        check(visible("core:npc.coth") < 0 && visible("core:npc.coth_castaway") >= 0 && talk("core:npc.eranu", {"waiting", "waifu", "accept"}) &&
+                  QuestStage(q) == 10,
+              "Eranu in the Lantern Inn is waiting for her waifu (no trousers, three days)");
+        check(interactable("coth_tally") != nullptr && interactable("sir_pebbleton_note") != nullptr, "Coth's camp: the marks on the pine and Sir Pebbleton");
+        player_.flags.insert("coth_seen_tally");
+        bool home = false, failedOnce = false;
+        int ci = visible("core:npc.coth_castaway");
+        if (ci >= 0) {
+            StartDialogue(ci);
+            for (int i = 0; i < 60 && !home; i++) {
+                if (!chooseNext("marks")) break;
+                home = dialogue_node_ == "marks";
+                if (!home) { failedOnce = failedOnce || dialogue_node_ == "lost_count"; chooseNext("root"); }
+            }
+            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            overlay_ = Overlay::None;
+        }
+        check(home && QuestStage(q) == 20 && visible("core:npc.coth_castaway") < 0 && visible("core:npc.coth") >= 0,
+              "counting the tally marks together: seventy-two, three days; Coth heads home");
+        int gold = player_.gold;
+        check(talk("core:npc.eranu", {"reunion"}) && QuestStage(q) == 100 && CountItem("core:item.trousers_of_coth") == 1 && player_.gold == gold + 80,
+              "the reunion ('COTHEPOO. Three days, ya numpty.'); his trousers, which he won't take back");
+        check(talk("core:npc.eranu", {"join"}) && talk("core:npc.coth", {"join"}) && IsCompanion("core:npc.eranu") && IsCompanion("core:npc.coth") &&
+                  talk("core:npc.dunstan", {"full", "root"}),
+              "Eranu and Coth join the party; Dunstan has to wait for a free place");
+        check(talk("core:npc.coth", {"wait"}) && talk("core:npc.dunstan", {"lift", "root", "join"}) && IsCompanion("core:npc.dunstan"),
+              "Dunstan and Big Margaret join ('Up is easy. It's the rest of it.')");
+        const NpcDef* e = content_.GetNpc("core:npc.eranu");
+        const NpcDef* c = content_.GetNpc("core:npc.coth");
+        const NpcDef* du = content_.GetNpc("core:npc.dunstan");
+        check(e && c && du && e->companion.banter.size() == 6 && c->companion.banter.size() == 5 && du->companion.banter.size() == 5 &&
+                  du->companion.damage > c->companion.damage && du->companion.attack_time > c->companion.attack_time,
+              "the three friends banter with each other and the party; Dunstan hits hardest and slowest");
+        player_.companions = savedParty;
+        player_.flags = savedFlags;
+        player_.quest_stages.erase(q);
+        RemoveItem("core:item.trousers_of_coth", 1);
+        UpdateWorldObjects(0.0f);
+    }
+
     // --- Gamepad: prompts follow the last device; every action has its own button
     {
         const bool was = pad_active_;

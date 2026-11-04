@@ -1091,6 +1091,32 @@
           "value": 0.03
         }
       ]
+    },
+    {
+      "id": "core:item.trousers_of_coth",
+      "name_key": "item.trousers_of_coth.name",
+      "description_key": "item.trousers_of_coth.description",
+      "category": "armor",
+      "icon": "assets/ui/items/trousers_of_coth.png",
+      "world_model": "assets/models/items/traveler_boots.glb",
+      "slots": [
+        "legs"
+      ],
+      "value": 120,
+      "weight": 1.0,
+      "armor": 3,
+      "effects": [
+        {
+          "type": "stat_bonus",
+          "stat": "endurance",
+          "amount": 1
+        },
+        {
+          "type": "stat_bonus",
+          "stat": "agility",
+          "amount": 1
+        }
+      ]
     }
   ]
 }

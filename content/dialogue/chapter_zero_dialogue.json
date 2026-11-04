@@ -17614,6 +17614,762 @@
           ]
         }
       }
+    },
+    {
+      "id": "core:dialogue.eranu",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.root",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.root.c0",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.eranu.root.c1",
+              "next": "waiting",
+              "conditions": [
+                {
+                  "type": "quest_stage_below",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 0
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.root.c2",
+              "next": "news",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.root.c3",
+              "next": "reunion",
+              "conditions": [
+                {
+                  "type": "quest_stage_equals",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 20
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.root.c4",
+              "next": "nickname",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.root.c5",
+              "next": "join",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "eranu_following"
+                },
+                {
+                  "type": "party_has_room"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.root.c6",
+              "next": "full",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "eranu_following"
+                },
+                {
+                  "type": "party_full"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.root.c7",
+              "next": "wait",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "eranu_following"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.root.c8",
+              "next": "END"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.who",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.who.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "waiting": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.waiting",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.waiting.c0",
+              "next": "accept",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.waiting.c1",
+              "next": "waifu"
+            },
+            {
+              "text_key": "dlg.eranu.waiting.c2",
+              "next": "END"
+            }
+          ]
+        },
+        "waifu": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.waifu",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.waifu.c0",
+              "next": "accept",
+              "actions": [
+                {
+                  "type": "set_quest_stage",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 10
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.eranu.waifu.c1",
+              "next": "END"
+            }
+          ]
+        },
+        "accept": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.accept",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.accept.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "news": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.news",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.news.c0",
+              "next": "END"
+            }
+          ]
+        },
+        "nickname": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.nickname",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.nickname.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "reunion": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.reunion",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.reunion.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "narrate",
+              "pages": [
+                {
+                  "key": "story.cothepoo.1"
+                },
+                {
+                  "key": "story.cothepoo.2"
+                },
+                {
+                  "key": "story.cothepoo.3"
+                }
+              ]
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.cothepoo",
+              "stage": 100
+            },
+            {
+              "type": "give_item",
+              "item_id": "core:item.trousers_of_coth",
+              "qty": 1
+            },
+            {
+              "type": "give_gold",
+              "amount": 80
+            },
+            {
+              "type": "give_xp",
+              "skill": "persuasion",
+              "amount": 25
+            }
+          ]
+        },
+        "join": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.join",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.join.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "eranu_following",
+              "value": true
+            },
+            {
+              "type": "recruit_companion"
+            }
+          ]
+        },
+        "full": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.full",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.full.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "wait": {
+          "speaker_key": "npc.eranu.name",
+          "text_key": "dlg.eranu.wait",
+          "choices": [
+            {
+              "text_key": "dlg.eranu.wait.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "eranu_following",
+              "value": false
+            },
+            {
+              "type": "dismiss_companion"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.coth_castaway",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.root",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.root.c0",
+              "next": "coth"
+            },
+            {
+              "text_key": "dlg.coth_cast.root.c1",
+              "next": "three"
+            },
+            {
+              "text_key": "dlg.coth_cast.root.c2",
+              "next": "rock"
+            },
+            {
+              "text_key": "dlg.coth_cast.root.c3",
+              "next": "trousers"
+            },
+            {
+              "text_key": "dlg.coth_cast.root.c4",
+              "next": "home",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 10
+                }
+              ],
+              "roll": {
+                "skill": "persuasion",
+                "dc": 9,
+                "fail_next": "not_yet"
+              }
+            },
+            {
+              "text_key": "dlg.coth_cast.root.c5",
+              "next": "marks",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "coth_seen_tally"
+                }
+              ],
+              "roll": {
+                "skill": "perception",
+                "dc": 8,
+                "fail_next": "lost_count"
+              }
+            },
+            {
+              "text_key": "dlg.coth_cast.root.c6",
+              "next": "END"
+            }
+          ]
+        },
+        "coth": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.coth",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.coth.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "three": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.three",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.three.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "rock": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.rock",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.rock.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "trousers": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.trousers",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.trousers.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "not_yet": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.not_yet",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.not_yet.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "lost_count": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.lost_count",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.lost_count.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "home": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.home",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.home.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "coth_home",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.cothepoo",
+              "stage": 20
+            }
+          ]
+        },
+        "marks": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth_cast.marks",
+          "choices": [
+            {
+              "text_key": "dlg.coth_cast.marks.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "coth_home",
+              "value": true
+            },
+            {
+              "type": "set_quest_stage",
+              "quest_id": "core:quest.cothepoo",
+              "stage": 20
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.coth",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth.root",
+          "choices": [
+            {
+              "text_key": "dlg.coth.root.c0",
+              "next": "settle"
+            },
+            {
+              "text_key": "dlg.coth.root.c1",
+              "next": "waifu"
+            },
+            {
+              "text_key": "dlg.coth.root.c2",
+              "next": "pebbleton"
+            },
+            {
+              "text_key": "dlg.coth.root.c3",
+              "next": "join",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "coth_following"
+                },
+                {
+                  "type": "party_has_room"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.coth.root.c4",
+              "next": "full",
+              "conditions": [
+                {
+                  "type": "quest_stage_at_least",
+                  "quest_id": "core:quest.cothepoo",
+                  "stage": 100
+                },
+                {
+                  "type": "flag_not_set",
+                  "flag": "coth_following"
+                },
+                {
+                  "type": "party_full"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.coth.root.c5",
+              "next": "wait",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "coth_following"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.coth.root.c6",
+              "next": "END"
+            }
+          ]
+        },
+        "settle": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth.settle",
+          "choices": [
+            {
+              "text_key": "dlg.coth.settle.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "waifu": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth.waifu",
+          "choices": [
+            {
+              "text_key": "dlg.coth.waifu.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "pebbleton": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth.pebbleton",
+          "choices": [
+            {
+              "text_key": "dlg.coth.pebbleton.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "join": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth.join",
+          "choices": [
+            {
+              "text_key": "dlg.coth.join.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "coth_following",
+              "value": true
+            },
+            {
+              "type": "recruit_companion"
+            }
+          ]
+        },
+        "full": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth.full",
+          "choices": [
+            {
+              "text_key": "dlg.coth.full.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "wait": {
+          "speaker_key": "npc.coth.name",
+          "text_key": "dlg.coth.wait",
+          "choices": [
+            {
+              "text_key": "dlg.coth.wait.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "coth_following",
+              "value": false
+            },
+            {
+              "type": "dismiss_companion"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "core:dialogue.dunstan",
+      "root_node": "root",
+      "nodes": {
+        "root": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.root",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.root.c0",
+              "next": "sword"
+            },
+            {
+              "text_key": "dlg.dunstan.root.c1",
+              "next": "who"
+            },
+            {
+              "text_key": "dlg.dunstan.root.c2",
+              "next": "lift"
+            },
+            {
+              "text_key": "dlg.dunstan.root.c3",
+              "next": "join",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "dunstan_following"
+                },
+                {
+                  "type": "party_has_room"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dunstan.root.c4",
+              "next": "full",
+              "conditions": [
+                {
+                  "type": "flag_not_set",
+                  "flag": "dunstan_following"
+                },
+                {
+                  "type": "party_full"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dunstan.root.c5",
+              "next": "wait",
+              "conditions": [
+                {
+                  "type": "flag_set",
+                  "flag": "dunstan_following"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.dunstan.root.c6",
+              "next": "END"
+            }
+          ]
+        },
+        "sword": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.sword",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.sword.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "who": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.who",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.who.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "lift": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.lift",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.lift.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "join": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.join",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.join.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dunstan_following",
+              "value": true
+            },
+            {
+              "type": "recruit_companion"
+            }
+          ]
+        },
+        "full": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.full",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.full.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "wait": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.wait",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.wait.c0",
+              "next": "END"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "flag": "dunstan_following",
+              "value": false
+            },
+            {
+              "type": "dismiss_companion"
+            }
+          ]
+        }
+      }
     }
   ]
 }

@@ -1673,6 +1673,207 @@
         0.3,
         0.1
       ]
+    },
+    {
+      "id": "coth_fire",
+      "model": "assets/models/props/fire_embers_small.glb",
+      "pos": [
+        -14.6,
+        0.0,
+        15.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "solid": false
+    },
+    {
+      "id": "coth_fire_stone0",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.15,
+        0.0,
+        15.4
+      ],
+      "scale": [
+        0.22,
+        0.18,
+        0.22
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "coth_fire_stone1",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -15.049999999999999,
+        0.0,
+        15.4
+      ],
+      "scale": [
+        0.22,
+        0.18,
+        0.22
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "coth_fire_stone2",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.6,
+        0.0,
+        15.85
+      ],
+      "scale": [
+        0.22,
+        0.18,
+        0.22
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "coth_fire_stone3",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.6,
+        0.0,
+        14.950000000000001
+      ],
+      "scale": [
+        0.22,
+        0.18,
+        0.22
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "coth_fire_stone4",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.28,
+        0.0,
+        15.72
+      ],
+      "scale": [
+        0.22,
+        0.18,
+        0.22
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "coth_fire_stone5",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        -14.92,
+        0.0,
+        15.08
+      ],
+      "scale": [
+        0.22,
+        0.18,
+        0.22
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.2,
+        0.1
+      ]
+    },
+    {
+      "id": "coth_log",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        -15.9,
+        0.0,
+        15.2
+      ],
+      "rot_y": 80.0,
+      "scale": [
+        1.8,
+        0.32,
+        0.42
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.8,
+        0.2
+      ]
+    },
+    {
+      "id": "coth_lean_to",
+      "model": "assets/models/props/branches_ash.glb",
+      "pos": [
+        -16.6,
+        0.0,
+        16.8
+      ],
+      "rot_y": 30.0,
+      "scale": [
+        2.2,
+        1.6,
+        2.2
+      ],
+      "solid": false
+    },
+    {
+      "id": "coth_bed",
+      "model": "assets/models/env/floor_grass.glb",
+      "pos": [
+        -16.0,
+        0.0,
+        17.2
+      ],
+      "rot_y": 30.0,
+      "scale": [
+        1.9,
+        0.08,
+        0.9
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.7,
+        0.3
+      ]
+    },
+    {
+      "id": "sir_pebbleton",
+      "model": "assets/models/props/ore_iron.glb",
+      "pos": [
+        -15.9,
+        0.3,
+        14.7
+      ],
+      "rot_y": 200.0,
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ],
+      "solid": false
     }
   ],
   "lights": [
@@ -1736,6 +1937,17 @@
       ],
       "yaw": 40.0,
       "requires_flag": "druid_restored"
+    },
+    {
+      "instance_id": "npc_coth_wood",
+      "npc_id": "core:npc.coth_castaway",
+      "pos": [
+        -15.4,
+        0.0,
+        15.9
+      ],
+      "yaw": 120.0,
+      "hidden_flag": "coth_home"
     }
   ],
   "creatures": [
@@ -2284,6 +2496,35 @@
         0.15,
         5.0
       ]
+    },
+    {
+      "instance_id": "sir_pebbleton_note",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -15.9,
+        0.3,
+        14.6
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Stone",
+      "title": "Sir Pebbleton",
+      "text": "A round grey stone with a face painted on it in berry juice: two dots, and a mouth that has decided to be patient about things. Someone has given it a little moss hat.\n\nIt is, somehow, the most dignified thing in the wood."
+    },
+    {
+      "instance_id": "coth_tally",
+      "type": "readable",
+      "model": "",
+      "pos": [
+        -15.6,
+        0.0,
+        18.7
+      ],
+      "rot_y": 0.0,
+      "prompt": "Look at the Marks on the Pine",
+      "title": "Marks on a Pine",
+      "set_flag": "coth_seen_tally",
+      "text": "Somebody has scratched rows of marks into the bark, in tidy groups of five, under a heading carved in big letters:\n\nDAYS LOST\n\nUnderneath, smaller: (hours?)\nSmaller still: (no. days.)\nTiny, near the roots: (maybe hours.)\n\nThere are a lot of marks. You could count them. Ideally with whoever made them."
     }
   ],
   "portals": []

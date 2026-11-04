@@ -2340,6 +2340,700 @@
           "text_key": "bark.auditor.1"
         }
       ]
+    },
+    {
+      "id": "core:npc.eranu",
+      "name_key": "npc.eranu.name",
+      "title_key": "npc.eranu.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.eranu",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/friend_eranu.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "barks": [
+        {
+          "text_key": "bark.eranu.1",
+          "not_flag": "coth_home"
+        },
+        {
+          "text_key": "bark.eranu.2",
+          "not_flag": "coth_home"
+        },
+        {
+          "text_key": "bark.eranu.3",
+          "flag": "coth_home"
+        }
+      ],
+      "companion": {
+        "damage": 10,
+        "attack_time": 1.05,
+        "reach": 1.9,
+        "heal_amount": 18,
+        "heal_cooldown": 50,
+        "zone_lines": {
+          "bellwether": "comp.eranu.zone.bellwether",
+          "old_road": "comp.eranu.zone.old_road",
+          "annex": "comp.eranu.zone.annex",
+          "vault_three": "comp.eranu.zone.vault_three",
+          "seal_chamber": "comp.eranu.zone.seal_chamber",
+          "hollowmere": "comp.eranu.zone.hollowmere",
+          "hollowmere_manor": "comp.eranu.zone.hollowmere_manor",
+          "saltmere": "comp.eranu.zone.saltmere",
+          "sunken_chapel": "comp.eranu.zone.sunken_chapel",
+          "whistling_wood": "comp.eranu.zone.whistling_wood",
+          "sleepers_reef": "comp.eranu.zone.sleepers_reef",
+          "here": "comp.eranu.zone.here",
+          "here_archive": "comp.eranu.zone.here_archive"
+        },
+        "idle_lines": [
+          {
+            "text_key": "comp.eranu.idle.1"
+          },
+          {
+            "text_key": "comp.eranu.idle.2"
+          },
+          {
+            "text_key": "comp.eranu.idle.3"
+          },
+          {
+            "text_key": "comp.eranu.idle.4"
+          },
+          {
+            "text_key": "comp.eranu.idle.5",
+            "flag": "coth_following"
+          },
+          {
+            "text_key": "comp.eranu.idle.6",
+            "flag": "dunstan_following"
+          },
+          {
+            "text_key": "comp.eranu.idle.7",
+            "flag": "baggy_following"
+          }
+        ],
+        "combat_lines": [
+          "comp.eranu.combat.1",
+          "comp.eranu.combat.2",
+          "comp.eranu.combat.3",
+          "comp.eranu.combat.4"
+        ],
+        "kill_lines": [
+          "comp.eranu.kill.1",
+          "comp.eranu.kill.2",
+          "comp.eranu.kill.3",
+          "comp.eranu.kill.4"
+        ],
+        "heal_lines": [
+          "comp.eranu.heal.1",
+          "comp.eranu.heal.2",
+          "comp.eranu.heal.3"
+        ],
+        "level_lines": [
+          "comp.eranu.level.1",
+          "comp.eranu.level.2"
+        ],
+        "catchup_lines": [
+          "comp.eranu.catchup.1",
+          "comp.eranu.catchup.2"
+        ],
+        "banter": [
+          {
+            "id": "eranu_waifu",
+            "partner": "core:npc.coth",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.waifu.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.waifu.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.waifu.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.waifu.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.waifu.4"
+              }
+            ]
+          },
+          {
+            "id": "eranu_trousers",
+            "partner": "core:npc.coth",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.trousers.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.trousers.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.trousers.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.trousers.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.trousers.4"
+              }
+            ]
+          },
+          {
+            "id": "eranu_thousand",
+            "partner": "core:npc.coth",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.thousand.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.thousand.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.thousand.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.thousand.3"
+              }
+            ]
+          },
+          {
+            "id": "eranu_squire",
+            "partner": "core:npc.dunstan",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.squire.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.squire.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.squire.2"
+              }
+            ]
+          },
+          {
+            "id": "eranu_detective",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.detective.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.detective.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.detective.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.detective.3"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.detective.4"
+              }
+            ]
+          },
+          {
+            "id": "eranu_statue",
+            "partner": "core:npc.grout",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.statue.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.statue.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.eranu.banter.statue.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.eranu.banter.statue.3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "core:npc.coth_castaway",
+      "name_key": "npc.coth_castaway.name",
+      "title_key": "npc.coth_castaway.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.coth_castaway",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/friend_coth.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "barks": [
+        {
+          "text_key": "bark.coth_castaway.1"
+        },
+        {
+          "text_key": "bark.coth_castaway.2"
+        }
+      ]
+    },
+    {
+      "id": "core:npc.coth",
+      "name_key": "npc.coth.name",
+      "title_key": "npc.coth.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.coth",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/friend_coth.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "barks": [
+        {
+          "text_key": "bark.coth.1"
+        },
+        {
+          "text_key": "bark.coth.2"
+        }
+      ],
+      "companion": {
+        "damage": 9,
+        "attack_time": 0.85,
+        "reach": 1.7,
+        "heal_amount": 14,
+        "heal_cooldown": 55,
+        "zone_lines": {
+          "bellwether": "comp.coth.zone.bellwether",
+          "old_road": "comp.coth.zone.old_road",
+          "annex": "comp.coth.zone.annex",
+          "vault_three": "comp.coth.zone.vault_three",
+          "seal_chamber": "comp.coth.zone.seal_chamber",
+          "hollowmere": "comp.coth.zone.hollowmere",
+          "hollowmere_manor": "comp.coth.zone.hollowmere_manor",
+          "saltmere": "comp.coth.zone.saltmere",
+          "sunken_chapel": "comp.coth.zone.sunken_chapel",
+          "whistling_wood": "comp.coth.zone.whistling_wood",
+          "sleepers_reef": "comp.coth.zone.sleepers_reef",
+          "here": "comp.coth.zone.here",
+          "here_archive": "comp.coth.zone.here_archive"
+        },
+        "idle_lines": [
+          {
+            "text_key": "comp.coth.idle.1"
+          },
+          {
+            "text_key": "comp.coth.idle.2"
+          },
+          {
+            "text_key": "comp.coth.idle.3"
+          },
+          {
+            "text_key": "comp.coth.idle.4"
+          },
+          {
+            "text_key": "comp.coth.idle.5"
+          },
+          {
+            "text_key": "comp.coth.idle.6",
+            "flag": "eranu_following"
+          },
+          {
+            "text_key": "comp.coth.idle.7",
+            "flag": "dunstan_following"
+          }
+        ],
+        "combat_lines": [
+          "comp.coth.combat.1",
+          "comp.coth.combat.2",
+          "comp.coth.combat.3",
+          "comp.coth.combat.4"
+        ],
+        "kill_lines": [
+          "comp.coth.kill.1",
+          "comp.coth.kill.2",
+          "comp.coth.kill.3"
+        ],
+        "heal_lines": [
+          "comp.coth.heal.1",
+          "comp.coth.heal.2",
+          "comp.coth.heal.3"
+        ],
+        "level_lines": [
+          "comp.coth.level.1",
+          "comp.coth.level.2"
+        ],
+        "catchup_lines": [
+          "comp.coth.catchup.1",
+          "comp.coth.catchup.2"
+        ],
+        "banter": [
+          {
+            "id": "coth_bark",
+            "partner": "core:npc.eranu",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.bark.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.bark.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.bark.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.bark.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.bark.4"
+              }
+            ]
+          },
+          {
+            "id": "coth_legs",
+            "partner": "core:npc.dunstan",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.legs.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.legs.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.legs.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.legs.3"
+              }
+            ]
+          },
+          {
+            "id": "coth_castaway",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.castaway.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.castaway.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.castaway.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.castaway.3"
+              }
+            ]
+          },
+          {
+            "id": "coth_rocks",
+            "partner": "core:npc.grout",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.rocks.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.rocks.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.rocks.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.rocks.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.rocks.4"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.rocks.5"
+              }
+            ]
+          },
+          {
+            "id": "coth_snacks",
+            "partner": "core:npc.figure_snacks",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.snacks.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.snacks.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.coth.banter.snacks.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.coth.banter.snacks.3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "core:npc.dunstan",
+      "name_key": "npc.dunstan.name",
+      "title_key": "npc.dunstan.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.dunstan",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/friend_dunstan.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.8
+      },
+      "barks": [
+        {
+          "text_key": "bark.dunstan.1"
+        },
+        {
+          "text_key": "bark.dunstan.2"
+        },
+        {
+          "text_key": "bark.dunstan.3"
+        }
+      ],
+      "companion": {
+        "damage": 15,
+        "attack_time": 1.9,
+        "reach": 2.3,
+        "heal_amount": 12,
+        "heal_cooldown": 60,
+        "zone_lines": {
+          "bellwether": "comp.dunstan.zone.bellwether",
+          "old_road": "comp.dunstan.zone.old_road",
+          "annex": "comp.dunstan.zone.annex",
+          "vault_three": "comp.dunstan.zone.vault_three",
+          "seal_chamber": "comp.dunstan.zone.seal_chamber",
+          "hollowmere": "comp.dunstan.zone.hollowmere",
+          "hollowmere_manor": "comp.dunstan.zone.hollowmere_manor",
+          "saltmere": "comp.dunstan.zone.saltmere",
+          "sunken_chapel": "comp.dunstan.zone.sunken_chapel",
+          "whistling_wood": "comp.dunstan.zone.whistling_wood",
+          "sleepers_reef": "comp.dunstan.zone.sleepers_reef",
+          "here": "comp.dunstan.zone.here",
+          "here_archive": "comp.dunstan.zone.here_archive"
+        },
+        "idle_lines": [
+          {
+            "text_key": "comp.dunstan.idle.1"
+          },
+          {
+            "text_key": "comp.dunstan.idle.2"
+          },
+          {
+            "text_key": "comp.dunstan.idle.3"
+          },
+          {
+            "text_key": "comp.dunstan.idle.4"
+          },
+          {
+            "text_key": "comp.dunstan.idle.5"
+          },
+          {
+            "text_key": "comp.dunstan.idle.6",
+            "flag": "coth_following"
+          },
+          {
+            "text_key": "comp.dunstan.idle.7",
+            "flag": "eranu_following"
+          }
+        ],
+        "combat_lines": [
+          "comp.dunstan.combat.1",
+          "comp.dunstan.combat.2",
+          "comp.dunstan.combat.3",
+          "comp.dunstan.combat.4"
+        ],
+        "kill_lines": [
+          "comp.dunstan.kill.1",
+          "comp.dunstan.kill.2",
+          "comp.dunstan.kill.3"
+        ],
+        "heal_lines": [
+          "comp.dunstan.heal.1",
+          "comp.dunstan.heal.2",
+          "comp.dunstan.heal.3"
+        ],
+        "level_lines": [
+          "comp.dunstan.level.1",
+          "comp.dunstan.level.2"
+        ],
+        "catchup_lines": [
+          "comp.dunstan.catchup.1",
+          "comp.dunstan.catchup.2"
+        ],
+        "banter": [
+          {
+            "id": "dunstan_stance",
+            "partner": "core:npc.eranu",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.stance.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.stance.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.stance.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.stance.3"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_kilt",
+            "partner": "core:npc.coth",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.kilt.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.kilt.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.kilt.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.kilt.3"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_squires",
+            "partner": "core:npc.ashbound_scout",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.squires.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.squires.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.squires.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.squires.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.squires.4"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_case",
+            "partner": "core:npc.detective_baggy",
+            "lines": [
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.case.0"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.case.1"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.case.2"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.case.3"
+              }
+            ]
+          },
+          {
+            "id": "dunstan_lift",
+            "partner": "core:npc.grout",
+            "lines": [
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.lift.0"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.lift.1"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.lift.2"
+              },
+              {
+                "by": "partner",
+                "text_key": "comp.dunstan.banter.lift.3"
+              },
+              {
+                "by": "self",
+                "text_key": "comp.dunstan.banter.lift.4"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

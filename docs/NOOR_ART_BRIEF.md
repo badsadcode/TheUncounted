@@ -61,6 +61,16 @@ A city struck off every map 400 years ago; its people have forgotten their own n
 | `here_mouth.png` | Mouth of the Hunger (monster) | A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names. |
 | `here_unsaying.png` | The Unsaying (boss) | Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be. |
 
+## 2c. Friends from Toasty's streams — 3 sprite sheets
+
+Real friends of Toasty's, as characters (two can join the party, one is a quest). Same 8 × 6 layout as the other characters, files in `assets/sprites/npcs/`. Placeholders are in the game until yours arrive.
+
+| File | Who | Look |
+|---|---|---|
+| `friend_eranu.png` | Eranu, Shieldmaiden of the Glens | A tall, broad-shouldered Scottish warrior woman: long blonde braid, green tartan kilt, blue-grey tunic, round wooden targe (shield) and a sword. Brave and clever; confident, a little amused. She. |
+| `friend_coth.png` | Coth (Cothfotmeoo) | Looks like a castaway lost for a thousand years: skinny, scruffy, long dark hair down his back, a long heavy black beard to his belt, a ragged tunic, and NO TROUSERS (bare legs, bare feet; plain undershorts). Carries a sword. Cheerful, slightly unhinged. He. |
+| `friend_dunstan.png` | Dunstan, Nearly a Squire | A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. He. |
+
 ## 3. Spell effects in flight — 5 animated strips
 
 The ball you see flying when a spell is cast. Currently plain coloured circles.
@@ -106,7 +116,7 @@ Shown in the spell bar and spellbook, all the time. **64 × 64 px**, opaque squa
 | `veil.png` | Veil | Dulls sound and bends shadow, reducing enemy sight detection. |
 | `ward.png` | Ward | Sheathes the caster in a resonant arcane barrier (+8 Armor). |
 
-## 5. Item icons — 188 icons (a big set: any part helps)
+## 5. Item icons — 189 icons (a big set: any part helps)
 
 Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px. Grouped by kind below; the description is what the game says about it.
 
@@ -138,7 +148,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `whiskerblade.png` | Whiskerblade | A dagger made around the Rat King's whisker. Quick, mean, and it makes things bleed. Rats nearby go very quiet when you draw it. |
 | `widowmaker.png` | The Widowmaker | Forged for King Edric's final battle. Unfortunately, Edric survived. His wife did not appreciate the name. |
 
-### Armor (13)
+### Armor (14)
 
 | File | Item | Description |
 |---|---|---|
@@ -155,6 +165,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `sabrino_hat.png` | Sabrino's Pointed Hat | Tall, dented and gloriously purple, with a sash that smells of garlic and brimstone. Makes your spells hit harder and your opinions louder. Mildly cursed: you can't stop thinking about dinner. |
 | `scholar_robe.png` | Collegium Archivist Robe | Woven with silver thread that steadies the mind during casting. |
 | `traveler_boots.png` | Wayfarer's Dry-Stitched Boots | Waxed against Bellwether's unending drizzle. |
+| `trousers_of_coth.png` | The Trousers of Coth | Sturdy, warm, beautifully stitched, and never once worn by their owner, who refuses to take them back. Eranu carried them for three days, just in case. Comfortable in winter, which is more than Coth can say. |
 
 ### Accessory (27)
 

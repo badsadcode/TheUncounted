@@ -1342,6 +1342,37 @@
           "completed": true
         }
       ]
+    },
+    {
+      "id": "core:quest.cothepoo",
+      "title_key": "quest.cothepoo.title",
+      "summary_key": "quest.cothepoo.summary",
+      "campaign": "tales_of_bellwether",
+      "stages": [
+        {
+          "stage": 10,
+          "objective_key": "quest.cothepoo.stage10",
+          "journal_key": "quest.cothepoo.journal10",
+          "markers": [
+            "npc_coth_wood",
+            "coth_tally"
+          ]
+        },
+        {
+          "stage": 20,
+          "objective_key": "quest.cothepoo.stage20",
+          "journal_key": "quest.cothepoo.journal20",
+          "markers": [
+            "npc_eranu"
+          ]
+        },
+        {
+          "stage": 100,
+          "objective_key": "quest.cothepoo.stage100",
+          "journal_key": "quest.cothepoo.journal100",
+          "completed": true
+        }
+      ]
     }
   ],
   "campaigns": [

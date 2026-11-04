@@ -1,6 +1,8 @@
-# Friends as NPCs (idea for later)
+# Friends as NPCs
 
-Friends from Toasty's community to add to the game as NPCs. Not started yet: details to settle before we build them.
+Friends from Toasty's community, now in the game (with placeholder sprites until Noor draws them): see HANDOFF.md,
+"Friends from Toasty's streams". Eranu waits in the Lantern Inn (quest "Cothepoo, Come Home"), Coth is camped in the
+Whistling Wood, Dunstan practises in the square. Eranu and Coth join after the quest; Dunstan any time.
 
 | Name | Look and feel (from the user) |
 |---|---|

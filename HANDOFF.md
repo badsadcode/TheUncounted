@@ -748,3 +748,19 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   (Rogue and Adventurer pass), Clerics reach ~6, Mages pass easily (Ember Bolt kiting is strong everywhere, a general
   balance question). Ranger runs that end at wave 3 with no potions used are the scripted archer stuck kiting behind a
   pillar until the 900 s cap, not real deaths.
+
+### Friends from Toasty's streams: Eranu, Coth, Dunstan (added 2026-11-04)
+
+Real friends of Toasty's (notes and in-jokes: `docs/FRIENDS_AS_NPCS.md`). Pronouns: **Eranu she, Coth he, Dunstan he.**
+Authoring script `tools/authoring/friends.py` (already run, do not rerun). Placeholder sprites `friend_*.png`
+(`build_sprites_prerendered.py friend_`; new style keys `long_hair`, `braid`, `long_beard`, `torso_w`, `kilt`, `undies`,
+weapon `greatsword`); Noor's brief section 2c.
+- **Quest `core:quest.cothepoo`** "Cothepoo, Come Home" (Tales of Bellwether): Eranu (`npc_eranu`, Lantern Inn window
+  seat) is waiting for her waifu → stage 10 → Coth's camp in the Whistling Wood (`npc_coth_wood`, NPC def
+  `core:npc.coth_castaway`, local -15.4, 15.9) with Sir Pebbleton (a stone with a face) and the tally marks on a pine
+  (`coth_tally`, sets `coth_seen_tally`). Persuasion DC 9 ("Eranu sent me") or Perception DC 8 (count the marks: 72, one
+  per hour) → `coth_home`, stage 20; Coth moves to the inn (`npc_coth_inn`, def `core:npc.coth`) → talk to Eranu: the
+  reunion (narration `story.cothepoo.1-3`), stage 100, the Trousers of Coth (legs, he won't take them back), 80 gold.
+- **Companions** (any two at a time, as usual): Eranu (after the quest; 10 dmg, sturdy, small heals), Coth (after the
+  quest; fast, 9 dmg), Dunstan (any time, in the square; Big Margaret: 15 dmg, slow, long reach). Flags
+  `eranu_following`, `coth_following`, `dunstan_following`. Banter among the three and with Baggy, Kaelen, Grout, Snacks.

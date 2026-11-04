@@ -99,6 +99,18 @@ for f, who, look in [
 ]:
     w(f"| `{f}` | {who} | {look} |")
 
+w("\n## 2c. Friends from Toasty's streams — 3 sprite sheets\n")
+w("Real friends of Toasty's, as characters (two can join the party, one is a quest). Same 8 × 6 layout as the other "
+  "characters, files in `assets/sprites/npcs/`. Placeholders are in the game until yours arrive.\n")
+w("| File | Who | Look |")
+w("|---|---|---|")
+for f, who, look in [
+    ("friend_eranu.png", "Eranu, Shieldmaiden of the Glens", "A tall, broad-shouldered Scottish warrior woman: long blonde braid, green tartan kilt, blue-grey tunic, round wooden targe (shield) and a sword. Brave and clever; confident, a little amused. She."),
+    ("friend_coth.png", "Coth (Cothfotmeoo)", "Looks like a castaway lost for a thousand years: skinny, scruffy, long dark hair down his back, a long heavy black beard to his belt, a ragged tunic, and NO TROUSERS (bare legs, bare feet; plain undershorts). Carries a sword. Cheerful, slightly unhinged. He."),
+    ("friend_dunstan.png", "Dunstan, Nearly a Squire", "A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. He."),
+]:
+    w(f"| `{f}` | {who} | {look} |")
+
 w("\n## 3. Spell effects in flight — 5 animated strips\n")
 w("The ball you see flying when a spell is cast. Currently plain coloured circles.\n")
 w("- **Layout**: one row of **square frames**, 4 to 8 frames, **64 × 64 px** each (e.g. 6 frames = 384 × 64). Loops at "

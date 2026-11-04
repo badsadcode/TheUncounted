@@ -206,6 +206,27 @@ creature("wood_badger_1", "core:enemy.angry_badger", (14.0, 0.0, -4.0), (14.0, 0
 creature("wood_wisp_0", "core:enemy.wisp", (-18.0, 0.4, -12.0), (-19.0, 0.4, -15.0), (-15.0, 0.4, -9.0))
 creature("wood_wisp_1", "core:enemy.wisp", (-9.0, 0.4, -14.5), (-12.0, 0.4, -14.5), (-6.5, 0.4, -14.5))
 
+# ============================================================================ Coth's camp (tools/authoring/friends.py)
+props.append({"id": "coth_fire", "model": "assets/models/props/fire_embers_small.glb", "pos": [-14.6, 0.0, 15.4], "scale": [1, 1, 1], "solid": False})
+for i, (dx, dz) in enumerate([(0.45, 0), (-0.45, 0), (0, 0.45), (0, -0.45), (0.32, 0.32), (-0.32, -0.32)]):
+    props.append({"id": f"coth_fire_stone{i}", "model": STONE, "pos": [-14.6 + dx, 0.0, 15.4 + dz], "scale": [0.22, 0.18, 0.22],
+                  "solid": False, "uv_scale": [0.2, 0.1]})
+props.append({"id": "coth_log", "model": WOOD, "pos": [-15.9, 0.0, 15.2], "rot_y": 80.0, "scale": [1.8, 0.32, 0.42], "solid": False, "uv_scale": [0.8, 0.2]})
+props.append({"id": "coth_lean_to", "model": "assets/models/props/branches_ash.glb", "pos": [-16.6, 0.0, 16.8], "rot_y": 30.0, "scale": [2.2, 1.6, 2.2],
+              "solid": False})
+props.append({"id": "coth_bed", "model": GRASS, "pos": [-16.0, 0.0, 17.2], "rot_y": 30.0, "scale": [1.9, 0.08, 0.9], "solid": False, "uv_scale": [0.7, 0.3]})
+props.append({"id": "sir_pebbleton", "model": "assets/models/props/ore_iron.glb", "pos": [-15.9, 0.3, 14.7], "rot_y": 200.0, "scale": [0.45, 0.45, 0.45], "solid": False})
+npcs.append({"instance_id": "npc_coth_wood", "npc_id": "core:npc.coth_castaway", "pos": [-15.4, 0.0, 15.9], "yaw": 120.0, "hidden_flag": "coth_home"})
+interactables.append({"instance_id": "sir_pebbleton_note", "type": "readable", "model": "", "pos": [-15.9, 0.3, 14.6], "rot_y": 0.0,
+                      "prompt": "Look at the Stone", "title": "Sir Pebbleton",
+                      "text": "A round grey stone with a face painted on it in berry juice: two dots, and a mouth that has decided to be "
+                              "patient about things. Someone has given it a little moss hat.\n\nIt is, somehow, the most dignified thing in the wood."})
+interactables.append({"instance_id": "coth_tally", "type": "readable", "model": "", "pos": [-15.6, 0.0, 18.7], "rot_y": 0.0,
+                      "prompt": "Look at the Marks on the Pine", "title": "Marks on a Pine", "set_flag": "coth_seen_tally",
+                      "text": "Somebody has scratched rows of marks into the bark, in tidy groups of five, under a heading carved in big letters:\n\n"
+                              "DAYS LOST\n\nUnderneath, smaller: (hours?)\nSmaller still: (no. days.)\nTiny, near the roots: (maybe hours.)\n\n"
+                              "There are a lot of marks. You could count them. Ideally with whoever made them."})
+
 region = {
     "schema_version": 1,
     "id": "core:map.whistling_wood",

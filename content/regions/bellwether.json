@@ -1362,6 +1362,37 @@
       "yaw": -40.0,
       "requires_flag": "dragon_hearing",
       "hidden_flag": "dragon_golem"
+    },
+    {
+      "instance_id": "npc_eranu",
+      "npc_id": "core:npc.eranu",
+      "pos": [
+        -9.4,
+        0.0,
+        8.4
+      ],
+      "yaw": 150.0
+    },
+    {
+      "instance_id": "npc_coth_inn",
+      "npc_id": "core:npc.coth",
+      "pos": [
+        -8.7,
+        0.0,
+        10.3
+      ],
+      "yaw": 130.0,
+      "requires_flag": "coth_home"
+    },
+    {
+      "instance_id": "npc_dunstan",
+      "npc_id": "core:npc.dunstan",
+      "pos": [
+        -3.2,
+        0.0,
+        3.4
+      ],
+      "yaw": 30.0
     }
   ],
   "creatures": [
