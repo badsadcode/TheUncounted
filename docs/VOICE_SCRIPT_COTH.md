@@ -216,3 +216,12 @@ Little scenes between companions. Only the **bold** lines are this character's t
 | `comp.dunstan.banter.mate_coth.2` | **COTH: So... bark tea.** |
 | `comp.dunstan.banter.mate_coth.3` | DUNSTAN: It's NOT- ...okay, it's a bit like bark tea. |
 | `comp.dunstan.banter.mate_coth.4` | **COTH: I knew it. I'm a connoisseur.** |
+
+**Dunstan & Coth**
+
+| File name | Line |
+|---|---|
+| `comp.dunstan.banter.desert.0` | DUNSTAN: Coth, I once woke up naked in the middle of a desert, with nothing at all. |
+| `comp.dunstan.banter.desert.1` | **COTH: Paradise.** |
+| `comp.dunstan.banter.desert.2` | DUNSTAN: The first thing I did was make some trousers. |
+| `comp.dunstan.banter.desert.3` | **COTH: ...Rookie mistake.** |

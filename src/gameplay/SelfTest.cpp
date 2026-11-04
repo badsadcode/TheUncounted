@@ -1944,10 +1944,26 @@ int GameEngine::RunSelfTest() {
                   CountItem("core:item.dunstan_mate") == 3 && talk("core:npc.dunstan", {"mate", "mate_again"}),
               "Dunstan shares his mate (drink it till it gurgles; 'thank you' means you're done) and talks about the Eastern Shore");
         RemoveItem("core:item.dunstan_mate", 3);
+        {
+            int di = visible("core:npc.dunstan");
+            bool missed = false, lifted = false;
+            if (di >= 0) {
+                StartDialogue(di);
+                missed = chooseNext("lift_together") && dialogue_node_ == "ninety_five";
+                for (int i = 0; i < 20 && !lifted; i++) {
+                    chooseNext("root");
+                    lifted = chooseNext("lift_together") && dialogue_node_ == "lift_together";
+                }
+                if (overlay_ == Overlay::Dialogue) EndDialogue();
+                overlay_ = Overlay::None;
+            }
+            check(missed && lifted && talk("core:npc.dunstan", {"tactics", "root", "scars", "scars_fun", "root", "armour", "armour_rock"}),
+                  "Dunstan's 95% lift misses the first time ('It's always the ninety-five'); tactics, scars and a fortress punched from rocks");
+        }
         const NpcDef* e = content_.GetNpc("core:npc.eranu");
         const NpcDef* c = content_.GetNpc("core:npc.coth");
         const NpcDef* du = content_.GetNpc("core:npc.dunstan");
-        check(e && c && du && e->companion.banter.size() == 6 && c->companion.banter.size() == 5 && du->companion.banter.size() == 9 &&
+        check(e && c && du && e->companion.banter.size() == 6 && c->companion.banter.size() == 5 && du->companion.banter.size() == 12 &&
                   du->companion.damage > c->companion.damage && du->companion.attack_time > c->companion.attack_time,
               "the three friends banter with each other and the party; Dunstan hits hardest and slowest");
         player_.companions = savedParty;

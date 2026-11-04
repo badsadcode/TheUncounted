@@ -18292,6 +18292,28 @@
               "next": "home"
             },
             {
+              "text_key": "dlg.dunstan.root.c_help",
+              "next": "lift_together",
+              "roll": {
+                "skill": "athletics",
+                "dc": 2,
+                "fail_next": "ninety_five",
+                "rigged": true
+              }
+            },
+            {
+              "text_key": "dlg.dunstan.root.c_tactics",
+              "next": "tactics"
+            },
+            {
+              "text_key": "dlg.dunstan.root.c_scars",
+              "next": "scars"
+            },
+            {
+              "text_key": "dlg.dunstan.root.c_armour",
+              "next": "armour"
+            },
+            {
               "text_key": "dlg.dunstan.root.c6",
               "next": "END"
             }
@@ -18470,6 +18492,83 @@
           "choices": [
             {
               "text_key": "dlg.dunstan.home_friends.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "ninety_five": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.ninety_five",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.ninety_five.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "lift_together": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.lift_together",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.lift_together.c0",
+              "next": "root"
+            }
+          ],
+          "actions": [
+            {
+              "type": "give_xp",
+              "skill": "athletics",
+              "amount": 15
+            }
+          ]
+        },
+        "tactics": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.tactics",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.tactics.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "scars": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.scars",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.scars.c0",
+              "next": "scars_fun"
+            }
+          ]
+        },
+        "scars_fun": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.scars_fun",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.scars_fun.c0",
+              "next": "root"
+            }
+          ]
+        },
+        "armour": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.armour",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.armour.c0",
+              "next": "armour_rock"
+            }
+          ]
+        },
+        "armour_rock": {
+          "speaker_key": "npc.dunstan.name",
+          "text_key": "dlg.dunstan.armour_rock",
+          "choices": [
+            {
+              "text_key": "dlg.dunstan.armour_rock.c0",
               "next": "root"
             }
           ]

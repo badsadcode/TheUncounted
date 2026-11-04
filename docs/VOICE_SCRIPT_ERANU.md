@@ -190,3 +190,12 @@ Little scenes between companions. Only the **bold** lines are this character's t
 | `comp.dunstan.banter.mate_eranu.2` | **ERANU: ...It's like drinkin' a hot lawn.** |
 | `comp.dunstan.banter.mate_eranu.3` | DUNSTAN: That's the best part! |
 | `comp.dunstan.banter.mate_eranu.4` | **ERANU: Aye. Aye, it kind o' is. Gie's another.** |
+
+**Dunstan & Eranu**
+
+| File name | Line |
+|---|---|
+| `comp.dunstan.banter.odds.0` | **ERANU: Ye look worried, lad.** |
+| `comp.dunstan.banter.odds.1` | DUNSTAN: That beast only has a five percent chance to hit us. |
+| `comp.dunstan.banter.odds.2` | **ERANU: So we're fine.** |
+| `comp.dunstan.banter.odds.3` | DUNSTAN: Eranu. I have seen what five percent can do. |
