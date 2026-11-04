@@ -263,6 +263,8 @@ private:
     void UpdateGamepad(float dt);
     Vector2 pad_cursor_ = {-1.0f, -1.0f};   // where the stick last put the cursor (so that move isn't taken for the mouse)
     bool night_outdoors_ = false;
+    bool audit_balance_ = false;
+    void RunAuditBalance();
     float boot_shot_hour_ = -1.0f;
     std::string creation_name_ = "Wren";
     bool options_from_title_ = false;

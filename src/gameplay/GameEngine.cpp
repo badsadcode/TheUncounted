@@ -230,6 +230,7 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (a == "--mods") content_.game_cfg.enable_mods = true;
         else if (a == "--selftest") selftest_ = true;
         else if (a == "--balance") balance_ = true;
+        else if (a == "--audit-balance") { balance_ = true; audit_balance_ = true; }   // simulate whole Audit runs per build
         else if (a == "--mute") mute_ = true;
         else if (a == "--arch") creation_arch_ = atoi(next().c_str());
         else if (a == "--hour") boot_shot_hour_ = static_cast<float>(atof(next().c_str()));   // --shot: time of day
