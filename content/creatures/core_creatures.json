@@ -1601,8 +1601,8 @@
       "name_key": "enemy.here_mouth.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/here_mouth.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/enemies/here_mouth_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.5
       },
       "stats": {
@@ -1649,8 +1649,8 @@
       "name_key": "enemy.here_unsaying.name",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/enemies/here_unsaying.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/enemies/here_unsaying_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 2.8
       },
       "stats": {

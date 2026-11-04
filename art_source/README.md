@@ -79,6 +79,20 @@ python tools/import_package.py path/to/package.zip --apply    # import all, upda
 | `spritesheets/headless_knight.png` | `assets/sprites/enemies/headless_knight_painted.png` | Headless Knight |
 | `spritesheets/lost_sentinel.png` | `assets/sprites/enemies/lost_sentinel_painted.png` | Lost Sentinel |
 | `spritesheets/repossession_golem.png` | `assets/sprites/enemies/repossession_golem_painted.png` | Repossession Golem |
+| `spritesheets/auditor.png` | `assets/sprites/npcs/auditor_painted.png` | Auditor |
+| `spritesheets/friend_coth.png` | `assets/sprites/npcs/friend_coth_painted.png` | Coth Castaway |
+| `spritesheets/friend_dunstan.png` | `assets/sprites/npcs/friend_dunstan_painted.png` | Dunstan |
+| `spritesheets/friend_eranu.png` | `assets/sprites/npcs/friend_eranu_painted.png` | Eranu |
+| `spritesheets/here_baker.png` | `assets/sprites/npcs/here_baker_painted.png` | Here Baker |
+| `spritesheets/here_butt_butt.png` | `assets/sprites/npcs/here_butt_butt_painted.png` | Here Butt Butt |
+| `spritesheets/here_cartographer.png` | `assets/sprites/npcs/here_cartographer_painted.png` | Here Cartographer |
+| `spritesheets/here_echo.png` | `assets/sprites/npcs/here_echo_painted.png` | Here Echo |
+| `spritesheets/here_gatekeeper.png` | `assets/sprites/npcs/here_gatekeeper_painted.png` | Here Gatekeeper |
+| `spritesheets/here_inspector.png` | `assets/sprites/npcs/here_inspector_painted.png` | Here Inspector |
+| `spritesheets/here_mouth.png` | `assets/sprites/enemies/here_mouth_painted.png` | Here Mouth |
+| `spritesheets/here_night_merchant.png` | `assets/sprites/npcs/here_night_merchant_painted.png` | Here Night Merchant |
+| `spritesheets/here_person_in_hat.png` | `assets/sprites/npcs/here_person_in_hat_painted.png` | Here Person In Hat |
+| `spritesheets/here_unsaying.png` | `assets/sprites/enemies/here_unsaying_painted.png` | Here Unsaying |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

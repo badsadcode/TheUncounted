@@ -2,103 +2,23 @@
 
 **The Uncounted** is a first-person fantasy RPG made as a gift for a streamer friend, Toasty: low-poly 3D places and hand-painted 2D pixel-art characters that turn to face the camera, like classic 90s games. The tone is cosy-spooky comedy: a bureaucratic afterlife (the hero has been declared legally dead), a haunted manor, a fishing town with a cult, a city whose name was eaten. Muted, earthy colours with candlelight; gentle humour in faces and objects.
 
-Everything listed here is **still missing**: the game runs with simple placeholders until each file arrives, and anything delivered goes straight in. Partial deliveries are very welcome. Already delivered (thank you!): all 62 original characters, the 4 monster sheets, all 60 portraits, the spell effects, the world textures, skies and fire, and most of the icons.
+Everything listed here is **still missing**: the game runs with simple placeholders until each file arrives, and anything delivered goes straight in. Partial deliveries are very welcome. Already delivered (thank you!): every character sheet, all 60 portraits, the spell effects and icons, the world textures, skies and fire, and most of the item icons.
 
 **Delivery**: a zip with one folder per section (`characters/`, `spell_icons/`, `item_icons/`, `revisions/` ...), files named exactly as listed. **Style**: the same painted pixel-art style as the earlier characters and icons; PNG; sizes exact.
 
-**Suggested order**: characters first (they're seen most), then the spell icon, then item icons.
+**Suggested order**: top to bottom (things seen most often come first).
 
 
-## How character sheets work
-
-**Sheet layout (all characters):** one PNG per character, **8 columns × 6 rows**, every cell the same size (128–256 px square; earlier sheets used 192 px cells), on a flat **pure black** background.
-- **Columns = facing**: 0 front, 1 front three-quarter (body towards screen-left), 2 profile facing screen-left, 3 back three-quarter, 4 back, 5 back three-quarter (other side), 6 profile facing screen-right, 7 front three-quarter (towards screen-right).
-- **Rows**: 0 idle, 1 walk A (left leg forward), 2 walk B (right leg forward), 3 wind-up (weapon raised, or a hand to the head for talkers), 4 attack / gesture, 5 columns 0–3 hit-recoil (front, left profile, back, right profile) and columns 4–7 lying on the ground (side-on, inside the cell).
-- Same scale and the same ground line (feet about 92 % down the cell) in every frame; nothing crosses into a neighbouring cell; one character per sheet, same outfit and props in every frame; about a 3/4 top-down view, lit from the upper left. Glowing bits (eyes, orbs) look great: the game adds bloom.
-
-
-## Chapter One: the people of Here (and the Auditor) — 11 sprite sheets
-
-A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. The residents are slightly faded, like a memory (soft, pale edges are fine: the game keeps them a little see-through itself). Deliver in `characters/`.
-
-| File | Who | Look |
-|---|---|---|
-| `here_gatekeeper.png` | Ottoline Pell, Gatekeeper | A very upright woman in a faded blue customs uniform and cap, a big rubber stamp in one hand and a form in the other. Four hundred years of patience; tearfully delighted to finally have a visitor. |
-| `here_baker.png` | The Baker, Probably | A floury baker in a white apron and a hair bun, flour on their face and arms, forever kneading dough that isn't there. |
-| `here_butt_butt.png` | Butt-Butt | A small, loud child (about 1.15 m) with messy ginger hair, a stub of chalk, chalk dust everywhere, an orange jumper, enormous grin. Picked their own name: Butt-Butt. Toasty's character! |
-| `here_cartographer.png` | The Cartographer (Retired) | An elderly mapmaker with white hair and beard, a much-mended brown coat, a battered hat, maps rolled under one arm. |
-| `here_person_in_hat.png` | Person in a Hat | Someone in a VERY tall, slightly bent hat (the most important part), a purple coat, dignified and vague. |
-| `here_night_merchant.png` | The Night Merchant | A tall, thin, hooded figure in deep night-blue, glowing pale eyes, a staff hung with little lanterns of different colours. |
-| `here_inspector.png` | Inspector Aldric Thrupp (ghost) | A grey, upright ghost tax inspector in a tall collar and a battered hat, a tin badge, holding a ledger full of holes; faint and see-through, counting chimneys on his fingers. |
-| `here_echo.png` | The Last Archivist | A ghostly archivist made of almost nothing: robes, spectacles, ink-stained fingers, an open ledger; floats slightly, faintly glowing. |
-| `auditor.png` | Prudence Vell, Senior Auditor of Existence (the Audit) | A severe Bureau official in a black coat with silver buttons, hair in a tight bun, a pen behind each ear and one in her hand, a red ledger. Not unkind; extremely thorough. |
-| `here_mouth.png` | Mouth of the Hunger (monster) | A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names. |
-| `here_unsaying.png` | The Unsaying (boss) | Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be. |
-
-## Friends from Toasty's streams — 3 sprite sheets
-
-Real friends of Toasty's, as characters (two can join the party). Deliver in `characters/`.
-
-| File | Who | Look |
-|---|---|---|
-| `friend_eranu.png` | Eranu, Shieldmaiden of the Glens | A tall, broad-shouldered Scottish warrior woman: long blonde braid, green tartan kilt, blue-grey tunic, round wooden targe (shield) and a sword. Brave and clever; confident, a little amused. She. |
-| `friend_coth.png` | Coth (Cothfotmeoo) | Looks like a castaway lost for a thousand years: skinny, scruffy, long dark hair down his back, a long heavy black beard to his belt, a ragged tunic, and NO TROUSERS (bare legs, bare feet; plain undershorts). Carries a sword. Cheerful, slightly unhinged. He. |
-| `friend_dunstan.png` | Dunstan, Nearly a Squire | A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. A round mate gourd with a silver straw (bombilla) hangs at his hip: he's from Uruguay. Sunny, eager, a bit homesick. He. |
-
-## Spell icons — 1 icon
-
-Shown in the spell bar and spellbook. **64 × 64 px**, opaque square (dark background), a clear symbol of the spell, readable at 32 px, a coloured border per school (fire orange, frost blue, restoration green, arcane violet...), matching the delivered ones.
-
-| File | Spell | What it does |
-|---|---|---|
-| `unsay.png` | Unsay | The Archivists' last trick: say something so quietly it un-happens. The target forgets it ever saw you, and can't see you again for eight seconds (less for the very large). For walking past things that shouldn't notice you. |
-
-## Item icons — 63 icons
+## Item icons — 47 icons
 
 Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px, matching the delivered ones. Grouped by kind; the description is what the game says about it.
 
 
-### Weapon (1)
+### Book (1)
 
 | File | Item | Description |
 |---|---|---|
-| `red_pen.png` | The Red Pen | An Archivist's editing pen, long enough to use as a dagger, still wet with red ink after four hundred years. It strikes things out: a hit can make a foe forget what it was doing. |
-
-### Armor (1)
-
-| File | Item | Description |
-|---|---|---|
-| `trousers_of_coth.png` | The Trousers of Coth | Sturdy, warm, beautifully stitched, and never once worn by their owner, who refuses to take them back. Eranu carried them for three days, just in case. Comfortable in winter, which is more than Coth can say. |
-
-### Accessory (5)
-
-| File | Item | Description |
-|---|---|---|
-| `butt_butt_chalk.png` | Butt-Butt's Lucky Chalk | A stub of chalk worn to a nub from writing BUTT-BUTT WOZ ERE on every wall in town. 'It's best at night. Everything is.' At night, you strike truer and luckier. |
-| `certificate_of_existence.png` | Certificate of Existence (Audited) | Signed by Senior Auditor Vell, stamped nine times, and laminated in something that isn't quite wax. It certifies that the bearer exists, thoroughly. Being officially real is good for you: tougher, more convincing, and sl… |
-| `here_silver_bell.png` | Silver Bell of Here | A small silver bell from the tower of Here, given by the whole town. When it rings, things that eat names flinch. Your spells hit harder; you see further into the dark. |
-| `inspector_abacus.png` | The Inspector's Abacus | Aldric Thrupp's ghostly abacus, cold as a coin. Its beads slide on their own when there's money nearby, and click disapprovingly at locks. More gold finds you, and locks give a little. |
-| `moonlit_cloak.png` | Moonlit Cloak | From the Midnight Market: a cloak that's slightly more there at night. You move quicker after dark, and gold finds its way to you. |
-
-### Consumable (3)
-
-| File | Item | Description |
-|---|---|---|
-| `ash_pepper_stew.png` | Ash-Pepper Stew | Hot enough to make your eyes water and your aim improve. Nobody understands why. +8% critical chance for 5 minutes. |
-| `dunstan_mate.png` | Mate (Dunstan's) | Dried yerba from the Eastern Shore, a gift from Dunstan. Hot, grassy, bitter, and then somehow good. Restores a little health, and for 5 minutes your stamina comes back much faster. Best shared. Don't stir the bombilla. |
-| `here_bread.png` | Bread of Here | Warm, dark, a little sour, a little sweet. It smells like knowing where you are. Steadies the mind. |
-
-### Book (7)
-
-| File | Item | Description |
-|---|---|---|
-| `here_quiet_name.png` | The Quiet Name | A sliver of the plinth's stone with a single word written on it in your own hand. Whoever reads it remembers where they are, and who. |
-| `tome_glimmer.png` | Tome: Glimmer | Use from inventory to permanently learn the Glimmer spell. |
-| `tome_siphon.png` | Tome: Siphon Ink | Use from inventory to permanently learn Siphon Ink. The pages are blotted with something that isn't quite ink. |
-| `tome_veil.png` | Tome: Veil | Use from inventory to permanently learn the Veil spell. |
 | `tome_vitality.png` | Tome: Borrowed Vitality | Reading it teaches the spell (and the tome crumbles). |
-| `tome_ward.png` | Tome: Ward | Use from inventory to permanently learn the Ward spell. |
-| `uncounted_ledger.png` | The Uncounted Ledger | A heavy stone-vellum register in which the Archivists of Annex III recorded every name they hid. Its last pages describe things that have not happened yet. |
 
 ### Key (9)
 

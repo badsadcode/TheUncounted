@@ -2139,8 +2139,8 @@
       "dialogue_id": "core:dialogue.here_gatekeeper",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_gatekeeper.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_gatekeeper_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -2160,8 +2160,8 @@
       "dialogue_id": "core:dialogue.here_baker",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_baker.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_baker_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -2181,8 +2181,8 @@
       "dialogue_id": "core:dialogue.here_butt_butt",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_butt_butt.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_butt_butt_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.15
       },
       "barks": [
@@ -2205,8 +2205,8 @@
       "dialogue_id": "core:dialogue.here_cartographer",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_cartographer.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_cartographer_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -2226,8 +2226,8 @@
       "dialogue_id": "core:dialogue.here_person_in_hat",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_person_in_hat.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_person_in_hat_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -2244,8 +2244,8 @@
       "dialogue_id": "core:dialogue.here_night_merchant",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_night_merchant.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_night_merchant_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -2289,8 +2289,8 @@
       "dialogue_id": "core:dialogue.here_echo",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_echo.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_echo_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.75
       },
       "barks": [
@@ -2307,8 +2307,8 @@
       "dialogue_id": "core:dialogue.here_inspector",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/here_inspector.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/here_inspector_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.85
       },
       "barks": [
@@ -2328,8 +2328,8 @@
       "dialogue_id": "core:dialogue.auditor",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/auditor.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/auditor_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.8
       },
       "barks": [
@@ -2349,8 +2349,8 @@
       "dialogue_id": "core:dialogue.eranu",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/friend_eranu.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/friend_eranu_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.8
       },
       "barks": [
@@ -2591,8 +2591,8 @@
       "dialogue_id": "core:dialogue.coth_castaway",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/friend_coth.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/friend_coth_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.8
       },
       "barks": [
@@ -2612,8 +2612,8 @@
       "dialogue_id": "core:dialogue.coth",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/friend_coth.png",
-        "animation_data": "assets/animations/npc_standard.json",
+        "sprite_sheet": "assets/sprites/npcs/friend_coth_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
         "scale": 1.8
       },
       "barks": [
@@ -2828,9 +2828,9 @@
       "dialogue_id": "core:dialogue.dunstan",
       "appearance": {
         "type": "sprite_8dir",
-        "sprite_sheet": "assets/sprites/npcs/friend_dunstan.png",
-        "animation_data": "assets/animations/npc_standard.json",
-        "scale": 1.8
+        "sprite_sheet": "assets/sprites/npcs/friend_dunstan_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 3.05
       },
       "barks": [
         {

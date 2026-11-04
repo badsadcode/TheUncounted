@@ -94,13 +94,12 @@ if REMAINING:
       "comedy: a bureaucratic afterlife (the hero has been declared legally dead), a haunted manor, a fishing town with a "
       "cult, a city whose name was eaten. Muted, earthy colours with candlelight; gentle humour in faces and objects.\n")
     w("Everything listed here is **still missing**: the game runs with simple placeholders until each file arrives, and "
-      "anything delivered goes straight in. Partial deliveries are very welcome. Already delivered (thank you!): all 62 "
-      "original characters, the 4 monster sheets, all 60 portraits, the spell effects, the world textures, skies and fire, "
-      "and most of the icons.\n")
+      "anything delivered goes straight in. Partial deliveries are very welcome. Already delivered (thank you!): every character sheet, all 60 portraits, the spell effects and icons, "
+      "the world textures, skies and fire, and most of the item icons.\n")
     w("**Delivery**: a zip with one folder per section (`characters/`, `spell_icons/`, `item_icons/`, `revisions/` ...), "
       "files named exactly as listed. **Style**: the same painted pixel-art style as the earlier characters and icons; PNG; "
       "sizes exact.\n")
-    w("**Suggested order**: characters first (they're seen most), then the spell icon, then item icons.\n")
+    w("**Suggested order**: top to bottom (things seen most often come first).\n")
 else:
     w("# Art brief for Noor: everything that still needs painting\n")
     w("Thank you for all the characters, textures and skies! This is the rest of the game's art, in order of how much it "
@@ -148,7 +147,7 @@ def char_table(title, intro, entries, section="characters"):
         w(f"| `{f}` | {who} | {look} |")
 
 
-if REMAINING:
+if REMAINING and (rows("monsters", MONSTERS) or rows("characters", CHAPTER_ONE + FRIENDS)):
     w("\n## How character sheets work\n")
     w(SHEET_RULES)
 char_table("Four monsters", "Same 8 × 6 layout as every character" + ("" if REMAINING else " (see `docs/CHARACTER_SPRITES.md`)") + ".",
