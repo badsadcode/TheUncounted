@@ -743,3 +743,8 @@ Inspired by classic roguelikes such as Barony (mechanics only; names, writing an
   replace raw mouse clicks in the UI (A / X), `BackPressed()` = Escape, Start, or B while a menu is open. In menus the
   left stick / d-pad move the OS cursor (`pad_cursor_` remembers where, so that move isn't mistaken for the mouse).
   `pad_active_` makes `BindingLabel` show pad names. Not tested on real hardware here (no device in the container).
+- `--audit-balance` (2 runs per calling at level 4 and 7, scripted player fights the nearest examiner; slow, ~15 min).
+  After the gentler group sizes (3,3,4,4,golem,5,6,6,7,finale): melee reaches waves 6-7 at level 4 and 7-10 at level 7
+  (Rogue and Adventurer pass), Clerics reach ~6, Mages pass easily (Ember Bolt kiting is strong everywhere, a general
+  balance question). Ranger runs that end at wave 3 with no potions used are the scripted archer stuck kiting behind a
+  pillar until the 900 s cap, not real deaths.
