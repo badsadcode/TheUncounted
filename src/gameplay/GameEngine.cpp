@@ -4417,7 +4417,7 @@ void GameEngine::SpawnAuditWave() {
     audit_.form = w == 1 ? 0 : static_cast<int>(rnd() * 7.0f) % 7;
     std::vector<std::pair<std::string, float>> foes;   // creature, health multiplier
     int tier = w <= 3 ? 0 : (w <= 7 ? 1 : 2);
-    int count = std::min(2 + w, 8);
+    int count = 2 + (w + 1) / 2;   // 3, 3, 4, 4, (golem), 5, 6, 6, 7: groups grow gently, so melee builds aren't simply surrounded
     if (w == 5) { foes.push_back({"repossession_golem", 1.0f}); count = 2; tier = 0; }
     if (w == 10) { foes.push_back({"rat_king", 1.0f}); foes.push_back({"dreaming_limb", 1.0f}); count = 2; tier = 2; }
     for (int k = 0; k < count; k++) foes.push_back({kAuditPools[tier][static_cast<int>(rnd() * 9.0f) % 9], 1.0f});
