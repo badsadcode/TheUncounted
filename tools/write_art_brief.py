@@ -55,6 +55,10 @@ for r in races:
     w(f"| `{short(r['id'])}` — {tr(r['name_key'])} | {tr(r['description_key'])} |")
 w("")
 w("Callings: " + ", ".join(f"`{short(a['id'])}` ({tr(a['name_key'])})" for a in callings) + ".\n")
+have = set(os.listdir(os.path.join(ROOT, "assets", "ui", "portraits")))
+todo = [f"{short(r['id'])}_{short(c['id'])}_{n}.png" for r in races for c in callings for n in (1, 2)
+        if f"{short(r['id'])}_{short(c['id'])}_{n}.png" not in have]
+w(f"**Delivered: {len(races) * len(callings) * 2 - len(todo)}. Still to come: {len(todo)}**" + (": " + ", ".join(f"`{t}`" for t in todo) if todo else " (all done!)") + ".\n")
 w(f"That's {len(races)} races × {len(callings)} callings × 2 = {len(races) * len(callings) * 2} files, from "
   f"`{short(races[0]['id'])}_{short(callings[0]['id'])}_1.png` to `{short(races[-1]['id'])}_{short(callings[-1]['id'])}_2.png`. "
   "More than two of a kind (`_3`, `_4`...) also work, and fewer is fine: whatever exists shows up.\n")
@@ -145,6 +149,12 @@ w("The game now has day and night. Your night and dusk horizons are used at nigh
   "An overcast, slightly melancholy day (it's Edrath): pale grey-blue sky, soft white-grey clouds, the same distant hills "
   "and pine line along the bottom as the other two so they cross-fade smoothly. Deliver it in a `skies/` folder (a "
   "placeholder made from your night sky is in the game until then).\n")
+w("\n## 7. Small extras (optional, whenever)\n")
+w("| File | What | Notes |")
+w("|---|---|---|")
+w("| `ui/items/gold_coins.png` | The gold icon (inventory, loot, shops) | 64 × 64, a small pile of coins, transparent background. |")
+w("| `sprites/vfx/torch_flame.png` | The small flame on wall torches | Same rules as your fireplace fire, but small and narrow: one row of square frames, 32 or 64 px, hard edges, flame touching the bottom. |")
+w("| Portraits `human_mage_1`, `human_warrior_2` | Two of part one have a light cream background | Only if you'd like them to match the dark ones. |")
 w("\n## Done, thank you!\n")
 w("Fire (main, small and magic: in the game since 3 Nov), all 62 characters, the world textures, skies and ground "
   "scatter.\n")

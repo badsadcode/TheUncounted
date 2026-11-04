@@ -27,6 +27,8 @@ Toasty picks one when creating the character (it's cosmetic; the character is ne
 
 Callings: `warrior` (Warrior), `ranger` (Ranger), `mage` (Mage), `rogue` (Rogue), `cleric` (Cleric), `adventurer` (Adventurer).
 
+**Delivered: 39. Still to come: 21**: `orc_warrior_1.png`, `orc_mage_1.png`, `orc_mage_2.png`, `orc_rogue_1.png`, `orc_rogue_2.png`, `orc_cleric_1.png`, `orc_cleric_2.png`, `orc_adventurer_1.png`, `orc_adventurer_2.png`, `halfling_warrior_1.png`, `halfling_warrior_2.png`, `halfling_ranger_1.png`, `halfling_ranger_2.png`, `halfling_mage_1.png`, `halfling_mage_2.png`, `halfling_rogue_1.png`, `halfling_rogue_2.png`, `halfling_cleric_1.png`, `halfling_cleric_2.png`, `halfling_adventurer_1.png`, `halfling_adventurer_2.png`.
+
 That's 5 races × 6 callings × 2 = 60 files, from `human_warrior_1.png` to `halfling_adventurer_2.png`. More than two of a kind (`_3`, `_4`...) also work, and fewer is fine: whatever exists shows up.
 
 
@@ -341,6 +343,14 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 
 The game now has day and night. Your night and dusk horizons are used at night and at dawn/dusk; daytime needs a third one in the same format: `sky_day.png`, **1024 × 256 px**, a 360° strip that repeats left to right, opaque. An overcast, slightly melancholy day (it's Edrath): pale grey-blue sky, soft white-grey clouds, the same distant hills and pine line along the bottom as the other two so they cross-fade smoothly. Deliver it in a `skies/` folder (a placeholder made from your night sky is in the game until then).
 
+
+## 7. Small extras (optional, whenever)
+
+| File | What | Notes |
+|---|---|---|
+| `ui/items/gold_coins.png` | The gold icon (inventory, loot, shops) | 64 × 64, a small pile of coins, transparent background. |
+| `sprites/vfx/torch_flame.png` | The small flame on wall torches | Same rules as your fireplace fire, but small and narrow: one row of square frames, 32 or 64 px, hard edges, flame touching the bottom. |
+| Portraits `human_mage_1`, `human_warrior_2` | Two of part one have a light cream background | Only if you'd like them to match the dark ones. |
 
 ## Done, thank you!
 

@@ -558,7 +558,7 @@ void GameEngine::DrawTitle() {
 #ifndef UNCOUNTED_BUILD
 #define UNCOUNTED_BUILD "dev"
 #endif
-    Text(std::string("build ") + UNCOUNTED_BUILD, 12, VH - 26, 14, kDim);   // which version is this? (set by the Windows release build)
+    Text(std::string("build ") + UNCOUNTED_BUILD, 16, VH - 48, 14, kDim);   // which version is this? (set by the Windows release build)
 
     std::string latest;
     {
