@@ -538,6 +538,111 @@ void GameEngine::DrawToasts() {
 // ============================================================================
 // Title & creation
 // ============================================================================
+namespace {
+// Rain over the title painting: falling streaks, ripples where drops land on the wet cobbles and stair treads, and
+// tiny splashes on top of the ruined arch. Areas are fractions of the painting (title_bg.png), so they follow its
+// drift and scale.
+struct TitleRain {
+    struct Drop { float x, y, speed, len; int layer; };
+    struct Ripple { float fx, fy, t, life, size; };
+    struct Splash { float fx, fy, t; float vx[4], vy[4]; };
+    struct Area { float x0, y0, x1, y1, weight; int kind; };  // kind 0 = ripple, 1 = splash
+    std::vector<Drop> drops;
+    std::vector<Ripple> ripples;
+    std::vector<Splash> splashes;
+    float spawn_acc = 0;
+    unsigned seed = 12345;
+    float Rand() { seed = seed * 1664525u + 1013904223u; return (seed >> 8) / 16777216.0f; }
+    float Range(float a, float b) { return a + (b - a) * Rand(); }
+    const std::vector<Area>& Areas() {
+        static const std::vector<Area> a = {
+            {0.55f, 0.85f, 0.97f, 0.99f, 5.0f, 0},   // the cobbled street, near
+            {0.62f, 0.73f, 0.88f, 0.84f, 3.0f, 0},   // the street, middle
+            {0.56f, 0.665f, 0.70f, 0.71f, 1.2f, 0},  // the street, far
+            {0.87f, 0.80f, 1.00f, 0.88f, 1.0f, 0},   // the side path on the right
+            {0.15f, 0.785f, 0.44f, 0.80f, 1.4f, 0},  // stair tread 1
+            {0.17f, 0.855f, 0.49f, 0.87f, 1.6f, 0},  // stair tread 2
+            {0.19f, 0.925f, 0.50f, 0.94f, 1.6f, 0},  // stair tread 3
+            {0.14f, 0.72f, 0.33f, 0.76f, 1.0f, 0},   // the landing under the arch
+            {0.17f, 0.02f, 0.30f, 0.05f, 1.4f, 1},   // top of the arch
+            {0.30f, 0.05f, 0.36f, 0.08f, 0.6f, 1},
+            {0.06f, 0.08f, 0.16f, 0.13f, 0.6f, 1},
+            {0.38f, 0.085f, 0.48f, 0.11f, 0.8f, 1},  // top of the broken pillar
+            {0.41f, 0.70f, 0.56f, 0.72f, 0.7f, 1},   // the fallen blocks
+        };
+        return a;
+    }
+    void Update(float dt, float sw, float sh) {
+        if (drops.empty())
+            for (int i = 0; i < 340; i++) {
+                int layer = i < 220 ? 0 : 1;
+                drops.push_back({Range(-0.1f, 1.1f) * sw, Range(0, 1) * sh, (layer ? 1.15f : 0.8f) * sh * Range(0.9f, 1.1f),
+                                 (layer ? 0.045f : 0.025f) * sh * Range(0.8f, 1.2f), layer});
+            }
+        for (auto& d : drops) {
+            d.y += d.speed * dt;
+            d.x += d.speed * 0.12f * dt;
+            if (d.y - d.len > sh) { d.y = Range(-0.15f, 0) * sh; d.x = Range(-0.15f, 1.0f) * sw; }
+        }
+        float total = 0;
+        for (const auto& a : Areas()) total += a.weight;
+        spawn_acc += dt * 42.0f;  // landings per second
+        while (spawn_acc >= 1) {
+            spawn_acc -= 1;
+            float pick = Rand() * total;
+            for (const auto& a : Areas()) {
+                if ((pick -= a.weight) > 0) continue;
+                float fx = Range(a.x0, a.x1), fy = Range(a.y0, a.y1);
+                if (a.kind == 0) ripples.push_back({fx, fy, 0, Range(0.5f, 0.85f), Range(0.7f, 1.3f)});
+                else {
+                    Splash sp{fx, fy, 0, {}, {}};
+                    for (int k = 0; k < 4; k++) { sp.vx[k] = Range(-1, 1); sp.vy[k] = Range(0.6f, 1.2f); }
+                    splashes.push_back(sp);
+                }
+                break;
+            }
+        }
+        for (auto& r : ripples) r.t += dt;
+        for (auto& sp : splashes) sp.t += dt;
+        ripples.erase(std::remove_if(ripples.begin(), ripples.end(), [](const Ripple& r) { return r.t >= r.life; }), ripples.end());
+        splashes.erase(std::remove_if(splashes.begin(), splashes.end(), [](const Splash& p) { return p.t >= 0.3f; }), splashes.end());
+    }
+    void DrawGround(Rectangle img, float sh) {
+        auto at = [&](float fx, float fy) { return Vector2{img.x + fx * img.width, img.y + fy * img.height}; };
+        float px = sh / 720.0f;  // one "painting pixel" or so
+        for (const auto& r : ripples) {
+            float k = r.t / r.life;
+            Vector2 c = at(r.fx, r.fy);
+            float persp = 0.45f + r.fy;  // nearer = bigger
+            float rx = (3 + 15 * k) * r.size * persp * px, ry = rx * 0.3f;
+            unsigned char a = static_cast<unsigned char>(150 * (1 - k) * (1 - k));
+            DrawEllipseLines(static_cast<int>(c.x), static_cast<int>(c.y), rx, ry, Color{190, 215, 240, a});
+            if (k > 0.25f) {  // a second, inner ring that follows the first
+                float k2 = (k - 0.25f) / 0.75f;
+                DrawEllipseLines(static_cast<int>(c.x), static_cast<int>(c.y), (2 + 10 * k2) * r.size * persp * px, (2 + 10 * k2) * r.size * persp * px * 0.3f,
+                                 Color{190, 215, 240, static_cast<unsigned char>(a * 0.6f)});
+            }
+            if (r.t < 0.08f) DrawCircleV(c, 1.2f * px, Color{220, 235, 255, 150});  // the moment the drop lands
+        }
+        for (const auto& sp : splashes) {
+            Vector2 c = at(sp.fx, sp.fy);
+            float k = sp.t / 0.3f;
+            for (int i = 0; i < 4; i++) {
+                float x = c.x + sp.vx[i] * 11 * k * px, y = c.y - (sp.vy[i] * 14 * k - 18 * k * k) * px;
+                DrawRectangleV({x, y}, {2.0f * px, 2.0f * px}, Color{210, 230, 255, static_cast<unsigned char>(210 * (1 - k))});
+            }
+        }
+    }
+    void DrawFalling() {
+        for (const auto& d : drops) {
+            Color c = d.layer ? Color{185, 205, 230, 85} : Color{160, 180, 210, 45};
+            DrawLineEx({d.x, d.y}, {d.x - d.len * 0.12f, d.y - d.len}, d.layer ? 1.4f : 1.0f, c);
+        }
+    }
+};
+TitleRain g_title_rain;
+}  // namespace
+
 void GameEngine::DrawTitle() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
@@ -548,6 +653,14 @@ void GameEngine::DrawTitle() {
                    {GetScreenWidth() * 0.5f + drift, GetScreenHeight() * 0.5f, bg.width * s * 1.06f, bg.height * s * 1.06f},
                    {bg.width * s * 0.53f, bg.height * s * 0.53f}, 0, WHITE);
     DrawRectangleGradientV(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 60}, Color{0, 0, 0, 200});
+    {   // rain on the painting (+ its sound, when nothing else is playing)
+        Rectangle img = {GetScreenWidth() * 0.5f + drift - bg.width * s * 0.53f, GetScreenHeight() * 0.5f - bg.height * s * 0.53f,
+                         bg.width * s * 1.06f, bg.height * s * 1.06f};
+        g_title_rain.Update(std::min(GetFrameTime(), 0.05f), static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight()));
+        g_title_rain.DrawGround(img, static_cast<float>(GetScreenHeight()));
+        g_title_rain.DrawFalling();
+        if (want_music_.empty() && want_ambience_.empty()) SetWantedAudio("", "assets/audio/ambience/village_rain.wav");
+    }
 
     float subY = VH * 0.14f + 88;
     const char* logoPath = "assets/ui/panels/title_logo.png";
