@@ -153,7 +153,7 @@ void GameEngine::RunBalanceReport() {
 // player, who fights the nearest examiner. Two profiles: fresh from Chapter Zero (level 4) and after Chapter One (7).
 void GameEngine::RunAuditBalance() {
     const float dt = 1.0f / 60.0f;
-    const int trials = 4;
+    const int trials = 2;
     std::string recPath = SavePath("audit_records"), backup;     // the player's real records survive the simulation
     { std::ifstream f(recPath); if (f.is_open()) backup.assign(std::istreambuf_iterator<char>(f), {}); }
     Logger::Info("=== Audit report: waves cleared per build (" + std::to_string(trials) + " runs each) ===");
