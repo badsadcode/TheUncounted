@@ -137,9 +137,10 @@
       "id": "core:enemy.lost_sentinel",
       "name_key": "enemy.lost_sentinel.name",
       "appearance": {
-        "type": "model_glb",
-        "model": "assets/models/characters/lost_sentinel.glb",
-        "scale": 1.0
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/lost_sentinel_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 2.2
       },
       "stats": {
         "health": 170,
@@ -429,9 +430,10 @@
       "id": "core:enemy.animated_armor",
       "name_key": "enemy.animated_armor.name",
       "appearance": {
-        "type": "model_glb",
-        "model": "assets/models/characters/lost_sentinel.glb",
-        "scale": 0.9
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/animated_armor_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 1.95
       },
       "stats": {
         "health": 120,
@@ -1018,9 +1020,10 @@
       "id": "core:enemy.headless_knight",
       "name_key": "enemy.headless_knight.name",
       "appearance": {
-        "type": "model_glb",
-        "model": "assets/models/characters/lost_sentinel.glb",
-        "scale": 0.85
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/headless_knight_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 1.85
       },
       "stats": {
         "health": 85,
@@ -1066,9 +1069,10 @@
       "id": "core:enemy.repossession_golem",
       "name_key": "enemy.repossession_golem.name",
       "appearance": {
-        "type": "model_glb",
-        "model": "assets/models/characters/lost_sentinel.glb",
-        "scale": 1.3
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/enemies/repossession_golem_painted.png",
+        "animation_data": "assets/animations/npc_standard_128.json",
+        "scale": 2.6
       },
       "stats": {
         "health": 230,

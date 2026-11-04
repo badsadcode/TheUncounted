@@ -75,6 +75,10 @@ python tools/import_package.py path/to/package.zip --apply    # import all, upda
 | `spritesheets/pinchwick_crab.png` | `assets/sprites/enemies/pinchwick_crab_painted.png` | Pinchwick Crab |
 | `spritesheets/salt_wight.png` | `assets/sprites/enemies/salt_wight_painted.png` | Salt Wight |
 | `spritesheets/wisp.png` | `assets/sprites/enemies/wisp_painted.png` | Wisp |
+| `spritesheets/animated_armor.png` | `assets/sprites/enemies/animated_armor_painted.png` | Animated Armor |
+| `spritesheets/headless_knight.png` | `assets/sprites/enemies/headless_knight_painted.png` | Headless Knight |
+| `spritesheets/lost_sentinel.png` | `assets/sprites/enemies/lost_sentinel_painted.png` | Lost Sentinel |
+| `spritesheets/repossession_golem.png` | `assets/sprites/enemies/repossession_golem_painted.png` | Repossession Golem |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):

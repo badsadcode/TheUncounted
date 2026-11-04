@@ -6,46 +6,30 @@ Thank you for all the characters, textures and skies! This is the rest of the ga
 
 **Everywhere**: the same painted pixel-art style as the character sheets; PNG; sizes exact.
 
-
-## 1. Character portraits (character creation) — 60 portraits
-
-Toasty picks one when creating the character (it's cosmetic; the character is never seen in the game, only here and on the character sheet). **Two per race per calling**, ideally one woman and one man, with varied ages and looks within each race, so there's lots to choose from.
-
-- **Size**: 128 × 128 px, square, opaque (a dark painted background is fine, no transparency needed).
-- **Framing**: head and shoulders, facing the viewer or slightly turned, like an RPG party portrait. Shown at about 96 px, so keep faces bold and readable.
-- **The calling shows** in clothing and gear: armour and a sword hilt for a warrior, a hood and bow for a ranger, robes and a glowing hand or staff for a mage, leathers and a dagger for a rogue, vestments and a holy symbol for a cleric, practical mixed travelling gear for an adventurer.
-- **The world**: Edrath, a gloomy, slightly absurd fantasy of bureaucrats and the 'officially dead'. Muted colours, candlelight, a bit of humour in the faces is welcome.
-- **Names**: `<race>_<calling>_<1 or 2>.png`, e.g. `human_warrior_1.png`, `orc_mage_2.png`.
-
-| Race | What they're like |
-|---|---|
-| `human` — Human | Adaptable citizens of Edrath's fractured kingdoms. |
-| `dwarf` — Dwarf | Deep-vault chroniclers and stone-wrights who remember older ledgers. |
-| `elf` — Elf | Long-lived observers sensitive to thin places left by the Great Silence. |
-| `orc` — Orc | Stalwart march-wardens and Ashbound pathfinders. |
-| `halfling` — Halfling | Nimble burrow-folk who slip past bureaucracy and locked doors alike. |
-
-Callings: `warrior` (Warrior), `ranger` (Ranger), `mage` (Mage), `rogue` (Rogue), `cleric` (Cleric), `adventurer` (Adventurer).
-
-**Delivered: 39. Still to come: 21**: `orc_warrior_1.png`, `orc_mage_1.png`, `orc_mage_2.png`, `orc_rogue_1.png`, `orc_rogue_2.png`, `orc_cleric_1.png`, `orc_cleric_2.png`, `orc_adventurer_1.png`, `orc_adventurer_2.png`, `halfling_warrior_1.png`, `halfling_warrior_2.png`, `halfling_ranger_1.png`, `halfling_ranger_2.png`, `halfling_mage_1.png`, `halfling_mage_2.png`, `halfling_rogue_1.png`, `halfling_rogue_2.png`, `halfling_cleric_1.png`, `halfling_cleric_2.png`, `halfling_adventurer_1.png`, `halfling_adventurer_2.png`.
-
-That's 5 races × 6 callings × 2 = 60 files, from `human_warrior_1.png` to `halfling_adventurer_2.png`. More than two of a kind (`_3`, `_4`...) also work, and fewer is fine: whatever exists shows up.
+(A shorter list with only what's still missing: `docs/NOOR_REMAINING_ART.md`.)
 
 
-## 2. Four monsters that need their own sprite sheets
+## Character portraits (character creation) — 60 portraits
 
-Right now all four share one plain 3D model. Same 8 × 6 sheet layout and rules as all the other characters (see `docs/CHARACTER_SPRITES.md`: 8 directions × idle, walk A, walk B, windup, attack, stagger/corpse).
+Toasty picks one when creating the character. **Two per race per calling**: `_1` a woman, `_2` a man. 128 × 128 px, opaque, head and shoulders; the calling shows in clothing and gear. Names `<race>_<calling>_<1 or 2>.png`.
+
+**Delivered: 60. Still to come: 0** (all done!).
+
+
+## Four monsters — 4 sprite sheets
+
+Same 8 × 6 layout as every character (see `docs/CHARACTER_SPRITES.md`).
 
 | File | Who | Look |
 |---|---|---|
 | `lost_sentinel.png` | Lost Sentinel | Ancient Bureau guardian of stone and rusted iron, tall and heavy, a halberd or great seal-hammer, a faded official crest on its chest. Slow, patient, still guarding a door nobody remembers. |
 | `animated_armor.png` | Animated Armour | An empty, polished suit of manor armour (Hollowmere), nothing inside — you can see darkness through the visor slits. Carries a guest list on a clipboard and a sword. Prim and officious. |
-| `headless_knight.png` | The Headless Knight of the Old Road | Comedy: it's obviously Steve (the level-one bandit from your Steve sheet) in ill-fitting, mismatched armour, the helmet pulled down over his head, holding a hat on a stick above it to look 'headless'; his patched leathers and too-big hood poke out. Proudly dramatic poses. |
+| `headless_knight.png` | The Headless Knight of the Old Road | Comedy: it's obviously Steve (the level-one bandit) in ill-fitting, mismatched armour, the helmet pulled down over his head, holding a hat on a stick above it to look 'headless'; his patched leathers and too-big hood poke out. Proudly dramatic poses. |
 | `repossession_golem.png` | The Repossession Golem | A big, blocky iron golem stamped REPOSSESSED all over in red, riveted plates, glowing furnace eyes, bought with a dragon's money. Bigger than a person (about 2.3 m). |
 
-## 2b. Chapter One: the people of Here (and the Auditor) — 11 sprite sheets
+## Chapter One: the people of Here (and the Auditor) — 11 sprite sheets
 
-A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. Same 8 × 6 layout as the other characters. The residents are slightly faded, like a memory (soft, pale edges are fine: the game keeps them a little see-through itself). Simple placeholders are in the game until yours arrive.
+A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. The residents are slightly faded, like a memory (soft, pale edges are fine: the game keeps them a little see-through itself). Deliver in `characters/`.
 
 | File | Who | Look |
 |---|---|---|
@@ -61,9 +45,9 @@ A city struck off every map 400 years ago; its people have forgotten their own n
 | `here_mouth.png` | Mouth of the Hunger (monster) | A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names. |
 | `here_unsaying.png` | The Unsaying (boss) | Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be. |
 
-## 2c. Friends from Toasty's streams — 3 sprite sheets
+## Friends from Toasty's streams — 3 sprite sheets
 
-Real friends of Toasty's, as characters (two can join the party, one is a quest). Same 8 × 6 layout as the other characters, files in `assets/sprites/npcs/`. Placeholders are in the game until yours arrive.
+Real friends of Toasty's, as characters (two can join the party). Deliver in `characters/`.
 
 | File | Who | Look |
 |---|---|---|
@@ -71,12 +55,9 @@ Real friends of Toasty's, as characters (two can join the party, one is a quest)
 | `friend_coth.png` | Coth (Cothfotmeoo) | Looks like a castaway lost for a thousand years: skinny, scruffy, long dark hair down his back, a long heavy black beard to his belt, a ragged tunic, and NO TROUSERS (bare legs, bare feet; plain undershorts). Carries a sword. Cheerful, slightly unhinged. He. |
 | `friend_dunstan.png` | Dunstan, Nearly a Squire | A keen young warrior in polished mail and a red cloak, short brown hair, with an absurdly huge sword (taller than he is, broad as a door) that he drags point-down because he can barely lift it. He. |
 
-## 3. Spell effects in flight — 5 animated strips
+## Spell effects in flight — 5 animated strips
 
-The ball you see flying when a spell is cast. Currently plain coloured circles.
-
-- **Layout**: one row of **square frames**, 4 to 8 frames, **64 × 64 px** each (e.g. 6 frames = 384 × 64). Loops at 14 frames per second; it's shown about half a metre across.
-- **Hard edges only**: pixels fully opaque or fully transparent (the game drops anything under 50 % opacity). Do glow with colour, not transparency. Drawn at full brightness, centred in the frame, always facing the camera.
+One row of **square 64 × 64 frames**, 4 to 8 frames (e.g. 6 frames = 384 × 64), loops at 14 fps. Pixels fully opaque or fully transparent; glow with colour, not transparency.
 
 | File | Used by | Look |
 |---|---|---|
@@ -86,9 +67,9 @@ The ball you see flying when a spell is cast. Currently plain coloured circles.
 | `spell_ink.png` | Siphon Ink, [REDACTED] | a splattering glob of black ink with drips |
 | `spell_sabrino.png` | Sabrino's Questionable Fireball | Sabrino the witch's signature hex: a green-purple swirl with a tiny grinning face |
 
-## 4. Spell icons — 23 icons
+## Spell icons — 23 icons
 
-Shown in the spell bar and spellbook, all the time. **64 × 64 px**, opaque square (dark background), a clear symbol of the spell, readable at 32 px. A coloured border per school is welcome (fire orange, frost blue, restoration green, arcane violet...).
+Shown in the spell bar and spellbook. **64 × 64 px**, opaque square (dark background), a clear symbol of the spell, readable at 32 px, a coloured border per school (fire orange, frost blue, restoration green, arcane violet...), matching the delivered ones.
 
 | File | Spell | What it does |
 |---|---|---|
@@ -116,9 +97,9 @@ Shown in the spell bar and spellbook, all the time. **64 × 64 px**, opaque squa
 | `veil.png` | Veil | Dulls sound and bends shadow, reducing enemy sight detection. |
 | `ward.png` | Ward | Sheathes the caster in a resonant arcane barrier (+8 Armor). |
 
-## 5. Item icons — 189 icons (a big set: any part helps)
+## Item icons — 186 icons
 
-Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px. Grouped by kind below; the description is what the game says about it.
+Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent background, the object on its own, slightly angled, readable at 32 px, matching the delivered ones. Grouped by kind; the description is what the game says about it.
 
 
 ### Weapon (22)
@@ -254,7 +235,7 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 |---|---|---|
 | `wooden_arrow.png` | Bodkin Arrow | Iron-tipped shaft capable of piercing bone and chitin. |
 
-### Book (35)
+### Book (32)
 
 | File | Item | Description |
 |---|---|---|
@@ -281,13 +262,10 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `tome_friendship.png` | Tome: Sudden Friendship (Abridged) | Reading it teaches the spell (and the tome crumbles). |
 | `tome_frost.png` | Tome: Frost Lance | Use from inventory to permanently learn Frost Lance. |
 | `tome_glimmer.png` | Tome: Glimmer | Use from inventory to permanently learn the Glimmer spell. |
-| `tome_late.png` | Tome: Late for an Appointment | Reading it teaches the spell (and the tome crumbles). |
-| `tome_late.png` | Mother Brine's Greasy Recipe Card | A recipe card so greasy it's translucent. Teaches two of Mother Brine's specials. |
+| `tome_late.png` | Tome: Late for an Appointment / Mother Brine's Greasy Recipe Card | Reading it teaches the spell (and the tome crumbles). |
 | `tome_mend.png` | Tome: Mend | Use from inventory to permanently learn the Mend spell. |
-| `tome_paper.png` | Tome: Paper Storm: A Bureau Self-Defence Manual | Reading it teaches the spell (and the tome crumbles). |
-| `tome_paper.png` | Hollis's Field Notes: Useful Bits of Monsters | A hunter's notebook, stained with things you'd rather not identify. Teaches workbench recipes for boss parts. |
-| `tome_sabrino.png` | Grimoire: Sabrino's Questionable Fireball | Use from inventory to learn Sabrino's Questionable Fireball. Banned by the Bureau, the Collegium, and two cookery schools. The margins are full of recipes. |
-| `tome_sabrino.png` | Sabrino's Forbidden Footnotes | The footnotes Sabrino tore out of a respectable alchemy textbook, because the footnotes were the good part. Teaches alchemy with boss reagents. |
+| `tome_paper.png` | Tome: Paper Storm: A Bureau Self-Defence Manual / Hollis's Field Notes: Useful Bits of Monsters | Reading it teaches the spell (and the tome crumbles). |
+| `tome_sabrino.png` | Grimoire: Sabrino's Questionable Fireball / Sabrino's Forbidden Footnotes | Use from inventory to learn Sabrino's Questionable Fireball. Banned by the Bureau, the Collegium, and two cookery schools. The margins are full of recipes. |
 | `tome_siphon.png` | Tome: Siphon Ink | Use from inventory to permanently learn Siphon Ink. The pages are blotted with something that isn't quite ink. |
 | `tome_veil.png` | Tome: Veil | Use from inventory to permanently learn the Veil spell. |
 | `tome_vitality.png` | Tome: Borrowed Vitality | Reading it teaches the spell (and the tome crumbles). |
@@ -350,20 +328,19 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 | `wayside_sage.png` | Wayside Sage | Grey-green, peppery, grows along every road in the Marches. Good for stamina, better for soup. (Crafting material.) |
 | `wolfsbane.png` | Wolfsbane | Purple hooded flowers from the Whistling Wood. Rolf asks that you not wave it near him. Makes wounds that won't close. (Crafting material.) |
 
-## 6. A daytime sky
+## A daytime sky
 
-The game now has day and night. Your night and dusk horizons are used at night and at dawn/dusk; daytime needs a third one in the same format: `sky_day.png`, **1024 × 256 px**, a 360° strip that repeats left to right, opaque. An overcast, slightly melancholy day (it's Edrath): pale grey-blue sky, soft white-grey clouds, the same distant hills and pine line along the bottom as the other two so they cross-fade smoothly. Deliver it in a `skies/` folder (a placeholder made from your night sky is in the game until then).
+`sky_day.png`, **1024 × 256 px**, a 360° strip that repeats left to right, opaque: an overcast, slightly melancholy day, the same distant hills and pine line as the night and dusk skies. Deliver in `skies/`.
 
 
-## 7. Small extras (optional, whenever)
+## Small extras (optional, whenever)
 
 | File | What | Notes |
 |---|---|---|
-| `ui/items/gold_coins.png` | The gold icon (inventory, loot, shops) | 64 × 64, a small pile of coins, transparent background. |
-| `sprites/vfx/torch_flame.png` | The small flame on wall torches | Same rules as your fireplace fire, but small and narrow: one row of square frames, 32 or 64 px, hard edges, flame touching the bottom. |
-| Portraits `human_mage_1`, `human_warrior_2` | Two of part one have a light cream background | Only if you'd like them to match the dark ones. |
+| `item_icons/gold_coins.png` | The gold icon (inventory, loot, shops) | 64 × 64, a small pile of coins, transparent background. |
+| `sprites/vfx/torch_flame.png` | The small flame on wall torches | Like the fireplace fire, but small and narrow: one row of square frames, 32 or 64 px, hard edges, flame touching the bottom. |
 
 ## Done, thank you!
 
-Fire (main, small and magic: in the game since 3 Nov), all 62 characters, the world textures, skies and ground scatter.
+Fire (main, small and magic), all 62 characters, the 4 monsters, all portraits, the spell effects, most icons, the world textures, skies and ground scatter.
 
