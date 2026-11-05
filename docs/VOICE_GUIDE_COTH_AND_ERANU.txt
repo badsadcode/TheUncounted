@@ -5,13 +5,13 @@ Hi Coth, hi Eranu!
 
 You two are in the game as yourselves, and this file is everything you need to
 give those characters your real voices: who they are, how the lines should
-feel, how to record them, and every line with its file name.
+feel, how to record them, and every line you say.
 
 Nothing here is a rule. If a line wants to go somewhere funnier or more
 natural, follow it. You know these two characters better than anyone.
 
-In total: 62 lines just for Eranu, 70 just for Coth, plus 23 you share in
-scenes together.
+In total: 62 lines just for Eranu, 70 just for Coth, plus 23 in scenes with
+each other.
 
 ==============================================================================
 1. THE STORY YOU'RE IN
@@ -67,23 +67,10 @@ YOUR VOICE: speak low and unhurried. She is never the one in a hurry, and she
 gets quieter when she means it. Save real volume for the fights and for one
 word: "COTHEPOO."
 
-THE SCOTS: the spelling is only there to help. It was written to be easy to
-read in subtitles, so if a word feels wrong in your mouth, say it the way you
-would really say it. Your natural speech beats anything on this page. If you
-change a word a lot, tell BadSad so the subtitle can be changed to match.
-
-WORDS IN HER LINES
-  aye = yes               ken = know             dinnae = don't
-  naw = no                no' = not              doesnae = doesn't
-  whit = what             wee = small            ma = my, or Mum in "Ma's"
-  ye / yer = you / your   hame = home            oot / doon = out / down
-  guid = good             braw = fine, great     daft = silly
-  numpty / daftie = idiot, said with love        havering = talking nonsense
-  gie = give              haud = hold            deid = dead
-  fae / tae = from / to   aw = all               masel' = myself
-  windae = window         hoose = house          auld = old
-  kirk = church           haar = sea fog         mind = remember, or watch out
-  targe = her round shield
+THE SCOTS: you're the Scot here, and these lines weren't written by one. The
+spelling is only there so the subtitles read nicely. Ignore it and say every
+line the way you'd really say it. If a word or a whole line sounds wrong,
+change it. If you change a lot, tell BadSad so the subtitle can match.
 
 
 ==============================================================================
@@ -125,35 +112,32 @@ MIC: about a hand's width from your mouth and slightly to one side, so the P's
 in "Pebbleton" and "poo" don't pop. For shouts, lean back or turn away a
 little so the sound doesn't distort.
 
-TAKES: do two or three of anything you care about and keep the best. Leave
-half a second of silence at the end of each line.
+TAKES: do two or three of anything you care about. If you redo a line, just
+say its number again and go. BadSad can pick the last one.
 
 KEEP IT EVEN: try to record in one sitting, or at least in the same spot at
 the same distance, so the character doesn't change sound between lines.
 
-FILE TYPE: the game plays .ogg, .wav and .mp3 only. Mono, 44.1 or 48 kHz.
-Watch out: many phones save .m4a, which the game can't play. The free program
-Audacity can convert it, or just send the files to BadSad as they are.
+SENDING: don't worry about file types or file names. Record however is
+easiest, even one long recording, and send it to BadSad, who will do the
+cutting and naming. Before each line, say its number out loud (like "E12"),
+leave a pause, then read the line. That's how BadSad finds it.
 
-FILE NAMES: each line has its own name, shown above it. For example, the line
-marked [bark.eranu.1] is saved as bark.eranu.1.ogg. Spell it exactly, dots
-included. Lines nobody has recorded just show as subtitles, so you can do a
-few at a time and nothing breaks.
-
-THE LAZY WAY: if naming files sounds awful, record one long file. Say the name
-of each line out loud, leave a pause, then read the line. Send that to BadSad.
+NO RUSH: you can record a few at a time. Any line without a recording just
+shows as a subtitle in the game, so nothing breaks.
 
 
 ==============================================================================
 6. HOW TO READ THE SCRIPT
 ==============================================================================
 
-[some.file.name]   The file name for the line underneath it.
+E12 or C7          The line's number. E is for Eranu, C is for Coth. Say it
+                   before the line so BadSad can find it.
 
 [beat]             A pause. Something happens here in the game: the player
                    reads a bit of description, or the character does something.
-                   Leave about a second and carry on in the same recording. The
-                   note usually says what is happening.
+                   Leave about a second and carry on. The note usually says
+                   what is happening.
 
 CAPITALS           Lean on that word. It doesn't always mean louder.
 
@@ -161,14 +145,8 @@ CAPITALS           Lean on that word. It doesn't always mean louder.
 
 Note:              A suggestion about how the line could feel. Ignore freely.
 
-Other people's lines in a scene are shown for context, marked "(not yours)".
-Don't record those. Every line in a scene gets its own file, so the game can
-play them one after another.
-
-WATCH OUT: scene files are named after whoever starts the scene, not whoever is
-talking. Coth's "A free man of the wilds" is saved as
-comp.eranu.banter.waifu.1, with "eranu" in the name. That's correct. Just copy
-the name as written.
+You only read your own numbered lines. Anyone else's lines are there so you know
+what you're answering, and they have no number.
 
 SOME LINES REPEAT: the first line of each conversation plays every time the
 player talks to you, so keep those light. Fight lines come up over and over, so
@@ -181,7 +159,7 @@ keep them short and punchy, without leaning too hard on the joke.
 Short on time? Record in this order. The most important lines come first:
 
   1. The Reunion (the scene right below this list)
-  2. Scenes for Coth and Eranu together
+  2. Your scenes with each other
   3. Your conversations
   4. Fight lines and everything else
 
@@ -189,38 +167,28 @@ Short on time? Record in this order. The most important lines come first:
 8. THE REUNION (both of you)
 ==============================================================================
 
-This is the peak of the whole story, so give it your best takes. Each page
-plays as a full-screen card, and the player reads the description while you
-speak. Don't worry about pauses or timing here. Just record the words, and
-BadSad can place them.
+This is the peak of the whole story, so give it your best takes. It plays on
+full-screen cards while the player reads the description. Don't worry about
+timing. Just give the words, and BadSad will put the scene together.
 
-The last card has both of you on it, but the game plays one file per card.
-Record your own line under the name shown, and BadSad will join them into one
-file, story.cothepoo.3. If you can record that one together, even better. Do
-it, and name the single file story.cothepoo.3.
-
-COTH:
-[story.cothepoo.1]
+C1 - COTH
     "I HAVE RETURNED [beat] AFTER A THOUSAND YEARS."
     Note: Door flies open. He has rehearsed this. Announce it to the whole
           inn, as loudly as you can, with a proud pause at the [beat].
 
-ERANU:
-[story.cothepoo.2]
+E1 - ERANU
     "COTHEPOO. Three days, ya absolute numpty. Three DAYS."
     Note: Everything she's been holding in for three days. 'COTHEPOO' is the
           one really big shout she gets, right into his ear. Then it starts to
           crack. She's still holding him off the floor.
 
-COTH:
-[story.cothepoo.3.coth]
+C2 - COTH
     "Felt like a thousand"
     Note: Muffled, into her shoulder. A hand over your mouth or your face in
           your sleeve works. All the theatre is gone. This is the truest thing
           he says.
 
-ERANU:
-[story.cothepoo.3.eranu]
+E2 - ERANU
     "Aye [beat] It did, ya daftie."
     Note: Quiet, and nothing like the shout before it. He just said it felt
           like a thousand years, and she's agreeing: it did for her too. Let
@@ -228,86 +196,78 @@ ERANU:
 
 
 ==============================================================================
-9. SCENES FOR COTH AND ERANU TOGETHER
+9. YOUR SCENES WITH EACH OTHER
 ==============================================================================
 
-Record these together if you can, even over a voice call. Reacting to each
-other will beat anything recorded alone. Each line still needs its own file.
+You'll each record your half on your own, and BadSad will put the scenes
+together. That works fine here, because the game plays every line as its own
+clip, so nobody has to match anyone's timing.
+
+Before each of your lines, read the other person's line in your head, then
+answer it. Picture them right in front of you, the way you know they'd say it.
+Stop cleanly at the end of your line, and don't talk over where they would be.
+
 
 Eranu & Coth
 ------------
-ERANU:
-[comp.eranu.banter.waifu.0]
+E3 - ERANU
     "Cothepoo, tell them whit ye are."
     Note: Pleasant. She knows exactly how this ends.
 
-COTH:
-[comp.eranu.banter.waifu.1]
+C3 - COTH
     "A free man of the wilds."
     Note: Chest out. His finest self. He believes he can win this time.
 
-ERANU:
-[comp.eranu.banter.waifu.2]
+E4 - ERANU
     "Tell them whit ye ARE."
     Note: Quieter than the first time, which is much worse for him.
 
-COTH:
-[comp.eranu.banter.waifu.3]
+C4 - COTH
     "...Your waifu."
     Note: All the air leaves him. The tiniest voice you have.
 
-ERANU:
-[comp.eranu.banter.waifu.4]
+E5 - ERANU
     "There we go."
     Note: Satisfied, and already moving on.
 
 
 Eranu & Coth
 ------------
-COTH:
-[comp.eranu.banter.trousers.0]
+C5 - COTH
     "It's getting cold."
 
-ERANU:
-[comp.eranu.banter.trousers.1]
+E6 - ERANU
     "Ye ken whit helps wi' the cold, Coth?"
 
-COTH:
-[comp.eranu.banter.trousers.2]
+C6 - COTH
     "Don't say it."
     Note: He can see it coming. He has heard this one before.
 
-ERANU:
-[comp.eranu.banter.trousers.3]
+E7 - ERANU
     "Trousers."
     Note: One word, then let it hang in the air.
 
-COTH:
-[comp.eranu.banter.trousers.4]
+C7 - COTH
     "Never."
     Note: A vow, like a king refusing to surrender.
 
 
 Eranu & Coth
 ------------
-ERANU:
-[comp.eranu.banter.thousand.0]
+E8 - ERANU
     "Promise me ye'll no' go missin' for a thousand years again."
     Note: SINCERE, the most open she gets. She tries to make it sound like a
           joke, and it almost works.
 
-COTH:
-[comp.eranu.banter.thousand.1]
+C8 - COTH
     "I promise."
     Note: He hears what she really means. No jokes, just gentle.
 
-ERANU:
-[comp.eranu.banter.thousand.2]
+E9 - ERANU
     "Three days, even."
     Note: Quieter still.
 
-COTH:
-[comp.eranu.banter.thousand.3]
+C9 - COTH
     "...I'll try for two."
     Note: And he breaks the tension, because somebody has to. Warm, and she
           knows why he did it.
@@ -315,28 +275,23 @@ COTH:
 
 Coth & Eranu
 ------------
-COTH:
-[comp.coth.banter.bark.0]
+C10 - COTH
     "Eranu, did you know bark is edible?"
     Note: Bright, sharing a fun fact he learned the hard way.
 
-ERANU:
-[comp.coth.banter.bark.1]
+E10 - ERANU
     "Naw, Coth."
     Note: Patient. She's looking at him and already suspects.
 
-COTH:
-[comp.coth.banter.bark.2]
+C11 - COTH
     "Neither is it, really."
     Note: He has just realised this fact doesn't quite help him.
 
-ERANU:
-[comp.coth.banter.bark.3]
+E11 - ERANU
     "Did ye eat bark, Coth?"
     Note: She already knows the answer.
 
-COTH:
-[comp.coth.banter.bark.4]
+C12 - COTH
     "...For a thousand years."
     Note: Haunted. The thousand-yard stare of a man who ate bark for three
           days.
@@ -352,17 +307,17 @@ BARKS
 Muttered while the player walks past, to nobody in particular. Keep it low and
 half to yourself. Nobody is meant to answer.
 
-[bark.eranu.1]
+E12
     "Three days. Three DAYS."
     Note: To herself. It's the grievance she has been chewing on for days.
           Lean on the second DAYS.
 
-[bark.eranu.2]
+E13
     "Have ye seen a man wi' nae trousers? Ye'd ken."
     Note: Asking a stranger, completely matter of fact. This is a normal thing
           to ask.
 
-[bark.eranu.3]
+E14
     "Aye, he's back. Dinnae tell him I was worried."
     Note: After he's home. Low and sideways, like a secret. A small smile you
           can hear.
@@ -373,12 +328,12 @@ CONVERSATION
 The player is standing right in front of you. Only your spoken words are
 listed; the description around them appears on screen.
 
-[dlg.eranu.root]
+E15
     "Aye? Whit is it?"
     Note: This plays every time. One eye on the player, one on the door. She's
           listening, but only just.
 
-[dlg.eranu.who]
+E16
     "Eranu. Fae the Glens, up north, where the weather has opinions an' shares
     them. [beat] I hit things that need hittin' and I read things that need
     readin'. Folk roond here are aye surprised I dae both. Then they're
@@ -386,7 +341,7 @@ listed; the description around them appears on screen.
     Note: [beat]: she pats her sword. 'Then they're surprised again' is a
           friendly warning.
 
-[dlg.eranu.waiting]
+E17
     "I'm waitin' on ma waifu. [beat] Coth. Tall, skinny, beard doon tae here,
     hair doon tae there. Nae trousers, usually. Ye'd mind him. [beat] Three
     days ago he said he was awa' oot tae find some trousers. He's no' come
@@ -396,13 +351,13 @@ listed; the description around them appears on screen.
           frowns at the door. Finish deadpan: 'Trousers find Coth, an' he
           runs' is simply a fact.
 
-[dlg.eranu.waifu]
+E18
     "Aye. Ma waifu. [beat] He protests. He's wrang. [beat] So. Are ye gonnae
     find him or no'?"
     Note: She looks straight at the player, daring them to say something. 'He
           protests. He's wrang.' Case closed. Then right back to business.
 
-[dlg.eranu.accept]
+E19
     "Guid. [beat] He went west, intae the Whistling Wood. He'll have made camp
     somewhere daft, he'll have made a pal oot o' somethin' that's no' alive,
     an' he'll have lost count o' the days. He aye loses count o' the days.
@@ -412,20 +367,20 @@ listed; the description around them appears on screen.
           ON THE LAST LINE: 'Tell him Eranu says come hame, Cothepoo' is the
           first crack in the armour. Barely let it show.
 
-[dlg.eranu.news]
+E20
     "West, in the Whistling Wood. Look for a camp somewhere daft, a wee fire,
     an' a beard. [beat] An' if he tells ye it's been a thousand years, he's
     havering. He'll have been countin' somethin'. Make him count it oot loud."
     Note: Worry disguised as instructions. [beat]: her grip tightens on the
           sword.
 
-[dlg.eranu.nickname]
+E21
     "Because he's Coth, an' because he's a wee poo sometimes. [beat] He hates
     it. That's how ye ken it's love."
     Note: Her mouth twitches: she's almost smiling and refuses to. 'That's how
           ye ken it's love' is dry and completely sincere.
 
-[dlg.eranu.reunion]
+E22
     "His [beat] I've carried them since he left, for when we found him. He
     says he doesnae want them back. [beat] An' this, for yer trouble. [beat]
     If ye ever need a sword arm, or two, ye ken where the windae seat is."
@@ -434,17 +389,17 @@ listed; the description around them appears on screen.
           Second [beat]: Coth yells 'I DON'T' behind her, and she ignores him.
           Third [beat]: she hands over a purse. Warm by the end.
 
-[dlg.eranu.join]
+E23
     "Aye, go on, then. Somebody's got tae keep ye alive. [beat] Dinnae wander
     aff, Cothepoo."
     Note: [beat]: she glances across the table. 'Dinnae wander aff, Cothepoo'
           is half threat, half love.
 
-[dlg.eranu.full]
+E24
     "Ye've a full party already. I'll no' be the spare wheel on anybody's
     cart."
 
-[dlg.eranu.wait]
+E25
     "Aye. I'll be at the windae."
     Note: Quiet. She's already heading back to her seat, and her eyes go to
           the door out of habit.
@@ -455,31 +410,31 @@ WALKING AND CHATTING
 Random chatter while walking. Say it offhand, as if the thought just wandered
 in. Silence is normal between these.
 
-[comp.eranu.idle.1]
+E26
     "Keep yer guard up. Naw, higher. Aye, that's it."
     Note: Coaching the player, without looking up. The 'Aye' is approval and
           costs her something.
 
-[comp.eranu.idle.2]
+E27
     "Back hame, this'd count as a braw day. Back hame, the rain comes
     sideways."
 
-[comp.eranu.idle.3]
+E28
     "I read once this road was built by a king who wanted tae see the sea. He
     never did. The road did."
 
-[comp.eranu.idle.4]
+E29
     "If anythin' jumps oot at us, you go left, I go through it."
 
-[comp.eranu.idle.5]
+E30
     "Cothepoo, stop lickin' that mushroom."
     Note: No surprise at all. A woman who has said this many times before.
 
-[comp.eranu.idle.6]
+E31
     "Dunstan, lift wi' yer legs. Yer LEGS, lad."
     Note: Called across a distance, like a tired PE teacher. Lean on LEGS.
 
-[comp.eranu.idle.7]
+E32
     "Baggy, ye've had that magnifyin' glass on ma boots for a full minute."
 
 
@@ -488,16 +443,16 @@ IN A FIGHT
 Shouted mid-fight, often. Short, with full energy from the belly. Back off the
 mic.
 
-[comp.eranu.combat.1]
+E33
     "Come on, then!"
 
-[comp.eranu.combat.2]
+E34
     "Get behind the shield!"
 
-[comp.eranu.combat.3]
+E35
     "Is that aw ye've got?"
 
-[comp.eranu.combat.4]
+E36
     "For the Glens!"
     Note: Full war cry. This is the one to really let go on.
 
@@ -507,19 +462,19 @@ AFTER A KILL
 Right after an enemy falls. You're catching your breath and pleased with
 yourself.
 
-[comp.eranu.kill.1]
+E37
     "Next."
     Note: Bored. One word, already looking for the next enemy.
 
-[comp.eranu.kill.2]
+E38
     "Aye. Stay doon."
 
-[comp.eranu.kill.3]
+E39
     "That's for Cothepoo, whatever ye did tae him."
     Note: A little joke to herself. She has no idea if it did anything to him.
           Doesn't matter.
 
-[comp.eranu.kill.4]
+E40
     "Braw."
     Note: One satisfied word. Like the last bite of something good.
 
@@ -528,14 +483,14 @@ HEALING YOU
 -----------
 You're patching the player up, close by and a little distracted, hands busy.
 
-[comp.eranu.heal.1]
+E41
     "Here. Drink this an' stop bleedin' on ma kilt."
 
-[comp.eranu.heal.2]
+E42
     "Haud still. Ma's recipe: oats, honey, an' a bit o' shoutin'."
     Note: You can get a bit of the 'shoutin'' into the line itself.
 
-[comp.eranu.heal.3]
+E43
     "Ye're nae use tae me deid. Get that doon ye."
     Note: Gruff, and it's how she says she cares. 'Get that doon ye' like a
           mum with soup.
@@ -545,10 +500,10 @@ WHEN YOU LEVEL UP
 -----------------
 The player just got stronger. A quick, real compliment.
 
-[comp.eranu.level.1]
+E44
     "Look at you! Stronger already."
 
-[comp.eranu.level.2]
+E45
     "Aye, ye're gettin' the hang o' it."
 
 
@@ -556,10 +511,10 @@ CATCHING UP WITH YOU
 --------------------
 You fell behind and jogged to catch up. A little out of breath is perfect.
 
-[comp.eranu.catchup.1]
+E46
     "There ye are. Dinnae run aff like that, ye're worse than Coth."
 
-[comp.eranu.catchup.2]
+E47
     "Right behind ye. Aye."
 
 
@@ -568,156 +523,143 @@ FIRST TIME IN EACH AREA
 Said once, on first arriving somewhere. A first impression while looking
 around.
 
-[comp.eranu.zone.bellwether]
+E48
     "Bellwether. Wee place, but they keep a guid fire at the Lantern."
 
-[comp.eranu.zone.old_road]
+E49
     "Auld roads remember who walked them. Let's gie this one somethin' guid
     tae remember."
 
-[comp.eranu.zone.annex]
+E50
     "Records. Filin' cabinets. I've fought worse. No' much worse."
 
-[comp.eranu.zone.vault_three]
+E51
     "Smells like a tomb, 'cause it is one. Shield up."
 
-[comp.eranu.zone.seal_chamber]
+E52
     "Whatever's doon here, it's no' gettin' past me."
 
-[comp.eranu.zone.hollowmere]
+E53
     "Fine auld hoose. Shame aboot the hauntin'."
 
-[comp.eranu.zone.hollowmere_manor]
+E54
     "Mind the stairs. Mind the portraits. Mind everythin', really."
 
-[comp.eranu.zone.saltmere]
+E55
     "Sea air! Proper air. Minds me o' hame, except hame's colder an' the fish
     argue back."
 
-[comp.eranu.zone.sunken_chapel]
+E56
     "A kirk underwater. Aye, nothin' sinister aboot that at aw."
 
-[comp.eranu.zone.whistling_wood]
+E57
     "This is where I'd have found Cothepoo masel', if I'd trusted ma ain
     nose."
     Note: A little rueful. She's still annoyed she didn't go herself.
 
-[comp.eranu.zone.sleepers_reef]
+E58
     "Oot past the haar. Steady, now. I've sailed in worse."
 
-[comp.eranu.zone.here]
+E59
     "A city naebody remembers. I'll remember it. That's a start."
     Note: QUIET AND SINCERE. A city everyone forgot, in a game about being
           forgotten. She means every word.
 
-[comp.eranu.zone.here_archive]
+E60
     "Books wi' teeth. I've read a few like that."
 
 
 Eranu & Dunstan
 ---------------
-ERANU:
-[comp.eranu.banter.squire.0]
+E61
     "Yer stance is guid, Dunstan. Yer sword's daft."
 
-DUNSTAN (not yours): "It's a family sword!"
+DUNSTAN: "It's a family sword!"
 
-ERANU:
-[comp.eranu.banter.squire.2]
+E62
     "It's a family o' daft swords."
     Note: Perfectly deadpan. She's enjoying herself and won't show it.
 
 
 Eranu & Baggy
 -------------
-BAGGY (not yours): "Eranu, may I ask you a few questions?"
+BAGGY: "Eranu, may I ask you a few questions?"
 
-ERANU:
-[comp.eranu.banter.detective.1]
+E63
     "Ye can ask."
 
-BAGGY (not yours): "Where were you on the night of-"
+BAGGY: "Where were you on the night of-"
 
-ERANU:
-[comp.eranu.banter.detective.3]
+E64
     "Asleep. Wi' ma sword. Next question."
     Note: Instant, like she has been waiting for this question.
 
-BAGGY (not yours): "...That's all, actually."
+BAGGY: "...That's all, actually."
 
 
 Eranu & Grout
 -------------
-ERANU:
-[comp.eranu.banter.statue.0]
+E65
     "Ye're a braw bit o' stonework, Grout."
 
-GROUT (not yours): "I know."
+GROUT: "I know."
 
-ERANU:
-[comp.eranu.banter.statue.2]
+E66
     "Modest, an' aw."
     Note: Dry. Grout is a stone gargoyle of very few words, and she respects
           that.
 
-GROUT (not yours): "No."
+GROUT: "No."
 
 
 Dunstan & Eranu
 ---------------
-DUNSTAN (not yours): "Eranu, how do you swing your sword so fast?"
+DUNSTAN: "Eranu, how do you swing your sword so fast?"
 
-ERANU:
-[comp.dunstan.banter.stance.1]
+E67
     "It's a normal-sized sword, son."
     Note: Dunstan's sword is absurdly huge. Say this gently, like breaking bad
           news to a child.
 
-DUNSTAN (not yours): "Oh."
+DUNSTAN: "Oh."
 
-ERANU:
-[comp.dunstan.banter.stance.3]
+E68
     "That's the hale secret."
     Note: Passing down ancient wisdom.
 
 
 Dunstan & Eranu
 ---------------
-DUNSTAN (not yours): "Eranu! Mate?"
+DUNSTAN: "Eranu! Mate?"
 
-ERANU:
-[comp.dunstan.banter.mate_eranu.1]
+E69
     "Go on, then."
 
-ERANU:
-[comp.dunstan.banter.mate_eranu.2]
+E70
     "...It's like drinkin' a hot lawn."
     Note: Mate is a bitter herbal tea. She has just taken a sip. You can make
           a noise first. Pure disgust, carefully measured.
 
-DUNSTAN (not yours): "That's the best part!"
+DUNSTAN: "That's the best part!"
 
-ERANU:
-[comp.dunstan.banter.mate_eranu.4]
+E71
     "Aye. Aye, it kind o' is. Gie's another."
     Note: Surprised at herself. She's been converted and resents it.
 
 
 Dunstan & Eranu
 ---------------
-ERANU:
-[comp.dunstan.banter.odds.0]
+E72
     "Ye look worried, lad."
 
-DUNSTAN (not yours): "That beast only has a five percent chance to hit us."
+DUNSTAN: "That beast only has a five percent chance to hit us."
 
-ERANU:
-[comp.dunstan.banter.odds.2]
+E73
     "So we're fine."
     Note: Confident. Dunstan knows otherwise, and his next line lands because
           she's so sure.
 
-DUNSTAN (not yours): "Eranu. I have seen what five percent can do."
+DUNSTAN: "Eranu. I have seen what five percent can do."
 
 
 ==============================================================================
@@ -730,11 +672,11 @@ BARKS - Lost in the Wood
 Muttered while the player walks past, to nobody in particular. Keep it low and
 half to yourself. Nobody is meant to answer.
 
-[bark.coth_castaway.1]
+C13
     "A thousand years... a thousand years..."
     Note: Lost in thought, staring at nothing. Barely above a whisper.
 
-[bark.coth_castaway.2]
+C14
     "Sir Pebbleton, we have a visitor!"
     Note: Delighted. Announcing company to a rock, like a butler.
 
@@ -744,27 +686,27 @@ CONVERSATION - Lost in the Wood
 The player is standing right in front of you. Only your spoken words are
 listed; the description around them appears on screen.
 
-[dlg.coth_cast.root]
+C15
     "A PERSON. A real one. Tell me, traveller: what year is it? I have been
     lost in these woods for a thousand years."
     Note: He sees a person and his eyes fill with tears. Start hoarse with
           disbelief: 'A PERSON.' Build into grand, trembling drama. He has
           clearly rehearsed 'what year is it?'
 
-[dlg.coth_cast.coth]
+C16
     "Coth. Cothfotmeoo, if we're being formal, and out here, a thousand years
     from anyone, I've had a lot of time to be formal. [beat] Sir Pebbleton and
     I keep a very proper camp."
     Note: Absurdly formal, like introducing himself at court. [beat]: he
           gestures at the stone. Say 'a very proper camp' with real pride.
 
-[dlg.coth_cast.three]
+C17
     "Three DAYS? Look at this beard, stranger! Is this a three-day beard?"
     Note: This is where the game says he laughs: a long, slightly unhinged
           laugh. Please record it, right before the words, and take your time.
           Then real outrage: 'Is this a three-day beard?'
 
-[dlg.coth_cast.rock]
+C18
     "Sir Pebbleton. [beat] He's been with me since the beginning. He doesn't
     say much, but when he does... [beat] He doesn't, actually. That's what I
     like about him."
@@ -772,7 +714,7 @@ listed; the description around them appears on screen.
           the second [beat] he trails off, as if about to reveal something
           profound. Then, simply: 'He doesn't, actually.' Tender at the end.
 
-[dlg.coth_cast.trousers]
+C19
     "I set out to find trousers [beat] A thousand years ago. I have not found
     them. I've stopped looking. There comes a point where a man and his legs
     reach an understanding. [beat] Also, it's very freeing. Even in winter.
@@ -780,18 +722,18 @@ listed; the description around them appears on screen.
     Note: Great dignity, like a sailor recalling a lost voyage. Leave a real
           gap before 'Also.' Then 'ESPECIALLY in winter' goes up, triumphant.
 
-[dlg.coth_cast.not_yet]
+C20
     "Nice try, stranger. But I know what I know, and what I know is: a
     thousand years. Sir Pebbleton agrees."
     Note: Serene, stroking his beard, gazing past the player. Nothing can
           reach him.
 
-[dlg.coth_cast.lost_count]
+C21
     "...a thousand and six [beat] As I said."
     Note: They have been counting, and he got distracted and counted the rock
           twice. Triumphant. 'As I said' is a man resting his case.
 
-[dlg.coth_cast.home]
+C22
     "Eranu? She... waited? A thousand years? [beat] Felt like a thousand
     [beat] Right. Home, then. Before she comes looking. You do NOT want Eranu
     to come looking. [beat] He has a life here [beat] I won't take him from
@@ -803,7 +745,7 @@ listed; the description around them appears on screen.
           Sir Pebbleton and looks at him for a long moment: 'He has a life
           here' is a real goodbye. No joke at all. Cheer up for the last line.
 
-[dlg.coth_cast.marks]
+C23
     "...seventy... seventy-one... seventy-two. [beat] That's three days [beat]
     That's only three days. But the beard... [beat] ...It was always like this
     [beat] Well! Eranu will be worried sick. Home, then! [beat] He has a life
@@ -821,11 +763,11 @@ BARKS - Back Home
 Muttered while the player walks past, to nobody in particular. Keep it low and
 half to yourself. Nobody is meant to answer.
 
-[bark.coth.1]
+C24
     "The stew hasn't changed in a thousand years."
     Note: Happily, between mouthfuls. It's a compliment.
 
-[bark.coth.2]
+C25
     "Trousers? Never heard of them."
     Note: Honest confusion. He vaguely recalls the word.
 
@@ -835,44 +777,44 @@ CONVERSATION - Back Home
 The player is standing right in front of you. Only your spoken words are
 listed; the description around them appears on screen.
 
-[dlg.coth.root]
+C26
     "Ah! My rescuer from the future!"
     Note: Plays every time. Delighted to see them, mouth maybe still full of
           stew.
 
-[dlg.coth.settle]
+C27
     "Strange, being back. Everything's so... the same. Marta says the stew
     hasn't changed in a thousand years. [beat] She says three days. She's in
     on it too."
     Note: Suspicious and cheerful about it. [beat]: a pause while the thought
           arrives. Everyone's in on it.
 
-[dlg.coth.waifu]
+C28
     "...Apparently"
     Note: He opens his mouth to protest. Eranu raises one eyebrow about a
           millimetre. He closes his mouth. Then this one tiny, defeated word.
           Take a breath first, like you were about to say something. A
           favourite line, so get a few takes.
 
-[dlg.coth.pebbleton]
+C29
     "Still in the wood. Guarding the camp. [beat] I go out and visit him
     sometimes. We don't talk. We don't have to."
     Note: DON'T PLAY THIS FOR LAUGHS. Staring into his stew. He means it, and
           that's why it's funny and sad at once.
 
-[dlg.coth.join]
+C30
     "An ADVENTURE? Out THERE? Where the trousers are? [beat] I'll come. But
     I'm not wearing them."
     Note: Leaps up, scattering stew. Then [beat]: he considers this, and gets
           serious. He has conditions.
 
-[dlg.coth.full]
+C31
     "Your party's full. I know how it is. I had a party once: me and Sir
     Pebbleton. He was the quiet one."
     Note: Fond and a little wistful. 'He was the quiet one' is an old inside
           joke with himself.
 
-[dlg.coth.wait]
+C32
     "Back to the stew, then."
     Note: Perfectly content. Stew is waiting.
 
@@ -882,33 +824,33 @@ WALKING AND CHATTING - Back Home
 Random chatter while walking. Say it offhand, as if the thought just wandered
 in. Silence is normal between these.
 
-[comp.coth.idle.1]
+C33
     "When I was lost, I ate bark for a thousand years. Three days. It was a
     long three days."
     Note: The correction arrives on its own, then he defends it. 'It was a
           long three days' is quite sincere.
 
-[comp.coth.idle.2]
+C34
     "Feel that breeze? You don't, do you. Trousers. They're holding you back."
     Note: A man trying to convert you to his religion.
 
-[comp.coth.idle.3]
+C35
     "Sir Pebbleton would love this view."
     Note: Wistful. He misses him.
 
-[comp.coth.idle.4]
+C36
     "I counted the trees in this wood once. I got to seventy-two. Then I
     counted the hours. Also seventy-two. Spooky."
     Note: Getting spooked by his own arithmetic. 'Spooky' in a hushed voice.
 
-[comp.coth.idle.5]
+C37
     "Is it winter yet? I'm ready for winter. My legs are ready for winter."
 
-[comp.coth.idle.6]
+C38
     "Eranu is looking at me. I can feel Eranu looking at me."
     Note: Low, not turning around. He really can feel it.
 
-[comp.coth.idle.7]
+C39
     "Dunstan, if you ever want to give up trousers, I'll show you the way."
 
 
@@ -917,19 +859,19 @@ IN A FIGHT - Back Home
 Shouted mid-fight, often. Short, with full energy from the belly. Back off the
 mic.
 
-[comp.coth.combat.1]
+C40
     "AAAAAA!"
     Note: No technique. Just a skinny man running at something. Hold it two
           seconds or so.
 
-[comp.coth.combat.2]
+C41
     "Have at you, foul creature!"
 
-[comp.coth.combat.3]
+C42
     "Not the legs! Anything but the legs!"
     Note: Real panic, and it's completely about the legs.
 
-[comp.coth.combat.4]
+C43
     "A thousand years of rage!"
     Note: Pure theatre. He has waited for three days to say this.
 
@@ -939,14 +881,14 @@ AFTER A KILL - Back Home
 Right after an enemy falls. You're catching your breath and pleased with
 yourself.
 
-[comp.coth.kill.1]
+C44
     "Sir Pebbleton would be proud."
 
-[comp.coth.kill.2]
+C45
     "Hah! Barefoot and victorious!"
     Note: Peak joy. This is what freedom sounds like.
 
-[comp.coth.kill.3]
+C46
     "Another one for the tally!"
 
 
@@ -954,13 +896,13 @@ HEALING YOU - Back Home
 -----------------------
 You're patching the player up, close by and a little distracted, hands busy.
 
-[comp.coth.heal.1]
+C47
     "Here. Bark tea. It's mostly bark. It works, though."
 
-[comp.coth.heal.2]
+C48
     "Chew this root. Don't ask what it is. I don't know either."
 
-[comp.coth.heal.3]
+C49
     "Have my emergency stew. I keep it in my beard."
     Note: Proud and unashamed of where it was kept.
 
@@ -969,10 +911,10 @@ WHEN YOU LEVEL UP - Back Home
 -----------------------------
 The player just got stronger. A quick, real compliment.
 
-[comp.coth.level.1]
+C50
     "You've grown! A thousand years of growth in a day!"
 
-[comp.coth.level.2]
+C51
     "You're glowing. Is that power, or the sun? Either way, nice."
 
 
@@ -980,10 +922,10 @@ CATCHING UP WITH YOU - Back Home
 --------------------------------
 You fell behind and jogged to catch up. A little out of breath is perfect.
 
-[comp.coth.catchup.1]
+C52
     "Wait for me! I've been lost before, I don't recommend it!"
 
-[comp.coth.catchup.2]
+C53
     "Found you! I'm getting better at finding things. Not trousers."
     Note: Genuinely pleased with his progress. 'Not trousers' is quick and
           under the breath.
@@ -994,180 +936,164 @@ FIRST TIME IN EACH AREA - Back Home
 Said once, on first arriving somewhere. A first impression while looking
 around.
 
-[comp.coth.zone.bellwether]
+C54
     "Home! Marta! Stew! The window seat!"
     Note: Four separate bursts of pure joy.
 
-[comp.coth.zone.old_road]
+C55
     "This road goes on for a thousand years. Or about an afternoon."
 
-[comp.coth.zone.annex]
+C56
     "So many forms. So few of them ask about trousers. Good."
 
-[comp.coth.zone.vault_three]
+C57
     "Cold down here. Wonderful. My legs feel alive."
 
-[comp.coth.zone.seal_chamber]
+C58
     "I don't like this room. Even Sir Pebbleton wouldn't like this room."
     Note: He has dropped the act for a moment. The only room that frightens
           him.
 
-[comp.coth.zone.hollowmere]
+C59
     "Haunted house. I once lived in a haunted wood. For a thousand years."
 
-[comp.coth.zone.hollowmere_manor]
+C60
     "Fancy. Do you think the ghosts wear trousers? I bet they don't."
 
-[comp.coth.zone.saltmere]
+C61
     "The sea! I could live on a beach. Just me and a rock with a face."
 
-[comp.coth.zone.sunken_chapel]
+C62
     "Wet. Everything is wet. I'm used to wet."
 
-[comp.coth.zone.whistling_wood]
+C63
     "My old camp is near here. Sir Pebbleton's still there, keeping watch.
     Hello, Sir Pebbleton!"
     Note: Then call out 'Hello, Sir Pebbleton!' into the trees, warm and
           hopeful.
 
-[comp.coth.zone.sleepers_reef]
+C64
     "An island! I've been practising for this my whole life. Well, three days
     of it."
 
-[comp.coth.zone.here]
+C65
     "A forgotten city. I know how it feels. I was forgotten for a thousand
     years. Three days."
     Note: A flicker of real feeling under the joke, and it's over quickly.
 
-[comp.coth.zone.here_archive]
+C66
     "Whatever ate this city's name, it had better not try my legs."
 
 
 Coth & Dunstan
 --------------
-DUNSTAN (not yours): "Coth, aren't your legs cold?"
+DUNSTAN: "Coth, aren't your legs cold?"
 
-COTH:
-[comp.coth.banter.legs.1]
+C67
     "Dunstan, my legs have seen things."
     Note: A war veteran staring into the distance.
 
-DUNSTAN (not yours): "What things?"
+DUNSTAN: "What things?"
 
-COTH:
-[comp.coth.banter.legs.3]
+C68
     "Winter. Several. Proudly."
     Note: Short and heroic, with a pause on each word.
 
 
 Coth & Baggy
 ------------
-BAGGY (not yours): "So you were missing for three days and thought it was a
-thousand years?"
+BAGGY: "So you were missing for three days and thought it was a thousand
+years?"
 
-COTH:
-[comp.coth.banter.castaway.1]
+C69
     "And you were a detective for three days and thought you were good at it?"
     Note: He finally got a good one in. Enjoy it.
 
-BAGGY (not yours): "...That's fair. Truce?"
+BAGGY: "...That's fair. Truce?"
 
-COTH:
-[comp.coth.banter.castaway.3]
+C70
     "Truce."
 
 
 Coth & Grout
 ------------
-COTH:
-[comp.coth.banter.rocks.0]
+C71
     "Grout, I once had a friend a lot like you."
 
-GROUT (not yours): "Stone?"
+GROUT: "Stone?"
 
-COTH:
-[comp.coth.banter.rocks.2]
+C72
     "Sir Pebbleton."
 
-GROUT (not yours): "Good name."
+GROUT: "Good name."
 
-COTH:
-[comp.coth.banter.rocks.4]
+C73
     "He was a good rock."
     Note: A eulogy. He's not joking.
 
-GROUT (not yours): "We all are."
+GROUT: "We all are."
 
 
 Coth & Doobie
 -------------
-COTH:
-[comp.coth.banter.snacks.0]
+C74
     "Snacks! A fellow creature of the wild!"
     Note: Greeting an equal: the owlbear cub, known as both Snacks and Doobie.
 
-DOOBIE (not yours): "Hrrr-oo?"
+DOOBIE: "Hrrr-oo?"
 
-COTH:
-[comp.coth.banter.snacks.2]
+C75
     "You don't wear trousers either!"
 
-DOOBIE (not yours): "(Snacks looks down at itself, then at Coth, and hoots
-with approval.)"
+DOOBIE: "(Snacks looks down at itself, then at Coth, and hoots with
+approval.)"
 
 
 Dunstan & Coth
 --------------
-DUNSTAN (not yours): "Coth, you could just borrow some of my trousers."
+DUNSTAN: "Coth, you could just borrow some of my trousers."
 
-COTH:
-[comp.dunstan.banter.kilt.1]
+C76
     "Dunstan."
     Note: Calm, as if about to deliver a long and reasoned reply.
 
-DUNSTAN (not yours): "Yes?"
+DUNSTAN: "Yes?"
 
-COTH:
-[comp.dunstan.banter.kilt.3]
+C77
     "No."
     Note: That was the reply.
 
 
 Dunstan & Coth
 --------------
-COTH:
-[comp.dunstan.banter.mate_coth.0]
+C78
     "Is that bark tea?"
 
-DUNSTAN (not yours): "It's mate! Yerba! From the Eastern Shore!"
+DUNSTAN: "It's mate! Yerba! From the Eastern Shore!"
 
-COTH:
-[comp.dunstan.banter.mate_coth.2]
+C79
     "So... bark tea."
     Note: He has decided, and he won't be argued out of it.
 
-DUNSTAN (not yours): "It's NOT- ...okay, it's a bit like bark tea."
+DUNSTAN: "It's NOT- ...okay, it's a bit like bark tea."
 
-COTH:
-[comp.dunstan.banter.mate_coth.4]
+C80
     "I knew it. I'm a connoisseur."
     Note: Smug. A true expert.
 
 
 Dunstan & Coth
 --------------
-DUNSTAN (not yours): "Coth, I once woke up naked in the middle of a desert,
-with nothing at all."
+DUNSTAN: "Coth, I once woke up naked in the middle of a desert, with nothing
+at all."
 
-COTH:
-[comp.dunstan.banter.desert.1]
+C81
     "Paradise."
     Note: Soft, dreamy, eyes closed.
 
-DUNSTAN (not yours): "The first thing I did was make some trousers."
+DUNSTAN: "The first thing I did was make some trousers."
 
-COTH:
-[comp.dunstan.banter.desert.3]
+C82
     "...Rookie mistake."
     Note: Real pity for a lost opportunity.
 

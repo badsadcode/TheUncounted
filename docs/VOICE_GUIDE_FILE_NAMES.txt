@@ -1,0 +1,396 @@
+﻿THE UNCOUNTED: voice file names for Coth and Eranu (for BadSad)
+
+Coth and Eranu say each line's number on their recordings. Cut each line out
+and name it as listed below, in assets/audio/voice/, as .ogg, .wav or .mp3.
+The game plays nothing else, so convert any .m4a. Mono, 44.1 or 48 kHz, with
+half a second of silence at the end. Scene files are named after whoever
+starts the scene, so some of Coth's lines say 'eranu'; that's correct.
+
+
+==============================================================================
+THE REUNION CARDS NEED A LITTLE WORK
+==============================================================================
+
+The game plays one file per story card, and a voiced card turns by itself 1.4
+seconds after its recording ends.
+
+Card 3 has both voices, but the game plays only story.cothepoo.3. Join Coth's
+line and Eranu's line into that one file, with a pause between them. The names
+story.cothepoo.3.coth and story.cothepoo.3.eranu below are only labels, and
+the game won't play them.
+
+Cards 2 and 3 also carry description to read, so add silence to those files or
+the card may turn too soon. Silence before the line works well: the player
+reads about the hug first, then hears the shout.
+
+
+==============================================================================
+ERANU
+==============================================================================
+
+E1    story.cothepoo.2
+      COTHEPOO. Three days, ya absolute numpty. Three DAYS.
+E2    story.cothepoo.3.eranu
+      Aye [beat] It did, ya daftie.
+E3    comp.eranu.banter.waifu.0
+      Cothepoo, tell them whit ye are.
+E4    comp.eranu.banter.waifu.2
+      Tell them whit ye ARE.
+E5    comp.eranu.banter.waifu.4
+      There we go.
+E6    comp.eranu.banter.trousers.1
+      Ye ken whit helps wi' the cold, Coth?
+E7    comp.eranu.banter.trousers.3
+      Trousers.
+E8    comp.eranu.banter.thousand.0
+      Promise me ye'll no' go missin' for a thousand years again.
+E9    comp.eranu.banter.thousand.2
+      Three days, even.
+E10   comp.coth.banter.bark.1
+      Naw, Coth.
+E11   comp.coth.banter.bark.3
+      Did ye eat bark, Coth?
+E12   bark.eranu.1
+      Three days. Three DAYS.
+E13   bark.eranu.2
+      Have ye seen a man wi' nae trousers? Ye'd ken.
+E14   bark.eranu.3
+      Aye, he's back. Dinnae tell him I was worried.
+E15   dlg.eranu.root
+      Aye? Whit is it?
+E16   dlg.eranu.who
+      Eranu. Fae the Glens, up north, where the weather has opinions an'
+      shares them. [beat] I hit things that need hittin' and I read things
+      that need readin'. Folk roond here are aye surprised I dae both. Then
+      they're surprised again.
+E17   dlg.eranu.waiting
+      I'm waitin' on ma waifu. [beat] Coth. Tall, skinny, beard doon tae here,
+      hair doon tae there. Nae trousers, usually. Ye'd mind him. [beat] Three
+      days ago he said he was awa' oot tae find some trousers. He's no' come
+      back. Coth doesnae find trousers. Trousers find Coth, an' he runs.
+E18   dlg.eranu.waifu
+      Aye. Ma waifu. [beat] He protests. He's wrang. [beat] So. Are ye gonnae
+      find him or no'?
+E19   dlg.eranu.accept
+      Guid. [beat] He went west, intae the Whistling Wood. He'll have made
+      camp somewhere daft, he'll have made a pal oot o' somethin' that's no'
+      alive, an' he'll have lost count o' the days. He aye loses count o' the
+      days. [beat] Bring him hame. Tell him Eranu says come hame, Cothepoo.
+E20   dlg.eranu.news
+      West, in the Whistling Wood. Look for a camp somewhere daft, a wee fire,
+      an' a beard. [beat] An' if he tells ye it's been a thousand years, he's
+      havering. He'll have been countin' somethin'. Make him count it oot
+      loud.
+E21   dlg.eranu.nickname
+      Because he's Coth, an' because he's a wee poo sometimes. [beat] He hates
+      it. That's how ye ken it's love.
+E22   dlg.eranu.reunion
+      His [beat] I've carried them since he left, for when we found him. He
+      says he doesnae want them back. [beat] An' this, for yer trouble. [beat]
+      If ye ever need a sword arm, or two, ye ken where the windae seat is.
+E23   dlg.eranu.join
+      Aye, go on, then. Somebody's got tae keep ye alive. [beat] Dinnae wander
+      aff, Cothepoo.
+E24   dlg.eranu.full
+      Ye've a full party already. I'll no' be the spare wheel on anybody's
+      cart.
+E25   dlg.eranu.wait
+      Aye. I'll be at the windae.
+E26   comp.eranu.idle.1
+      Keep yer guard up. Naw, higher. Aye, that's it.
+E27   comp.eranu.idle.2
+      Back hame, this'd count as a braw day. Back hame, the rain comes
+      sideways.
+E28   comp.eranu.idle.3
+      I read once this road was built by a king who wanted tae see the sea. He
+      never did. The road did.
+E29   comp.eranu.idle.4
+      If anythin' jumps oot at us, you go left, I go through it.
+E30   comp.eranu.idle.5
+      Cothepoo, stop lickin' that mushroom.
+E31   comp.eranu.idle.6
+      Dunstan, lift wi' yer legs. Yer LEGS, lad.
+E32   comp.eranu.idle.7
+      Baggy, ye've had that magnifyin' glass on ma boots for a full minute.
+E33   comp.eranu.combat.1
+      Come on, then!
+E34   comp.eranu.combat.2
+      Get behind the shield!
+E35   comp.eranu.combat.3
+      Is that aw ye've got?
+E36   comp.eranu.combat.4
+      For the Glens!
+E37   comp.eranu.kill.1
+      Next.
+E38   comp.eranu.kill.2
+      Aye. Stay doon.
+E39   comp.eranu.kill.3
+      That's for Cothepoo, whatever ye did tae him.
+E40   comp.eranu.kill.4
+      Braw.
+E41   comp.eranu.heal.1
+      Here. Drink this an' stop bleedin' on ma kilt.
+E42   comp.eranu.heal.2
+      Haud still. Ma's recipe: oats, honey, an' a bit o' shoutin'.
+E43   comp.eranu.heal.3
+      Ye're nae use tae me deid. Get that doon ye.
+E44   comp.eranu.level.1
+      Look at you! Stronger already.
+E45   comp.eranu.level.2
+      Aye, ye're gettin' the hang o' it.
+E46   comp.eranu.catchup.1
+      There ye are. Dinnae run aff like that, ye're worse than Coth.
+E47   comp.eranu.catchup.2
+      Right behind ye. Aye.
+E48   comp.eranu.zone.bellwether
+      Bellwether. Wee place, but they keep a guid fire at the Lantern.
+E49   comp.eranu.zone.old_road
+      Auld roads remember who walked them. Let's gie this one somethin' guid
+      tae remember.
+E50   comp.eranu.zone.annex
+      Records. Filin' cabinets. I've fought worse. No' much worse.
+E51   comp.eranu.zone.vault_three
+      Smells like a tomb, 'cause it is one. Shield up.
+E52   comp.eranu.zone.seal_chamber
+      Whatever's doon here, it's no' gettin' past me.
+E53   comp.eranu.zone.hollowmere
+      Fine auld hoose. Shame aboot the hauntin'.
+E54   comp.eranu.zone.hollowmere_manor
+      Mind the stairs. Mind the portraits. Mind everythin', really.
+E55   comp.eranu.zone.saltmere
+      Sea air! Proper air. Minds me o' hame, except hame's colder an' the fish
+      argue back.
+E56   comp.eranu.zone.sunken_chapel
+      A kirk underwater. Aye, nothin' sinister aboot that at aw.
+E57   comp.eranu.zone.whistling_wood
+      This is where I'd have found Cothepoo masel', if I'd trusted ma ain
+      nose.
+E58   comp.eranu.zone.sleepers_reef
+      Oot past the haar. Steady, now. I've sailed in worse.
+E59   comp.eranu.zone.here
+      A city naebody remembers. I'll remember it. That's a start.
+E60   comp.eranu.zone.here_archive
+      Books wi' teeth. I've read a few like that.
+E61   comp.eranu.banter.squire.0
+      Yer stance is guid, Dunstan. Yer sword's daft.
+E62   comp.eranu.banter.squire.2
+      It's a family o' daft swords.
+E63   comp.eranu.banter.detective.1
+      Ye can ask.
+E64   comp.eranu.banter.detective.3
+      Asleep. Wi' ma sword. Next question.
+E65   comp.eranu.banter.statue.0
+      Ye're a braw bit o' stonework, Grout.
+E66   comp.eranu.banter.statue.2
+      Modest, an' aw.
+E67   comp.dunstan.banter.stance.1
+      It's a normal-sized sword, son.
+E68   comp.dunstan.banter.stance.3
+      That's the hale secret.
+E69   comp.dunstan.banter.mate_eranu.1
+      Go on, then.
+E70   comp.dunstan.banter.mate_eranu.2
+      ...It's like drinkin' a hot lawn.
+E71   comp.dunstan.banter.mate_eranu.4
+      Aye. Aye, it kind o' is. Gie's another.
+E72   comp.dunstan.banter.odds.0
+      Ye look worried, lad.
+E73   comp.dunstan.banter.odds.2
+      So we're fine.
+
+
+==============================================================================
+COTH
+==============================================================================
+
+C1    story.cothepoo.1
+      I HAVE RETURNED [beat] AFTER A THOUSAND YEARS.
+C2    story.cothepoo.3.coth
+      Felt like a thousand
+C3    comp.eranu.banter.waifu.1
+      A free man of the wilds.
+C4    comp.eranu.banter.waifu.3
+      ...Your waifu.
+C5    comp.eranu.banter.trousers.0
+      It's getting cold.
+C6    comp.eranu.banter.trousers.2
+      Don't say it.
+C7    comp.eranu.banter.trousers.4
+      Never.
+C8    comp.eranu.banter.thousand.1
+      I promise.
+C9    comp.eranu.banter.thousand.3
+      ...I'll try for two.
+C10   comp.coth.banter.bark.0
+      Eranu, did you know bark is edible?
+C11   comp.coth.banter.bark.2
+      Neither is it, really.
+C12   comp.coth.banter.bark.4
+      ...For a thousand years.
+C13   bark.coth_castaway.1
+      A thousand years... a thousand years...
+C14   bark.coth_castaway.2
+      Sir Pebbleton, we have a visitor!
+C15   dlg.coth_cast.root
+      A PERSON. A real one. Tell me, traveller: what year is it? I have been
+      lost in these woods for a thousand years.
+C16   dlg.coth_cast.coth
+      Coth. Cothfotmeoo, if we're being formal, and out here, a thousand years
+      from anyone, I've had a lot of time to be formal. [beat] Sir Pebbleton
+      and I keep a very proper camp.
+C17   dlg.coth_cast.three
+      Three DAYS? Look at this beard, stranger! Is this a three-day beard?
+C18   dlg.coth_cast.rock
+      Sir Pebbleton. [beat] He's been with me since the beginning. He doesn't
+      say much, but when he does... [beat] He doesn't, actually. That's what I
+      like about him.
+C19   dlg.coth_cast.trousers
+      I set out to find trousers [beat] A thousand years ago. I have not found
+      them. I've stopped looking. There comes a point where a man and his legs
+      reach an understanding. [beat] Also, it's very freeing. Even in winter.
+      ESPECIALLY in winter.
+C20   dlg.coth_cast.not_yet
+      Nice try, stranger. But I know what I know, and what I know is: a
+      thousand years. Sir Pebbleton agrees.
+C21   dlg.coth_cast.lost_count
+      ...a thousand and six [beat] As I said.
+C22   dlg.coth_cast.home
+      Eranu? She... waited? A thousand years? [beat] Felt like a thousand
+      [beat] Right. Home, then. Before she comes looking. You do NOT want
+      Eranu to come looking. [beat] He has a life here [beat] I won't take him
+      from it. [beat] See you at the Lantern Inn, stranger from the future!
+C23   dlg.coth_cast.marks
+      ...seventy... seventy-one... seventy-two. [beat] That's three days
+      [beat] That's only three days. But the beard... [beat] ...It was always
+      like this [beat] Well! Eranu will be worried sick. Home, then! [beat] He
+      has a life here [beat] I won't take him from it. [beat] See you at the
+      Lantern Inn, stranger from the future!
+C24   bark.coth.1
+      The stew hasn't changed in a thousand years.
+C25   bark.coth.2
+      Trousers? Never heard of them.
+C26   dlg.coth.root
+      Ah! My rescuer from the future!
+C27   dlg.coth.settle
+      Strange, being back. Everything's so... the same. Marta says the stew
+      hasn't changed in a thousand years. [beat] She says three days. She's in
+      on it too.
+C28   dlg.coth.waifu
+      ...Apparently
+C29   dlg.coth.pebbleton
+      Still in the wood. Guarding the camp. [beat] I go out and visit him
+      sometimes. We don't talk. We don't have to.
+C30   dlg.coth.join
+      An ADVENTURE? Out THERE? Where the trousers are? [beat] I'll come. But
+      I'm not wearing them.
+C31   dlg.coth.full
+      Your party's full. I know how it is. I had a party once: me and Sir
+      Pebbleton. He was the quiet one.
+C32   dlg.coth.wait
+      Back to the stew, then.
+C33   comp.coth.idle.1
+      When I was lost, I ate bark for a thousand years. Three days. It was a
+      long three days.
+C34   comp.coth.idle.2
+      Feel that breeze? You don't, do you. Trousers. They're holding you back.
+C35   comp.coth.idle.3
+      Sir Pebbleton would love this view.
+C36   comp.coth.idle.4
+      I counted the trees in this wood once. I got to seventy-two. Then I
+      counted the hours. Also seventy-two. Spooky.
+C37   comp.coth.idle.5
+      Is it winter yet? I'm ready for winter. My legs are ready for winter.
+C38   comp.coth.idle.6
+      Eranu is looking at me. I can feel Eranu looking at me.
+C39   comp.coth.idle.7
+      Dunstan, if you ever want to give up trousers, I'll show you the way.
+C40   comp.coth.combat.1
+      AAAAAA!
+C41   comp.coth.combat.2
+      Have at you, foul creature!
+C42   comp.coth.combat.3
+      Not the legs! Anything but the legs!
+C43   comp.coth.combat.4
+      A thousand years of rage!
+C44   comp.coth.kill.1
+      Sir Pebbleton would be proud.
+C45   comp.coth.kill.2
+      Hah! Barefoot and victorious!
+C46   comp.coth.kill.3
+      Another one for the tally!
+C47   comp.coth.heal.1
+      Here. Bark tea. It's mostly bark. It works, though.
+C48   comp.coth.heal.2
+      Chew this root. Don't ask what it is. I don't know either.
+C49   comp.coth.heal.3
+      Have my emergency stew. I keep it in my beard.
+C50   comp.coth.level.1
+      You've grown! A thousand years of growth in a day!
+C51   comp.coth.level.2
+      You're glowing. Is that power, or the sun? Either way, nice.
+C52   comp.coth.catchup.1
+      Wait for me! I've been lost before, I don't recommend it!
+C53   comp.coth.catchup.2
+      Found you! I'm getting better at finding things. Not trousers.
+C54   comp.coth.zone.bellwether
+      Home! Marta! Stew! The window seat!
+C55   comp.coth.zone.old_road
+      This road goes on for a thousand years. Or about an afternoon.
+C56   comp.coth.zone.annex
+      So many forms. So few of them ask about trousers. Good.
+C57   comp.coth.zone.vault_three
+      Cold down here. Wonderful. My legs feel alive.
+C58   comp.coth.zone.seal_chamber
+      I don't like this room. Even Sir Pebbleton wouldn't like this room.
+C59   comp.coth.zone.hollowmere
+      Haunted house. I once lived in a haunted wood. For a thousand years.
+C60   comp.coth.zone.hollowmere_manor
+      Fancy. Do you think the ghosts wear trousers? I bet they don't.
+C61   comp.coth.zone.saltmere
+      The sea! I could live on a beach. Just me and a rock with a face.
+C62   comp.coth.zone.sunken_chapel
+      Wet. Everything is wet. I'm used to wet.
+C63   comp.coth.zone.whistling_wood
+      My old camp is near here. Sir Pebbleton's still there, keeping watch.
+      Hello, Sir Pebbleton!
+C64   comp.coth.zone.sleepers_reef
+      An island! I've been practising for this my whole life. Well, three days
+      of it.
+C65   comp.coth.zone.here
+      A forgotten city. I know how it feels. I was forgotten for a thousand
+      years. Three days.
+C66   comp.coth.zone.here_archive
+      Whatever ate this city's name, it had better not try my legs.
+C67   comp.coth.banter.legs.1
+      Dunstan, my legs have seen things.
+C68   comp.coth.banter.legs.3
+      Winter. Several. Proudly.
+C69   comp.coth.banter.castaway.1
+      And you were a detective for three days and thought you were good at it?
+C70   comp.coth.banter.castaway.3
+      Truce.
+C71   comp.coth.banter.rocks.0
+      Grout, I once had a friend a lot like you.
+C72   comp.coth.banter.rocks.2
+      Sir Pebbleton.
+C73   comp.coth.banter.rocks.4
+      He was a good rock.
+C74   comp.coth.banter.snacks.0
+      Snacks! A fellow creature of the wild!
+C75   comp.coth.banter.snacks.2
+      You don't wear trousers either!
+C76   comp.dunstan.banter.kilt.1
+      Dunstan.
+C77   comp.dunstan.banter.kilt.3
+      No.
+C78   comp.dunstan.banter.mate_coth.0
+      Is that bark tea?
+C79   comp.dunstan.banter.mate_coth.2
+      So... bark tea.
+C80   comp.dunstan.banter.mate_coth.4
+      I knew it. I'm a connoisseur.
+C81   comp.dunstan.banter.desert.1
+      Paradise.
+C82   comp.dunstan.banter.desert.3
+      ...Rookie mistake.
+

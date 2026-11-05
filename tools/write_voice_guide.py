@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Writes docs/VOICE_GUIDE_COTH_AND_ERANU.txt: a plain-text guide for the two friends voicing Coth and Eranu, with
-performance notes and every line they say. The lines come straight from the game's data (via write_voice_script.py),
-so rerun this after changing their dialogue:
+"""Writes two plain-text files from the game's data (via write_voice_script.py); rerun after changing their dialogue:
+  docs/VOICE_GUIDE_COTH_AND_ERANU.txt  for the two friends: performance notes and every line, numbered E1.. and C1..
+  docs/VOICE_GUIDE_FILE_NAMES.txt      for BadSad: which file name each numbered line needs once the takes are cut
 
     python tools/write_voice_guide.py
 """
@@ -13,13 +13,14 @@ import write_voice_script as vs
 
 WIDTH = 78
 OUT = os.path.join(vs.ROOT, "docs", "VOICE_GUIDE_COTH_AND_ERANU.txt")
+OUT_NAMES = os.path.join(vs.ROOT, "docs", "VOICE_GUIDE_FILE_NAMES.txt")
 
 INTRO = """
 Hi Coth, hi Eranu!
 
 You two are in the game as yourselves, and this file is everything you need to
 give those characters your real voices: who they are, how the lines should
-feel, how to record them, and every line with its file name.
+feel, how to record them, and every line you say.
 
 Nothing here is a rule. If a line wants to go somewhere funnier or more natural,
 follow it. You know these two characters better than anyone.
@@ -70,23 +71,10 @@ YOUR VOICE: speak low and unhurried. She is never the one in a hurry, and she
 gets quieter when she means it. Save real volume for the fights and for one
 word: "COTHEPOO."
 
-THE SCOTS: the spelling is only there to help. It was written to be easy to read
-in subtitles, so if a word feels wrong in your mouth, say it the way you would
-really say it. Your natural speech beats anything on this page. If you change a
-word a lot, tell BadSad so the subtitle can be changed to match.
-
-WORDS IN HER LINES
-  aye = yes               ken = know             dinnae = don't
-  naw = no                no' = not              doesnae = doesn't
-  whit = what             wee = small            ma = my, or Mum in "Ma's"
-  ye / yer = you / your   hame = home            oot / doon = out / down
-  guid = good             braw = fine, great     daft = silly
-  numpty / daftie = idiot, said with love        havering = talking nonsense
-  gie = give              haud = hold            deid = dead
-  fae / tae = from / to   aw = all               masel' = myself
-  windae = window         hoose = house          auld = old
-  kirk = church           haar = sea fog         mind = remember, or watch out
-  targe = her round shield
+THE SCOTS: you're the Scot here, and these lines weren't written by one. The
+spelling is only there so the subtitles read nicely. Ignore it and say every
+line the way you'd really say it. If a word or a whole line sounds wrong, change
+it. If you change a lot, tell BadSad so the subtitle can match.
 """
 
 COTH_GUIDE = """
@@ -121,32 +109,29 @@ MIC: about a hand's width from your mouth and slightly to one side, so the P's
 in "Pebbleton" and "poo" don't pop. For shouts, lean back or turn away a little
 so the sound doesn't distort.
 
-TAKES: do two or three of anything you care about and keep the best. Leave half
-a second of silence at the end of each line.
+TAKES: do two or three of anything you care about. If you redo a line, just say
+its number again and go. BadSad can pick the last one.
 
 KEEP IT EVEN: try to record in one sitting, or at least in the same spot at the
 same distance, so the character doesn't change sound between lines.
 
-FILE TYPE: the game plays .ogg, .wav and .mp3 only. Mono, 44.1 or 48 kHz. Watch
-out: many phones save .m4a, which the game can't play. The free program Audacity
-can convert it, or just send the files to BadSad as they are.
+SENDING: don't worry about file types or file names. Record however is easiest,
+even one long recording, and send it to BadSad, who will do the cutting and
+naming. Before each line, say its number out loud (like "E12"), leave a pause,
+then read the line. That's how BadSad finds it.
 
-FILE NAMES: each line has its own name, shown above it. For example, the line
-marked [bark.eranu.1] is saved as bark.eranu.1.ogg. Spell it exactly, dots
-included. Lines nobody has recorded just show as subtitles, so you can do a few
-at a time and nothing breaks.
-
-THE LAZY WAY: if naming files sounds awful, record one long file. Say the name
-of each line out loud, leave a pause, then read the line. Send that to BadSad.
+NO RUSH: you can record a few at a time. Any line without a recording just shows
+as a subtitle in the game, so nothing breaks.
 """
 
 READING = """
-[some.file.name]   The file name for the line underneath it.
+E12 or C7          The line's number. E is for Eranu, C is for Coth. Say it
+                   before the line so BadSad can find it.
 
 [beat]             A pause. Something happens here in the game: the player
                    reads a bit of description, or the character does something.
-                   Leave about a second and carry on in the same recording. The
-                   note usually says what is happening.
+                   Leave about a second and carry on. The note usually says
+                   what is happening.
 
 CAPITALS           Lean on that word. It doesn't always mean louder.
 
@@ -154,14 +139,8 @@ CAPITALS           Lean on that word. It doesn't always mean louder.
 
 Note:              A suggestion about how the line could feel. Ignore freely.
 
-Other people's lines in a scene are shown for context, marked "(not yours)".
-Don't record those. Every line in a scene gets its own file, so the game can
-play them one after another.
-
-WATCH OUT: scene files are named after whoever starts the scene, not whoever is
-talking. Coth's "A free man of the wilds" is saved as
-comp.eranu.banter.waifu.1, with "eranu" in the name. That's correct. Just copy
-the name as written.
+You only read your own numbered lines. Anyone else's lines are there so you know
+what you're answering, and they have no number.
 
 SOME LINES REPEAT: the first line of each conversation plays every time the
 player talks to you, so keep those light. Fight lines come up over and over, so
@@ -172,20 +151,25 @@ START_HERE = """
 Short on time? Record in this order. The most important lines come first:
 
   1. The Reunion (the scene right below this list)
-  2. Scenes for Coth and Eranu together
+  2. Your scenes with each other
   3. Your conversations
   4. Fight lines and everything else
 """
 
 REUNION_NOTES = """
-This is the peak of the whole story, so give it your best takes. Each page plays
-as a full-screen card, and the player reads the description while you speak. Don't
-worry about pauses or timing here. Just record the words, and BadSad can place them.
+This is the peak of the whole story, so give it your best takes. It plays on
+full-screen cards while the player reads the description. Don't worry about
+timing. Just give the words, and BadSad will put the scene together.
+"""
 
-The last card has both of you on it, but the game plays one file per card. Record
-your own line under the name shown, and BadSad will join them into one file,
-story.cothepoo.3. If you can record that one together, even better. Do it, and
-name the single file story.cothepoo.3.
+APART = """
+You'll each record your half on your own, and BadSad will put the scenes
+together. That works fine here, because the game plays every line as its own
+clip, so nobody has to match anyone's timing.
+
+Before each of your lines, read the other person's line in your head, then
+answer it. Picture them right in front of you, the way you know they'd say it.
+Stop cleanly at the end of your line, and don't talk over where they would be.
 """
 
 SECTION_TIPS = {
@@ -314,6 +298,8 @@ REUNION = [("story.cothepoo.1", "COTH", "story.cothepoo.1", (0, 1)),
            ("story.cothepoo.3.eranu", "ERANU", "story.cothepoo.3", (1, 2))]
 
 used_notes = set()
+line_numbers = []  # (number, speaker, file name, text), in script order, for BadSad's list
+next_number = {"ERANU": 0, "COTH": 0}
 
 
 def heading(text, char="="):
@@ -328,8 +314,11 @@ def clean(text):
     return " ".join(text.replace(" … ", " [beat] ").split())
 
 
-def line_block(key, text):
-    out = [f"[{key}]"] + para(f'"{clean(text)}"', "    ")
+def line_block(key, text, who, show_name=False):
+    next_number[who] += 1
+    number = f"{who[0]}{next_number[who]}"
+    line_numbers.append((number, who, key, clean(text)))
+    out = [f"{number} - {who}" if show_name else number] + para(f'"{clean(text)}"', "    ")
     note = NOTES.get(key)
     if note:
         used_notes.add(key)
@@ -350,14 +339,14 @@ def short_title(title):
     return title.split(" (")[0].upper()
 
 
-def sections_for(npc_id, label=""):
+def sections_for(npc_id, who, label=""):
     out, count = [], 0
     _, sections = vs.lines_for(npc_id)
     for title, rows in sections:
         name = short_title(title) + (f" - {label}" if label else "")
         out += ["", name, "-" * len(name)] + para(tip_for(title)) + [""]
         for key, text in rows:
-            out += line_block(key, text)
+            out += line_block(key, text, who)
             count += 1
     return out, count
 
@@ -365,12 +354,13 @@ def sections_for(npc_id, label=""):
 def scene_block(a, b, rows, voices):
     out = ["", f"{a} & {b}", "-" * len(f"{a} & {b}")]
     count = 0
+    both = len(voices) > 1
     for key, who, text, _ in rows:
-        if who.title() in voices or who in voices:
-            out += [f"{who}:"] + line_block(key, text)
+        if who in voices:
+            out += line_block(key, text, who, show_name=both)
             count += 1
         else:
-            out += para(f'{who} (not yours): "{clean(text)}"') + [""]
+            out += para(f'{who}: "{clean(text)}"') + [""]
     return out, count
 
 
@@ -378,7 +368,7 @@ def reunion_block():
     out, count = _paras(REUNION_NOTES), 0
     for name, who, loc_key, picks in REUNION:
         quoted = [q.strip().rstrip(",") for q in re.findall(r'"([^"]+)"', vs.L[loc_key])]
-        out += [f"{who}:"] + line_block(name, " … ".join(quoted[i] for i in picks))
+        out += line_block(name, " … ".join(quoted[i] for i in picks), who, show_name=True)
         count += 1
     return out, count
 
@@ -401,13 +391,13 @@ def main():
         blk, c = scene_block(a, b, rows, {"ERANU", "COTH"})
         tb += blk
         n_both += c
-    eb, n_eranu = sections_for("core:npc.eranu")
+    eb, n_eranu = sections_for("core:npc.eranu", "ERANU")
     for a, b, rows in eranu_only:
         blk, c = scene_block(a, b, rows, {"ERANU"})
         eb += blk
         n_eranu += c
-    cb1, c1 = sections_for("core:npc.coth_castaway", "Lost in the Wood")
-    cb2, c2 = sections_for("core:npc.coth", "Back Home")
+    cb1, c1 = sections_for("core:npc.coth_castaway", "COTH", "Lost in the Wood")
+    cb2, c2 = sections_for("core:npc.coth", "COTH", "Back Home")
     n_coth = c1 + c2
     for a, b, rows in coth_only:
         blk, c = scene_block(a, b, rows, {"COTH"})
@@ -415,17 +405,16 @@ def main():
         n_coth += c
 
     out = ["THE UNCOUNTED", "A voice guide for Coth and Eranu", ""] + _paras(INTRO)
-    out += para(f"In total: {n_eranu} lines just for Eranu, {n_coth} just for Coth, plus {n_both + n_reunion} you share in scenes together.")
+    out += para(f"In total: {n_eranu} lines just for Eranu, {n_coth} just for Coth, plus {n_both + n_reunion} in scenes with each other.")
     out += heading("1. THE STORY YOU'RE IN") + _paras(STORY)
     out += heading("2. PLAYING THEM TOGETHER") + _paras(TOGETHER)
-    out += heading("3. PLAYING ERANU") + _paras(ERANU_GUIDE, keep=True)
+    out += heading("3. PLAYING ERANU") + _paras(ERANU_GUIDE)
     out += heading("4. PLAYING COTH") + _paras(COTH_GUIDE)
     out += heading("5. RECORDING") + _paras(RECORDING)
     out += heading("6. HOW TO READ THE SCRIPT") + READING.strip("\n").split("\n")
     out += heading("7. WHERE TO START") + START_HERE.strip("\n").split("\n")
     out += heading("8. THE REUNION (both of you)") + rb
-    out += heading("9. SCENES FOR COTH AND ERANU TOGETHER")
-    out += para("Record these together if you can, even over a voice call. Reacting to each other will beat anything recorded alone. Each line still needs its own file.") + tb
+    out += heading("9. YOUR SCENES WITH EACH OTHER") + _paras(APART) + tb
     out += heading("10. ERANU'S LINES") + eb
     out += heading("11. COTH'S LINES") + cb1 + cb2
     out += heading("THANK YOU", "=")
@@ -436,19 +425,37 @@ def main():
         raise SystemExit("Notes for lines not in the script: " + ", ".join(missing))
     with open(OUT, "w", encoding="utf-8-sig", newline="\r\n") as f:
         f.write("\n".join(out) + "\n")
+    write_names()
     print(f"Wrote {os.path.relpath(OUT, vs.ROOT)}: Eranu {n_eranu}, Coth {n_coth}, shared {n_both + n_reunion}, notes {len(used_notes)}")
 
 
-def _paras(text, keep=False):
-    """Plain paragraphs are re-wrapped; indented tables (the Scots word list) stay as written."""
+def _paras(text):
     out = []
     for block in text.strip("\n").split("\n\n"):
-        if "\n  " in block:
-            out += block.split("\n")
-        else:
-            out += para(block)
-        out.append("")
+        out += para(block) + [""]
     return out
+
+
+def write_names():
+    out = ["THE UNCOUNTED: voice file names for Coth and Eranu (for BadSad)", ""]
+    out += para("Coth and Eranu say each line's number on their recordings. Cut each line out and name it as listed below, in assets/audio/voice/, as .ogg, .wav or .mp3. The game plays nothing else, so convert any .m4a. Mono, 44.1 or 48 kHz, with half a second of silence at the end. Scene files are named after whoever starts the scene, so some of Coth's lines say 'eranu'; that's correct.") + [""]
+    out += heading("THE REUNION CARDS NEED A LITTLE WORK")
+    out += _paras("""
+The game plays one file per story card, and a voiced card turns by itself 1.4 seconds after its recording ends.
+
+Card 3 has both voices, but the game plays only story.cothepoo.3. Join Coth's line and Eranu's line into that one file, with a pause between them. The names story.cothepoo.3.coth and story.cothepoo.3.eranu below are only labels, and the game won't play them.
+
+Cards 2 and 3 also carry description to read, so add silence to those files or the card may turn too soon. Silence before the line works well: the player reads about the hug first, then hears the shout.
+""")
+    for who, title in (("ERANU", "ERANU"), ("COTH", "COTH")):
+        out += heading(title)
+        for number, speaker, key, text in line_numbers:
+            if speaker == who:
+                out.append(f"{number:<6}{key}")
+                out += textwrap.wrap(text, WIDTH, initial_indent="      ", subsequent_indent="      ")
+        out.append("")
+    with open(OUT_NAMES, "w", encoding="utf-8-sig", newline="\r\n") as f:
+        f.write("\n".join(out) + "\n")
 
 
 if __name__ == "__main__":
