@@ -10,5 +10,7 @@
   "starting_map": "core:map.edrath",
   "starting_quest": "core:quest.legally_deceased",
   "starting_spawn": "village_gate",
-  "subtitles_enabled": true
+  "subtitles_enabled": true,
+  "intro_music": "",
+  "intro_music_level": 0.4
 }

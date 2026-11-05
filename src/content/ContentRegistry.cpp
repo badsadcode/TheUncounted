@@ -106,6 +106,8 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         game_cfg.ambience_volume = j.value("ambience_volume", 0.70f);
         game_cfg.sfx_volume = j.value("sfx_volume", 0.85f);
         game_cfg.subtitles_enabled = j.value("subtitles_enabled", true);
+        game_cfg.intro_music = j.value("intro_music", std::string());
+        game_cfg.intro_music_level = std::clamp(j.value("intro_music_level", 0.4f), 0.0f, 1.0f);
         game_cfg.text_scale = std::clamp(j.value("text_scale", 1.0f), 1.0f, 1.5f);
         game_cfg.day_length_minutes = std::clamp(j.value("day_length_minutes", 48.0f), 0.0f, 600.0f);
         game_cfg.enable_mods = j.value("enable_mods", false);
@@ -166,6 +168,8 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["ambience_volume"] = game_cfg.ambience_volume;
         j["sfx_volume"] = game_cfg.sfx_volume;
         j["subtitles_enabled"] = game_cfg.subtitles_enabled;
+        j["intro_music"] = game_cfg.intro_music;
+        j["intro_music_level"] = game_cfg.intro_music_level;
         j["text_scale"] = game_cfg.text_scale;
         j["day_length_minutes"] = game_cfg.day_length_minutes;
         j["enable_mods"] = game_cfg.enable_mods;

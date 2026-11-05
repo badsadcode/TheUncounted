@@ -83,6 +83,8 @@ int GameEngine::RunSelfTest() {
         for (size_t i = 0; i < narration_pages_.size(); i++) pictures = pictures && res_.Exists("assets/ui/intro/intro_" + std::to_string(i + 1) + ".png");
         check(narration_is_prologue_ && narration_keys_.size() == narration_pages_.size() && narration_keys_[0] == "story.prologue.1" && pictures,
               "the prologue is illustrated (a picture per card) with a voice-over slot per card");
+        check(intro_duck_ >= 1.0f && content_.game_cfg.intro_music_level < 1.0f,
+              "the intro mutes the rain and lowers the music under the narrator");
     }
     narration_page_ = static_cast<int>(narration_pages_.size());
     AdvanceNarration();

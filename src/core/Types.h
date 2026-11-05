@@ -52,6 +52,8 @@ struct GameConfig {
     float ambience_volume = 0.70f;
     float sfx_volume = 0.85f;
     bool subtitles_enabled = true;
+    std::string intro_music;          // optional track for the illustrated intro (empty = the map's music, ducked)
+    float intro_music_level = 0.4f;   // music level under the intro narration (0..1)
     float text_scale = 1.0f;   // dialogue / subtitles / books / narration size (1.0 - 1.5), for reading on stream
     bool enable_mods = false;
     std::string starting_map = "core:map.edrath";

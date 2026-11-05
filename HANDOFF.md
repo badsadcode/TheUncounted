@@ -794,4 +794,7 @@ The new-game prologue (`story.prologue.1..N`) is illustrated: card N shows `asse
 with a slow push-in and drift, the words on a dark band at the bottom (`DrawNarration`). Every narration page now plays
 `assets/audio/voice/<its key>` if recorded (`EnterNarrationPage`, `narration_keys_`), and a voiced page turns by itself
 1.4 s after the recording ends; click to continue, Esc skips. Noor's four paintings arrived 5 Nov (originals in
-`art_source/intro/`; import folder `intro/`). The `--clean` screenshot flag hides the HUD, weapon, subtitles and toasts. Narration script for BadSad: `docs/VOICE_SCRIPT_INTRO.md`. Preview: `--overlay prologue:<n>`.
+`art_source/intro/`; import folder `intro/`). The `--clean` screenshot flag hides the HUD, weapon, subtitles and toasts. Narration script for BadSad: `docs/VOICE_SCRIPT_INTRO.md`.
+Audio during the intro: ambience (rain) is faded out and music drops to `intro_music_level` (config/game.json,
+default 0.4) via `intro_duck_` in `UpdateAudio`; set `intro_music` to a track path to give the intro its own music
+(the place's music and rain return when the intro ends). Preview: `--overlay prologue:<n>`.

@@ -527,6 +527,10 @@ void GameEngine::StopMapAudio() {
 
 void GameEngine::PlayMapAudio(const MapDef* map) {
     if (!map) return;
+    if (narration_is_prologue_ && overlay_ == Overlay::Narration && !content_.game_cfg.intro_music.empty()) {
+        SetWantedAudio(content_.game_cfg.intro_music, "");  // the intro's own track, until the story starts
+        return;
+    }
     const MapZoneDef* z = CurrentZone();
     std::string amb = z ? z->ambience : map->ambience;
     if (z && !z->override_flag.empty() && player_.flags.count(z->override_flag)) amb = z->override_ambience;
@@ -559,11 +563,16 @@ void GameEngine::SetWantedAudio(const std::string& music, const std::string& amb
 
 void GameEngine::UpdateAudio(float dt) {
     const GameConfig& c = content_.game_cfg;
+    // The illustrated intro: no rain or other ambience, and the music sits under the narrator.
+    bool intro = screen_ == Screen::Playing && overlay_ == Overlay::Narration && narration_is_prologue_;
+    intro_duck_ = intro ? std::min(1.0f, intro_duck_ + dt / 0.8f) : std::max(0.0f, intro_duck_ - dt / 2.5f);
+    float musicMix = 1.0f + (c.intro_music_level - 1.0f) * intro_duck_;
+    float ambienceMix = 1.0f - intro_duck_;
     for (auto& s : streams_) {
         bool wanted = s.path == (s.is_music ? want_music_ : want_ambience_);
         // Crossfade: new tracks swell in over ~3 s while the previous region's fade out over ~2 s.
         s.vol = wanted ? std::min(1.0f, s.vol + dt / 3.0f) : std::max(0.0f, s.vol - dt / 2.0f);
-        SetMusicVolume(s.music, s.vol * (s.is_music ? c.music_volume : c.ambience_volume));
+        SetMusicVolume(s.music, s.vol * (s.is_music ? c.music_volume * musicMix : c.ambience_volume * ambienceMix));
         UpdateMusicStream(s.music);
     }
     for (size_t i = 0; i < streams_.size();) {
@@ -812,7 +821,8 @@ void GameEngine::NewGame() {
     narration_page_ = 0;
     narration_time_ = 0.0f;
     narration_is_prologue_ = true;
-    if (!narration_pages_.empty()) { SetOverlay(Overlay::Narration); EnterNarrationPage(); }
+    intro_duck_ = 1.0f;  // the rain never starts under the intro
+    if (!narration_pages_.empty()) { SetOverlay(Overlay::Narration); EnterNarrationPage(); PlayMapAudio(scene_.map); }
     else AdvanceNarration();
 }
 
@@ -4287,6 +4297,7 @@ void GameEngine::AdvanceNarration() {
     SetOverlay(Overlay::None);
     if (!narration_is_prologue_) return;
     narration_is_prologue_ = false;
+    PlayMapAudio(scene_.map);  // from the intro's track (if any) back to the place's own music and rain
     if (const ItemDef* notice = content_.GetItem("core:item.death_notice"); notice && CountItem(notice->id) > 0) {
         reader_title_ = content_.Tr(notice->name_key);
         reader_text_ = content_.Tr(notice->book_text_key);
