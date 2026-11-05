@@ -1144,6 +1144,120 @@
         ],
         "light_radius": 5.0
       }
+    },
+    {
+      "id": "well_ring",
+      "model": "assets/models/env/wall_stone.glb",
+      "pos": [
+        5.2,
+        0.0,
+        -2.8
+      ],
+      "scale": [
+        1.6,
+        0.85,
+        1.6
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.7,
+        0.35
+      ]
+    },
+    {
+      "id": "well_water",
+      "model": "assets/models/env/wall_crypt.glb",
+      "pos": [
+        5.2,
+        0.86,
+        -2.8
+      ],
+      "scale": [
+        1.2,
+        0.02,
+        1.2
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.4,
+        0.1
+      ]
+    },
+    {
+      "id": "well_post_w",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        4.48,
+        0.85,
+        -2.8
+      ],
+      "scale": [
+        0.14,
+        1.35,
+        0.14
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.1,
+        0.5
+      ]
+    },
+    {
+      "id": "well_post_e",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        5.92,
+        0.85,
+        -2.8
+      ],
+      "scale": [
+        0.14,
+        1.35,
+        0.14
+      ],
+      "solid": true,
+      "uv_scale": [
+        0.1,
+        0.5
+      ]
+    },
+    {
+      "id": "well_beam",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        5.2,
+        2.1,
+        -2.8
+      ],
+      "scale": [
+        1.6,
+        0.12,
+        0.14
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.6,
+        0.1
+      ]
+    },
+    {
+      "id": "well_roof",
+      "model": "assets/models/env/floor_wood.glb",
+      "pos": [
+        5.2,
+        2.25,
+        -2.8
+      ],
+      "scale": [
+        1.9,
+        0.08,
+        1.15
+      ],
+      "solid": false,
+      "uv_scale": [
+        0.7,
+        0.4
+      ]
     }
   ],
   "lights": [
@@ -1393,6 +1507,16 @@
         3.4
       ],
       "yaw": 30.0
+    },
+    {
+      "instance_id": "npc_old_tobble",
+      "npc_id": "core:npc.old_tobble",
+      "pos": [
+        6.45,
+        0.0,
+        -2.1999999999999997
+      ],
+      "yaw": 250.0
     }
   ],
   "creatures": [

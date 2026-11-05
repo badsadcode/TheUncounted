@@ -45,6 +45,14 @@ A city struck off every map 400 years ago; its people have forgotten their own n
 | `here_mouth.png` | Mouth of the Hunger (monster) | A floating mouth with no face: a dark, papery shape like a torn page, a ring of teeth, faint pale glow. Hunts by hearing names. |
 | `here_unsaying.png` | The Unsaying (boss) | Big (about 2.8 m), made of the gaps between words: a tall dark silhouette full of torn paper, crossed-out letters drifting off it, a pale glowing hollow where a face would be. |
 
+## More Bellwether folk — 1 sprite sheet
+
+New faces in the village. Deliver in `characters/`.
+
+| File | Who | Look |
+|---|---|---|
+| `old_tobble.png` | Old Tobble, Teller of Tales (Unverified) | An old storyteller who leans on the village well: long, patched, grubby brown robes, grey hair mostly gone on top (a balding crown with a grey fringe), a scruffy grey beard, kind crinkled eyes, a slight stoop, hands that wave while he talks. Cheerful and harmless; tells stories that go nowhere. He. |
+
 ## Friends from Toasty's streams — 3 sprite sheets
 
 Real friends of Toasty's, as characters (two can join the party). Deliver in `characters/`.

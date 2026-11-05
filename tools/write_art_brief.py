@@ -159,6 +159,12 @@ char_table("Chapter One: the people of Here (and the Auditor)",
            "A city struck off every map 400 years ago; its people have forgotten their own names and go by descriptions. The "
            "residents are slightly faded, like a memory (soft, pale edges are fine: the game keeps them a little see-through "
            "itself). Deliver in `characters/`.", CHAPTER_ONE)
+char_table("More Bellwether folk",
+           "New faces in the village. Deliver in `characters/`.",
+           [("old_tobble.png", "Old Tobble, Teller of Tales (Unverified)",
+             "An old storyteller who leans on the village well: long, patched, grubby brown robes, grey hair mostly gone on top "
+             "(a balding crown with a grey fringe), a scruffy grey beard, kind crinkled eyes, a slight stoop, hands that wave "
+             "while he talks. Cheerful and harmless; tells stories that go nowhere. He.")])
 char_table("Friends from Toasty's streams",
            "Real friends of Toasty's, as characters (two can join the party). Deliver in `characters/`.", FRIENDS)
 

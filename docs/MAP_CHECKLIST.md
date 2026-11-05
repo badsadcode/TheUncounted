@@ -28,6 +28,7 @@ Legend: `requires_flag` = appears only after that story moment; `hidden_flag` = 
 - **Eranu** (`npc_eranu`)
 - **Coth** (`npc_coth_inn`) (only after `coth_home`)
 - **Dunstan** (`npc_dunstan`)
+- **Old Tobble** (`npc_old_tobble`)
 
 **Keep (move, don't delete):**
 

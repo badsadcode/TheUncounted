@@ -3253,6 +3253,33 @@
           }
         ]
       }
+    },
+    {
+      "id": "core:npc.old_tobble",
+      "name_key": "npc.old_tobble.name",
+      "title_key": "npc.old_tobble.title",
+      "faction": "core:faction.ashbound",
+      "dialogue_id": "core:dialogue.old_tobble",
+      "appearance": {
+        "type": "sprite_8dir",
+        "sprite_sheet": "assets/sprites/npcs/old_tobble.png",
+        "animation_data": "assets/animations/npc_standard.json",
+        "scale": 1.7
+      },
+      "barks": [
+        {
+          "text_key": "bark.old_tobble.1"
+        },
+        {
+          "text_key": "bark.old_tobble.2"
+        },
+        {
+          "text_key": "bark.old_tobble.3"
+        },
+        {
+          "text_key": "bark.old_tobble.4"
+        }
+      ]
     }
   ]
 }

@@ -1082,6 +1082,10 @@ SHEETS = {
         "kind": "humanoid", "body": (226, 192, 164), "armor": (140, 146, 156), "legs": (70, 62, 54), "cloak": (120, 40, 36),
         "trim": (190, 190, 200), "hair": (120, 80, 44), "weapon": "greatsword", "eye": (60, 80, 60), "mate": (150, 104, 60),
     },
+    "assets/sprites/npcs/old_tobble.png": {  # the old storyteller by the well: patched brown robes, grey and balding
+        "kind": "humanoid", "robe": True, "body": (214, 186, 160), "armor": (104, 80, 56), "cloak": (86, 66, 46), "trim": (130, 104, 72),
+        "hat": "bald", "hair": (176, 176, 170), "beard": True, "eye": (40, 40, 40),
+    },
     "assets/sprites/npcs/erased_spirit.png": {
         "kind": "humanoid", "robe": True, "hover": True, "alpha": 210, "body": (150, 220, 238), "armor": (96, 170, 204),
         "cloak": (110, 190, 222), "trim": (200, 240, 255), "eye": (235, 255, 255), "glow_eyes": True, "hat": "hood",
