@@ -425,6 +425,7 @@ struct DialogueNode {
 struct DialogueDef {
     std::string id;
     std::string root_node = "root";
+    std::string greeting_voice;  // optional: a recorded greeting played once when the conversation starts (not on returning to root)
     std::map<std::string, DialogueNode> nodes;
 };
 

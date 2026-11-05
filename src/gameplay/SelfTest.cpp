@@ -2108,6 +2108,11 @@ int GameEngine::RunSelfTest() {
             closes = overlay_ == Overlay::None;
         }
         check(told && closes, "Old Tobble: 'Stay a while, and hear me out!' Pick a tale, and it's told in its own window");
+        bool voiced = true;
+        for (int k = 1; k <= 8; k++) voiced = voiced && res_.Exists("assets/audio/voice/tale.tobble." + std::to_string(k) + ".mp3");
+        const DialogueDef* td = content_.GetDialogue("core:dialogue.old_tobble");
+        check(voiced && td && td->greeting_voice == "tobble.stayawhile" && res_.Exists("assets/audio/voice/tobble.stayawhile.mp3"),
+              "Old Tobble's eight tales and his greeting are voiced (BadSad's recordings)");
     }
 
     // --- Story hooks on levers, doors and chests (set in Blender as game_set_flag / game_quest_id / game_set_stage)

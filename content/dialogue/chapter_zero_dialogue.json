@@ -18721,7 +18721,8 @@
             }
           ]
         }
-      }
+      },
+      "greeting_voice": "tobble.stayawhile"
     }
   ]
 }

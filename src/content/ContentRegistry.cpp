@@ -903,6 +903,7 @@ void ContentRegistry::LoadDialoguesFile(const std::string& rootDir, const std::s
         DialogueDef d;
         d.id = el.value("id", "");
         d.root_node = el.value("root_node", "root");
+        d.greeting_voice = el.value("greeting_voice", "");
         if (el.contains("nodes") && el["nodes"].is_object()) {
             for (auto it = el["nodes"].begin(); it != el["nodes"].end(); ++it) {
                 DialogueNode dn;

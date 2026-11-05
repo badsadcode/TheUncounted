@@ -816,3 +816,6 @@ scrolling in time with the recording `assets/audio/voice/<key>.ogg|wav|mp3` (or 
 scrolls by hand; Close/Esc/E stops the voice (`ResourceManager::StopVoice`). Script for BadSad's ElevenLabs takes:
 `docs/VOICE_SCRIPT_TOBBLE.md`. Preview: `--overlay tale:tale.tobble.4@<seconds>`. The tell_tale action works for any
 NPC: add `tale.<name>.<n>.title/.text` strings and a choice with that action.
+Recorded by BadSad 5 Nov (ElevenLabs): `tale.tobble.1-8.mp3` and the greeting `tobble.stayawhile.mp3`. Dialogues can set
+`greeting_voice`: played once when the conversation starts (the root page's own voice is then skipped, so going back to
+root doesn't replay it).

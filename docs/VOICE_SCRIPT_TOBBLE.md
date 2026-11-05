@@ -6,7 +6,7 @@ Old Tobble stands by the well in Bellwether. Ask him for a story and pick one: a
 
 **Voice:** an old village storyteller, warm and rambling, delighted to have an audience, completely serious about complete nonsense. Pauses before the punchlines. (ElevenLabs tags like [chuckles] or [whispers] are fine in your copy of the text; the on-screen text can stay as it is.)
 
-Also nice to record (optional): his greeting `dlg.tobble.root` and barks `bark.old_tobble.1`–`4`.
+**Recorded 5 Nov** by BadSad (ElevenLabs): all eight tales and the greeting `tobble.stayawhile` (played once when you start talking to him; set as `greeting_voice` on his dialogue). Optional extras: barks `bark.old_tobble.1`–`4`.
 
 
 ## 1. The Winter the River Froze

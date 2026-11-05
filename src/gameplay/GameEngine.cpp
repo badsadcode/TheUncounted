@@ -3865,6 +3865,7 @@ void GameEngine::StartDialogue(int npcIndex) {
     SetOverlay(Overlay::Dialogue);
     dialogue_id_ = d->id;
     EnterDialogueNode(d->root_node);
+    if (!d->greeting_voice.empty()) res_.PlayVoice(d->greeting_voice);
 }
 
 void GameEngine::EnterDialogueNode(const std::string& node) {
@@ -3877,7 +3878,8 @@ void GameEngine::EnterDialogueNode(const std::string& node) {
         return;
     }
     dialogue_node_ = node;
-    res_.PlayVoice(it->second.text_key);   // a recorded line for this node, if anyone recorded one
+    if (node != d->root_node || d->greeting_voice.empty())
+        res_.PlayVoice(it->second.text_key);   // a recorded line for this node, if anyone recorded one
     std::string key = dialogue_id_ + "/" + node;
     for (size_t i = 0; i < it->second.actions.size(); i++) ExecAction(it->second.actions[i], key);
     player_.claimed.insert(key);
