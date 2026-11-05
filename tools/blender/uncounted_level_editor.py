@@ -25,7 +25,7 @@ bottom-centre of its model, so imported meshes have their origin there and turn 
 bl_info = {
     "name": "The Uncounted: Level Editor",
     "author": "The Uncounted",
-    "version": (4, 9, 0),
+    "version": (4, 10, 0),
     "blender": (4, 0, 0),
     "location": "3D Viewport > Sidebar (N) > Uncounted",
     "description": "Edit The Uncounted's world or build new maps, then export them for the game",
@@ -904,6 +904,20 @@ def collect(context, models_rel, base_ids, base_objs):
     in_palette = set(palette.objects) if palette else set()
     used = {o.name for o in context.scene.objects} | base_ids | {i for k in KINDS for i in base_objs.get(k, {})}
     counter = [0]
+    renames = []        # new objects get their final name after the walk, so their id stays the same next time
+
+    def chosen_id(o, prefix):
+        """A new object renamed by the user to e.g. 'obj:my_gate' gets that id (if it's free)."""
+        if not o.name.startswith(prefix):
+            return None
+        want = safe_name(re.sub(r"\.\d+$", "", o.name[len(prefix):]))
+        if not want or want.startswith("TEMPLATE") or want == o.get("unc_id") or want in used:
+            return None
+        used.add(want)
+        return want
+
+    def keep_id(o, prefix, oid):
+        renames.append((o, prefix + oid, oid))
 
     def new_id(stem):
         while True:
@@ -1080,17 +1094,27 @@ def collect(context, models_rel, base_ids, base_objs):
                         p[k] = src[k]
                 out["props"].append(p)
         elif kind == "spawns":
-            sid = o["unc_id"] if o.name == "spawn:" + o["unc_id"] and not o.get("unc_template") else new_id("spawn")
+            original = o.name == "spawn:" + o["unc_id"] and not o.get("unc_template")
+            sid = o["unc_id"] if original else (chosen_id(o, "spawn:") or new_id("spawn"))
+            if not original:
+                keep_id(o, "spawn:", sid)
             out["spawns"][sid] = {"pos": to_game(o.location - Vector((0, 0, o.get("unc_lift", 0.0)))), "yaw_degrees": rot}
         elif kind in KINDS:
             original = o.name == PREFIX[kind] + o["unc_id"] and not o.get("unc_template")
-            oid = o["unc_id"] if original else new_id(o["unc_id"].replace("TEMPLATE:", "").split(":")[-1])
+            oid = o["unc_id"] if original else (chosen_id(o, PREFIX[kind]) or new_id(o["unc_id"].replace("TEMPLATE:", "").split(":")[-1]))
+            if not original:
+                keep_id(o, PREFIX[kind], oid)   # from now on this object keeps its id (levers can point at it)
             d = object_def(o, kind, oid)
             base = base_objs.get(kind, {})
             if original:
                 out["seen"][kind].add(oid)
             if not (original and oid in base and round_def(d, kind) == round_def(base[oid], kind)):
                 out["objs"][kind].append(d)
+    for o, name, oid in renames:
+        o.name = name
+        o["unc_id"] = oid
+        if "unc_template" in o:
+            del o["unc_template"]
     return out
 
 

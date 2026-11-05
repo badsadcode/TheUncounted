@@ -152,7 +152,7 @@ w("- **Monsters**: each one patrols between two points (its `patrol_a` / `patrol
   "the same. Mix tougher ones deeper in. Rough difficulty below (health / damage per hit); the player starts with about "
   "75 health and reaches 150+ by the end of Chapter One.")
 w("- **Chests**: set `loot_table` to one of the tables below (or add `fixed_items` for a guaranteed reward). Locked "
-  "chests (`locked`) need lockpicks or a key (`key_item`).")
+  "chests (`locked`) need lockpicks or a key (`key_id`).")
 w("- **A dungeon's feel**: each area has a **zone** (its own music, ambience like the crypt drips, fog, light and the "
   "name banner when you enter). Zones aren't editable in Blender yet: tell me roughly where the new area is and the mood "
   "you want, and I'll add its zone (or extend an existing one).")

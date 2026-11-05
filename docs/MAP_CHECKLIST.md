@@ -410,7 +410,7 @@ Legend: `requires_flag` = appears only after that story moment; `hidden_flag` = 
 
 - `annex_inner_door` — Archive Door — *quest marker: Legally Deceased; used by the self-test; door*
 - `crypt_portcullis` — Lower Crypt Portcullis (Controlled by Archive Lever) — *used by the self-test; door*
-- `crypt_gate_lever` — Pull Iron Archive Lever — *lever*
+- `crypt_gate_lever` — Pull Iron Archive Lever — *used by the self-test; lever*
 - `secret_wall_door` — Sealed Royal Vault Gate (Step on Rune Plate) — *used by the self-test; door*
 - `secret_plate` — Ancient Rune Pressure Plate — *pressure_plate*
 - `sanctum_gate` — Sanctum of the Uncounted Gate — *used by the self-test; door*
@@ -492,7 +492,7 @@ Legend: `requires_flag` = appears only after that story moment; `hidden_flag` = 
 Everything you need is in the Blender palette (**Uncounted Objects**): Shift+D a monster, chest, door, lever, torch or gathering spot and move it where you want it. A few tips:
 
 - **Monsters**: each one patrols between two points (its `patrol_a` / `patrol_b` fields) or stands guard if they're the same. Mix tougher ones deeper in. Rough difficulty below (health / damage per hit); the player starts with about 75 health and reaches 150+ by the end of Chapter One.
-- **Chests**: set `loot_table` to one of the tables below (or add `fixed_items` for a guaranteed reward). Locked chests (`locked`) need lockpicks or a key (`key_item`).
+- **Chests**: set `loot_table` to one of the tables below (or add `fixed_items` for a guaranteed reward). Locked chests (`locked`) need lockpicks or a key (`key_id`).
 - **A dungeon's feel**: each area has a **zone** (its own music, ambience like the crypt drips, fog, light and the name banner when you enter). Zones aren't editable in Blender yet: tell me roughly where the new area is and the mood you want, and I'll add its zone (or extend an existing one).
 - **Doors between areas** use the `travel` type with a `travel_spawn` (an arrival point you place inside).
 - **Tell me what you built** (a sentence or a screenshot): I can write a quest, a boss, notes and loot to go with it, rebalance the monsters for the new length, and add your areas to the companions' comments ("Smells like a tomb, 'cause it is one").

@@ -3389,6 +3389,11 @@ void GameEngine::UpdateWorldObjects(float dt) {
     }
 }
 
+void GameEngine::ApplyStoryHook(const MapInteractableDef& d) {
+    if (!d.set_flag.empty()) player_.flags.insert(d.set_flag);
+    if (!d.quest_id.empty() && QuestStage(d.quest_id) < d.set_stage) SetQuestStage(d.quest_id, d.set_stage);
+}
+
 void GameEngine::CheckPressurePlates() {
     for (auto& in : scene_.interactables) {
         if (in.def.type != "pressure_plate" || in.open) continue;
@@ -3403,6 +3408,7 @@ void GameEngine::CheckPressurePlates() {
             }
             res_.PlaySfx("assets/audio/sfx/lever_pull.wav", 0.9f, 0.7f);
             Toast("The rune plate sinks. Somewhere, stone grinds against stone.", Color{180, 220, 255, 255});
+            ApplyStoryHook(in.def);
             GainSkillXp("perception", 3.0f, true);
         }
     }
@@ -3585,12 +3591,14 @@ void GameEngine::UseInteractTarget() {
         if (in.open) ps.open.insert(d.instance_id);
         else ps.open.erase(d.instance_id);
         res_.PlaySfx("assets/audio/sfx/door_open.wav", 0.8f, in.open ? 1.0f : 0.85f);
+        if (in.open) ApplyStoryHook(d);
     } else if (d.type == "chest") {
         if (!tryUnlock()) return;
         if (!in.used) {
             in.used = true;
             ps.used.insert(d.instance_id);
             res_.PlaySfx("assets/audio/sfx/chest_open.wav", 0.8f);
+            ApplyStoryHook(d);
         }
         Container(d.instance_id, d.loot_table, d.fixed_items);
         container_key_ = d.instance_id;
@@ -3624,6 +3632,7 @@ void GameEngine::UseInteractTarget() {
         in.open = !in.open;
         if (in.open) ps.open.insert(d.instance_id); else ps.open.erase(d.instance_id);
         res_.PlaySfx("assets/audio/sfx/lever_pull.wav", 0.9f);
+        if (in.open) ApplyStoryHook(d);
         for (auto& t : scene_.interactables) {
             if (t.def.instance_id == d.target_id) {
                 t.open = in.open;

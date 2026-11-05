@@ -2085,6 +2085,37 @@ int GameEngine::RunSelfTest() {
 
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
+    // --- Story hooks on levers, doors and chests (set in Blender as game_set_flag / game_quest_id / game_set_stage)
+    {
+        overlay_ = Overlay::None;
+        screen_ = Screen::Playing;
+        int li = -1, di = -1;
+        for (size_t i = 0; i < scene_.interactables.size(); i++) {
+            if (scene_.interactables[i].def.instance_id == "crypt_gate_lever") li = static_cast<int>(i);
+            if (scene_.interactables[i].def.instance_id == "crypt_portcullis") di = static_cast<int>(i);
+        }
+        bool ok = false;
+        if (li >= 0 && di >= 0) {
+            auto& lever = scene_.interactables[li];
+            auto savedDef = lever.def;
+            bool wasOpen = lever.open, doorWasOpen = scene_.interactables[di].open;
+            lever.open = false;
+            scene_.interactables[di].open = false;
+            lever.def.set_flag = "selftest_lever_pulled";
+            player_.flags.erase("selftest_lever_pulled");
+            interact_.kind = InteractTarget::Interactable;
+            interact_.index = li;
+            UseInteractTarget();
+            ok = player_.flags.count("selftest_lever_pulled") && scene_.interactables[di].open;
+            lever.def = savedDef;
+            lever.open = wasOpen;
+            scene_.interactables[di].open = doorWasOpen;
+            player_.flags.erase("selftest_lever_pulled");
+            overlay_ = Overlay::None;
+        }
+        check(ok, "a lever opens its door (target_id) and can move the story on (set_flag / quest_id)");
+    }
+
     // --- The dedication at launch hands over to the title screen
     {
         Screen was = screen_;

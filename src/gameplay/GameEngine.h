@@ -343,6 +343,9 @@ private:
     void Interact();
     void UseInteractTarget();   // use whatever interact_ points at (Interact() picks it first)
     void CheckPressurePlates();
+    // Story hooks on any object: set_flag, and quest_id + set_stage (quests only move forward). Used by doors, chests,
+    // levers and pressure plates the first time they open, as well as notes, travel spots and pedestals.
+    void ApplyStoryHook(const MapInteractableDef& d);
     void UpdateParticles(float dt);
     void SpawnBurst(Vector3 pos, Color color, int count, float speed, bool glow, float gravity = 6.0f, float size = 0.05f);
 

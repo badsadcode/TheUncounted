@@ -68,7 +68,7 @@ your own models stay as you left them.
 - **Doors**: `locked` (on/off), `key_id` (the item that opens it, for example `core:item.annex_key`), `lock_difficulty`
   (lockpicking, 1 to 30), `prompt` (what the game shows: "Open *prompt*").
 - **Chests**: `loot_table` (for example `core:loot.crypt_basic`), `locked`, `lock_difficulty`.
-- **Levers**: `target_id` (the id of the gate or door it opens, for example `edit_gate_4`).
+- **Levers**: `target_id` (the id of the gate or door it opens, for example `crypt_gate`; see *Puzzles and quest steps*).
 - **Signs (readables)**: `prompt`, `title`, `text`.
 - **Pickups**: `item_id`, `qty`.
 - **NPCs**: `npc_id` (who it is, for example `core:npc.figure_snacks`). **Monsters**: `creature_id` (for example
@@ -83,6 +83,39 @@ your own models stay as you left them.
   text `[20, 6]` (from 20:00 to 6:00; `[8, 18]` for daytime only). Leave quest characters without hours.
 - Fields ending in `_flag` control when things appear or vanish in the story. Leave them alone unless you know the flag.
 - Ids of the game's items, monsters and NPCs are in `content/items`, `content/creatures` and `content/npcs`.
+
+## Puzzles and quest steps: levers, doors, flags
+
+**Every object has an id.** It's in the object's name: `obj:study_door` has the id `study_door`. A new object you add
+gets an automatic id when you export (the object is renamed to match, e.g. `obj:edit_oak_door_3`), or **name it
+yourself**: rename it to `obj:my_gate` before exporting and its id is `my_gate`. Ids never change after that.
+
+**A lever that opens a door** (or a gate, or a secret wall):
+1. On the door: `game_locked` = on and `game_mechanism_only` = on (now only the lever opens it; keys and lockpicks won't).
+2. Name the door, e.g. `obj:crypt_gate`.
+3. On the lever: `game_target_id` = `crypt_gate`. Pulling it again closes the door.
+
+A **pressure plate** works the same (`game_target_id`); it opens when the player steps on it and stays open.
+A **key door**: `game_locked` on, `game_key_id` = the key item (e.g. `core:item.crypt_key`), `game_lock_difficulty`
+(how hard to pick; 99 = only the key).
+
+**Story steps on objects** (add these custom properties to any lever, door, chest, pressure plate, note or travel spot):
+- `game_set_flag` = a word you invent, e.g. `crypt_lever_pulled`: remembered when the lever is pulled, the door or
+  chest first opens, the plate is pressed, the note is read.
+- `game_requires_flag` = that word on another object, monster or NPC: it **appears** only after the flag is set.
+  `game_hidden_flag`: it **disappears** after it. So a lever can make a ghost appear, a wall vanish, a chest show up.
+- `game_quest_id` + `game_set_stage`: moves a quest on to that stage (quests only move forward), e.g.
+  `core:quest.hollowmere` and `30`.
+
+**Monsters as a step**: give several monsters the same `game_group` (e.g. `crypt_guards`) and, on them,
+`game_group_quest_id` + `game_group_set_stage`: killing the whole group moves the quest on. `game_requires_flag`
+works on monsters too (an ambush that appears when a lever is pulled).
+
+**New quest steps** (new journal entries): quests live in `content/quests/chapter_zero_quests.json`; their stages are
+numbered with gaps (0, 10, 20 … 100), so a new step fits in between (e.g. 15). Each stage has a journal line in
+`content/localization/en.json` and `markers` (the ids of what the compass should point at). The easiest way: tell me
+"after X, the player should do Y at Z" and I'll write the step, its journal text and the markers, and wire it up; or
+copy an existing stage in the JSON and change it, then run `./game --validate`.
 
 ## Your own models (roofs, door frames, buildings...)
 
