@@ -1973,6 +1973,38 @@ int GameEngine::RunSelfTest() {
         UpdateWorldObjects(0.0f);
     }
 
+    // --- Credits: from the title menu, and once after Chapter One's finale
+    {
+        LoadCredits();
+        bool voices = false, dedication = false;
+        for (const auto& e : credits_) {
+            voices = voices || e.heading == "Voices";
+            for (const auto& l : e.lines) dedication = dedication || l == "For Toasty.";
+        }
+        check(credits_.size() > 10 && voices && dedication, "the credits load from content/credits.json (voices, the dedication)");
+        const std::string ch1 = "core:quest.ch1_here";
+        auto savedStages = player_.quest_stages;
+        auto savedFlags = player_.flags;
+        player_.quest_stages.erase(ch1);
+        player_.flags.erase("credits_seen_ch1");
+        credits_pending_ = false;
+        SetQuestStage(ch1, 100);
+        bool queued = credits_pending_;
+        credits_pending_ = false;
+        player_.quest_stages.erase(ch1);
+        SetQuestStage(ch1, 101);
+        bool once = !credits_pending_;
+        screen_ = Screen::Playing;
+        StartCredits(Screen::Playing);
+        bool rolling = screen_ == Screen::Credits;
+        EndCredits();
+        check(queued && once && rolling && screen_ == Screen::Playing,
+              "Chapter One's finale rolls the credits once, then back to the game");
+        player_.quest_stages = savedStages;
+        player_.flags = savedFlags;
+        credits_pending_ = false;
+    }
+
     // --- Gamepad: prompts follow the last device; every action has its own button
     {
         const bool was = pad_active_;

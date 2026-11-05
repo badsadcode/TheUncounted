@@ -268,6 +268,8 @@ void GameEngine::DrawFrame() {
         DrawDead();
     } else if (screen_ == Screen::Ending) {
         DrawEnding();
+    } else if (screen_ == Screen::Credits) {
+        DrawCredits();
     }
 
     DrawToasts();
@@ -770,12 +772,13 @@ void GameEngine::DrawTitle() {
             if (latest.empty() || t > best) { best = t; latest = slot; }
         }
     }
-    float bw = 300, bh = 46, x = VW * 0.5f - bw * 0.5f, y = VH * 0.48f;
+    float bw = 300, bh = 42, x = VW * 0.5f - bw * 0.5f, y = VH * 0.47f, step = 50;
     if (Button({x, y, bw, bh}, "Continue", !latest.empty())) { LoadGame(latest); return; }
-    if (Button({x, y + 56, bw, bh}, "New Game")) { screen_ = Screen::Creation; return; }
-    if (Button({x, y + 112, bw, bh}, "Load Quick Save", SaveExists("slot_1"))) { LoadGame("slot_1"); return; }
-    if (Button({x, y + 168, bw, bh}, "Options")) { options_from_title_ = true; overlay_ = Overlay::Options; return; }
-    if (Button({x, y + 224, bw, bh}, "Quit")) { running_ = false; return; }
+    if (Button({x, y + step, bw, bh}, "New Game")) { screen_ = Screen::Creation; return; }
+    if (Button({x, y + step * 2, bw, bh}, "Load Quick Save", SaveExists("slot_1"))) { LoadGame("slot_1"); return; }
+    if (Button({x, y + step * 3, bw, bh}, "Options")) { options_from_title_ = true; overlay_ = Overlay::Options; return; }
+    if (Button({x, y + step * 4, bw, bh}, "Credits")) { StartCredits(Screen::Title); return; }
+    if (Button({x, y + step * 5, bw, bh}, "Quit")) { running_ = false; return; }
 
     std::string ded = content_.Tr("game.dedication");
     if (ded != "game.dedication") Text(ded, VW * 0.5f - TextWidth(ded, 16) * 0.5f, VH - 58, 16, Color{214, 186, 120, 220});
@@ -2135,6 +2138,79 @@ void GameEngine::DrawEnding() {
     Text(stats, VW * 0.5f - TextWidth(stats, 16) * 0.5f, VH - 150, 16, kDim);
     if (Button({VW * 0.5f - 320, VH - 100, 300, 48}, "Keep Exploring")) { screen_ = Screen::Playing; overlay_ = Overlay::None; }
     if (Button({VW * 0.5f + 20, VH - 100, 300, 48}, "Return to Title")) ReturnToTitle();
+}
+
+// ============================================================================
+// Credits: a slow roll over the title painting, rain and all (content/credits.json)
+// ============================================================================
+void GameEngine::DrawCredits() {
+    float u = U();
+    float sw = static_cast<float>(GetScreenWidth()), sh = static_cast<float>(GetScreenHeight());
+    float VW = sw / u, VH = sh / u;
+    Texture2D bg = res_.GetTexture("assets/ui/panels/title_bg.png");
+    float s = std::max(sw / bg.width, sh / bg.height);
+    float drift = sinf(time_ * 0.05f) * 20.0f;
+    Rectangle img = {sw * 0.5f + drift - bg.width * s * 0.53f, sh * 0.5f - bg.height * s * 0.53f, bg.width * s * 1.06f, bg.height * s * 1.06f};
+    DrawTexturePro(bg, {0, 0, static_cast<float>(bg.width), static_cast<float>(bg.height)}, img, {0, 0}, 0, WHITE);
+    int thunder = g_title_rain.Update(std::min(GetFrameTime(), 0.05f), sw, sh);
+    if (thunder) res_.PlaySfx(thunder == 2 ? "assets/audio/sfx/thunder_near.wav" : "assets/audio/sfx/thunder_far.wav", thunder == 2 ? 0.7f : 0.45f);
+    g_title_rain.DrawLightning(img, sw, sh);
+    g_title_rain.DrawGround(img, sh);
+    g_title_rain.DrawFalling();
+    DrawRectangle(0, 0, static_cast<int>(sw), static_cast<int>(sh), Color{4, 4, 8, 165});
+
+    // Layout once per frame: heights in virtual pixels.
+    const char* logoPath = "assets/ui/panels/title_logo.png";
+    bool haveLogo = res_.Exists(logoPath);
+    Texture2D logo{};
+    float logoW = std::min(VW * 0.42f, 620.0f), logoH = 0;
+    if (haveLogo) {
+        logo = res_.GetTexture(logoPath);
+        static unsigned smoothed = 0;
+        if (smoothed != logo.id) { GenTextureMipmaps(&logo); SetTextureFilter(logo, TEXTURE_FILTER_TRILINEAR); smoothed = logo.id; }
+        logoH = logoW * logo.height / logo.width;
+    }
+    auto sizeOf = [](const std::string& style) { return style == "big" ? 36 : style == "small" ? 19 : style == "title" ? 64 : 25; };
+    auto entryHeight = [&](const CreditEntry& e) {
+        if (e.gap > 0 && e.lines.empty()) return e.gap * 34.0f;
+        if (e.style == "title" && haveLogo) return logoH + 10.0f;
+        float h = e.heading.empty() ? 0.0f : 30.0f;
+        return h + e.lines.size() * (sizeOf(e.style) + 12.0f) + 6.0f;
+    };
+    float total = 0;
+    for (const auto& e : credits_) total += entryHeight(e);
+    const float speed = 34.0f;
+    float scroll = credits_time_ * speed;
+    float stopAt = VH + total - VH * 0.62f;  // the last lines come to rest a little above the middle
+    bool finished = scroll >= stopAt;
+    scroll = std::min(scroll, stopAt);
+
+    float y = VH - scroll;
+    for (const auto& e : credits_) {
+        float h = entryHeight(e);
+        if (y + h > -80 && y < VH + 80) {
+            float yy = y;
+            if (e.style == "title" && haveLogo) {
+                DrawTexturePro(logo, {0, 0, static_cast<float>(logo.width), static_cast<float>(logo.height)},
+                               {(VW * 0.5f - logoW * 0.5f) * u, yy * u, logoW * u, logoH * u}, {0, 0}, 0, WHITE);
+            } else {
+                if (!e.heading.empty()) {
+                    Text(e.heading, VW * 0.5f - TextWidth(e.heading, 18) * 0.5f, yy, 18, kDim);
+                    yy += 30;
+                }
+                int sz = sizeOf(e.style);
+                Color c = (e.style == "big" || e.style == "title") ? kGold : e.style == "small" ? kDim : kText;
+                for (const auto& line : e.lines) {
+                    Text(line, VW * 0.5f - TextWidth(line, sz) * 0.5f, yy, sz, c);
+                    yy += sz + 12;
+                }
+            }
+        }
+        y += h;
+    }
+    std::string hint = finished ? "" : "Hold Space or click to speed up";
+    if (!hint.empty()) Text(hint, 16, VH - 30, 14, kDim);
+    if (Button({VW - 220, VH - 64, 200, 44}, finished ? (credits_return_ == Screen::Playing ? "Continue" : "Back") : "Skip")) EndCredits();
 }
 
 // ============================================================================

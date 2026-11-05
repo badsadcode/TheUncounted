@@ -13,7 +13,7 @@
 
 namespace uncounted {
 
-enum class Screen { Title, Creation, Playing, Dead, Ending };
+enum class Screen { Title, Creation, Playing, Dead, Ending, Credits };
 enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting, Wait };
 
 struct InvItem {
@@ -270,6 +270,16 @@ private:
     bool options_from_title_ = false;
     int ending_stage_ = 0;
     bool ending_shown_ = false;
+    // ---- credits (content/credits.json): from the title menu, and once after Chapter One's finale
+    struct CreditEntry { std::string heading, style; std::vector<std::string> lines; int gap = 0; };
+    std::vector<CreditEntry> credits_;
+    float credits_time_ = 0.0f;
+    Screen credits_return_ = Screen::Title;
+    bool credits_pending_ = false;
+    void LoadCredits();
+    void StartCredits(Screen returnTo);
+    void EndCredits();
+    void DrawCredits();
 
     // ---- audio
     struct StreamTrack {

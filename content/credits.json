@@ -1,0 +1,32 @@
+{
+  "_about": "The credits roll (title menu > Credits, and once after Chapter One's finale). Edit freely: each entry is a heading with lines under it. 'style' can be 'title', 'big' or 'small'; an entry with only 'gap' adds space.",
+  "entries": [
+    {"style": "title", "lines": ["The Uncounted"]},
+    {"style": "small", "lines": ["A gift for Toasty (TaoistDragon)"]},
+    {"gap": 2},
+    {"heading": "Created by", "style": "big", "lines": ["BadSad"]},
+    {"gap": 1},
+    {"heading": "Art", "lines": ["Noor (AI art assistant)"]},
+    {"gap": 1},
+    {"heading": "Programming", "lines": ["Sage (Claude, AI coding assistant)"]},
+    {"gap": 1},
+    {"heading": "Title screen logo and painting", "lines": ["BadSad"]},
+    {"gap": 1},
+    {"heading": "Level design and testing", "lines": ["BadSad"]},
+    {"gap": 2},
+    {"heading": "Voices", "lines": ["Coth: Cothfotmeoo", "Eranu: Eranu", "Grout and other voices: BadSad"]},
+    {"gap": 2},
+    {"heading": "Starring, as themselves", "lines": ["Eranu, Shieldmaiden of the Glens", "Coth (Cothfotmeoo), lost for a thousand years (three days)", "Dunstan, nearly a squire, and Big Margaret"]},
+    {"gap": 1},
+    {"heading": "From Toasty's streams", "lines": ["Butt-Butt", "Baggy", "Sabrino", "Badnee, Bread, Karma and Doobie"]},
+    {"gap": 2},
+    {"heading": "Built with", "lines": ["raylib", "nlohmann/json", "Blender"]},
+    {"gap": 2},
+    {"heading": "Special thanks", "lines": ["Toasty's chat and community,", "for keeping each other company"]},
+    {"gap": 3},
+    {"style": "big", "lines": ["For Toasty."]},
+    {"lines": ["You are not alone.", "You are counted."]},
+    {"gap": 3},
+    {"style": "small", "lines": ["Thank you for playing."]}
+  ]
+}

@@ -436,6 +436,11 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         else if (boot_shot_overlay_ == "map") overlay_ = Overlay::Map;
         else if (boot_shot_overlay_ == "title") screen_ = Screen::Title;
+        else if (boot_shot_overlay_.rfind("credits", 0) == 0) {
+            // credits or credits:<seconds> — the roll, that far in
+            StartCredits(Screen::Title);
+            if (boot_shot_overlay_.size() > 8) credits_time_ = static_cast<float>(atof(boot_shot_overlay_.substr(8).c_str()));
+        }
         else if (boot_shot_overlay_ == "creation") screen_ = Screen::Creation;
         else if (boot_shot_overlay_.rfind("narration:", 0) == 0) {
             StartNarration({boot_shot_overlay_.substr(10)});
@@ -1009,6 +1014,49 @@ void GameEngine::Frame(float dt) {
     if (!wantCursor && !IsCursorHidden()) { DisableCursor(); skip_mouse_frames_ = 2; }
 
     if (screen_ == Screen::Playing) UpdatePlaying(dt);
+    // Chapter One's finale rolls the credits once its last scene (dialogue or narration) has closed.
+    if (credits_pending_ && screen_ == Screen::Playing && overlay_ == Overlay::None && dialogue_id_.empty()) {
+        credits_pending_ = false;
+        StartCredits(Screen::Playing);
+    }
+    if (screen_ == Screen::Credits) {
+        credits_time_ += dt * ((IsKeyDown(KEY_SPACE) || IsMouseButtonDown(MOUSE_BUTTON_LEFT) || PadDown(GAMEPAD_BUTTON_RIGHT_FACE_DOWN)) ? 4.0f : 1.0f);
+        if (BackPressed()) EndCredits();
+    }
+}
+
+void GameEngine::LoadCredits() {
+    credits_.clear();
+    nlohmann::json j;
+    std::ifstream f(res_.Resolve("content/credits.json"));
+    if (f) j = nlohmann::json::parse(f, nullptr, false);
+    if (!f || j.is_discarded() || !j.contains("entries")) {
+        credits_.push_back({"", "title", {"The Uncounted"}, 0});
+        return;
+    }
+    for (const auto& e : j["entries"]) {
+        CreditEntry ce;
+        ce.heading = e.value("heading", "");
+        ce.style = e.value("style", "");
+        ce.gap = e.value("gap", 0);
+        if (e.contains("lines"))
+            for (const auto& l : e["lines"]) ce.lines.push_back(l.get<std::string>());
+        credits_.push_back(ce);
+    }
+}
+
+void GameEngine::StartCredits(Screen returnTo) {
+    LoadCredits();
+    credits_time_ = 0.0f;
+    credits_return_ = returnTo;
+    if (returnTo == Screen::Playing) SaveGame("autosave");
+    screen_ = Screen::Credits;
+    overlay_ = Overlay::None;
+}
+
+void GameEngine::EndCredits() {
+    screen_ = credits_return_;
+    overlay_ = Overlay::None;
 }
 
 void GameEngine::UpdatePlaying(float dt) {
@@ -3560,6 +3608,10 @@ void GameEngine::SetQuestStage(const std::string& id, int stage) {
     if (!q) { Logger::Warn("SetQuestStage: unknown quest '" + id + "'"); return; }
     player_.quest_stages[id] = stage;
     player_.quest_log[id].push_back(stage);
+    if (id == "core:quest.ch1_here" && stage >= 100 && !player_.flags.count("credits_seen_ch1")) {
+        player_.flags.insert("credits_seen_ch1");
+        credits_pending_ = true;
+    }
     for (const auto& st : q->stages) {
         if (st.stage != stage) continue;
         Toast("Journal: " + content_.Tr(st.objective_key), Color{255, 225, 150, 255});
