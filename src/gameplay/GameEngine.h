@@ -13,7 +13,7 @@
 
 namespace uncounted {
 
-enum class Screen { Title, Creation, Playing, Dead, Ending, Credits, Opening };
+enum class Screen { Title, Creation, Playing, Dead, Ending, Credits, Opening, Dedication };
 enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting, Wait };
 
 struct InvItem {
@@ -291,6 +291,10 @@ private:
     static constexpr float kOpeningEnd = 6.2f;
     void StartOpening();
     void DrawOpening();
+    // the dedication: at launch, before the title (Toasty's avatar if assets/ui/panels/toasty_avatar.png exists)
+    float dedication_t_ = 0.0f;
+    static constexpr float kDedicationEnd = 6.0f;
+    void DrawDedication();
     void StartCredits(Screen returnTo);
     void EndCredits();
     void DrawCredits();

@@ -790,6 +790,10 @@ Eranu, Coth and Dunstan as themselves, Toasty's stream characters.
 
 ### Illustrated intro (added 2026-11-05)
 
+**Dedication:** at launch (`Run()`, not for screenshots or tests) `Screen::Dedication` shows Toasty's avatar
+(`assets/ui/panels/toasty_avatar.png`, circular PNG, optional) and `dedication.line1-3` from en.json on black for ~6 s,
+then the title. Any key/click skips. Preview: `--overlay dedication:<seconds>`.
+
 **Opening:** "Begin Chapter Zero" now calls `StartOpening()`: `Screen::Opening` shows the logo on black (fade in
 0.6–1.9 s, hold to 4.5 s, fade out to 5.7 s, `kOpeningEnd` 6.2 s) while the title rain fades, then `NewGame()` loads
 the world on black and the illustrated intro begins. Esc/Enter/Space/click skips. Preview: `--overlay opening:<seconds>`.

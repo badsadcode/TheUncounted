@@ -2085,6 +2085,16 @@ int GameEngine::RunSelfTest() {
 
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
+    // --- The dedication at launch hands over to the title screen
+    {
+        Screen was = screen_;
+        screen_ = Screen::Dedication;
+        dedication_t_ = kDedicationEnd;
+        Frame(0.0f);
+        check(screen_ == Screen::Title && content_.Tr("dedication.line1") == "For Toasty", "the dedication to Toasty plays at launch, then the title");
+        screen_ = was;
+    }
+
     // --- The opening (last: it starts a fresh game): Begin -> the logo on black -> the illustrated intro
     {
         StartOpening();

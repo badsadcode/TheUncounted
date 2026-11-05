@@ -448,6 +448,10 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         else if (boot_shot_overlay_ == "map") overlay_ = Overlay::Map;
         else if (boot_shot_overlay_ == "title") screen_ = Screen::Title;
+        else if (boot_shot_overlay_.rfind("dedication", 0) == 0) {  // dedication or dedication:<seconds>
+            screen_ = Screen::Dedication;
+            dedication_t_ = boot_shot_overlay_.size() > 11 ? static_cast<float>(atof(boot_shot_overlay_.substr(11).c_str())) : 3.0f;
+        }
         else if (boot_shot_overlay_.rfind("opening", 0) == 0) {  // opening or opening:<seconds>
             StartOpening();
             opening_t_ = boot_shot_overlay_.size() > 8 ? static_cast<float>(atof(boot_shot_overlay_.substr(8).c_str())) : 3.0f;
@@ -511,6 +515,7 @@ void GameEngine::Shutdown() {
 
 void GameEngine::Run() {
     int frame = 0;
+    if (boot_shot_.empty() && screen_ == Screen::Title) { screen_ = Screen::Dedication; dedication_t_ = 0.0f; }  // a word for Toasty first
     while (running_ && !WindowShouldClose()) {
         float dt = std::min(GetFrameTime(), 0.1f);
         if (!boot_shot_.empty()) dt = kFixedDt;
@@ -1054,6 +1059,13 @@ void GameEngine::Frame(float dt) {
     if (credits_pending_ && screen_ == Screen::Playing && overlay_ == Overlay::None && dialogue_id_.empty()) {
         credits_pending_ = false;
         StartCredits(Screen::Playing);
+    }
+    if (screen_ == Screen::Dedication) {
+        dedication_t_ += dt;
+        bool skip = BackPressed() || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT) ||
+                    PadPressed(GAMEPAD_BUTTON_RIGHT_FACE_DOWN);
+        if (skip && dedication_t_ > 0.3f) dedication_t_ = kDedicationEnd;
+        if (dedication_t_ >= kDedicationEnd) screen_ = Screen::Title;
     }
     if (screen_ == Screen::Opening) {
         opening_t_ += dt;

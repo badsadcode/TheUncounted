@@ -281,6 +281,8 @@ void GameEngine::DrawFrame() {
         DrawCredits();
     } else if (screen_ == Screen::Opening) {
         DrawOpening();
+    } else if (screen_ == Screen::Dedication) {
+        DrawDedication();
     }
 
     if (!clean_shot_) DrawToasts();
@@ -2256,6 +2258,39 @@ void GameEngine::DrawEnding() {
     Text(stats, VW * 0.5f - TextWidth(stats, 16) * 0.5f, VH - 150, 16, kDim);
     if (Button({VW * 0.5f - 320, VH - 100, 300, 48}, "Keep Exploring")) { screen_ = Screen::Playing; overlay_ = Overlay::None; }
     if (Button({VW * 0.5f + 20, VH - 100, 300, 48}, "Return to Title")) ReturnToTitle();
+}
+
+// ============================================================================
+// Dedication: at launch, before the title screen
+// ============================================================================
+void GameEngine::DrawDedication() {
+    float u = U();
+    float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
+    const float t = dedication_t_;
+    // 0.0-0.5 black, 0.5-1.7 fade in, hold until 4.6, 4.6-5.6 fade out, black until the title (6.0)
+    float a = t < 0.5f ? 0.0f : t < 1.7f ? (t - 0.5f) / 1.2f : t < 4.6f ? 1.0f : t < 5.6f ? 1.0f - (t - 4.6f) / 1.0f : 0.0f;
+    a = a * a * (3.0f - 2.0f * a);
+    if (a <= 0.0f) return;
+    auto alpha = [&](Color c, float k = 1.0f) { c.a = static_cast<unsigned char>(c.a * a * k); return c; };
+    const char* avatar = "assets/ui/panels/toasty_avatar.png";
+    float y = VH * 0.5f - 40;
+    if (res_.Exists(avatar)) {
+        Texture2D tex = res_.GetTexture(avatar);
+        static unsigned smoothed = 0;
+        if (smoothed != tex.id) { GenTextureMipmaps(&tex); SetTextureFilter(tex, TEXTURE_FILTER_TRILINEAR); smoothed = tex.id; }
+        const float d = 168;
+        Vector2 c = {VW * 0.5f * u, (VH * 0.5f - 110) * u};
+        DrawCircleV(c, (d * 0.5f + 5) * u, alpha(kGold, 0.85f));  // a thin gold ring around the (circular) avatar
+        DrawCircleV(c, (d * 0.5f + 2) * u, alpha(Color{0, 0, 0, 255}));
+        DrawTexturePro(tex, {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)},
+                       {c.x - d * 0.5f * u, c.y - d * 0.5f * u, d * u, d * u}, {0, 0}, 0, alpha(WHITE));
+        y = VH * 0.5f + 8;
+    }
+    std::string l1 = content_.Tr("dedication.line1"), l2 = content_.Tr("dedication.line2"), l3 = content_.Tr("dedication.line3");
+    Text(l1, VW * 0.5f - TextWidth(l1, 38) * 0.5f, y, 38, alpha(kGold));
+    Text(l2, VW * 0.5f - TextWidth(l2, 22) * 0.5f, y + 50, 22, alpha(kText));
+    if (!l3.empty() && l3 != "dedication.line3") Text(l3, VW * 0.5f - TextWidth(l3, 17) * 0.5f, y + 96, 17, alpha(kDim));
 }
 
 // ============================================================================
