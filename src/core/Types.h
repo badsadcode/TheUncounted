@@ -397,6 +397,7 @@ struct DialogueAction {
     bool bool_value = true;
     std::string spell_id;  // learn_spell: adds a spell to the player's spellbook
     std::string spawn;  // travel: move the player to this map spawn (boats, carts, shortcuts); the party catches up
+    std::string key;    // tell_tale: the tale's localization key (<key>.title / <key>.text, voice file <key>.ogg|wav|mp3)
     // narrate: full-screen cards; each shown only if its flag is set (empty = always)
     std::vector<std::pair<std::string, std::string>> pages;
 };

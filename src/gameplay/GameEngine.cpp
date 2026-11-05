@@ -452,6 +452,15 @@ bool GameEngine::Init(int argc, char** argv) {
             screen_ = Screen::Dedication;
             dedication_t_ = boot_shot_overlay_.size() > 11 ? static_cast<float>(atof(boot_shot_overlay_.substr(11).c_str())) : 3.0f;
         }
+        else if (boot_shot_overlay_.rfind("tale:", 0) == 0) {  // tale:<key>[@seconds] — the tale window, that far in
+            std::string rest = boot_shot_overlay_.substr(5);
+            size_t at = rest.find('@');
+            DialogueAction a;
+            a.type = "tell_tale";
+            a.key = rest.substr(0, at);
+            ExecAction(a, "");
+            if (at != std::string::npos) tale_time_ = static_cast<float>(atof(rest.substr(at + 1).c_str()));
+        }
         else if (boot_shot_overlay_.rfind("opening", 0) == 0) {  // opening or opening:<seconds>
             StartOpening();
             opening_t_ = boot_shot_overlay_.size() > 8 ? static_cast<float>(atof(boot_shot_overlay_.substr(8).c_str())) : 3.0f;
@@ -1157,6 +1166,11 @@ void GameEngine::UpdatePlaying(float dt) {
         }
         if (overlay_ == Overlay::Container && ActionPressed("interact")) { TakeAllFromContainer(); return; }
         if (overlay_ == Overlay::Reader && (ActionPressed("interact") || IsKeyPressed(KEY_ENTER))) { SetOverlay(Overlay::None); return; }
+        if (overlay_ == Overlay::Tale) {
+            tale_time_ += dt;
+            if (esc || ActionPressed("interact") || IsKeyPressed(KEY_ENTER)) { res_.StopVoice(); SetOverlay(Overlay::None); }
+            return;
+        }
         if (overlay_ == Overlay::Narration) {
             narration_time_ += dt;
             bool next = ActionPressed("interact") || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE) || UiClick();
@@ -3762,6 +3776,12 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
         player_.mana = static_cast<float>(MaxMana());
         res_.PlaySfx("assets/audio/sfx/spell_heal.wav", 0.7f);
         Toast("You feel restored", Color{150, 255, 170, 255});
+    } else if (a.type == "tell_tale") {
+        tale_key_ = a.key;
+        tale_time_ = tale_scroll_ = 0.0f;
+        tale_manual_ = false;
+        tale_len_ = res_.PlayVoice(a.key);   // 0 if nobody has recorded it yet: then it scrolls at reading pace
+        SetOverlay(Overlay::Tale);
     } else if (a.type == "narrate") {
         std::vector<std::string> keys;
         for (const auto& [key, flag] : a.pages)

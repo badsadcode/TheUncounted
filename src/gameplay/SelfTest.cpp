@@ -2085,23 +2085,29 @@ int GameEngine::RunSelfTest() {
 
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
-    // --- Old Tobble by the well: eight pointless stories, in turn, then round again
+    // --- Old Tobble by the well: pick a tale; it opens in the tale window (scrolling, voiced when recorded)
     {
         overlay_ = Overlay::None;
         screen_ = Screen::Playing;
         int ti = -1;
         for (size_t i = 0; i < scene_.npcs.size(); i++) if (scene_.npcs[i].def->id == "core:npc.old_tobble") ti = static_cast<int>(i);
-        bool all = ti >= 0;
-        for (int k = 0; k < 8 && all; k++) {
+        bool told = false, closes = false;
+        if (ti >= 0) {
             StartDialogue(ti);
-            all = chooseNext("story" + std::to_string(k)) && chooseNext("andthen");
-            if (overlay_ == Overlay::Dialogue) EndDialogue();
+            if (chooseNext("pick")) {
+                const DialogueDef* d = content_.GetDialogue(dialogue_id_);
+                const auto& node = d->nodes.at(dialogue_node_);
+                std::vector<int> vis = VisibleChoices();
+                if (vis.size() >= 9) ChooseDialogue(vis[3]);   // "The King Who Was Afraid of Tuesdays"
+                (void)node;
+            }
+            told = overlay_ == Overlay::Tale && tale_key_ == "tale.tobble.4" && content_.Tr("tale.tobble.4.title") != "tale.tobble.4.title" &&
+                   dialogue_id_.empty();
+            res_.StopVoice();
+            SetOverlay(Overlay::None);
+            closes = overlay_ == Overlay::None;
         }
-        bool again = false;
-        if (all) { StartDialogue(ti); again = chooseNext("story0"); if (overlay_ == Overlay::Dialogue) EndDialogue(); }
-        overlay_ = Overlay::None;
-        check(all && again, "Old Tobble: 'Stay a while, and hear me out!' Eight stories in turn, then round again");
-        for (int k = 0; k < 8; k++) player_.flags.erase("tobble_story_" + std::to_string(k));
+        check(told && closes, "Old Tobble: 'Stay a while, and hear me out!' Pick a tale, and it's told in its own window");
     }
 
     // --- Story hooks on levers, doors and chests (set in Blender as game_set_flag / game_quest_id / game_set_stage)

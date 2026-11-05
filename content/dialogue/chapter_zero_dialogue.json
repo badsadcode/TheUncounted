@@ -18584,112 +18584,8 @@
           "text_key": "dlg.tobble.root",
           "choices": [
             {
-              "text_key": "dlg.tobble.root.c0",
-              "next": "story0",
-              "conditions": [
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_0"
-                }
-              ]
-            },
-            {
-              "text_key": "dlg.tobble.root.c1",
-              "next": "story1",
-              "conditions": [
-                {
-                  "type": "flag_set",
-                  "flag": "tobble_story_0"
-                },
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_1"
-                }
-              ]
-            },
-            {
-              "text_key": "dlg.tobble.root.c2",
-              "next": "story2",
-              "conditions": [
-                {
-                  "type": "flag_set",
-                  "flag": "tobble_story_1"
-                },
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_2"
-                }
-              ]
-            },
-            {
-              "text_key": "dlg.tobble.root.c3",
-              "next": "story3",
-              "conditions": [
-                {
-                  "type": "flag_set",
-                  "flag": "tobble_story_2"
-                },
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_3"
-                }
-              ]
-            },
-            {
-              "text_key": "dlg.tobble.root.c4",
-              "next": "story4",
-              "conditions": [
-                {
-                  "type": "flag_set",
-                  "flag": "tobble_story_3"
-                },
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_4"
-                }
-              ]
-            },
-            {
-              "text_key": "dlg.tobble.root.c5",
-              "next": "story5",
-              "conditions": [
-                {
-                  "type": "flag_set",
-                  "flag": "tobble_story_4"
-                },
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_5"
-                }
-              ]
-            },
-            {
-              "text_key": "dlg.tobble.root.c6",
-              "next": "story6",
-              "conditions": [
-                {
-                  "type": "flag_set",
-                  "flag": "tobble_story_5"
-                },
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_6"
-                }
-              ]
-            },
-            {
-              "text_key": "dlg.tobble.root.c7",
-              "next": "story7",
-              "conditions": [
-                {
-                  "type": "flag_set",
-                  "flag": "tobble_story_6"
-                },
-                {
-                  "type": "flag_not_set",
-                  "flag": "tobble_story_7"
-                }
-              ]
+              "text_key": "dlg.tobble.root.c_tell",
+              "next": "pick"
             },
             {
               "text_key": "dlg.tobble.root.c8",
@@ -18702,237 +18598,6 @@
             {
               "text_key": "dlg.tobble.root.c10",
               "next": "bye"
-            }
-          ]
-        },
-        "story0": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story0",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story0.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story0.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_0",
-              "value": true
-            }
-          ]
-        },
-        "story1": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story1",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story1.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story1.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_1",
-              "value": true
-            }
-          ]
-        },
-        "story2": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story2",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story2.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story2.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_2",
-              "value": true
-            }
-          ]
-        },
-        "story3": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story3",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story3.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story3.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_3",
-              "value": true
-            }
-          ]
-        },
-        "story4": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story4",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story4.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story4.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_4",
-              "value": true
-            }
-          ]
-        },
-        "story5": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story5",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story5.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story5.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_5",
-              "value": true
-            }
-          ]
-        },
-        "story6": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story6",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story6.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story6.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_6",
-              "value": true
-            }
-          ]
-        },
-        "story7": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.story7",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.story7.c0",
-              "next": "andthen"
-            },
-            {
-              "text_key": "dlg.tobble.story7.c1",
-              "next": "thanks"
-            }
-          ],
-          "actions": [
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_0",
-              "value": false
-            },
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_1",
-              "value": false
-            },
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_2",
-              "value": false
-            },
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_3",
-              "value": false
-            },
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_4",
-              "value": false
-            },
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_5",
-              "value": false
-            },
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_6",
-              "value": false
-            },
-            {
-              "type": "set_flag",
-              "flag": "tobble_story_7",
-              "value": false
-            }
-          ]
-        },
-        "andthen": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.andthen",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.andthen.c0",
-              "next": "root"
-            },
-            {
-              "text_key": "dlg.tobble.andthen.c1",
-              "next": "bye"
-            }
-          ]
-        },
-        "thanks": {
-          "speaker_key": "npc.old_tobble.name",
-          "text_key": "dlg.tobble.thanks",
-          "choices": [
-            {
-              "text_key": "dlg.tobble.thanks.c0",
-              "next": "root"
-            },
-            {
-              "text_key": "dlg.tobble.thanks.c1",
-              "next": "END"
             }
           ]
         },
@@ -18963,6 +18628,96 @@
             {
               "text_key": "dlg.tobble.bye.c0",
               "next": "END"
+            }
+          ]
+        },
+        "pick": {
+          "speaker_key": "npc.old_tobble.name",
+          "text_key": "dlg.tobble.pick",
+          "choices": [
+            {
+              "text_key": "tale.tobble.1.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.1"
+                }
+              ]
+            },
+            {
+              "text_key": "tale.tobble.2.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.2"
+                }
+              ]
+            },
+            {
+              "text_key": "tale.tobble.3.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.3"
+                }
+              ]
+            },
+            {
+              "text_key": "tale.tobble.4.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.4"
+                }
+              ]
+            },
+            {
+              "text_key": "tale.tobble.5.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.5"
+                }
+              ]
+            },
+            {
+              "text_key": "tale.tobble.6.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.6"
+                }
+              ]
+            },
+            {
+              "text_key": "tale.tobble.7.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.7"
+                }
+              ]
+            },
+            {
+              "text_key": "tale.tobble.8.title",
+              "next": "END",
+              "actions": [
+                {
+                  "type": "tell_tale",
+                  "key": "tale.tobble.8"
+                }
+              ]
+            },
+            {
+              "text_key": "dlg.tobble.pick.back",
+              "next": "bye"
             }
           ]
         }

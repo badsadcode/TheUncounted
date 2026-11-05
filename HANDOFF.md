@@ -806,3 +806,13 @@ with a slow push-in and drift, the words on a dark band at the bottom (`DrawNarr
 Audio during the intro: ambience (rain) is faded out and music drops to `intro_music_level` (config/game.json,
 default 0.4) via `intro_duck_` in `UpdateAudio`; set `intro_music` to a track path to give the intro its own music
 (the place's music and rain return when the intro ends). Preview: `--overlay prologue:<n>`.
+
+### Old Tobble and his tales (added 2026-11-05)
+
+Old Tobble (`core:npc.old_tobble`, he) leans on a new well in Bellwether's square ("Stay a while, and hear me out!": an
+unnamed nod to a famous elder). "Tell me a story" lists eight tales; each choice runs the dialogue action
+`tell_tale` (`key`: `tale.tobble.<n>`), which opens `Overlay::Tale` (`DrawTale`): the title, then `<key>.text`
+scrolling in time with the recording `assets/audio/voice/<key>.ogg|wav|mp3` (or at reading pace without one); wheel
+scrolls by hand; Close/Esc/E stops the voice (`ResourceManager::StopVoice`). Script for BadSad's ElevenLabs takes:
+`docs/VOICE_SCRIPT_TOBBLE.md`. Preview: `--overlay tale:tale.tobble.4@<seconds>`. The tell_tale action works for any
+NPC: add `tale.<name>.<n>.title/.text` strings and a choice with that action.

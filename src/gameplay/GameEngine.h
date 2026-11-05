@@ -14,7 +14,7 @@
 namespace uncounted {
 
 enum class Screen { Title, Creation, Playing, Dead, Ending, Credits, Opening, Dedication };
-enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting, Wait };
+enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting, Wait, Tale };
 
 struct InvItem {
     std::string id;
@@ -155,6 +155,11 @@ private:
     int narration_page_ = 0;
     float narration_time_ = 0.0f;
     bool narration_is_prologue_ = false;
+    // a told tale (Old Tobble): a window whose text scrolls in time with its recording
+    std::string tale_key_;
+    float tale_time_ = 0.0f, tale_len_ = 0.0f, tale_scroll_ = 0.0f;
+    bool tale_manual_ = false;
+    void DrawTale();
     std::vector<std::string> narration_keys_;  // localization key per page: also the voice-over file name
     float intro_duck_ = 0.0f;                  // 0..1: how far the intro's audio mix (no ambience, quieter music) is faded in
     float narration_voice_ = 0.0f;             // length of the current page's recording (0 = none)

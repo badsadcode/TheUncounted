@@ -212,6 +212,14 @@ void ResourceManager::PlaySfx(const std::string& relPath, float volume, float pi
     PlaySound(s);
 }
 
+void ResourceManager::StopVoice() {
+    if (voice_loaded_) StopSound(voice_);
+}
+
+bool ResourceManager::VoicePlaying() const {
+    return voice_loaded_ && IsSoundPlaying(voice_);
+}
+
 float ResourceManager::PlayVoice(const std::string& lineKey) {
     if (lineKey.empty() || !IsAudioDeviceReady()) return 0.0f;
     for (const char* ext : {".ogg", ".wav", ".mp3"}) {

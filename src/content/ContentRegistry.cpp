@@ -881,6 +881,7 @@ static DialogueAction ParseAction(const json& a) {
     da.flag = a.value("flag", "");
     da.bool_value = a.value("value", true);
     da.spawn = a.value("spawn", "");
+    da.key = a.value("key", "");
     da.spell_id = a.value("spell_id", "");
     if (a.contains("pages")) {
         for (const auto& pj : a["pages"]) {

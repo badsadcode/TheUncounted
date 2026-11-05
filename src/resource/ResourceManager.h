@@ -51,6 +51,8 @@ public:
     // (0 when there's no recording, so the game just shows the subtitle as usual).
     float PlayVoice(const std::string& lineKey);
     void SetVoiceVolume(float v) { voice_volume_ = v; }
+    void StopVoice();   // cut off the voice line that's playing (e.g. closing a tale early)
+    bool VoicePlaying() const;
 
     void SetPointFilter(bool point);
 

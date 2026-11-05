@@ -271,6 +271,7 @@ void GameEngine::DrawFrame() {
             case Overlay::Reader: DrawReader(); break;
             case Overlay::Options: DrawOptions(); break;
             case Overlay::Narration: DrawNarration(); break;
+            case Overlay::Tale: DrawTale(); break;
             case Overlay::None: break;
         }
     } else if (screen_ == Screen::Dead) {
@@ -2187,6 +2188,43 @@ void GameEngine::DrawNarration() {
         Color dc = i == static_cast<size_t>(narration_page_) ? kGold : Color{70, 66, 60, 255};
         DrawCircleV({(VW * 0.5f - (narration_pages_.size() - 1) * 9.0f + i * 18.0f) * u, (VH - 70) * u}, 3.0f * u, dc);
     }
+}
+
+void GameEngine::DrawTale() {
+    // A storyteller's page: the title, then the tale scrolling slowly upwards in time with the recording (or at a calm
+    // reading pace when there isn't one). The mouse wheel scrolls by hand; Close / Esc / E ends it.
+    float u = U();
+    float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
+    const float ts = content_.game_cfg.text_scale;
+    const float W = std::min(VW - 80.0f, 820.0f), H = std::min(VH - 80.0f, 520.0f);
+    Rectangle P = {VW * 0.5f - W * 0.5f, VH * 0.5f - H * 0.5f, W, H};
+    Panel(P, Color{30, 24, 18, 245});
+    DrawRectangleLinesEx({(P.x + 8) * u, (P.y + 8) * u, (P.width - 16) * u, (P.height - 16) * u}, std::max(1.0f, u), Color{120, 96, 60, 160});
+    std::string title = content_.Tr(tale_key_ + ".title"), text = content_.Tr(tale_key_ + ".text");
+    TextFit(title, P.x + P.width * 0.5f - std::min(TextWidth(title, 26), P.width - 60) * 0.5f, P.y + 22, 26, P.width - 60, kGold);
+    std::string teller = content_.Tr("npc.old_tobble.name");
+    Text(teller, P.x + P.width * 0.5f - TextWidth(teller, 15) * 0.5f, P.y + 54, 15, kDim);
+    Rectangle A = {P.x + 48, P.y + 88, P.width - 96, P.height - 88 - 64};
+    const float fs = 19.0f * ts;
+    float total = TextWrapped(text, {0, 0, A.width, 4000}, fs, kText, false);
+    float maxScroll = std::max(0.0f, total - A.height + 24);
+    // Timing: hold the first lines for a moment, then scroll so the last line arrives as the voice finishes.
+    const float hold = 2.0f;
+    float length = tale_len_ > 0.0f ? tale_len_ : std::max(12.0f, total / (fs * 1.28f) * 3.2f);
+    float wheel = GetMouseWheelMove();
+    if (wheel != 0.0f) { tale_manual_ = true; tale_scroll_ -= wheel * 40.0f; }
+    if (!tale_manual_) tale_scroll_ = maxScroll * Clamp((tale_time_ - hold) / std::max(1.0f, length - hold - 1.0f), 0.0f, 1.0f);
+    tale_scroll_ = Clamp(tale_scroll_, 0.0f, maxScroll);
+    BeginScissorMode(static_cast<int>(A.x * u), static_cast<int>(A.y * u), static_cast<int>(A.width * u), static_cast<int>(A.height * u));
+    TextWrapped(text, {A.x, A.y - tale_scroll_ + 6, A.width, total + 40}, fs, Color{232, 220, 196, 255});
+    EndScissorMode();
+    // soft fades top and bottom, like a page rolling past
+    DrawRectangleGradientV(static_cast<int>(A.x * u), static_cast<int>(A.y * u), static_cast<int>(A.width * u), static_cast<int>(18 * u),
+                           Color{30, 24, 18, 245}, Color{30, 24, 18, 0});
+    DrawRectangleGradientV(static_cast<int>(A.x * u), static_cast<int>((A.y + A.height - 22) * u), static_cast<int>(A.width * u),
+                           static_cast<int>(22 * u), Color{30, 24, 18, 0}, Color{30, 24, 18, 245});
+    bool done = tale_scroll_ >= maxScroll - 1 && (tale_len_ <= 0.0f || !res_.VoicePlaying());
+    if (Button({P.x + P.width * 0.5f - 90, P.y + P.height - 52, 180, 38}, done ? "Close" : "Close  [E]")) { res_.StopVoice(); SetOverlay(Overlay::None); }
 }
 
 void GameEngine::DrawSubtitle() {
