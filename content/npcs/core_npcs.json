@@ -2830,7 +2830,7 @@
         "type": "sprite_8dir",
         "sprite_sheet": "assets/sprites/npcs/friend_dunstan_painted.png",
         "animation_data": "assets/animations/npc_standard_128.json",
-        "scale": 3.05
+        "scale": 2.1
       },
       "barks": [
         {

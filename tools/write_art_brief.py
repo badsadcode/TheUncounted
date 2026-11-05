@@ -83,6 +83,7 @@ FRIENDS = [
 SPELL_LOOKS = {"spell_ember.png": "a tumbling ball of flame with sparks", "spell_frost.png": "a spinning shard of ice with frosty mist",
                "spell_arcane.png": "a pulsing violet orb with orbiting runes", "spell_ink.png": "a splattering glob of black ink with drips",
                "spell_sabrino.png": "Sabrino the witch's signature hex: a green-purple swirl with a tiny grinning face"}
+REVISED = {"characters/friend_dunstan.png", "item_icons/ransom_note.png"}  # redone by Noor on 5 Nov
 REVISIONS = [("characters/friend_dunstan.png", "Body larger in the frame (about the same height as Eranu's and Coth's), the huge "
                                               "sword held diagonally so it fits, clearer wind-up and attack poses. Keep the mate gourd and red cloak."),
              ("item_icons/ransom_note.png", "Currently a bound notebook. Should be a loose sheet of paper with charcoal scribbles (a crossed-out ransom "
@@ -229,21 +230,32 @@ if REMAINING:
     w("\n## Revisions\n")
     w("| File | What to change |")
     w("|---|---|")
-    for f, what in REVISIONS:
+    left = [(f, what) for f, what in REVISIONS if f not in REVISED]
+    for f, what in left:
         w(f"| `{f}` | {what} |")
-    counts["revisions"] = len(REVISIONS)
+    counts["revisions"] = len(left)
+    if not left:
+        out.pop(); out.pop(); out.pop()  # no revisions left: drop the empty table
 extras = rows("item_icons", [("gold_coins.png",)])
-w("\n## Small extras (optional, whenever)\n")
-w("| File | What | Notes |")
-w("|---|---|---|")
-if extras:
-    w("| `item_icons/gold_coins.png` | The gold icon (inventory, loot, shops) | 64 × 64, a small pile of coins, transparent background. |")
-w("| `sprites/vfx/torch_flame.png` | The small flame on wall torches | Like the fireplace fire, but small and narrow: one row of square frames, 32 or 64 px, hard edges, flame touching the bottom. |")
+torch = rows("vfx", [("torch_flame.png",)])
+if extras or torch:
+    w("\n## Small extras (optional, whenever)\n")
+    w("| File | What | Notes |")
+    w("|---|---|---|")
+    if extras:
+        w("| `item_icons/gold_coins.png` | The gold icon (inventory, loot, shops) | 64 × 64, a small pile of coins, transparent background. |")
+    if torch:
+        w("| `sprites/vfx/torch_flame.png` | The small flame on wall torches | Like the fireplace fire, but small and narrow: one row of square frames, 32 or 64 px, hard edges, flame touching the bottom. |")
 
 if not REMAINING:
     w("\n## Done, thank you!\n")
     w("Fire (main, small and magic), all 62 characters, the 4 monsters, all portraits, the spell effects, most icons, the "
       "world textures, skies and ground scatter.\n")
+if REMAINING and not any(counts.values()):
+    out[:] = ["# The Uncounted: art still needed (for Noor)\n",
+              "**Nothing!** Every portrait, character, monster, spell effect, icon, sky, texture and flame the game needs has been "
+              "delivered and is in the game. Thank you, Noor. 🎉\n",
+              "(New art will only be needed when new content is added; rerun `python3 tools/write_art_brief.py --remaining` then.)\n"]
 name = "NOOR_REMAINING_ART.md" if REMAINING else "NOOR_ART_BRIEF.md"
 open(os.path.join(ROOT, "docs", name), "w").write("\n".join(out) + "\n")
 print(f"Wrote docs/{name}:", ", ".join(f"{k} {v}" for k, v in counts.items()))
