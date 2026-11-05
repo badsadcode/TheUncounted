@@ -12,3 +12,5 @@ The opening of a new game: a few still pictures with a line of text along the bo
 | `story.prologue.4` | So you have walked to Bellwether, where the rain never quite stops, to argue with a clerk about whether you are alive. |
 
 To change the words, edit these lines in `content/localization/en.json` (keys `story.prologue.1` …); adding `story.prologue.5` adds a fifth card (with `assets/ui/intro/intro_5.png` as its picture).
+
+**Recorded 5 Nov:** BadSad's dwarven storyteller (ElevenLabs), one take split into the four cards; the full take is kept in `art_source/voice/intro_narration_full.mp3`.
