@@ -153,8 +153,9 @@ w("- **Monsters**: each one patrols between two points (its `patrol_a` / `patrol
   "75 health and reaches 150+ by the end of Chapter One.")
 w("- **Chests**: set `loot_table` to one of the tables below (or add `fixed_items` for a guaranteed reward). Locked "
   "chests (`locked`) need lockpicks or a key (`key_item`).")
-w("- **A dungeon's feel**: add a **zone** around it (Blender: the zone box) to give it its own music, ambience (crypt "
-  "drips!), fog, light and name banner. Copy an existing zone like the Registry Annex's crypt as a starting point.")
+w("- **A dungeon's feel**: each area has a **zone** (its own music, ambience like the crypt drips, fog, light and the "
+  "name banner when you enter). Zones aren't editable in Blender yet: tell me roughly where the new area is and the mood "
+  "you want, and I'll add its zone (or extend an existing one).")
 w("- **Doors between areas** use the `travel` type with a `travel_spawn` (an arrival point you place inside).")
 w("- **Tell me what you built** (a sentence or a screenshot): I can write a quest, a boss, notes and loot to go with "
   "it, rebalance the monsters for the new length, and add your areas to the companions' comments (\"Smells like a "
