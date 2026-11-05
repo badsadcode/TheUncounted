@@ -13,7 +13,7 @@
 
 namespace uncounted {
 
-enum class Screen { Title, Creation, Playing, Dead, Ending, Credits };
+enum class Screen { Title, Creation, Playing, Dead, Ending, Credits, Opening };
 enum class Overlay { None, Pause, Inventory, Character, Journal, Map, Dialogue, Shop, Container, Reader, Options, Narration, Crafting, Wait };
 
 struct InvItem {
@@ -286,6 +286,11 @@ private:
     Screen credits_return_ = Screen::Title;
     bool credits_pending_ = false;
     void LoadCredits();
+    // the opening: after character creation, the logo on black for a few seconds, then the illustrated intro
+    float opening_t_ = 0.0f;
+    static constexpr float kOpeningEnd = 6.2f;
+    void StartOpening();
+    void DrawOpening();
     void StartCredits(Screen returnTo);
     void EndCredits();
     void DrawCredits();

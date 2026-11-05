@@ -2085,6 +2085,15 @@ int GameEngine::RunSelfTest() {
 
     std::filesystem::remove(SavePath("autosave"), ec);
     std::filesystem::remove(SavePath("autosave") + ".bak", ec);
+    // --- The opening (last: it starts a fresh game): Begin -> the logo on black -> the illustrated intro
+    {
+        StartOpening();
+        bool opening = screen_ == Screen::Opening;
+        opening_t_ = kOpeningEnd;
+        Frame(0.0f);
+        check(opening && screen_ == Screen::Playing && overlay_ == Overlay::Narration && narration_is_prologue_,
+              "Begin shows the logo on black, then the illustrated intro starts");
+    }
     Logger::Info("Self-test finished with " + std::to_string(failures) + " failure(s).");
     return failures;
 }

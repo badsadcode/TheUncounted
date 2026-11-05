@@ -448,6 +448,10 @@ bool GameEngine::Init(int argc, char** argv) {
         }
         else if (boot_shot_overlay_ == "map") overlay_ = Overlay::Map;
         else if (boot_shot_overlay_ == "title") screen_ = Screen::Title;
+        else if (boot_shot_overlay_.rfind("opening", 0) == 0) {  // opening or opening:<seconds>
+            StartOpening();
+            opening_t_ = boot_shot_overlay_.size() > 8 ? static_cast<float>(atof(boot_shot_overlay_.substr(8).c_str())) : 3.0f;
+        }
         else if (boot_shot_overlay_.rfind("credits", 0) == 0) {
             // credits or credits:<seconds> — the roll, that far in
             StartCredits(Screen::Title);
@@ -1051,10 +1055,24 @@ void GameEngine::Frame(float dt) {
         credits_pending_ = false;
         StartCredits(Screen::Playing);
     }
+    if (screen_ == Screen::Opening) {
+        opening_t_ += dt;
+        bool skip = BackPressed() || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT) ||
+                    PadPressed(GAMEPAD_BUTTON_RIGHT_FACE_DOWN);
+        if (skip && opening_t_ > 0.3f) opening_t_ = kOpeningEnd;
+        if (opening_t_ >= kOpeningEnd) NewGame();   // loads the world on black, then the illustrated intro fades in
+    }
     if (screen_ == Screen::Credits) {
         credits_time_ += dt * ((IsKeyDown(KEY_SPACE) || IsMouseButtonDown(MOUSE_BUTTON_LEFT) || PadDown(GAMEPAD_BUTTON_RIGHT_FACE_DOWN)) ? 4.0f : 1.0f);
         if (BackPressed()) EndCredits();
     }
+}
+
+void GameEngine::StartOpening() {
+    screen_ = Screen::Opening;
+    overlay_ = Overlay::None;
+    opening_t_ = 0.0f;
+    SetWantedAudio("", "");  // the title-screen rain fades away under the logo
 }
 
 void GameEngine::LoadCredits() {

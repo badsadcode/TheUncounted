@@ -790,6 +790,10 @@ Eranu, Coth and Dunstan as themselves, Toasty's stream characters.
 
 ### Illustrated intro (added 2026-11-05)
 
+**Opening:** "Begin Chapter Zero" now calls `StartOpening()`: `Screen::Opening` shows the logo on black (fade in
+0.6–1.9 s, hold to 4.5 s, fade out to 5.7 s, `kOpeningEnd` 6.2 s) while the title rain fades, then `NewGame()` loads
+the world on black and the illustrated intro begins. Esc/Enter/Space/click skips. Preview: `--overlay opening:<seconds>`.
+
 The new-game prologue (`story.prologue.1..N`) is illustrated: card N shows `assets/ui/intro/intro_N.png` full-screen
 with a slow push-in and drift, the words on a dark band at the bottom (`DrawNarration`). Every narration page now plays
 `assets/audio/voice/<its key>` if recorded (`EnterNarrationPage`, `narration_keys_`), and a voiced page turns by itself

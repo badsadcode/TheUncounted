@@ -279,6 +279,8 @@ void GameEngine::DrawFrame() {
         DrawEnding();
     } else if (screen_ == Screen::Credits) {
         DrawCredits();
+    } else if (screen_ == Screen::Opening) {
+        DrawOpening();
     }
 
     if (!clean_shot_) DrawToasts();
@@ -902,7 +904,7 @@ void GameEngine::DrawCreation() {
     TextWrapped("Spells: " + sp, {ox + 1000, 520, 190, 80}, 13, kDim);
 
     if (Button({VW * 0.5f - 320, VH - 80, 300, 50}, "Back")) { screen_ = Screen::Title; return; }
-    if (Button({VW * 0.5f + 20, VH - 80, 300, 50}, "Begin Chapter Zero")) { NewGame(); return; }
+    if (Button({VW * 0.5f + 20, VH - 80, 300, 50}, "Begin Chapter Zero")) { StartOpening(); return; }
 }
 
 // ============================================================================
@@ -2254,6 +2256,41 @@ void GameEngine::DrawEnding() {
     Text(stats, VW * 0.5f - TextWidth(stats, 16) * 0.5f, VH - 150, 16, kDim);
     if (Button({VW * 0.5f - 320, VH - 100, 300, 48}, "Keep Exploring")) { screen_ = Screen::Playing; overlay_ = Overlay::None; }
     if (Button({VW * 0.5f + 20, VH - 100, 300, 48}, "Return to Title")) ReturnToTitle();
+}
+
+// ============================================================================
+// Opening: the logo on black, fading in and out, before the illustrated intro
+// ============================================================================
+void GameEngine::DrawOpening() {
+    float u = U();
+    float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
+    const float t = opening_t_;
+    // 0.0-0.6 black, 0.6-1.9 fade in, hold until 4.5, 4.5-5.7 fade out, black until the intro (6.2)
+    float a = t < 0.6f ? 0.0f : t < 1.9f ? (t - 0.6f) / 1.3f : t < 4.5f ? 1.0f : t < 5.7f ? 1.0f - (t - 4.5f) / 1.2f : 0.0f;
+    a = a * a * (3.0f - 2.0f * a);  // ease
+    const char* logoPath = "assets/ui/panels/title_logo.png";
+    if (a <= 0.0f) return;
+    if (!res_.Exists(logoPath)) {
+        std::string title = content_.Tr("game.title");
+        Text(title, VW * 0.5f - TextWidth(title, 76) * 0.5f, VH * 0.42f, 76, Color{kGold.r, kGold.g, kGold.b, static_cast<unsigned char>(a * 255)});
+        return;
+    }
+    Texture2D logo = res_.GetTexture(logoPath);
+    static unsigned smoothed = 0;
+    if (smoothed != logo.id) { GenTextureMipmaps(&logo); SetTextureFilter(logo, TEXTURE_FILTER_TRILINEAR); smoothed = logo.id; }
+    float grow = 1.0f + 0.03f * Clamp((t - 0.6f) / 5.1f, 0.0f, 1.0f);  // the slightest push in
+    float lw = std::min(VW * 0.62f, 900.0f) * grow, lh = lw * logo.height / logo.width;
+    Rectangle dst = {(VW * 0.5f - lw * 0.5f) * u, (VH * 0.46f - lh * 0.5f) * u, lw * u, lh * u};
+    float flick = 0.75f + 0.15f * sinf(time_ * 7.3f) + 0.1f * sinf(time_ * 17.1f);
+    Vector2 lamp = {dst.x + dst.width * 0.3415f, dst.y + dst.height * 0.422f};
+    BeginBlendMode(BLEND_ADDITIVE);
+    for (int k = 3; k >= 1; k--)
+        DrawCircleGradient(static_cast<int>(lamp.x), static_cast<int>(lamp.y), dst.height * 0.16f * k * flick,
+                           Color{255, 170, 70, static_cast<unsigned char>(28 * flick * a)}, Color{255, 140, 40, 0});
+    EndBlendMode();
+    DrawTexturePro(logo, {0, 0, static_cast<float>(logo.width), static_cast<float>(logo.height)}, dst, {0, 0}, 0,
+                   Color{255, 255, 255, static_cast<unsigned char>(a * 255)});
 }
 
 // ============================================================================
