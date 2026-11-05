@@ -93,6 +93,7 @@ python tools/import_package.py path/to/package.zip --apply    # import all, upda
 | `spritesheets/here_night_merchant.png` | `assets/sprites/npcs/here_night_merchant_painted.png` | Here Night Merchant |
 | `spritesheets/here_person_in_hat.png` | `assets/sprites/npcs/here_person_in_hat_painted.png` | Here Person In Hat |
 | `spritesheets/here_unsaying.png` | `assets/sprites/enemies/here_unsaying_painted.png` | Here Unsaying |
+| `spritesheets/old_tobble.png` | `assets/sprites/npcs/old_tobble_painted.png` | Old Tobble |
 
 Re-convert one (example; `--match` keeps the in-game size equal to the old generated sheet, `--match-col` picks the
 idle column used for that comparison: 0 for upright figures, 2 for side-on animals):
