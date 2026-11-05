@@ -72,6 +72,15 @@ float GameEngine::U() const {
 Font GameEngine::UiFont() const { return const_cast<ResourceManager&>(res_).GetFont("assets/fonts/uncounted_serif.ttf", 48); }
 Font GameEngine::MonoFont() const { return const_cast<ResourceManager&>(res_).GetFont("assets/fonts/uncounted_mono.ttf", 32); }
 
+void GameEngine::TextFit(const std::string& s, float x, float y, float size, float maxWidth, Color c) const {
+    float sz = size;
+    while (sz > 11 && TextWidth(s, sz) > maxWidth) sz -= 1;
+    std::string t = s;
+    while (t.size() > 1 && TextWidth(t + "...", sz) > maxWidth && TextWidth(t, sz) > maxWidth) t.pop_back();
+    if (t != s) t += "...";
+    Text(t, x, y + (size - sz) * 0.5f, sz, c);
+}
+
 void GameEngine::Text(const std::string& s, float x, float y, float size, Color c) const {
     float u = U();
     DrawTextEx(UiFont(), s.c_str(), {std::round(x * u), std::round(y * u)}, size * u, size * u * 0.04f, c);
@@ -1096,12 +1105,15 @@ void GameEngine::DrawInventory() {
         return;
     }
     Icon(d->icon, {D.x + 20, D.y + 20, 64, 64});
-    Text(content_.Tr(d->name_key), D.x + 100, D.y + 24, 22, kGold);
+    std::string itemName = content_.Tr(d->name_key);
+    float nameSize = 22;
+    while (nameSize > 14 && TextWidth(itemName, nameSize) > D.width - 120) nameSize -= 1;  // long names shrink to fit
+    Text(itemName, D.x + 100, D.y + 24, nameSize, kGold);
     Text(d->category + (d->quest_item ? "  (quest item)" : ""), D.x + 100, D.y + 54, 15, kDim);
-    float y = D.y + 98;
-    y += TextWrapped(content_.Tr(d->description_key), {D.x + 20, y, D.width - 40, 140}, 15, kText) + 10;
-    auto stat = [&](const std::string& s) { Text(s, D.x + 20, y, 16, kAccent); y += 22; };
-    auto statC = [&](const std::string& s, Color c) { Text(s, D.x + 20, y, 16, c); y += 22; };
+    // Collect the stat lines first, then lay out description + stats so everything fits inside the panel.
+    std::vector<std::pair<std::string, Color>> lines;
+    auto stat = [&](const std::string& s) { lines.push_back({s, kAccent}); };
+    auto statC = [&](const std::string& s, Color c) { lines.push_back({s, c}); };
     if (d->weapon.is_weapon) {
         const WeaponStatsDef& wp = d->weapon;
         bool ranged = wp.kind == "ranged";
@@ -1169,6 +1181,23 @@ void GameEngine::DrawInventory() {
         }
     }
     if (!d->slots.empty()) stat("Slot: " + d->slots[0]);
+    {
+        const std::string desc = content_.Tr(d->description_key);
+        const float top = D.y + 98, bottom = D.y + D.height - 108, w = D.width - 40;
+        float descSize = 15, statSize = 16;
+        auto measure = [&]() {
+            float h = TextWrapped(desc, {0, 0, w, 1000}, descSize, kText, false) + 10;
+            for (const auto& [line, c] : lines) h += TextWrapped(line, {0, 0, w, 200}, statSize, c, false) + 4;
+            return h;
+        };
+        while (measure() > bottom - top && (descSize > 11 || statSize > 12)) {  // shrink gently until it all fits
+            if (statSize > 12) statSize -= 1;
+            if (descSize > 11) descSize -= 0.5f;
+        }
+        float y = top;
+        y += TextWrapped(desc, {D.x + 20, y, w, 1000}, descSize, kText) + 10;
+        for (const auto& [line, c] : lines) y += TextWrapped(line, {D.x + 20, y, w, 200}, statSize, c) + 4;  // long lines wrap
+    }
     Text("Value " + std::to_string(d->value) + "   Weight " + Fmt1(d->weight), D.x + 20, D.y + D.height - 100, 15, kDim);
 
     if (show == inv_selected_ && CountItem(show) > 0) {
@@ -1217,7 +1246,7 @@ void GameEngine::DrawBestiary(Rectangle P) {
         bool sel = d->id == bestiary_sel_;
         DrawRectangleRec(s, sel ? Color{60, 48, 32, 230} : hover ? Color{40, 36, 30, 220} : Color{20, 20, 24, 160});
         int k = player_.kills[d->id];
-        Text(content_.Tr(d->name_key), r.x + 10, r.y + 7, 16, kText);
+        TextFit(content_.Tr(d->name_key), r.x + 10, r.y + 7, 16, r.width - 70, kText);
         Text("x" + std::to_string(k), r.x + r.width - 50, r.y + 8, 15, k >= 10 ? kGold : kDim);
         if (hover && UiClick()) bestiary_sel_ = d->id;
         y += rowH;
@@ -1243,7 +1272,7 @@ void GameEngine::DrawBestiary(Rectangle P) {
         Text("(a construct)", pic.x + 24, pic.y + 64, 15, kDim);
     }
     float tx = x + 170;
-    Text(content_.Tr(d->name_key), tx, dy, 24, kGold);
+    TextFit(content_.Tr(d->name_key), tx, dy, 24, P.x + P.width - tx - 24, kGold);
     std::string fam = d->family.empty() ? "creature" : d->family;
     Text(fam + "   -   defeated " + std::to_string(kills) + (kills == 1 ? " time" : " times"), tx, dy + 34, 15, kDim);
     float sy = dy + 64;
@@ -1869,7 +1898,7 @@ void GameEngine::DrawShop() {
         bool hover = CheckCollisionPointRec(GetMousePosition(), s);
         DrawRectangleRec(s, hover && can ? Color{60, 48, 32, 220} : Color{20, 20, 24, 160});
         Icon(d->icon, {r.x + 4, r.y + 1, 32, 32}, stock > 0 ? WHITE : Color{255, 255, 255, 80});
-        Text(content_.Tr(d->name_key), r.x + 44, r.y + 7, 17, stock > 0 ? kText : kDim);
+        TextFit(content_.Tr(d->name_key), r.x + 44, r.y + 7, 17, 290, stock > 0 ? kText : kDim);
         Text("x" + std::to_string(stock), r.x + 340, r.y + 8, 15, kDim);
         Text(std::to_string(price) + "g", r.x + 440, r.y + 7, 17, can ? Color{255, 215, 100, 255} : Color{160, 90, 80, 255});
         if (hover && can && UiClick()) BuyItem(e);
@@ -1889,7 +1918,7 @@ void GameEngine::DrawShop() {
         DrawRectangleRec(s, hover ? Color{60, 48, 32, 220} : Color{20, 20, 24, 160});
         Icon(d->icon, {r.x + 4, r.y + 1, 32, 32});
         int cnt = CountItem(it.id);
-        Text(content_.Tr(d->name_key) + (cnt > 1 ? " (" + std::to_string(cnt) + ")" : "") + (IsEquipped(it.id) ? " [E]" : ""), r.x + 44, r.y + 7, 17, kText);
+        TextFit(content_.Tr(d->name_key) + (cnt > 1 ? " (" + std::to_string(cnt) + ")" : "") + (IsEquipped(it.id) ? " [E]" : ""), r.x + 44, r.y + 7, 17, 385, kText);
         Text(std::to_string(SellPrice(*d)) + "g", r.x + 440, r.y + 7, 17, Color{255, 215, 100, 255});
         if (hover && UiClick()) { SellItem(it.id); break; }
         y += 38;
@@ -1935,8 +1964,8 @@ void GameEngine::DrawCrafting() {
         Icon(d->icon, {row.x + 4, row.y + 3, 32, 32});
         if (!known) DrawRectangleRec({(row.x + 4) * u, (row.y + 3) * u, 32 * u, 32 * u}, Color{10, 10, 14, 170});
         bool can = CanCraft(*r);
-        Text(known ? content_.Tr(d->name_key) + (r->qty > 1 ? "  x" + std::to_string(r->qty) : "") : "Unknown recipe", row.x + 44, row.y + 9, 17,
-             can ? kText : kDim);
+        TextFit(known ? content_.Tr(d->name_key) + (r->qty > 1 ? "  x" + std::to_string(r->qty) : "") : "Unknown recipe", row.x + 44, row.y + 9, 17,
+                row.width - 110, can ? kText : kDim);
         if (can) Text("ready", row.x + row.width - 54, row.y + 11, 14, Color{150, 230, 140, 255});
         else if (!known) Text("book", row.x + row.width - 50, row.y + 11, 14, Color{200, 170, 120, 255});
         if (hover && UiClick()) craft_selected_ = r->id;
@@ -1958,7 +1987,7 @@ void GameEngine::DrawCrafting() {
         const ItemDef* d = content_.GetItem(cur->result);
         float x = P.x + 490, dy = P.y + 64;
         Icon(d->icon, {x, dy, 64, 64});
-        Text(content_.Tr(d->name_key), x + 76, dy + 6, 22, kGold);
+        TextFit(content_.Tr(d->name_key), x + 76, dy + 6, 22, P.x + P.width - (x + 76) - 24, kGold);
         TextWrapped(content_.Tr(d->description_key), {x + 76, dy + 36, 440, 70}, 14, kText);
         dy += 120;
         Text("Ingredients", x, dy, 18, kGold);

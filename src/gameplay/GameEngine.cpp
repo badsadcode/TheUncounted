@@ -337,6 +337,13 @@ bool GameEngine::Init(int argc, char** argv) {
             Say(content_.Tr("npc.innkeeper_marta.name"), content_.Tr("bark.marta.2"), 30.0f);
         }
         if (boot_shot_overlay_ == "inventory") overlay_ = Overlay::Inventory;
+        if (boot_shot_overlay_.rfind("inventory:", 0) == 0) {  // inventory:<item id> — that item selected in the detail panel
+            std::string id = boot_shot_overlay_.substr(10);
+            AddItem(id, 1, false);
+            inv_selected_ = id;
+            overlay_ = Overlay::Inventory;
+            ui_ignore_hover_ = true;  // show the selected item, not whatever the mouse happens to be over
+        }
         else if (boot_shot_overlay_ == "character") overlay_ = Overlay::Character;
         else if (boot_shot_overlay_ == "combat") {
             // Combat sheet with a crit build: letter-opener, Sabrino's hat and a couple of extra spells

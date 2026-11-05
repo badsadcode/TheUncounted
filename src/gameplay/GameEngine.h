@@ -531,6 +531,8 @@ private:
     Font UiFont() const;
     Font MonoFont() const;
     void Text(const std::string& s, float x, float y, float size, Color c) const;
+    // Text that shrinks (down to 11 px) and then trims with an ellipsis so it never runs past maxWidth.
+    void TextFit(const std::string& s, float x, float y, float size, float maxWidth, Color c) const;
     float TextWidth(const std::string& s, float size) const;
     float TextWrapped(const std::string& s, Rectangle r, float size, Color c, bool draw = true) const;
     bool Button(Rectangle r, const std::string& label, bool enabled = true, float size = 22.0f);
