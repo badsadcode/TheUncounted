@@ -14,9 +14,9 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-L = json.load(open(os.path.join(ROOT, "content/localization/en.json")))["strings"]
-NPCS = {n["id"]: n for n in json.load(open(os.path.join(ROOT, "content/npcs/core_npcs.json")))["npcs"]}
-DLG = {d["id"]: d for d in json.load(open(os.path.join(ROOT, "content/dialogue/chapter_zero_dialogue.json")))["dialogues"]}
+L = json.load(open(os.path.join(ROOT, "content/localization/en.json"), encoding="utf-8"))["strings"]
+NPCS = {n["id"]: n for n in json.load(open(os.path.join(ROOT, "content/npcs/core_npcs.json"), encoding="utf-8"))["npcs"]}
+DLG = {d["id"]: d for d in json.load(open(os.path.join(ROOT, "content/dialogue/chapter_zero_dialogue.json"), encoding="utf-8"))["dialogues"]}
 
 
 def name_of(npc_id):
@@ -134,7 +134,7 @@ def main():
                 total += int(mine)
     name = (args.name or args.npcs[0]).upper()
     path = os.path.join(ROOT, "docs", f"VOICE_SCRIPT_{name}.md")
-    open(path, "w").write("\n".join(out) + "\n")
+    open(path, "w", encoding="utf-8").write("\n".join(out) + "\n")
     print(f"Wrote docs/VOICE_SCRIPT_{name}.md: {total} lines to record")
 
 
