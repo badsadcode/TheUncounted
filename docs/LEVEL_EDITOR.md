@@ -141,6 +141,10 @@ like `wall_stone_edit1.glb`), keeping where it stands, how it's turned and how b
 
 ## Rebuilding the world in your own style
 
+**What's where, and what must survive:** `docs/MAP_CHECKLIST.md` lists every area's people, story objects (keep),
+monsters and arrival points, plus a guide to adding new monster areas and dungeons. Rerun
+`python3 tools/write_map_checklist.py` after a rebuild to refresh it.
+
 You can delete the game's ground, walls, buildings and stairs (in **Uncounted World**) and build your own. Things to know:
 
 - **Names don't matter.** Call your meshes anything. Only two rules: a name starting with **COL** makes an invisible
