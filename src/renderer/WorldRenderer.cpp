@@ -174,6 +174,38 @@ void WorldRenderer::ApplyEnvironment(Shader s, const ShaderLocs& l, const Render
     SetEmissive(s, l, 0.0f);
 }
 
+void WorldRenderer::PrepareCulling(const RenderView& view, float fogDensity) {
+    cull_eye_ = view.camera.position;
+    // The shader's fog is exp(-(distance * density)^1.65): past density-scaled 2.9 less than 0.3% of an object shows.
+    cull_fog_range_ = fogDensity > 0.0001f ? 2.9f / fogDensity : 0.0f;
+    // Six planes of the view volume, read from the view-projection matrix (Gribb & Hartmann).
+    Matrix c = MatrixMultiply(rlGetMatrixModelview(), rlGetMatrixProjection());
+    const float rows[4][4] = {{c.m0, c.m4, c.m8, c.m12}, {c.m1, c.m5, c.m9, c.m13}, {c.m2, c.m6, c.m10, c.m14}, {c.m3, c.m7, c.m11, c.m15}};
+    for (int p = 0; p < 6; p++) {
+        const float sign = (p % 2 == 0) ? 1.0f : -1.0f;
+        for (int k = 0; k < 4; k++) frustum_[p][k] = rows[3][k] + sign * rows[p / 2][k];
+    }
+    objects_drawn_ = objects_total_ = 0;
+}
+
+bool WorldRenderer::ObjectVisible(const BoundingBox& box, float margin) const {
+    if (!culling_) return true;
+    const Vector3 mn = {box.min.x - margin, box.min.y - margin, box.min.z - margin};
+    const Vector3 mx = {box.max.x + margin, box.max.y + margin, box.max.z + margin};
+    for (const auto& f : frustum_) {
+        const float x = f[0] >= 0 ? mx.x : mn.x, y = f[1] >= 0 ? mx.y : mn.y, z = f[2] >= 0 ? mx.z : mn.z;
+        if (f[0] * x + f[1] * y + f[2] * z + f[3] < 0.0f) return false;
+    }
+    // Lost in the fog? Tall landmarks stay, since their silhouette can still stand against the sky.
+    if (cull_fog_range_ > 0.0f && box.max.y - box.min.y < 12.0f) {
+        const float dx = std::max(std::max(mn.x - cull_eye_.x, 0.0f), cull_eye_.x - mx.x);
+        const float dy = std::max(std::max(mn.y - cull_eye_.y, 0.0f), cull_eye_.y - mx.y);
+        const float dz = std::max(std::max(mn.z - cull_eye_.z, 0.0f), cull_eye_.z - mx.z);
+        if (dx * dx + dy * dy + dz * dz > cull_fog_range_ * cull_fog_range_) return false;
+    }
+    return true;
+}
+
 void WorldRenderer::DrawModelAt(const std::string& path, const Matrix& m, Vector2 uv, Color tint) {
     Model& model = res_->GetModel(path);
     if (wl_.uv_scale >= 0) SetShaderValue(world_shader_, wl_.uv_scale, &uv, SHADER_UNIFORM_VEC2);
@@ -345,8 +377,16 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
 
     ApplyEnvironment(world_shader_, wl_, view, map, true);
 
-    // --- Static architecture & props
-    for (const auto& p : scene.props) if (!p.invisible) DrawModelAt(p.model_path, p.transform, p.uv_scale);
+    PrepareCulling(view, (map && gfx_->fog_enabled) ? view.atmo.fog_density : 0.0f);
+
+    // --- Static architecture & props (a small margin covers trees swaying in the shader)
+    for (const auto& p : scene.props) {
+        if (p.invisible) continue;
+        objects_total_++;
+        if (!ObjectVisible(p.world_box, 0.75f)) continue;
+        DrawModelAt(p.model_path, p.transform, p.uv_scale);
+        objects_drawn_++;
+    }
 
     // --- Interactables
     Vector2 one = {1, 1};
@@ -354,6 +394,9 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
         if (in.def.model.empty()) continue;
         if (in.def.type == "harvest" && in.used) continue;  // picked; it'll grow back
         if (in.hidden) continue;
+        objects_total_++;
+        if (!ObjectVisible(in.world_box, 3.0f)) continue;  // a generous margin: doors swing and gates lift out of their box
+        objects_drawn_++;
         Matrix m = in.base_transform;
         const std::string& t = in.def.type;
         BoundingBox lb = res_->GetModelBounds(in.def.model);
@@ -594,6 +637,14 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
         // Streaks recycle through a box around the camera; drops under a roof are skipped.
         Vector3 c = view.camera.position;
         Color rc = {150, 165, 200, 110};
+        // Only nearby roofs can shelter these drops, so gather them once rather than per drop.
+        std::vector<BoundingBox> roofs;
+        for (const auto& p : scene.props) {
+            const BoundingBox& b = p.world_box;
+            if (!p.walkable || b.min.y < 2.0f) continue;
+            if (b.max.x < c.x - 16.0f || b.min.x > c.x + 16.0f || b.max.z < c.z - 16.0f || b.min.z > c.z + 16.0f) continue;
+            roofs.push_back(b);
+        }
         for (int i = 0; i < 520; i++) {
             float h1 = fabsf(fmodf(sinf(i * 12.9898f) * 43758.5453f, 1.0f));
             float h2 = fabsf(fmodf(sinf(i * 78.233f) * 12345.678f, 1.0f));
@@ -603,9 +654,7 @@ void WorldRenderer::Render(const Scene& scene, const RenderView& view, const Map
             float z = c.z - span + fmodf(h2 * span * 2 - c.z + span * 64, span * 2.0f);
             float y = c.y - 2.0f + fmodf(h3 * 9.0f - view.time * 11.0f + 900.0f, 9.0f);
             bool covered = false;
-            for (const auto& p : scene.props) {
-                const BoundingBox& b = p.world_box;
-                if (!p.walkable || b.min.y < 2.0f) continue;
+            for (const auto& b : roofs) {
                 if (x > b.min.x && x < b.max.x && z > b.min.z && z < b.max.z && y < b.min.y) { covered = true; break; }
             }
             if (covered || y < 0.0f) continue;

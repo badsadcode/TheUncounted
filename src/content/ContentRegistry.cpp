@@ -109,6 +109,7 @@ bool ContentRegistry::LoadConfigs(const std::string& rootDir) {
         game_cfg.intro_music = j.value("intro_music", std::string());
         game_cfg.intro_music_level = std::clamp(j.value("intro_music_level", 0.4f), 0.0f, 1.0f);
         game_cfg.text_scale = std::clamp(j.value("text_scale", 1.0f), 1.0f, 1.5f);
+        game_cfg.autosave_minutes = std::clamp(j.value("autosave_minutes", 5.0f), 0.0f, 60.0f);
         game_cfg.day_length_minutes = std::clamp(j.value("day_length_minutes", 48.0f), 0.0f, 600.0f);
         game_cfg.enable_mods = j.value("enable_mods", false);
         game_cfg.starting_map = j.value("starting_map", "core:map.edrath");
@@ -171,6 +172,7 @@ bool ContentRegistry::SaveConfigs(const std::string& rootDir) const {
         j["intro_music"] = game_cfg.intro_music;
         j["intro_music_level"] = game_cfg.intro_music_level;
         j["text_scale"] = game_cfg.text_scale;
+        j["autosave_minutes"] = game_cfg.autosave_minutes;
         j["day_length_minutes"] = game_cfg.day_length_minutes;
         j["enable_mods"] = game_cfg.enable_mods;
         j["starting_map"] = game_cfg.starting_map;
@@ -799,6 +801,7 @@ void ContentRegistry::LoadNpcsFile(const std::string& rootDir, const std::string
         d.title_key = el.value("title_key", "");
         d.faction = el.value("faction", "");
         d.dialogue_id = el.value("dialogue_id", "");
+        d.portrait = el.value("portrait", "");
         if (el.contains("appearance")) {
             const auto& ap = el["appearance"];
             d.appearance.type = ap.value("type", "sprite_8dir");

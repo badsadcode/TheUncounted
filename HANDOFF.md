@@ -107,6 +107,9 @@ Original expectations (kept for reference):
   `--mute` for any other automated launch. Don't remove that guard.
 - Saves from before the seamless world fall back to the world start (pre-release, acceptable).
 
+- **Performance:** `WorldRenderer::ObjectVisible` culls by view and fog range; new code that draws many objects should use it. Collision goes through `solid_grid_` / `walkable_grid_`, rebuilt by `RebuildColliders`; `solids_` and `walkables_` stay the source of truth. The self-test compares the grid against a full scan. Measure with `--bench N`.
+- **Test runs and saves:** `--selftest`, `--balance` and `--shot` read and write `saves_test/` (wiped at launch), never `saves/`; the self-test deletes saves freely, and this keeps the player's safe.
+
 ## 7. Story at handoff
 
 - Main: *Legally Deceased* (stages 0/10/20/30, endings 100 Bureau / 101 Ashbound).

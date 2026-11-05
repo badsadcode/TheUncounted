@@ -1,0 +1,118 @@
+THE UNCOUNTED: houses and points of interest, for concept art
+
+Overall feel: a dark fantasy borderland, with bureaucratic absurdity on top of
+real grief. Timber-framed villages, old stone, fog and lantern light. It has
+rained on Bellwether for seventeen years. Names have power here, so erased,
+chewed-out and scratched-off lettering is a recurring motif.
+
+
+BELLWETHER VILLAGE (the walled home village; rain, cobbles, lantern light)
+ 1. Records Office: the Royal Bureau of Records' local office. Ledgers, shelves,
+    a clerk's desk, a stamp that decides whether you exist.
+ 2. The Lantern Inn: warm hearth, stew, a window seat facing the door, and the
+    table where the Thursday game is played.
+ 3. Vaelen's Provisions: a quartermaster's shop and market stall, crates, a
+    workbench.
+ 4. Dawn Chapel: Church of the Last Dawn, a golden altar, and a horse standing
+    on the roof ridge that nobody can explain.
+ 5. Municipal Library: Fenwick's domain, tall shelves, and a history aisle that
+    is "closed for reshelving". (Shares a building with the chapel at present.)
+ 6. The Village Square: the well where Old Tobble tells tales, the census board
+    with one name scraped off, big enough for a sleeping dragon.
+ 7. The Town Walls and East Gate: mossy stone, torches, an archway to the road.
+
+
+THE OLD ROAD (a misty forest road leading east)
+ 8. Boundary Stone of Oakhallow: a tall monolith with a town's name on it, and
+    no town. Only forest, where 412 people used to live.
+ 9. The Mid-Road Arch: a lone stone arch standing over the road.
+10. Kaelen's Camp: a scout's camp with a field journal, lit by a lantern.
+11. The Figure It Out Wagon: a flower-painted mystery-solving wagon and its camp.
+12. The Toll That Isn't: a hand-painted "HEDLESS KNIGHT" sign beside the road.
+13. The Annex Arch: a ruined archway and torch-lit pillars at the cliff, with
+    stairs going down.
+14. The Dusk Milestone: a marker on a road that is only there after dusk.
+
+
+REGISTRY ANNEX & FORGOTTEN CRYPT (underground, beneath the road)
+15. The Foyer: a sunken government office, with a desk still waiting for the
+    public.
+16. The Archive Hall: pillars, bookshelves and an iron wall-lever; ledgers that
+    outlasted the people in them.
+17. The Royal Vault: sealed behind a gate that opens with a rune plate.
+18. The Forgotten Crypt: older stone than the building above it, a sarcophagus,
+    and a pale blue glow.
+19. The Sanctum of the Uncounted: rune-lit monoliths around the lectern that
+    holds the Uncounted Ledger.
+
+
+VAULT III (deeper still)
+20. The Nursery: a pillared hall of small sarcophagi under clouded glass, with
+    forty sleeping children and blue ghost-flames. Quiet and tender, not scary.
+21. The Seal Chamber: a very tall chamber, an altar, tall glowing monoliths, and
+    the Seal of Names.
+
+
+HOLLOWMERE (a haunted manor, played for laughs)
+22. The Lawn of Ill-Advised Choices: a graveyard of adventuring-party mistakes,
+    with a cheerful sign.
+23. The Grounds and Rolf's Garden: a long drive, a gate, vegetable beds.
+24. Hollowmere Manor, exterior: a grand, two-storey country house.
+25. The Foyer: a grand staircase and a suspicious figure in the hall.
+26. The Dining Room: table settings for guests who are long gone.
+27. The Library: towering shelves, and a "Most Borrowed" bestseller stand.
+28. The Kitchen: the back door that is always open.
+29. The Ballroom: a stage, a gramophone, a cold patch on the floor.
+30. The Portrait Gallery: a row of family portraits that look back.
+31. The Master Bedroom, the Locked Study, the Sealed Room: decanters, an open
+    journal, a spirit trumpet and a secret lever.
+
+
+SALTMERE DOCKS (a fog-bound harbour with something enormous underneath)
+32. The Quay and Piers: wooden piers, boats, shallow water you can wade through,
+    and giant tentacles out in the fog.
+33. The Drowned Lantern: a dockside tavern. "Patrons are reminded not to say
+    their names on the premises." Mother Brine's pot, Pickering's back room.
+34. The Harbourmaster's Post: a small lookout covered in nervous notices.
+35. Gale & Sons' Warehouse: crates, shipping ledgers and a gated cellar stair.
+36. The Sunken Chapel: a flooded, wrong-feeling place beneath the warehouse, with
+    tide bells and hymns carved in the wet stone.
+
+
+THE WHISTLING WOOD (a pine forest to the west)
+37. The Old Oak: one huge ancient tree with a whistling knot-hole.
+38. Grandmother's Cottage: ruined, with a note on the bed. Wolves may be involved.
+39. Steve's Camp: a tent and a campfire.
+40. Coth's Camp: a tiny fire, Sir Pebbleton the painted stone on his log, and 72
+    tally marks cut into a pine.
+41. The Pond: a quiet fishing spot, and the walled lane back to the village.
+
+
+REACHED BY BOAT
+42. The Sleeper's Reef and the Saltmere Light: a drowned lighthouse on an island
+    past the fog, with a keeper who never leaves, sleeping tentacles, and bottles
+    holding names.
+43. The Late Cindermaw: a kobold lawyer's cliffside mansion, bought with a
+    dragon's pension. A jetty and a cove, 2,104 gold's worth of cushions and no
+    chairs, a shoe room of tiny shoes, and a vault.
+
+
+HERE: THE CITY FORMERLY KNOWN AS (a forgotten city; open dusk to dawn)
+44. The City Gate and Customs Booth: gate towers, a fog bank and a desk where
+    nobody has come in for a very long time.
+45. The Dry Fountain: "WELCOME TO" and then a gouge, as if something bit the name
+    out of the stone.
+46. The Streets and Houses: 41 houses and 47 hearths. Seen from above, the streets
+    spell something.
+47. The Ruined Bakery: the building with three hearths.
+48. The Midnight Market: open midnight until two. Sells lost umbrellas and one
+    Tuesday. Names are not for sale.
+49. The Cartographer's House: maps of a place nobody can name.
+50. The Bell Tower: a tall tower with a parapet looking out over the moonlit city.
+51. The Archive of Here: a brass plaque chewed like a pencil end, and the plinth
+    where the name is kept.
+
+
+THE AUDIT CHAMBER (a Bureau challenge arena)
+52. A grand, intimidating hall of banners, pillars and a raised dais, where
+    existence is examined in ten stages.

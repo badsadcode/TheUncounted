@@ -93,6 +93,120 @@ int GameEngine::RunSelfTest() {
     const std::string side = "core:quest.bakers_daughter";
     check(current_map_ == content_.game_cfg.starting_map, "new game starts in the world map");
     check(zone_id_ == "bellwether", "player starts in the Bellwether zone");
+    {   // The collision grid is only an index: every answer must match scanning all the boxes.
+        const float kStep = 0.45f;
+        SetRandomSeed(11);
+        auto rnd = [](int lo, int hi) { return static_cast<float>(GetRandomValue(lo * 10, hi * 10)) / 10.0f; };
+        int groundBad = 0, sightBad = 0, segBad = 0, moveBad = 0;
+        std::vector<CreatureInstance> keptCreatures;
+        std::vector<NpcInstance> keptNpcs;
+        keptCreatures.swap(scene_.creatures);   // actors push each other; here only the world's boxes should matter
+        keptNpcs.swap(scene_.npcs);
+        for (int i = 0; i < 6000; i++) {
+            const Vector3 a = {rnd(-140, 180), rnd(-18, 6), rnd(-180, 240)};
+            const Vector3 b = {a.x + rnd(-25, 25), a.y + rnd(-4, 4), a.z + rnd(-25, 25)};
+
+            float best = -1000.0f;
+            auto consider = [&](const BoundingBox& box) {
+                if (a.x < box.min.x || a.x > box.max.x || a.z < box.min.z || a.z > box.max.z) return;
+                if (box.max.y <= a.y + kStep && box.max.y > best) best = box.max.y;
+            };
+            for (const auto& box : walkables_) consider(box);
+            for (const auto& box : solids_) consider(box);
+            for (const auto& r : ramps_) {
+                if (a.x >= r.first.min.x && a.x <= r.first.max.x && a.z >= r.first.min.z && a.z <= r.first.max.z) { best = -2000.0f; break; }
+            }
+            if (best > -2000.0f && fabsf(GroundHeight(a, kStep) - (best < -999.0f ? 0.0f : best)) > 1e-4f) groundBad++;
+
+            const Vector3 d = Vector3Subtract(b, a);
+            const float len = Vector3Length(d);
+            if (len > 1e-3f) {
+                const Ray ray = {a, Vector3Scale(d, 1.0f / len)};
+                bool clear = true;
+                const float lowY = std::min(a.y, b.y);
+                float tBest = len;
+                bool anyHit = false;
+                for (const auto& box : solids_) {
+                    RayCollision rc = GetRayCollisionBox(ray, box);
+                    if (box.max.y >= lowY && rc.hit && rc.distance > 0.0f && rc.distance < len - 0.05f) clear = false;
+                    if (rc.hit && rc.distance >= 0.0f && rc.distance < tBest) { tBest = rc.distance; anyHit = true; }
+                }
+                for (const auto& box : walkables_) {
+                    RayCollision rc = GetRayCollisionBox(ray, box);
+                    if (rc.hit && rc.distance >= 0.0f && rc.distance < tBest) { tBest = rc.distance; anyHit = true; }
+                }
+                if (LineOfSight(a, b) != clear) sightBad++;
+                float t = 2.0f;
+                Vector3 n{};
+                const bool gridHit = SegmentHitsWorld(a, b, t, n);
+                if (gridHit != anyHit || (anyHit && fabsf(t * len - tBest) > 1e-3f)) segBad++;
+            }
+
+            // The same walk through the grid and through every box.
+            Vector3 p = a;
+            const Vector3 delta = {rnd(-1, 1), 0.0f, rnd(-1, 1)};
+            const float radius = 0.32f, height = 1.75f;
+            const int steps = std::max(1, static_cast<int>(std::ceil(Vector3Length(delta) / 0.15f)));
+            for (int s = 0; s < steps; s++) {
+                p.x += delta.x / steps;
+                p.z += delta.z / steps;
+                for (int iter = 0; iter < 3; iter++) {
+                    for (const auto& box : solids_) {
+                        if (box.max.y <= p.y + kStep || box.min.y >= p.y + height) continue;
+                        const float minX = box.min.x - radius, maxX = box.max.x + radius, minZ = box.min.z - radius, maxZ = box.max.z + radius;
+                        if (p.x <= minX || p.x >= maxX || p.z <= minZ || p.z >= maxZ) continue;
+                        const float pl = p.x - minX, pr = maxX - p.x, pb = p.z - minZ, pf = maxZ - p.z;
+                        const float m = std::min(std::min(pl, pr), std::min(pb, pf));
+                        if (m == pl) p.x = minX;
+                        else if (m == pr) p.x = maxX;
+                        else if (m == pb) p.z = minZ;
+                        else p.z = maxZ;
+                    }
+                }
+            }
+            player_.pos = {1e6f, 0.0f, 1e6f};
+            const Vector3 g = MoveWithCollision(a, delta, radius, height, true);
+            if (fabsf(g.x - p.x) > 1e-4f || fabsf(g.z - p.z) > 1e-4f) moveBad++;
+        }
+        keptCreatures.swap(scene_.creatures);
+        keptNpcs.swap(scene_.npcs);
+        check(groundBad == 0, "collision grid: ground height matches a full scan (" + std::to_string(groundBad) + " differ)");
+        check(sightBad == 0, "collision grid: line of sight matches a full scan (" + std::to_string(sightBad) + " differ)");
+        check(segBad == 0, "collision grid: projectile hits match a full scan (" + std::to_string(segBad) + " differ)");
+        check(moveBad == 0, "collision grid: walking into walls matches a full scan (" + std::to_string(moveBad) + " differ)");
+        LoadMap(current_map_, "village_gate");
+        SetOverlay(Overlay::None);
+    }
+    {   // Autosaves: on a timer, deferred while enemies are hunting the player, and on entering a new area.
+        std::error_code aec;
+        std::filesystem::remove(SavePath("autosave"), aec);
+        player_.on_ground = true;
+        UpdateAutosave(content_.game_cfg.autosave_minutes * 60.0f + 1.0f);
+        check(SaveExists("autosave"), "the timer autosaves during quiet play");
+        std::filesystem::remove(SavePath("autosave"), aec);
+        CreatureInstance hunter;
+        hunter.instance_id = "selftest_hunter";
+        hunter.alerted = true;
+        hunter.state = CreatureState::Chase;
+        hunter.pos = player_.pos;
+        scene_.creatures.push_back(hunter);
+        autosave_area_pending_ = true;
+        UpdateAutosave(1.0f);
+        check(!SaveExists("autosave"), "no autosave while an enemy is hunting you");
+        scene_.creatures.pop_back();
+        UpdateAutosave(1.0f);
+        check(SaveExists("autosave"), "the postponed autosave happens once it's safe");
+        std::filesystem::remove(SavePath("autosave"), aec);
+        Vector3 home = player_.pos;
+        player_.pos = {30.0f, 0.0f, 0.0f};
+        UpdateAtmosphere(0.0f, true);
+        check(autosave_area_pending_, "entering a new area asks for an autosave");
+        player_.pos = home;
+        UpdateAtmosphere(0.0f, true);
+        autosave_area_pending_ = false;
+        AutosaveOnQuit();
+        check(SaveExists("autosave"), "quitting autosaves");
+    }
     {
         Vector3 mk;
         std::string qt;
@@ -133,6 +247,10 @@ int GameEngine::RunSelfTest() {
     check(chooseNext("explain_27b"), "clerk offers the death-notice topic");
     check(QuestStage(quest) == 10, "quest advanced to 10");
     check(CountItem("core:item.annex_key") == 1, "received annex key");
+    check(!acquired_queue_.empty() && acquired_queue_.back().id == "core:item.annex_key", "an NPC's gift queues the 'You acquired' popup");
+    while (!acquired_queue_.empty()) { overlay_ = Overlay::None; UpdateAcquired(1.0f); }
+    overlay_ = Overlay::Dialogue;
+    check(acquired_time_ == 0.0f, "the 'You acquired' popup finishes and clears");
     int xpMark = player_.xp + player_.level * 100000;
     EndDialogue();
     StartDialogue(clerk);

@@ -1,6 +1,7 @@
 // `game.exe --balance`: headless duels between every starting archetype and every creature, using the real
 // combat, AI and projectile code with a simple scripted player. Prints a table used for tuning.
 #include "gameplay/GameEngine.h"
+#include "renderer/WorldRenderer.h"
 #include "core/Logger.h"
 #include "raymath.h"
 #include <cmath>
@@ -11,6 +12,79 @@
 #include <map>
 
 namespace uncounted {
+
+void GameEngine::RunBenchmark() {
+    // Stress test: scatter extra solid objects across the world, then time real frames from a busy spot.
+    const std::string model = "assets/models/props/wooden_crate.glb";
+    const BoundingBox lb = res_.GetModelBounds(model);
+    const int base = static_cast<int>(scene_.props.size());
+    SetRandomSeed(7);
+    for (int i = 0; i < bench_props_; i++) {
+        PropInstance p;
+        p.id = "bench_" + std::to_string(i);
+        p.model_path = model;
+        const Vector3 pos = {static_cast<float>(GetRandomValue(-70, 160)), 0.0f, static_cast<float>(GetRandomValue(-90, 70))};
+        p.transform = AnchoredTransform(lb, pos, static_cast<float>(GetRandomValue(0, 359)), {1, 1, 1});
+        p.world_box = p.collider = TransformBox(lb, p.transform);
+        p.solid = true;
+        scene_.props.push_back(p);
+    }
+    RebuildColliders();
+    overlay_ = Overlay::None;
+    player_.pos = {12.0f, 0.0f, 0.0f};
+    player_.yaw = 90.0f * DEG2RAD;
+
+    auto measure = [&](bool culling) {
+        renderer_.SetCulling(culling);
+        double busy = 0.0, worst = 0.0;
+        const int warm = 60, frames = 400;
+        for (int i = 0; i < warm + frames && !WindowShouldClose(); i++) {
+            player_.health = static_cast<float>(MaxHealth());
+            player_.yaw += 0.01f;   // turn on the spot, so the view keeps changing
+            const double t0 = GetTime();
+            Frame(1.0f / 60.0f);
+            DrawFrame();
+            const double dt = GetTime() - t0;
+            if (i >= warm) { busy += dt; worst = std::max(worst, dt); }
+        }
+        char line[200];
+        snprintf(line, sizeof(line), "[BENCH] culling %-3s: %6.2f ms average, %6.2f ms worst, about %4.0f FPS, last frame drew %d of %d objects",
+                 culling ? "on" : "off", busy / frames * 1000.0, worst * 1000.0, frames / std::max(busy, 1e-6), renderer_.DrawnObjects(), renderer_.TotalObjects());
+        Logger::Info(line);
+    };
+    Logger::Info("[BENCH] " + std::to_string(base) + " objects in the world plus " + std::to_string(bench_props_) + " extra");
+    measure(false);
+    measure(true);
+
+    // Collision: the same questions through the grid and through every box in the list.
+    const int queries = 20000;
+    std::vector<Vector3> from(queries), to(queries);
+    for (int i = 0; i < queries; i++) {
+        from[i] = {static_cast<float>(GetRandomValue(-70, 160)), 1.5f, static_cast<float>(GetRandomValue(-90, 70))};
+        to[i] = {from[i].x + GetRandomValue(-15, 15), 1.5f, from[i].z + GetRandomValue(-15, 15)};
+    }
+    double t0 = GetTime();
+    int seen = 0;
+    for (int i = 0; i < queries; i++) seen += LineOfSight(from[i], to[i]) ? 1 : 0;
+    const double grid = GetTime() - t0;
+    t0 = GetTime();
+    for (int i = 0; i < queries; i++) {
+        const Vector3 d = Vector3Subtract(to[i], from[i]);
+        const float len = Vector3Length(d);
+        if (len < 1e-4f) continue;
+        const Ray ray = {from[i], Vector3Scale(d, 1.0f / len)};
+        for (const auto& box : solids_) {
+            if (box.max.y < 1.5f) continue;
+            RayCollision rc = GetRayCollisionBox(ray, box);
+            if (rc.hit && rc.distance > 0.0f && rc.distance < len - 0.05f) break;
+        }
+    }
+    const double scan = GetTime() - t0;
+    char line[160];
+    snprintf(line, sizeof(line), "[BENCH] line of sight, %d checks against %d boxes: %.1f ms with the grid, %.1f ms scanning (%d clear)",
+             queries, static_cast<int>(solids_.size()), grid * 1000.0, scan * 1000.0, seen);
+    Logger::Info(line);
+}
 
 void GameEngine::RunBalanceReport() {
     if (audit_balance_) { RunAuditBalance(); return; }

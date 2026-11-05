@@ -9,6 +9,7 @@ build/
 # Runtime output
 uncounted.log
 saves/
+saves_test/
 
 # Tooling
 __pycache__/

@@ -3,6 +3,7 @@
 #include "content/ContentRegistry.h"
 #include "renderer/WorldRenderer.h"
 #include "resource/ResourceManager.h"
+#include "world/CollisionGrid.h"
 #include "world/Scene.h"
 #include <array>
 #include <map>
@@ -222,6 +223,28 @@ private:
     float dlg_text_scroll_ = 0.0f, dlg_choice_scroll_ = 0.0f;
     int dlg_sel_ = -1;
     std::string dlg_scroll_page_;
+    bool no_cull_ = false;   // --no-cull: draw everything, to compare against culling
+    int bench_props_ = -1;   // --bench N: add N extra objects, then measure frame times with culling off and on
+public:
+    bool BenchRequested() const { return bench_props_ >= 0; }
+    void RunBenchmark();
+private:
+    // Autosaves: the seamless world has no loading screens to save at, so save on a timer, on entering an area and on quitting.
+    float autosave_timer_ = 0.0f;
+    bool autosave_area_pending_ = false;
+    bool SafeToAutosave() const;
+    void UpdateAutosave(float dt);
+    void AutosaveOnQuit();
+    // "You acquired": items handed over by NPCs, shown one at a time in the middle of the screen.
+    std::deque<InvItem> acquired_queue_;
+    float acquired_time_ = 0.0f;
+    bool AcquiredVisible() const;
+    void UpdateAcquired(float dt);
+    void DrawAcquired();
+    std::unordered_map<std::string, Rectangle> portrait_crops_;   // sprite sheet -> the face in its front idle frame
+    Rectangle PortraitCrop(const AppearanceDef& a);
+    void DrawNpcPortrait(const NpcDef& npc, Rectangle box);
+    std::string save_dir_ = "saves";   // automated runs use their own folder, so they can't touch the player's saves
     int inv_filter_ = 0;
     int char_tab_ = 0;
     std::string journal_selected_;
@@ -363,6 +386,7 @@ private:
     // ---- collision & queries
     std::vector<BoundingBox> solids_;
     std::vector<BoundingBox> walkables_;
+    CollisionGrid solid_grid_, walkable_grid_;   // nearby-box lookups over the two lists
     std::vector<std::pair<BoundingBox, int>> ramps_;
     void RebuildColliders();
     float GroundHeight(Vector3 pos, float stepHeight) const;

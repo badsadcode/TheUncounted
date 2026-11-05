@@ -69,6 +69,9 @@ public:
     void BlitToScreen();
 
     Shader WorldShader() const { return world_shader_; }
+    void SetCulling(bool on) { culling_ = on; }
+    int DrawnObjects() const { return objects_drawn_; }
+    int TotalObjects() const { return objects_total_; }
     int InternalWidth() const { return target_.texture.width; }
     int InternalHeight() const { return target_.texture.height; }
 
@@ -85,6 +88,13 @@ private:
     RenderTexture2D target_{};
     RenderTexture2D vm_target_{};
     int target_w_ = 0;
+    bool culling_ = true;
+    int objects_drawn_ = 0, objects_total_ = 0;
+    float frustum_[6][4] = {};
+    Vector3 cull_eye_{};
+    float cull_fog_range_ = 0.0f;   // beyond this the fog has fully hidden an object; 0 = no fog limit
+    void PrepareCulling(const RenderView& view, float fogDensity);
+    bool ObjectVisible(const BoundingBox& box, float margin) const;
     int target_h_ = 0;
 
     struct ShaderLocs {

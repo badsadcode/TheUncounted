@@ -287,6 +287,7 @@ void GameEngine::DrawFrame() {
     }
 
     if (!clean_shot_) DrawToasts();
+    if (!clean_shot_) DrawAcquired();
     if (debug_overlay_) DrawDebug();
     EndDrawing();
 }
@@ -1014,6 +1015,8 @@ void GameEngine::DrawOptions() {
     }
     row("Dialogue text size", pct(gc.text_scale), [&] { gc.text_scale = std::max(1.0f, gc.text_scale - 0.1f); },
         [&] { gc.text_scale = std::min(1.5f, gc.text_scale + 0.1f); });
+    row("Autosave every", gc.autosave_minutes > 0.0f ? std::to_string(static_cast<int>(gc.autosave_minutes)) + " min" : "Off",
+        [&] { gc.autosave_minutes = std::max(0.0f, gc.autosave_minutes - 1.0f); }, [&] { gc.autosave_minutes = std::min(30.0f, gc.autosave_minutes + 1.0f); });
     row("Enable mods (restart)", gc.enable_mods ? "On" : "Off", [&] { gc.enable_mods = !gc.enable_mods; }, [&] { gc.enable_mods = !gc.enable_mods; });
 
     if (changed) {
@@ -1812,6 +1815,81 @@ void GameEngine::DrawMapOverlay() {
 // ============================================================================
 // Dialogue
 // ============================================================================
+void GameEngine::DrawAcquired() {
+    if (!AcquiredVisible()) return;
+    const ItemDef* item = content_.GetItem(acquired_queue_.front().id);
+    if (!item) return;
+    const float t = acquired_time_, total = 0.35f + 2.4f + 0.6f;
+    const float alpha = Clamp(std::min(t / 0.35f, (total - t) / 0.6f), 0.0f, 1.0f);
+    const unsigned char a8 = static_cast<unsigned char>(alpha * 255);
+    const float u = U(), VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
+
+    const std::string heading = "You acquired";
+    std::string name = content_.Tr(item->name_key);
+    if (acquired_queue_.front().qty > 1) name += "  x" + std::to_string(acquired_queue_.front().qty);
+    const float iconSize = 72.0f, textW = std::max(TextWidth(heading, 18), TextWidth(name, 28));
+    const float w = std::min(VW - 40.0f, iconSize + textW + 64.0f), h = iconSize + 32.0f;
+    // In the middle of the screen, or above the dialogue window while one is open.
+    const float y = (overlay_ == Overlay::Dialogue ? VH * 0.26f : VH * 0.42f) - h * 0.5f, x = VW * 0.5f - w * 0.5f;
+
+    Rectangle s = {x * u, y * u, w * u, h * u};
+    DrawRectangleRec(s, Color{12, 11, 16, static_cast<unsigned char>(alpha * 235)});
+    DrawRectangleLinesEx(s, std::max(1.0f, 2.0f * u), Color{kGold.r, kGold.g, kGold.b, a8});
+    Icon(item->icon, {x + 16, y + 16, iconSize, iconSize}, Color{255, 255, 255, a8});
+    const float tx = x + 16 + iconSize + 20;
+    Text(heading, tx, y + 22, 18, Color{kDim.r, kDim.g, kDim.b, a8});
+    TextFit(name, tx, y + 48, 28, x + w - tx - 12, Color{kGold.r, kGold.g, kGold.b, a8});
+}
+
+Rectangle GameEngine::PortraitCrop(const AppearanceDef& a) {
+    auto cached = portrait_crops_.find(a.sprite_sheet);
+    if (cached != portrait_crops_.end()) return cached->second;
+    const SpriteAnimData& an = res_.GetAnimData(a.animation_data);
+    const int fw = an.frame_width > 0 ? an.frame_width : 64, fh = an.frame_height > 0 ? an.frame_height : 64;
+    auto idle = an.states.find("idle");
+    const int row = idle != an.states.end() && !idle->second.rows.empty() ? idle->second.rows[0] : 0;
+    Rectangle crop = {fw * 0.25f, static_cast<float>(row * fh), fw * 0.5f, fw * 0.5f};
+
+    // Find the figure in the front-facing idle frame, then take a square around its head and shoulders.
+    Image img = LoadImage(res_.Resolve(a.sprite_sheet).c_str());
+    if (img.data && img.width >= fw && img.height >= (row + 1) * fh) {
+        Color* px = LoadImageColors(img);
+        auto solid = [&](int x, int y) { return px[(row * fh + y) * img.width + x].a > 128; };
+        int top = fh, bottom = -1;
+        for (int y = 0; y < fh; y++)
+            for (int x = 0; x < fw; x++)
+                if (solid(x, y)) { top = std::min(top, y); bottom = std::max(bottom, y); }
+        if (bottom >= top) {
+            const int side = std::clamp((bottom - top + 1) * 11 / 20, 8, fw);
+            long sumX = 0, count = 0;
+            for (int y = top; y < std::min(fh, top + side); y++)
+                for (int x = 0; x < fw; x++)
+                    if (solid(x, y)) { sumX += x; count++; }
+            const int cx = count > 0 ? static_cast<int>(sumX / count) : fw / 2;
+            const int left = std::clamp(cx - side / 2, 0, fw - side);
+            const int y0 = std::clamp(top - side / 16, 0, fh - side);
+            crop = {static_cast<float>(left), static_cast<float>(row * fh + y0), static_cast<float>(side), static_cast<float>(side)};
+        }
+        UnloadImageColors(px);
+    }
+    if (img.data) UnloadImage(img);
+    portrait_crops_[a.sprite_sheet] = crop;
+    return crop;
+}
+
+void GameEngine::DrawNpcPortrait(const NpcDef& npc, Rectangle box) {
+    const float u = U();
+    Rectangle s = {box.x * u, box.y * u, box.width * u, box.height * u};
+    DrawRectangleGradientV(static_cast<int>(s.x), static_cast<int>(s.y), static_cast<int>(s.width), static_cast<int>(s.height), Color{44, 40, 46, 255}, Color{20, 18, 24, 255});
+    if (!npc.portrait.empty()) {
+        Texture2D tex = res_.GetTexture(npc.portrait);
+        DrawTexturePro(tex, {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)}, s, {0, 0}, 0.0f, WHITE);
+    } else if (npc.appearance.type == "sprite_8dir" && !npc.appearance.sprite_sheet.empty()) {
+        DrawTexturePro(res_.GetTexture(npc.appearance.sprite_sheet), PortraitCrop(npc.appearance), s, {0, 0}, 0.0f, WHITE);
+    }
+    DrawRectangleLinesEx(s, std::max(1.0f, 2.0f * u), kPanelEdge);
+}
+
 void GameEngine::DrawDialogue() {
     float u = U();
     float VW = GetScreenWidth() / u, VH = GetScreenHeight() / u;
@@ -1843,20 +1921,27 @@ void GameEngine::DrawDialogue() {
     Panel(P, Color{14, 13, 18, 240});
     std::string speaker = content_.Tr(node.speaker_key);
     std::string title;
+    const NpcDef* face = nullptr;   // whoever is speaking on this page gets the portrait
     if (dialogue_npc_ >= 0 && dialogue_npc_ < static_cast<int>(scene_.npcs.size())) {
         const NpcDef* npc = scene_.npcs[dialogue_npc_].def;
         if (speaker.empty() || speaker == node.speaker_key) speaker = content_.Tr(npc->name_key);
-        // Group scenes: a node may be spoken by someone else; show *their* title, not the host's.
-        if (node.speaker_key.empty() || node.speaker_key == npc->name_key) title = content_.Tr(npc->title_key);
+        // Group scenes: a node may be spoken by someone else; show *their* title and face, not the host's.
+        if (node.speaker_key.empty() || node.speaker_key == npc->name_key) { title = content_.Tr(npc->title_key); face = npc; }
         else
             for (const auto& other : content_.npcs)
-                if (other.second.name_key == node.speaker_key) title = content_.Tr(other.second.title_key);
+                if (other.second.name_key == node.speaker_key) { title = content_.Tr(other.second.title_key); face = &other.second; }
+    }
+    float portraitW = 0.0f;
+    if (face) {
+        portraitW = std::min(150.0f, panelH - 32.0f);
+        DrawNpcPortrait(*face, {P.x + 16, P.y + 16, portraitW, portraitW});
+        portraitW += 12.0f;
     }
     float ns = 22.0f * std::min(ts, 1.25f);
-    Text(speaker, P.x + 24, P.y + 12, ns, kGold);
-    if (!title.empty()) Text(title, P.x + 30 + TextWidth(speaker, ns), P.y + 12 + ns - 17, 15, kDim);
+    Text(speaker, P.x + 24 + portraitW, P.y + 12, ns, kGold);
+    if (!title.empty()) Text(title, P.x + 30 + portraitW + TextWidth(speaker, ns), P.y + 12 + ns - 17, 15, kDim);
 
-    const float innerX = P.x + 24, innerW = P.width - 48 - 10;   // 10 px for a scrollbar
+    const float innerX = P.x + 24 + portraitW, innerW = P.width - 48 - 10 - portraitW;   // 10 px for a scrollbar
     const float top = P.y + 20 + ns, avail = P.y + P.height - 12 - top;
     std::vector<float> choiceH;
     float choicesTotal = 0;
@@ -2452,6 +2537,7 @@ void GameEngine::DrawDebug() {
     };
     line("FPS " + std::to_string(GetFPS()) + "  internal " + std::to_string(renderer_.InternalWidth()) + "x" + std::to_string(renderer_.InternalHeight()));
     line("map " + current_map_ + "  pos " + Fmt1(player_.pos.x) + ", " + Fmt1(player_.pos.y) + ", " + Fmt1(player_.pos.z) + "  yaw " + Fmt1(player_.yaw * RAD2DEG));
+    line("drawing " + std::to_string(renderer_.DrawnObjects()) + " of " + std::to_string(renderer_.TotalObjects()) + " objects");
     line("props " + std::to_string(scene_.props.size()) + "  solids " + std::to_string(solids_.size()) + "  creatures " + std::to_string(scene_.creatures.size()) +
          "  projectiles " + std::to_string(scene_.projectiles.size()));
     int issues = 0;

@@ -6,6 +6,11 @@ int main(int argc, char** argv) {
         engine.Shutdown();
         return 1;
     }
+    if (engine.BenchRequested()) {
+        engine.RunBenchmark();
+        engine.Shutdown();
+        return 0;
+    }
     if (engine.BalanceRequested()) {
         engine.RunBalanceReport();
         engine.Shutdown();

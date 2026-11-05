@@ -40,6 +40,8 @@ cmake --build build -j 8
 | `--selftest` | Headless walkthrough of the whole chapter (dialogue, keys, lever, plate, boss, pedestal, save/load, ending); exit code 0 = all passed |
 | `--shot out.png [--map id] [--spawn id] [--pos x y z] [--yaw deg] [--pitch deg] [--arch n] [--hour h] [--overlay wait\|inventory\|character\|journal\|map\|dialogue\|dialogue:<npc id>:<node>\|reader:<item id>\|ending\|combat\|compare\|title\|creation\|prologue\|story] [--frames n]` | Render a frame and save a screenshot (used for visual checks) |
 | `--balance` | Headless duels of every starting calling vs every creature; prints win rate, time-to-kill, HP left and potions used to the log |
+| `--bench N` | Silent stress test: add N extra objects, then log frame times with culling off and on, and collision speed, to `uncounted.log` |
+| `--no-cull` | Draw everything, to compare a picture against culling |
 | `--showcase` | With `--shot`: lines up every wearable/consumable pickup and sample hit particles in front of the camera |
 | `--mods` | Enable every mod in `mods/` for this run (alphabetical; later mods override earlier ids). See [docs/MODDING_3D.md](docs/MODDING_3D.md) |
 | `--mute` | Run without audio (automated modes — `--selftest`, `--balance`, `--shot` — are always silent) |
@@ -85,6 +87,10 @@ cursor, A clicks, X right-clicks, B goes back. On-screen prompts show whichever 
 - Dialogue conditions: `quest_stage_equals`, `quest_stage_at_least`, `quest_stage_below`, `has_item`, `race_is`,
   `skill_at_least`, `flag_set`, `flag_not_set`, `gold_at_least`. Quest stages only move forward, and `give_item` /
   `give_gold` / `give_xp` rewards in a dialogue node or choice are paid out once per save.
+- NPCs show a portrait in dialogue: the face cropped automatically from their sprite's front idle frame, or a painted
+  image if the NPC sets `portrait`. Items from a `give_item` dialogue action show a centred "You acquired" popup.
+- Performance: objects outside the view or lost in the fog aren't drawn (objects 12 m or taller stay, as skyline), and collision uses a 4 m grid
+  (`src/world/CollisionGrid.h`). F3 shows how many objects are being drawn.
 - Interactables may set `scale`, `set_flag`, `narration` (localization keys shown as full-screen cards after use) and
   `requires_dead` (a creature instance that must be defeated first). A zone's `flag_override` (`flag`, `weather`,
   `ambience`) changes it once a story flag is set; signing the Seal stops Bellwether's rain this way.

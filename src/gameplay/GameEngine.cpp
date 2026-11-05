@@ -232,6 +232,8 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (a == "--balance") balance_ = true;
         else if (a == "--audit-balance") { balance_ = true; audit_balance_ = true; }   // simulate whole Audit runs per build
         else if (a == "--mute") mute_ = true;
+        else if (a == "--no-cull") no_cull_ = true;
+        else if (a == "--bench") { bench_props_ = atoi(next().c_str()); boot_shot_ = "(benchmark)"; }
         else if (a == "--clean") clean_shot_ = true;   // screenshots without the HUD or messages
         else if (a == "--arch") creation_arch_ = atoi(next().c_str());
         else if (a == "--hour") boot_shot_hour_ = static_cast<float>(atof(next().c_str()));   // --shot: time of day
@@ -248,7 +250,7 @@ bool GameEngine::Init(int argc, char** argv) {
 
     const GraphicsConfig& g = content_.graphics;
     unsigned int flags = FLAG_WINDOW_RESIZABLE;
-    if (g.vsync) flags |= FLAG_VSYNC_HINT;
+    if (g.vsync && bench_props_ < 0) flags |= FLAG_VSYNC_HINT;
     SetConfigFlags(flags);
     SetTraceLogLevel(LOG_WARNING);
     InitWindow(g.window_width, g.window_height, "The Uncounted - Chapter Zero: Legally Deceased");
@@ -256,8 +258,14 @@ bool GameEngine::Init(int argc, char** argv) {
     SetWindowMinSize(640, 360);
     if (g.fullscreen) ToggleBorderlessWindowed();
     SetExitKey(KEY_NULL);
-    SetTargetFPS(g.target_fps);
+    SetTargetFPS(bench_props_ >= 0 ? 0 : g.target_fps);
     // Automated runs (tests, balance sims, screenshots) stay silent; --mute does the same for normal play.
+    if (selftest_ || balance_ || !boot_shot_.empty()) {
+        // Tests create, overwrite and delete saves freely: keep them well away from the player's own.
+        save_dir_ = "saves_test";
+        std::error_code ec;
+        fs::remove_all(save_dir_, ec);
+    }
     if (!mute_ && !selftest_ && !balance_ && boot_shot_.empty()) InitAudioDevice();
 
     res_.Init(".", g.texture_filter == "nearest");
@@ -268,6 +276,7 @@ bool GameEngine::Init(int argc, char** argv) {
     validation_summary_ = errs == 0 ? "Content validation passed" : std::to_string(errs) + " content validation error(s) - see uncounted.log";
 
     renderer_.Init(&res_, &content_.graphics);
+    if (no_cull_) renderer_.SetCulling(false);
     ApplyAudioVolumes();
 
     if (!boot_shot_.empty()) {
@@ -494,6 +503,10 @@ bool GameEngine::Init(int argc, char** argv) {
             for (size_t i = 0; i < scene_.npcs.size(); i++)
                 if (scene_.npcs[i].def->id == rest) { StartDialogue(static_cast<int>(i)); if (!node.empty()) EnterDialogueNode(node); break; }
         }
+        else if (boot_shot_overlay_ == "acquired") {
+            acquired_queue_.push_back({"core:item.health_potion", 2});
+            acquired_time_ = 1.0f;
+        }
         else if (boot_shot_overlay_ == "dialogue") {
             for (size_t i = 0; i < scene_.npcs.size(); i++) { StartDialogue(static_cast<int>(i)); break; }
         } else if (boot_shot_overlay_.rfind("dialogue:", 0) == 0) {
@@ -539,6 +552,7 @@ void GameEngine::Run() {
             running_ = false;
         }
     }
+    AutosaveOnQuit();
 }
 
 void GameEngine::ApplyAudioVolumes() {
@@ -770,6 +784,7 @@ void GameEngine::UpdateAtmosphere(float dt, bool snap) {
     night_outdoors_ = Daylight() < 0.3f && (dom ? Outdoor(dom->day_night, dom->sky_panorama) : Outdoor(scene_.map->day_night, scene_.map->sky_panorama));
     std::string id = dom ? dom->id : "";
     if (id != zone_id_) {
+        if (zone_id_ != "?" && !id.empty()) autosave_area_pending_ = true;
         zone_id_ = id;
         const MapZoneDef* z = CurrentZone();
         region_banner_ = content_.Tr(z ? z->display_name_key : scene_.map->display_name_key);
@@ -1025,7 +1040,34 @@ void GameEngine::HotReload() {
           errs == 0 ? Color{140, 220, 140, 255} : Color{255, 120, 100, 255});
 }
 
+void GameEngine::AutosaveOnQuit() {
+    // Never lose a session by closing the game. Death and the Audit arena are not places to come back to.
+    if (boot_shot_.empty() && screen_ == Screen::Playing && !audit_.active && !current_map_.empty()) SaveGame("autosave");
+}
+
+bool GameEngine::SafeToAutosave() const {
+    if (screen_ != Screen::Playing || overlay_ != Overlay::None || !player_.on_ground || audit_.active || fishing_) return false;
+    if (player_.health < MaxHealth() * 0.3f) return false;   // don't bank a save that's about to be a death
+    for (const auto& c : scene_.creatures) {
+        if (c.state == CreatureState::Dead || !c.alerted) continue;
+        if (Vector3Distance(c.pos, player_.pos) < 30.0f) return false;
+    }
+    return true;
+}
+
+void GameEngine::UpdateAutosave(float dt) {
+    if (!boot_shot_.empty()) return;
+    autosave_timer_ += dt;
+    const float every = content_.game_cfg.autosave_minutes * 60.0f;
+    const bool due = autosave_area_pending_ || (every > 0.0f && autosave_timer_ >= every);
+    if (!due || !SafeToAutosave()) return;
+    autosave_timer_ = 0.0f;
+    autosave_area_pending_ = false;
+    if (SaveGame("autosave")) Toast("Autosaved", Color{170, 170, 190, 255});
+}
+
 void GameEngine::ReturnToTitle() {
+    AutosaveOnQuit();
     StopMapAudio();
     screen_ = Screen::Title;
     overlay_ = Overlay::None;
@@ -1051,6 +1093,7 @@ void GameEngine::Frame(float dt) {
     time_ += dt;
     UpdateAudio(dt);
     for (auto& t : toasts_) t.time -= dt;
+    UpdateAcquired(dt);
     toasts_.erase(std::remove_if(toasts_.begin(), toasts_.end(), [](const ToastMsg& t) { return t.time <= 0; }), toasts_.end());
     if (region_banner_time_ > 0) region_banner_time_ -= dt;
 
@@ -1211,6 +1254,7 @@ void GameEngine::UpdatePlaying(float dt) {
     HandleGameplayInput(dt);
     if (fishing_) UpdateFishing(dt);
     if (overlay_ != Overlay::None || screen_ != Screen::Playing) return;
+    UpdateAutosave(dt);
 
     sim_accum_ += dt;
     int steps = 0;
@@ -1443,6 +1487,8 @@ void GameEngine::RebuildColliders() {
             walkables_.push_back(in.world_box);
         }
     }
+    solid_grid_.Build(solids_);
+    walkable_grid_.Build(walkables_);
 }
 
 float GameEngine::GroundHeight(Vector3 pos, float stepHeight) const {
@@ -1452,8 +1498,8 @@ float GameEngine::GroundHeight(Vector3 pos, float stepHeight) const {
         float top = b.max.y;
         if (top <= pos.y + stepHeight && top > best) best = top;
     };
-    for (const auto& b : walkables_) consider(b);
-    for (const auto& b : solids_) consider(b);
+    for (int i : walkable_grid_.QueryPoint(pos.x, pos.z)) consider(walkables_[i]);
+    for (int i : solid_grid_.QueryPoint(pos.x, pos.z)) consider(solids_[i]);
     for (const auto& [b, axis] : ramps_) {
         if (pos.x < b.min.x || pos.x > b.max.x || pos.z < b.min.z || pos.z > b.max.z) continue;
         float t = 0.0f;
@@ -1477,7 +1523,10 @@ Vector3 GameEngine::MoveWithCollision(Vector3 pos, Vector3 delta, float radius, 
         pos.x += step.x;
         pos.z += step.z;
         for (int iter = 0; iter < 3; iter++) {
-            for (const auto& b : solids_) {
+            // A resolve can shift the actor by up to its radius and step, so look that bit further than the body itself.
+            const float reach = radius * 2.0f + 0.5f;
+            for (int bi : solid_grid_.QueryRect(pos.x - reach, pos.z - reach, pos.x + reach, pos.z + reach)) {
+                const BoundingBox& b = solids_[bi];
                 if (b.max.y <= pos.y + kStepHeight || b.min.y >= pos.y + height) continue;
                 float minX = b.min.x - radius, maxX = b.max.x + radius;
                 float minZ = b.min.z - radius, maxZ = b.max.z + radius;
@@ -1506,7 +1555,7 @@ Vector3 GameEngine::MoveWithCollision(Vector3 pos, Vector3 delta, float radius, 
             pushFrom(c.pos, c.radius);
         }
         for (const auto& n : scene_.npcs)
-            if (!n.companion && !n.hidden) pushFrom(n.pos, 0.35f);  // a companion never body-blocks a corridor
+            if (!n.companion && !n.hidden) pushFrom(n.pos, n.def->appearance.scale > 2.5f ? n.def->appearance.scale * 0.2f : 0.35f);  // a companion never body-blocks a corridor
         if (!isPlayer) pushFrom(player_.pos, kPlayerRadius);
     }
     return pos;
@@ -1527,8 +1576,8 @@ bool GameEngine::SegmentHitsWorld(Vector3 a, Vector3 b, float& tHit, Vector3& no
             hit = true;
         }
     };
-    for (const auto& box : solids_) test(box);
-    for (const auto& box : walkables_) test(box);
+    for (int i : solid_grid_.QuerySegment(a.x, a.z, b.x, b.z)) test(solids_[i]);
+    for (int i : walkable_grid_.QuerySegment(a.x, a.z, b.x, b.z)) test(walkables_[i]);
     if (hit) tHit /= len;
     return hit;
 }
@@ -1539,7 +1588,8 @@ bool GameEngine::LineOfSight(Vector3 a, Vector3 b) const {
     if (len < 1e-4f) return true;
     Ray ray = {a, Vector3Scale(d, 1.0f / len)};
     float lowY = std::min(a.y, b.y);
-    for (const auto& box : solids_) {
+    for (int i : solid_grid_.QuerySegment(a.x, a.z, b.x, b.z)) {
+        const BoundingBox& box = solids_[i];
         if (box.max.y < lowY) continue;
         RayCollision rc = GetRayCollisionBox(ray, box);
         if (rc.hit && rc.distance > 0.0f && rc.distance < len - 0.05f) return false;
@@ -1785,6 +1835,23 @@ int GameEngine::CountItem(const std::string& id) const {
 bool GameEngine::IsEquipped(const std::string& id) const {
     for (const auto& [slot, e] : player_.equipment) if (e == id) return true;
     return false;
+}
+
+static const float kAcquiredFadeIn = 0.35f, kAcquiredHold = 2.4f, kAcquiredFadeOut = 0.6f;
+
+bool GameEngine::AcquiredVisible() const {
+    // Waits behind full-screen moments (story cards, documents, menus), and shows over conversations and play.
+    return !acquired_queue_.empty() && screen_ == Screen::Playing && (overlay_ == Overlay::None || overlay_ == Overlay::Dialogue);
+}
+
+void GameEngine::UpdateAcquired(float dt) {
+    if (!AcquiredVisible()) return;
+    if (acquired_time_ <= 0.0f) res_.PlaySfx("assets/audio/sfx/item_pickup.wav", 0.8f);
+    acquired_time_ += dt;
+    if (acquired_time_ >= kAcquiredFadeIn + kAcquiredHold + kAcquiredFadeOut) {
+        acquired_queue_.pop_front();
+        acquired_time_ = 0.0f;
+    }
 }
 
 void GameEngine::AddItem(const std::string& id, int qty, bool announce) {
@@ -3494,7 +3561,10 @@ void GameEngine::UpdateInteractTarget() {
     for (size_t i = 0; i < scene_.npcs.size(); i++) {
         const auto& n = scene_.npcs[i];
         if (n.hidden) continue;
-        consider(InteractTarget::Npc, static_cast<int>(i), {n.pos.x, n.pos.y + 1.0f, n.pos.z}, 0.6f, "Talk to " + content_.Tr(n.def->name_key));
+        const float size = n.def->appearance.scale;
+        const bool huge = size > 2.5f;  // a dragon: talk to the whole animal, from a sensible distance
+        consider(InteractTarget::Npc, static_cast<int>(i), {n.pos.x, n.pos.y + (huge ? size * 0.4f : 1.0f), n.pos.z}, huge ? size * 0.32f : 0.6f,
+                 "Talk to " + content_.Tr(n.def->name_key));
     }
     for (size_t i = 0; i < scene_.creatures.size(); i++) {
         const auto& c = scene_.creatures[i];
@@ -3754,7 +3824,11 @@ void GameEngine::ExecAction(const DialogueAction& a, const std::string& rewardKe
     bool reward = a.type == "give_item" || a.type == "give_gold" || a.type == "give_xp";
     if (reward && player_.claimed.count(rewardKey)) return; // conversation rewards can only be collected once
     if (a.type == "set_quest_stage") SetQuestStage(a.quest_id, a.stage);
-    else if (a.type == "give_item") AddItem(a.item_id, a.qty);
+    else if (a.type == "give_item") {
+        int before = CountItem(a.item_id);
+        AddItem(a.item_id, a.qty, false);   // announced by the "You acquired" popup instead of a corner toast
+        if (CountItem(a.item_id) > before) acquired_queue_.push_back({a.item_id, CountItem(a.item_id) - before});
+    }
     else if (a.type == "take_item") {
         if (RemoveItem(a.item_id, a.qty))
             if (const ItemDef* d = content_.GetItem(a.item_id)) Toast("- " + content_.Tr(d->name_key));
@@ -4086,7 +4160,7 @@ static Vector3 V3(const json& j) {
     return {0, 0, 0};
 }
 
-std::string GameEngine::SavePath(const std::string& slot) const { return "saves/" + slot + ".json"; }
+std::string GameEngine::SavePath(const std::string& slot) const { return save_dir_ + "/" + slot + ".json"; }
 bool GameEngine::SaveExists(const std::string& slot) const { return fs::exists(SavePath(slot)); }
 
 bool GameEngine::SaveGame(const std::string& slot) {
@@ -4171,7 +4245,7 @@ bool GameEngine::SaveGame(const std::string& slot) {
     j["vendor_sold"] = vendor_sold_;
 
     std::error_code ec;
-    fs::create_directories("saves", ec);
+    fs::create_directories(save_dir_, ec);
     std::string path = SavePath(slot);
     std::string tmp = path + ".tmp";
     {

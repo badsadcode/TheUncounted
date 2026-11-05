@@ -59,6 +59,7 @@ struct GameConfig {
     std::string starting_map = "core:map.edrath";
     std::string starting_spawn = "village_gate";
     std::string starting_quest = "core:quest.legally_deceased";
+    float autosave_minutes = 5.0f;      // play time between autosaves; 0 = only on quitting and special moments
     float day_length_minutes = 48.0f;   // real minutes for a full day outdoors; 0 = the clock stands still
 };
 
@@ -366,6 +367,7 @@ struct NpcDef {
     std::string title_key;
     std::string faction;
     std::string dialogue_id;
+    std::string portrait;   // optional painted portrait; without one, dialogue crops the sprite's face
     AppearanceDef appearance;
     std::vector<VendorStockEntry> vendor_inventory;
     std::vector<NpcBarkDef> barks; // ambient lines spoken when the player passes by
