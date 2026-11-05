@@ -469,6 +469,14 @@ bool GameEngine::Init(int argc, char** argv) {
             ending_stage_ = 101;
             screen_ = Screen::Ending;
         }
+        else if (boot_shot_overlay_.rfind("dialogue:", 0) == 0) {
+            // dialogue:<npc id>[:<node>] — that NPC's conversation, optionally at a given page
+            std::string rest = boot_shot_overlay_.substr(9), node;
+            size_t c2 = rest.find(':', rest.find("npc.") == std::string::npos ? 0 : rest.find("npc."));
+            if (c2 != std::string::npos) { node = rest.substr(c2 + 1); rest = rest.substr(0, c2); }
+            for (size_t i = 0; i < scene_.npcs.size(); i++)
+                if (scene_.npcs[i].def->id == rest) { StartDialogue(static_cast<int>(i)); if (!node.empty()) EnterDialogueNode(node); break; }
+        }
         else if (boot_shot_overlay_ == "dialogue") {
             for (size_t i = 0; i < scene_.npcs.size(); i++) { StartDialogue(static_cast<int>(i)); break; }
         } else if (boot_shot_overlay_.rfind("dialogue:", 0) == 0) {
@@ -1107,6 +1115,13 @@ void GameEngine::UpdatePlaying(float dt) {
                     if (k < static_cast<int>(vis.size())) { ChooseDialogue(vis[k]); return; }
                 }
             }
+            // Up/Down (or the D-pad) step through the choices; Enter / E / A picks the highlighted one.
+            int n = static_cast<int>(vis.size());
+            if (n > 0) {
+                if (IsKeyPressed(KEY_DOWN) || PadPressed(GAMEPAD_BUTTON_LEFT_FACE_DOWN)) dlg_sel_ = dlg_sel_ < 0 ? 0 : std::min(n - 1, dlg_sel_ + 1);
+                if (IsKeyPressed(KEY_UP) || PadPressed(GAMEPAD_BUTTON_LEFT_FACE_UP)) dlg_sel_ = dlg_sel_ < 0 ? 0 : std::max(0, dlg_sel_ - 1);
+                if (dlg_sel_ >= 0 && dlg_sel_ < n && (IsKeyPressed(KEY_ENTER) || ActionPressed("interact"))) { ChooseDialogue(vis[dlg_sel_]); return; }
+            } else if (IsKeyPressed(KEY_ENTER) || ActionPressed("interact")) { EndDialogue(); return; }
             if (esc) EndDialogue();
             return;
         }

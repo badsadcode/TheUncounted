@@ -1825,18 +1825,16 @@ void GameEngine::DrawDialogue() {
     }
     if (labels.empty()) labels.push_back("1. [Continue]");
     const std::string body = content_.Tr(node.text_key);
-    const float W = 1040.0f;
-    // Text size follows the player's setting, shrinking only if the whole scene wouldn't fit on screen.
-    float fs = 17.0f * content_.game_cfg.text_scale, textH = 0, choicesH = 0;
-    for (int fit = 0; fit < 12; fit++) {
-        textH = TextWrapped(body, {0, 0, W - 48, 0}, fs, kText, false);
-        choicesH = 0;
-        for (const auto& l : labels) choicesH += TextWrapped(l, {0, 0, W - 64, 0}, fs, kText, false) + 10;
-        if (62 + textH + choicesH + 16 <= VH - 40 || fs <= 13.0f) break;
-        fs -= 1.0f;
-    }
-    float panelH = std::clamp(62 + textH + choicesH + 16, 310.0f, VH - 40);
-    Rectangle P = {VW * 0.5f - W * 0.5f, VH - 20 - panelH, W, panelH};
+
+    // A compact window along the bottom (about a third of the screen): the speech on top and the choices below, each
+    // in its own scrollable area, so a long scene never covers the whole screen.
+    std::string page = dialogue_id_ + "/" + dialogue_node_;
+    if (page != dlg_scroll_page_) { dlg_scroll_page_ = page; dlg_text_scroll_ = dlg_choice_scroll_ = 0.0f; dlg_sel_ = -1; }
+    const float ts = content_.game_cfg.text_scale;
+    const float W = std::min(VW - 60.0f, 1040.0f);
+    const float panelH = std::clamp(VH * 0.36f * std::max(1.0f, ts * 0.92f), 236.0f, VH * 0.55f);
+    const float fs = 17.0f * ts;
+    Rectangle P = {VW * 0.5f - W * 0.5f, VH - 16 - panelH, W, panelH};
     Panel(P, Color{14, 13, 18, 240});
     std::string speaker = content_.Tr(node.speaker_key);
     std::string title;
@@ -1849,26 +1847,83 @@ void GameEngine::DrawDialogue() {
             for (const auto& other : content_.npcs)
                 if (other.second.name_key == node.speaker_key) title = content_.Tr(other.second.title_key);
     }
-    float ns = 24.0f * std::min(content_.game_cfg.text_scale, 1.25f);
-    Text(speaker, P.x + 24, P.y + 16, ns, kGold);
-    if (!title.empty()) Text(title, P.x + 30 + TextWidth(speaker, ns), P.y + 16 + ns - 17, 15, kDim);
-    float y = P.y + 52 + TextWrapped(body, {P.x + 24, P.y + 52, P.width - 48, 140}, fs, kText) + 10;
-    if (vis.empty()) {
-        float h = TextWrapped(labels[0], {0, 0, W - 64, 0}, fs, kText, false) + 8;
-        if (Button({P.x + 24, y, P.width - 48, h}, labels[0], true, fs)) { EndDialogue(); return; }
-        return;
+    float ns = 22.0f * std::min(ts, 1.25f);
+    Text(speaker, P.x + 24, P.y + 12, ns, kGold);
+    if (!title.empty()) Text(title, P.x + 30 + TextWidth(speaker, ns), P.y + 12 + ns - 17, 15, kDim);
+
+    const float innerX = P.x + 24, innerW = P.width - 48 - 10;   // 10 px for a scrollbar
+    const float top = P.y + 20 + ns, avail = P.y + P.height - 12 - top;
+    std::vector<float> choiceH;
+    float choicesTotal = 0;
+    for (const auto& l : labels) { choiceH.push_back(TextWrapped(l, {0, 0, innerW - 16, 0}, fs, kText, false) + 8); choicesTotal += choiceH.back() + 2; }
+    float textTotal = TextWrapped(body, {0, 0, innerW, 0}, fs, kText, false);
+    // Share the space: the speech gets what it needs up to ~45%, the choices get the rest (at least three rows).
+    float minChoices = std::min(choicesTotal, (choiceH.empty() ? 30.0f : choiceH[0] * 3.2f));
+    float textArea = std::min(textTotal, std::max(avail * 0.45f, avail - choicesTotal - 10));
+    textArea = std::min(textArea, avail - minChoices - 10);
+    float choiceArea = avail - textArea - 10;
+
+    Vector2 mouse = GetMousePosition();
+    auto scrollArea = [&](Rectangle area, float content, float& scroll) {
+        float maxScroll = std::max(0.0f, content - area.height);
+        Rectangle sa = {area.x * u, area.y * u, (area.width + 10) * u, area.height * u};
+        if (maxScroll > 0 && CheckCollisionPointRec(mouse, sa)) scroll -= GetMouseWheelMove() * 40.0f;
+        scroll = std::clamp(scroll, 0.0f, maxScroll);
+        if (maxScroll > 0) {  // a thin scrollbar, and a hint that there's more below
+            float barH = std::max(18.0f, area.height * area.height / content);
+            float barY = area.y + (area.height - barH) * (scroll / maxScroll);
+            DrawRectangleRec({(area.x + area.width + 4) * u, area.y * u, 3 * u, area.height * u}, Color{50, 46, 40, 200});
+            DrawRectangleRec({(area.x + area.width + 3) * u, barY * u, 5 * u, barH * u}, Color{kGold.r, kGold.g, kGold.b, 200});
+        }
+        return maxScroll;
+    };
+
+    // The speech
+    Rectangle TA = {innerX, top, innerW, textArea};
+    scrollArea(TA, textTotal, dlg_text_scroll_);
+    BeginScissorMode(static_cast<int>(TA.x * u), static_cast<int>(TA.y * u), static_cast<int>((TA.width + 2) * u), static_cast<int>(TA.height * u));
+    TextWrapped(body, {TA.x, TA.y - dlg_text_scroll_, TA.width, textTotal + 20}, fs, kText);
+    EndScissorMode();
+    auto fadeIfMore = [&](Rectangle area, float content, float scroll) {  // a soft fade where the text continues below
+        if (scroll + area.height < content - 2)
+            DrawRectangleGradientV(static_cast<int>(area.x * u), static_cast<int>((area.y + area.height - 22) * u), static_cast<int>(area.width * u),
+                                   static_cast<int>(22 * u), Color{14, 13, 18, 0}, Color{14, 13, 18, 245});
+    };
+    fadeIfMore(TA, textTotal, dlg_text_scroll_);
+
+    // The choices
+    Rectangle CA = {innerX, top + textArea + 10, innerW, choiceArea};
+    DrawRectangleRec({CA.x * u, (CA.y - 6) * u, CA.width * u, 1 * u}, Color{80, 70, 52, 160});  // a faint divider
+    if (dlg_sel_ >= 0) {  // keep the keyboard/pad highlight in view
+        float yy = 0;
+        for (int k = 0; k < dlg_sel_ && k < static_cast<int>(choiceH.size()); k++) yy += choiceH[k] + 2;
+        float h = dlg_sel_ < static_cast<int>(choiceH.size()) ? choiceH[dlg_sel_] : 0;
+        if (yy < dlg_choice_scroll_) dlg_choice_scroll_ = yy;
+        if (yy + h > dlg_choice_scroll_ + CA.height) dlg_choice_scroll_ = yy + h - CA.height;
     }
-    for (size_t k = 0; k < vis.size(); k++) {
-        float h = TextWrapped(labels[k], {0, 0, W - 64, 0}, fs, kText, false) + 8;
-        Rectangle r = {P.x + 24, y, P.width - 48, h};
+    scrollArea(CA, choicesTotal, dlg_choice_scroll_);
+    Rectangle clip = {CA.x * u, CA.y * u, CA.width * u, CA.height * u};
+    BeginScissorMode(static_cast<int>(clip.x), static_cast<int>(clip.y), static_cast<int>(clip.width), static_cast<int>(clip.height));
+    float y = CA.y - dlg_choice_scroll_;
+    int picked = -2;
+    for (size_t k = 0; k < labels.size(); k++) {
+        float h = choiceH[k];
+        Rectangle r = {CA.x, y, CA.width, h};
         Rectangle s = {r.x * u, r.y * u, r.width * u, r.height * u};
-        bool hover = CheckCollisionPointRec(GetMousePosition(), s);
-        if (hover) DrawRectangleRec(s, Color{60, 48, 32, 200});
-        TextWrapped(labels[k], {r.x + 8, r.y + 4, r.width - 16, h}, fs, hover ? kGold : Color{210, 200, 180, 255});
-        if (hover && UiClick()) { ChooseDialogue(vis[k]); return; }
+        bool hover = CheckCollisionPointRec(mouse, s) && CheckCollisionPointRec(mouse, clip);
+        bool lit = hover || static_cast<int>(k) == dlg_sel_;
+        if (lit) DrawRectangleRec(s, Color{60, 48, 32, 200});
+        TextWrapped(labels[k], {r.x + 8, r.y + 4, r.width - 16, h}, fs, lit ? kGold : Color{210, 200, 180, 255});
+        if (hover && UiClick()) picked = static_cast<int>(k);
         y += h + 2;
     }
-    if (y > VH) ui_scroll_ = 0;
+    EndScissorMode();
+    fadeIfMore(CA, choicesTotal, dlg_choice_scroll_);
+    if (picked >= 0) {
+        if (vis.empty()) EndDialogue();
+        else ChooseDialogue(vis[picked]);
+        return;
+    }
 }
 
 // ============================================================================

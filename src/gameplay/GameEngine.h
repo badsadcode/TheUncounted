@@ -213,6 +213,10 @@ private:
     std::string reader_title_;
     std::string reader_text_;
     float ui_scroll_ = 0.0f;
+    // dialogue window: scroll offsets for the speech and the choices, the keyboard/pad highlight, and which page they belong to
+    float dlg_text_scroll_ = 0.0f, dlg_choice_scroll_ = 0.0f;
+    int dlg_sel_ = -1;
+    std::string dlg_scroll_page_;
     int inv_filter_ = 0;
     int char_tab_ = 0;
     std::string journal_selected_;

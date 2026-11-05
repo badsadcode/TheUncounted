@@ -17911,7 +17911,7 @@
       "root_node": "root",
       "nodes": {
         "root": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.root",
           "choices": [
             {
@@ -17968,7 +17968,7 @@
           ]
         },
         "coth": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.coth",
           "choices": [
             {
@@ -17978,7 +17978,7 @@
           ]
         },
         "three": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.three",
           "choices": [
             {
@@ -17988,7 +17988,7 @@
           ]
         },
         "rock": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.rock",
           "choices": [
             {
@@ -17998,7 +17998,7 @@
           ]
         },
         "trousers": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.trousers",
           "choices": [
             {
@@ -18008,7 +18008,7 @@
           ]
         },
         "not_yet": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.not_yet",
           "choices": [
             {
@@ -18018,7 +18018,7 @@
           ]
         },
         "lost_count": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.lost_count",
           "choices": [
             {
@@ -18028,7 +18028,7 @@
           ]
         },
         "home": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.home",
           "choices": [
             {
@@ -18050,7 +18050,7 @@
           ]
         },
         "marks": {
-          "speaker_key": "npc.coth.name",
+          "speaker_key": "npc.coth_castaway.name",
           "text_key": "dlg.coth_cast.marks",
           "choices": [
             {
