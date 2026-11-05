@@ -78,6 +78,12 @@ int GameEngine::RunSelfTest() {
     NewGame();
     check(!player_.portrait.empty() && PlayerPortrait() == player_.portrait, "the chosen portrait is the character's");
     check(overlay_ == Overlay::Narration && narration_pages_.size() >= 3, "new game opens with the prologue narration");
+    {
+        bool pictures = true;
+        for (size_t i = 0; i < narration_pages_.size(); i++) pictures = pictures && res_.Exists("assets/ui/intro/intro_" + std::to_string(i + 1) + ".png");
+        check(narration_is_prologue_ && narration_keys_.size() == narration_pages_.size() && narration_keys_[0] == "story.prologue.1" && pictures,
+              "the prologue is illustrated (a picture per card) with a voice-over slot per card");
+    }
     narration_page_ = static_cast<int>(narration_pages_.size());
     AdvanceNarration();
     check(overlay_ == Overlay::Reader, "prologue hands over to the death notice");

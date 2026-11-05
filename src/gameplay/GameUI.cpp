@@ -221,7 +221,7 @@ void GameEngine::BuildRenderView(RenderView& view) {
     vm.cast_flash = cast_flash_;
     vm.cast_color = cast_color_;
     vm.cast_sprite = cast_sprite_;
-    view.show_viewmodel = screen_ == Screen::Playing;
+    view.show_viewmodel = screen_ == Screen::Playing && !clean_shot_;
 }
 
 // ============================================================================
@@ -244,8 +244,8 @@ void GameEngine::DrawFrame() {
     } else if (screen_ == Screen::Creation) {
         DrawCreation();
     } else if (screen_ == Screen::Playing) {
-        if (overlay_ != Overlay::Map && overlay_ != Overlay::Options && overlay_ != Overlay::Dialogue && overlay_ != Overlay::Narration) DrawHud();
-        if (overlay_ == Overlay::None) DrawSubtitle();
+        if (!clean_shot_ && overlay_ != Overlay::Map && overlay_ != Overlay::Options && overlay_ != Overlay::Dialogue && overlay_ != Overlay::Narration) DrawHud();
+        if (overlay_ == Overlay::None && !clean_shot_) DrawSubtitle();
         if (overlay_ != Overlay::None && overlay_ != Overlay::Dialogue)
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 110});
         switch (overlay_) {
@@ -272,7 +272,7 @@ void GameEngine::DrawFrame() {
         DrawCredits();
     }
 
-    DrawToasts();
+    if (!clean_shot_) DrawToasts();
     if (debug_overlay_) DrawDebug();
     EndDrawing();
 }
@@ -2051,6 +2051,38 @@ void GameEngine::DrawNarration() {
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
     if (narration_page_ >= static_cast<int>(narration_pages_.size())) return;
     float a = Clamp(narration_time_ / 1.2f, 0.0f, 1.0f);
+
+    // The illustrated intro: prologue card N shows assets/ui/intro/intro_N.png full-screen, drifting slowly, with the
+    // words on a dark band along the bottom (like an old storybook, or a film's opening).
+    std::string pic = "assets/ui/intro/intro_" + std::to_string(narration_page_ + 1) + ".png";
+    if (narration_is_prologue_ && res_.Exists(pic)) {
+        Texture2D t = res_.GetTexture(pic);
+        float sw = static_cast<float>(GetScreenWidth()), sh = static_cast<float>(GetScreenHeight());
+        float zoom = 1.04f + 0.06f * Clamp(narration_time_ / 14.0f, 0.0f, 1.0f);   // a slow push in
+        float s = std::max(sw / t.width, sh / t.height) * zoom;
+        float dir = (narration_page_ % 2 == 0) ? 1.0f : -1.0f;                      // alternate the drift
+        float pan = dir * (sw * 0.02f) * (Clamp(narration_time_ / 14.0f, 0.0f, 1.0f) - 0.5f);
+        DrawTexturePro(t, {0, 0, static_cast<float>(t.width), static_cast<float>(t.height)},
+                       {sw * 0.5f + pan, sh * 0.5f, t.width * s, t.height * s}, {t.width * s * 0.5f, t.height * s * 0.5f}, 0,
+                       Color{255, 255, 255, static_cast<unsigned char>(a * 255)});
+        DrawRectangleGradientV(0, static_cast<int>(sh * 0.55f), static_cast<int>(sw), static_cast<int>(sh * 0.45f + 1), Color{0, 0, 0, 0},
+                               Color{0, 0, 0, 225});
+        Color tc = {kText.r, kText.g, kText.b, static_cast<unsigned char>(a * 255)};
+        float bw = std::min(VW - 120.0f, 900.0f * std::min(content_.game_cfg.text_scale, 1.3f));
+        float fs = 22.0f * content_.game_cfg.text_scale;
+        Rectangle box = {VW * 0.5f - bw * 0.5f, 0, bw, 300};
+        float h = TextWrapped(narration_pages_[narration_page_], box, fs, tc, false);
+        while (h > VH * 0.3f && fs > 15.0f) { fs -= 1.0f; h = TextWrapped(narration_pages_[narration_page_], box, fs, tc, false); }
+        box.y = VH - 74 - h;
+        TextWrapped(narration_pages_[narration_page_], box, fs, tc);
+        std::string hint = narration_voice_ > 0.0f ? "Esc to skip" : content_.Tr("ui.prologue.continue") + "   ·   Esc to skip";
+        Text(hint, VW - 24 - TextWidth(hint, 13), VH - 28, 13, Color{kDim.r, kDim.g, kDim.b, static_cast<unsigned char>(a * 150)});
+        for (size_t i = 0; i < narration_pages_.size(); i++) {
+            Color dc = i == static_cast<size_t>(narration_page_) ? kGold : Color{90, 84, 76, 255};
+            DrawCircleV({(VW * 0.5f - (narration_pages_.size() - 1) * 9.0f + i * 18.0f) * u, (VH - 30) * u}, 3.0f * u, dc);
+        }
+        return;
+    }
     Color c = {kText.r, kText.g, kText.b, static_cast<unsigned char>(a * 255)};
     const std::string& page = narration_pages_[narration_page_];
     float bw = 720.0f * std::min(content_.game_cfg.text_scale, 1.4f);

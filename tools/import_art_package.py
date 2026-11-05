@@ -11,6 +11,7 @@ Folders it understands (anywhere in the zip, any letter case):
   item_icons/     <item icon name>.png     -> assets/ui/items/               (must match an existing icon's file name)
   spell_effects/  spell_*.png              -> assets/sprites/vfx/            (square frames in one row; alpha made hard)
   skies/          sky_day.png (1024x256)   -> assets/textures/sky/
+  intro/          intro_<n>.png (16:9)     -> assets/ui/intro/              (the illustrated prologue, one per card)
   characters/     any character sheet (e.g. Chapter One's here_*.png): passed to tools/import_package.py
   monsters/       lost_sentinel / animated_armor / headless_knight / repossession_golem 8x6 sheets:
                   the four monsters are switched from the shared 3D model to sprites, then imported with
@@ -29,7 +30,7 @@ import tempfile
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECTIONS = ("portraits", "spell_icons", "item_icons", "spell_effects", "monsters", "skies", "characters")
+SECTIONS = ("portraits", "spell_icons", "item_icons", "spell_effects", "monsters", "skies", "characters", "intro")
 MONSTERS = {  # sheet name -> (creature id, height in metres)
     "lost_sentinel": ("core:enemy.lost_sentinel", 2.2),
     "animated_armor": ("core:enemy.animated_armor", 1.95),
@@ -137,6 +138,12 @@ def main():
         if Image.open(path).size != (1024, 256):
             problems.append(f"skies/{name}: {Image.open(path).size}, expected 1024x256 (it will be resized)")
         plan.append(("skies", path, f"assets/textures/sky/{name}", "sky"))
+    for path in found["intro"]:
+        name = os.path.basename(path).lower()
+        if not re.match(r"^intro_\d+\.png$", name):
+            problems.append(f"intro/{os.path.basename(path)}: should be intro_1.png, intro_2.png ... (one per prologue card)")
+            continue
+        plan.append(("intro", path, f"assets/ui/intro/{name}", None))
     monsters = []
     for path in found["monsters"]:
         stem = re.sub(r"[^a-z0-9]+", "_", os.path.basename(path).lower().rsplit(".", 1)[0]).strip("_")

@@ -787,3 +787,12 @@ after Chapter One's finale (`core:quest.ch1_here` stage ≥ 100 sets `credits_se
 last scene closes). Preview: `--shot X --overlay credits[:seconds]`. Credited: BadSad (creator, title art, level design,
 Grout and other voices), Noor (AI art assistant), Sage (Claude, AI coding assistant), Cothfotmeoo and Eranu (voices),
 Eranu, Coth and Dunstan as themselves, Toasty's stream characters.
+
+### Illustrated intro (added 2026-11-05)
+
+The new-game prologue (`story.prologue.1..N`) is illustrated: card N shows `assets/ui/intro/intro_N.png` full-screen
+with a slow push-in and drift, the words on a dark band at the bottom (`DrawNarration`). Every narration page now plays
+`assets/audio/voice/<its key>` if recorded (`EnterNarrationPage`, `narration_keys_`), and a voiced page turns by itself
+1.4 s after the recording ends; click to continue, Esc skips. Placeholders are game screenshots (made with the new
+`--clean` flag: no HUD, weapon, subtitles or toasts) and the title painting; Noor's brief lists the four paintings
+(import folder `intro/`). Narration script for BadSad: `docs/VOICE_SCRIPT_INTRO.md`. Preview: `--overlay prologue:<n>`.

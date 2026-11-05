@@ -232,6 +232,7 @@ bool GameEngine::Init(int argc, char** argv) {
         else if (a == "--balance") balance_ = true;
         else if (a == "--audit-balance") { balance_ = true; audit_balance_ = true; }   // simulate whole Audit runs per build
         else if (a == "--mute") mute_ = true;
+        else if (a == "--clean") clean_shot_ = true;   // screenshots without the HUD or messages
         else if (a == "--arch") creation_arch_ = atoi(next().c_str());
         else if (a == "--hour") boot_shot_hour_ = static_cast<float>(atof(next().c_str()));   // --shot: time of day
         else if (a == "--showcase") boot_shot_overlay_ = "showcase";
@@ -324,7 +325,11 @@ bool GameEngine::Init(int argc, char** argv) {
             SpawnBurst(c, Color{226, 216, 192, 255}, 24, 2.5f, false);
             SpawnBurst(Vector3Add(c, Vector3Scale(right, 0.8f)), Color{130, 230, 255, 255}, 24, 2.5f, true, 2.0f);
         }
-        if (boot_shot_overlay_ == "prologue") { narration_page_ = 1; narration_time_ = 5.0f; overlay_ = Overlay::Narration; }
+        if (boot_shot_overlay_.rfind("prologue", 0) == 0) {  // prologue or prologue:<card number>
+            narration_page_ = boot_shot_overlay_.size() > 9 ? std::max(0, atoi(boot_shot_overlay_.substr(9).c_str()) - 1) : 1;
+            narration_time_ = 5.0f;
+            overlay_ = Overlay::Narration;
+        }
         if (boot_shot_overlay_ == "story") {
             SetQuestStage("core:quest.bakers_daughter", 0);
             SetQuestStage("core:quest.bakers_daughter", 10);
@@ -797,15 +802,17 @@ void GameEngine::NewGame() {
 
     // Prologue cards (story.prologue.1..N), then the death notice: the inciting document of Chapter Zero.
     narration_pages_.clear();
+    narration_keys_.clear();
     for (int i = 1; i < 32; i++) {
         auto it = content_.loc_strings.find("story.prologue." + std::to_string(i));
         if (it == content_.loc_strings.end()) break;
         narration_pages_.push_back(it->second);
+        narration_keys_.push_back(it->first);
     }
     narration_page_ = 0;
     narration_time_ = 0.0f;
     narration_is_prologue_ = true;
-    if (!narration_pages_.empty()) SetOverlay(Overlay::Narration);
+    if (!narration_pages_.empty()) { SetOverlay(Overlay::Narration); EnterNarrationPage(); }
     else AdvanceNarration();
 }
 
@@ -1092,7 +1099,13 @@ void GameEngine::UpdatePlaying(float dt) {
             narration_time_ += dt;
             bool next = ActionPressed("interact") || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE) || UiClick();
             if (esc) { narration_page_ = static_cast<int>(narration_pages_.size()); AdvanceNarration(); return; }
-            if (next && narration_time_ > 0.35f) { narration_page_++; narration_time_ = 0.0f; AdvanceNarration(); }
+            bool spoken = narration_voice_ > 0.0f && narration_time_ > narration_voice_ + 1.4f;  // voiced pages turn by themselves
+            if ((next && narration_time_ > 0.35f) || spoken) {
+                narration_page_++;
+                narration_time_ = 0.0f;
+                AdvanceNarration();
+                if (overlay_ == Overlay::Narration) EnterNarrationPage();
+            }
             return;
         }
         if (esc) {
@@ -4283,11 +4296,19 @@ void GameEngine::AdvanceNarration() {
 
 void GameEngine::StartNarration(const std::vector<std::string>& keys) {
     narration_pages_.clear();
+    narration_keys_ = keys;
     for (const auto& k : keys) narration_pages_.push_back(content_.Tr(k));
     narration_page_ = 0;
     narration_time_ = 0.0f;
     narration_is_prologue_ = false;
-    if (!narration_pages_.empty()) SetOverlay(Overlay::Narration);
+    if (!narration_pages_.empty()) { SetOverlay(Overlay::Narration); EnterNarrationPage(); }
+}
+
+void GameEngine::EnterNarrationPage() {
+    // A recorded voice-over for this page (assets/audio/voice/<key>.ogg|wav|mp3), if anyone recorded one.
+    narration_voice_ = 0.0f;
+    if (narration_page_ < static_cast<int>(narration_keys_.size()))
+        narration_voice_ = res_.PlayVoice(narration_keys_[narration_page_]);
 }
 
 std::vector<std::string> GameEngine::QuestOrder() const {

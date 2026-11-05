@@ -155,6 +155,9 @@ private:
     int narration_page_ = 0;
     float narration_time_ = 0.0f;
     bool narration_is_prologue_ = false;
+    std::vector<std::string> narration_keys_;  // localization key per page: also the voice-over file name
+    float narration_voice_ = 0.0f;             // length of the current page's recording (0 = none)
+    void EnterNarrationPage();
     void StartNarration(const std::vector<std::string>& keys);
     void Say(const std::string& speaker, const std::string& text, float seconds = 0.0f, const std::string& voiceKey = "");
     void UpdateBarks(float dt);
@@ -266,6 +269,7 @@ private:
     bool audit_balance_ = false;
     void RunAuditBalance();
     float boot_shot_hour_ = -1.0f;
+    bool clean_shot_ = false;
     std::string creation_name_ = "Wren";
     bool options_from_title_ = false;
     int ending_stage_ = 0;

@@ -334,6 +334,17 @@ Shown in the inventory, shop and loot windows. **64 × 64 px**, transparent back
 `sky_day.png`, **1024 × 256 px**, a 360° strip that repeats left to right, opaque: an overcast, slightly melancholy day, the same distant hills and pine line as the night and dusk skies. Deliver in `skies/`.
 
 
+## The illustrated intro — 4 paintings
+
+A new game opens with a few still pictures, a line of text along the bottom and (soon) a narrator's voice, like an old storybook. **1920 × 1080 px**, 16:9, opaque, painted in the same style as the title painting. Keep the **bottom third calm and darker** (the text sits there) and the important parts in the middle (the picture drifts and zooms slowly). Deliver in `intro/`. Placeholders made from game screenshots are in until then.
+
+| File | The words on screen | The picture |
+|---|---|---|
+| `intro_1.png` | Edrath, in the four hundred and twelfth year after the Great Silence. The kingdoms keep their ledgers carefully now. What is written down, exists. What is struck out was never there at all. | A vast, candlelit hall of the Royal Bureau of Records: endless desks and shelves of enormous ledgers fading into the dark, clerks in grey robes bent over them with quills, a great open ledger in front. Awe and dust. |
+| `intro_2.png` | Seventeen years ago, by order of the Royal Bureau of Records, you died. You do not remember it. Nobody does. | Close on a ledger page: a quill drawing a firm line of ink through one name among hundreds; a red wax seal beside it; a single candle. The name itself unreadable. |
+| `intro_3.png` | This morning a notice arrived anyway, sealed in Bureau wax: proof of your death, and a bill for your burial. | A plain table by a rainy window at dawn: a folded letter with a big red Bureau wax seal, a cup of tea going cold, a traveller's hand reaching for it (no face). |
+| `intro_4.png` | So you have walked to Bellwether, where the rain never quite stops, to argue with a clerk about whether you are alive. | A lone hooded traveller seen from behind on a muddy road in the rain, walking towards a small walled village with warm windows and a stone gate, at dusk. (The title painting is a good mood reference.) |
+
 ## Small extras (optional, whenever)
 
 | File | What | Notes |
